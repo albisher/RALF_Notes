@@ -283,6 +283,15 @@ def clean_doc_type(text):
     first_word = re.sub(r'[^\w\-]', '', text_cleaned.split()[0]).strip()
     return first_word
 
+def clean_mermaid(text):
+    """Removes mermaid code fences from the mermaid content."""
+    lines = text.strip().split('\n')
+    if lines and re.match(r'^\s*```.*', lines[0]):
+        lines = lines[1:]
+    if lines and re.match(r'^\s*```', lines[-1]):
+        lines = lines[:-1]
+    return "\n".join(lines).strip()
+
 def clean_details(text):
     """Aggressively removes frontmatter, markdown headers, separator lines, unwanted callout titles,
     and ensures correct callout formatting for details content."""
@@ -498,7 +507,6 @@ def generate_obsidian_doc(file_path):
     related_prompt = RELATED_PROMPT.format(processed_content=processed_content, num_links=num_links)
     related = safe_generate(client, system=system_prompt, prompt=related_prompt, options=options, prompt_type="RELATED_PROMPT")
     related = validate_and_regenerate(related, has_no_questions, RELATED_PROMPT, system_prompt, options, "RELATED_PROMPT", processed_content, {'num_links': num_links})
-    related = clean_not_applicable(related)
     related = clean_related(related)
 
     tags_prompt = TAGS_PROMPT.format(processed_content=processed_content, num_tags=num_tags)
@@ -514,13 +522,13 @@ def generate_obsidian_doc(file_path):
     dependency_graph_prompt = DEPENDENCY_GRAPH_PROMPT.format(processed_content=processed_content)
     dependency_graph = safe_generate(client, system=system_prompt, prompt=dependency_graph_prompt, options=options, prompt_type="DEPENDENCY_GRAPH_PROMPT")
     dependency_graph = validate_and_regenerate(dependency_graph, has_no_questions, DEPENDENCY_GRAPH_PROMPT, system_prompt, options, "DEPENDENCY_GRAPH_PROMPT", processed_content)
-    dependency_graph = clean_not_applicable(dependency_graph) # Using generic cleaner for now
+    dependency_graph = clean_mermaid(dependency_graph)
 
     # Generate Security Risks
     security_risks_prompt = SECURITY_RISKS_PROMPT.format(processed_content=processed_content)
     security_risks = safe_generate(client, system=system_prompt, prompt=security_risks_prompt, options=options, prompt_type="SECURITY_RISKS_PROMPT")
     security_risks = validate_and_regenerate(security_risks, has_no_questions, SECURITY_RISKS_PROMPT, system_prompt, options, "SECURITY_RISKS_PROMPT", processed_content)
-    security_risks = clean_not_applicable(security_risks) # Using generic cleaner for now
+    security_risks = clean_not_applicable(security_risks)
 
     # Assemble the document
     doc_md = f"""
