@@ -188,38 +188,44 @@ def clean_summary(text):
     
     # Aggressively clean and remove opening markdown code fence line
     if lines:
-        # Check for patterns like "yaml ```", "markdown ```", "```python", or just "```"
-        # If the line contains a ``` and potentially leading text, remove the entire line
         if re.match(r'^\s*(.*?)\s*```(\S*|$)', lines[0]):
-            lines = lines[1:] # Remove the opening fence line entirely
+            lines = lines[1:]
     
-    # Check and remove closing fence (should only be ```)
     if lines and re.match(r'^\s*```', lines[-1]):
         lines = lines[:-1]
     
-    # Re-join and re-split to clean up any empty lines introduced by fence removal
     text = "\n".join(lines).strip()
     lines = text.split('\n')
     cleaned_lines = []
     
-    # Filter out markdown headers and frontmatter lines
     for line in lines:
         stripped_line = line.strip()
-        # Skip empty lines, frontmatter, and markdown headers within the summary content
+        # Skip empty lines, frontmatter, markdown headers, and lines with '**tags**'
         if not stripped_line or \
            stripped_line.startswith(('tags:', 'created:', 'type:', '---')) or \
-           re.match(r'^#+\s', stripped_line):
+           re.match(r'^#+\s', stripped_line) or \
+           '**tags**' in stripped_line.lower():
             continue
         cleaned_lines.append(line)
 
-    # Enforce single paragraph and 20-line limit by joining all lines, then truncating
     final_summary = " ".join([line.strip() for line in cleaned_lines]).strip()
     
-    # Optionally, truncate if still too long in terms of raw characters after joining
-    if len(final_summary.split()) > 150: # Arbitrary word limit for very long summaries
+    if len(final_summary.split()) > 150:
         final_summary = " ".join(final_summary.split()[:150]) + "..."
     
     return final_summary
+
+def clean_related(text):
+    """Removes markdown code fences from the related content."""
+    lines = text.strip().split('\n')
+    
+    if lines and re.match(r'^\s*(.*?)\s*```(\S*|$)', lines[0]):
+        lines = lines[1:]
+    
+    if lines and re.match(r'^\s*```', lines[-1]):
+        lines = lines[:-1]
+        
+    return "\n".join(lines).strip()
 
 def is_tags_valid(text, num_tags):
     """Validation function for tags."""
@@ -544,6 +550,7 @@ def generate_obsidian_doc(file_path):
     related = safe_generate(client, system=system_prompt, prompt=related_prompt, options=options, prompt_type="RELATED_PROMPT")
     related = validate_and_regenerate(related, has_no_questions, RELATED_PROMPT, system_prompt, options, "RELATED_PROMPT", processed_content, {'num_links': num_links})
     related = clean_not_applicable(related)
+    related = clean_related(related)
 
     tags_prompt = TAGS_PROMPT.format(processed_content=processed_content, num_tags=num_tags)
     tags = safe_generate(client, system=system_prompt, prompt=tags_prompt, options=options, prompt_type="TAGS_PROMPT")
