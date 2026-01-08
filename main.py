@@ -355,8 +355,10 @@ def check_structure(doc_md):
     required_elements = {
         "summary": "## Summary",
         "details": "## Details",
+        "dependency_graph": "## Dependency Graph",
         "key_functions": "## Key Functions/Classes",
         "usage_examples": "## Usage/Examples",
+        "security_risks": "## Security Risks",
         "related": "## Related",
         "callout": "> [!INFO]"
     ***REMOVED***
@@ -552,6 +554,18 @@ def generate_obsidian_doc(file_path):
     doc_type = safe_generate(client, system=system_prompt, prompt=type_prompt, options=options, prompt_type="TYPE_PROMPT")
     doc_type = clean_doc_type(doc_type)
 
+    # Generate Dependency Graph
+    dependency_graph_prompt = DEPENDENCY_GRAPH_PROMPT.format(processed_content=processed_content)
+    dependency_graph = safe_generate(client, system=system_prompt, prompt=dependency_graph_prompt, options=options, prompt_type="DEPENDENCY_GRAPH_PROMPT")
+    dependency_graph = validate_and_regenerate(dependency_graph, has_no_questions, DEPENDENCY_GRAPH_PROMPT, system_prompt, options, "DEPENDENCY_GRAPH_PROMPT", processed_content)
+    dependency_graph = clean_not_applicable(dependency_graph) # Using generic cleaner for now
+
+    # Generate Security Risks
+    security_risks_prompt = SECURITY_RISKS_PROMPT.format(processed_content=processed_content)
+    security_risks = safe_generate(client, system=system_prompt, prompt=security_risks_prompt, options=options, prompt_type="SECURITY_RISKS_PROMPT")
+    security_risks = validate_and_regenerate(security_risks, has_no_questions, SECURITY_RISKS_PROMPT, system_prompt, options, "SECURITY_RISKS_PROMPT", processed_content)
+    security_risks = clean_not_applicable(security_risks) # Using generic cleaner for now
+
     # Assemble the document
     doc_md = f"""
 tags: {tags if tags else '#untagged'***REMOVED***
@@ -577,14 +591,31 @@ type: {doc_type if doc_type else 'documentation'***REMOVED***
             doc_md += f"\n{details***REMOVED***\n\n" # Add empty line before and after
         else:
             doc_md += f"{details***REMOVED***\n\n"
-
+    
+    # Add Dependency Graph section
+    if dependency_graph.strip() and dependency_graph.strip().lower() != 'not applicable':
+        doc_md += f"""
+## Dependency Graph
+```mermaid
+{dependency_graph***REMOVED***
+```
+"""
+    
     doc_md += f"""
 ## Key Functions/Classes
 {key_functions***REMOVED***
 
 ## Usage/Examples
 {usage***REMOVED***
+"""
+    # Add Security Risks section
+    if security_risks.strip() and security_risks.strip().lower() != 'not applicable':
+        doc_md += f"""
+## Security Risks
+{security_risks***REMOVED***
+"""
 
+    doc_md += f"""
 ## Related
 {related***REMOVED***
 """
@@ -604,6 +635,7 @@ type: {doc_type if doc_type else 'documentation'***REMOVED***
             doc_md = doc_md[:-len("\n```")]
             
     return doc_md
+
 def main():
     # wait_until_start_time(PREFERRED_START_TIME)  # Uncomment for scheduled
     
