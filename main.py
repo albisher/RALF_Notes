@@ -182,7 +182,14 @@ def is_summary_valid(text):
     return True
 
 def clean_summary(text):
-    """Removes headers, frontmatter, and questions from summary text."""
+    """Removes headers, frontmatter, dates, code fences, and questions from summary text."""
+    # Remove code fences with language specifiers
+    text = re.sub(r'```[a-zA-Z]*\n', '', text)
+    text = text.replace('```', '')
+
+    # Remove dates
+    text = re.sub(r'\d{4}-\d{2}-\d{2}', '', text)
+
     lines = text.strip().split('\n')
     cleaned_lines = []
     
@@ -198,7 +205,7 @@ def clean_summary(text):
 
     final_summary = " ".join([line.strip() for line in cleaned_lines]).strip()
     
-    if len(final_summary.split()) > 150:
+    if len(final_summary.split()) > 150: # Arbitrary word limit for very long summaries
         final_summary = " ".join(final_summary.split()[:150]) + "..."
     
     return final_summary
@@ -287,13 +294,13 @@ def clean_details(text):
         stripped_line = line.strip()
 
         # Check for start of a callout header
-        is_callout_header = re.match(r'^\s*>\s*\[!INFO\]', stripped_line)
+        is_callout_header = re.match(r'^\s*>\[!INFO\]', stripped_line)
 
         # If it's a callout header
         if is_callout_header:
             in_callout_block = True
             # Clean specific unwanted callout titles (e.g., "**Bug Note**") from the callout header
-            if re.match(r'^\s*>\s*\[!INFO\]\s*\*\*Bug Note\*\*', stripped_line):
+            if re.match(r'^\s*>\[!INFO\]\s*\*\*Bug Note\*\*', stripped_line):
                 stripped_line = re.sub(r'\s*\*\*Bug Note\*\*', '', stripped_line).strip()
             cleaned_lines.append(stripped_line)
             continue
@@ -536,7 +543,7 @@ type: {doc_type if doc_type else 'documentation'}
 ## Details
 """
         # If details contains a callout, ensure an empty line before it
-        if re.search(r'^\s*>\s*\[!INFO\]', details, re.MULTILINE):
+        if re.search(r'^\s*>\[!INFO\]', details, re.MULTILINE):
             doc_md += f"\n{details}\n\n" # Add empty line before and after
         else:
             doc_md += f"{details}\n\n"
