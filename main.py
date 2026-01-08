@@ -182,14 +182,7 @@ def is_summary_valid(text):
     return True
 
 def clean_summary(text):
-    """Removes headers, frontmatter, dates, code fences, and questions from summary text."""
-    # Remove code fences with language specifiers
-    text = re.sub(r'```[a-zA-Z]*\n', '', text)
-    text = text.replace('```', '')
-
-    # Remove dates
-    text = re.sub(r'\d{4}-\d{2}-\d{2}', '', text)
-
+    """Removes headers, frontmatter, and questions from summary text."""
     lines = text.strip().split('\n')
     cleaned_lines = []
     
@@ -205,7 +198,7 @@ def clean_summary(text):
 
     final_summary = " ".join([line.strip() for line in cleaned_lines]).strip()
     
-    if len(final_summary.split()) > 150: # Arbitrary word limit for very long summaries
+    if len(final_summary.split()) > 150:
         final_summary = " ".join(final_summary.split()[:150]) + "..."
     
     return final_summary
