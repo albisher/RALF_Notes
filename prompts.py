@@ -63,40 +63,40 @@ RULE_NO_QUESTIONS = "- **DO NOT** ask any questions."
 RULE_NO_WRAPPING = "- **DO NOT** wrap the entire output in a code block."
 CRUCIAL_RULES = f"""
 **Crucial Rules to Follow:**
-{RULE_OBSIDIAN_ONLY***REMOVED***
-{RULE_NO_REVIEWS***REMOVED***
-{RULE_NO_NEW_INFO***REMOVED***
-{RULE_NO_QUESTIONS***REMOVED***
-{RULE_NO_WRAPPING***REMOVED***
+{RULE_OBSIDIAN_ONLY}
+{RULE_NO_REVIEWS}
+{RULE_NO_NEW_INFO}
+{RULE_NO_QUESTIONS}
+{RULE_NO_WRAPPING}
 """
 
 # --- Assembled System Prompts ---
 SYSTEM_PROMPT = f"""
-{RALF_ANALYST_PERSONA***REMOVED***
+{RALF_ANALYST_PERSONA}
 
-{RALF_METHODOLOGY***REMOVED***
+{RALF_METHODOLOGY}
 
-{TASK_ANALYZE_AND_GENERATE***REMOVED***
+{TASK_ANALYZE_AND_GENERATE}
 
 **Output Requirements:**
-{OUTPUT_FRONTMATTER***REMOVED***
-{OUTPUT_DOCUMENT_STRUCTURE***REMOVED***
-{CONTENT_INSTRUCTIONS***REMOVED***
-{CRUCIAL_RULES***REMOVED***
+{OUTPUT_FRONTMATTER}
+{OUTPUT_DOCUMENT_STRUCTURE}
+{CONTENT_INSTRUCTIONS}
+{CRUCIAL_RULES}
 
 Begin.
 """
 
 # --- Other Prompts ---
-RECURSIVE_SUMMARY_PROMPT = f"{META_PROMPT***REMOVED***\n\nSummarize the following text:\n\n{{chunk***REMOVED******REMOVED***"
-SUMMARY_PROMPT = f"{META_PROMPT***REMOVED***\n\nProvide a concise summary of the following content in a single paragraph, not exceeding 20 lines. Ensure the summary is factual and contains no conversational filler. Output ONLY the summary.\n\n{{processed_content***REMOVED******REMOVED***"
-DETAILS_PROMPT = f"{META_PROMPT***REMOVED***\n\nExtract the detailed information from the following content. Include at least one `> [!INFO]` callout to highlight a key takeaway. Output ONLY the detailed information, with no conversational filler or questions.\n\n{{processed_content***REMOVED******REMOVED***"
-KEY_FUNCTIONS_PROMPT = f"{META_PROMPT***REMOVED***\n\nExtract a list of the key functions or classes from the following content. Output ONLY a list of functions/classes. If there are no functions or classes, output 'Not applicable'.\n\n{{processed_content***REMOVED******REMOVED***"
-USAGE_PROMPT = f"{META_PROMPT***REMOVED***\n\nExtract the usage examples from the following content. Output ONLY usage examples. If there are no usage examples, output 'Not applicable'.\n\n{{processed_content***REMOVED******REMOVED***"
-RELATED_PROMPT = f"{META_PROMPT***REMOVED***\n\nExtract a list of exactly {{num_links***REMOVED******REMOVED*** related concepts or files from the following content, and format them as Obsidian [[wikilinks]]. If there are no related concepts, output 'Not applicable'. Output ONLY the list of links.\n\n{{processed_content***REMOVED******REMOVED***"
-TAGS_PROMPT = f"{META_PROMPT***REMOVED***\n\nGenerate a list of exactly {{num_tags***REMOVED******REMOVED*** relevant, single-word or hyphenated-phrase tags for the following content. Each tag MUST start with '#'. Format them as a single line list (e.g., #tag1 #another-tag). If there are no relevant tags, output an empty string.\n\n{{processed_content***REMOVED******REMOVED***"
-TYPE_PROMPT = f"{META_PROMPT***REMOVED***\n\nDetermine the type of the following content. The type should be a single word, chosen from: 'documentation', 'code-snippet', 'workflow', 'analysis', 'report', 'spec', 'design', 'test'. Output ONLY the word.\n\n{{processed_content***REMOVED******REMOVED***"
-DEPENDENCY_GRAPH_PROMPT = f"{META_PROMPT***REMOVED***\n\nAnalyze the following code and generate a Mermaid.js graph diagram that shows the dependencies between functions and classes. Use a `graph TD` layout. Output ONLY the Mermaid code block. If no dependencies are found, output 'Not applicable'.\n\n{{processed_content***REMOVED******REMOVED***"
-SECURITY_RISKS_PROMPT = f"{META_PROMPT***REMOVED***\n\nAnalyze the following code for potential security risks. List any vulnerabilities found. If no risks are found, output 'Not applicable'.\n\n{{processed_content***REMOVED******REMOVED***"
+RECURSIVE_SUMMARY_PROMPT = f"{META_PROMPT}\n\nSummarize the following text:\n\n{{chunk}}"
+SUMMARY_PROMPT = f"{META_PROMPT}\n\nProvide a concise summary of the following content in a single paragraph, not exceeding 20 lines. Ensure the summary is factual and contains no conversational filler. Output ONLY the summary.\n\n{{processed_content}}"
+DETAILS_PROMPT = f"{META_PROMPT}\n\nExtract the detailed information from the following content. Include at least one `> [!INFO]` callout to highlight a key takeaway. Output ONLY the detailed information, with no conversational filler or questions.\n\n{{processed_content}}"
+KEY_FUNCTIONS_PROMPT = f"{META_PROMPT}\n\nExtract a list of the key functions or classes from the following content. Output ONLY a list of functions/classes. If there are no functions or classes, output 'Not applicable'.\n\n{{processed_content}}"
+USAGE_PROMPT = f"{META_PROMPT}\n\nExtract the usage examples from the following content. Output ONLY usage examples. If there are no usage examples, output 'Not applicable'.\n\n{{processed_content}}"
+RELATED_PROMPT = f"{META_PROMPT}\n\nExtract a list of exactly {{num_links}} related concepts or files from the following content, and format them as Obsidian [[wikilinks]]. If there are no related concepts, output 'Not applicable'. Output ONLY the list of links.\n\n{{processed_content}}"
+TAGS_PROMPT = f"{META_PROMPT}\n\nGenerate a list of exactly {{num_tags}} relevant, single-word or hyphenated-phrase tags for the following content. Each tag MUST start with '#'. Format them as a single line list (e.g., #tag1 #another-tag). If there are no relevant tags, output an empty string.\n\n{{processed_content}}"
+TYPE_PROMPT = f"{META_PROMPT}\n\nDetermine the type of the following content. The type should be a single word, chosen from: 'documentation', 'code-snippet', 'workflow', 'analysis', 'report', 'spec', 'design', 'test'. Output ONLY the word.\n\n{{processed_content}}"
+DEPENDENCY_GRAPH_PROMPT = f"{META_PROMPT}\n\nAnalyze the following code and generate a Mermaid.js graph diagram that shows the dependencies between functions and classes. Use a `graph TD` layout. Output ONLY the Mermaid code block. If no dependencies are found, output 'Not applicable'.\n\n{{processed_content}}"
+SECURITY_RISKS_PROMPT = f"{META_PROMPT}\n\nAnalyze the following code for potential security risks. List any vulnerabilities found. If no risks are found, output 'Not applicable'.\n\n{{processed_content}}"
 
-REVIEW_PROMPT = f"{META_PROMPT***REMOVED***\n\nReview and enhance this Obsidian note:\n\n{{raw_content***REMOVED******REMOVED***"
+REVIEW_PROMPT = f"{META_PROMPT}\n\nReview and enhance this Obsidian note:\n\n{{raw_content}}"
