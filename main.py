@@ -181,20 +181,20 @@ def is_summary_valid(text):
         return False
     return True
 
+def remove_code_fences(text):
+    """A more robust function to remove markdown code block fences of various flavors."""
+    lines = text.strip().split('\n')
+    # Regex to catch ``` followed by anything (language specifiers, attributes)
+    if lines and re.match(r'^\s*```.*', lines[0]):
+        lines = lines[1:]
+    if lines and re.match(r'^\s*```', lines[-1]):
+        lines = lines[:-1]
+    return "\n".join(lines).strip()
+
 def clean_summary(text):
     """Removes markdown code fences, headers, frontmatter, enforces line limit, and removes questions from summary text."""
     
-    lines = text.strip().split('\n')
-    
-    # Aggressively clean and remove opening markdown code fence line
-    if lines:
-        if re.match(r'^\s*(.*?)\s*```(\S*|$)', lines[0]):
-            lines = lines[1:]
-    
-    if lines and re.match(r'^\s*```', lines[-1]):
-        lines = lines[:-1]
-    
-    text = "\n".join(lines).strip()
+    text = remove_code_fences(text)
     lines = text.split('\n')
     cleaned_lines = []
     
@@ -217,15 +217,7 @@ def clean_summary(text):
 
 def clean_related(text):
     """Removes markdown code fences from the related content."""
-    lines = text.strip().split('\n')
-    
-    if lines and re.match(r'^\s*(.*?)\s*```(\S*|$)', lines[0]):
-        lines = lines[1:]
-    
-    if lines and re.match(r'^\s*```', lines[-1]):
-        lines = lines[:-1]
-        
-    return "\n".join(lines).strip()
+    return remove_code_fences(text)
 
 def is_tags_valid(text, num_tags):
     """Validation function for tags."""
