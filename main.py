@@ -47,6 +47,34 @@ console_handler.addFilter(ConsoleFilter())
 logger.addHandler(console_handler)
 
 
+def check_model_available():
+    """Verify model exists in Ollama"""
+    try:
+        models = client.list()
+        available = [m['name'] for m in models.get('models', [])]
+        if MODEL_NAME not in available:
+            logger.error(f"Model '{MODEL_NAME}' not found. Available: {available}")
+            logger.error(f"Run: ollama pull {MODEL_NAME}")
+            return False
+        logger.info(f"✓ Model '{MODEL_NAME}' is available")
+        return True
+    except Exception as e:
+        logger.error(f"Could not connect to Ollama: {e}")
+        return False
+
+def warmup_model():
+    """Pre-load model into VRAM"""
+    try:
+        logger.info(f"Warming up {MODEL_NAME}...")
+        client.generate(
+            model=MODEL_NAME,
+            prompt="init",
+            options={'num_predict': 1, 'keep_alive': '60m'}
+        )
+        logger.info(f"✓ {MODEL_NAME} loaded and ready")
+    except Exception as e:
+        logger.warning(f"Warmup failed (non-critical): {e}")
+
 client = Client(host=OLLAMA_HOST)
 
 CONVERSATIONAL_STARTS = [
@@ -601,9 +629,14 @@ type: {doc_type if doc_type else 'documentation'}
     return doc_md
 
 def main():
-    # wait_until_start_time(PREFERRED_START_TIME)  # Uncomment for scheduled
-    
-    # --- Pre-run check for TARGET_DIR ---
+    # wait_until_start_time(PREFERRED_START_TIME)
+
+    if not check_model_available():
+        logger.error("Aborting: Model not available")
+        return
+
+    warmup_model()
+
     try:
         ensure_dir(TARGET_DIR)
         if not os.access(TARGET_DIR, os.W_OK):
