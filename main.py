@@ -181,21 +181,9 @@ def is_summary_valid(text):
         return False
     return True
 
-def remove_code_fences(text):
-    """A more robust function to remove markdown code block fences of various flavors."""
-    lines = text.strip().split('\n')
-    # Regex to catch ``` followed by anything (language specifiers, attributes)
-    if lines and re.match(r'^\s*```.*', lines[0]):
-        lines = lines[1:]
-    if lines and re.match(r'^\s*```', lines[-1]):
-        lines = lines[:-1]
-    return "\n".join(lines).strip()
-
 def clean_summary(text):
-    """Removes markdown code fences, headers, frontmatter, enforces line limit, and removes questions from summary text."""
-    
-    text = remove_code_fences(text)
-    lines = text.split('\n')
+    """Removes headers, frontmatter, and questions from summary text."""
+    lines = text.strip().split('\n')
     cleaned_lines = []
     
     for line in lines:
@@ -217,7 +205,7 @@ def clean_summary(text):
 
 def clean_related(text):
     """Removes markdown code fences from the related content."""
-    return remove_code_fences(text)
+    return text.strip()
 
 def is_tags_valid(text, num_tags):
     """Validation function for tags."""
@@ -376,53 +364,15 @@ def check_structure(doc_md):
 
 def final_clean(doc_md):
     """
-    A more aggressive final cleaning step to remove any lines that are not part of the expected
-    markdown structure.
+    A final cleaning step to remove leading/trailing whitespace and multiple empty lines.
     """
-    lines = doc_md.split('\n')
+    lines = doc_md.strip().split('\n')
     cleaned_lines = []
-    in_code_block = False
-    
-    # Regex to match common markdown elements
-    header_re = re.compile(r'^#+\s')
-    list_item_re = re.compile(r'^\s*[-*+]\s')
-    frontmatter_re = re.compile(r'^(tags:|created:|type:|---)')
-    callout_re = re.compile(r'^\s*>\s*\[!')
-    code_block_fence_re = re.compile(r'^\s*```')
-
     for line in lines:
-        stripped_line = line.strip()
-
-        # Handle code blocks
-        if code_block_fence_re.match(stripped_line):
-            in_code_block = not in_code_block
-            cleaned_lines.append(line)
+        if cleaned_lines and not line.strip() and not cleaned_lines[-1].strip():
+            # Skip multiple empty lines
             continue
-            
-        if in_code_block:
-            cleaned_lines.append(line)
-            continue
-
-        # Preserve empty lines for spacing
-        if not stripped_line:
-            cleaned_lines.append(line)
-            continue
-
-        # Check if the line matches any expected markdown element
-        if (
-            header_re.match(stripped_line) or
-            list_item_re.match(stripped_line) or
-            frontmatter_re.match(stripped_line) or
-            callout_re.match(stripped_line)
-        ):
-            cleaned_lines.append(line)
-        else:
-            if cleaned_lines and (header_re.match(cleaned_lines[-1].strip()) or not cleaned_lines[-1].strip()):
-                cleaned_lines.append(line)
-            else:
-                logger.info(f"Removing extraneous line: '{line}'")
-
-
+        cleaned_lines.append(line)
     return "\n".join(cleaned_lines)
 
 
