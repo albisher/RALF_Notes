@@ -33,65 +33,99 @@ AI-powered documentation generator that transforms your code into beautiful Obsi
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/albisher/RALF_Notes.git
-cd RALF_Notes
+# Install from GitHub
+pip install git+https://github.com/albisher/RALF_Notes.git
 
-# Install dependencies
-pip install typer rich ollama
-
-# Test connection
-python ralf.py test
-
-# Generate documentation
-python ralf.py generate
+# Or install from PyPI (coming soon)
+pip install ralf-notes
 ```
 
-That's it! Your documentation will be in `to_obsidian/`
+### First-Time Setup
+
+```bash
+# Run interactive setup wizard
+ralf-notes setup
+
+# This will:
+# 1. Create configuration
+# 2. Set up directories
+# 3. Test Ollama connection
+# 4. Guide you through first use
+```
+
+### Generate Documentation
+
+```bash
+# Generate from configured paths
+ralf-notes generate
+
+# Or generate from specific path
+ralf-notes generate /path/to/code
+```
+
+That's it! Your documentation will be in your configured output directory.
+
+> **Note:** For detailed installation instructions, see [INSTALLATION.md](INSTALLATION.md)
 
 ---
 
 ## 📖 Usage
 
-### Basic Commands
+### Setup & Configuration
 
 ```bash
-# Generate documentation for default paths
-python ralf.py generate
+# Complete setup wizard (first-time users)
+ralf-notes setup
 
-# Generate for specific path
-python ralf.py generate /path/to/code
+# Initialize configuration
+ralf-notes init
 
-# Custom output directory
-python ralf.py generate --output /custom/output
+# Manage configuration
+ralf-notes config --show                    # View config
+ralf-notes config --add-source /path        # Add source directory
+ralf-notes config --set-target /path        # Set output directory
+ralf-notes config --set-model model-name    # Change model
 
-# Dry run (preview)
-python ralf.py generate --dry-run
-
-# Overwrite existing docs
-python ralf.py generate --overwrite
-
-# Quiet mode (minimal output)
-python ralf.py generate --quiet
-
-# Use different model
-python ralf.py generate --model qwen2.5:14b
+# Check status
+ralf-notes status
 ```
 
-### Other Commands
+### Generate Documentation
 
 ```bash
-# Check configuration
-python ralf.py status
+# Generate from configured paths
+ralf-notes generate
 
+# Generate for specific path
+ralf-notes generate /path/to/code
+
+# Custom output directory
+ralf-notes generate --output /custom/output
+
+# Dry run (preview)
+ralf-notes generate --dry-run
+
+# Overwrite existing docs
+ralf-notes generate --overwrite
+
+# Quiet mode (minimal output)
+ralf-notes generate --quiet
+
+# Use different model
+ralf-notes generate --model qwen2.5:14b
+```
+
+### Testing & Info
+
+```bash
 # Test Ollama connection
-python ralf.py test
+ralf-notes test
 
 # Show version
-python ralf.py version
+ralf-notes version
 
 # Get help
-python ralf.py --help
+ralf-notes --help
 ```
 
 ---
@@ -127,22 +161,33 @@ Processing files ━━━━━━━━━━━━━━━━━━━━━
 
 ## ⚙️ Configuration
 
-Edit `config.py` to customize:
+RALF Note stores configuration at `~/.ralf-notes/config.json`
 
-```python
-# Where to find your code
-SOURCE_PATHS = [
-    '/path/to/your/code/',
-]
+### Quick Configuration
 
-# Where to save documentation
-TARGET_DIR = '/path/to/output/'
+```bash
+# Interactive setup
+ralf-notes setup
 
-# Which model to use
-MODEL_NAME = 'ministral-3:3b'
+# Or manually configure
+ralf-notes config --add-source ~/projects/my-app
+ralf-notes config --set-target ~/Documents/MyDocs
+ralf-notes config --set-model qwen2.5:14b
+```
 
-# Ollama server
-OLLAMA_HOST = 'http://127.0.0.1:11434'
+### Configuration File
+
+Default location: `~/.ralf-notes/config.json`
+
+```json
+{
+  "source_paths": ["/path/to/code"],
+  "target_dir": "./to_obsidian",
+  "model_name": "ministral-3:3b",
+  "ollama_host": "http://127.0.0.1:11434",
+  "temperature": 0.1,
+  "num_ctx": 10000
+}
 ```
 
 ---
