@@ -73,4 +73,6 @@ class JSONGeneratorConfig:
     num_ctx: int = 10000
     temperature: float = 0.1
     chunk_size: int = 100000
+    max_content_length: int = 8000
+    max_chunk_summary_length: int = 4000
     ollama_host: str = 'http://127.0.0.1:11434'

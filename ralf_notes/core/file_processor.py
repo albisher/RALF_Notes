@@ -79,7 +79,8 @@ class FileProcessor:
             'success': 0,
             'failed': 0,
             'skipped': 0,
-            'errors': []
+            'errors': [],
+            'dry_run': dry_run
         }
 
         for i, file_path in enumerate(files, 1):

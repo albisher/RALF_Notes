@@ -21,7 +21,38 @@ from .core import (
     FileProcessor,
     JSONGeneratorConfig
 )
+from rich.table import Table
 from .tui import Console, ProgressManager, get_banner
+
+
+def display_config_table(console: Console, config_manager: ConfigManager):
+    """Displays the configuration in a formatted table."""
+    table = Table(title="[bold]⚙️ Current Configuration[/bold]", style="cyan", show_header=True, header_style="bold magenta")
+    table.add_column("Setting", style="dim", width=20)
+    table.add_column("Value", style="bold")
+
+    config = config_manager.config
+    for key, value in config.items():
+        if key == "source_paths":
+            if not value:
+                table.add_row(key, "[yellow]None configured[/yellow]")
+            else:
+                # Use a bulleted list for paths and check existence
+                path_list = []
+                for path in value:
+                    exists = "✅" if Path(path).exists() else "❌"
+                    path_list.append(f"{exists} {path}")
+                table.add_row(key, "\n".join(path_list))
+        elif isinstance(value, list):
+            table.add_row(key, ", ".join(map(str, value)))
+        else:
+            table.add_row(key, str(value))
+    
+    console.print("")
+    console.print(table)
+    console.print("")
+    console.info(f"Config file: {config_manager.config_path}")
+
 
 # Create Typer app
 app = typer.Typer(
@@ -29,6 +60,33 @@ app = typer.Typer(
     help="🚀 RALF Note v2.0 - AI-Powered Obsidian Documentation Generator",
     add_completion=True
 )
+
+
+def version_callback(value: bool):
+    if value:
+        console = Console()
+        console.banner(get_banner('simple'))
+        console.print("")
+        console.info(f"RALF Note v{VERSION} - Unified JSON Architecture")
+        console.info("Built with: Ollama, Rich, Typer")
+        console.print("")
+        raise typer.Exit()
+
+
+@app.callback()
+def callback(
+    version: Optional[bool] = typer.Option(
+        None,
+        "--version",
+        help="Show version information.",
+        callback=version_callback,
+        is_eager=True,
+    )
+):
+    """
+    RALF Note v2.0 - AI-Powered Obsidian Documentation Generator
+    """
+    pass
 
 
 def build_pipeline(config_manager: ConfigManager) -> DocumentPipeline:
@@ -44,12 +102,14 @@ def build_pipeline(config_manager: ConfigManager) -> DocumentPipeline:
     # Initialize Ollama client
     client = Client(host=config_manager.get("ollama_host"))
 
-    # Build config
+    # Build config from configuration file (no hardcoded values)
     gen_config = JSONGeneratorConfig(
         model_name=config_manager.get("model_name"),
         num_ctx=config_manager.get("num_ctx"),
         temperature=config_manager.get("temperature"),
         chunk_size=config_manager.get("chunk_size"),
+        max_content_length=config_manager.get("max_content_length"),
+        max_chunk_summary_length=config_manager.get("max_chunk_summary_length"),
         ollama_host=config_manager.get("ollama_host")
     )
 
@@ -78,6 +138,7 @@ def show_summary(results: dict, console: Console, quiet: bool):
     skipped = results.get('skipped', 0)
     duration = results.get('duration', 0)
     fps = results.get('files_per_second', 0)
+    is_dry_run = results.get('dry_run', False)
 
     summary_text = f"""Total Files: [bold]{total}[/bold]
 ✅ Success: [success]{success}[/success]
@@ -87,7 +148,13 @@ def show_summary(results: dict, console: Console, quiet: bool):
 Time: {duration:.1f}s
 Speed: {fps:.1f} files/s"""
 
-    console.panel(summary_text, title="📊 Results", style="green")
+    if is_dry_run:
+        title = "📊 Results (Dry Run)"
+        summary_text += "\n\n[info]No files were written.[/info]"
+    else:
+        title = "📊 Results"
+
+    console.panel(summary_text, title=title, style="green")
 
     if failed > 0:
         console.warning(f"Check output for {failed} failed files")
@@ -95,24 +162,69 @@ Speed: {fps:.1f} files/s"""
 
 @app.command()
 def init(
-    force: bool = typer.Option(
-        False,
-        "--force",
-        help="Overwrite existing configuration"
-    )
+    show: bool = typer.Option(False, "--show", help="Show current configuration."),
+    add_source: Optional[str] = typer.Option(None, "--add-source", help="Add a source path to the configuration."),
+    remove_source: Optional[str] = typer.Option(None, "--remove-source", help="Remove a source path from the configuration."),
+    set_target: Optional[str] = typer.Option(None, "--set-target", help="Set the target directory for generated docs."),
+    set_model: Optional[str] = typer.Option(None, "--set-model", help="Set the Ollama model name."),
+    reset: bool = typer.Option(False, "--reset", help="Reset configuration to defaults."),
 ):
     """
-    Initialize RALF Note configuration
+    Initialize or manage RALF Note configuration.
 
-    Creates ~/.ralf-notes/config.json with default settings
+    - Run without options for interactive setup.
+    - Use options to view or modify settings directly.
     """
     console = Console()
     config_manager = ConfigManager()
 
-    if config_manager.config_path.exists() and not force:
+    # --- Flag-based actions (from old 'config' command) ---
+    action_taken = False
+    if reset:
+        action_taken = True
+        if typer.confirm("Reset configuration to defaults?"):
+            config_manager.reset_to_defaults()
+            config_manager.save()
+            console.success("Configuration reset to defaults")
+        else:
+            console.info("Reset cancelled.")
+    if add_source:
+        action_taken = True
+        if not Path(add_source).exists():
+            console.error(f"Path does not exist: {add_source}")
+            raise typer.Exit(1)
+        config_manager.add_source_path(add_source)
+        config_manager.save()
+        console.success(f"Added source path: {add_source}")
+    if remove_source:
+        action_taken = True
+        config_manager.remove_source_path(remove_source)
+        config_manager.save()
+        console.success(f"Removed source path: {remove_source}")
+    if set_target:
+        action_taken = True
+        config_manager.set_target_dir(set_target)
+        config_manager.save()
+        console.success(f"Target directory set to: {set_target}")
+    if set_model:
+        action_taken = True
+        config_manager.set_model(set_model)
+        config_manager.save()
+        console.success(f"Model set to: {set_model}")
+
+    # If any flag-based action was taken, or if --show is used, show config and exit.
+    if action_taken or show:
+        display_config_table(console, config_manager)
+        return
+
+    # --- Interactive Setup (if no flags were passed) ---
+
+    if config_manager.config_path.exists():
         console.warning(f"Configuration already exists at: {config_manager.config_path}")
-        console.info("Use --force to overwrite")
-        raise typer.Exit(1)
+        display_config_table(console, config_manager)
+        if not typer.confirm("Do you want to overwrite it?"):
+            console.info("Initialization cancelled.")
+            raise typer.Exit()
 
     # Interactive setup
     console.banner(get_banner('simple'))
@@ -135,7 +247,7 @@ def init(
             console.warning(f"Path does not exist: {path}")
 
     if not source_paths:
-        console.warning("No source paths added. You can add them later with 'ralf-notes config'")
+        console.warning("No source paths added. You can add them later with 'ralf-notes init --add-source ...'")
 
     # Get target directory
     console.print("")
@@ -160,60 +272,6 @@ def init(
     console.print("  3. Test connection: ralf-notes test")
     console.print("  4. Generate docs: ralf-notes generate")
     console.print("")
-
-
-@app.command()
-def config(
-    show: bool = typer.Option(False, "--show", help="Show current configuration"),
-    add_source: Optional[str] = typer.Option(None, "--add-source", help="Add source path"),
-    remove_source: Optional[str] = typer.Option(None, "--remove-source", help="Remove source path"),
-    set_target: Optional[str] = typer.Option(None, "--set-target", help="Set target directory"),
-    set_model: Optional[str] = typer.Option(None, "--set-model", help="Set Ollama model"),
-    reset: bool = typer.Option(False, "--reset", help="Reset to defaults"),
-):
-    """
-    Manage RALF Note configuration
-
-    View and modify configuration settings
-    """
-    console = Console()
-    config_manager = ConfigManager()
-
-    if reset:
-        if typer.confirm("Reset configuration to defaults?"):
-            config_manager.reset_to_defaults()
-            config_manager.save()
-            console.success("Configuration reset to defaults")
-        return
-
-    if add_source:
-        if not Path(add_source).exists():
-            console.error(f"Path does not exist: {add_source}")
-            raise typer.Exit(1)
-        config_manager.add_source_path(add_source)
-        config_manager.save()
-        console.success(f"Added source path: {add_source}")
-
-    if remove_source:
-        config_manager.remove_source_path(remove_source)
-        config_manager.save()
-        console.success(f"Removed source path: {remove_source}")
-
-    if set_target:
-        config_manager.set_target_dir(set_target)
-        config_manager.save()
-        console.success(f"Target directory set to: {set_target}")
-
-    if set_model:
-        config_manager.set_model(set_model)
-        config_manager.save()
-        console.success(f"Model set to: {set_model}")
-
-    # Always show config at the end
-    console.print("")
-    console.panel(config_manager.show(), title="⚙️  Current Configuration", style="cyan")
-    console.print("")
-    console.info(f"Config file: {config_manager.config_path}")
 
 
 @app.command()
@@ -280,7 +338,13 @@ def generate(
     # Show configuration
     if not quiet:
         console.info(f"Model: {config_manager.get('model_name')}")
-        console.info(f"Target: {target_dir}")
+        console.info(f"Target folder as assigned by user: {target_dir}")
+        console.info("Source folders as assigned by user:")
+        if source_paths:
+            for sp in source_paths:
+                console.info(f"  - {sp}")
+        else:
+            console.info("  - None configured.")
 
     # Build pipeline
     try:
@@ -313,40 +377,6 @@ def generate(
     # Exit with error if failures
     if results.get('failed', 0) > 0:
         raise typer.Exit(1)
-
-
-@app.command()
-def status():
-    """Show current configuration and status"""
-    console = Console()
-    config_manager = ConfigManager()
-
-    console.banner(get_banner('full'))
-    console.print("")
-
-    # Configuration
-    console.panel(
-        f"""Model: [bold]{config_manager.get('model_name')}[/bold]
-Host: {config_manager.get('ollama_host')}
-Temperature: {config_manager.get('temperature')}
-Context: {config_manager.get('num_ctx')} tokens""",
-        title="⚙️  Configuration",
-        style="cyan"
-    )
-
-    # Source paths
-    source_paths = config_manager.get("source_paths", [])
-    if source_paths:
-        console.print("\n📁 Source Paths:")
-        for path in source_paths:
-            exists = "✅" if Path(path).exists() else "❌"
-            console.print(f"  {exists} {path}")
-    else:
-        console.print("\n📁 Source Paths: [yellow]None configured[/yellow]")
-        console.info("Run 'ralf-notes init' to set up")
-
-    console.print(f"\n📂 Target: {config_manager.get('target_dir')}")
-    console.print(f"📄 Config file: {config_manager.config_path}\n")
 
 
 @app.command()
@@ -383,124 +413,6 @@ def test():
         raise typer.Exit(1)
 
 
-@app.command()
-def version():
-    """Show version information"""
-    console = Console()
-    console.banner(get_banner('simple'))
-    console.print("")
-    console.info(f"RALF Note v{VERSION} - Unified JSON Architecture")
-    console.info("Built with: Ollama, Rich, Typer")
-    console.print("")
-
-
-@app.command()
-def setup():
-    """
-    Complete setup wizard for first-time users
-
-    Interactive setup that:
-    1. Creates configuration
-    2. Sets up directories
-    3. Tests Ollama connection
-    4. Guides through first use
-    """
-    console = Console()
-    console.banner(get_banner('full'))
-    console.print("")
-    console.info("Welcome to RALF Note Setup Wizard!")
-    console.print("")
-
-    # Step 1: Check if already configured
-    config_manager = ConfigManager()
-    if config_manager.config_path.exists():
-        console.warning("Configuration already exists!")
-        if not typer.confirm("Do you want to reconfigure?"):
-            console.info("Setup cancelled")
-            return
-
-    # Step 2: Initialize configuration
-    console.rule("Step 1: Configuration")
-    console.print("")
-
-    source_paths = []
-    console.print("Enter directories to document (press Enter when done):")
-    while True:
-        path = typer.prompt("  Directory", default="", show_default=False)
-        if not path:
-            break
-        path_obj = Path(path).expanduser().resolve()
-        if path_obj.exists():
-            source_paths.append(str(path_obj))
-            console.success(f"Added: {path_obj}")
-        else:
-            console.warning(f"Directory not found: {path}")
-
-    target_dir = typer.prompt("\nOutput directory", default=str(Path.home() / "Documents" / "ObsidianVault" / "RALF_Notes"))
-    model_name = typer.prompt("Ollama model", default="ministral-3:3b")
-
-    # Save configuration
-    config_manager.config["source_paths"] = source_paths
-    config_manager.config["target_dir"] = target_dir
-    config_manager.config["model_name"] = model_name
-    config_manager.save()
-
-    console.print("")
-    console.success(f"Configuration saved!")
-
-    # Step 3: Create directories
-    console.print("")
-    console.rule("Step 2: Creating Directories")
-    console.print("")
-
-    target_path = Path(target_dir)
-    target_path.mkdir(parents=True, exist_ok=True)
-    console.success(f"Created: {target_path}")
-
-    # Step 4: Test Ollama
-    console.print("")
-    console.rule("Step 3: Testing Ollama")
-    console.print("")
-
-    try:
-        client = Client(host=config_manager.get("ollama_host"))
-        response = client.generate(
-            model=model_name,
-            prompt="Hello",
-            options={"num_ctx": 100}
-        )
-        console.success("Ollama is working correctly!")
-    except Exception as e:
-        console.error(f"Cannot connect to Ollama: {e}")
-        console.print("")
-        console.warning("Please ensure:")
-        console.print(f"  1. Ollama is running: ollama serve")
-        console.print(f"  2. Model is installed: ollama pull {model_name}")
-        console.print("")
-        console.info("After fixing, run: ralf-notes test")
-        return
-
-    # Step 5: Summary
-    console.print("")
-    console.rule("Setup Complete!")
-    console.print("")
-
-    console.panel(
-        f"""✅ Configuration created
-✅ Directories ready
-✅ Ollama connected
-
-You're all set! 🎉""",
-        title="🚀 Ready to Go",
-        style="green"
-    )
-
-    console.print("")
-    console.info("Next steps:")
-    console.print("  • Generate docs: ralf-notes generate")
-    console.print("  • View config: ralf-notes status")
-    console.print("  • Get help: ralf-notes --help")
-    console.print("")
 
 
 if __name__ == "__main__":

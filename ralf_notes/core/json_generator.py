@@ -77,8 +77,8 @@ class JSONGenerator:
             Processed content suitable for LLM
         """
         if len(content) <= self.config.chunk_size:
-            # Truncate for reliability
-            return content[:8000]
+            # Truncate for reliability using config value
+            return content[:self.config.max_content_length]
 
         # Need to chunk and summarize
         return self._recursive_summarize(content)
@@ -100,8 +100,8 @@ class JSONGenerator:
 
         summaries = []
         for i, chunk in enumerate(chunks, 1):
-            # Summarize each chunk (matches original PoC format)
-            prompt = f"Summarize this code:\n\n{chunk[:4000]}"
+            # Summarize each chunk (matches original PoC format, uses config value)
+            prompt = f"Summarize this code:\n\n{chunk[:self.config.max_chunk_summary_length]}"
             try:
                 response = self.client.generate(
                     model=self.config.model_name,

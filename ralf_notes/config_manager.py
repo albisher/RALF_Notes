@@ -25,7 +25,9 @@ class ConfigManager:
         "ollama_host": "http://127.0.0.1:11434",
         "temperature": 0.1,
         "num_ctx": 10000,
-        "chunk_size": 100000
+        "chunk_size": 100000,
+        "max_content_length": 8000,
+        "max_chunk_summary_length": 4000
     }
 
     def __init__(self, config_path: Optional[Path] = None):
@@ -92,7 +94,3 @@ class ConfigManager:
     def reset_to_defaults(self):
         """Reset configuration to defaults."""
         self.config = self.DEFAULT_CONFIG.copy()
-
-    def show(self) -> str:
-        """Return formatted configuration string."""
-        return json.dumps(self.config, indent=2)
