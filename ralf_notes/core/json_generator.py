@@ -100,8 +100,8 @@ class JSONGenerator:
 
         summaries = []
         for i, chunk in enumerate(chunks, 1):
-            # Summarize each chunk
-            prompt = f"Summarize this code/text snippet for documentation purposes:\n\n{chunk[:4000]}"
+            # Summarize each chunk (matches original PoC format)
+            prompt = f"Summarize this code:\n\n{chunk[:4000]}"
             try:
                 response = self.client.generate(
                     model=self.config.model_name,
@@ -127,7 +127,7 @@ class JSONGenerator:
 
     def _format_prompt(self, filename: str, content: str) -> str:
         """
-        Format user prompt.
+        Format user prompt (matches original PoC format).
 
         Args:
             filename: File name
@@ -136,11 +136,4 @@ class JSONGenerator:
         Returns:
             Formatted prompt string
         """
-        return f"""Analyze this file and return documentation JSON.
-
-**File:** {filename}
-
-**Content:**
-{content}
-
-Remember: Return ONLY valid JSON. No markdown. No backticks."""
+        return f"File: {filename}\nContent:\n{content}"
