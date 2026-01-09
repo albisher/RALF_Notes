@@ -1,10 +1,6 @@
 from typing import Optional
 from .base_section_generator import BaseSectionGenerator, GenerationContext
-from prompts import SUMMARY_PROMPT, RALF_ANALYST_PERSONA, TASK_ANALYZE_AND_GENERATE, OUTPUT_FRONTMATTER, OUTPUT_DOCUMENT_STRUCTURE, CONTENT_INSTRUCTIONS, CRUCIAL_RULES # Assuming these are defined in prompts.py
-
-# Construct a system prompt suitable for a general section generator
-# This can be made more specific per generator if needed
-SYSTEM_PROMPT_FOR_GENERATORS = f"{RALF_ANALYST_PERSONA}\n\n{TASK_ANALYZE_AND_GENERATE}\n\n**Output Requirements:**\n{OUTPUT_FRONTMATTER}\n{OUTPUT_DOCUMENT_STRUCTURE}\n{CONTENT_INSTRUCTIONS}\n{CRUCIAL_RULES}\n\nBegin."
+from prompts import SUMMARY_PROMPT, SYSTEM_PROMPT_FOR_GENERATORS
 
 
 class SummaryGenerator(BaseSectionGenerator):
@@ -22,7 +18,7 @@ class SummaryGenerator(BaseSectionGenerator):
             validator=validator,
             cleaner=cleaner,
             prompt_template=SUMMARY_PROMPT,
-            system_prompt=SYSTEM_PROMPT_FOR_GENERATORS # Use the constructed system prompt
+            system_prompt=SYSTEM_PROMPT_FOR_GENERATORS
         )
 
     def _format_prompt(self, context: GenerationContext) -> str:

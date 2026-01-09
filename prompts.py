@@ -100,3 +100,21 @@ DEPENDENCY_GRAPH_PROMPT = f"{META_PROMPT}\n\nAnalyze the following code and gene
 SECURITY_RISKS_PROMPT = f"{META_PROMPT}\n\nAnalyze the following code for potential security risks. List any vulnerabilities found. If no risks are found, output 'Not applicable'.\n\n{{processed_content}}"
 
 REVIEW_PROMPT = f"{META_PROMPT}\n\nReview and enhance this Obsidian note:\n\n{{raw_content}}"
+
+# --- System Prompt for Generators ---
+# Construct a system prompt suitable for section generators
+SYSTEM_PROMPT_FOR_GENERATORS = f"""
+{RALF_ANALYST_PERSONA}
+
+{RALF_METHODOLOGY}
+
+{TASK_ANALYZE_AND_GENERATE}
+
+**Output Requirements:**
+{OUTPUT_FRONTMATTER}
+{OUTPUT_DOCUMENT_STRUCTURE}
+{CONTENT_INSTRUCTIONS}
+{CRUCIAL_RULES}
+
+Begin.
+"""

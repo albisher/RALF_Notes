@@ -1,9 +1,6 @@
-import os
 import logging
 from datetime import datetime
 from pathlib import Path
-from ollama import Client, ResponseError # Still needed for recursive_summarize and review_obsidian_doc
-
 
 # Import from local modules
 from config import *
@@ -23,6 +20,12 @@ from utils.logger_factory import LoggerFactory, ensure_dir
 from utils.token_estimator import TokenEstimator
 from utils.file_processor import FileProcessor
 from utils.retry_manager import RetryManager
+from cache.cache_manager import (
+    get_cached_response,
+    cache_response,
+    get_cache_stats,
+    clear_cache
+)
 
 # Import the new generator classes
 from core.ollama_client import OllamaClient
@@ -53,7 +56,6 @@ def build_document_generator() -> DocumentGenerator:
     summary_validator = SummaryValidator()
     tags_validator = TagsValidator()
     general_validator = GeneralValidator()
-    structure_validator = StructureValidator() # Will be used in main()
 
     # Cleaners
     summary_cleaner = SummaryCleaner()
@@ -121,17 +123,66 @@ def build_document_generator() -> DocumentGenerator:
 
 def main():
     """Main entry point."""
+    logger.info("="*60)
+    logger.info("RALF Notes - Ollama Documentation Generator")
+    logger.info("="*60)
+
+    # Cache management
+    if CLEAR_CACHE_ON_START:
+        logger.info("Clearing cache...")
+        clear_cache()
+
+    if ENABLE_CACHING:
+        cache_stats = get_cache_stats()
+        logger.info(f"Cache: {cache_stats['entry_count']} entries, {cache_stats['total_size_mb']:.2f} MB")
+
     generator = build_document_generator()
-    file_processor = FileProcessor() # Instantiate FileProcessor for get_all_files
+    file_processor = FileProcessor()
 
     # Get files
     files = file_processor.get_all_files(SOURCE_PATHS)
 
     # Process each file
-    for file_path in files:
-        doc = generator.generate(Path(file_path))
-        output_path = Path(TARGET_DIR) / f"{Path(file_path).stem}.md"
-        output_path.write_text(doc.to_markdown())
+    for file_path_str in files:
+        file_path = Path(file_path_str) # Convert string path to Path object
+        
+        output_path = Path(TARGET_DIR) / f"{file_path.stem}.md"
+        output_path_parent = output_path.parent
+        ensure_dir(output_path_parent) # Ensure target directory exists
+
+        if output_path.exists() and not OVERWRITE_EXISTING: # Use OVERWRITE_EXISTING from config
+            logger.info(f"⏭️  Skipping existing: {output_path.name}")
+            continue
+
+        logger.info(f"Generating for: {file_path.name}")
+        
+        # Original logic had no dry_run for default generation
+        try:
+            doc = generator.generate(file_path)
+            output_path.write_text(doc.to_markdown(), encoding='utf-8')
+            logger.info(f"✅ Saved: {output_path.name}")
+        except Exception as e:
+            logger.error(f"❌ Error generating for {file_path.name}: {e}")
+    
+    logger.info(f"\n✨ Complete! Processed {len(files)} files.")
 
 if __name__ == "__main__":
+    import sys
+
+    # Handle cache CLI arguments outside of main() for simplicity in this restored state
+    if len(sys.argv) > 1:
+        if sys.argv[1] == '--clear-cache':
+            print("Clearing cache...")
+            clear_cache()
+            print("Cache cleared.")
+            sys.exit(0)
+        elif sys.argv[1] == '--cache-stats':
+            stats = get_cache_stats()
+            print(f"Cache Statistics:")
+            print(f"  Entries: {stats['entry_count']}")
+            print(f"  Size: {stats['total_size_mb']:.2f} MB")
+            print(f"  Oldest: {stats['oldest_age_days']:.1f} days")
+            print(f"  Newest: {stats['newest_age_days']:.1f} days")
+            sys.exit(0)
+
     main()

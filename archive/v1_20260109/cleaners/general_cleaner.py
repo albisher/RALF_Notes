@@ -20,9 +20,10 @@ class GeneralCleaner(BaseCleaner):
         self.general_validator = GeneralValidator()
 
     def clean(self, text: str) -> str:
-        # This cleaner will have multiple methods, so the __call__ will not be directly used for all cleaning.
-        # This method can be a placeholder for a generic cleaning step or raise NotImplementedError.
-        raise NotImplementedError("GeneralCleaner uses specific cleaning methods. Please call them directly.")
+        """
+        A no-op clean method for GeneralCleaner, as specific cleaning methods should be called directly.
+        """
+        return text
 
     def clean_doc_type(self, text: str) -> str:
         """Ensures doc_type is a single word."""
@@ -64,15 +65,4 @@ class GeneralCleaner(BaseCleaner):
             return "Not applicable"
         return cleaned_text.replace("?", "")
 
-    def final_clean(self, doc_md: str) -> str:
-        """
-        A final cleaning step to remove leading/trailing whitespace and multiple empty lines.
-        """
-        lines = doc_md.strip().split('\n')
-        cleaned_lines = []
-        for line in lines:
-            if cleaned_lines and not line.strip() and not cleaned_lines[-1].strip():
-                # Skip multiple empty lines
-                continue
-            cleaned_lines.append(line)
-        return "\n".join(cleaned_lines)
+

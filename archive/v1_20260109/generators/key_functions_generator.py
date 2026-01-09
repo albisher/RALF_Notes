@@ -1,5 +1,5 @@
-from .section_generator import SectionGenerator, SYSTEM_PROMPT_FOR_GENERATORS
-from prompts import KEY_FUNCTIONS_PROMPT
+from .section_generator import SectionGenerator, GenerationContext
+from prompts import KEY_FUNCTIONS_PROMPT, SYSTEM_PROMPT_FOR_GENERATORS
 
 class KeyFunctionsGenerator(SectionGenerator):
     """
@@ -15,6 +15,9 @@ class KeyFunctionsGenerator(SectionGenerator):
             ollama_client=ollama_client,
             validator=validator,
             cleaner=cleaner,
-            prompt_template=KEY_FUNCTIONS_PROMPT,
-            system_prompt=SYSTEM_PROMPT_FOR_GENERATORS
+            prompt_template=KEY_FUNCTIONS_PROMPT
         )
+
+    def _format_prompt(self, context: GenerationContext) -> str:
+        """Format prompt with context data."""
+        return self.prompt_template.format(processed_content=context.content)

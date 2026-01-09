@@ -6,7 +6,7 @@
 SOURCE_PATHS = ['/Users/amac/Documents/code/WindowCleanner/']
 
 # Choose a target directory to save the Obsidian notes
-TARGET_DIR = '/Users/amac/Documents/code/Ralf_Notes/To_Obsidian/'
+TARGET_DIR = '/Users/amac/Documents/code/RALF_Notes/to_obsidian/'
 
 PREFERRED_START_TIME = "08:03"
 OVERWRITE_EXISTING = False 
@@ -25,7 +25,12 @@ OPTIONS = {
 # Ollama configuration
 OLLAMA_HOST = 'http://127.0.0.1:11434'
 MODEL_NAME = 'ministral-3:3b'         # Edge-optimized, stable on Mac Mini M4 (~3GB VRAM)
-
-# Optimized for Ministral-3:3b (128K native context, 16K practical limit)
-CHUNK_SIZE = 6000                    # ~400 lines/chunk - excellent balance for speed/memory
 MAX_CTX = 16384                      # Set via: ollama run ministral-3:3b --num_ctx 16384
+
+CHUNK_SIZE = 6000                    # ~400 lines/chunk - excellent balance for speed/memory
+
+# Caching settings
+ENABLE_CACHING = True
+CACHE_TTL_DAYS = 7
+CACHE_DIR = './cache'
+CLEAR_CACHE_ON_START = False

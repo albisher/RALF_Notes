@@ -1,13 +1,13 @@
-from .base_section_generator import BaseSectionGenerator, GenerationContext, SYSTEM_PROMPT_FOR_GENERATORS
-from prompts import DETAILS_PROMPT
+from .section_generator import SectionGenerator, GenerationContext
+from prompts import SECURITY_RISKS_PROMPT, SYSTEM_PROMPT_FOR_GENERATORS
 
-class DetailsGenerator(BaseSectionGenerator):
+class SecurityRisksGenerator(SectionGenerator):
     """
-    Box: Details generator
+    Box: Security Risks generator
 
     Input: GenerationContext
-    Output: Cleaned, validated details text
-    Responsibility: Generate the details section of a document.
+    Output: Cleaned, validated section text
+    Responsibility: Generate the Security Risks section of a document.
     """
 
     def __init__(self, ollama_client, validator, cleaner):
@@ -15,8 +15,7 @@ class DetailsGenerator(BaseSectionGenerator):
             ollama_client=ollama_client,
             validator=validator,
             cleaner=cleaner,
-            prompt_template=DETAILS_PROMPT,
-            system_prompt=SYSTEM_PROMPT_FOR_GENERATORS
+            prompt_template=SECURITY_RISKS_PROMPT,
         )
 
     def _format_prompt(self, context: GenerationContext) -> str:

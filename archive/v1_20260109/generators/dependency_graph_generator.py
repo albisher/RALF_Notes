@@ -1,5 +1,5 @@
-from .section_generator import SectionGenerator, SYSTEM_PROMPT_FOR_GENERATORS
-from prompts import DEPENDENCY_GRAPH_PROMPT
+from .section_generator import SectionGenerator, GenerationContext
+from prompts import DEPENDENCY_GRAPH_PROMPT, SYSTEM_PROMPT_FOR_GENERATORS
 
 class DependencyGraphGenerator(SectionGenerator):
     """
@@ -16,5 +16,8 @@ class DependencyGraphGenerator(SectionGenerator):
             validator=validator,
             cleaner=cleaner,
             prompt_template=DEPENDENCY_GRAPH_PROMPT,
-            system_prompt=SYSTEM_PROMPT_FOR_GENERATORS
         )
+
+    def _format_prompt(self, context: GenerationContext) -> str:
+        """Format prompt with context data."""
+        return self.prompt_template.format(processed_content=context.content)

@@ -3,7 +3,8 @@ from typing import Optional
 from dataclasses import dataclass
 import logging
 
-from config import MODEL_NAME
+from config import MODEL_NAME, ENABLE_CACHING
+from cache.cache_manager import get_cached_response, cache_response
 
 @dataclass
 class GenerationContext:
@@ -44,6 +45,15 @@ class BaseSectionGenerator(ABC):
         Input: generation context
         Output: cleaned, validated section text
         """
+        section_type = self.__class__.__name__.replace('Generator', '').upper()
+        if ENABLE_CACHING:
+            cached_response = get_cached_response(
+                context.file_path, section_type, self._get_model()
+            )
+            if cached_response:
+                self.logger.info(f"Cache hit for {section_type} for {context.file_path.name}")
+                return cached_response
+
         # Format prompt
         prompt = self._format_prompt(context)
 
@@ -61,6 +71,11 @@ class BaseSectionGenerator(ABC):
         # Clean
         cleaned = self.cleaner.clean(validated)
 
+        if ENABLE_CACHING:
+            cache_response(
+                context.file_path, section_type, self._get_model(), cleaned
+            )
+
         return cleaned
 
     @abstractmethod
@@ -68,6 +83,7 @@ class BaseSectionGenerator(ABC):
         """Format prompt with context data."""
         pass
 
+    @abstractmethod
     def _get_model(self) -> str:
         """Get model name for this section. Can be overridden for specific models."""
         return MODEL_NAME

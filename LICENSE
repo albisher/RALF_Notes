@@ -1,0 +1,181 @@
+# RALF Note License
+
+**Version:** 2.0
+**Effective Date:** January 9, 2026
+**Copyright (c) 2026 Abdulrahman Albisher**
+
+---
+
+## License Terms
+
+### 1. Personal Use - FREE
+
+**You are granted a free, non-exclusive license to use RALF Note for personal, non-commercial purposes.**
+
+This includes:
+- ✅ Using RALF Note for your personal projects
+- ✅ Using RALF Note for learning and education
+- ✅ Using RALF Note for hobby projects
+- ✅ Modifying the code for your personal use
+- ✅ Sharing the code with others (under these same license terms)
+
+### 2. Team/Startup Use - $1/month per user
+
+**For teams, startups, or small businesses (2+ users), a paid license is required.**
+
+Pricing:
+- **$1 USD per user per month**
+- Minimum 2 users
+- Billed monthly or annually (10% discount for annual)
+
+This includes:
+- ✅ All features of RALF Note
+- ✅ Use for internal business purposes
+- ✅ Priority support via GitHub issues
+- ✅ Early access to new features
+
+**To purchase:** Contact the author at [abalbisher@gmail.com](mailto:abalbisher@gmail.com)
+
+### 3. Enterprise Use - Custom Quote
+
+**For enterprises, large organizations, or companies with 50+ users, a custom license is required.**
+
+Enterprise includes:
+- ✅ All features of RALF Note
+- ✅ Custom integrations and modifications
+- ✅ Dedicated support
+- ✅ SLA agreements
+- ✅ On-premise deployment options
+- ✅ Custom feature development
+
+**To request a quote:** Contact the author at [abalbisher@gmail.com](mailto:abalbisher@gmail.com)
+
+---
+
+## Restrictions
+
+### ❌ Prohibited Uses
+
+You may NOT:
+- ❌ **Fork and modify for profit** - No creating commercial derivatives
+- ❌ **Sell or resell** - No selling RALF Note or derivatives
+- ❌ **Use in commercial products without a license** - Teams/enterprises must have valid licenses
+- ❌ **Remove or modify copyright notices** - All copyright notices must remain
+- ❌ **Sublicense or redistribute under different terms** - This license must be preserved
+- ❌ **Use for competitive products** - No using RALF Note code to build competing documentation tools for sale
+
+### ✅ Allowed Uses (Personal Only)
+
+You may:
+- ✅ **Study the code** - Learn from the implementation
+- ✅ **Modify for personal use** - Customize for your own needs
+- ✅ **Contribute back** - Submit pull requests to improve RALF Note
+- ✅ **Share the project** - Tell others about RALF Note (with this license)
+
+---
+
+## Commercial Use Definition
+
+**"Commercial use"** means:
+- Using RALF Note within a for-profit company or organization
+- Using RALF Note as part of a paid service or product
+- Using RALF Note to generate documentation for client work
+- Using RALF Note in a team setting (2+ people in business context)
+
+**Note:** Freelancers and independent consultants using RALF Note for client work are considered "Team Use" and require a paid license.
+
+---
+
+## Open Source Contributions
+
+**Contributions to RALF Note are welcome!**
+
+By contributing code, documentation, or other materials to RALF Note, you agree that:
+1. Your contributions will be licensed under these same terms
+2. You have the right to contribute the materials
+3. You grant the author (Abdulrahman Albisher) the right to use your contributions
+
+---
+
+## Warranty Disclaimer
+
+**RALF NOTE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.**
+
+The software is provided without warranties of any kind, express or implied, including but not limited to:
+- Warranties of merchantability
+- Fitness for a particular purpose
+- Non-infringement
+
+The author shall not be liable for any damages arising from the use of this software.
+
+---
+
+## License Enforcement
+
+**Unauthorized commercial use is a violation of this license and may result in:**
+1. Legal action
+2. Financial penalties
+3. Permanent ban from using RALF Note
+
+If you are unsure whether your use case requires a paid license, please contact: [abalbisher@gmail.com](mailto:abalbisher@gmail.com)
+
+---
+
+## How to Get a License
+
+### For Personal Use (Free)
+✅ Just use it! No registration required.
+
+### For Team Use ($1/month/user)
+1. Email: [abalbisher@gmail.com](mailto:abalbisher@gmail.com)
+2. Subject: "RALF Note Team License"
+3. Include: Number of users, company name, billing details
+4. Receive: Invoice and license key
+
+### For Enterprise (Custom Quote)
+1. Email: [abalbisher@gmail.com](mailto:abalbisher@gmail.com)
+2. Subject: "RALF Note Enterprise License"
+3. Include: Company details, number of users, requirements
+4. Schedule: Discovery call to discuss needs
+5. Receive: Custom quote and terms
+
+---
+
+## License Updates
+
+This license may be updated from time to time. Updates will be published in the LICENSE file in the repository. Continued use after updates implies acceptance of new terms.
+
+**Current Version:** 2.0
+**Last Updated:** January 9, 2026
+
+---
+
+## Contact
+
+**Author:** Abdulrahman Albisher
+**Email:** [abalbisher@gmail.com](mailto:abalbisher@gmail.com)
+**GitHub:** [https://github.com/albisher/RALF_Notes](https://github.com/albisher/RALF_Notes)
+
+---
+
+## Summary
+
+| Use Case | Cost | License Required |
+|----------|------|------------------|
+| **Personal Use** | FREE | No registration |
+| **Team/Startup** | $1/month/user | Email for license |
+| **Enterprise** | Custom | Email for quote |
+| **Forking for profit** | ❌ NOT ALLOWED | N/A |
+| **Commercial derivative** | ❌ NOT ALLOWED | N/A |
+
+---
+
+**Thank you for respecting this license and supporting RALF Note development!** 🙏
+
+If you find RALF Note valuable, please:
+- ⭐ Star the repository on GitHub
+- 📢 Share with others who might benefit
+- 🐛 Report bugs and suggest improvements
+- 💰 Consider purchasing a license if using commercially
+
+Together we can build better documentation tools for everyone! 🚀

@@ -1,7 +1,7 @@
-from .base_section_generator import BaseSectionGenerator, GenerationContext, SYSTEM_PROMPT_FOR_GENERATORS
+from .base_section_generator import BaseSectionGenerator, GenerationContext
 from typing import Optional
 
-class GenericSectionGenerator(BaseSectionGenerator):
+class SectionGenerator(BaseSectionGenerator):
     """
     Box: Generic Section generator
 

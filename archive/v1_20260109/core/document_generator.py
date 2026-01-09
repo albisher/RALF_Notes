@@ -7,6 +7,7 @@ from utils.file_processor import FileProcessor
 from core.ollama_client import OllamaClient
 from config import MAX_CTX, MODEL_NAME, OPTIONS # From config.py
 from datetime import datetime # for DocumentMetadata created field
+from cache.cache_manager import get_cached_response, cache_response
 
 class DocumentGenerator:
     """
@@ -71,6 +72,7 @@ class DocumentGenerator:
         return GenerationContext(
             content=content,
             file_size=file_size,
+            file_path=file_path,
             options=options
         )
 

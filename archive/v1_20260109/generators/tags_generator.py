@@ -1,5 +1,5 @@
-from .base_section_generator import BaseSectionGenerator, GenerationContext, SYSTEM_PROMPT_FOR_GENERATORS
-from prompts import TAGS_PROMPT
+from .base_section_generator import BaseSectionGenerator, GenerationContext
+from prompts import TAGS_PROMPT, SYSTEM_PROMPT_FOR_GENERATORS
 
 class TagsGenerator(BaseSectionGenerator):
     """
