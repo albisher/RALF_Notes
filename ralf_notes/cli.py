@@ -22,7 +22,7 @@ from .core import (
     JSONGeneratorConfig
 )
 from rich.table import Table
-from .tui import Console, ProgressManager, get_banner
+from .tui import Console, ProgressManager, get_banner, get_banner_with_status
 
 
 def display_config_table(console: Console, config_manager: ConfigManager):
@@ -312,10 +312,6 @@ def generate(
     # Setup console
     console = Console(quiet=quiet)
 
-    if not quiet:
-        console.banner(get_banner('full'))
-        console.print("")
-
     # Load configuration
     config_manager = ConfigManager()
 
@@ -335,16 +331,28 @@ def generate(
     if model:
         config_manager.set_model(model)
 
-    # Show configuration
+    # Get file count for status banner
+    from .core.file_processor import FileProcessor
+    temp_processor = FileProcessor(None)  # Just for counting files
+    all_files = temp_processor._get_all_files(source_paths)
+    file_count = len(all_files)
+
+    # Determine source path display (use first path or "multiple")
+    source_display = str(source_paths[0].name) if len(source_paths) == 1 else f"{len(source_paths)} sources"
+
+    # Show banner with status
     if not quiet:
-        console.info(f"Model: {config_manager.get('model_name')}")
-        console.info(f"Target folder as assigned by user: {target_dir}")
-        console.info("Source folders as assigned by user:")
-        if source_paths:
-            for sp in source_paths:
-                console.info(f"  - {sp}")
-        else:
-            console.info("  - None configured.")
+        status_banner = get_banner_with_status(
+            style='full',
+            model=config_manager.get('model_name'),
+            target=str(target_dir),
+            source=source_display,
+            files=file_count,
+            progress=0.0,
+            status='ready'
+        )
+        console.print(status_banner)
+        console.print("")
 
     # Build pipeline
     try:
