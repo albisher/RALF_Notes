@@ -81,10 +81,10 @@ class Console:
         if not self.quiet:
             self.console.print(Text(banner_text, style="bold cyan"))
 
-    def rule(self, title: str = ""):
+    def rule(self, title: str = "", style: str = "dim"):
         """Display horizontal rule."""
         if not self.quiet:
-            self.console.rule(title, style="dim")
+            self.console.rule(title, style=style)
 
     def table_from_dict(self, data: Dict[str, Any], title: str = ""):
         """Display key-value pairs as table."""
