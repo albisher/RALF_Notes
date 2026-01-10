@@ -37,6 +37,7 @@ setup(
         "typer>=0.9.0",
         "rich>=13.0.0",
         "ollama>=0.1.0",
+        "psutil>=5.9.0",
     ],
     entry_points={
         "console_scripts": [

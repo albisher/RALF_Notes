@@ -27,7 +27,8 @@ class ConfigManager:
         "num_ctx": 10000,
         "chunk_size": 100000,
         "max_content_length": 8000,
-        "max_chunk_summary_length": 4000
+        "max_chunk_summary_length": 4000,
+        "max_files_to_process": 0  # 0 for no limit
     }
 
     def __init__(self, config_path: Optional[Path] = None):
@@ -50,7 +51,10 @@ class ConfigManager:
         if self.config_path.exists():
             try:
                 with open(self.config_path, 'r') as f:
-                    return json.load(f)
+                    # Start with defaults and override with user's config
+                    config = self.DEFAULT_CONFIG.copy()
+                    config.update(json.load(f))
+                    return config
             except Exception:
                 return self.DEFAULT_CONFIG.copy()
         return self.DEFAULT_CONFIG.copy()
@@ -63,10 +67,26 @@ class ConfigManager:
 
     def get(self, key: str, default: Any = None) -> Any:
         """Get configuration value."""
-        return self.config.get(key, default)
+        value = self.config.get(key, default)
+        if isinstance(value, str):
+            return value.strip().strip("'\"")
+        return value
+
+    _VALIDATORS = {
+        "temperature": lambda x: isinstance(x, (int, float)) and 0.0 <= x <= 2.0,
+        "num_ctx": lambda x: isinstance(x, int) and x > 0,
+        "chunk_size": lambda x: isinstance(x, int) and x > 0,
+        "max_content_length": lambda x: isinstance(x, int) and x > 0,
+        "max_chunk_summary_length": lambda x: isinstance(x, int) and x > 0,
+        "max_files_to_process": lambda x: isinstance(x, int) and x >= 0,
+        "ollama_host": lambda x: isinstance(x, str) and (x.startswith("http://") or x.startswith("https://"))
+    }
 
     def set(self, key: str, value: Any):
-        """Set configuration value."""
+        """Set configuration value with validation."""
+        if key in self._VALIDATORS:
+            if not self._VALIDATORS[key](value):
+                raise ValueError(f"Invalid value for '{key}': {value}. Does not meet validation criteria.")
         self.config[key] = value
 
     def add_source_path(self, path: str):

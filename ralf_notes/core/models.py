@@ -63,9 +63,9 @@ class RALFDocument:
 
 
 @dataclass
-class JSONGeneratorConfig:
+class StructuredTextGeneratorConfig:
     """
-    Box: JSON Generator Configuration
+    Box: Structured Text Generator Configuration
 
     Responsibility: Configuration for LLM generation
     """

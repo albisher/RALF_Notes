@@ -12,7 +12,7 @@ from .models import GenerationContext, JSONGeneratorConfig
 from .schema import UNIFIED_SYSTEM_PROMPT
 
 
-class JSONGenerator:
+class StructuredTextGenerator:
     """
     Box: JSON Generator
 

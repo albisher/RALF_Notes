@@ -9,10 +9,9 @@ Responsibility: Orchestrate generation → extraction → validation → formatt
 from pathlib import Path
 from typing import Tuple, Dict, Any, Optional
 from .models import GenerationContext
-from .json_generator import JSONGenerator
-from .json_extractor import JSONExtractor
-from .json_validator import JSONValidator
-from .markdown_formatter import MarkdownFormatter
+from .structured_text_generator import StructuredTextGenerator
+from .text_parser import TextParser
+from ollama import OllamaError
 
 
 class DocumentPipeline:
@@ -25,22 +24,19 @@ class DocumentPipeline:
     """
 
     def __init__(self,
-                 json_generator: JSONGenerator,
-                 json_extractor: JSONExtractor,
-                 json_validator: JSONValidator,
+                 structured_text_generator: StructuredTextGenerator,
+                 text_parser: TextParser,
                  markdown_formatter: MarkdownFormatter):
         """
         Initialize pipeline with all components.
 
         Args:
             json_generator: Component for LLM generation
-            json_extractor: Component for JSON extraction
-            json_validator: Component for validation
+            text_parser: Component for parsing structured text
             markdown_formatter: Component for markdown formatting
         """
-        self.generator = json_generator
-        self.extractor = json_extractor
-        self.validator = json_validator
+        self.generator = structured_text_generator
+        self.parser = text_parser
         self.formatter = markdown_formatter
 
     def generate_document(self, file_path: Path) -> Tuple[str, Dict[str, Any]]:
@@ -52,7 +48,7 @@ class DocumentPipeline:
 
         Returns:
             Tuple of (markdown_content, metadata)
-            metadata contains: cached, valid, errors, json_data
+            metadata contains: cached, valid, errors, data
         """
         filename = file_path.stem
 
@@ -60,43 +56,56 @@ class DocumentPipeline:
             # 1. Read file
             content = file_path.read_text(encoding='utf-8')
 
-            # 2. Generate JSON (single LLM call!)
+            # 2. Generate structured text (single LLM call!)
             context = GenerationContext(
                 filename=filename,
                 content=content,
                 file_path=str(file_path)
             )
-            raw_json = self.generator.generate(context)
+            raw_text = self.generator.generate(context)
 
-            # 3. Extract JSON
-            parsed, error = self.extractor.extract(raw_json)
-            if not parsed:
-                # Use fallback
-                parsed = self.extractor.extract_or_fallback(raw_json, filename)
+            # 3. Parse text
+            parsed_data = self.parser.parse_or_fallback(raw_text, filename)
+            
+            # 4. Format markdown
+            markdown = self.formatter.format(parsed_data)
 
-            # 4. Validate and fix
-            is_valid, errors = self.validator.validate(parsed)
-            if not is_valid:
-                parsed = self.validator.validate_and_fix(parsed)
-
-            # 5. Format markdown
-            markdown = self.formatter.format(parsed)
+            is_valid = "#parsing-failed" not in parsed_data.get("tags", [])
 
             metadata = {
                 'cached': False,
                 'valid': is_valid,
-                'errors': errors if not is_valid else [],
-                'json_data': parsed
+                'errors': [] if is_valid else [parsed_data.get("details", "")],
+                'data': parsed_data
             }
 
             return (markdown, metadata)
 
-        except Exception as e:
-            # Error handling
+        except OllamaError as oe:
+            error_message = f"Ollama API Error: {oe}"
             error_markdown = f"""# {filename}
 
-> [!ERROR] Generation Failed
-> Error: {str(e)}
+> [!ERROR] Generation Failed: Ollama API Error
+> Error: {error_message}
+
+**File:** {file_path}
+
+Manual review required."""
+            metadata = {
+                'cached': False,
+                'valid': False,
+                'errors': [error_message],
+                'json_data': {}
+            }
+            return (error_markdown, metadata)
+        except Exception as e:
+            # Error handling
+            import traceback
+            error_message = f"Unexpected Error during document generation: {e}\n{traceback.format_exc()}"
+            error_markdown = f"""# {filename}
+
+> [!ERROR] Generation Failed: Unexpected Error
+> Error: {error_message}
 
 **File:** {file_path}
 
@@ -105,7 +114,7 @@ Manual review required."""
             metadata = {
                 'cached': False,
                 'valid': False,
-                'errors': [str(e)],
+                'errors': [error_message],
                 'json_data': {}
             }
 

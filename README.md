@@ -49,7 +49,6 @@ ralf-notes setup
 # This will:
 # 1. Create configuration
 # 2. Set up directories
-# 3. Test Ollama connection
 # 4. Guide you through first use
 ```
 
@@ -119,7 +118,7 @@ ralf-notes generate --model qwen2.5:14b
 
 ```bash
 # Test Ollama connection
-ralf-notes test
+ralf-notes check-health
 
 # Show version
 ralf-notes version

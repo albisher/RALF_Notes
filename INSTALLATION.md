@@ -44,7 +44,7 @@ ralf-notes version
 ║   ██████╗  █████╗ ██╗     ███████╗    ███╗   ██╗ ██████╗   ║
 ║   ██╔══██╗██╔══██╗██║     ██╔════╝    ████╗  ██║██╔═══██╗  ║
 ║   ██████╔╝███████║██║     █████╗      ██╔██╗ ██║██║   ██║  ║
-╚══════════════════════════════════════════════════════════════╝
+╚════════════════════════════════════════════════════════════╝
 
 RALF Note v2.0.0 - Unified JSON Architecture
 ```
@@ -96,7 +96,7 @@ ralf-notes setup
 This will:
 - ✅ Create configuration file
 - ✅ Set up directories
-- ✅ Test Ollama connection
+- ✅ Run health checks
 - ✅ Guide you through first use
 
 ### Step 3: Generate
@@ -193,12 +193,13 @@ ralf-notes generate --model qwen2.5:14b
 ### Testing
 
 ```bash
-# Test Ollama connection
-ralf-notes test
+ralf-notes check-health
 
 # Show version
 ralf-notes version
 ```
+
+
 
 ---
 
@@ -273,11 +274,11 @@ pip install git+https://github.com/albisher/RALF_Notes.git
 # Start Ollama
 ollama serve
 
-# In another terminal, pull model
+# Pull model
 ollama pull ministral-3:3b
 
-# Test connection
-ralf-notes test
+ralf-notes check-health
+
 ```
 
 ### Issue: "No source paths configured"
@@ -355,9 +356,11 @@ Verifies your configuration is correct.
 ### 3. Test Ollama Connection
 
 ```bash
-ralf-notes test
+ralf-notes check-health
 ```
 Ensures Ollama is working before generating.
+
+
 
 ### 4. Use Dry Run for Testing
 
