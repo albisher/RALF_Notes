@@ -1,32 +1,32 @@
 """
-Box: JSON Generator
+Box: Structured Text Generator
 
 Input: GenerationContext (file path, content, metadata)
-Output: Raw JSON string from LLM
+Output: Raw structured text from LLM
 Responsibility: Single LLM call to generate structured analysis
 """
 
 from typing import Optional
 from ollama import Client
-from .models import GenerationContext, JSONGeneratorConfig
+from .models import GenerationContext, StructuredTextGeneratorConfig
 from .schema import UNIFIED_SYSTEM_PROMPT
 
 
 class StructuredTextGenerator:
     """
-    Box: JSON Generator
+    Box: Structured Text Generator
 
     Input: GenerationContext
-    Output: Raw JSON string from LLM
+    Output: Raw structured text from LLM
     Responsibility: Single LLM call to generate structured documentation
     """
 
     def __init__(self,
                  ollama_client: Client,
-                 config: JSONGeneratorConfig,
+                 config: StructuredTextGeneratorConfig,
                  system_prompt: Optional[str] = None):
         """
-        Initialize JSON Generator.
+        Initialize Structured Text Generator.
 
         Args:
             ollama_client: Ollama client for LLM calls
@@ -39,13 +39,13 @@ class StructuredTextGenerator:
 
     def generate(self, context: GenerationContext) -> str:
         """
-        Generate JSON documentation for file.
+        Generate structured text documentation for file.
 
         Args:
             context: Generation context with file data
 
         Returns:
-            Raw JSON string from LLM
+            Raw structured text from LLM
         """
         # 1. Prepare content (chunk/summarize if needed)
         processed_content = self._prepare_content(context.content)

@@ -1,14 +1,13 @@
 """
 RALF Note V2 - Core Components
 
-Simplified unified JSON architecture
+Simplified unified structured text architecture
 """
 
-from .models import GenerationContext, KeyFunction, RALFDocument, JSONGeneratorConfig
-from .json_generator import JSONGenerator
-from .json_extractor import JSONExtractor
-from .json_validator import JSONValidator
-from .markdown_formatter import MarkdownFormatter
+from .models import GenerationContext, KeyFunction, RALFDocument, StructuredTextGeneratorConfig
+from .structured_text_generator import StructuredTextGenerator
+from .text_parser import TextParser
+from .note_formatter import NoteFormatter
 from .document_pipeline import DocumentPipeline
 from .file_processor import FileProcessor
 
@@ -16,11 +15,10 @@ __all__ = [
     'GenerationContext',
     'KeyFunction',
     'RALFDocument',
-    'JSONGeneratorConfig',
-    'JSONGenerator',
-    'JSONExtractor',
-    'JSONValidator',
-    'MarkdownFormatter',
+    'StructuredTextGeneratorConfig',
+    'StructuredTextGenerator',
+    'TextParser',
+    'NoteFormatter',
     'DocumentPipeline',
     'FileProcessor',
 ]

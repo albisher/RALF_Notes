@@ -16,7 +16,7 @@ from .config_manager import ConfigManager
 from .core import (
     StructuredTextGenerator,
     TextParser,
-    MarkdownFormatter,
+    NoteFormatter,
     DocumentPipeline,
     FileProcessor,
     StructuredTextGeneratorConfig,
@@ -76,7 +76,7 @@ def version_callback(value: bool):
         console = Console()
         console.banner(get_banner('simple'))
         console.print("")
-        console.info(f"RALF Note v{VERSION} - Unified JSON Architecture")
+        console.info(f"RALF Note v{VERSION} - Structured Text Architecture")
         console.info("Built with: Ollama, Rich, Typer")
         console.print("")
         raise typer.Exit()
@@ -100,11 +100,13 @@ def build_pipeline(config_manager: ConfigManager) -> DocumentPipeline:
         num_ctx=config_manager.get("num_ctx"),
         temperature=config_manager.get("temperature"),
         chunk_size=config_manager.get("chunk_size"),
+        max_content_length=config_manager.get("max_content_length"),  # ADD
+        max_chunk_summary_length=config_manager.get("max_chunk_summary_length"),  # ADD
         ollama_host=config_manager.get("ollama_host")
     )
     generator = StructuredTextGenerator(client, gen_config)
     parser = TextParser()
-    formatter = MarkdownFormatter()
+    formatter = NoteFormatter()
     return DocumentPipeline(generator, parser, formatter)
 
 def show_summary(results: dict, console: Console, quiet: bool):
@@ -128,6 +130,28 @@ Speed: {results.get('files_per_second', 0):.1f} files/s"""
     console.panel(summary_text, title=title, style="green")
     if results.get('failed', 0) > 0:
         console.warning(f"Check output for {results.get('failed', 0)} failed files")
+
+
+@app.callback(invoke_without_command=True)
+def _default_welcome(ctx: typer.Context):
+    """
+    Displays welcome message and basic instructions if no subcommand is given.
+    """
+    if ctx.invoked_subcommand is None:
+        console = Console()
+        console.banner(get_banner('full'))
+        console.print("")
+        console.info("Welcome to RALF Note - AI-Powered Obsidian Documentation Generator!")
+        console.print("")
+        console.print("[bold]To get started:[/bold]")
+        console.print("  1. Run [bold green]ralf-notes init[/bold green] to set up your configuration.")
+        console.print("     (This will guide you through setting source paths, target directory, and Ollama model.)")
+        console.print("  2. Run [bold green]ralf-notes generate[/bold green] to generate documentation.")
+        console.print("  3. Use [bold green]ralf-notes check-health[/bold green] to verify your Ollama setup.")
+        console.print("")
+        console.print("For more information, run [bold green]ralf-notes --help[/bold green].")
+        raise typer.Exit()
+
 
 @app.command()
 def init(

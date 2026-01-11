@@ -11,7 +11,8 @@ from typing import Tuple, Dict, Any, Optional
 from .models import GenerationContext
 from .structured_text_generator import StructuredTextGenerator
 from .text_parser import TextParser
-from ollama import OllamaError
+from .note_formatter import NoteFormatter
+from ollama._types import ResponseError
 
 
 class DocumentPipeline:
@@ -26,18 +27,18 @@ class DocumentPipeline:
     def __init__(self,
                  structured_text_generator: StructuredTextGenerator,
                  text_parser: TextParser,
-                 markdown_formatter: MarkdownFormatter):
+                 note_formatter: NoteFormatter):
         """
         Initialize pipeline with all components.
 
         Args:
-            json_generator: Component for LLM generation
+            structured_text_generator: Component for LLM generation
             text_parser: Component for parsing structured text
-            markdown_formatter: Component for markdown formatting
+            note_formatter: Component for markdown formatting
         """
         self.generator = structured_text_generator
         self.parser = text_parser
-        self.formatter = markdown_formatter
+        self.formatter = note_formatter
 
     def generate_document(self, file_path: Path) -> Tuple[str, Dict[str, Any]]:
         """
@@ -81,7 +82,7 @@ class DocumentPipeline:
 
             return (markdown, metadata)
 
-        except OllamaError as oe:
+        except ResponseError as oe:
             error_message = f"Ollama API Error: {oe}"
             error_markdown = f"""# {filename}
 
@@ -95,7 +96,7 @@ Manual review required."""
                 'cached': False,
                 'valid': False,
                 'errors': [error_message],
-                'json_data': {}
+                'data': {}
             }
             return (error_markdown, metadata)
         except Exception as e:
@@ -115,7 +116,7 @@ Manual review required."""
                 'cached': False,
                 'valid': False,
                 'errors': [error_message],
-                'json_data': {}
+                'data': {}
             }
 
             return (error_markdown, metadata)
