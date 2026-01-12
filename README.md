@@ -372,7 +372,7 @@ This is normal! The fallback creates a warning document with debug info.
 
 ## 📧 Contact
 
-**Author:** Abdulrahman Albisher
+**Author:** Abdullah Albisher
 **Email:** [abalbisher@gmail.com](mailto:abalbisher@gmail.com)
 **GitHub:** [https://github.com/albisher/RALF_Notes](https://github.com/albisher/RALF_Notes)
 
