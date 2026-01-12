@@ -1,0 +1,42 @@
+### FILENAME
+ml-scenario-ui
+
+### TAGS
+#UI, #MachineLearning, #ScenarioManagement, #WebApplication, #RESTAPI, #Docker, #DataVisualization, #TaskTracking
+
+### TYPE
+code-notes
+
+### SUMMARY
+Web-based ML scenario selection and tracking interface for managing and filtering 12 machine learning tasks across Scout, Overseer, Coordination, and system-wide components.
+
+### DETAILS
+This UI provides a structured way to browse, filter, and manage 12 ML scenarios extracted from HMRS research. It organizes scenarios into components (Scout, Overseer, Coordination, System-wide) and allows users to track their status (Not Started, In Progress, Completed, Failed, Paused) via a dashboard and filterable tabs. The system supports persistent JSON storage and REST API access for programmatic interaction. Users can interact with ongoing scenarios directly via action buttons (Pause, Complete, Fail) and view statistics like total/ongoing/completed scenarios.
+
+### KEY_FUNCTIONS
+- **`ml_scenario_ui.py`**: Main server script to launch the UI application.
+- **`scenario_card_component`**: Renders individual scenario cards with details like name, component, status, and actions.
+- **`statistics_dashboard`**: Displays aggregated scenario statistics (total/ongoing/completed/not started).
+- **`ongoing_scenarios_section`**: Highlights active scenarios in green for quick visibility.
+- **`filter_tabs`**: Provides dynamic filtering by status or component (Scout/Overseer/Coordination).
+- **`REST API endpoints`**:
+  - `GET /api/scenarios`: Returns all scenarios.
+  - `GET /api/scenarios/ongoing`: Returns only active scenarios.
+  - `GET /api/scenario/<scenario_id>`: Returns details for a specific scenario.
+
+### DEPENDENCIES
+Flask (for web framework), Docker (for containerization), JSON (for data storage), and Python libraries for ML scenario management (e.g., YOLOv8, clustering algorithms).
+
+### USAGE
+1. **Local Setup**: Run `python ml_scenario_ui.py` in the `simulation` directory and access `http://localhost:5006`.
+2. **Docker Setup**: Run `docker-compose up ml-scenario-ui` in the same directory.
+3. **API Access**: Use `GET` requests to endpoints like `/api/scenarios` or `/api/scenarios/ongoing` for programmatic data retrieval.
+
+### RELATED
+[[HMRS Research Paper]], [[Simulation Backend]], [[Docker Compose Configuration]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The UI relies on persistent JSON storage for scenario data. Ensure the `scenarios.json` file exists in the working directory or initialize it with the provided ML scenarios.
+>[!WARNING]- Caution
+> Directly modifying the JSON file may corrupt scenario metadata. Use the UI or API to update statuses/filters instead.

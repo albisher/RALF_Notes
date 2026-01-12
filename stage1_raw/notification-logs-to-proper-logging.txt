@@ -1,0 +1,40 @@
+### FILENAME
+simulation/frontend/app-data.js
+
+### TAGS
+#logging, #event-handling, #frontend-development, #data-operations, #user-interactions, #system-monitoring, #api-integration, #error-handling
+
+### TYPE
+code-notes
+
+### SUMMARY
+Migrates event notifications to structured logging in frontend JavaScript for system, weather, session, and map operations.
+
+### DETAILS
+This file implements a comprehensive logging system in the frontend application to replace unsystematic notifications with categorized logs. The solution ensures all significant events—such as building operations, weather updates, session management, and geolocation interactions—are logged via `window.loggingBox.log()` with metadata like event type, action, and contextual data. Logs are structured for proper categorization (e.g., `building_operation`, `weather_operation`) and include details like IDs, coordinates, or error messages. This improves observability by routing logs to appropriate panels (e.g., "View & Usage Logs" for user interactions).
+
+### KEY_FUNCTIONS
+- **`window.loggingBox.log()`**: Core logging function with structured metadata for all events.
+- **`type` and `action` fields**: Categorize events (e.g., `building_operation`, `user_interaction`) and specify actions (e.g., `save_building`, `get_current_location`).
+- **Contextual data inclusion**: Building IDs, coordinates, error details, or warnings for debugging/tracing.
+- **Panel-specific routing**: Logs for user interactions appear in the "View & Usage Logs" panel.
+
+### DEPENDENCIES
+`window.loggingBox` (custom frontend utility for logging), `showNotification()` (legacy notification system), external libraries for geolocation (e.g., `Geolocation API`), and API calls for weather data.
+
+### USAGE
+1. **Trigger Events**: Call `showNotification()` for legacy notifications, but ensure all critical events also invoke `window.loggingBox.log()` with structured metadata.
+2. **Log Structure**: Logs must include:
+   - `type`: Event category (e.g., `building_operation`).
+   - `action`: Subcategory (e.g., `spawn_training_buildings`).
+   - Contextual data (e.g., building ID, coordinates, error messages).
+3. **Panel Integration**: Logs for `user_interaction` events auto-route to the "View & Usage Logs" panel.
+
+### RELATED
+[[simulation/frontend/logging-system-design]], [[frontend-notification-migration-guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Logging metadata (e.g., `type`, `action`) must match panel expectations to ensure correct categorization. Inconsistent fields may cause logs to appear misplaced.
+>[!WARNING]- Caution
+> Overloading logs with excessive metadata (e.g., redundant IDs) can degrade performance. Prioritize critical data (e.g., errors, coordinates) over non-essential details.

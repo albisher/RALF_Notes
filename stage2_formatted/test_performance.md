@@ -1,0 +1,62 @@
+**Tags:** #performance-test, #simulation, #benchmark, #pybullet, #HMRS
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# test_performance
+
+## Summary
+
+```
+Measures and records initialization speed, step execution time, and API response latency for HMRS simulation.
+```
+
+## Details
+
+> This script evaluates the performance of the HMRS (High-Mobility Robotic Swarm) simulation system by running multiple tests:
+> - **Initialization Speed**: Measures how quickly a simulation instance can start up across multiple runs.
+> - **Step Performance**: Tests how efficiently the simulation processes a fixed number of steps per drone.
+> - **API Response Times**: (Incomplete in provided snippet) Likely measures latency for external API calls during simulation.
+> 
+> The script uses `pybullet` for physics simulation and `requests` for HTTP API testing (if available). It records timing metrics (average, min, max, standard deviation) and logs failures gracefully. The test runs are repeated to ensure statistical reliability.
+
+## Key Functions
+
+### ``test_initialization``
+
+Measures and reports initialization time for `HMRSSimulationLive` across multiple runs.
+
+### ``test_step_performance``
+
+(Incomplete) Tests simulation step execution speed with configurable step count and drone count.
+
+### ``PerformanceTester``
+
+Main class that aggregates results into a structured dictionary (`results`).
+
+## Usage
+
+1. Run the script directly to execute all performance tests.
+2. Customize parameters via function arguments:
+   - `num_runs` (for initialization): Number of initialization trials.
+   - `num_steps` (for step performance): Steps to simulate per drone.
+   - `num_drones`: Number of drones to spawn.
+3. Results are printed to console and stored in `self.results`.
+
+## Dependencies
+
+> ``requests``
+> ``pybullet``
+> ``hmrs_simulation_live``
+> ``swarm.hmrs_drone_spawner``
+
+## Related
+
+- [[HMRS Simulation Documentation]]
+- [[PyBullet Physics Engine Guide]]
+
+>[!WARNING] Dependency Check
+> If `pybullet` or `requests` is missing, the script will print warnings and skip relevant tests. Ensure these packages are installed (`pip install pybullet requests`).
+
+
+>[!INFO] Headless Mode
+> The `HMRSSimulationLive` initialization uses `headless=True` to avoid GUI overhead, which may slightly skew timing results. Adjust this parameter if testing GUI-dependent performance.

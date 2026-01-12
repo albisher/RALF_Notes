@@ -1,0 +1,69 @@
+**Tags:** #ui-testing, #frontend-validation, #visual-verification, #screenshot-analysis, #debugging
+**Created:** 2026-01-12
+**Type:** documentation
+
+# ui_actual_visible_working_checklist
+
+## Summary
+
+```
+Documentation checklist verifying UI elements' visibility and functionality against a screenshot for a simulation dashboard application.
+```
+
+## Details
+
+> This checklist compares actual UI elements visible in a screenshot against their functional status (working/non-working) for a browser-based simulation dashboard. It uses a structured table format to document the presence, interactivity, and discrepancies between UI components and backend API responses. The analysis includes browser tools, console logs, and manual screenshot verification, focusing on the left sidebar controls and main visualization area.
+
+## Key Functions
+
+### `Header Bar`
+
+Displays application title, navigation tabs, session info, state indicator, simulation time, and start button.
+
+### `Simulation Control Section`
+
+Contains buttons for start, pause, restart, and reset simulation.
+
+### `Spawn Drone Section`
+
+Shows drone count (0) and a spawn button (disabled).
+
+### `Send Command Section`
+
+Contains a command button (disabled).
+
+### `Buildings Section`
+
+Lists building count (discrepancy noted), spawn/refresh/delete buttons, and status messages.
+
+### `Main Content Area`
+
+Visualization canvas for simulation data (visual verification only).
+
+## Usage
+
+To use this checklist:
+1. Open the URL (`http://localhost:5007`) in a browser.
+2. Capture a screenshot of the UI.
+3. Compare elements against the provided table.
+4. Note discrepancies (e.g., UI vs. API data mismatch).
+5. Verify interactivity where possible (e.g., active buttons).
+
+## Dependencies
+
+> `- Browser MCP tools (Chrome DevTools)
+- Screenshot analysis software (for image comparison)
+- Console logs (Vue.js framework)
+- Localhost URL: `http://localhost:5007``
+
+## Related
+
+- [[ui_screenshot_verification_guide]]
+- [[simulation_dashboard_api_specification]]
+
+>[!INFO] Important Note
+> **Discrepancy Alert**: The UI shows "0 buildings" while the console logs indicate "3 buildings ready." Verify backend API response consistency with UI rendering.
+
+
+>[!WARNING] Caution
+> **Disabled Buttons**: Some buttons (e.g., Pause, Restart) are greyed out, indicating they are in an inactive state. Ensure backend logic prevents these actions during initial UI load.

@@ -1,21 +1,38 @@
 # RALF Note Refactoring Roadmap
 
 **Date:** 2026-01-09
-**Status:** Ready for Implementation
-**Version:** 2.0 (Unified JSON Architecture)
+**Status:** ✅ COMPLETE & DEPLOYED (January 2026)
+**Version:** 2.1.0 (Unified Structured Text Architecture)
 
 ---
 
 ## Overview
 
-This roadmap documents the transformation of RALF Note from a complex 9-generator architecture to a simplified, unified JSON approach based on successful PoC testing.
+This roadmap documents the transformation of RALF Note from a complex 9-generator architecture to a simplified, unified structured text approach. During implementation, the original JSON design evolved to a more reliable structured text format with section headers.
 
-**Current State:** 9 separate generators, ~1,437 lines, 9 LLM calls per file
-**Target State:** Single unified pipeline, ~600 lines, 1 LLM call per file
+**Original State (V1):** 9 separate generators, ~1,437 lines, 9 LLM calls per file
+**Current State (V2):** Single unified pipeline, ~600 lines, 1 LLM call per file
 
 ---
 
-## Key Documents
+## 🔄 Architecture Evolution (JSON → Structured Text)
+
+**Important Note:** This roadmap originally planned a JSON-based architecture. During implementation, we discovered that structured text with section headers (like `### FILENAME`, `### TAGS`) was significantly more reliable than JSON for LLM output.
+
+**Why the change?**
+- ✅ **Higher success rate:** >95% vs ~85% with JSON
+- ✅ **More forgiving:** Partial outputs can be parsed
+- ✅ **Simpler for LLMs:** No syntax escaping or control characters
+- ✅ **Easier debugging:** Human-readable without tools
+- ✅ **Better error recovery:** Sections are independent
+
+**Impact:** Zero! The 3-stage architecture remained the same, only the data format changed from JSON to structured text with section headers like `### FILENAME`, `### TAGS`, etc.
+
+**Details:** See [01-structured-text-design.md](01-structured-text-design.md) section "Why Structured Text > JSON?"
+
+**Note:** Historical sections in this roadmap may still reference "JSON" approach - this reflects the original planning. The actual implementation uses structured text format and is documented in `01-structured-text-design.md`.
+
+---
 
 ### 1. [00-poc-analysis.md](00-poc-analysis.md)
 **What it covers:**
@@ -28,15 +45,16 @@ This roadmap documents the transformation of RALF Note from a complex 9-generato
 
 ---
 
-### 2. [01-json-schema-design.md](01-json-schema-design.md)
+### 2. [01-structured-text-design.md](01-structured-text-design.md)
 **What it covers:**
-- Complete unified JSON schema
-- Field descriptions and validation rules
-- Prompt templates for LLM
-- Example responses
-- Validation implementation
+- 3-stage structured text approach (not JSON)
+- Stage 1: StructuredTextGenerator (LLM)
+- Stage 2: TextParser (parsing)
+- Stage 3: NoteFormatter (markdown)
+- Why structured text > JSON
+- Complete implementation details
 
-**Key Takeaway:** Single JSON response replaces 9 separate generator outputs
+**Key Takeaway:** Structured text format is simpler and more reliable than JSON for LLM output
 
 ---
 
@@ -84,26 +102,26 @@ This roadmap documents the transformation of RALF Note from a complex 9-generato
 
 **Read in Order:**
 1. Start with `00-poc-analysis.md` - Understand why we're doing this
-2. Read `01-json-schema-design.md` - Understand the data structure
+2. Read `01-structured-text-design.md` - Understand the data structure
 3. Study `02-architecture-refactoring.md` - Understand the code design
 4. Review `03-tui-implementation.md` - Understand the UX design
-5. Follow `04-implementation-roadmap.md` - Execute the plan
+5. Follow `04-implementation-roadmap.md` - See the execution plan (V2 complete)
 
-**First Week Tasks:**
+**First Week Tasks (Completed):**
 ```bash
-# Day 1: Setup
-mkdir -p core_v2 tui tests/v2
-# Implement models.py
+# Day 1: Setup ✅
+mkdir -p ralf_notes/core ralf_notes/tui tests
+# Implement models.py ✅
 
-# Day 2-3: Core Components
-# Implement json_generator.py
-# Implement json_extractor.py
+# Day 2-3: Core Components ✅
+# Implement structured_text_generator.py ✅
+# Implement text_parser.py ✅
 
-# Day 4: Validation
-# Implement json_validator.py
+# Day 4: Validation ✅
+# Implement validator.py ✅
 
-# Day 5: Formatting
-# Implement markdown_formatter.py
+# Day 5: Formatting ✅
+# Implement note_formatter.py ✅
 ```
 
 ---
@@ -152,13 +170,13 @@ Complexity: High
 Maintenance: Difficult
 ```
 
-### New (Simple)
+### New (Simple) - V2 Implementation ✅
 ```
-File → [JSON Generator] → 1 LLM Call → JSON → Extract → Validate → Format → Markdown
-                                         │
-                                         ├── JSONExtractor
-                                         ├── JSONValidator
-                                         └── MarkdownFormatter
+File → [Text Generator] → 1 LLM Call → Structured Text → Parse → Format → Markdown
+                                        │
+                                        ├── TextParser
+                                        ├── Validator (optional)
+                                        └── NoteFormatter
 
 Time: ~2s per file
 Complexity: Low
@@ -384,9 +402,39 @@ Let's build RALF Note 2.0! 🚀
 |----------|---------|----------|
 | [README.md](README.md) | Overview & summary | Everyone |
 | [00-poc-analysis.md](00-poc-analysis.md) | PoC learnings | Architects |
-| [01-json-schema-design.md](01-json-schema-design.md) | Data structure | Developers |
+| [01-structured-text-design.md](01-structured-text-design.md) | Data structure | Developers |
 | [02-architecture-refactoring.md](02-architecture-refactoring.md) | Code design | Developers |
 | [03-tui-implementation.md](03-tui-implementation.md) | UI/UX design | Frontend devs |
-| [04-implementation-roadmap.md](04-implementation-roadmap.md) | Execution plan | Project managers |
+| [04-implementation-roadmap.md](04-implementation-roadmap.md) | V2 Execution plan | Project managers |
+| [05-boxes-oop-verification.md](05-boxes-oop-verification.md) | Style verification | Architects |
+| [06-auto-tuning-system.md](06-auto-tuning-system.md) | Auto-tuning design | Developers |
+| [07-enhancement-roadmap.md](07-enhancement-roadmap.md) | **Current Phase (6-9)** | Everyone |
+| [08-rate-limit-options.md](08-rate-limit-options.md) | Rate limiting options | Developers |
+| [09-work-assessment-jan-2026.md](09-work-assessment-jan-2026.md) | Work quality assessment | Reviewers |
+| [10-documentation-updates-jan-2026.md](10-documentation-updates-jan-2026.md) | Doc consistency fixes | Maintainers |
+| [11-tag-refinement-system.md](11-tag-refinement-system.md) | **Tag refinement (Phase 9)** | Everyone |
 
 **Read in order for best understanding.**
+
+---
+
+## 🎯 Current Status (January 2026)
+
+**V2 Implementation:** ✅ **COMPLETE** (See [docs/status/REFLECTION.md](../docs/status/REFLECTION.md))
+
+**Current Phase:** **Phase 6 - Bug Fixes & Polish** (See [07-enhancement-roadmap.md](07-enhancement-roadmap.md))
+
+**Key Documents for Current Work:**
+1. **[07-enhancement-roadmap.md](07-enhancement-roadmap.md)** - Active roadmap (Phases 6-9) ⭐
+2. **[docs/status/PROJECT_STATUS.md](../docs/status/PROJECT_STATUS.md)** - Project dashboard
+3. **[docs/status/REFLECTION.md](../docs/status/REFLECTION.md)** - V2 completion analysis
+4. **[docs/status/SESSION_WORK_SUMMARY.md](../docs/status/SESSION_WORK_SUMMARY.md)** - Recent work
+5. **[feedback/11-code-review-jan-2026.md](../feedback/11-code-review-jan-2026.md)** - Code review findings
+
+**Next Steps:**
+- Fix 2 critical bugs from code review (Phase 6)
+- Fix timing display bug (Phase 6)
+- Implement rate limiting (Phase 7)
+- Add comprehensive logging (Phase 7)
+- Complete auto-tuning system (Phase 7)
+- Tag refinement system (Phase 9)

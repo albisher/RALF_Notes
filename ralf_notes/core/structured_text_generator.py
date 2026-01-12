@@ -1,12 +1,5 @@
-"""
-Box: Structured Text Generator
-
-Input: GenerationContext (file path, content, metadata)
-Output: Raw structured text from LLM
-Responsibility: Single LLM call to generate structured analysis
-"""
-
 from typing import Optional
+from pathlib import Path # Add Path import
 from ollama import Client
 from .models import GenerationContext, StructuredTextGeneratorConfig
 from .schema import UNIFIED_SYSTEM_PROMPT
@@ -16,9 +9,9 @@ class StructuredTextGenerator:
     """
     Box: Structured Text Generator
 
-    Input: GenerationContext
+    Input: GenerationContext (file path, content, metadata)
     Output: Raw structured text from LLM
-    Responsibility: Single LLM call to generate structured documentation
+    Responsibility: Single LLM call to generate structured analysis
     """
 
     def __init__(self,
@@ -65,65 +58,29 @@ class StructuredTextGenerator:
         )
 
         return response['response']
+    
+    def generate_and_save_raw(self, context: GenerationContext, output_path: Path) -> None:
+        """
+        Generate raw structured text documentation and save it to a file.
+
+        Args:
+            context: Generation context with file data
+            output_path: Path to save the raw LLM output
+        """
+        raw_output = self.generate(context)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(raw_output, encoding='utf-8')
 
     def _prepare_content(self, content: str) -> str:
         """
-        Chunk and summarize large files.
-
-        Args:
-            content: Raw file content
-
-        Returns:
-            Processed content suitable for LLM
+        Prepare content for LLM for fastest raw generation (Phase 1).
+        Prioritizes single LLM call by truncating if content is too large.
         """
-        if len(content) <= self.config.chunk_size:
-            # Truncate for reliability using config value
+        if len(content) <= self.config.max_content_length:
+            return content
+        else:
             return content[:self.config.max_content_length]
 
-        # Need to chunk and summarize
-        return self._recursive_summarize(content)
-
-    def _recursive_summarize(self, content: str) -> str:
-        """
-        Recursively summarize large content.
-
-        Args:
-            content: Large content that exceeds chunk size
-
-        Returns:
-            Condensed summary
-        """
-        chunks = [
-            content[i:i + self.config.chunk_size]
-            for i in range(0, len(content), self.config.chunk_size)
-        ]
-
-        summaries = []
-        for i, chunk in enumerate(chunks, 1):
-            # Summarize each chunk (matches original PoC format, uses config value)
-            prompt = f"Summarize this code:\n\n{chunk[:self.config.max_chunk_summary_length]}"
-            try:
-                response = self.client.generate(
-                    model=self.config.model_name,
-                    prompt=prompt,
-                    options={
-                        "num_ctx": self.config.num_ctx,
-                        "temperature": self.config.temperature
-                    }
-                )
-                summaries.append(response['response'])
-            except Exception:
-                # Fallback on error
-                summaries.append(chunk[:1000])
-
-        # Combine summaries
-        combined = '\n\n'.join(summaries)
-
-        # Recursively summarize if still too large
-        if len(combined) > self.config.chunk_size:
-            return self._recursive_summarize(combined)
-
-        return combined
 
     def _format_prompt(self, filename: str, content: str) -> str:
         """

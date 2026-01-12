@@ -1,0 +1,38 @@
+### FILENAME
+create_drone_type_sessions
+
+### TAGS
+#drone-simulation, #automated-testing, #robotics, #ai, #movement-patterns
+
+### TYPE
+code-notes
+
+### SUMMARY
+Script to generate and validate drone movement sessions for different drone types in a simulation environment.
+
+### DETAILS
+This script defines a structured approach to test and verify movement behaviors of various drone types (e.g., quadcopters, fixed-wing, VTOL hybrids) by creating isolated sessions. It uses a REST API (`BASE_URL`) to interact with a drone simulation, stopping and resetting the simulation before each test to ensure clean conditions. The script includes predefined drone configurations with expected movement patterns, hover capabilities, and forward velocity requirements. It organizes drone types into a list (`DRONE_TYPES_TO_TEST`) for systematic testing.
+
+### KEY_FUNCTIONS
+- **`DroneTypeSessionCreator`**: Main class initializing drone session creation with configurable base URL.
+- **`stop_simulation_if_running()`**: Checks and stops an active simulation via API calls.
+- **`reset_simulation()`**: Resets the simulation state (incomplete in snippet, likely includes additional logic).
+- **`DRONE_TYPES_TO_TEST`**: Dictionary/list defining drone types with movement attributes (hover capability, expected pattern, etc.).
+
+### DEPENDENCIES
+requests, numpy, datetime, typing (built-in), sys (built-in)
+
+### USAGE
+1. Initialize `DroneTypeSessionCreator` with the simulation API endpoint.
+2. Call `stop_simulation_if_running()` to halt any ongoing simulation.
+3. Use `DRONE_TYPES_TO_TEST` to iterate over drone configurations.
+4. Extend with logic to send commands (e.g., via `reset_simulation()` or API calls) to test movement patterns per drone type.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Simulation API Interaction
+> The script relies on a local API (`BASE_URL`) at port `5007` for state checks and simulation control. Ensure the API is running and accessible before execution.
+>[!WARNING]- Error Handling
+> The `stop_simulation_if_running()` method silently skips exceptions (e.g., network issues). Add retry logic or logging for production use.

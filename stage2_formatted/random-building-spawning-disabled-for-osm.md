@@ -1,0 +1,59 @@
+**Tags:** #disabling-random-buildings, #osm-integration, #quad-view, #gps-coordinates, #training-mode, #building-spawning, #openstreetmap, #scene-preparation, #code-preservation
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# random-building-spawning-disabled-for-osm
+
+## Summary
+
+```
+Disables random building spawning in quad view to align with real-world OSM data, preserving code for potential future training mode use.
+```
+
+## Details
+
+> This document records the disabling of random building spawning in a quad view system, replacing it with real-world OpenStreetMap (OSM) buildings derived from GPS locations. The changes were made to ensure consistency between OSM and Plotly views by removing conflicting random spawns. The code is preserved with comments for potential future re-enablement in training mode, ensuring flexibility for future adjustments.
+
+## Key Functions
+
+### ``_spawn_initial_buildings()``
+
+Original method for spawning random buildings, now commented out.
+
+### ``prepare_scene()``
+
+Scene preparation logic that previously spawned buildings on initialization, now disabled.
+
+### ``spawn_random_building()``
+
+Core method for dynamically spawning random buildings (still available).
+
+### ``spawn_invisible_building()``
+
+Method for managing invisible buildings (still available).
+
+## Usage
+
+To re-enable random building spawning:
+1. Uncomment the `_spawn_initial_buildings()` calls in `__init__`, `prepare_scene()`, and reset/restart methods.
+2. Ensure the system is configured for training mode or manual building management.
+3. Verify that no active sessions interfere with building respawn logic.
+
+## Dependencies
+
+> `None explicitly listed`
+> `but relies on:
+- OpenStreetMap (OSM) data for real-world building integration.
+- GPS coordinates for generating OSM-compatible building placements.`
+
+## Related
+
+- [[OpenStreetMap Integration Guide]]
+- [[Quad View Coordinate Conversion]]
+- [[Training Mode Configuration]]
+
+>[!INFO] Future-Proofing
+> The commented-out code is preserved with clear instructions for future re-enablement, ensuring minimal disruption if random buildings are needed again.
+
+>[!WARNING] OSM Conflict Risk
+> Random buildings may conflict with OSM data if re-enabled, leading to visual inconsistencies between OSM and Plotly views. Always test thoroughly before activation.

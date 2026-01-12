@@ -1,0 +1,57 @@
+**Tags:** #realistic_simulation, #battery_model, #motor_physics, #drone_control, #path_planning, #swarm_ai
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# simulation/swarm/hmrs_scout_drone.py
+
+## Summary
+
+```
+Implementation summary for a realistic drone simulation with battery and motor physics enhancements.
+```
+
+## Details
+
+> This file documents the integration of a **realistic battery model** and **enhanced motor physics** into drone simulations, replacing simplistic counters with physics-based calculations. The battery system now dynamically adjusts power consumption based on motor thrust, velocity, altitude, and payload, ensuring accurate flight time predictions. Motor physics includes differential thrust for directional control and torque calculations for stability, supporting both quadcopter (4 motors) and octocopter (8 motors) configurations.
+
+## Key Functions
+
+### ``BatteryModel``
+
+Calculates power consumption and updates battery state based on real-world parameters.
+
+### ``apply_thrust()`** (in `base_drone.py`)`
+
+Applies forces at motor positions and computes torque for attitude control.
+
+### ``/api/command` endpoint`
+
+Processes drone movement commands (e.g., `move_to`, `hover`) via a command queue.
+
+## Usage
+
+1. Initialize drones with `BatteryModel` (e.g., `Scout`, `Tanker Mule`).
+2. Use `apply_thrust()` to simulate motor forces at correct positions.
+3. Send commands via `/api/command` to control drone behavior.
+4. Monitor battery state and flight time dynamically.
+
+## Dependencies
+
+> ``simulation/swarm/base_drone.py``
+> ``simulation/hmrs_simulation_live.py``
+> `PyBullet (or similar physics engine)`
+> ``numpy``
+> ``scipy` (for torque calculations).`
+
+## Related
+
+- [[hmrs_tanker_mule_drone]]
+- [[base_drone]]
+- [[hmrs_simulation_live]]
+
+>[!INFO] Important Note
+> The battery model now uses `self.battery.calculate_power_consumption()` instead of a fixed decrement, ensuring accurate energy tracking. This requires updating drone initialization to pass payload mass and state variables.
+
+
+>[!WARNING] Caution
+> Differential thrust and torque calculations assume motor positions are correctly defined in the drone’s body frame. Incorrect motor layouts (e.g., wrong arm lengths) will cause unbalanced forces or instability. Verify motor configurations in `motor_positions_body` before deployment.

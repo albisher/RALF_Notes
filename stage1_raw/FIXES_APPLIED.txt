@@ -1,0 +1,37 @@
+### FILENAME
+FIXES_APPLIED
+
+### TAGS
+#LiDAR, #3D-visualization, #drone-exploration, #algorithm-adjustment, #waypoint-optimization, #frontier-based-exploration, #altitude-adjustment, #FOV-modification
+
+### TYPE
+research-notes
+
+### SUMMARY
+Documentation of fixes applied to improve LiDAR 3D object detection by adjusting vertical field of view, lowering altitude, and implementing frontier-based exploration.
+
+### DETAILS
+This document details the root causes of LiDAR visualization failing to detect objects in 3D space due to narrow vertical field of view (±15°) and high altitude (8-12m), which caused rays to miss small objects. The fixes included asymmetric vertical FOV adjustment (-30° to +5°), lowering waypoint altitudes to 3-6m, and introducing frontier-based exploration for adaptive waypoint generation. These changes enhance LiDAR point cloud coverage and enable autonomous 3D object detection.
+
+### KEY_FUNCTIONS
+- **`simple_exploration_test.py` (lines 321, 580-586)**: Modified LiDAR vertical angles and waypoint altitudes.
+- **`frontier_exploration.py`**: Implements autonomous frontier-based exploration with adaptive waypoints.
+- **`research/EXPLORATION_ALGORITHMS_RESEARCH.md`**: Documentation of explored exploration algorithms.
+
+### DEPENDENCIES
+`numpy`, `docker`, `simulation/docker/docker-compose.yml`, `scenarios/exploration/visualization/visualize_exploration.py`
+
+### USAGE
+Apply fixes by:
+1. Updating `simple_exploration_test.py` with new vertical angles and waypoints.
+2. Enabling frontier exploration via `use_frontier_exploration = True`.
+3. Running simulations via Docker commands to verify 3D point cloud coverage.
+
+### RELATED
+[[research/EXPLORATION_ALGORITHMS_RESEARCH.md]], [[simulation/docker/docker-compose.yml]]
+
+### CALLOUTS
+>[!INFO]- Key Insight
+> The asymmetric FOV (-30° to +5°) improves downward ray coverage, critical for detecting objects at lower altitudes.
+>[!WARNING]- Altitude Limitation
+> Objects at 4m altitude with -30° FOV require careful tuning to avoid ground occlusion while maximizing detection range.

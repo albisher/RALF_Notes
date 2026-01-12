@@ -1,0 +1,40 @@
+### FILENAME
+communication_implementation
+
+### TAGS
+#communication_system, #drone_simulation, #signal_strength, #master_coordinator, #addon_data_transmission
+
+### TYPE
+code-notes
+
+### SUMMARY
+Implementation of a drone-to-master coordinator communication system with signal strength simulation and data transmission.
+
+### DETAILS
+This document outlines the implementation of a realistic communication system for drones interacting with a master coordinator. It includes signal strength simulation using the free-space path loss model, configurable parameters for signal degradation, and checks for communication feasibility based on distance and signal quality. The system integrates with the master coordinator to validate messages before transmission, ensuring only high-quality data is processed. Data flow involves addon sensors generating data, which is collected, validated, and transmitted via a dedicated communication addon.
+
+### KEY_FUNCTIONS
+- **`calculate_signal_strength(target_position, target_name)`** (in `communication_addon.py`): Computes RSSI, SNR, and signal quality using configurable parameters.
+- **`can_communicate(target_position, min_signal_quality)`** (in `communication_addon.py`): Determines if communication is possible based on distance and signal strength thresholds.
+- **`publish()`** (enhanced in `base_drone.py`): Publishes sensor data with signal strength validation before transmission.
+- **`register_drone()`** (in `master_coordinator.py`): Registers drones with the master for communication management.
+- **`update(dt)`** (in `master_coordinator.py`): Updates the coordinator’s state and processes incoming messages with signal checks.
+- **`get_all_addon_data()`** (in `base_drone.py`): Aggregates sensor data from all addons before transmission.
+
+### DEPENDENCIES
+`simulation/swarm/base_drone.py`, `simulation/swarm/master_coordinator.py`, `simulation/swarm/addons/communication_addon.py`, `simulation/hmrs_simulation_live.py`
+
+### USAGE
+1. **Initialization**: Spawn drones with communication addons and register them with the master coordinator.
+2. **Data Generation**: Addons generate sensor data during `drone.update(dt)`.
+3. **Data Transmission**: Drones collect data via `get_all_addon_data()` and publish it through `communication_addon.publish()` after validating signal strength.
+4. **Master Processing**: The master coordinator checks signal quality and routes messages accordingly.
+
+### RELATED
+[[simulation/swarm/base_drone.py]], [[simulation/swarm/master_coordinator.py]], [[simulation/swarm/addons/communication_addon.py]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Signal strength is dynamically calculated using the free-space path loss model, allowing for real-time adjustments based on drone positions and environmental factors (e.g., path loss exponent for urban vs. open environments).
+>[!WARNING]- Caution
+> Messages with signal quality below the configured threshold (`min_signal_quality`) are discarded to prevent corrupted or unreliable data transmission. Ensure `communication_range_m` and `receiver_sensitivity_dbm` are set appropriately to avoid false negatives in communication checks.

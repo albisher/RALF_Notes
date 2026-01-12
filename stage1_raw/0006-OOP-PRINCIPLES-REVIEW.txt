@@ -1,0 +1,40 @@
+### FILENAME
+OOP-Principles-Review
+
+### TAGS
+#OOP, #SOLID, #Design-Principles, #Code-Review, #Single-Responsibility, #Open-Closed
+
+### TYPE
+code-notes
+
+### SUMMARY
+Review of OOP principles violations in autonomous exploration system, focusing on SOLID principles and general OOP best practices.
+
+### DETAILS
+This document analyzes violations of the **Single Responsibility Principle (SRP)** and **Open/Closed Principle (OCP)** in an autonomous exploration system. It highlights problematic classes (`AutonomousExplorationDrone`, `GroundTruthLogger`, `BaseStation`) that handle multiple responsibilities, violating SRP by having multiple reasons to change. The review also notes a hard-coded visualization function (`create_3d_plot`) that is not extensible, violating OCP. The analysis includes specific responsibilities, reasons for violations, and severity ratings.
+
+### KEY_FUNCTIONS
+- **create_3d_plot**: Creates a 3D plot with hard-coded visualization logic, violating OCP.
+- **FrontierExplorerBox**: Handles frontier detection and selection, compliant with SRP.
+- **ExplorationManagerBox**: Manages exploration lifecycle but uses `time.time()` (minor dependency issue).
+- **AutonomousExplorationDrone**: Combines physics, LiDAR, telemetry, and mapping responsibilities (SRP violation).
+- **GroundTruthLogger**: Handles data formatting, console output, file I/O, and broadcasting (SRP violation).
+- **BaseStation**: Manages telemetry, storage, path tracking, output, and statistics (SRP violation).
+
+### DEPENDENCIES
+- `time` (used in `ExplorationManagerBox`),
+- `plotly.graph_objects` (for `create_3d_plot`),
+- External libraries for LiDAR, telemetry, and broadcasting (not explicitly listed).
+
+### USAGE
+This document serves as a **code review** to identify and correct OOP design flaws in an autonomous exploration system. It provides grades and justifications for compliance with SOLID principles, particularly SRP and OCP.
+
+### RELATED
+[[OOP-SOLID-Guide]], [[Autonomous-Drone-Architecture]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The `AutonomousExplorationDrone` and `BaseStation` classes have **critical SRP violations**, each requiring **multiple refactorings** to isolate responsibilities. For example, splitting `BaseStation` into `TelemetryProcessor`, `StorageManager`, and `OutputHandler` would improve modularity.
+
+>[!WARNING]- Caution
+> Hard-coded visualizations (e.g., `create_3d_plot`) make future extensions difficult. Consider using **dependency injection** or **abstract base classes** to allow dynamic configuration of plot styles and data sources.

@@ -1,0 +1,39 @@
+### FILENAME
+master_learning
+
+### TAGS
+#reinforcement-learning, #system-design, #performance-tracking, #worker-optimization, #decision-analysis
+
+### TYPE
+code-notes
+
+### SUMMARY
+Tracks worker performance, failure patterns, and adaptive strategies for a master learning system.
+
+### DETAILS
+The `MasterLearning` class implements a system where a "master" controller learns from worker decisions, recording outcomes, success rates, and failure reasons. It maintains historical data on command and scenario performance, dynamically tracks worker-specific capabilities (success rates per capability), and logs common failure patterns. The system also allows for alternative strategy storage and pruning of outdated records (10,000 entries max).
+
+### KEY_FUNCTIONS
+- **`__init__()`**: Initializes core tracking structures (decision history, worker performance, success rates, failure patterns, and alternative strategies).
+- **`record_decision_outcome()`**:
+  - Records a decision’s timestamp, worker, command type, scenario type, success status, and failure reason.
+  - Updates success rates for scenarios and commands.
+  - Logs failure patterns if a failure occurs.
+  - Maintains worker-specific performance metrics (success rates per capability).
+
+### DEPENDENCIES
+numpy, collections.defaultdict, time
+
+### USAGE
+1. Initialize the `MasterLearning` system.
+2. Call `record_decision_outcome()` after each worker decision to log outcomes.
+3. Analyze `worker_performance`, `scenario_success_rates`, or `failure_patterns` to derive adaptive strategies.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Data Pruning
+> The system limits `decision_history` to 10,000 entries using a sliding window (FIFO), preventing unbounded memory growth.
+>[!WARNING]- Failure Reason Dependency
+> If `failure_reason` is `None`, the system does not log the failure pattern, which may obscure debugging insights. Always provide a reason when failures occur.

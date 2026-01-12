@@ -1,0 +1,54 @@
+**Tags:** #bugfix, #ui/ux, #layout-mode, #osm-view, #javascript, #frontend
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# default-layout-mode-and-button-fix
+
+## Summary
+
+```
+Fixes mismatched default states between layout mode buttons and OSM view functionality in a simulation UI.
+```
+
+## Details
+
+> This fix addresses a discrepancy where the default button state (Quad View) did not align with the actual OSM view being displayed. The root issue stemmed from incorrect default values for `layoutMode` and `osmViewEnabled`, causing auto-enabled OSM views to not update the layout mode properly. The solution adjusts defaults to prioritize OSM visibility and ensures synchronization between button states and dynamic view toggles.
+
+## Key Functions
+
+### `onUpdateGpsPosition`
+
+Auto-enables OSM view when GPS coordinates are set and updates `layoutMode` to `'osm'` if not already set.
+
+### `onToggleOSMView`
+
+Manages the toggle between Plotly and Cesium OSM views, now includes a check to enforce `layoutMode = 'osm'` when OSM is enabled.
+
+### `onLayoutModeChange`
+
+Handles user-triggered mode changes, logs transitions, and ensures UI consistency between buttons and active view.
+
+## Usage
+
+After applying changes:
+1. Initialize the app with GPS coordinates to auto-enable OSM view.
+2. Verify the OSM button reflects the active state (previously misaligned).
+3. Test manual button clicks to confirm all modes (OSM, Quad, 3D/2D) work as expected.
+
+## Dependencies
+
+> ``simulation/frontend/app-data.js` (core logic)`
+> `external libraries for Plotly/Cesium UI components.`
+
+## Related
+
+- [[app-data]]
+- [[frontend-ui-components]]
+- [[gps-coordinate-handling]]
+
+>[!INFO] Critical Default Alignment
+> The default `layoutMode` and `osmViewEnabled` were set to `'osm'` and `true`, respectively, to ensure OSM view matches the button state from the start. This prevents confusion during initialization.
+
+
+>[!WARNING] State Synchronization
+> Ensure `onUpdateGpsPosition` and `onToggleOSMView` are called in sequence to avoid race conditions where OSM toggles without updating `layoutMode`. Test edge cases (e.g., rapid GPS updates).

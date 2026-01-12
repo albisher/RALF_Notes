@@ -1,0 +1,48 @@
+### test_output
+#simulation-documentation, #drone-swarm, #ai-assistants, #flask-api, #postgresql
+
+### TYPE
+documentation
+
+### SUMMARY
+Documentation for a **HMRS Window Cleaning Drone Swarm** simulation platform, covering architecture, API, and deployment.
+
+### DETAILS
+This file appears to be a **fragment** of a larger documentation file for a **Heterogeneous Multi-Robot System (HMRS)** designed for autonomous drone swarm operations, specifically for window cleaning. The content outlines the project’s purpose, technology stack, and basic deployment commands. The documentation is structured as a knowledge base for AI developers and engineers, focusing on swarm coordination, vendor compatibility, and simulation capabilities.
+
+The provided snippet includes a **table of contents** and sections like **Project Overview**, **Quick Start Commands**, and **Technology Stack**, but lacks detailed explanations for most sections. The file is likely part of a larger documentation set for the full project.
+
+---
+
+### KEY_FUNCTIONS
+- **Project Overview**: Describes the system’s goals (swarm coordination, vendor compatibility, simulation).
+- **Quick Start Commands**: Provides Docker-based deployment instructions for the simulation environment.
+- **Technology Stack**: Lists backend/frontend dependencies (Flask, PyBullet, PostgreSQL, etc.).
+- **API Reference**: (Not fully detailed in snippet; implied to be in a separate section).
+
+### DEPENDENCIES
+- Python 3.10+
+- Flask (REST API)
+- Socket.IO (real-time communication)
+- PyBullet (physics simulation)
+- PostgreSQL (session persistence)
+- Docker Compose (container orchestration)
+- Vue.js, Plotly.js (frontend libraries)
+- Nginx (reverse proxy)
+
+### USAGE
+To use this system:
+1. Clone the repository and navigate to the simulation directory.
+2. Run `docker compose -f docker/docker-compose.yml up -d` to start containers.
+3. Wait for health checks (~30 seconds) and verify API endpoints (`http://localhost:5007/api/health`).
+4. Access the web interface at `http://localhost:5007`.
+
+### RELATED
+[[HMRS Window Cleaning Drone Swarm - Architecture]], [[HMRS API Reference]], [[HMRS Deployment Guide]]
+
+### CALLOUTS
+>[!INFO]- **Project Status**
+> The system is operational (8.5/10 rating) but may require updates for new drone vendors or sensor models.
+>
+>[!WARNING]- **Docker Dependency**
+> Ensure Docker and Docker Compose are installed and running before deployment. Missing dependencies may cause container startup failures.

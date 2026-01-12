@@ -1,0 +1,37 @@
+### FILENAME
+battery-monitoring-sensor-specs
+
+### TAGS
+#battery-monitoring, #drone-safety, #electrical-sensors, #bms, #li-ion, #thermal-management, #current-voltage-temp
+
+### TYPE
+documentation
+
+### SUMMARY
+Document outlines specifications for battery monitoring systems (BMS) and sensors, critical for drones, focusing on voltage, current, temperature, and SOC/SOH.
+
+### DETAILS
+This document provides detailed specifications for battery monitoring systems (BMS) and electricity sensors, emphasizing parameters like voltage (2.5V–4.5V per cell, 11.1V–29.6V for packs), current (0–200A+), temperature (-10°C to +60°C), and state-of-charge (SOC) accuracy (±5–10%). It includes protection mechanisms (over-voltage, over-current, thermal shutdown) and methods for estimating battery health (e.g., Coulomb counting, Kalman filtering). Key examples include MOKOEnergy’s BCE-04 BMS and CTS’s monitoring systems.
+
+### KEY_FUNCTIONS
+- **Voltage Monitoring**: Tracks cell/pack voltage for safety and performance.
+- **Current Monitoring**: Measures charge/discharge current with ±1–5% accuracy.
+- **Temperature Monitoring**: Prevents thermal runaway via sensors (±1–2°C accuracy).
+- **SOC Estimation**: Uses Coulomb counting, voltage-based, or Kalman filtering for capacity estimation.
+- **SOH Assessment**: Evaluates battery degradation via capacity fade, resistance, and efficiency.
+- **Cell Balancing**: Maintains uniform charge across cells (passive/active/smart algorithms).
+
+### DEPENDENCIES
+None (standalone specifications; may integrate with drone firmware or control systems).
+
+### USAGE
+Referenced in drone/robot battery management systems, safety protocols, and performance optimization. Critical for preventing failures (e.g., overcharging, overheating) and extending battery life.
+
+### RELATED
+[[BMS_Architecture_Guide]], [[Drone_Battery_Compatibility_List]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **Li-ion/LiPo Safety**: Over-voltage (>4.3V/cell) or under-voltage (<2.7V/cell) triggers protection, but thresholds vary by BMS.
+>[!WARNING]- Caution
+> **Thermal Risks**: Exceeding 60°C can cause thermal shutdown; ensure sensors cover all pack regions (e.g., 1–4 sensors).

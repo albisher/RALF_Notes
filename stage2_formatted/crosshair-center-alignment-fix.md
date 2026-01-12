@@ -1,0 +1,46 @@
+**Tags:** #crosshair, #alignment, #2D-3D-view, #gps-coordinates, #cesium, #viewport-center
+**Created:** 2026-01-12
+**Type:** code-fix
+
+# crosshair-center-alignment-fix
+
+## Summary
+
+```
+Fixed crosshair misalignment between 2D Top and 3D Isometric views by standardizing center calculations and camera positioning for GPS coordinates.
+```
+
+## Details
+
+> The fix resolves a discrepancy where the green crosshair (viewport center) did not match the actual map center in both 2D and 3D modes. The core issue stemmed from differing `pickEllipsoid` logic between modes and improper camera centering in 2D. The solution refactored center calculations to use camera position directly in 2D and fall back to ray-ellipsoid intersection in 3D, ensuring consistent alignment.
+
+## Key Functions
+
+### ``setupCenterMarkerGPSUpdate()``
+
+Updated center calculation logic for both 2D (`SCENE2D`) and 3D modes, projecting camera position onto ground level in 2D and using `pickEllipsoid` in 3D.
+
+### ``update2DTopView()``
+
+Ensured camera position matches GPS coordinates after `setView`, correcting mismatches to guarantee accurate crosshair alignment.
+
+## Usage
+
+Apply the fix by updating `simulation/frontend/boxes/osm-integration-box.js` with the modified `setupCenterMarkerGPSUpdate()` and `update2DTopView()` methods. Ensure the viewer (`viewer`) is initialized with a Cesium SceneMode compatible with the target view (e.g., `SCENE2D` or `SCENE2D_WITH_3D_LABELS`).
+
+## Dependencies
+
+> `Cesium.js (for 3D/2D scene rendering and coordinate transformations)`
+> ``simulation/frontend/boxes/osm-integration-box.js` (internal dependency).`
+
+## Related
+
+- [[osm-integration-box]]
+- [[Cesium]]
+- [[Crosshair Implementation Guide]]
+
+>[!INFO] Key Logic Difference
+> In 2D mode, the camera position is treated as the viewport center, so projecting it onto ground level (`height = 0`) ensures the crosshair aligns with the actual map center. In 3D, `pickEllipsoid` at the screen center or ray-ellipsoid intersection is used to maintain perspective accuracy.
+
+>[!WARNING] Camera Position Validation
+> Always verify camera position after `setView` in 2D mode—directly setting it to GPS coordinates is critical if `setView` fails to center the view correctly.

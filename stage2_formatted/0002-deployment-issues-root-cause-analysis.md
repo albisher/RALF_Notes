@@ -1,0 +1,62 @@
+**Tags:** #docker, #simulation, #drone, #root-cause-analysis, #deployment, #containerization, #system-failure, #debugging, #documentation-missing
+**Created:** 2026-01-12
+**Type:** documentation
+
+# deployment-issues-root-cause-analysis
+
+## Summary
+
+```
+Analyzes critical deployment issues preventing drone flight simulation, focusing on Docker configuration mismatches and missing startup documentation.
+```
+
+## Details
+
+> This document identifies three root causes: (1) incorrect Docker Compose file path in documentation, (2) unstarted containers, and (3) inadequate quick-start instructions. The primary issue stems from a path mismatch between the actual file (`/docker/docker-compose.yml`) and assumed location in scripts, causing container startup failures. Secondary evidence shows containers are not running despite correct paths. Tertiary, missing comprehensive documentation confuses users on how to launch the system.
+
+## Key Functions
+
+### ``docker compose ps``
+
+Checks container status.
+
+### ``docker compose -f docker/docker-compose.yml build``
+
+Builds containers with explicit path.
+
+### ``docker compose run --rm -p 5000`
+
+5000 simulator python simple_quadcopter_live.py`**: Runs a simulator container (missing `-f` flag in original script).
+
+### ``curl http`
+
+//localhost:5007/api/health`**: Verifies backend API availability.
+
+## Usage
+
+To resolve:
+1. Use `-f docker/docker-compose.yml` when running `docker compose`.
+2. Start containers explicitly with `docker compose -f docker/docker-compose.yml up -d`.
+3. Update scripts and documentation to reflect the correct path.
+
+## Dependencies
+
+> `Docker Compose`
+> `Docker CLI`
+> `backend API (port 5007)`
+> `frontend visualization tools.`
+
+## Related
+
+- [[QUICK_START]]
+- [[HMRS_SIMULATOR_TASKS]]
+- [[RUN_VISUAL]]
+
+>[!INFO] Critical Path Correction
+> Users must append `-f docker/docker-compose.yml` to `docker compose` commands to locate the file. This is the immediate fix for container startup failures.
+
+>[!WARNING] Documentation Gap
+> Missing a dedicated `QUICK_START.md` guide risks user confusion. A step-by-step guide should include:
+> - Correct path for `docker-compose.yml`.
+> - Commands to start/stop containers.
+> - Troubleshooting steps for common errors (e.g., "no configuration file provided").

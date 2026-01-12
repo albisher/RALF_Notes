@@ -1,0 +1,57 @@
+**Tags:** #javascript, #plotly, #vuejs, #reactivity, #dom-manipulation, #data-loss-prevention, #navigation-fix, #quad-view, #plot-initialization
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# app-data.js
+
+## Summary
+
+```
+Fixed quad-view navigation content loss by ensuring Plotly plots retain data during DOM element removal and reinitialization.
+```
+
+## Details
+
+> The fix addresses a scenario where navigating away from a list view (e.g., to Master Controls) and returning to quad view resulted in empty/black plots. The root issue stemmed from the `currentView` watcher not triggering a full `initializePlots()` call for quad views, causing lost data despite plots appearing initialized. The solution includes:
+> 1. **Enhanced initialization logic** in `initializePlots()` to parallelize quad-view plot initialization.
+> 2. **Data loss detection** via `_checkPlotsNeedReinit()` to verify Plotly data integrity post-DOM removal.
+> 3. **Post-restoration data updates** to repopulate plots with current data.
+
+## Key Functions
+
+### ``initializePlots()``
+
+Full parallel initialization of all 4 quad-view plots.
+
+### ``_checkPlotsNeedReinit()``
+
+Detects if plots are initialized but lack data (e.g., due to DOM removal).
+
+### ``updatePlotsWithData()``
+
+Repopulates plots with current data after reinitialization.
+
+## Usage
+
+Apply the fix by:
+1. Ensuring `currentView` watchers in quad mode call `initializePlots()` instead of individual plot checks.
+2. Integrating `_checkPlotsNeedReinit()` to detect and handle data loss during navigation.
+3. Post-restoration, always update plots with current data via `updatePlotsWithData()`.
+
+## Dependencies
+
+> `Vue.js reactivity system`
+> `Plotly.js library`
+> `DOM manipulation utilities.`
+
+## Related
+
+- [[app-data]]
+- [[navigation-view-logic]]
+- [[plotly-data-handling]]
+
+>[!INFO] Critical DOM Check
+> Always verify DOM element existence (`element.exists`) before checking Plotly data integrity. A missing element will trigger reinitialization even if data flags appear valid.
+
+>[!WARNING] Parallel Initialization Risk
+> Overuse of `initializePlots()` may cause race conditions if data updates occur during initialization. Test with concurrent data changes to ensure stability.

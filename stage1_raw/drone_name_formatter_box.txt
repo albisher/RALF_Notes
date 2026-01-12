@@ -1,0 +1,38 @@
+### FILENAME
+drone_name_formatter_box
+
+### TAGS
+#drone, #naming_system, #enum, #string_formatting, #unification
+
+### TYPE
+code-notes
+
+### SUMMARY
+Handles formatting and standardizing drone names using type, counter, and optional custom inputs.
+
+### DETAILS
+This module implements a `DroneNameFormatterBox` class that formats drone names by mapping enum values to standardized short and display names. It supports fallback mechanisms for missing imports and processes inputs like drone type (via enum or string), a counter/index, and an optional custom name. The formatter ensures consistent naming conventions for identification and display purposes.
+
+### KEY_FUNCTIONS
+- **`__init__()`**: Initializes the formatter with predefined mappings for drone type display and short names.
+- **`format_name(drone_type, counter, custom_name)`**: Generates a unified drone name by combining a short name (from enum) and counter, prioritizing custom names if provided.
+- **`get_display_name(drone_type)`**: Returns the formatted display name for a given drone type (e.g., "Scout" instead of "Scout-1").
+
+### DEPENDENCIES
+`HMRSDroneType` (from `spawner` module), `typing`, `enum` (Python standard library).
+
+### USAGE
+```python
+formatter = DroneNameFormatterBox()
+name = formatter.format_name(HMRSDroneType.SCOUT, 1)  # Returns "Scout-1"
+display_name = formatter.get_display_name(HMRSDroneType.TANKER_MULE)  # Returns "Tanker (Mule)"
+```
+
+### RELATED
+[[spawner]], [[HMRSDroneType]], [[typing.Union]]
+
+### CALLOUTS
+>[!INFO]- Enum Fallback
+> If `HMRSDroneType` is unavailable, the code dynamically creates a fallback `HMRSDroneType` enum with predefined values.
+>[!WARNING]- String Handling
+> If `drone_type` is a string but not a valid enum value, it defaults to concatenating the string with the counter (e.g., `"scout"-1`). Avoid ambiguous strings to prevent unintended naming.

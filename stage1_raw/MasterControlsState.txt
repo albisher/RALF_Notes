@@ -1,0 +1,32 @@
+### FILENAME
+MasterControlsState
+
+### TAGS
+#StateManagement, #GPSWeatherDrone, #OOP, #Configuration
+
+### TYPE
+code-notes
+
+### SUMMARY
+Manages centralized state for GPS, weather, building, and drone brand configurations in a simulation environment.
+
+### DETAILS
+`MasterControlsState` is a class implementing a single responsibility principle to encapsulate all master control configurations. It provides a static `getDefaultState()` method returning a comprehensive object with nested configurations for GPS (mode, location), map sources, building selection, time restrictions, training mode, weather (source, wind/precipitation data), and drone brand capabilities (vendor, models, and supported features). The design follows OOP principles with clear separation of concerns, adhering to a 250-line limit.
+
+### KEY_FUNCTIONS
+- **`getDefaultState()`**: Returns a structured default configuration object for all master controls, including nested sub-objects for GPS, weather, training, and drone brands.
+
+### DEPENDENCIES
+None (purely a state definition class; no external dependencies listed).
+
+### USAGE
+To use this class, call `MasterControlsState.getDefaultState()` to retrieve the initial configuration. The returned object can be modified or extended for runtime use in a simulation or drone control system.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Default Configuration
+> The `getDefaultState()` method provides a standardized starting point for all master control settings, ensuring consistency across applications.
+>[!WARNING]- Immutable Defaults
+> While the returned object is mutable, the class itself does not enforce state updates—external logic must manage changes to avoid unintended side effects.

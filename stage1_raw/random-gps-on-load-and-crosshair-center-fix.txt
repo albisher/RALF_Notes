@@ -1,0 +1,38 @@
+### FILENAME
+random-gps-on-load-and-crosshair-center-fix
+
+### TAGS
+#fixes, #gps, #randomization, #ui/ux, #crosshair, #MENA, #Cesium, #Plotly, #simulation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Fixed application initialization to generate random MENA GPS locations and replaced the green arrow marker with a crosshair for better visual clarity.
+
+### DETAILS
+This fix addresses two critical issues: ensuring random GPS coordinates are generated on application load from a predefined MENA cities list, and replacing the green arrow marker with a crosshair (two orthogonal lines) for improved visual feedback in both OSM (Cesium) and Plotly views. The randomization logic now occurs during initialization, guaranteeing varied locations per session.
+
+### KEY_FUNCTIONS
+- `__init__` in `HMRSSimulationLive`: Implements random GPS generation on startup by selecting a city from a MENA list and applying random offsets.
+- Crosshair polyline creation (JavaScript): Uses two polylines (vertical/horizontal) with lime color and transparency to form a centered crosshair in Cesium/Plotly environments.
+
+### DEPENDENCIES
+- Python libraries: `random` (for city selection and offset generation)
+- Web libraries: Cesium.js (for OSM visualization), Plotly (for alternative visualization)
+- External data: MENA cities JSON list (hardcoded in code snippet)
+
+### USAGE
+To use this fix:
+1. Replace the old GPS initialization logic with the randomized version in `HMRSSimulationLive.__init__`.
+2. Remove the green arrow billboard and integrate the crosshair polylines in Cesium/Plotly views.
+3. Ensure the MENA cities list is maintained and updated if new cities are added.
+
+### RELATED
+[[randomization_strategies]], [[Cesium_visualization_guide]], [[MENA_location_database]]
+
+### CALLOUTS
+>[!INFO]- Critical Initialization Change
+> The `set_base_gps()` call now includes `is_random=True` to track randomized locations, which may require UI updates to reflect this state.
+>[!WARNING]- Visual Consistency
+> Crosshair must be rendered above all other elements (e.g., billboards) to ensure visibility. Adjust `disableDepthTestDistance` if layers overlap.

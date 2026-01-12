@@ -1,0 +1,44 @@
+### FILENAME
+LIDAR_VISUALIZATION_EXPLANATION
+
+### TAGS
+#LiDAR, #Drone, #Visualization, #Ground_Plane, #Data_Processing
+
+### TYPE
+documentation
+
+### SUMMARY
+Explains LiDAR point visualization behavior, ground plane hits, and recent fixes for LiDAR data handling in drone telemetry.
+
+### DETAILS
+This document describes the behavior of LiDAR data visualization in drone systems, particularly how circular ground plane hits appear due to the scanner’s 360° horizontal and ±15° vertical scanning. It details why most LiDAR rays hit the ground, forming circular patterns, and explains the data flow from drone scanning to visualization. Recent fixes address issues like incomplete packet saving, missing LiDAR point storage, and incorrect visualization data retrieval.
+
+### KEY_FUNCTIONS
+- **Ground plane hits**: Circular dots representing LiDAR rays hitting the ground below the drone.
+- **Drone flight path**: Red dashed line showing the drone’s trajectory.
+- **Ground truth objects**: Black outlined shapes indicating predefined objects in the environment.
+- **LiDAR points on objects**: Purple dots at object heights where LiDAR rays intersect them.
+- **Telemetry packet storage**: Ensures all LiDAR points are saved in telemetry logs.
+- **Visualization debugging**: Checks for missing LiDAR data in logs and console output.
+
+### DEPENDENCIES
+- LiDAR scanner hardware, drone telemetry system, base station software, visualization library.
+
+### USAGE
+To verify LiDAR data:
+1. Run a drone scenario with LiDAR scanning.
+2. Check console for "Scan complete: X points" confirmation.
+3. Review log files for telemetry packets containing `lidar_points`.
+4. Execute visualization software to display circular ground hits, drone path, and object markers.
+
+### RELATED
+[[LiDAR_Data_Processing_Guide]], [[Drone_Telemetry_Specs]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Circular ground patterns are normal and expected when the drone is at altitude (5-12 meters). These occur because LiDAR rays spread downward and hit the ground in a cone shape.
+>[!WARNING]- Caution
+> If no LiDAR points appear in visualization, verify:
+> - Console shows "Scan complete" messages.
+> - Log files contain full telemetry packets with `lidar_points`.
+> - Visualization script correctly reads from `lidar_points` or `sensor_data.lidar_points`.

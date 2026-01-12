@@ -1,0 +1,35 @@
+### FILENAME
+frontier_explorer_box
+
+### TAGS
+#autonomous_exploration, #voxel_grid, #frontier_detection, #path_planning, #robotics
+
+### TYPE
+code-notes
+
+### SUMMARY
+Detects unexplored boundaries (frontiers) in a 3D voxel grid for autonomous drone exploration.
+
+### DETAILS
+The `FrontierExplorerBox` class identifies frontier regions—occupied voxels adjacent to unoccupied space—using a 26-connected neighborhood check. It processes an occupancy map (a dictionary mapping voxel coordinates to occupancy data) and the drone’s current position to compute frontier clusters. Key parameters control voxel resolution, minimum frontier size, and maximum tracked frontiers. The detected frontiers are returned as structured dictionaries with metrics like cluster size, distance from the drone, and estimated information gain.
+
+### KEY_FUNCTIONS
+- **`__init__`**: Initializes the explorer with configurable voxel resolution, frontier size thresholds, and max frontier tracking.
+- **`detect_frontiers`**: Scans the occupancy map for frontier voxels (occupied with at least one empty neighbor in 26-connected space), clusters them, and computes metrics for each frontier. Returns a list of frontier dictionaries.
+
+### DEPENDENCIES
+numpy, typing
+
+### USAGE
+1. Initialize with parameters (e.g., `voxel_size=0.5`, `min_frontier_size=5`).
+2. Call `detect_frontiers` with an occupancy map (e.g., from `AdvancedLiDARBox`) and drone position.
+3. Use the returned frontiers to select next exploration targets.
+
+### RELATED
+[[AdvancedLiDARBox]], [[PathPlanner]]
+
+### CALLOUTS
+>[!INFO]- Neighbor Check Logic
+> The 26-connected neighbor check ensures frontier detection accounts for all adjacent voxels (including diagonals), not just orthogonal neighbors. This is critical for capturing complex frontier shapes in 3D space.
+>[!WARNING]- Empty Map Edge Case
+> If `occupancy_map` is empty, the function returns an empty list. Ensure the map contains valid voxel coordinates to avoid silent failures.

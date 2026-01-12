@@ -1,0 +1,39 @@
+### FILENAME
+drone-types-motion-patterns
+
+### TAGS
+#drone-aviation, #flight-mechanics, #simulation, #motion-patterns, #multi-rotor, #VTOL, #control-system
+
+### TYPE
+research
+
+### SUMMARY
+Document categorizes drone types and their unique flight behaviors for simulation system integration.
+
+### DETAILS
+This document details **multi-rotor drones**, specifically **quadcopters and hexacopters**, outlining their motion patterns, flight mechanics, and control characteristics. It provides advantages, limitations, and efficiency metrics to support simulation implementation. The research focuses on enabling accurate modeling of these drones in a simulation environment, emphasizing redundancy, stability, and power efficiency.
+
+### KEY_FUNCTIONS
+- **apply_thrust()**: Applies differential thrust to motors for quadcopter control.
+- **motion_pattern_analysis()**: Evaluates flight behaviors like VTOL, hover, and forward flight.
+- **control_allocation**: Distributes motor commands for quadcopter (e.g., pitch/roll/yaw via differential pairs).
+- **efficiency_optimization**: Implements strategies to reduce power consumption (e.g., optimized propeller design, motor efficiency).
+
+### DEPENDENCIES
+BaseDrone (core drone simulation framework), motion_planning (path optimization), motor_control (throttle/pitch/roll/yaw logic), efficiency_analysis (power/weight metrics).
+
+### USAGE
+To use this document in a simulation:
+1. **Integrate** drone types into the simulation system via `BaseDrone` class.
+2. **Apply** motion patterns using `apply_thrust()` for quadcopters.
+3. **Optimize** efficiency by adjusting motor configurations (e.g., arm length, propeller size).
+4. **Test** redundancy (e.g., hexacopter’s 5-motor fallback) in failure scenarios.
+
+### RELATED
+[[Drone_Aviation_Reference]], [[Flight_Mechanics_Guide]], [[VTOL_Simulation_Notes]]
+
+### CALLOUTS
+>[!INFO]- Key Redundancy Insight
+> Hexacopters can tolerate motor failures (e.g., lose 1 motor) due to redundant pairs, improving reliability for critical missions.
+>[!WARNING]- Power Tradeoff
+> While hexacopters offer higher payload capacity, their higher power consumption may limit flight time—balance efficiency with payload needs.

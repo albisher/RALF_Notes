@@ -1,0 +1,41 @@
+### FILENAME
+create_replayable_session
+
+### TAGS
+#drone-simulation, #session-management, #replayable-testing, #api-integration, #automation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Script automates creation of a drone simulation session with replayable motion history.
+
+### DETAILS
+This script orchestrates a drone simulation workflow: it stops an existing simulation (with retry logic), creates a new demo session, starts the simulation, and verifies readiness. It uses REST API calls to a local drone simulation server (localhost:5007) to handle session lifecycle management. The script includes retry mechanisms for transient failures and waits for simulation initialization before proceeding.
+
+### KEY_FUNCTIONS
+- **Session Creation**: Creates a demo session with configurable parameters (e.g., "ReplayTest" name, 3 buildings).
+- **Simulation Control**: Handles start/stop/reset operations with retry logic.
+- **Status Verification**: Checks simulation state via API endpoints.
+- **Motion History Capture**: Implicitly enables replayable session by leveraging demo session creation.
+
+### DEPENDENCIES
+requests, time, json
+
+### USAGE
+1. Run as Python script (`python create_replayable_session.py`)
+2. Automates full session lifecycle:
+   - Stops existing simulation (with retries)
+   - Creates demo session
+   - Starts simulation
+   - Verifies readiness
+3. Outputs success/failure status for each step
+
+### RELATED
+[[DroneSimulationAPIReference]], [[SessionManagementWorkflow]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script assumes the simulation server is running at `http://localhost:5007`. If the server is elsewhere, update `BASE_URL` accordingly.
+>[!WARNING]- Caution
+> Retry logic may cause delays. For production use, consider adding exponential backoff for the retry mechanism. The 5-second wait after starting may be insufficient for some simulations.

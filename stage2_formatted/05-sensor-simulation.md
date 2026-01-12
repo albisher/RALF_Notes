@@ -1,0 +1,57 @@
+**Tags:** #sensor_simulation, #ros, #gazebo, #lidar, #simulation, #hmsr_project, #real_sense, #imu, #polarization
+**Created:** 2026-01-12
+**Type:** documentation
+
+# sensor_simulation
+
+## Summary
+
+```
+Simulates various sensors (LiDAR, cameras, IMU, GPS) for HMRS project using Gazebo and AirSim platforms.
+```
+
+## Details
+
+> This document outlines the simulation setup for multiple sensors, including **Velodyne VLP-16 LiDAR**, **Intel RealSense D455 Depth Camera**, **Sony IMX250MZR Polarization Camera**, and **IMU/GPS**. The LiDAR simulation uses the Velodyne Gazebo plugin for ROS integration, defining scan parameters, noise models, and Gazebo SDF configurations. The Python script processes raw LiDAR data into point clouds, enabling obstacle detection and mapping. The AirSim section (truncated) suggests additional sensor configurations for drone-based simulation.
+
+## Key Functions
+
+### ``LiDARProcessor``
+
+ROS node processing LaserScan messages into point clouds for 2D/3D analysis.
+
+### `Gazebo SDF Plugin`
+
+Configures Velodyne VLP-16 LiDAR with scan resolution, noise, and ROS topic remapping.
+
+### ``process_point_cloud``
+
+Core function for filtering and converting LiDAR data into Cartesian coordinates (x, y, z).
+
+## Usage
+
+1. Install dependencies (e.g., `sudo apt install ros-humble-velodyne-gazebo-plugins`).
+2. Deploy Gazebo plugin with SDF config to simulate LiDAR.
+3. Run ROS node (`LiDARProcessor`) to process LiDAR data in real-time.
+4. For AirSim, configure drone vehicle and enable Lidar sensors via JSON.
+
+## Dependencies
+
+> ``ros-humble-velodyne-gazebo-plugins``
+> ``gazebo``
+> ``ros2``
+> ``numpy``
+> ``airsim` (partial)`
+> ``sensor_msgs`.`
+
+## Related
+
+- [[Gazebo ROS Integration Guide]]
+- [[ROS2 Sensor Simulation Tutorial]]
+- [[HMRS Project Sensor Calibration]]
+
+>[!INFO] Important Note
+> The Gazebo plugin requires ROS2 Humble and Gazebo 11+; ensure compatibility with `libgazebo_ros_ray_sensor.so`.
+
+>[!WARNING] Caution
+> Noise parameters (`stddev`) in the LiDAR config may affect simulation realism; adjust based on expected sensor accuracy.

@@ -9,39 +9,39 @@ UNIFIED_SYSTEM_PROMPT = '''Analyze this code file. Return ONLY the following str
 
 EXACT FORMAT:
 
-###FILENAME
+### FILENAME
 <filename_without_extension_only>
 
-###TAGS
+### TAGS
 #<tag1>, #<tag2>, #<tag3> (at least 2, max 10, comma-separated, starting with #)
 
-###TYPE
+### TYPE
 <document_type> (e.g., code-notes, documentation, research, test-reference, configuration, api-reference, architecture, tutorial)
 
-###SUMMARY
+### SUMMARY
 <1-2 sentence high-level purpose, min 20 chars, max 500 chars>
 
-###DETAILS
+### DETAILS
 <2-4 sentences explaining logic and data flow>
 
-###KEY_FUNCTIONS
+### KEY_FUNCTIONS
 - **function_name**: Purpose of the function.
 - **another_function**: Another purpose. (Important functions, classes, or components, each on a new line)
 
-###DEPENDENCIES
+### DEPENDENCIES
 <dependency1>, <dependency2> (comma-separated list of external libraries or modules)
 
-###USAGE
+### USAGE
 <How to use this code/system>
 
-###RELATED
+### RELATED
 [[<Related Document 1>]], [[<Related Document 2>]] (Obsidian wikilinks to related documents, comma-separated, use 'none' if none)
 
-###CALLOUTS
+### CALLOUTS
 >[!INFO]- Important Note
 > <Detailed explanation for the callout.>
 >[!WARNING]- Caution
 > <Another important callout.> (Obsidian callout blocks, each on a new line)
 
-CRITICAL: Adhere strictly to the exact format, especially section headers like `### **SECTION_NAME** ###` (including the `**` and both `###` markers). Do not include any JSON. Do not include any additional markdown elements outside of the specified format.
+CRITICAL: Adhere strictly to the exact format, especially section headers like `### SECTION_NAME` (exactly three hash marks followed by a space and the section name). Do not include any JSON. Do not include any additional markdown elements outside of the specified format.
 '''

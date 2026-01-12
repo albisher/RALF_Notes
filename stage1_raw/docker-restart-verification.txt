@@ -1,0 +1,45 @@
+### FILENAME
+docker-restart-verification
+
+### TAGS
+#docker, #verification, #web-development, #cesium, #frontend-backend, #debugging
+
+### TYPE
+code-notes
+
+### SUMMARY
+Documentation for Docker container restart verification and manual browser validation of a web application using Cesium 2D/3D visualization components.
+
+### DETAILS
+This document records the process of restarting Docker containers for a simulation application using Docker Compose, followed by manual browser verification of frontend functionality. The key focus is on ensuring the backend emits Socket.IO events and the frontend displays correctly initialized Cesium 2D/3D viewers across different layout modes (Quad, 3D Only, 2D Only, OSM). The `app-data.js` and `visualization-view-component.js` files were updated to fix initialization issues with the Cesium 2D top viewer.
+
+### KEY_FUNCTIONS
+- **`logViewChecks`**: Logs status of view checks across different layout modes.
+- **`initCesium2DTopViewer`**: Initializes the Cesium 2D top viewer (fixed in multiple locations).
+- **Socket.IO Events**: Emitted by the backend (`status-update`, `drones-update`, `visualization-update`).
+- **Nginx Container**: Serves frontend files at `http://localhost:5000`.
+
+### DEPENDENCIES
+Docker Compose, Socket.IO, Cesium.js (frontend visualization library), Nginx (frontend proxy).
+
+### USAGE
+1. **Docker Compose Restart**:
+   ```bash
+   docker compose down && docker compose up -d
+   ```
+   Run in the project’s `docker` directory to restart containers (`hmrs-session-db`, `hmrs-simulator`, `hmrs-backend`, `hmrs-frontend`).
+
+2. **Manual Browser Verification**:
+   - Access `http://localhost:5000` in a browser.
+   - Check console logs for errors or initialization messages.
+   - Switch layout modes (Quad, 3D Only, 2D Only, OSM) and verify logs match expected checks.
+
+### RELATED
+[[Dockerfile for `hmrs-backend`]], [[`simulation/docker/docker-compose.yml`]], [[`visualization-view-component.js`]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The `initCesium2DTopViewer` function was patched in multiple files (`app-data.js`, `visualization-view-component.js`) to avoid initialization failures in OSM mode. Ensure all updates are applied before restarting containers.
+
+>[!WARNING]- Caution
+> If browser DevTools console shows errors like "Failed to initialize Cesium 2D top viewer," manually refresh the page (Ctrl+Shift+R) or clear cache. Socket.IO events may not propagate if the backend fails to start.

@@ -1,0 +1,33 @@
+### FILENAME
+all-references
+
+### TAGS
+#technical-resources, #lidar-systems, #drone-technology, #sensors, #aerial-imaging, #verification-required
+
+### TYPE
+documentation-resources
+
+### SUMMARY
+Collection of verified references for technical documentation on lidar, drones, sensors, and related technologies.
+
+### DETAILS
+This file serves as a curated list of external references for research, development, and documentation on advanced aerial technologies, including LiDAR systems, drone specifications, sensor comparisons, and related engineering topics. References cover hardware specifications, performance comparisons, and practical applications in fields like robotics, geospatial imaging, and industrial automation.
+
+### KEY_FUNCTIONS
+- **Reference Verification**: All entries require manual verification for accessibility and validity.
+- **Technical Documentation**: Provides links to datasheets, case studies, and technical guides on LiDAR, drones, and sensors.
+
+### DEPENDENCIES
+None (standalone reference list)
+
+### USAGE
+Consult this file for external resources when researching or documenting lidar, drone, or sensor technologies. Cross-reference with internal documentation for implementation details.
+
+### RELATED
+[[00-technical-docs]], [[00-lidar-systems]], [[00-drone-hardware]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **Verification Required**: All links must be checked for current validity and accessibility before use.
+>[!WARNING]- Caution
+> **Outdated Content**: Some references may include deprecated or outdated specifications; always cross-check with latest manufacturer updates.

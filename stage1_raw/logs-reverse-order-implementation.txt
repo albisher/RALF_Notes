@@ -1,0 +1,39 @@
+### FILENAME
+app-data.js
+
+### TAGS
+#frontend, #logging, #time-travel, #sorting, #simulation, #reverse-order, #computed-property, #data-processing
+
+### TYPE
+code-notes
+
+### SUMMARY
+Modifies log ordering in a frontend application to display latest logs first in normal mode, preserving chronological order in time-travel replay mode.
+
+### DETAILS
+This implementation dynamically adjusts the order of logs in a sidebar based on the application's mode. When in **normal mode**, logs are sorted by `sim_time` in descending order (latest first), ensuring users can quickly view recent activity. In **time-travel mode**, logs revert to chronological order (oldest first) to maintain proper replay sequence. The change is encapsulated in a computed property (`filteredLogs`) that filters and sorts logs conditionally, ensuring backward compatibility with existing functionality.
+
+### KEY_FUNCTIONS
+- **`filteredLogs()`**: Computed property that returns filtered and sorted logs based on mode.
+  - Filters logs by `currentTime` when in time travel mode.
+  - Sorts logs in descending order (latest-first) in normal mode.
+  - Sorts logs in ascending order (oldest-first) in time travel mode.
+- **`sim_time`**: Log entry timestamp field used for sorting.
+- **`timeTravelMode`**: Application state flag determining sorting logic.
+
+### DEPENDENCIES
+`communicationLog` (internal data store), `currentTime` (time-travel reference), `timeTravelMode` (mode flag).
+
+### USAGE
+1. **Normal Mode**: Logs appear in reverse chronological order (latest at top).
+2. **Time Travel Mode**: Logs appear in chronological order (oldest at top) after filtering by `currentTime`.
+   - Requires `timeTravelMode` and `currentTime` to be set.
+
+### RELATED
+[[simulation/frontend]] (core frontend module), [[time-travel-mode-implementation]] (related time-travel logic).
+
+### CALLOUTS
+>[!INFO]- Conditional Sorting Logic
+> The function dynamically switches between ascending and descending sort based on `timeTravelMode`. This ensures correct behavior for both live monitoring and replay scenarios.
+>[!WARNING]- Edge Case Handling
+> Fallback (`|| 0`) for missing `sim_time` prevents runtime errors when sorting. Ensure all logs have a valid `sim_time` for accurate results.

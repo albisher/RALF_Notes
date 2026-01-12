@@ -1,0 +1,40 @@
+### FILENAME
+hmrs_overseer_drone
+
+### TAGS
+#drone-automation, #quality-assurance, #safety-systems, #mission-control, #robotics
+
+### TYPE
+code-notes
+
+### SUMMARY
+Drone system for overseeing quality assurance and safety missions, including path planning, bird deterrence, and building inspection.
+
+### DETAILS
+The `HMRSOverseerDrone` class extends `BaseDrone` to implement an autonomous drone designed for quality assurance and safety operations. It integrates components for building mapping, battery management, camera processing, and path planning. The drone follows a climber’s trail, verifies cleaning quality, and acts as a bird deterrence system. The initialization configures drone behavior based on provided parameters (e.g., scan frequency, detection range) or defaults from a research-based configuration.
+
+### KEY_FUNCTIONS
+- **`__init__`**: Initializes the drone with configurable parameters (ID, position, physics client, etc.), loads default/overridden settings, and sets up dependencies like `BuildingMapper` and `OverseerDroneConfig`.
+- **`get_drone_specs()`** (implicitly via `config`): Retrieves drone-specific attributes (e.g., mass) from the configuration object.
+
+### DEPENDENCIES
+- `numpy` (for numerical operations)
+- `BaseDrone` (parent class)
+- `BuildingMapper` (for building analysis)
+- `BatteryModel` (implicitly via `config`)
+- `PolarizationCameraBox`, `CameraProcessorBox`, `PathPlannerBox`, `MLControllerBox`, `MotorEfficiencyManagerBox`, `PowerOptimizerBox`, `EfficiencyMonitorBox` (component modules)
+- `OverseerDroneConfig` (configuration class)
+
+### USAGE
+1. Instantiate `HMRSOverseerDrone` with required parameters (e.g., `drone_id`, `position`, `physics_client`).
+2. Optionally override defaults (e.g., `scan_frequency`, `bird_detection_range`) or use a custom `OverseerDroneConfig`.
+3. Integrate with a `BuildingMapper` for dynamic building analysis and path planning via `PathPlannerBox`.
+
+### RELATED
+[[hmrs_base_drone]], [[hmrs_config_overseer_drone_config]]
+
+### CALLOUTS
+>[!INFO]- Default Configuration
+> Uses `OverseerDroneConfig.from_research_specs()` if no custom config is provided, ensuring standardized mission parameters.
+>[!WARNING]- Dependency Risk
+> Missing `building_mapper` or `weather_system` may cause runtime errors if critical for mission execution. Validate all optional dependencies explicitly.

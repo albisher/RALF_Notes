@@ -1,0 +1,39 @@
+### FILENAME
+research-verification-alternatives
+
+### TAGS
+#open-source, #battery-simulation, #drone-simulation, #commercial-use, #PyBullet, #MIT-license, #alternative-implementation
+
+### TYPE
+research-verification
+
+### SUMMARY
+Document verifies open-source battery/energy simulation libraries and drone simulators for commercial use, documentation, and PyBullet compatibility.
+
+### DETAILS
+This document evaluates three battery/energy simulation libraries (`drone-awe`, `PyBaMM`, `PyJoules`) and their compatibility with PyBullet, assessing open-source status, licensing, documentation quality, maintenance, and practical integration. It provides verified recommendations and custom alternatives for scenarios where approved libraries fall short. The focus is on ensuring robust, maintainable, and commercially viable solutions for drone energy modeling.
+
+### KEY_FUNCTIONS
+- **`drone-awe`**: Battery simulation library with MIT license, but outdated (last updated 2019). Recommended for use with caution.
+- **`PyBaMM`**: Advanced battery physics modeling with excellent documentation and active maintenance. MIT-licensed, PyBullet-compatible.
+- **`PyJoules`**: Energy profiling tool for Intel/NVIDIA hardware, actively maintained, and MIT-licensed. Useful for power optimization.
+- **`BatteryModel` (custom)**: PyBullet-compatible fallback for battery simulation when approved libraries are unavailable.
+
+### DEPENDENCIES
+- MIT License-compatible libraries (`drone-awe`, `PyBaMM`, `PyJoules`).
+- Intel RAPL/NVIDIA GPU support for `PyJoules`.
+- PyBullet simulator for integration testing.
+
+### USAGE
+1. **For approved libraries**: Directly integrate via PyPI (`pip install drone-awe`/`PyBaMM`/`PyJoules`).
+2. **For custom alternatives**: Implement `BatteryModel` for PyBullet-compatible simulations when approved tools are unavailable.
+3. **Caution**: Verify compatibility with newer Python versions for `drone-awe`.
+
+### RELATED
+[[research-documentation-checklist]], [[PyBullet-compatibility-guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **`drone-awe`** is deprecated but still usable for legacy projects. Prefer `PyBaMM`/`PyJoules` for new development due to better documentation and maintenance.
+>[!WARNING]- Caution
+> **`PyJoules`** requires Intel RAPL or NVIDIA GPUs. Cross-platform compatibility may be limited without hardware support.

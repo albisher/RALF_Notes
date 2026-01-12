@@ -1,0 +1,36 @@
+### FILENAME
+test_ros2_interface_box
+
+### TAGS
+#unittest, #ROS2, #swarm, #testing, #drone, #interface
+
+### TYPE
+test-reference
+
+### SUMMARY
+Unit tests for ROS 2-based drone interface box functionality.
+
+### DETAILS
+This file contains unit tests for `ROS2InterfaceBox`, a component that interfaces with ROS 2 for drone state and sensor data publishing/subscription. The tests verify initialization, publishing methods (drone state and sensor data), command reception, and shutdown behavior. The tests use `unittest` framework and rely on `ROS2InterfaceBox` from the `swarm.boxes` module.
+
+### KEY_FUNCTIONS
+- **`test_initialization`**: Validates correct initialization of `ROS2InterfaceBox` with node name, namespace, and publishing/subscription flags.
+- **`test_publish_drone_state`**: Ensures drone state data (position, velocity, orientation) can be published without crashing if ROS 2 is unavailable.
+- **`test_publish_sensor_data`**: Checks if sensor data (e.g., LiDAR points, camera images) can be published as a boolean result.
+- **`test_get_received_commands`**: Confirms received commands are returned as a list.
+- **`test_shutdown`**: Verifies graceful shutdown and deinitialization of the box.
+
+### DEPENDENCIES
+numpy, unittest, `swarm.boxes.ros2_interface_box`
+
+### USAGE
+Run via command line with `python test_ros2_interface_box.py` or import in a test suite. Tests assume `ROS2InterfaceBox` is properly initialized with required parameters.
+
+### RELATED
+[[swarm.boxes.ros2_interface_box]], [[drone_control_architecture]]
+
+### CALLOUTS
+>[!INFO]- Graceful ROS 2 Fallback
+> The `publish_drone_state` and `publish_sensor_data` methods gracefully handle ROS 2 unavailability by returning `False` instead of crashing, ensuring robustness.
+>[!WARNING]- Test Isolation
+> Ensure ROS 2 nodes are not shared across tests to avoid interference. Use unique node names (e.g., `"test_drone"`) in `setUp`.

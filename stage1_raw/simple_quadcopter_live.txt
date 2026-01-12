@@ -1,0 +1,43 @@
+### FILENAME
+simple_quadcopter_live
+
+### TAGS
+#real-time-simulation, #web-visualization, #pybullet, #quadcopter, #flask, #multithreading
+
+### TYPE
+code-notes
+
+### SUMMARY
+Simulates quadcopters with live web-based visualization using PyBullet and Flask.
+
+### DETAILS
+This code implements a live quadcopter simulation that streams frames to a web browser for real-time visualization. It uses PyBullet for physics simulation, Flask for HTTP streaming, and threading to manage concurrent operations. The simulator creates quadcopters, applies thrust forces, and simulates LiDAR sensors. Physics parameters like gravity and timestep are configured, and a ground plane is loaded via URDF files. The system tracks quadcopter positions, velocities, and orientations in a history buffer for visualization.
+
+### KEY_FUNCTIONS
+- **LiveQuadcopterSimulator**: Main class initializing the physics server, quadcopters, and visualization setup.
+  - `__init__`: Sets up PyBullet physics server, ground plane, and simulation parameters.
+  - `create_quadcopter`: Loads a quadcopter model (cube.urdf) at a specified position with mass adjustments.
+  - `get_quadcopter_state`: Retrieves current state (position, orientation, velocity) of a quadcopter.
+  - `apply_thrust`: Applies thrust forces to a quadcopter’s motors via external force application.
+  - `simulate_lidar`: Simulates a LiDAR sensor emitting rays to measure distances (incomplete snippet).
+
+- **Flask Integration**: (Not fully implemented in snippet; would include streaming logic for browser visualization.)
+
+### DEPENDENCIES
+pybullet, pybullet_data, numpy, matplotlib, flask, threading, io, base64
+
+### USAGE
+1. Initialize the simulator with `LiveQuadcopterSimulator(num_quadcopters)`.
+2. Create quadcopters using `create_quadcopter(position)`.
+3. Apply thrust forces via `apply_thrust(quad_id, thrusts)`.
+4. Stream simulation frames to a browser using Flask’s `Response` (requires additional code for rendering).
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Physics Server Mode
+> The simulator uses `p.connect(p.DIRECT)` for direct physics computation, which is faster but less stable than GUI mode. Ensure PyBullet is installed with the correct data paths.
+
+>[!WARNING]- Thrust Force Limitation
+> Thrust forces are applied as a single force vector (`[0, 0, total_thrust * 10]`), which may not accurately model quadcopter motor dynamics. For realistic simulations, consider distributing forces per motor.

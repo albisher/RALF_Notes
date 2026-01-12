@@ -1,0 +1,41 @@
+### FILENAME
+simulation
+
+### TAGS
+#file-organization, #docker, #config-management, #scripting, #documentation, #python-entry-points, #ml-scenarios, #swarm-simulation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Comprehensive file reorganization for a simulation project across Docker, configs, scripts, docs, and Python entry points.
+
+### DETAILS
+This file documents the complete restructuring of scattered files into a standardized directory layout. Files were categorized into Docker, configuration, shell scripts, documentation, and Python entry points, ensuring consistency with project rules. Dockerfiles, config files, and scripts were relocated to dedicated folders (`docker/`, `config/`, `scripts/`), while documentation files were renamed and grouped into thematic subfolders (e.g., `docs/docker/`). Python scripts remained in the root directory, adhering to their role as entry points.
+
+### KEY_FUNCTIONS
+- **`docker-compose.yml`**: Orchestrates containerized services; updated paths and volume mounts.
+- **`docker/Dockerfile.backend`**: Defines backend Docker image; linked to `config/requirements.txt`.
+- **`scripts/docker/docker-run.sh`**: Launches Docker containers; references `docker/docker-compose.yml`.
+- **`config/integration_config.json`**: Centralized config for integrations; updated paths in scripts.
+- **`docs/NNNN-descriptive-name.md`**: Standardized documentation naming convention (e.g., `2024-docker-guide.md`).
+
+### DEPENDENCIES
+Docker, Python (for Python scripts), JSON/YAML libraries (for config files), shell scripting tools (for scripts).
+
+### USAGE
+To apply this structure:
+1. Copy files into their new folders (e.g., `docker/` for Dockerfiles).
+2. Update script references (e.g., `-f docker/docker-compose.yml`).
+3. Rename `.md` files to follow `NNNN-<name>.md` convention.
+4. Ensure Python entry points remain in the root.
+
+### RELATED
+[[simulation/docker]], [[simulation/config]], [[simulation/scripts]], [[simulation/docs]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **Docker Context**: All `docker-compose.yml` updates include correct `context` paths to avoid build errors. Verify paths in `docker-compose.yml` match the new `docker/` directory location.
+
+>[!WARNING]- Caution
+> **Script Dependencies**: Shell scripts now require the simulation root directory for path resolution. Ensure working directory is set correctly before execution.

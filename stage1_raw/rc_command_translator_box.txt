@@ -1,0 +1,37 @@
+### FILENAME
+RCCommandTranslatorBox
+
+### TAGS
+#quadcopter, #rc_control, #motor_thrust, #autopilot, #drone_control, #flight_control, #uav, #aerial_robotics, #signal_processing, #gains_tuning
+
+### TYPE
+code-notes
+
+### SUMMARY
+Converts RC-style commands into motor thrust values for quadcopter/autopilot control.
+
+### DETAILS
+This class translates raw RC (radio control) inputs—such as throttle, roll, pitch, yaw, and speed adjustments—into proportional motor thrust values. It normalizes inputs to a range of -1.0 to 1.0, applies configurable gains to control responsiveness, and maintains a history of motor states for logging/analysis. The design supports quadcopters (4 motors) or octocopters (8 motors) with adjustable base thrust (hover) and speed multipliers.
+
+### KEY_FUNCTIONS
+- **`__init__(self, motor_count: int = 4, base_thrust: float = 0.5)`**: Initializes the translator with motor count and hover thrust settings, setting up default RC state and gain values.
+- **`process_rc_command(self, command: str, value: float = 1.0) -> Dict[str, float]`**: Parses a single RC command (e.g., "up" with intensity 0.8) and updates the internal RC state dictionary (e.g., `throttle` or `roll`). Uses `np.clip` to constrain `value` to [0.0, 1.0].
+
+*(Note: The provided snippet cuts off after `process_rc_command`; the full implementation likely includes additional methods for generating motor thrusts or logging history.)*
+
+### DEPENDENCIES
+numpy, logging, datetime
+
+### USAGE
+1. Instantiate the translator: `translator = RCCommandTranslatorBox(motor_count=4, base_thrust=0.5)`.
+2. Update RC state: `translator.process_rc_command("up", 0.7)`.
+3. Retrieve motor thrusts (implied to be computed elsewhere): Use gains and `rc_state` to derive motor outputs (e.g., `thrust = base_thrust * (1.0 + gains['throttle'] * self.rc_state['throttle'])`).
+
+### RELATED
+[[RC_Motor_Thrust_Calculator]], [[Quadcopter_Autopilot_Architecture]]
+
+### CALLOUTS
+>[!INFO]- Default Gains
+> Gains (`roll`, `pitch`, `throttle`) are tuned for responsiveness; adjust manually if drift or overshoot occurs.
+>[!WARNING]- Clipping Values
+> `process_rc_command` clips `value` to [0.0, 1.0]. Extreme values may saturate motors; validate input ranges.

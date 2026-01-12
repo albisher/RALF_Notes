@@ -1,0 +1,39 @@
+### FILENAME
+03-multi-robot-coordination-papers
+
+### TAGS
+#multi-robot-coordination, #swarm-robotics, #research-papers, #HMRS, #ROS2, #collision-avoidance, #formation-control, #heterogeneous-systems, #robotics, #peer-reviewed
+
+### TYPE
+documentation
+
+### SUMMARY
+Compilation of peer-reviewed research papers on multi-robot coordination, swarm robotics, and ROS2-based systems for HMRS project applications.
+
+### DETAILS
+This document serves as a curated bibliography for multi-robot coordination research, focusing on foundational algorithms, distributed control strategies, and practical implementations in robotic systems. It includes theoretical reviews (e.g., swarm engineering, graph-based formation control) alongside applied works (e.g., ROS2 architecture for heterogeneous teams). The content is tailored to the HMRS project, which employs three distinct drones (Scout, Tanker, Overseer) and emphasizes safety, autonomy, and inter-robot communication.
+
+### KEY_FUNCTIONS
+- **Swarm Robotics Review**: Identifies best practices for decentralized coordination in swarm-based systems.
+- **Formation Control**: Provides graph-theoretic approaches for maintaining stable multi-robot formations.
+- **Collision Avoidance Algorithms**: Offers distributed methods to prevent inter-robot collisions.
+- **Heterogeneous Coordination**: Surveys strategies for integrating robots with varying capabilities.
+- **ROS2 Integration**: Highlights ROS2’s DDS-based architecture for scalable multi-robot systems.
+
+### DEPENDENCIES
+None (purely bibliographic; relies on external academic papers).
+
+### USAGE
+This document is intended for researchers, engineers, and project managers working on:
+- Designing autonomous multi-robot teams (e.g., drones, robots).
+- Implementing ROS2-based coordination frameworks.
+- Addressing challenges in swarm intelligence, safety, and heterogeneous system integration.
+
+### RELATED
+[[HMRS Project Documentation]], [[Swarm Robotics Implementation Guide]], [[ROS2 Multi-Robot Coordination Tutorial]]
+
+### CALLOUTS
+>[!INFO]- Key Focus Areas
+> Prioritize **collision avoidance** and **formation control** for HMRS safety, as these directly impact drone autonomy and mission reliability.
+>[!WARNING]- Theoretical vs. Practical Gap
+> While papers like "Swarm Robotics" (2013) provide foundational theory, real-world deployment (e.g., ROS2) may require tuning for latency-sensitive systems like drones.

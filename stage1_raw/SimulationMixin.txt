@@ -1,0 +1,45 @@
+### FILENAME
+SimulationMixin
+
+### TAGS
+#Vue, #VueJS, #Simulation, #Mixin, #OOP, #ReusableComponent, #APIIntegration
+
+### TYPE
+code-notes
+
+### SUMMARY
+Provides simulation control functionality via a Vue.js mixin for reusable simulation management.
+
+### DETAILS
+`SimulationMixin` is a Vue.js mixin designed to encapsulate simulation state and control logic (e.g., start/pause) while leveraging a `SimulationService` dependency. It initializes a service from a global APIBox context, tracks simulation status (running/paused), and emits events (e.g., `simulation-started`). The mixin follows the OOP principle of code reuse via the mixin pattern and composes with `SimulationService` for actual simulation logic.
+
+### KEY_FUNCTIONS
+- **`startSimulation()`**: Initiates the simulation via `SimulationService`, updates internal state, and triggers UI feedback (notifications, status updates).
+- **`pauseSimulation()`**: Pauses the simulation if active, relying on `SimulationService` for execution.
+- **`data()`**: Defines reactive simulation state (e.g., `status.running`, `sessionId`).
+- **`created()`**: Initializes `SimulationService` from global `window` APIs (fallback to `apiCommunicationBox`/`apiBox`).
+
+### DEPENDENCIES
+`SimulationService` (imported from `../services/SimulationService.js`), `Vue` (implicitly via mixin integration).
+
+### USAGE
+1. Import and use in a Vue component:
+   ```js
+   export default {
+       mixins: [SimulationMixin],
+       methods: {
+           showNotification(message, type) { /* Custom logic */ },
+           updateStatus() { /* Custom logic */ }
+       }
+   };
+   ```
+2. Call methods like `this.startSimulation()` to trigger actions.
+
+### RELATED
+[[Vue.js Mixin Patterns]], [[SimulationService Documentation]]
+
+### CALLOUTS
+>[!INFO]- Initialization Check
+> The mixin checks for `window.apiCommunicationBox`/`apiBox` before instantiating `SimulationService`. If absent, it logs an error.
+>[!WARNING]- Error Handling
+> Uncaught errors in `startSimulation()`/`pauseSimulation()` are caught and logged, but notifications may still trigger if `showNotification` is defined.

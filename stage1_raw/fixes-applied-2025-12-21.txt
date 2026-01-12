@@ -1,0 +1,40 @@
+### FILENAME
+fixes-applied-2025-12-21
+
+### TAGS
+#bugfixes, #performance, #frontend, #logging, #cesium, #osm-integration
+
+### TYPE
+documentation
+
+### SUMMARY
+Documentation of applied fixes for browser testing issues, including performance optimizations and error handling improvements.
+
+### DETAILS
+This document records fixes applied on **2025-12-21** for frontend issues identified during browser testing. The fixes address excessive logging, missing logs in the sidebar, and initialization errors in the 2D Top Viewer. Key changes include caching mechanisms, improved log formatting, and enhanced error handling to prevent crashes and improve user experience.
+
+### KEY_FUNCTIONS
+- **`getOSMBuildingsForPlotly()`**: Method modified to cache OSM building conversions to prevent performance degradation.
+- **`logViewChecks()`**: Updated to include structured log fields (`from`, `to`, `sim_time`) and increased timeout for view checks.
+- **2D Top Viewer Initialization**: Enhanced error logging and retry mechanisms for visibility issues.
+
+### DEPENDENCIES
+- `simulation/frontend/boxes/osm-integration-box.js`
+- `simulation/frontend/app-data.js`
+- Cesium library (for 2D viewer functionality)
+
+### USAGE
+The fixes are internal backend changes. Users should observe:
+- Reduced console spam from OSM building conversions.
+- Appearance of "Quad View Checks Complete" logs in the sidebar.
+- Proper initialization of the 2D Top Viewer (no black screen).
+
+### RELATED
+[[simulation/frontend/boxes/osm-integration-box.js]], [[simulation/frontend/app-data.js]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The OSM buildings caching fix ensures conversions only occur when GPS coordinates change or the cache expires (5-second TTL), preventing performance overload.
+
+>[!WARNING]- Caution
+> The 2D Top Viewer error handling is improved but requires further investigation. Check browser DevTools for full error details before proceeding.

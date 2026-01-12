@@ -1,0 +1,42 @@
+### FILENAME
+exploration_enhancements
+
+### TAGS
+#object-oriented-design, #exploration-algorithms, #lidar-processing, #path-planning, #autonomous-robotics, #3d-visualization, #box-architecture, #waypoint-generation, #adaptive-exploration, #lidar-drone
+
+### TYPE
+code-notes
+
+### SUMMARY
+Enhanced exploration system for LiDAR-equipped drones using frontier-based waypoint generation and adaptive path planning.
+
+### DETAILS
+This implementation introduces two key modules: `exploration_enhancement_box.py` and `path_planner_box.py`. The system dynamically generates exploration waypoints using frontier detection from LiDAR data, with fallback mechanisms if specialized boxes aren't available. The architecture follows the box pattern, allowing modular integration with existing exploration systems. The enhancements include improved 3D object detection (vertical FOV expanded to ±35° total) and adaptive exploration that adapts to discovered space boundaries.
+
+### KEY_FUNCTIONS
+- **`exploration_enhancement_box.py`**:
+  - `generate_next_waypoint()`: Core function that integrates frontier detection and waypoint generation.
+  - `_generate_with_boxes()`: Uses existing `FrontierExplorerBox` and `AdvancedLiDARBox` if available.
+  - `_generate_simple()`: Fallback to basic BFS clustering if specialized boxes fail.
+  - `_cluster_frontiers()`: Clustering algorithm for frontier-based waypoint selection.
+
+- **`path_planner_box.py`**:
+  - `plan_path()`: Main interface for obstacle-avoidance path planning.
+  - `_is_path_safe()`: Checks path feasibility with safety margins.
+  - `_plan_avoidance_path()`: Generates paths avoiding detected obstacles.
+
+### DEPENDENCIES
+`FrontierExplorerBox`, `AdvancedLiDARBox`, `SimpleLiDARDrone`, `physics_client`, `base_station`, `LiDAR point cloud` libraries.
+
+### USAGE
+Enable via `SimpleLiDARDrone` constructor with `use_enhanced_exploration=True` (default). Disabled via explicit `False`. The system dynamically integrates exploration boxes during drone initialization and updates waypoints during exploration.
+
+### RELATED
+[[scenarios/exploration/simple-exploration/simple_exploration_test.py]], [[EXPLORATION_ENHANCEMENTS.md]]
+
+### CALLOUTS
+>[!INFO]- **Frontier-Based Exploration**
+> The system dynamically generates waypoints from detected frontiers in LiDAR data, enabling autonomous exploration without pre-defined waypoints. This adapts to discovered space boundaries, improving coverage efficiency.
+
+>[!WARNING]- **Backward Compatibility**
+> Disabling `use_enhanced_exploration=False` reverts to fixed waypoints. Ensure existing waypoint configurations remain valid if switching off enhancements.

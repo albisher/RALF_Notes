@@ -1,0 +1,42 @@
+### FILENAME
+verify_osm_plotly_sync
+
+### TAGS
+#automated-testing, #web-verification, #browser-automation, #osm-integration, #plotly-sync
+
+### TYPE
+code-notes
+
+### SUMMARY
+Script verifies synchronization between OpenStreetMap (OSM) and Plotly visualizations via browser automation.
+
+### DETAILS
+This script uses Selenium to automate browser testing, comparing OSM data layers with Plotly-generated visualizations. It captures screenshots, logs console errors, and validates UI consistency between the two systems. The verification includes headless Chrome execution, element presence checks, and error handling for critical issues (e.g., Cesium-related warnings).
+
+### KEY_FUNCTIONS
+- **take_screenshot(driver, filename)**: Saves browser snapshots to a timestamped directory.
+- **get_console_errors(driver)**: Extracts severe browser console logs (e.g., Cesium errors).
+- **wait_for_element(driver, by, value, timeout)**: Polls for DOM elements with configurable timeout.
+- **verify_osm_plotly_sync()**: Orchestrates the full synchronization test workflow:
+  - Launches Chrome in headless mode.
+  - Loads a local OSM-Plotly dashboard.
+  - Captures initial state and checks for critical errors.
+  - (Incomplete: Missing Plotly/OSM-specific validation logic.)
+
+### DEPENDENCIES
+requests, time, os, json, datetime, selenium-webdriver (ChromeDriver), pytest (implicitly via `time.sleep` and `try/except`)
+
+### USAGE
+1. Run as standalone script (e.g., `python verify_osm_plotly_sync.py`).
+2. Configure `base_url` to point to the OSM-Plotly backend.
+3. Extend `verify_osm_plotly_sync()` with custom assertions (e.g., comparing layer visibility).
+4. Ensure ChromeDriver matches the Chrome version in `--version` argument.
+
+### RELATED
+[[https://github.com/your-repo/osm-dashboard-backend]], [[https://github.com/plotly/plotly.js]]
+
+### CALLOUTS
+>[!INFO]- Critical Error Filtering
+> The script filters for errors containing `'cesium'` (e.g., WebGL/performance issues in Cesium-based rendering). Add custom regex to detect OSM/Plotly-specific warnings.
+>[!WARNING]- Headless Mode Risks
+> `--disable-web-security` and `--allow-running-insecure-content` may expose security vulnerabilities. Use only in trusted environments.

@@ -1,0 +1,44 @@
+### FILENAME
+formatting-methods
+
+### TAGS
+#data-formatting, #utility-functions, #time-formatting, #position-velocity, #error-handling
+
+### TYPE
+code-notes
+
+### SUMMARY
+Utility library for converting raw data into standardized formatted strings for display.
+
+### DETAILS
+This module provides helper functions to transform raw numerical or positional data into human-readable formats. Functions handle time conversion (seconds → `MM:SS`), error timestamps (localized time strings), sensor labels (snake_case → Title Case), and structured data like positions, velocities, battery stats, and dimensions. Input validation ensures robustness with fallback values (e.g., `N/A` for invalid inputs).
+
+### KEY_FUNCTIONS
+- **`formatTime(seconds)`**: Converts total seconds into `MM:SS` format (e.g., `123` → `02:03`).
+- **`formatLogTime(seconds)`**: Same as `formatTime` but includes safeguards for `undefined/null` inputs.
+- **`formatErrorTime(timestamp)`**: Parses a Unix timestamp into a localized time string (e.g., `1625097600` → `12:33:20 PM`).
+- **`formatPosition(pos)`**: Formats 3D coordinates (e.g., `[1.2, 3.4, 5.6]` → `1.2, 3.4, 5.6`).
+- **`formatVelocity(velocity)`**: Computes magnitude of 3D velocity vectors (e.g., `[2.1, 3.2, 4.3]` → `5.86 m/s (2.10, 3.20, 4.30)`).
+- **`formatBattery(drone)`**: Extracts battery percentage and runtime (e.g., `{battery_remaining_percent: 85, battery_remaining_minutes: 15}` → `85.0% (15.0 min)`).
+- **`formatSensorLabel(key)`**: Converts snake_case keys (e.g., `altitude_distance`) to Title Case (e.g., `Altitude Distance`).
+- **`formatSensorValue(key, value)`**: Formats scalar values (e.g., `42.56` → `42.56`) or vectors (e.g., `[1.2, 3.4, 5.6]` → `(1.20, 3.40, 5.60)`).
+- **`formatSize(size)`**: Renders 3D dimensions (e.g., `[1.2, 3.4, 5.6]` → `1.2 × 3.4 × 5.6 m`).
+
+### DEPENDENCIES
+`Math`, `Date` (built-in JS), no external libraries.
+
+### USAGE
+```javascript
+const formatter = new FormattingMethods();
+console.log(formatter.formatTime(123)); // "02:03"
+console.log(formatter.formatPosition([1.2, 3.4, 5.6])); // "1.2, 3.4, 5.6"
+```
+
+### RELATED
+[[drone-data-processing]], [[time-series-analysis]]
+
+### CALLOUTS
+>[!INFO]- Input Validation
+> All functions include checks for `null`, `undefined`, or invalid types (e.g., non-arrays) to avoid runtime errors.
+>[!WARNING]- Precision Truncation
+> Floating-point values (e.g., `toFixed(2)`) may lose precision for extreme values. Test edge cases (e.g., `0.9999` → `1.00`).

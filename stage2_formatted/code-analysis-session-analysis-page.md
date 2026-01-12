@@ -1,0 +1,71 @@
+**Tags:** #React, #Vue, #UI-Component, #SessionAnalysis, #DataVisualization, #3D-Plot, #API-Integration, #StateManagement
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# session-analysis-page-component
+
+## Summary
+
+```
+Component for rendering session analysis data in a 3D/2D visualization dashboard with interactive elements and metrics.
+```
+
+## Details
+
+> This component (`SessionAnalysisPageComponent`) is a Vue.js-based UI component designed to display session analysis data when `currentView` is set to `'analysis'`. It expects an array of sessions and renders a structured UI with dropdowns, loading indicators, and multiple interactive plots (3D trajectory, 2D views, time series). The component filters sessions to only completed ones and extracts entities (drones/bases) for analysis. Data is fetched via an API endpoint (`/api/sessions/{sessionId}/replay`) and formatted for visualization.
+
+## Key Functions
+
+### ``completedSessions()``
+
+Computed property filtering sessions by completion status.
+
+### ``availableEntities()``
+
+Computed property extracting drone/base entities from session data.
+
+### ``loadSessionAnalysis()``
+
+API call to fetch session replay data.
+
+### ``formatDate()``
+
+Helper to format session timestamps.
+
+### ``render3DPlot()``
+
+Visualizes 3D trajectories (container: `id="analysis-3d-plot"`).
+
+### ``render2DViews()``
+
+Displays top, front, and side views (IDs: `analysis-2d-top`, `analysis-2d-front`, `analysis-2d-side`).
+
+### ``renderTimeSeries()``
+
+Plots position, velocity, battery, and height over time (IDs: `analysis-timeseries-*`).
+
+## Usage
+
+1. Pass `currentView: 'analysis'` and `sessions` array to render the component.
+2. Conditionally trigger `loadSessionAnalysis()` when a session is selected.
+3. Render UI elements dynamically based on `analysisData` availability (loading/empty/no-data states).
+
+## Dependencies
+
+> `Vue.js (for reactivity)`
+> `Vuex/Pinia (likely for state management)`
+> `Axios/Fetch (for API calls)`
+> `Three.js (for 3D plots)`
+> `Chart.js/D3.js (for time-series/2D plots)`
+> ``react`/`vue` dependencies for parent app integration.`
+
+## Related
+
+- [[SessionAnalysisPageComponent in Parent App]]
+- [[replay`]]
+
+>[!INFO] Conditional Rendering
+> The component **exclusively renders** when `currentView === 'analysis'`. All other UI elements are hidden unless `currentView` matches.
+
+>[!WARNING] Data Validation
+> Missing or malformed `sessions` data (e.g., empty array or invalid objects) may cause UI errors. Ensure `sessions` is properly filtered by `completedSessions()` before rendering.

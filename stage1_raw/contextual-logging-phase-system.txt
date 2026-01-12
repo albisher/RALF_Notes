@@ -1,0 +1,39 @@
+### FILENAME
+simulation/frontend/utils/logging-phase-system.js
+
+### TAGS
+#contextual-logging, #phase-based-filtering, #real-time-system-monitoring, #automated-state-detection, #log-management
+
+### TYPE
+code-notes
+
+### SUMMARY
+A modular system for dynamically filtering logs based on system operational phases, enhancing relevance and reducing noise during different stages of a simulation environment.
+
+### DETAILS
+This system dynamically adjusts log visibility by categorizing logs into six phases: **SYSTEM_CHECK**, **BASE_STATUS**, **DRONES_STATUS**, **WAITING_FOR_DRONES**, **MISSION_ACTIVE**, and **MONITORING**. It uses priority keywords and real-time system state checks (e.g., connectivity, drone status) to auto-advance phases. Logs are filtered to emphasize phase-relevant details while retaining critical errors/warnings, ensuring users see actionable insights without clutter.
+
+### KEY_FUNCTIONS
+- **`filterLogs(logs)`**: Applies phase-specific filtering to log messages, retaining only relevant keywords.
+- **`updateLoggingPhase()`**: Dynamically updates phase based on system state (e.g., drone count, API readiness).
+- **`window.loggingPhaseSystem`**: Global system object managing phase logic and UI integration.
+- **`filteredLogs()`** (in `app-data.js`): Integrates filtered logs into the UI, respecting phase rules.
+- **Phase Indicator UI**: Visual feedback (color-coded) showing the current phase in the logs sidebar.
+
+### DEPENDENCIES
+socket.io, React/Vue.js components (for UI rendering), `simulation/frontend/app-data.js`, `simulation/frontend/components/logs-sidebar-component.js`.
+
+### USAGE
+1. **Initialization**: Load `logging-phase-system.js` in the frontend environment.
+2. **Phase Detection**: System auto-updates phases via `updateLoggingPhase()` (triggered by `updateStatus()`/`updateDrones()`).
+3. **Log Filtering**: Logs are filtered via `window.loggingPhaseSystem.filterLogs()` in `app-data.js`.
+4. **UI Integration**: Phase state is passed to the logs sidebar via React/Vue props (e.g., `currentLoggingPhase`).
+
+### RELATED
+[[simulation/frontend/app-data.js]], [[simulation/frontend/components/logs-sidebar-component.js]], [[simulation/frontend/pages/simulation-page-component-layout5.js]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **Phase Advancement Logic**: Phases auto-advance only when conditions (e.g., drones spawned) are met. Manual overrides may be needed for edge cases.
+>[!WARNING]- Caution
+> **Error Retention**: Critical errors/warnings are always shown, even in non-MONITORING phases. Over-filtering risks missing urgent issues.

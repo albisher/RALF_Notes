@@ -1,0 +1,37 @@
+### FILENAME
+excessive-api-polling-fix
+
+### TAGS
+#performance-optimization, #api-polling, #socketio, #frontend-fix, #real-time-data
+
+### TYPE
+code-notes
+
+### SUMMARY
+Fixes excessive HTTP polling causing slow responses and high server load by prioritizing Socket.IO updates.
+
+### DETAILS
+The issue involved redundant polling where Socket.IO events and HTTP requests were both updating data simultaneously, leading to `NS_BINDING_ABORTED` errors and degraded performance. The solution centralized Socket.IO updates to avoid redundant HTTP calls and reduced polling intervals to a fallback mechanism when Socket.IO is unavailable.
+
+### KEY_FUNCTIONS
+- **updatePlotsWithData(data)**: Updates plots directly with Socket.IO data instead of making HTTP requests.
+- **updatePlots()**: Conditionally skips HTTP polling if Socket.IO is connected.
+- **updateDrones()**: Conditionally skips HTTP polling when Socket.IO is active, reducing polling frequency to 5 seconds.
+- **plotInterval**: Reduced from 200ms to 1 second for fallback polling when Socket.IO is disconnected.
+
+### DEPENDENCIES
+Socket.IO library, AbortController (for request cancellation), WebSocket API.
+
+### USAGE
+1. Replace redundant HTTP polling with Socket.IO event-driven updates.
+2. Conditionally execute HTTP fallback only when Socket.IO is unavailable.
+3. Ensure Socket.IO listeners are properly integrated to avoid duplicate data processing.
+
+### RELATED
+[[Socket.IO Integration Guide]], [[Real-Time Data Handling Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Socket.IO must be properly initialized and connected before relying on Socket.IO-based updates. Ensure the `isConnected()` check is accurate to avoid race conditions.
+>[!WARNING]- Caution
+> Over-reliance on HTTP fallback polling can reintroduce performance issues if Socket.IO connectivity is unreliable. Always prioritize Socket.IO updates and minimize fallback polling intervals.

@@ -1,0 +1,53 @@
+**Tags:** #system_requirements, #dependency_verification, #pybullet_alternative, #python_version_check
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# verify_without_pybullet
+
+## Summary
+
+```
+Checks system requirements for HMRS without PyBullet, validating Python and optional dependencies.
+```
+
+## Details
+
+> This script verifies conceptual system requirements for HMRS (likely a robotics or simulation framework) by checking Python version and optional dependencies (NumPy, Matplotlib, OpenCV) without requiring PyBullet. It logs pass/fail statuses for each check and provides installation guidance. The script intentionally avoids PyBullet import to test compatibility before installation or during failures.
+
+## Key Functions
+
+### `check_python_version`
+
+Validates Python 3.10+ compatibility, with a note recommending 3.11–3.12 for PyBullet.
+
+### `check_dependencies`
+
+Dynamically checks installed packages (NumPy, Matplotlib, OpenCV) and PyBullet, returning structured results with statuses and versions.
+
+## Usage
+
+1. Run the script to verify Python version and optional dependencies.
+2. Use the `results` dictionary to analyze pass/fail statuses.
+3. Install missing packages via `pip` (e.g., `pip install pybullet`).
+
+## Dependencies
+
+> ``sys``
+> ``importlib``
+> ``typing` (built-in)`
+> ``numpy``
+> ``matplotlib``
+> ``opencv-python` (optional)`
+> ``pybullet` (optional`
+> `checked separately).`
+
+## Related
+
+- [[HMRS Documentation]]
+- [[PyBullet Installation Guide]]
+
+>[!INFO] Important Note
+> PyBullet version checks are performed but not enforced—this script only verifies its absence. If PyBullet is required, install it explicitly after running this check.
+
+>[!WARNING] Caution
+> Python 3.14+ may cause compatibility issues with PyBullet. Test with 3.10–3.12 first.

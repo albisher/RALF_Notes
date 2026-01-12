@@ -1,0 +1,43 @@
+### FILENAME
+ui-browser-check-status
+
+### TAGS
+#ui-check, #browser-status, #frontend, #gps-preset, #visualization
+
+### TYPE
+documentation
+
+### SUMMARY
+Checks frontend UI browser status for GPS visualization and layout modes.
+
+### DETAILS
+This document verifies the operational status of a UI application running on `localhost:5007`, focusing on frontend components like GPS presets, visualization modes, and API health. It includes server status checks (frontend/backend, Docker containers) and expected UI elements (header, visualization view) with dynamic features like layout modes (Quad, 3D Only, 2D Only, Both) and OSM/Plotly toggles. Recent fixes ensure smooth transitions between views, accurate GPS updates, and proper rendering of markers and buildings.
+
+### KEY_FUNCTIONS
+- **GPS Preset Dropdown**: Updates all views (OSM/Plotly) with selected location data.
+- **Layout Mode Selector**: Dynamically adjusts visualization (e.g., Quad View, 3D Only) and viewport composition.
+- **OSM/Plotly Toggle**: Switches between OpenStreetMap and Plotly-based rendering with preserved camera positions.
+- **Center Markers**: Displays a yellow marker labeled "📍 Center" across all active views.
+- **API Health Check**: Validates backend API responsiveness via JSON endpoint.
+
+### DEPENDENCIES
+- Frontend framework (likely React/TypeScript) hosting `hmrs-frontend` container.
+- Backend API (`hmrs-backend`) for session/data management.
+- Docker containers (`hmrs-session-db`, `hmrs-simulator`) for database/simulation services.
+- Cesium/Plotly libraries for 3D/2D visualization.
+- OSM API for street/map data.
+
+### USAGE
+1. Access via `http://localhost:5007` to verify UI functionality.
+2. Test GPS presets (e.g., "Random") and view toggles (OSM/Plotly).
+3. Validate layout modes (Quad/Both/3D/2D) and marker rendering.
+4. Check API health via JSON endpoint for backend stability.
+
+### RELATED
+[[ui-frontend-specification]], [[docker-container-checks]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **Docker Containers**: All services (`hmrs-frontend`, `hmrs-backend`, `hmrs-session-db`, `hmrs-simulator`) must be running for UI functionality. Verify container health via `docker ps` if issues arise.
+>[!WARNING]- Caution
+> **API Dependencies**: If `api_start_available` returns `false`, backend services may be misconfigured. Test API endpoints separately before UI checks.

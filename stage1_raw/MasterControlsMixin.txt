@@ -1,0 +1,48 @@
+### FILENAME
+MasterControlsMixin
+
+### TAGS
+#Vue, #Mixin, #MasterControls, #Simulation, #DataManagement, #APIIntegration
+
+### TYPE
+code-notes
+
+### SUMMARY
+Provides a reusable Vue mixin for master control functionality, managing simulation data and drone configurations.
+
+### DETAILS
+`MasterControlsMixin` is a Vue.js mixin designed to encapsulate master control logic, including GPS simulation data, weather parameters, and drone brand configurations. It follows the mixin pattern for code reuse and integrates with `MasterControlsService` for API-based operations. The mixin initializes default values (e.g., GPS coordinates, weather stats) and dynamically loads additional data via the service. It handles initialization checks, error logging, and asynchronous loading/saving of controls.
+
+The mixin relies on a global `APIBox` (or `apiCommunicationBox`) for communication with external systems and logs status updates via a `loggingBox` if available.
+
+### KEY_FUNCTIONS
+- **`loadMasterControls()`**: Asynchronously fetches and merges latest master control data from `MasterControlsService` into the component’s `masterControls` object.
+- **`saveMasterControls()`**: Asynchronously saves the current `masterControls` state to the service, triggering success/error notifications if configured.
+- **`created()`**: Initializes the `MasterControlsService` with the global API endpoint and loads default drone brands if the service is ready.
+
+### DEPENDENCIES
+`MasterControlsService` (local), `window.apiCommunicationBox`/`window.apiBox` (global), `window.loggingBox` (optional), `showNotification` (optional callback).
+
+### USAGE
+1. Import and use the mixin in a Vue component:
+   ```javascript
+   import MasterControlsMixin from './MasterControlsMixin.js';
+
+   export default {
+       mixins: [MasterControlsMixin],
+       // Component logic
+   };
+   ```
+2. Call `loadMasterControls()` to refresh data after initialization or dynamically.
+3. Optionally implement `showNotification` to display success/error messages.
+
+### RELATED
+[[Vue.js Mixin Patterns]], [[MasterControlsService]], [[APIBox Integration Guide]]
+
+### CALLOUTS
+>[!INFO]- Initialization Check
+> The mixin checks for `window.apiCommunicationBox`/`window.apiBox` before creating `MasterControlsService`. If unavailable, it logs an error.
+>[!WARNING]- Missing Service
+> If `masterControlsService` is not initialized (e.g., during early component lifecycle), calling `loadMasterControls()` or `saveMasterControls()` will trigger an error. Ensure the service is ready before use.
+>[!INFO]- Logging Integration
+> If `window.loggingBox` exists, it logs `'INFO'` messages (e.g., "Master controls loaded") with metadata. This is optional and depends on the app’s logging system.

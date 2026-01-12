@@ -1,0 +1,43 @@
+### PROJECT_KNOWLEDGE_BASE
+
+### TAGS
+#simulation, #drone_swarm, #ai_automation, #flask_api, #postgresql, #docker, #multi_robot_coordination, #window_cleaning, #real_time_visualization, #pybullet, #python_backend, #vue_frontend
+
+### TYPE
+documentation
+
+### SUMMARY
+A comprehensive knowledge base for an operational HMRS (Heterogeneous Multi-Robot System) window cleaning drone swarm simulation platform, designed for AI assistants and developers.
+
+### DETAILS
+This project provides a **multi-drone coordination system** for autonomous window cleaning, integrating vendor-agnostic drones with real-time 3D visualization and session persistence. It leverages PyBullet for physics simulation, Flask for REST APIs, and PostgreSQL for data storage. The architecture supports heterogeneous drone swarms, LiDAR-based building mapping, and ML-driven optimization, enabling simulation before real-world deployment.
+
+### KEY_FUNCTIONS
+- **Swarm Controller**: Manages heterogeneous drone coordination.
+- **Multi-Use Platform**: Supports DJI, Parrot, Autel, and custom drones.
+- **Window Cleaning Focus**: Specialized for facade maintenance tasks.
+- **Session Persistence**: Allows replay and analysis of drone operations.
+- **Vendor Onboarding**: Facilitates easy integration of any drone brand.
+
+### DEPENDENCIES
+- Python 3.10+
+- Flask, Socket.IO, PyBullet, PostgreSQL
+- Docker Compose, Nginx, Leaflet, Plotly.js, Vue.js
+- Scientific libraries (NumPy, SciPy)
+
+### USAGE
+1. **Setup**: Clone the repository and navigate to the project directory.
+2. **Docker Compose**: Run `docker compose -f docker/docker-compose.yml up -d` to start containers.
+3. **API Health Check**: Use `curl http://localhost:5007/api/health` to verify backend health.
+4. **Web Interface**: Open `http://localhost:5007` in a browser for real-time visualization.
+5. **Stop System**: Use `docker compose -f docker/docker-compose.yml stop` to halt containers gracefully.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The system uses **Docker Compose** for container orchestration, ensuring modular deployment of backend, frontend, and simulation services. Ensure PostgreSQL and PyBullet are properly configured to avoid runtime errors.
+
+>[!WARNING]- Caution
+> **Session persistence** relies on PostgreSQL; ensure the database is accessible and not overloaded. For production, consider scaling PostgreSQL horizontally if handling high volumes of sessions.

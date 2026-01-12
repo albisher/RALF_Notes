@@ -1,0 +1,40 @@
+### FILENAME
+performance-optimization
+
+### TAGS
+#performance-optimization, #simulation, #headless-mode, #physics-optimization, #parallel-processing, #ai-training, #pybullet, #gazebo, #airsim, #computational-efficiency
+
+### TYPE
+code-notes
+
+### SUMMARY
+Optimization guide for high-performance simulations by reducing visual overhead and leveraging headless rendering.
+
+### DETAILS
+This guide details performance optimization techniques for the HMRS project, emphasizing computational efficiency over visual fidelity. It leverages research findings that shorter, parallel simulation episodes outperform long, single episodes for AI training. Key techniques include headless rendering (PyBullet, Gazebo, AirSim), simplified physics models, and reduced collision complexity to enhance speed and reduce overhead.
+
+### KEY_FUNCTIONS
+- **`p.connect(p.DIRECT)`**: Initializes PyBullet in headless mode for maximum performance.
+- **`p.loadURDF()`**: Loads URDF models without rendering overhead.
+- **`p.createCollisionShape()`**: Uses primitive shapes for faster collision detection.
+- **`p.setTimeStep()`**: Adjusts physics update frequency for efficiency.
+- **`gazebo --headless`**: Runs Gazebo without GUI for reduced rendering overhead.
+- **SDF collision configuration**: Disables visual elements to lower memory and rendering load.
+
+### DEPENDENCIES
+PyBullet, Gazebo, AirSim, URDF/XML files, ODE physics engine (for Gazebo).
+
+### USAGE
+1. Replace GUI-based rendering with headless mode in PyBullet/Gazebo/AirSim.
+2. Simplify collision shapes and reduce physics timestep frequency.
+3. Run multiple short episodes in parallel for faster convergence.
+4. Disable unnecessary visual elements in Gazebo SDF files.
+
+### RELATED
+[[scholarly-papers/01-many-small-dreams-papers.md]], none
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Headless mode significantly reduces overhead but may limit debugging capabilities. Ensure data processing compensates for reduced visual feedback.
+>[!WARNING]- Caution
+> Over-reducing physics timestep frequency (e.g., `p.setTimeStep(0.001)`) may introduce numerical instability. Test stability with realistic episode lengths.

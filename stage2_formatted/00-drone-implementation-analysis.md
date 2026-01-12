@@ -1,0 +1,58 @@
+**Tags:** #drone-simulation, #battery-management, #motor-control, #fixes-needed, #power-consumption, #quadrotor, #HMRS, #simulation-analysis
+**Created:** 2026-01-12
+**Type:** research
+
+# drone-implementation-analysis
+
+## Summary
+
+```
+Analyzes drone implementation in HMRS simulation, focusing on battery usage, motor mechanics, and movement coordination.
+```
+
+## Details
+
+> This document evaluates the current drone implementation in the HMRS simulation, identifying gaps in battery modeling, motor functionality, and movement logic. It highlights that drones use oversimplified battery counters instead of a physics-based model, and motors lack individual rotation capabilities, relying only on total upward force. The analysis also notes that while drones sense their environment, they do not move during mapping tasks, only during return phases.
+
+## Key Functions
+
+### ``BatteryModel` (simulation/swarm/battery_model.py)`
+
+Tracks power consumption based on thrust, velocity, altitude, and payload.
+
+### ``apply_thrust()` (simulation/swarm/base_drone.py)`
+
+Applies total upward force without individual motor control.
+
+### ``BatteryModel.update()``
+
+Should replace linear battery depletion with physics-based consumption.
+
+### ``BatteryModel.calculate_power_consumption()``
+
+Computes power from thrusts, velocity, and altitude.
+
+## Usage
+
+The document provides a roadmap for integrating realistic battery and motor systems into HMRS drones, emphasizing:
+1. Replacing linear battery depletion with `BatteryModel`.
+2. Implementing individual motor rotation in `apply_thrust()`.
+3. Ensuring drones move during mapping tasks via coordinated thrust application.
+
+## Dependencies
+
+> ``simulation/swarm/battery_model.py``
+> ``simulation/swarm/base_drone.py``
+> ``hmrs_scout_drone.py``
+> ``hmrs_tanker_mule_drone.py``
+> ``worker_drone_boxed.py``
+
+## Related
+
+- [[00-realistic-simulation-implementation-summary]]
+
+>[!INFO] Important Note
+> The `BatteryModel` exists but is unused in HMRS drones. Fixing this requires replacing the linear counter with `self.battery.calculate_power_consumption()` and `self.battery.update()` calls.
+
+>[!WARNING] Caution
+> Current motor implementation lacks differential thrust, meaning drones cannot tilt or rotate—only apply a single upward force, limiting realism.

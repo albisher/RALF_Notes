@@ -1,0 +1,44 @@
+### FILENAME
+verify_routes_after_restart
+
+### TAGS
+#automation, #post-restart-validation, #session-endpoint-testing, #curl, #health-check
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automated script to validate session-related API endpoints after server restart.
+
+### DETAILS
+This Bash script verifies the functionality of session management endpoints (`/api/health`, `/api/sessions`, `/api/sessions/<id>/select`, `/api/sessions/<id>/replay`, and `/api/sessions/db/list`) by:
+1. Waiting for the server to initialize (3-second delay).
+2. Performing HTTP checks via `curl` and parsing responses for HTTP status codes and JSON payloads.
+3. Logging success/failure with emojis and exit codes (1 on failure).
+4. Extracting session counts or replay availability dynamically using Python’s `json` module.
+
+The script handles cases where routes may not exist post-restart (e.g., 404 responses) and skips detailed validation for non-200 responses.
+
+### KEY_FUNCTIONS
+- **`sleep 3`**: Delays execution until the server is ready.
+- **`curl` + `grep`/`python3` parsing**: Extracts HTTP status codes and JSON fields (e.g., session count, `replay_available`).
+- **Session-specific tests**: Tests `/api/sessions/<id>/select` and `/api/sessions/<id>/replay` with a hardcoded ID (`202512131159`).
+- **Health check**: Validates `/api/health` for a "status.ok" response.
+
+### DEPENDENCIES
+`curl`, `python3` (for JSON parsing), Bash shell.
+
+### USAGE
+1. Run after server restart to validate session endpoints.
+2. Logs results to stdout with emoji indicators (✅/❌/⚠️).
+3. Exits with `1` on critical failures (e.g., server not responding).
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Dynamic Session ID Handling
+> The script uses a hardcoded session ID (`202512131159`) for `/select` and `/replay` tests. If this ID is invalid, the endpoint returns a 404, which is logged but not treated as a critical failure.
+
+>[!WARNING]- Route Dependency
+> If the server does not support the tested routes (e.g., `/api/sessions/db/list`), the script will log a 404 but continue execution. Ensure the server’s routes match the script’s expectations.

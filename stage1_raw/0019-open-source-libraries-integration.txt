@@ -1,0 +1,40 @@
+### FILENAME
+open-source-libraries-integration
+
+### TAGS
+#open-source-libraries, #drone-simulation, #3d-reconstruction, #collision-avoidance, #ROS2, #PyTorch, #NeRF
+
+### TYPE
+research-documentation
+
+### SUMMARY
+Document outlining open-source libraries for drone simulation enhancements, focusing on collision avoidance and 3D scene reconstruction.
+
+### DETAILS
+This document details the integration status of open-source libraries into a drone simulation system (HMRS). It categorizes libraries into **Phase 1** (completed) and **Phase 2** (ready for integration), covering collision avoidance (e.g., attention-based models, multi-agent environments) and NeRF-based 3D reconstruction (e.g., `nerf-pytorch`). Libraries are evaluated for compatibility, adaptability, and real-time capabilities, with installation and integration notes provided for each.
+
+### KEY_FUNCTIONS
+- **AttentionSwarm**: Research-based attention model for collision avoidance in drones.
+- **Multi-Agent Drone Environment**: Gym-compatible framework for swarm robotics and collision avoidance.
+- **PySwarming**: Toolkit for swarm behaviors, including collision avoidance.
+- **uav-collision-avoidance**: PyPI package for real-time collision avoidance with GUI support.
+- **nerf-pytorch**: PyTorch-based library for NeRF-based 3D scene reconstruction (needs `torch/nerfacc`).
+- **ROS 2 Interface Box**: Code-ready module for ROS 2 integration (needs `rclpy`).
+
+### DEPENDENCIES
+`PyTorch`, `PyBullet`, `rclpy`, `torch/nerfacc`, `multi-agent-drone-env`, `pyswarming`, `uav-collision-avoidance`.
+
+### USAGE
+1. **Phase 1**: Use completed libraries (e.g., `AttentionSwarm`, `Multi-Agent Drone Environment`) directly or extract collision avoidance algorithms.
+2. **Phase 2**: Adapt research code (e.g., `NeRF Building Reconstruction Box`) or install dependencies (e.g., `pip install multi-agent-drone-env`) before integration.
+3. Cross-reference with `research/0020-integration-complete.md` for detailed implementation steps.
+
+### RELATED
+[[research/0018-modern-drone-simulation-enhancements-2025.md]], [[research/0020-integration-complete.md]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **NeRF Libraries**: `nerf-pytorch` requires `torch/nerfacc` for full functionality. Ensure PyTorch version supports it (e.g., ≥1.12).
+> **ROS 2 Interface**: The `ROS 2 Interface Box` is code-ready but may need custom ROS 2 node setup for compatibility with your system.
+>[!WARNING]- Caution
+> **Research Code Adaptation**: Libraries like `AttentionSwarm` are research prototypes; test thoroughly for real-world performance (e.g., Crazyflie 2.1 landing accuracy may not generalize). Avoid direct copy-paste without validation.

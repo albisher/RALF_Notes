@@ -1,0 +1,38 @@
+### FILENAME
+UniversalProgrammingSkill
+
+### TAGS
+#object-oriented-programming, #box-pattern, #docker, #vuejs, #postgresql, #oop, #modularity, #reusable-components, #class-based-components
+
+### TYPE
+code-notes
+
+### SUMMARY
+A universal programming methodology combining OOP principles, the Box Pattern for modularity, and Docker for containerization, applied across all web projects using Vue.js and PostgreSQL.
+
+### DETAILS
+This methodology emphasizes treating everything as an object with a single responsibility, ensuring reusability and composability. It integrates OOP principles into JavaScript, Vue.js components, and HTML structures, while enforcing a container-first approach via Docker. The Box Pattern ensures modularity by encapsulating functionality into reusable, single-purpose modules.
+
+### KEY_FUNCTIONS
+- **UserService**: Handles API interactions via a centralized `apiBox` dependency.
+- **EmailValidator**: Static utility class for email validation and domain extraction.
+- **UserListComponent**: Extends `BaseComponent` to encapsulate Vue.js logic, data, and lifecycle hooks.
+- **BaseComponent**: Abstract base class for Vue components to enforce OOP structure.
+
+### DEPENDENCIES
+Vue.js, `window.apiBox` (assumed global API wrapper), PostgreSQL (database backend), Docker (containerization).
+
+### USAGE
+1. **Apply OOP**: Replace loose functions with classes (e.g., `UserService`).
+2. **Vue Components**: Extend `BaseComponent` and use `build()` to instantiate components as classes.
+3. **HTML Structure**: Organize elements hierarchically to align with component logic.
+4. **Dockerize**: Package all components and services into Docker containers for consistency.
+
+### RELATED
+[[UniversalProgrammingSkill_ExampleProject]], [[VueComponentDesignPatterns]]
+
+### CALLOUTS
+>[!INFO]- **Class vs. Object**
+> In Vue.js, components are classes, not plain objects. The `build()` method converts a class instance into a Vue-compatible object for rendering.
+>[!WARNING]- **API Dependency**
+> `window.apiBox` must be globally available for `UserService` to function. Ensure it’s injected or initialized before component use.

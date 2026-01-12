@@ -1,0 +1,35 @@
+### **File: visualization-view-component.js**
+#**#javascript, #ui/ux, #layout-mode, #cesium, #osm-integration**
+
+### **TYPE**
+code-notes
+
+### **SUMMARY**
+Modified visualization layout to replace the "Both" toggle with a dedicated "OSM" button, ensuring OSM views are always rendered in a fixed layout mode.
+
+### **DETAILS**
+This change restructures the UI to eliminate the "Both" toggle, which previously allowed users to switch between OSM and Plotly views. The new "OSM" button enforces a static layout where OSM views (2D Top + 3D Isometric) are always displayed, while Plotly remains toggleable in other modes. The `onLayoutModeChange()` function now auto-enables OSM views when the mode switches to `'osm'`, ensuring consistency.
+
+### **KEY_FUNCTIONS**
+- **`onLayoutModeChange(mode)`**: Updates layout mode and triggers view initialization. If `mode === 'osm'`, it forces OSM view activation.
+- **`initializeOSMViewsForLayout(mode)`**: Dynamically renders OSM-specific templates (e.g., 2D/3D side-by-side) when `mode === 'osm'`.
+- **`onToggleOSMView()`**: Handles OSM view enablement/disablement (called automatically in `'osm'` mode).
+- **`layoutMode` prop**: Tracks current layout (e.g., `'osm'`, `'both'` → replaced).
+
+### **DEPENDENCIES**
+`cesium`, `vue`, `simulation/frontend/app-data.js` (layout mode logic), `osmIntegrationBox` (external OSM rendering component).
+
+### **USAGE**
+1. Replace the "Both" button with the "OSM" button in the toolbar.
+2. Clicking "OSM" locks the UI into OSM views (2D Top + 3D Isometric).
+3. Plotly toggle remains functional in all modes but is irrelevant when OSM is active.
+
+### **RELATED**
+[[simulation/frontend/app-data.js]], [[cesium-viewer-configurations]]
+
+### **CALLOUTS**
+>[!INFO]- **OSM View Locking**
+> The new `'osm'` mode **disables toggling** between OSM/Plotly—users cannot revert to Plotly views while in this mode. This ensures OSM consistency.
+
+>[!WARNING]- **Plotly Incompatibility**
+> When `layoutMode === 'osm'`, the Plotly toggle is still visible but **ignored**—only OSM views render. Users must manually switch back to another mode (e.g., Quad View) to toggle Plotly.

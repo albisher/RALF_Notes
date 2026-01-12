@@ -1,0 +1,46 @@
+### FILENAME
+click-analysis-config-page
+
+### TAGS
+#user-interaction-test, #ui-configuration, #click-testing, #swarm-management, #interactive-element
+
+### TYPE
+test-reference
+
+### SUMMARY
+Analyzes interactive click-by-click testing results for a configuration page managing swarm and base settings.
+
+### DETAILS
+This document records an interactive element testing session for a `/config` page designed to configure drone swarms and bases. The test evaluates user interactions with inputs, dropdowns, buttons, and conditional elements like swarm/squad management. The page includes base configuration fields (name, position, drone count), naming conventions, and buttons for adding/saving/deleting swarms and squads. The test highlights functionality for input validation, dropdown selection, and dynamic UI updates.
+
+### KEY_FUNCTIONS
+- **Base Configuration Inputs**: Handles name, position (X/Y/Z), max drones, and communication range fields.
+- **Naming Convention Dropdown**: Provides options like "Numbered" or "Lettered" for swarm naming.
+- **Add Swarm Button**: Dynamically creates a new swarm entry with editable fields (name, save/cancel/delete buttons).
+- **Swarm/Squad Management**: Supports conditional rendering of edit/delete buttons for existing swarms/squads.
+- **Save/Load Configuration**: Buttons to persist or retrieve configurations.
+
+### DEPENDENCIES
+- Frontend UI framework (likely React/Angular/Vue for interactive elements).
+- Backend API for validation/logic (e.g., drone swarm management system).
+- Console logging for error tracking (e.g., `Uncaught Error` in Click 04).
+
+### USAGE
+1. **Initial Setup**: Access the page via `http://localhost:5007/config` to verify all elements are present.
+2. **Testing Workflow**:
+   - Fill base inputs (e.g., name, position).
+   - Test dropdowns (e.g., naming conventions).
+   - Click "Add Swarm" to create entries and test edit/delete buttons.
+3. **Debugging**: Check console for errors (e.g., Click 04’s dropdown issue).
+
+### RELATED
+[[click-analysis-initial-state]], [[swarm-management-api-reference]]
+
+### CALLOUTS
+>[!INFO]- Naming Convention Fix
+> The dropdown option value mismatch (e.g., "Lettered (Alpha, Bravo, Charlie...") vs. expected "lettered") must be resolved by either:
+> - Trimming whitespace/extra text in the dropdown options.
+> - Updating the frontend code to match the displayed option text.
+>
+>[!WARNING]- Broken Dropdown Selection
+> **Critical**: The dropdown selection failure (Click 04) may prevent users from configuring naming conventions, breaking swarm organization. Prioritize debugging this issue before proceeding.

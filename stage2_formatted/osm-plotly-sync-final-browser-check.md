@@ -1,0 +1,71 @@
+**Tags:** #browser-debugging, #osm-integration, #plotly-cesium, #vue-components, #api-error-handling, #gps-coordinates, #overpass-api, #ui-testing, #camera-synchronization
+**Created:** 2026-01-12
+**Type:** documentation-research
+
+# osm-plotly-sync-final-browser-check
+
+## Summary
+
+```
+Final browser verification report for OSM-Plotly synchronization, confirming fixes for dropdown errors and UI layout functionality.
+```
+
+## Details
+
+> This document details the final browser check for an OSM-Plotly synchronization system, confirming fixes for dropdown errors and UI layout functionality. It includes verification of successful page load, OSM/Plotly view toggling, and camera synchronization. However, it highlights unresolved issues with GPS coordinate updates and OSM building loading due to incorrect preset selection.
+
+## Key Functions
+
+### `OSM Toggle Button`
+
+Switches between OSM and Plotly views.
+
+### `Quad View Layout`
+
+Manages four viewport configurations (2D Top, Front, Side, 3D Isometric).
+
+### `Cesium Viewers`
+
+Initializes 2D and 3D Cesium viewers for OSM/Plotly integration.
+
+### `Overpass API Integration`
+
+Loads OSM buildings via API fallback.
+
+### `GPS Coordinate Preset Selection`
+
+Dropdown for setting GPS coordinates (Kuwait preset not functioning).
+
+### `Camera Synchronization`
+
+Resets camera to base position when switching views.
+
+## Usage
+
+To use this system:
+1. Access `http://localhost:5007/` in a browser.
+2. Toggle between OSM and Plotly views using the OSM Toggle Button.
+3. Select a GPS preset (e.g., Kuwait) from the dropdown to load OSM buildings at the correct location.
+4. Verify the Quad View layout updates dynamically.
+
+## Dependencies
+
+> `- Cesium.js (for 2D/3D viewers)
+- Plotly.js (for visualization)
+- Vue.js (for UI components)
+- Overpass API (for OSM data retrieval)
+- Socket.IO (for real-time communication)
+- WebGL Extensions (for browser compatibility)`
+
+## Related
+
+- [[OSM-Plotly-Synchronization-Architecture]]
+- [[Overpass-API-Usage-Guide]]
+- [[Vue-Component-Registry]]
+
+>[!INFO] Important Note
+> The **GPS preset selection** (dropdown) is not functioning in browser automation, causing incorrect coordinates (e.g., `44.1253970, -146.97008`) instead of the intended Kuwait preset (`29.234431, 48.054987`). This results in empty OSM buildings due to mismatched coordinates.
+
+
+>[!WARNING] Caution
+> The **Overpass API fallback** is currently active, but the primary Cesium Ion OSM Buildings feature is disabled. If the API response fails, buildings may not load, leaving viewers empty. Ensure correct GPS coordinates are set manually to avoid this.

@@ -1,0 +1,47 @@
+### FILENAME
+test_ui_replay_flow
+
+### TAGS
+#test, #ui, #replay, #session, #api, #debugging
+
+### TYPE
+code-notes
+
+### SUMMARY
+Tests the UI replay functionality for a session by verifying session existence, replay data availability, and motion history integrity.
+
+### DETAILS
+This script simulates a user replay flow by checking if a session exists, verifying session selection, loading replay data, and inspecting the underlying `motion_history.json` file. It validates whether motion data is recorded for playback by checking the size and content of the motion history entries. The test specifically checks for the presence of drone movement data, which is critical for enabling playback functionality.
+
+The script follows a structured sequence:
+1. Verifies the session exists in the API endpoint.
+2. Checks if the session can be selected and if replay data is available.
+3. Attempts to load replay data via an API endpoint.
+4. Manually inspects the `motion_history.json` file to confirm recorded motion data exists.
+
+### KEY_FUNCTIONS
+- **Session Existence Check**: Validates if the session ID exists in the API response.
+- **Session Selection**: Attempts to select the session via a POST request to verify API interaction.
+- **Replay Data Loading**: Fetches replay data via a GET request to confirm availability.
+- **File Inspection**: Checks the local `motion_history.json` file for drone motion data manually.
+
+### DEPENDENCIES
+- `requests`: For making HTTP API calls.
+- `json`: For parsing JSON responses and reading file contents.
+- `pathlib`: For handling file paths.
+
+### USAGE
+To run this test:
+1. Ensure the backend server (`http://localhost:5007`) is running.
+2. Set the `SESSION_ID` variable to a valid session ID.
+3. Execute the script. It will output whether each step succeeds or fails and provide details on why.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script explicitly checks for the existence of `motion_history.json` and its contents. If this file is empty or missing, the session will fail replay, even if the API endpoints return success. This is a critical validation step for debugging replay issues.
+
+>[!WARNING]- Caution
+> If the session does not exist in the API response, the script will not proceed to check the local file. Ensure the session ID is correct and the session was recorded properly before running this test. Incorrect session IDs may lead to misleading results.

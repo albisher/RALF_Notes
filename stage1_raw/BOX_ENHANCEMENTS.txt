@@ -1,0 +1,47 @@
+### BOX_ENHANCEMENTS
+
+### TAGS
+#exploration, #drone-paths, #spiral-algorithms, #frontier-detection, #random-generation, #learning-system, #simulation-enhancements, #building-objects, #waypoint-tracking
+
+### TYPE
+code-notes
+
+### SUMMARY
+Enhanced exploration boxes for drones with dynamic paths, random building objects, and learning capabilities.
+
+### DETAILS
+This file details enhancements to exploration boxes, introducing varied drone paths (frontier-based and spiral fallback), random building-sized objects (10–50m dimensions), and system learning from simulations. The updates ensure consistent exploration diversity across runs by adjusting voxel sizes, generating random shapes, and implementing adaptive waypoint tracking.
+
+### KEY_FUNCTIONS
+- **`exploration_enhancement_box.py`**:
+  - Adjusts voxel size for building detection (minimum 2m).
+  - Implements spiral fallback for path generation when no frontiers are detected.
+  - Tracks waypoint count to ensure path diversity.
+
+- **`simple_exploration_test.py`**:
+  - Uses a randomized seed (timestamp + process ID) to generate unique objects.
+  - Creates building shapes (cubes, spheres, cylinders) with randomized dimensions.
+  - Reduces frontier detection threshold to 30 points for more attempts.
+  - Generates fallback spiral waypoints with ±15° angle offsets.
+
+- **`learning_system.py`** (New):
+  - Tracks simulation counts and object distributions.
+  - Stores successful paths and knowledge in JSON format.
+  - Provides statistics and insights from repeated runs.
+
+### DEPENDENCIES
+`numpy`, `os`, `time`, `json` (for random generation, process ID handling, and JSON storage).
+
+### USAGE
+1. **Run Exploration**: Execute the enhanced boxes with randomized seeds to generate varied objects and paths.
+2. **Path Generation**: Use frontier detection or spiral fallback based on detected boundaries.
+3. **Learning Integration**: Feed simulation results into `learning_system.py` to accumulate and analyze data.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- **Dynamic Path Diversity**
+> The spiral fallback ensures consistent path variation even when frontier detection fails, preventing redundant exploration routes.
+>[!WARNING]- **Voxel Size Sensitivity**
+> Ensure `voxel_size_adj` is set to at least 2m to accurately detect building-sized objects; incorrect values may lead to missed boundaries.

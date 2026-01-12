@@ -1,0 +1,14 @@
+
+CRITICAL BLOCKING ISSUE: All attempts to execute commands using the `run_shell_command` tool are being rejected by the system.
+
+This is not an issue with the type of command (e.g., "shell" vs. "terminal"). The `run_shell_command` tool is the *only* mechanism I have to execute any form of command on the system, be it a Python script, a `pip` command, a `git` command, or even a simple `echo`.
+
+Since this fundamental tool is non-functional, I am completely blocked from performing any actions that involve interacting with the operating system. This includes:
+
+- Installing or updating dependencies.
+- Running the application (`ralf-notes`).
+- Executing tests (`pytest`).
+- Making file system changes (beyond `write_file` if it works).
+- Even using basic system utilities or displaying output in the terminal via commands.
+
+I cannot proceed with any tasks until the `run_shell_command` tool is functional. Please address this environmental restriction.

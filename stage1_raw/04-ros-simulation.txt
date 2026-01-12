@@ -1,0 +1,37 @@
+### FILENAME
+ros-simulation
+
+### TAGS
+#ROS2, #Simulation, #Gazebo, #DDS, #Robotics, #HMRS, #Multi-Robot, #Sensor-Simulation, #ROS2-Python, #Hardware-in-the-Loop
+
+### TYPE
+documentation
+
+### SUMMARY
+Documentation for ROS2-based simulation tools, focusing on Ignition Gazebo integration for the HMRS project.
+
+### DETAILS
+This document provides an overview of ROS2 simulation tools, emphasizing Ignition Gazebo as the recommended simulator for the HMRS project. It highlights its native ROS2 support, DDS middleware compatibility, and multi-robot capabilities. The content includes installation instructions for ROS2 and Gazebo, a Python ROS2 integration example for a drone node, and a basic launch file setup.
+
+### KEY_FUNCTIONS
+- **`ScoutDrone` class**: ROS2 node for simulating and controlling a drone with publishers for `cmd_vel` and `LaserScan` topics, subscribers for `Odometry` and `Image` topics.
+- **`control_loop` method**: Executes periodic control logic (e.g., publishing `Twist` commands) every 0.1 seconds.
+- **`odom_callback`**: Processes odometry data from the `/odom` topic.
+- **`camera_callback`**: Processes camera image data (placeholder for further implementation).
+
+### DEPENDENCIES
+`ros2-humble-desktop`, `ros2-gazebo-ros-pkgs`, `rclpy`, `geometry_msgs`, `sensor_msgs`, `nav_msgs`, `launch_ros`.
+
+### USAGE
+1. Install ROS2 and Gazebo as per the provided installation script.
+2. Use the `ScoutDrone` class in a Python script to create a ROS2 node simulating a drone with basic control and sensor feedback.
+3. Deploy the launch file to start Gazebo and integrate the drone simulation with the ROS2 environment.
+
+### RELATED
+[[ROS2 Ignition Gazebo Guide]], [[HMRS Project Integration Docs]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Ignition Gazebo (now Gazebo) is the official ROS2 simulator, ensuring compatibility with ROS2 + DDS middleware, which is critical for HMRS.
+>[!WARNING]- Caution
+> Ensure ROS2 and Gazebo versions are aligned with the HMRS project’s requirements to avoid communication failures or simulation inconsistencies.

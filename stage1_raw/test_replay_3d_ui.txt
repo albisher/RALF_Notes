@@ -1,0 +1,38 @@
+### FILENAME
+test_replay_3d_ui
+
+### TAGS
+#3d-visualization, #replay-test, #ui-testing, #drone-motion, #api-integration
+
+### TYPE
+test-reference
+
+### SUMMARY
+Tests 3D UI rendering of drone motion replays for validation.
+
+### DETAILS
+This script automates testing of a 3D UI feature by verifying if drone motion replays are correctly displayed in a 3D environment. It interacts with a local API (`http://localhost:5007`) to fetch session data, validate drone motion history, and confirm whether buildings and base positions are included. The script checks if drone movements exceed a threshold (0.01m) to ensure dynamic rendering, otherwise marking them as stationary.
+
+### KEY_FUNCTIONS
+- **Session Selection**: POST request to `/api/sessions/{SESSION_ID}/select` to load a predefined session.
+- **Replay Data Fetch**: GET request to `/api/sessions/{SESSION_ID}/replay` to retrieve motion history, buildings, and base position.
+- **Motion Analysis**: Computes Euclidean distance between drone positions to determine movement validity for 3D display.
+- **Buildings & Base Validation**: Checks availability of static elements (buildings, base) in the replay data.
+
+### DEPENDENCIES
+requests, numpy
+
+### USAGE
+1. Run the script to interact with the local API.
+2. Verify session selection and replay data loading.
+3. Check drone motion history for dynamic/stationary status.
+4. Confirm UI integration by following the printed instructions (e.g., opening `http://localhost:5007` and selecting the session).
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script uses `numpy` for distance calculations between 3D coordinates. Ensure `numpy` is installed (`pip install numpy`) to avoid runtime errors.
+>[!WARNING]- Caution
+> If the session does not exist or the API fails, the script exits with an error. Test with valid session IDs (`SESSION_ID`) to avoid premature termination.

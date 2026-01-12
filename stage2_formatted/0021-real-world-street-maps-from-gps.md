@@ -1,0 +1,55 @@
+**Tags:** #gps-coordinates, #open-source-maps, #osm, #3d-building-data, #kuwait-map, #geospatial-data, #hmsr-simulation, #api-integration, #decimal-degrees, #street-maps
+**Created:** 2026-01-12
+**Type:** research-notes
+
+# 0021-real-world-street-maps-from-gps
+
+## Summary
+
+```
+Explores methods to derive real-world street maps and 3D building data from GPS coordinates, focusing on OSM and Kuwait-specific coverage.
+```
+
+## Details
+
+> This document examines GPS coordinate formats, clarifying how the HMRS simulation system processes latitude/longitude values in decimal degrees. It distinguishes between formats like Decimal Degrees (DD), Degrees Minutes Seconds (DMS), and Degrees Decimal Minutes (DDM), explaining their conversion requirements for API integration. The research emphasizes the directional interpretation of numeric values (e.g., positive/negative for North/South/East/West) and provides code references from the HMRS system’s GPS tracker and frontend components.
+
+## Key Functions
+
+### ``__init__` (in `simulation/swarm/gps_tracker.py`)`
+
+Initializes GPS tracker with absolute/relative position inputs in meters.
+
+### ``v-model.number` (in `master-controls-view-component.js`)`
+
+Handles latitude/longitude input for user interface integration.
+
+## Usage
+
+To use this data in HMRS:
+1. Convert GPS coordinates from DMS/DDM to decimal degrees.
+2. Fetch OSM data for Kuwait using the converted coordinates.
+3. Integrate 3D building data via OSM 3D APIs into the simulation system.
+
+## Dependencies
+
+> `OpenStreetMap (OSM) data`
+> `OSM 3D tools`
+> `GPS coordinate conversion libraries (e.g.`
+> ``geopy` for DMS/DDM to DD conversion).`
+
+## Related
+
+- [[OpenStreetMap Documentation]]
+- [[HMRS Simulation System Architecture]]
+- [[Kuwait OpenStreetMap Coverage]]
+
+>[!INFO] Directional Interpretation
+> In HMRS, GPS coordinates are **numeric values** where:
+> - Latitude > 0 = North, < 0 = South.
+> - Longitude > 0 = East, < 0 = West.
+> Directional letters (N/S/E/W) are **implicit** in the sign of the values, not separate fields.
+
+
+>[!WARNING] API Compatibility
+> APIs like OSM expect **decimal degrees** (DD). Converting DMS/DDM requires precise conversion to avoid coordinate mismatches. Test with Kuwait-specific data to ensure accuracy.

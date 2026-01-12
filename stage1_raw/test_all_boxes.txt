@@ -1,0 +1,37 @@
+### FILENAME
+test_all_boxes
+
+### TAGS
+#unittest, #neural_network, #autonomous_drones, #swarm_robotics, #box_modules, #test_suite
+
+### TYPE
+code-notes
+
+### SUMMARY
+Comprehensive test suite for drone control modules, validating neural network and box initialization.
+
+### DETAILS
+This file implements a unittest suite to verify all components of drone control boxes, adhering to the single responsibility principle. It tests initialization, forward passes, control computations, weight updates, and serialization/deserialization for the `MLControllerBox`. The tests use NumPy for numerical operations and PyBullet environments for simulation validation. The `setUp` method initializes a neural network controller with configurable input/output sizes, while individual test methods validate specific behaviors (e.g., output range constraints, weight updates).
+
+### KEY_FUNCTIONS
+- **MLControllerBox**: Neural network-based drone controller with methods `forward()`, `compute_control()`, `update_weights()`, and `save_load()`.
+- **test_initialization**: Checks if input/hidden/output sizes match expected values.
+- **test_forward_pass**: Validates neural network outputs are within [0, 1] range.
+- **test_compute_control**: Ensures control outputs (thrusts) are valid for drone state inputs.
+- **test_update_weights**: Basic sanity check for supervised learning updates.
+- **test_save_load**: Tests serialization/deserialization of model weights.
+
+### DEPENDENCIES
+numpy, unittest, PyBullet (via `PyBulletDroneGymEnv`/`PyBulletMultiDroneEnv`), parent directory imports.
+
+### USAGE
+Run via `python -m unittest test_all_boxes` or import `TestMLControllerBox` in a test suite. Each test class focuses on one box type (e.g., `PathPlannerBox`, `LiDARProcessorBox`). The suite imports all drone-related boxes from `swarm.boxes`.
+
+### RELATED
+[[swarm/boxes.py]], [[swarm/envs.py]], [[test_path_planner_box.py]]
+
+### CALLOUTS
+>[!INFO]- Parent Directory Path
+> The `sys.path.insert()` dynamically adds the parent directory to Python’s module search path, ensuring imports like `swarm.boxes` resolve correctly across project layers.
+>[!WARNING]- Temp File Cleanup
+> The `tempfile.NamedTemporaryFile` creates a file for serialization tests but does not auto-delete it. Ensure cleanup logic (e.g., `os.remove(temp_path)`) is added in production to avoid disk clutter.

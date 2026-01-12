@@ -1,0 +1,51 @@
+**Tags:** #ui-verification, #html-checker, #frontend-validation, #master-controls, #vuejs
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# verify_master_controls_ui
+
+## Summary
+
+```
+Script validates the presence of all UI elements in Master Controls frontend HTML.
+```
+
+## Details
+
+> This script reads `frontend/index.html` and performs keyword-based checks to confirm all required UI components for Master Controls are present. It verifies section headers, interactive elements (like GPS selectors, building toggles), data structures (Vue.js properties), API endpoints, and CSS references. Each check is logged as a pass/fail with descriptive labels.
+> 
+> The logic iterates through predefined check categories (e.g., "GPS selection," "Weather settings") and validates whether specific substrings appear in the HTML content. If any check fails, it prints a failure message and returns `False`; otherwise, it returns `True`.
+
+## Key Functions
+
+### `verify_master_controls_ui`
+
+Main function that loads the HTML file and runs all checks.
+
+### `checks list`
+
+A dynamic array of tuples mapping element names to boolean validation logic (substring presence).
+
+## Usage
+
+1. Run the script directly to validate `frontend/index.html` against Master Controls UI requirements.
+2. Override `html_file` path if testing a different HTML file.
+3. Extend the `checks` list for additional custom validation rules.
+
+## Dependencies
+
+> `- `re` (for regex`
+> `though not actively used here)`
+> ``pathlib` (for file path handling)`
+> ``Path` (from `pathlib`)`
+
+## Related
+
+- [[none]]
+
+>[!INFO] Important Note
+> This script relies on substring matching (`in` operator) for validation, which may produce false positives if unrelated text contains the same keywords. For stricter checks, consider parsing HTML with libraries like `BeautifulSoup`.
+
+
+>[!WARNING] Caution
+> Modifying the `checks` list without updating the expected UI structure could lead to false negatives. Always test changes incrementally.

@@ -1,0 +1,64 @@
+**Tags:** #swarm-robotics, #library-verification, #ROS2, #neural-radiance-fields, #drone-simulation
+**Created:** 2026-01-12
+**Type:** documentation
+
+# all-phases-libraries-installed-verification
+
+## Summary
+
+```
+Verifies installation and integration status of libraries for drone swarm simulation across three phases, with fallback mechanisms for compatibility.
+```
+
+## Details
+
+> This document tracks the installation status of libraries required for a drone swarm system across three phases. Phase 1 includes swarm behavior, collision avoidance, and mission planning libraries, with some facing import mismatches. Phase 2 focuses on deep learning frameworks (PyTorch) and ROS 2 dependencies, which require system-level installation. Phase 3 confirms frontend availability. Boxes (modules) load successfully with fallback implementations for missing dependencies. The simulation status outlines prerequisites for running a swarm, including command processing, physics updates, and drone coordination.
+
+## Key Functions
+
+### ``run_simulation_thread``
+
+Core simulation loop handling pre/post-processing, physics steps, and status updates.
+
+### `Master Coordinator`
+
+Orchestrates task distribution across drones.
+
+### `Mission Executor`
+
+Executes tasks with vision-based observations.
+
+### `Task Queue`
+
+Manages API commands for swarm operations.
+
+## Usage
+
+1. Verify library installations and import names.
+2. Start simulation via `/api/start`.
+3. Spawn drones and send commands via task queue.
+4. Monitor swarm behavior in the simulation loop.
+
+## Dependencies
+
+> ``pyswarming``
+> ``torch``
+> ``rclpy``
+> ``orbslam3-python``
+> ``droneops``
+> ``DSSE``
+> ``nerfacc``
+> `ROS 2 system packages`
+> `JavaScript (frontend).`
+
+## Related
+
+- [[Swarm Coordination Documentation]]
+- [[ROS 2 Integration Guide]]
+- [[NeRF Acceleration Tutorial]]
+
+>[!INFO] Important Note
+> Libraries with import mismatches (e.g., `uav-collision-avoidance`) use fallback implementations to ensure graceful operation.
+
+>[!WARNING] Caution
+> `rclpy` requires ROS 2 system installation; failure to install system packages will trigger fallback mode, potentially limiting functionality.

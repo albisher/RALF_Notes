@@ -1,0 +1,69 @@
+**Tags:** #gps-integration, #osm-features, #simulation-logic, #api-endpoints, #vue-rendering, #weather-data
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# simulation/hmrs_simulation_live
+
+## Summary
+
+```
+Fixes random GPS location generation, OSM map visibility, log display, timeline accuracy, and weather auto-fetching in a simulation backend and frontend system.
+```
+
+## Details
+
+> This file contains backend and frontend modifications to address issues in a simulation system's GPS and OSM (OpenStreetMap) integration. The backend (`hmrs_simulation_live.py`) dynamically generates random GPS coordinates for scene preparation, ensuring latitude ranges from -60 to 60 and longitude from -180 to 180. The frontend enhances OSM map rendering by ensuring proper container visibility checks and multiple render attempts, improving responsiveness. Logs are now refreshed periodically to display communication data, and timeline updates are conditional on simulation status. Weather data is auto-fetched based on GPS coordinates during scene setup.
+
+## Key Functions
+
+### ``/api/prepare` endpoint`
+
+Generates and returns random GPS coordinates for scene preparation.
+
+### ``set_base_gps()``
+
+Configures backend with latitude/longitude for OSM integration.
+
+### ``fetchWeatherFromGPS()``
+
+Automatically fetches weather data based on GPS coordinates.
+
+### ``updateStatus()``
+
+Conditionally updates timeline based on simulation running status.
+
+### ``osmViewEnabled` flag`
+
+Controls visibility of OSM layers in quad view (2D Top/3D Isometric).
+
+### `Periodic log refresh`
+
+Uses `setInterval` to update logs every 2 seconds (with manual control).
+
+## Usage
+
+1. **Scene Preparation**: Call `/api/prepare` to generate random GPS coordinates and load them via `set_base_gps()`.
+2. **OSM Rendering**: Enable `osmViewEnabled` in quad view to display OSM layers; ensure container dimensions are checked before initialization.
+3. **Logging**: Logs auto-refresh every 2 seconds; manually clear logs via `logsManuallyCleared` flag.
+4. **Timeline**: Only updates when `status.running` is true; use "Record" button to toggle recording.
+5. **Weather**: Auto-fetches weather data when GPS coordinates are set during scene preparation.
+
+## Dependencies
+
+> `- Backend: `hmrs_simulation_live.py` (Python)`
+> `Cesium.js (for 3D/2D map rendering)`
+> `Plotly.js (for simulation data projections).
+- Frontend: Vue.js (for dynamic UI rendering)`
+> `OpenStreetMap API (for OSM data).`
+
+## Related
+
+- [[osm-view-structure]]
+- [[logging-system]]
+- [[prepare-endpoint]]
+
+>[!INFO] Important Note
+> Quad view uses 2D Top/3D Isometric for OSM, while Front/Side views remain Plotly (simulation projections). This is intentional and correct—OSM is not applicable to 2D projections of simulation data.
+
+>[!WARNING] Caution
+> Avoid manual log clearing if `logsManuallyCleared` is set to `false`; periodic refreshes ensure real-time communication logs are visible.

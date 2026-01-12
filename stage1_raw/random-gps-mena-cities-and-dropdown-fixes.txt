@@ -1,0 +1,38 @@
+### FILENAME
+random-gps-mena-cities-and-dropdown-fixes
+
+### TAGS
+#gps, #MENA, #random-generation, #osm-coverage, #dropdown, #simulation, #location-data, #backend-frontend, #coordinate-system
+
+### TYPE
+code-notes
+
+### SUMMARY
+Implemented MENA-focused random GPS location generation with OSM building validation and a "Random" dropdown option for GPS presets.
+
+### DETAILS
+This fix refines GPS location generation to prioritize major cities in the Middle East, North Africa, and other regions with reliable OSM building data. It replaces a global random distribution with a curated list of 30+ cities, adding minor offsets (~5km) for variety. The solution also enhances the frontend dropdown to clearly distinguish between "Random" (auto-generated) and "Custom" GPS inputs, ensuring seamless user interaction.
+
+### KEY_FUNCTIONS
+- **`prepare_scene()` (simulation/hmrs_simulation_live.py)**: Updates logic to select cities from a predefined list instead of uniform random coordinates.
+- **`known_cities` (simulation/hmrs_simulation_live.py)**: A structured list of MENA/regional cities with lat/lon coordinates.
+- **`onGpsPresetChange()` (simulation/frontend/components/header-component.js)**: Handles dropdown selection for "Random" preset.
+- **`updatePresetSelection()` (simulation/frontend/components/header-component.js)**: Dynamically updates dropdown based on `base_gps.is_random` flag.
+- **`updateGpsPosition()` (simulation/frontend/components/header-component.js)**: Resets random flag when manual edits occur.
+
+### DEPENDENCIES
+Python (`random`, `osm` libraries), JavaScript (frontend dropdown logic), backend simulation framework (`simulation/hmrs_simulation_live.py`).
+
+### USAGE
+1. **Random GPS**: Select "🎲 Random" from the dropdown to generate a MENA-focused location.
+2. **Custom GPS**: Manually input coordinates or select "Custom" to override.
+3. **3D/2D View**: OSM buildings appear consistently in both modes due to city-centric generation.
+
+### RELATED
+[[simulation/hmrs_simulation_live.py]], [[simulation/frontend/components/header-component.js]], [[OSM-MENA-data-sources]]
+
+### CALLOUTS
+>[!INFO]- **City List Focus**
+> The `known_cities` list prioritizes MENA cities with verified OSM coverage, reducing ocean/uninhabited locations.
+>[!WARNING]- **Offset Sensitivity**
+> Lat/lon offsets (±5km) assume equatorial scaling; verify offsets for polar regions if needed.

@@ -1,0 +1,61 @@
+**Tags:** #gyroscope, #IMU, #MEMS, #drone, #navigation, #sensor-specs, #autonomous, #robotics, #aerospace, #precision-engineering
+**Created:** 2026-01-12
+**Type:** documentation
+
+# gyroscope-sensors-specifications
+
+## Summary
+
+```
+Document detailing gyroscope sensor specifications, including performance metrics, available models, and integration considerations for applications like drones and robotics.
+```
+
+## Details
+
+> This document provides detailed specifications for gyroscope sensors, focusing on their angular velocity measurement capabilities, stability, noise characteristics, and bandwidth. It categorizes sensors into standard and high-precision variants, listing key parameters like dynamic range, bias instability, angular random walk, and update rates. Three specific sensor models (U6488, MS-IMU3025, HG4930) are highlighted with their performance, features, and typical applications, emphasizing their use in drones, robotics, and navigation systems.
+
+## Key Functions
+
+### `Dynamic Range`
+
+Defines the maximum angular velocity the gyroscope can measure.
+
+### `Bias Instability`
+
+Indicates long-term drift (lower values = better stability).
+
+### `Angular Random Walk (ARW)`
+
+Measures noise-induced error accumulation over time.
+
+### `Bandwidth`
+
+Frequency range for accurate measurements (higher = more responsive).
+
+### `Update Rate`
+
+Frequency of data output (higher = faster real-time processing).
+
+### `SPI/I2C/UART`
+
+Communication protocols for sensor integration.
+
+## Usage
+
+This document serves as a reference for selecting gyroscope sensors based on application requirements (e.g., precision, speed, or size constraints). Engineers should compare specifications (e.g., bias instability, ARW) with project needs to ensure stability and accuracy in attitude control or navigation systems.
+
+## Dependencies
+
+> `None (standalone specifications document).`
+
+## Related
+
+- [[07-IMU-sensors-specifications]]
+- [[07-drone-attitude-control]]
+- [[07-robotics-sensor-selection]]
+
+>[!INFO] Important Note
+> High-precision gyroscopes (e.g., U6488) are critical for applications requiring redundancy or enhanced stability, such as autonomous vehicles or industrial drones. Their low bias instability (0.6–1°/h) and ARW (0.065°/√h) reduce drift errors over time.
+
+>[!WARNING] Caution
+> Misalignment or improper calibration can degrade performance. Always verify sensor orientation and environmental factors (e.g., temperature) that may affect MEMS gyroscope accuracy. High update rates (>1000 Hz) demand robust power management to avoid latency or data loss.

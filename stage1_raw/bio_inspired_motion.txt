@@ -1,0 +1,37 @@
+### FILENAME
+bio_inspired_motion
+
+### TAGS
+#bio-inspired-robotics, #flapping-wing, #pybullet, #motion-control
+
+### TYPE
+code-notes
+
+### SUMMARY
+Implements ornithopter and insect-like motion patterns for bio-inspired robotic flight using PyBullet physics engine.
+
+### DETAILS
+This file defines a `Bio-Inspired Motion Patterns` class system for simulating ornithopter (bird-like) and insect-like (4-wing) flapping flight mechanics. The `OrnithopterMotion` class extends `BaseMotionPattern` to handle bird-like flapping wing dynamics, including aerodynamic parameters, flapping phase tracking, and control logic for lift/thrust generation. It uses PyBullet for physics simulation and computes control inputs based on position/velocity errors relative to a target.
+
+### KEY_FUNCTIONS
+- **`OrnithopterMotion.__init__()`**: Initializes ornithopter parameters (mass, wing span, flapping frequency, amplitude) and aerodynamic properties.
+- **`compute_control()`**: Generates control signals (`flapping_amplitude`, `wing_twist`, `tail_angle`) by updating the flapping phase and adjusting amplitude based on vertical velocity error.
+- **`flapping_phase`**: Tracks the current phase of wing flapping (0 to 2π) to simulate periodic motion.
+- **`wing_angle`**: Stores the current wing deflection angle (not fully implemented in this snippet).
+
+### DEPENDENCIES
+numpy, pybullet, `.base_motion_pattern` (custom module)
+
+### USAGE
+1. Instantiate `OrnithopterMotion` with desired parameters (e.g., `OrnithopterMotion(wing_span=0.5, flapping_frequency=5.0)`).
+2. Call `compute_control()` with current state (position, velocity, orientation) and target position to generate control inputs.
+3. Apply outputs (e.g., `flapping_amplitude`, `wing_twist`) to robotic actuators in PyBullet.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Flapping Phase Update
+> The `flapping_phase` increments by `2π * flapping_frequency * dt` per timestep, wrapping around every full cycle (2π). This simulates periodic wing motion.
+>[!WARNING]- Vertical Adjustment Sensitivity
+> The `vertical_adjustment` (0.1 * vertical_velocity_error) may cause unstable hover if not tuned carefully—experiment with `base_amplitude` and `vertical_adjustment` coefficients.

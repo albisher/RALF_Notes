@@ -1,0 +1,40 @@
+### FILENAME
+lidar_addon
+
+### TAGS
+#LiDAR, #Simulation, #Robotics, #3D_Visualization, #Physics_Simulation, #PyBullet, #Realistic_Data_Generation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Generates simulated LiDAR point cloud data for Velodyne, Ouster, and Livox models with configurable specs.
+
+### DETAILS
+This module extends a base addon class (`BaseAddon`) to simulate LiDAR behavior using PyBullet physics engine. It models LiDAR sensors with configurable parameters like range, FOV, and channel count, producing synthetic point clouds with realistic noise (±3 cm accuracy). The class inherits core LiDAR metadata (weight, power, dimensions) and overrides specifications for different models (e.g., VLP-16 vs. OS2). Angular resolution is dynamically calculated based on rotation rate and point density.
+
+### KEY_FUNCTIONS
+- **`__init__`**: Initializes LiDAR parameters (model, channels, range limits) and inherits base addon attributes (weight, power, dimensions). Computes angular resolution for point distribution.
+- **`BaseAddon`**: Parent class providing common LiDAR metadata (e.g., communication protocol, manual URL).
+
+### DEPENDENCIES
+numpy, pybullet, custom `.base_addon` module (BaseAddon class)
+
+### USAGE
+```python
+addon = LiDARAddon(
+    model="velodyne_vlp16",
+    points_per_second=300000,
+    max_range_m=100.0
+)
+```
+Configure model-specific specs (e.g., OS2’s higher power) and simulate LiDAR output in PyBullet.
+
+### RELATED
+[[lidar_simulation_guide]], [[pybullet_physics_reference]]
+
+### CALLOUTS
+>[!INFO]- Angular Resolution Calculation
+> Angular resolution is derived from: `horizontal_resolution_deg = 360° / (points_per_second / rotation_rate_hz / num_channels)`. For example, with 300k points/sec, 10Hz rotation, and 16 channels, horizontal resolution ≈ 0.18° per channel.
+>[!WARNING]- Model-Specific Limits
+> Livox models (e.g., Livox Mid-40) default to 190g weight but may require manual adjustments for simulation physics (e.g., collision handling). Verify `dimensions_mm` aligns with actual hardware.

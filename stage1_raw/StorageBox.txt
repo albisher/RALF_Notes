@@ -1,0 +1,48 @@
+### FILENAME
+StorageBox
+
+### TAGS
+#Storage-API, #Abstraction-Layer, #LocalStorage, #SessionStorage, #Cookies, #OOP, #Serialization
+
+### TYPE
+code-notes
+
+### SUMMARY
+Unified storage abstraction layer for localStorage, sessionStorage, and cookies with configurable serialization and versioning.
+
+### DETAILS
+`StorageBox` is a class-based abstraction that provides a consistent interface for managing data across different storage backends (localStorage, sessionStorage, or cookies). It supports customizable serialization/deserialization via provided functions, versioning for schema compatibility, and optional encryption. The class first checks storage availability before proceeding, ensuring graceful degradation if a backend fails. Data keys are prefixed for namespace isolation, and the system handles key-value operations (set/get/remove/clear) uniformly.
+
+### KEY_FUNCTIONS
+- **constructor(config)**: Initializes the storage box with type, prefix, version, and serialization functions.
+- **_checkAvailability()**: Tests if the selected storage backend is accessible via a temporary key.
+- **_getStorage()**: Dynamically selects the appropriate storage backend (local/session/cookie).
+- **_getCookieStorage()**: Implements cookie-specific storage methods (set/get/remove).
+- **setItem(key, value)**: Serializes and stores a key-value pair in the selected storage.
+- **getItem(key)**: Retrieves and deserializes a value by key.
+- **removeItem(key)**: Clears a specific key-value pair.
+- **clear()**: Empties the entire storage backend.
+
+### DEPENDENCIES
+`localStorage`, `sessionStorage`, `document.cookie` (browser APIs), no external libraries.
+
+### USAGE
+```javascript
+// Basic usage (localStorage)
+const box = new StorageBox({ type: 'local', prefix: 'user_' });
+box.setItem('prefs', { theme: 'dark' });
+const data = box.getItem('prefs');
+
+// Cookie usage
+const cookieBox = new StorageBox({ type: 'cookie', prefix: 'auth_' });
+cookieBox.setItem('token', 'abc123');
+```
+
+### RELATED
+[[StorageAbstractionPatterns]], [[BrowserStorageAPIs]]
+
+### CALLOUTS
+>[!INFO]- Storage Backend Selection
+> The class automatically falls back to `localStorage` if `sessionStorage` or cookies are unavailable, ensuring compatibility across browsers.
+>[!WARNING]- Cookie Limits
+> Cookies are limited to ~4KB per cookie and ~4096 cookies per domain. Prefixing keys helps mitigate collisions.

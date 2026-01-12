@@ -1,0 +1,121 @@
+    """
+    Create a worker drone with specified ID and position.
+    """
+    drone = WorkerDrone(
+        worker_id=worker_id,
+        position=position,
+        physics_client=self.physics_client,
+        model_loader=self.model_loader,
+        mission_config=self.mission_config
+    )
+    self.workers.append(drone)
+    print(f"✅ Worker drone {worker_id} created at {position}")
+    return drone
+
+    def create_observer(self, position: Tuple[float, float, float]) -> ObserverCamera:
+        """
+        Create an observer camera to monitor the swarm.
+        """
+        observer = ObserverCamera(
+            position=position,
+            physics_client=self.physics_client,
+            model_loader=self.model_loader
+        )
+        self.observer = observer
+        print("✅ Observer camera created")
+        return observer
+
+    def start_simulation(self):
+        """Start the simulation loop."""
+        self.running = True
+        print("🚀 Simulation started")
+
+    def stop_simulation(self):
+        """Stop the simulation loop."""
+        self.running = False
+        print("🛑 Simulation stopped")
+
+    def update(self):
+        """Update simulation state."""
+        if not self.running:
+            return
+
+        # Update physics
+        p.stepSimulation()
+
+        # Update simulation time
+        self.sim_time += self.dt
+
+        # Check for mission completion
+        if self.mission_config.check_mission_complete(self.workers):
+            print("🎉 Mission completed!")
+            self.stop_simulation()
+
+    def run(self):
+        """Main simulation loop."""
+        while self.running:
+            self.update()
+            time.sleep(1.0/240.0)  # Match physics step timing
+
+    def cleanup(self):
+        """Clean up resources."""
+        if self.physics_client:
+            p.disconnect(self.physics_client)
+            print("🧹 Physics server disconnected")
+        if self.building_id:
+            p.removeBody(self.building_id)
+            print("🏗️ Building removed")
+        if self.ground_master:
+            p.removeBody(self.ground_master)
+            print("🚛 Ground master removed")
+        for drone in self.workers:
+            p.removeBody(drone.body_id)
+            print(f"🛹 Worker drone removed")
+        if self.observer:
+            p.removeBody(self.observer.body_id)
+            print("👁️ Observer removed")
+
+### FILENAME
+swarm_simulator
+
+### TAGS
+#physics-simulation, #swarm-robotics, #pybullet, #drone-control
+
+### TYPE
+code
+
+### SUMMARY
+Simulates a drone swarm with master control, worker drones, and observer camera using PyBullet.
+
+### DETAILS
+The `SwarmSimulator` class initializes a drone swarm simulation environment with configurable physics settings. It manages a ground master (truck), multiple worker drones (default 4), and an observer camera. The simulator uses PyBullet for physics simulation, loads a building model, and integrates mission-specific configurations. Key components include physics server setup, drone creation, and simulation loop handling.
+
+### KEY_FUNCTIONS
+- **`__init__`**: Initializes the simulator with physics server, building, and drone configurations.
+- **`create_ground_master`**: Creates a ground master control station (truck) at a specified position.
+- **`create_worker_drone`**: Instantiates a worker drone with given ID and position, adding it to the swarm list.
+- **`create_observer`**: Sets up an observer camera to monitor the swarm.
+- **`start_simulation`**: Begins the simulation loop.
+- **`stop_simulation`**: Halts the simulation.
+- **`update`**: Advances physics simulation and checks for mission completion.
+- **`run`**: Main loop executing `update` until `stop_simulation` is called.
+- **`cleanup`**: Disconnects physics server and removes all simulated objects.
+
+### DEPENDENCIES
+pybullet, pybullet_data, numpy, time, threading, .base_drone, .worker_drone, .observer_camera, .ground_master, .mission_config, .model_loader
+
+### USAGE
+1. Initialize the simulator with `SwarmSimulator(num_workers=4)`.
+2. Create components (e.g., `sim.create_worker_drone(1, (0, 0, 0))`).
+3. Start simulation with `sim.start_simulation()`.
+4. Run the loop (e.g., in a separate thread) or call `sim.run()`.
+5. Clean up with `sim.cleanup()` after use.
+
+### RELATED
+[[swarm_drone_base]], [[mission_config_example]], [[pybullet_physics_tutorial]]
+
+### CALLOUTS
+>[!INFO]- Physics Server Mode
+> The simulator uses PyBullet’s `DIRECT` mode by default (headless) for performance. Switch to `GUI` mode if visual debugging is needed.
+>[!WARNING]- Resource Cleanup
+> Ensure `cleanup()` is called to avoid memory leaks and disconnect lingering physics connections.

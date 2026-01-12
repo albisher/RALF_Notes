@@ -1,0 +1,42 @@
+### FILENAME
+run_visual
+
+### TAGS
+#bash-script, #visual-simulation, #gui-fallback, #docker-local
+
+### TYPE
+code-notes
+
+### SUMMARY
+Script orchestrates quadcopter simulation with GUI fallback to frame saving.
+
+### DETAILS
+This Bash script dynamically selects between GUI-based visualization and frame-saving mode based on environment (Docker/local). It first checks for GUI dependencies (Matplotlib/Tkinter) before falling back to saving frames as PNGs. The script logs execution context and directs user to saved outputs if GUI fails.
+
+### KEY_FUNCTIONS
+- **GUI fallback logic**: Detects environment and attempts GUI mode, then switches to frame saving if GUI is unavailable.
+- **Environment detection**: Checks for Docker (`/.dockerenv` or `$DOCKER_CONTAINER`) to determine execution mode.
+- **Frame-saving workflow**: Executes `run_visual_save.py` and opens final frame with fallback OS commands (`open`/`xdg-open`).
+
+### DEPENDENCIES
+- Python 3 (for both GUI and save modes)
+- Matplotlib/Tkinter (optional, for GUI rendering)
+- Docker (optional, for containerized execution)
+
+### USAGE
+Run as-is in terminal. Automatically handles:
+1. Local GUI attempt (with fallback to frames)
+2. Docker mode (always saves frames)
+3. Output directory (`simulation_output/`)
+
+### RELATED
+[[run_visual_demo.py]], [[run_visual_save.py]]
+
+### CALLOUTS
+>[!INFO]- Environment Check
+> The script uses `/bin/bash` and `set -e` for strict error handling. Environment variables like `$DOCKER_CONTAINER` are checked for Docker detection.
+>[!WARNING]- GUI Dependency
+> If Matplotlib/Tkinter is missing, the script **silently** switches to frame saving mode. Test GUI availability explicitly with:
+> ```bash
+> python -c "import matplotlib; matplotlib.use('TkAgg'); import tkinter"
+> ```

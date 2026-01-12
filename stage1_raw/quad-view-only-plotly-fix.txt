@@ -1,0 +1,36 @@
+### FILENAME
+visualization-view-component.js
+
+### TAGS
+#VueJS, #ReactTemplate, #3DVisualization, #Plotly, #Cesium, #DOMRendering, #QuadView, #OSM, #FrontendComponent
+
+### TYPE
+code-notes
+
+### SUMMARY
+Fixes Quad View to ensure all panels render only Plotly visualizations, removing OSM/Cesium dependencies.
+
+### DETAILS
+This fix addresses a bug where Quad View incorrectly rendered Cesium/OSM viewers in the 2D Top and 3D Isometric panels, despite user requirements mandating **Plotly-only** visualizations. The root issue was that Cesium containers (`cesium-2d-top-viewer`, `cesium-3d-viewer`) were always rendered in the DOM via `v-show="osmViewEnabled"`, allowing them to initialize even when hidden. The solution removed these containers entirely from the Quad View template, ensuring only Plotly components (`plot-top`, `plot-3d`) are rendered. The fix prevents unnecessary DOM overhead and ensures consistent visualization behavior across all Quad View panels.
+
+### KEY_FUNCTIONS
+- **`initializeOSMViewsForLayout('quad')`**: Previously initialized Cesium containers for Quad View, causing unintended OSM rendering. Now requires explicit OSM enablement.
+- **`simulation/frontend/components/visualization-view-component.js`**: Vue template component managing Quad View panel rendering logic.
+
+### DEPENDENCIES
+Vue.js (for template rendering), Plotly.js (for visualization rendering), Cesium (previously rendered but now excluded).
+
+### USAGE
+To enforce Plotly-only Quad View:
+1. Ensure `layoutMode === 'quad'` in Vue template.
+2. Disable OSM via `osmViewEnabled = false` in parent component.
+3. Render only Plotly containers (`plot-top`, `plot-3d`) in the DOM.
+
+### RELATED
+[[simulation/frontend/components/visualization-view-component.js (original template)]], [[OSM-Plotly-Migration-Docs]]
+
+### CALLOUTS
+>[!INFO]- Critical Change
+> Removing Cesium containers from Quad View prevents unintended OSM initialization, ensuring all panels render Plotly-only visualizations. This aligns with user requirements and reduces DOM clutter.
+>[!WARNING]- Backward Compatibility Risk
+> If OSM is re-enabled later, additional logic may be needed to conditionally render Cesium containers in non-Quad layouts. Test edge cases where `osmViewEnabled` toggles dynamically.

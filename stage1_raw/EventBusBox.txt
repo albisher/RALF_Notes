@@ -1,0 +1,63 @@
+### FILENAME
+EventBusBox
+
+### TAGS
+#event-pubsub, #microservices, #reactive-programming, #asynchronous-communication, #reusable-component, #wildcard-support, #once-listeners
+
+### TYPE
+code-notes
+
+### SUMMARY
+A lightweight, reusable event bus implementation for component-based event-driven communication with priority sorting, wildcard support, and one-time listeners.
+
+### DETAILS
+`EventBusBox` implements a generic event publisher-subscriber (pub/sub) system using a class-based approach. It maintains two internal data structures:
+- `events` (Map): Stores regular event subscriptions with priority-based sorting
+- `onceEvents` (Map): Stores one-time-use event subscriptions
+The class also tracks event history with a maximum limit of 100 entries. Subscribers can be added with wildcards (e.g., `drone.*`) and removed via callback references or event name. Priority-based sorting ensures higher-priority callbacks execute first.
+
+### KEY_FUNCTIONS
+- **`constructor()`**: Initializes the event storage (regular and once events) and history tracking.
+- **`on(eventName, callback, options)`**: Subscribes to an event with optional priority and context, returning an unsubscribe function.
+- **`once(eventName, callback)`**: Subscribes to an event that triggers only once, returning an unsubscribe function.
+- **`off(eventName, callback)`**: Removes listeners either by event name (all) or specific callback reference.
+
+### DEPENDENCIES
+none (pure JavaScript implementation)
+
+### USAGE
+```javascript
+const bus = new EventBusBox();
+
+// Subscribe to events
+const unsubscribe = bus.on('user.created', (user) => {
+    console.log('New user:', user);
+});
+// or with priority
+const unsubscribeHigh = bus.on('user.created', (user) => {
+    console.log('High-priority:', user);
+}, { priority: 1 });
+
+// Subscribe once
+const unsubscribeOnce = bus.once('user.deleted', (user) => {
+    console.log('User deleted:', user);
+});
+
+// Emit events
+bus.emit('user.created', { id: 1, name: 'Alice' });
+// or wildcard
+bus.emit('drone.*', { status: 'active' });
+
+// Cleanup
+unsubscribe(); // Remove specific listener
+bus.off('user.created'); // Remove all listeners
+```
+
+### RELATED
+none
+
+### CALLOUTS
+>[!INFO]- Wildcard Support
+> Wildcard events (e.g., `drone.*`) will match all events starting with `drone.` and trigger all subscribers for those events.
+>[!WARNING]- Callback Comparison
+> Callback functions are compared by reference (`===`), so ensure identical functions are used for reliable unsubscription.

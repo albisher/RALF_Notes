@@ -1,0 +1,73 @@
+**Tags:** #flight-simulation, #programmatic-mode, #api-integration, #drone-control, #gps-coordinates, #circular-flight
+**Created:** 2026-01-12
+**Type:** documentation
+
+# flight-simulation-analysis
+
+## Summary
+
+```
+Analyzes drone flight simulation around a specified home location using API-driven and UI-based approaches, highlighting issues in programmatic execution.
+```
+
+## Details
+
+> This document analyzes a drone flight simulation around a predefined "Home" location in Kuwait (latitude: 29.234431172766747, longitude: 48.05498783476817) via two modes: programmatic (API calls) and browser UI. The analysis focuses on the script `simulation/scripts/sessions/create_home_flight_session.py`, which attempts to create a drone flying in a circular orbit around the home location. While initial setup (GPS, session, drone spawn) succeeded, all subsequent waypoint commands failed with HTTP 500 errors, preventing motion execution and recording. The root cause remains undetermined, requiring backend investigation.
+
+## Key Functions
+
+### ``create_home_flight_session.py``
+
+Orchestrates drone flight session creation, GPS setting, and waypoint generation for a circular orbit.
+
+### ``/api/master-controls``
+
+Sets GPS coordinates for the drone.
+
+### ``/api/sessions/create-demo``
+
+Creates a new simulation session.
+
+### ``/api/start``
+
+Initializes the simulation.
+
+### ``/api/spawn``
+
+Spawns a drone at a specified position.
+
+### ``/api/command``
+
+Executes drone movement commands (failed in this case).
+
+### ``/api/status``
+
+Checks simulation status (inconclusive due to failures).
+
+### ``/api/sessions/{session_id}/replay``
+
+Retrieves motion history (empty due to failures).
+
+## Usage
+
+To replicate this analysis:
+1. Run `create_home_flight_session.py` to set up the flight session.
+2. Verify API endpoints (`/api/master-controls`, `/api/sessions/create-demo`, etc.) for correct responses.
+3. Monitor drone movement via `/api/command`; failures indicate backend issues.
+
+## Dependencies
+
+> `- Drone control API (backend service handling `/api/*` endpoints)
+- Session management library (for session creation/replay)
+- GPS coordinate handling library (for setting drone location)`
+
+## Related
+
+- [[backend-investigation-log]]
+- [[drone-flight-testing-protocol]]
+
+>[!INFO] Important Note
+> The script relies on a working backend API. If `/api/command` returns HTTP 500, the drone’s motion commands are silently rejected, preventing flight execution.
+
+>[!WARNING] Caution
+> Empty motion history (`/api/sessions/{session_id}/replay`) implies the simulation did not record drone movements, likely due to command failures. Investigate backend logic for `move_to` commands.

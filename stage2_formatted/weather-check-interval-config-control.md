@@ -1,0 +1,58 @@
+**Tags:** #configurable-weather-check, #gps-location-api, #frontend-configuration, #auto-refresh, #interval-management
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# weather-check-interval-config-control
+
+## Summary
+
+```
+Configurable weather check interval for GPS-based weather updates in a frontend simulation system, defaulting to 10 minutes.
+```
+
+## Details
+
+> This feature introduces a dynamic weather check interval system where users can adjust how frequently weather data is fetched via GPS location API. The interval is stored in `masterControls.weather` and dynamically triggers auto-refreshes via JavaScript `setInterval`. The system ensures no duplicate intervals by clearing and recreating the timer on interval changes.
+
+## Key Functions
+
+### ``startWeatherAutoRefresh()``
+
+Initiates or resets the weather refresh timer using the stored interval.
+
+### ``stopWeatherAutoRefresh()``
+
+Pauses the weather refresh interval.
+
+### ``onWeatherCheckIntervalChange(intervalMs)``
+
+Updates the interval in `masterControls.weather` and restarts the refresh with the new value.
+
+### ``weatherCheckIntervalMinutes``
+
+Computed property converting UI input (minutes) to internal milliseconds.
+
+## Usage
+
+1. Navigate to `/config/` to access the Base Configuration section.
+2. Adjust the "Weather Check Interval" slider to set minutes (1–60).
+3. The system automatically fetches weather via GPS API at the new interval.
+4. Changes trigger an immediate refresh without manual intervention.
+
+## Dependencies
+
+> ``simulation/frontend/app-data.js``
+> ``simulation/frontend/components/drones-base-config-view-component.js``
+> ``simulation/frontend/pages/drones-config-page-component.js``
+> ``simulation/frontend/app-component.js``
+
+## Related
+
+- [[configuration-guide]]
+- [[api-docs:weather]]
+
+>[!INFO] Default Behavior
+> Weather checks default to **10 minutes** (600,000ms) when GPS is enabled. Users can override this via the UI.
+
+>[!WARNING] Interval Overrides
+> Changing the interval **immediately restarts** the refresh timer, ensuring no data gaps. Override values must be within **1–60 minutes**.

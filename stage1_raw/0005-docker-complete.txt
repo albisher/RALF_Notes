@@ -1,0 +1,37 @@
+### FILENAME
+docker-complete
+
+### TAGS
+#docker, #self-contained, #python, #simulation, #dependency-management, #containerization, #venv-free, #pybullet, #numerical-computing, #matplotlib, #robotics
+
+### TYPE
+code-notes
+
+### SUMMARY
+Self-contained Docker environment for running Python simulations without venv dependencies, verified for PyBullet, NumPy, and Matplotlib.
+
+### DETAILS
+This Docker setup provides a fully independent Python environment for simulations, avoiding virtual environments (`venv`) by installing packages system-wide inside the container. The environment includes critical libraries like `pybullet`, `numpy`, and `matplotlib`, ensuring compatibility across platforms (including macOS) and eliminating host dependencies. The architecture leverages a lightweight `python:3.10-slim` base image, pre-installed with system dependencies (`build-essential`, `cmake`, etc.) and Python packages via `pip`. Verification confirms all dependencies work end-to-end, with a simulation test validating real-time physics and sensor integration (e.g., LiDAR, IMU, camera).
+
+### KEY_FUNCTIONS
+- **`Dockerfile`**: Defines container image with system Python and pip-installed packages, excluding `venv`.
+- **`docker-compose.yml`**: Orchestrates container lifecycle, including build and execution of simulation tasks.
+- **`simple_quadcopter.py`**: Example script demonstrating headless simulation (e.g., quadcopter physics) using `pybullet`.
+- **`docker-run.sh`**: Convenience script to streamline container execution (e.g., `docker-compose run --rm simulator python ...`).
+
+### DEPENDENCIES
+`docker`, `docker-compose`, `python:3.10-slim`, `pybullet`, `numpy`, `matplotlib`, `opencv-python`, `build-essential`, `cmake`, `libgl1`, `libglib2.0-0`.
+
+### USAGE
+1. **Build**: `docker-compose build` (first-time only).
+2. **Run**: `docker-compose run --rm simulator python <script.py> --headless` (e.g., `simple_quadcopter.py`).
+3. **Verify**: `docker-compose run --rm simulator pip list` or `python -c "import pybullet; print('✅ Works!')"` to confirm dependencies.
+
+### RELATED
+[[0002-docker-setup.md]], [[0003-docker-independent.md]].
+
+### CALLOUTS
+>[!INFO]- Key Advantage
+> Docker’s OS isolation ensures PyBullet works flawlessly on macOS, unlike `venv` environments, which often fail due to platform-specific dependencies (e.g., `libgl1`).
+>[!WARNING]- Dependency Risk
+> Missing system packages (e.g., `build-essential`) during build can cause `pip` failures. Always run `apt-get update && apt-get install -y <package>` in the Dockerfile.

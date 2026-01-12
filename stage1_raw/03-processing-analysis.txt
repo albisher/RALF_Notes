@@ -1,0 +1,44 @@
+### FILENAME
+03-processing-analysis
+
+### TAGS
+#open-source, #computer-vision, #point-cloud-processing, #slam, #hydrophobicity-assessment, #pcl, #open3d, #open-cv, #ros2, #sensor-fusion, #algorithms, #clustering
+
+### TYPE
+research
+
+### SUMMARY
+Open-source stack for processing and analyzing point clouds, SLAM, and hydrophobicity assessment using specialized sensors.
+
+### DETAILS
+This document outlines a recommended open-source processing pipeline for applications involving point cloud analysis, surface characterization, and hydrophobicity assessment. It emphasizes the use of libraries like PCL, Open3D, and OpenCV for real-time obstacle detection, crack analysis, and geometric feature extraction. The document also details specialized sensor integration (e.g., Sony IMX250MZR) for hydrophobicity assessment via polarized imaging, including contact angle estimation and DoLP analysis.
+
+### KEY_FUNCTIONS
+- **PCL (Point Cloud Library)**: Real-time point cloud processing, obstacle detection, normal vector analysis, volumetric clustering (DBSCAN), and surface reconstruction.
+- **Open3D**: Point cloud processing, mesh generation, surface analysis, and visualization.
+- **OpenCV**: Edge detection, feature detection, image processing, and camera calibration.
+- **ROS2 Perception Packages**: Point cloud processing nodes, sensor fusion, and real-time pipelines.
+- **ORB-SLAM3**: Visual SLAM for mapping and localization.
+- **RTAB-Map**: SLAM with loop closure for navigation.
+- **FAST_LIO_LC**: LiDAR-inertial odometry for accurate pose estimation.
+- **DBSCAN/K-means/Euclidean Clustering**: Clustering algorithms for volumetric analysis in PCL/Open3D/OpenCV.
+- **Polarization Sensor (Sony IMX250MZR)**: Detects linear polarization for hydrophobicity assessment via DoLP and contact angle estimation.
+
+### DEPENDENCIES
+PCL, Open3D, OpenCV, ROS2, ORB-SLAM3, RTAB-Map, FAST_LIO_LC, nvTorchCam (optional), DIY polarization setups.
+
+### USAGE
+1. **Surface Characterization**: Use PCL/Open3D for real-time point cloud processing to detect obstacles, cracks, window frames, bird nests, and vents/protrusions via normal vector analysis.
+2. **Hydrophobicity Assessment**: Integrate a polarization sensor (e.g., Sony IMX250MZR) with OpenCV to process polarized images, calculate DoLP, and estimate water contact angles to identify hydrophobic surfaces.
+3. **SLAM Integration**: Deploy ORB-SLAM3, RTAB-Map, or FAST_LIO_LC in ROS2 for mapping and localization in dynamic environments.
+4. **Clustering**: Apply DBSCAN, K-means, or Euclidean clustering in PCL/Open3D for volumetric analysis of point clouds.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The Sony IMX250MZR sensor is a widely used commercial option for hydrophobicity assessment, but alternatives like Alkeria CELERA P Series or Allied Vision Mako G-508B POL can be substituted based on availability and cost.
+>
+>[!WARNING]- Caution
+> Ensure compatibility between sensor resolution (e.g., 5.0 MP) and processing pipelines (e.g., OpenCV’s DoLP algorithms). High-resolution sensors may require optimized preprocessing to avoid latency in real-time applications.

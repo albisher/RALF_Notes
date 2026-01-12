@@ -1,0 +1,42 @@
+### FILENAME
+camera_processor_box
+
+### TAGS
+#vision, #pybullet, #computer_vision, #image_processing, #robotics, #depth_estimation, #opencv_fallback
+
+### TYPE
+code-notes
+
+### SUMMARY
+Processes camera images from PyBullet to generate RGB, depth, and segmentation outputs.
+
+### DETAILS
+The `CameraProcessorBox` class initializes a camera processor for PyBullet simulations, handling image capture with configurable resolution, field of view, and clipping planes. It uses PyBullet’s `getCameraImage` to fetch RGB, depth, and segmentation data from a simulated camera. If OpenCV (`cv2`) is unavailable, it limits processing capabilities with a warning. The class encapsulates single responsibility for camera data processing, abstracting PyBullet-specific rendering logic.
+
+### KEY_FUNCTIONS
+- **`__init__(self, width, height, fov, near, far)`**: Configures camera parameters (resolution, FOV, clipping planes).
+- **`capture_image(self, physics_client, camera_position, camera_target, camera_up)`**: Captures raw image data (RGB, depth, segmentation) from PyBullet using `getCameraImage`.
+
+### DEPENDENCIES
+pybullet, numpy, cv2 (optional fallback)
+
+### USAGE
+```python
+processor = CameraProcessorBox(width=640, height=480, fov=60.0)
+image_data = processor.capture_image(
+    physics_client=physics_client_id,
+    camera_position=[x, y, z],
+    camera_target=[x, y, z],
+    camera_up=[0, 0, 1]
+)
+print(image_data['rgb'].shape)  # Output: (height, width, 3)
+```
+
+### RELATED
+[[PyBullet documentation]], [[OpenCV installation guide]]
+
+### CALLOUTS
+>[!INFO]- OpenCV Fallback
+> If `cv2` is missing, depth/segmentation processing is disabled, but RGB capture persists.
+>[!WARNING]- PyBullet Dependency
+> Requires a running PyBullet physics client (`physics_client_id`). Ensure the client is active before calling `capture_image`.

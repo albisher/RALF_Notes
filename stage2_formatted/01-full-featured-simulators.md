@@ -1,0 +1,102 @@
+**Tags:** #robotics-simulation, #gazebo, #ignition-gazebo, #webots, #ros2, #physics-engineering, #multi-robot-systems, #sensor-models, #hardware-in-loop, #education-research
+**Created:** 2026-01-12
+**Type:** documentation-research
+
+# 01-full-featured-simulators
+
+## Summary
+
+```
+Comprehensive guide to advanced robotics simulation tools, focusing on Gazebo/Ignition Gazebo and Webots for HMRS project integration.
+```
+
+## Details
+
+> This file compares **Gazebo/Ignition Gazebo** and **Webots** as full-featured robotics simulators, highlighting their physics engines, rendering capabilities, and sensor models. Gazebo (now Ignition Gazebo) is the dominant ROS/ROS2-compatible platform, offering native ROS2 support, multi-robot coordination, and realistic sensor simulations (e.g., LiDAR, cameras). Webots, while less community-driven, provides a professional-grade Python API and pre-built robot models, though with limited ROS2 integration. Both are critical for HMRS due to their physics realism, sensor fidelity, and hardware-in-the-loop support.
+
+## Key Functions
+
+### `Gazebo/Ignition Gazebo`
+
+- Physics Engine: Supports ODE, Bullet, or DART (configurable via plugins).
+
+### `Rendering`
+
+OGRE-based with dynamic lighting and environmental effects.
+
+### `Multi-Robot Coordination`
+
+Handles heterogeneous teams via ROS2 (`ros_gz_bridge`).
+
+### `Sensor Simulation`
+
+Includes LiDAR (e.g., Velodyne VLP-16), IMU, GPS, and cameras.
+
+### `Python API`
+
+Uses `rclpy` (ROS2 Python client) for control.
+
+### `Plugin System`
+
+Extensible via C++/Python for custom logic.
+
+### `Webots`
+
+- Physics Engine: ODE-based, lightweight but accurate for basic dynamics.
+
+### `Robot Models`
+
+Pre-built drones, robots, and sensors (e.g., cameras, motors).
+
+### `Python API`
+
+Direct controller integration via `controller` module.
+
+### `Web Interface`
+
+Optional browser-based visualization for debugging.
+
+## Usage
+
+**For Gazebo/Ignition Gazebo**:
+1. Install via `sudo apt-get` (Ubuntu/Debian) or `ign-env` (Ignition).
+2. Launch with `ros2 run gazebo_ros gazebo`.
+3. Use `ros_gz_bridge` to connect ROS2 topics (e.g., `/drone_command`).
+4. Deploy Python scripts via `rclpy` for real-time control.
+
+**For Webots**:
+1. Install from [Cyberbotics](https://cyberbotics.com/) (free for research).
+2. Load a `.wb` file (e.g., drone model) and attach sensors/motors.
+3. Run Python controller in the Webots IDE or CLI:
+   ```python
+   robot = Robot()
+   motor = robot.getDevice('motor_name')
+   motor.setPosition(1000)  # Set target angle.
+   ```
+
+## Dependencies
+
+> `- **Gazebo/Ignition Gazebo**:
+  - ROS2 (Humble or later)`
+> ``ros_gz_bridge``
+> `OGRE`
+> `Bullet/DART/ODE.
+  - External: `rclpy` (Python ROS2 client)`
+> ``std_msgs` (message types).
+- **Webots**:
+  - Python 3.x`
+> ``controller` library (bundled with Webots)`
+> `OpenGL/GLUT for rendering.`
+
+## Related
+
+- [[Gazebo ROS2 Integration Guide]]
+- [[Webots Python API Documentation]]
+- [[HMRS Robotics Protocols]]
+
+>[!INFO] Key Tradeoff
+> Gazebo excels in **multi-robot ROS2 ecosystems** and **industry-grade realism**, while Webots shines in **educational/academic workflows** with its Python API and pre-built models. Choose based on project scale and team expertise.
+
+
+>[!WARNING] Resource Intensity
+> Both simulators demand significant CPU/GPU resources. For HMRS, allocate dedicated hardware (e.g., NVIDIA RTX) to avoid lag in physics rendering or sensor data streams.

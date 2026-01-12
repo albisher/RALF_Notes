@@ -1,0 +1,38 @@
+### FILENAME
+quad-view-plotly-views-fix-2025-01-27
+
+### TAGS
+#plotly, #cesium, #3d-visualization, #osm-integration, #vuejs, #frontend-fix, #performance-optimization, #quad-view
+
+### TYPE
+code-notes
+
+### SUMMARY
+Fixed Quad View visualization to ensure all four Plotly views render correctly and improve loading performance for 2D Top and 3D Isometric views.
+
+### DETAILS
+This fix addresses two main issues in the Quad View component: ensuring all four views (2D Top, 2D Front, 2D Side, 3D Isometric) initialize correctly, and optimizing loading performance by reducing delays. The solution involves conditional rendering of OSM containers based on the OSM enabled state, parallel initialization of views, and reduced timeouts. The template now dynamically switches between OSM and Plotly containers for 2D Top and 3D Isometric views, while 2D Front and 2D Side always use Plotly containers.
+
+### KEY_FUNCTIONS
+- **`simulation/frontend/components/visualization-view-component.js`**: Main component file updated to conditionally render OSM/Plotly containers and optimize initialization.
+- **`v-show` directive**: Controls visibility of OSM containers based on OSM enabled state.
+- **`Promise.all()`**: Enables parallel initialization of views to reduce loading time.
+
+### DEPENDENCIES
+Cesium, Plotly.js, Vue.js (Vue directives like `v-show`), OSM (OpenStreetMap) integration library.
+
+### USAGE
+To use this fix:
+1. Ensure OSM is enabled in the application context.
+2. The Quad View component will now automatically render the correct containers (OSM or Plotly) for each view based on the OSM state.
+3. Loading performance is improved by parallel initialization of views.
+
+### RELATED
+[[simulation/frontend/components/visualization-view-component.js]], [[quad-view-performance-optimization]], [[cesium-integration-guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The fix ensures that 2D Top and 3D Isometric views initialize in parallel when OSM is enabled, reducing cumulative delays from sequential initialization.
+>
+>[!WARNING]- Caution
+> Ensure OSM is properly configured before applying this fix, as the component dynamically switches between OSM and Plotly containers based on the OSM state.

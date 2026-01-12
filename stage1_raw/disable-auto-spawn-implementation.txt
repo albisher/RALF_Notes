@@ -1,0 +1,37 @@
+### FILENAME
+disable-auto-spawn-implementation
+
+### TAGS
+#simulation, #drone-spawning, #api-integration, #user-control, #programmatic-config
+
+### TYPE
+code-notes
+
+### SUMMARY
+Modifies drone spawning behavior to disable automatic drone spawning, enforcing manual or API-driven spawning.
+
+### DETAILS
+This implementation disables the default auto-spawn feature in `simulation/hmrs_simulation_live.py`, ensuring drones only spawn via explicit user interaction (UI button) or API calls (`/api/spawn`). The change replaces automatic spawning with conditional logic, requiring programmatic override (`auto_spawn_drones = True`) for testing scripts. Saved configurations remain non-spawnable templates, while the `auto_spawn_delay` and `auto_spawn_count` variables are now inactive by default.
+
+### KEY_FUNCTIONS
+- **`self.auto_spawn_drones`**: Boolean flag controlling auto-spawn logic (now `False`).
+- **`/api/spawn` (POST)**: Endpoint for manual drone spawning via API.
+- **Spawn Modal UI**: UI component for user-triggered drone selection.
+- **`self.programmatic_mode`**: Enables/disables simulation automation (used for testing).
+
+### DEPENDENCIES
+`simulation/hmrs_simulation_live.py`, `drone_configurations.json`, `/api/spawn` endpoint.
+
+### USAGE
+1. **Manual Spawn**: Click UI button to open modal and select drones.
+2. **API Spawn**: Call `POST /api/spawn` with drone type/position data.
+3. **Programmatic Spawn**: Set `auto_spawn_drones = True` in code (e.g., for testing).
+
+### RELATED
+[[`simulation/hmrs_simulation_live.py`]], [[`drone_configurations.json`]], [[`/api/spawn` documentation]]
+
+### CALLOUTS
+>[!INFO]- **Verification Check**
+> Ensure `/api/state` returns empty `"drones": []` after 5+ seconds without manual intervention.
+>[!WARNING]- **Config Preservation**
+> Saved configurations in `drone_configurations.json` are **templates only**—do not auto-spawn drones from them.

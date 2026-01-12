@@ -1,0 +1,44 @@
+### FILENAME
+Refactoring_Plan
+
+### TAGS
+#refactoring, #object-oriented-design, #code-organization, #box-based-architecture, #codebase-improvement, #modularization, #state-management, #composable-components
+
+### TYPE
+documentation
+
+### SUMMARY
+A structured refactoring plan to reorganize a bloated codebase into a box-based OOP architecture, reducing line counts and improving modularity.
+
+### DETAILS
+This document outlines a critical refactoring strategy to split a monolithic `app-data.js` (9,949 lines) into modular components following a box-based OOP approach. The goal is to decompose the codebase into smaller, focused units (e.g., `MainAppData.js`, `DroneState.js`) while preserving core functionality. The plan prioritizes extracting state management, services, computed properties, and composables into dedicated files, reducing redundancy and improving maintainability.
+
+The refactoring targets critical files exceeding 500 lines, with a focus on breaking down methods into domain-specific modules (e.g., `DroneService.js`, `VisualizationComputed.js`). Phase 1 emphasizes reorganizing `app-data.js` into a hierarchical structure, ensuring each component encapsulates a single responsibility.
+
+### KEY_FUNCTIONS
+- **MainAppData.js**: Core orchestrator managing the application’s high-level workflow.
+- **DroneState.js**: Manages drone-specific state (e.g., position, status) in a centralized way.
+- **DroneService.js**: Handles drone business logic (e.g., API interactions, validation).
+- **DroneComputed.js**: Computes derived drone properties (e.g., derived metrics, UI updates).
+- **useDrones.js**: Vue.js composable for drone-related reactivity and lifecycle hooks.
+- **AppState.js**: Global application state container (e.g., active views, session data).
+
+### DEPENDENCIES
+Vue.js (for composables and reactivity), no external libraries explicitly listed (focused on internal modularization).
+
+### USAGE
+1. **Extract State**: Split `app-data.js` into state management modules (e.g., `DroneState.js`).
+2. **Define Services**: Create domain-specific services (e.g., `DroneService.js`) for business logic.
+3. **Compose Components**: Use Vue.js composables (e.g., `useDrones.js`) to encapsulate reusable logic.
+4. **Refactor Computed**: Move derived properties to dedicated files (e.g., `DroneComputed.js`).
+5. **Test Integration**: Validate modular components interact correctly post-refactoring.
+
+### RELATED
+[[Codebase_Architecture_Diagram]], [[Vue_Composition_API_Guide]]
+
+### CALLOUTS
+>[!INFO]- Critical Violation Mitigation
+> Each extracted module (e.g., `DroneState.js`) should adhere to the Single Responsibility Principle (SRP). Overlapping logic in `app-data.js` (e.g., drone/visualization methods) will be split into dedicated files to avoid bloating new modules.
+
+>[!WARNING]- Risk of Tight Coupling
+> Ensure state management modules (e.g., `AppState.js`) are designed as immutable where possible to prevent unintended side effects during refactoring. Test changes incrementally to avoid breaking existing workflows.

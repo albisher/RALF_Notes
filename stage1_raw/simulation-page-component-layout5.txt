@@ -1,0 +1,38 @@
+### FILENAME
+simulation-page-component-layout5
+
+### TAGS
+#Vue.js, #Simulation, #UI-Component, #Data-Visualization, #Sidebar, #Event-Dispatching
+
+### TYPE
+code-notes
+
+### SUMMARY
+Simplified Vue.js simulation page layout component for visualization without a full sidebar.
+
+### DETAILS
+This component (`SimulationPageComponentLayout5`) is a Vue.js template for a simulation page with a minimal sidebar toggle. It primarily renders a `visualization-view-component` when the sidebar is hidden (`logsSidebarHidden` is `true`), while the `logs-sidebar-component` is conditionally rendered only when the sidebar is visible. The layout uses Vue’s `<v-if>` directives to dynamically show/hide components based on the `currentView` and `logsSidebarHidden` state. Key props like `currentView`, `currentTime`, and `timeTravelMode` control the visualization behavior, while event handlers (`@time-slider-change`, `@toggle-sidebar`, etc.) manage interactions like time travel, log toggles, and sidebar visibility.
+
+The component emits events to parent components for actions like toggling the sidebar, updating logs, or triggering UI resets (e.g., camera or legend adjustments).
+
+### KEY_FUNCTIONS
+- **`visualization-view-component`**: Displays simulation data with configurable layout modes, time controls, and OSM view support.
+- **`logs-sidebar-component`**: Conditionally renders a sidebar with communication logs, filters, and toggle controls for log sections.
+- **Event Handlers**: Manages interactions like `@time-slider-change`, `@toggle-sidebar`, and `@export-logs` via `$emit`.
+
+### DEPENDENCIES
+`LogsSidebarComponent`, `VisualizationViewComponent`, Vue.js core (for reactivity and directives like `<v-if>`).
+
+### USAGE
+1. **Conditional Rendering**: Use `currentView` and `logsSidebarHidden` to control component visibility.
+2. **Data Flow**: Pass props like `currentTime`, `maxSimTime`, or `filteredLogs` to control visualization/logs behavior.
+3. **Event Handling**: Trigger actions via emitted events (e.g., `@time-slider-change` updates parent state).
+
+### RELATED
+[[simulation-page-component]], [[visualization-view-component]], [[logs-sidebar-component]]
+
+### CALLOUTS
+>[!INFO]- Dynamic Component Switching
+> The `v-if` directives ensure the sidebar (`logs-sidebar-component`) is hidden by default unless explicitly toggled via `logsSidebarHidden`. This avoids unnecessary rendering overhead.
+>[!WARNING]- State Management
+> Ensure parent components handle emitted events (e.g., `@time-slider-change`) to maintain consistency across the simulation UI. Missing event listeners may cause stale data or UI glitches.

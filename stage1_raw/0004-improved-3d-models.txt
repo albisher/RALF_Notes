@@ -1,0 +1,39 @@
+### FILENAME
+swarm/model_loader
+
+### TAGS
+#3d-models, #physics-simulation, #urdf-models, #visualization, #drone-models, #vehicle-models, #building-models, #pybullet
+
+### TYPE
+code-notes
+
+### SUMMARY
+Enhanced 3D model representations for PyBullet simulation, improving realism with detailed drones, trucks, and buildings.
+
+### DETAILS
+This file details improvements to 3D models in a PyBullet simulation environment, replacing basic geometric shapes with realistic representations. The enhancements include:
+- **Quadcopter drones** with body, propellers, and physics constraints.
+- **Base trucks** with cab, cargo area, and wheels for accurate vehicle modeling.
+- **20-story buildings** with window grids and static structural details.
+
+Models are implemented via `ModelLoader` class in `swarm/model_loader.py`, supporting customizable properties like scale, color, and position.
+
+### KEY_FUNCTIONS
+- **`create_quadcopter_drone()`**: Creates a detailed quadcopter drone with configurable physics and visual properties.
+- **`create_base_truck()`**: Builds a realistic truck model with cab, cargo, and wheels.
+- **`create_building()`**: Generates a 3D building with configurable dimensions, window grids, and static structure.
+
+### DEPENDENCIES
+PyBullet, URDF (Unified Robot Description Format), custom `swarm` package (model_loader module).
+
+### USAGE
+Initialize `ModelLoader` with a PyBullet physics client, then call methods to instantiate models with customizable parameters (e.g., position, scale, color).
+
+### RELATED
+[[swarm/physics_client]], [[swarm/urdf_utils]], [[swarm/visualization_utils]]
+
+### CALLOUTS
+>[!INFO]- Physics Constraints
+> Propellers in drones are visually linked to the body but do not collide, ensuring smooth movement while maintaining realism.
+>[!WARNING]- Static Models
+> Trucks and buildings are static; avoid dynamic physics interactions unless explicitly configured.

@@ -1,0 +1,36 @@
+### FILENAME
+MainAppComponent
+
+### TAGS
+#VueJS, #React, #Component, #UI-Layout, #Navigation, #Simulation, #Sidebar
+
+### TYPE
+code-notes
+
+### SUMMARY
+Manages application state for a sidebar navigation layout in a simulation app.
+
+### DETAILS
+This component (`MainAppComponent`) implements **Layout Option 5**, a sidebar navigation structure for a simulation application. It orchestrates state management, rendering a header and sidebar while delegating content rendering to a child component (`simulation-page-component-layout5`). The sidebar (`nav-sidebar-component`) handles navigation logic, while the header manages simulation controls. Data flows through props (`:nav-items`, `:current-view`, `:status`, etc.) and emits events for user interactions (e.g., `@nav-change`, `@send-command`).
+
+### KEY_FUNCTIONS
+- **`header-component`**: Displays simulation controls (start/pause/stop buttons, session management).
+- **`nav-sidebar-component`**: Manages sidebar navigation items, drone commands, and quick actions (e.g., `@quick-start`, `@quick-pause`).
+- **`simulation-page-component-layout5`**: Renders dynamic content (e.g., drone spawn forms, logs, buildings) based on `currentView` and state props.
+
+### DEPENDENCIES
+`<header-component>`, `<nav-sidebar-component>`, `<simulation-page-component-layout5>`, `<Vue/React>`, `<Vuex/Pinia>` (likely for state management).
+
+### USAGE
+1. **Initialize**: Inject `MainAppComponent` into a parent container with required props (e.g., `status`, `navItems`).
+2. **Render**: Use `<header-component>` and `<nav-sidebar-component>` for sub-components.
+3. **State Updates**: Handle events like `@nav-change` or `@send-command` to update parent state.
+
+### RELATED
+[[VueJS Simulation App Architecture]], [[Sidebar Navigation Patterns]]
+
+### CALLOUTS
+>[!INFO]- **Single Responsibility**
+> This component focuses *only* on layout and state delegation. Content rendering is delegated to child components for modularity.
+>[!WARNING]- **Event Overload**
+> Excessive event emissions (e.g., `@load-session-replay`) may cause performance bottlenecks. Consider event delegation or throttling.

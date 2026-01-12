@@ -1,0 +1,41 @@
+### FILENAME
+verification-results
+
+### TAGS
+#verification, #api-endpoints, #flask, #route-definition, #server-restart
+
+### TYPE
+documentation
+
+### SUMMARY
+Documentation of session API endpoint verification results, highlighting working and non-working routes requiring server restart.
+
+### DETAILS
+This document records test results for session-related API endpoints, noting that while routes are correctly defined in the code, they are not active due to an outdated server configuration. The missing endpoints (`POST /api/sessions/<session_id>/select`, `GET /api/sessions/<session_id>/replay`, `GET /api/sessions/db/list`) must be reloaded after a server restart. The verification confirms proper CORS headers, error handling, and OPTIONS support in the defined routes.
+
+### KEY_FUNCTIONS
+- **`hmrs_simulation_live.py`**: Contains route definitions for session endpoints (lines 2554, 2748, 2715).
+- **`test_session_endpoints.py`**: Test script to validate endpoints post-restart.
+
+### DEPENDENCIES
+Flask server (`hmrs_simulation_live.py`), Python environment with required dependencies for session API routes.
+
+### USAGE
+1. Identify the outdated server running old code.
+2. Stop the current server (`Ctrl+C`).
+3. Restart the server with:
+   ```bash
+   cd simulation
+   python hmrs_simulation_live.py
+   ```
+4. Verify endpoints via `test_session_endpoints.py`.
+
+### RELATED
+[[`hmrs_simulation_live.py`]], [[`test_session_endpoints.py`]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Routes are defined in the code but require a server restart to activate. Ensure the new routes are properly registered after restarting the Flask server.
+
+>[!WARNING]- Caution
+> Incorrect server configuration may cause additional 404 errors or broken CORS headers. Always validate routes post-restart using the provided test script.

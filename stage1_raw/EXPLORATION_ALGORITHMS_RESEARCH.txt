@@ -1,0 +1,37 @@
+### EXPLORATION_ALGORITHMS_RESEARCH
+Research_Notes
+
+### TAGS
+#exploration_algorithms, #autonomous_drones, #3D_mapping, #path_planning, #LiDAR, #robotics, #3D_object_detection, #adaptive_scanning, #frontier_exploration, #next_best_view, #coverage_path_planning
+
+### TYPE
+research-notes
+
+### SUMMARY
+Exploration algorithms research for autonomous drones focusing on 3D LiDAR-based mapping and optimal path planning, addressing vertical FOV limitations and altitude mismatches.
+
+### DETAILS
+This document analyzes root causes of XY-plane-only LiDAR detection (due to ±15° vertical field of view) and proposes solutions like asymmetric vertical angles, lower altitudes, adaptive scanning, and multi-level scanning. It details three exploration algorithms: **Frontier-Based Exploration** (currently implemented), which explores boundaries between known/unknown space by clustering frontiers and selecting high-information-gain regions; **Next-Best-View (NBV) Planning**, which optimizes information gain per viewpoint; and **Coverage Path Planning (CPP)**, which systematically covers entire areas. Each algorithm balances efficiency, adaptability, and computational cost, with trade-offs in local minima risk, revisits, and sensor constraints.
+
+### KEY_FUNCTIONS
+- **Frontier-Based Exploration**: Detects and prioritizes frontier regions for exploration, implemented in `FrontierExplorerBox`.
+- **Next-Best-View (NBV) Planning**: Evaluates candidate viewpoints by information gain/cost ratio to maximize discovery efficiency.
+- **Coverage Path Planning (CPP)**: Generates systematic paths for exhaustive area mapping, optimized for structured environments.
+
+### DEPENDENCIES
+LiDAR sensor data, SLAM (Simultaneous Localization and Mapping) libraries, path-planning algorithms (e.g., A*, RRT), and 3D occupancy grid mapping frameworks.
+
+### USAGE
+To apply these algorithms:
+1. **Frontier-Based**: Use `FrontierExplorerBox` with LiDAR scans to detect and prioritize unexplored regions.
+2. **NBV Planning**: Sample viewpoints, compute information gain/cost scores, and plan paths dynamically.
+3. **CPP**: Deploy systematic grid traversal for full-area mapping, adjusting altitude/angles for optimal LiDAR coverage.
+
+### RELATED
+[[LiDAR_Sensor_Configuration_Guide]], [[Autonomous_Drone_SLAM_Implementation]], [[3D_Path_Planning_Algorithms]]
+
+### CALLOUTS
+>[!INFO]- **Vertical FOV Limitation**
+> The ±15° vertical FOV restricts LiDAR to ground-plane detection. Asymmetric angles (more downward) or multi-altitude scanning can mitigate this by increasing downward ray density.
+>[!WARNING]- **Altitude Trade-offs**
+> Lowering altitude (3–5m) improves object detection but risks collisions or reduced coverage. Dynamic altitude adjustment balances detection and safety.

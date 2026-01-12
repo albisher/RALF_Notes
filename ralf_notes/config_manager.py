@@ -20,7 +20,10 @@ class ConfigManager:
 
     DEFAULT_CONFIG = {
         "source_paths": [],
-        "target_dir": "./to_obsidian",
+        "target_dir": "./to_obsidian", # Final output
+        "stage1_raw_output_dir": "./stage1_raw", # Raw LLM output
+        "initial_formatted_dir": "./stage2_formatted", # Formatted but not validated
+        "review_needed_dir": "./review_needed", # Files failing validation
         "model_name": "ministral-3:3b",
         "ollama_host": "http://127.0.0.1:11434",
         "temperature": 0.1,
@@ -79,6 +82,9 @@ class ConfigManager:
         "max_content_length": lambda x: isinstance(x, int) and x > 0,
         "max_chunk_summary_length": lambda x: isinstance(x, int) and x > 0,
         "max_files_to_process": lambda x: isinstance(x, int) and x >= 0,
+        "stage1_raw_output_dir": lambda x: isinstance(x, str),
+        "initial_formatted_dir": lambda x: isinstance(x, str),
+        "review_needed_dir": lambda x: isinstance(x, str),
         "ollama_host": lambda x: isinstance(x, str) and (x.startswith("http://") or x.startswith("https://"))
     }
 
@@ -106,6 +112,18 @@ class ConfigManager:
     def set_target_dir(self, path: str):
         """Set target directory."""
         self.config["target_dir"] = path
+
+    def set_stage1_raw_output_dir(self, path: str):
+        """Set Stage 1 raw output directory."""
+        self.config["stage1_raw_output_dir"] = path
+
+    def set_initial_formatted_dir(self, path: str):
+        """Set initial formatted output directory (Stage 2)."""
+        self.config["initial_formatted_dir"] = path
+
+    def set_review_needed_dir(self, path: str):
+        """Set review needed directory (for failed Stage 3 files)."""
+        self.config["review_needed_dir"] = path
 
     def set_model(self, model_name: str):
         """Set Ollama model name."""

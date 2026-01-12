@@ -1,0 +1,35 @@
+### FILENAME
+plot-3d-box
+
+### TAGS
+#3D-plot, #best-practices, #validation, #performance-monitoring, #Plotly
+
+### TYPE
+code-notes
+
+### SUMMARY
+Manages 3D plot initialization and performance validation for Plotly-based visualizations.
+
+### DETAILS
+This class (`Plot3DBox`) handles the lifecycle of 3D plots, including initialization, updates, and camera state management. It enforces best practices by tracking command frequencies (e.g., `updatePlot`, `relayout`) and enforces constraints like minimum intervals between updates (e.g., 50ms for updates to maintain ~20 FPS) and maximum calls per second. It also logs violations of these constraints via `commandTiming` and `bestPractices` thresholds. The class uses a `meshGeneratorBox` dependency to generate 3D mesh data and maintains state for Plotly commands (e.g., `plotlyCommandLog`, `plotlyCommandCounts`).
+
+### KEY_FUNCTIONS
+- **constructor(meshGeneratorBox)**: Initializes the plot manager with a mesh generator and tracking structures for Plotly commands, best practices, and timing.
+- **validateCommandBestPractice(commandType, plotId, params)**: Validates whether a Plotly command adheres to best practices (e.g., no more than 1 `initPlot` call per plot within 60 seconds). Returns a validation result with a violation flag and message.
+
+### DEPENDENCIES
+`meshGeneratorBox` (external mesh data generator for 3D plots), Plotly library (for rendering).
+
+### USAGE
+1. Instantiate `Plot3DBox` with a `meshGeneratorBox` to initialize plot management.
+2. Call methods like `validateCommandBestPractice` to check if Plotly commands comply with performance thresholds.
+3. Use internal tracking structures (`commandTiming`, `bestPractices`) to enforce constraints (e.g., avoid rapid updates).
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Best Practices Enforcement
+> This class enforces strict timing constraints (e.g., 50ms between updates) to prevent jittery animations. Violations are logged for debugging.
+>[!WARNING]- Initialization Overuse
+> Repeated `initPlot` calls (e.g., >1 per plot in 60s) trigger warnings. Ensure plots are initialized only once per session.

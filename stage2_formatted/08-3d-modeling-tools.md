@@ -1,0 +1,66 @@
+**Tags:** #open-source, #3d-modeling, #CAD, #robotics, #Blender, #FreeCAD, #OpenSCAD, #scripting, #parametric-modeling, #robot-modeling
+**Created:** 2026-01-12
+**Type:** documentation
+
+# 3d-modeling-tools
+
+## Summary
+
+```
+Document outlining open-source 3D modeling and CAD tools for robotics, detailing Blender, FreeCAD, and OpenSCAD.
+```
+
+## Details
+
+> This document provides an overview of open-source 3D modeling and CAD tools, emphasizing their utility for creating robot models, mechanical components, and simulation environments. It highlights **Blender** for its comprehensive suite of 3D creation tools, including modeling, animation, physics, and Python scripting; **FreeCAD** for parametric CAD modeling with professional-grade mechanical design capabilities; and **OpenSCAD** for script-based, precise, and automated parametric modeling. Each tool is designed for flexibility, automation, and exportability to other platforms like Gazebo or Unreal Engine.
+
+## Key Functions
+
+### `Blender`
+
+Full 3D modeling, animation, physics, and rendering with Python API (`bpy`).
+
+### ``create_drone()``
+
+Example function to programmatically generate a drone model using Blender’s Python API.
+
+### `FreeCAD`
+
+Parametric modeling with a Python API for CAD operations.
+
+### ``Part.makeBox()``
+
+Generates a box using FreeCAD’s parametric modeling system.
+
+### `OpenSCAD`
+
+Script-based parametric modeling with modules and loops for automation.
+
+### ``drone_body()``
+
+Defines a drone model using OpenSCAD’s script syntax, including propellers via rotation and translation.
+
+## Usage
+
+1. **For Robotics Projects**:
+   - Use **Blender** for visualization, physics simulations, and animation.
+   - Use **FreeCAD** for precise mechanical design of robot components.
+   - Use **OpenSCAD** for scripting-based automation of repetitive modeling tasks.
+2. Export models to formats like OBJ, FBX, STL, or URDF/SDF for integration with simulation environments.
+
+## Dependencies
+
+> `- Blender: Built-in Python (`bpy`) and `math` modules.
+- FreeCAD: Requires `FreeCAD` and `Part` modules.
+- OpenSCAD: No external dependencies (pure script-based).`
+
+## Related
+
+- [[HMRS Project Documentation]]
+- [[Robotics Simulation Guide]]
+
+>[!INFO] Important Note
+> All tools support Python scripting, enabling customization and automation for robotics workflows. Blender’s `bpy` API and FreeCAD’s Python API are particularly powerful for dynamic model generation.
+
+>[!WARNING] Caution
+> OpenSCAD’s syntax is script-based and less intuitive for beginners compared to GUI tools like Blender or FreeCAD. Ensure familiarity with scripting before relying on OpenSCAD for complex designs.

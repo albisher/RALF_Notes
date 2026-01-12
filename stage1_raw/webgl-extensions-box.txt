@@ -1,0 +1,34 @@
+### FILENAME
+webgl-extensions-box
+
+### TAGS
+#WebGL, #Canvas2D, #WebExtensions, #WebGL2, #Plotly.js, #PerformanceOptimization, #ConsoleLogging, #WebGLExtensions, #ContextManagement
+
+### TYPE
+code-notes
+
+### SUMMARY
+Handles WebGL extension setup and Canvas2D warning suppression for WebGL contexts before Plotly.js initialization.
+
+### DETAILS
+This module patches WebGL contexts to enable required extensions (e.g., `EXT_float_blend`) and suppresses Canvas2D warnings (e.g., `willReadFrequently`) by intercepting console logs/errors. It avoids recursion issues by storing original `getExtension` methods and tracks enabled contexts via a `WeakSet`. The patching must occur before any canvas contexts are created to prevent warnings from Plotly.js or Canvas2D operations.
+
+### KEY_FUNCTIONS
+- **enableExtensions(context)**: Explicitly enables WebGL extensions for a given context if not already enabled, using stored original methods to prevent recursion.
+
+### DEPENDENCIES
+`WebGLRenderingContext`, `WebGL2RenderingContext`, `console` (native browser API), `WeakSet` (JavaScript built-in).
+
+### USAGE
+1. Load this script **before** Plotly.js or any WebGL/Canvas2D-dependent libraries.
+2. Call `enableExtensions(context)` on any WebGL context (e.g., `canvas.getContext('webgl')`) to ensure extensions are enabled.
+3. The script automatically suppresses Canvas2D warnings by patching `console.error`, `console.warn`, and `console.log`.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Critical Timing Requirement
+> This script **must** run before any canvas contexts are created (e.g., before `Plotly.js` initializes). Otherwise, warnings about `willReadFrequently` or missing extensions will persist.
+>[!WARNING]- Context-Specific Behavior
+> If `enableExtensions` is called multiple times on the same context, it silently skips redundant checks due to the `WeakSet` tracking. Avoid redundant calls to prevent unnecessary overhead.

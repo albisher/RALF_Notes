@@ -1,0 +1,35 @@
+### FILENAME
+vue-production-build-and-socketio-stability-fix
+
+### TAGS
+#vue, #socketio, #webdev, #production-build, #stability-fix, #websocket, #reconnection, #exponential-backoff, #debugging
+
+### TYPE
+code-notes
+
+### SUMMARY
+Fixes Vue production build warnings and stabilizes Socket.IO WebSocket reconnection behavior with improved reconnection logic and reduced console noise.
+
+### DETAILS
+This file documents fixes for two critical issues: switching from a Vue development build to a production build to eliminate console warnings, and enhancing Socket.IO connection stability by enabling unlimited reconnection attempts with exponential backoff, better error handling, and reduced spamming of console logs during reconnection attempts.
+
+### KEY_FUNCTIONS
+- **`vue.global.prod.js`**: Production build of Vue.js for optimized performance.
+- **Socket.IO reconnection configuration**: Modified reconnection logic to include `Infinity` attempts, exponential backoff, and throttled logging for connection states.
+
+### DEPENDENCIES
+Vue 3 (production build), Socket.IO client library
+
+### USAGE
+1. Replace development Vue script with production build (`vue.global.prod.js`) in `index.html` and `layout-option-5.html`.
+2. Update `socket-io-box.js` with the new reconnection configuration to ensure persistent WebSocket connections with controlled logging.
+
+### RELATED
+[[Vue 3 Production Build Guide]], [[Socket.IO Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The production build (`vue.global.prod.js`) reduces bundle size and improves performance compared to the development build, which includes development-specific features like devtools integration.
+
+>[!WARNING]- Caution
+> Exponential backoff (`reconnectionDelayMax: 10000`) and increased reconnection attempts (`Infinity`) may introduce latency during initial connection failures. Monitor connection stability in production environments.

@@ -1,0 +1,54 @@
+**Tags:** #code-expectations, #browser-findings, #gap-analysis, #ui-testing, #react-component, #configuration
+**Created:** 2026-01-12
+**Type:** documentation
+
+# code-analysis-config-page
+
+## Summary
+
+```
+Analyzes discrepancies between expected and actual behavior of a drone swarm configuration UI component, highlighting missing interactive testing and a critical dropdown error.
+```
+
+## Details
+
+> This document compares the intended structure of the `DronesBaseConfigViewComponent` with its current browser implementation. While the component renders all expected sections (header, base config, swarm/squad organization, naming convention dropdown), critical interactive functionality remains untested. The primary issue is a dropdown error where the "Lettered" naming convention option fails to load, despite the component expecting valid values.
+
+## Key Functions
+
+### ``DronesBaseConfigViewComponent``
+
+Manages swarm and base drone configuration UI.
+
+### ``Base Configuration Section``
+
+Handles inputs for base name, position, concurrency, and communication range.
+
+### ``Swarm & Squad Organization Section``
+
+Provides buttons to add/delete swarms/squads and displays their lists.
+
+### ``Naming Convention Dropdown``
+
+Should allow selection between "numbered" and "lettered" naming schemes.
+
+## Usage
+
+The component is used in `/config` to configure drone swarm and base settings. Users interact with inputs, buttons, and dropdowns to set configurations, but testing for interactivity is absent.
+
+## Dependencies
+
+> `React (Vue-like syntax)`
+> `JavaScript (ES6+)`
+> `UI framework components (likely React-based UI library).`
+
+## Related
+
+- [[Code Expectations vs Browser Findings - Drones Control]]
+- [[Swarm Management Documentation]]
+
+>[!INFO] Critical Dropdown Issue
+> The "Lettered" naming convention option in the dropdown is not rendering, causing a runtime error. The component expects valid `value` attributes (`"numbered"` and `"lettered"`), but the UI displays a misleading placeholder ("Lettered (Alpha, Bravo, Charlie...)"), which suggests a mismatch between expected and rendered options.
+
+>[!WARNING] Missing Interactive Testing
+> No user interactions (e.g., clicking buttons, selecting dropdowns) have been validated. This leaves critical UI functionality untested, increasing the risk of undetected bugs in real-world usage.

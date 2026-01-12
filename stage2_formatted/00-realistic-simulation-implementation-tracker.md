@@ -1,0 +1,67 @@
+**Tags:** #simulation, #drone, #battery-model, #path-planning, #realistic-physics, #controller-integration, #motor-model, #hmrs, #tracking
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# realistic-simulation-implementation-tracker
+
+## Summary
+
+```
+Tracks completion status of a realistic drone simulation implementation, focusing on battery modeling, motor physics, and path planning.
+```
+
+## Details
+
+> This document outlines the status of a **High-Mobility Robotic Swarm (HMRS)** simulation implementation, detailing completed and ongoing tasks for realistic drone behavior. It includes integration of a **BatteryModel** class, enhanced motor physics (differential thrust and torque), and path planning for mapping missions. The tracker also documents removal of simplifications (e.g., linear battery decay) and fixes for core systems like command processing and sensor integration.
+
+## Key Functions
+
+### `BatteryModel`
+
+Manages drone battery power based on motor thrusts.
+
+### `PathPlannerBox`
+
+Implements Z/N-pattern path planning for mapping.
+
+### `MasterController/GroundMaster`
+
+Centralizes drone command processing.
+
+### `MLControllerBox`
+
+Handles motor thrust outputs for movement control.
+
+### `Sensor Systems (LiDAR, Camera, IMU, GPS)`
+
+Real-time environmental and drone state tracking.
+
+## Usage
+
+To use this tracker:
+1. Verify completed modules (`BatteryModel`, `PathPlannerBox`, etc.) via the checklist.
+2. Apply modifications to specified files (e.g., update battery logic in drone classes).
+3. Integrate controllers (`MasterController`) into the simulation loop.
+4. Test mapping paths using `PathPlannerBox` and `MLControllerBox`.
+
+## Dependencies
+
+> ``battery_model.py``
+> ``simulation/swarm/base_drone.py``
+> ``simulation/hmrs_simulation_live.py``
+> ``plotly.js` (for client-side rendering)`
+> `external drone-specific modules (`hmrs_scout_drone.py``
+> `etc.).`
+
+## Related
+
+- [[simulation_architecture_diagram]]
+- [[drone_physics_specs]]
+- [[battery_model_implementation_details]]
+
+>[!INFO] Important Note
+> The **BatteryModel** now dynamically calculates power consumption from motor thrusts, replacing the deprecated linear decay method. Ensure all drones (`hmrs_scout_drone.py`, etc.) initialize `self.battery` correctly to avoid runtime errors.
+
+
+>[!WARNING] Caution
+> Differential thrust and torque calculations in the **enhanced motor model** must align with drone geometry (e.g., motor positions at 4 corners). Incorrect force application can destabilize simulation physics. Test with 4-motor or 8-motor configurations.

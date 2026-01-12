@@ -1,0 +1,37 @@
+### FILENAME
+log-timestamp-display-fix
+
+### TAGS
+#timestamp-fix, #logging, #frontend-backend-integration, #simulation, #debugging
+
+### TYPE
+code-notes
+
+### SUMMARY
+Fixed missing timestamps in log entries by enhancing `formatLogTime()` to use both simulation time and real timestamps, ensuring logs display accurate event timing.
+
+### DETAILS
+The fix addresses a bug where logs from `HMRSSimulationLive` displayed "N/A" instead of timestamps, making event tracking impossible. The solution involves two key changes:
+1. **Enhanced `formatLogTime()`** in the frontend logs component to handle both `sim_time` (simulation time) and `timestamp` (real-world time), with fallback logic.
+2. **Added `sim_time` parameter** to logging calls in the Python backend to ensure logs include simulation time when available.
+
+### KEY_FUNCTIONS
+- **`formatLogTime(simTime, timestamp)`**: Formats timestamps dynamically, preferring simulation time when available, falling back to real timestamps.
+- **`logger.log()` (Python backend)**: Modified to include `sim_time` in log entries when simulation is active.
+- **`logs-sidebar-component.js`**: Updated template to render formatted timestamps in the UI.
+
+### DEPENDENCIES
+`LoggingBox` (frontend logging system), `Socket.IO` (for real-time connection tracking), `Python logging` (backend logging), `JavaScript Date` (for timestamp conversion).
+
+### USAGE
+1. **Backend**: Ensure `sim_time` is passed to `logger.log()` when simulation data is available.
+2. **Frontend**: The updated `formatLogTime()` function now handles both time sources, and logs display accurate timestamps in the sidebar.
+
+### RELATED
+[[simulation/frontend/components/logs-sidebar-component.js]], [[simulation/hmrs_simulation_live.py]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The fix ensures logs now include either simulation time (e.g., `MM:SS`) or real timestamps (e.g., `HH:MM:SS`), depending on availability. This resolves the "N/A" issue for logs created before simulation starts.
+>[!WARNING]- Caution
+> If `sim_time` is not passed to `logger.log()`, the fallback timestamp will be used, but simulation-specific context may be lost. Always include `sim_time` when possible.

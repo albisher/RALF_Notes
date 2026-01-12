@@ -1,0 +1,72 @@
+**Tags:** #drone-autonomy, #remote-control, #simulation, #motor-control, #rc-tracking, #position-tracking, #drone-movement, #real-time-data, #rc-command-translation
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# drone-movement-rc-tracking-implementation
+
+## Summary
+
+```
+Tracks drone motor commands, timestamps, and positions for RC-controlled movement analysis in a simulation environment.
+```
+
+## Details
+
+> This implementation enhances an RC command translator box to log detailed motor execution data, including timestamps, thrust values, and RPM calculations. The system captures drone movement from origin to target coordinates and back, storing motor history for analysis. Position data is passed through to ensure accurate tracking of drone movement relative to RC inputs. The test script automates a round-trip movement test to validate the tracking system.
+
+## Key Functions
+
+### ``compute_thrusts(current_position, target_position)``
+
+Computes motor thrusts based on positional change, now including positional parameters for tracking.
+
+### ``get_motor_history(limit=100)``
+
+Retrieves the last `limit` motor command executions with full details (timestamps, thrusts, RPMs, motor IDs).
+
+### ``get_last_motor_data()``
+
+Returns the most recent motor execution data, including RC state, thrusts, RPMs, and positional context.
+
+### ``Motor History Tracking``
+
+Stores up to 1000 motor command executions with structured details (motor IDs, names, thrust percentages, RPMs).
+
+### ``Motor Rotation Calculation``
+
+Converts thrust values to RPM (max 10,000 RPM) for each motor, normalized to percentages.
+
+## Usage
+
+1. Start the simulation GUI in one terminal:
+   ```bash
+   python simulation/hmrs_simulation_live.py
+   ```
+2. Run the test script in another terminal to automate movement testing:
+   ```bash
+   python simulation/scripts/test_drone_movement_with_rc_tracking.py
+   ```
+3. Access motor history via the `rc_command_translator_box` instance after execution:
+   ```python
+   history = translator.get_motor_history(limit=100)
+   ```
+
+## Dependencies
+
+> ``simulation/swarm/boxes/rc_command_translator_box.py``
+> ``simulation/swarm/base_drone.py``
+> ``simulation/hmrs_simulation_live.py``
+> ``simulation/scripts/test_drone_movement_with_rc_tracking.py``
+
+## Related
+
+- [[base_drone]]
+- [[hmrs_simulation_live]]
+- [[test_drone_movement_with_rc_tracking]]
+
+>[!INFO] Important Note
+> Motor rotations are calculated as a percentage of maximum RPM (10,000 RPM) based on thrust values. Thrust ranges from 0.0 to 1.0, where 1.0 corresponds to full throttle. Roll, pitch, and yaw inputs (-1.0 to 1.0) influence motor thrust distribution but are not directly mapped to RPM—only thrust-to-RPM conversion is applied.
+
+
+>[!WARNING] Caution
+> The test script clears sessions before execution. Ensure no prior drone sessions are active to avoid conflicts. If the simulation GUI crashes during testing, manually restart it to resume tracking.

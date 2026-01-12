@@ -1,0 +1,74 @@
+**Tags:** #web-automation, #ui-testing, #session-visualization, #selenium, #api-integration
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# test_session_visualization_ui
+
+## Summary
+
+```
+Automated UI test for session visualization in a drone simulation environment.
+```
+
+## Details
+
+> This script uses Selenium and requests to verify that sessions, drones, and commands are correctly rendered in a browser UI. It logs issues, captures screenshots, and interacts with both a local API and browser elements. The test focuses on validating the graphical representation of drone activities and session data within a simulation dashboard.
+
+## Key Functions
+
+### `SessionVisualizationUITest.__init__`
+
+Initializes test setup with base URL, browser driver, and tracking variables for issues and results.
+
+### `log_issue`
+
+Records problems encountered during testing execution.
+
+### `log_success`
+
+Records successful test outcomes.
+
+### `log_info`
+
+Provides informational feedback during testing.
+
+### `take_screenshot`
+
+Captures browser screenshots for debugging with timestamped filenames.
+
+### `check_api`
+
+Executes HTTP requests (GET/POST) to the backend API and validates responses.
+
+### `setup_browser`
+
+Configures a headless Chrome browser with specific options for testing.
+
+## Usage
+
+1. Initialize the test class with a base URL (defaults to `http://localhost:5007`).
+2. Call methods like `check_api()` to verify API responses or `take_screenshot()` to capture UI states.
+3. Log issues/successes via `log_issue()`/`log_success()` for analysis.
+4. Run the test in a browser context (e.g., after `setup_browser()`).
+
+## Dependencies
+
+> `requests`
+> `time`
+> `json`
+> `os`
+> `datetime`
+> `selenium`
+> `selenium-webdriver`
+> `expected_conditions`
+
+## Related
+
+- [[simulation_backend_api_spec]]
+- [[drone_simulation_ui_architecture]]
+
+>[!INFO] Important Note
+> The script assumes the backend API is running on `localhost:5007`. Adjust `base_url` if testing a different endpoint.
+
+>[!WARNING] Caution
+> Headless mode (`--headless`) may fail if the UI relies on visual feedback. Test in non-headless mode for debugging.

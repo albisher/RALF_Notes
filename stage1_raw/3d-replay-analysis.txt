@@ -1,0 +1,47 @@
+### FILENAME
+3d-replay-analysis
+
+### TAGS
+#3d-visualization, #replay-analysis, #drone-movement, #simulation-data, #debugging
+
+### TYPE
+research
+
+### SUMMARY
+Analyzes a 3D replay analysis script to identify why drones exhibit no movement in recorded sessions, despite functional visualization code.
+
+### DETAILS
+This document examines a 3D replay analysis system designed to track and visualize drone movement from recorded sessions. The analysis reveals that while the visualization code is correct, the underlying motion history data for drones (`scout-1`, `scout-2`, `scout-3`) shows no movement—all drones remain stationary at `[10.00, 10.00, 5.00]` with zero distance traveled and no time progression. The root cause is that drones did not execute movement commands, and motion history only records actual movement, not simulated or intended actions. The session `202512141344-ReplayTest` was created but lacks dynamic data, leading to static drone displays in the 3D plot.
+
+### KEY_FUNCTIONS
+- **Motion History Data Extraction**: Parses drone position updates, distances, and time spans to validate movement.
+- **Realistic Movement Check**: Evaluates whether recorded data meets criteria for realistic movement (e.g., position changes, velocity).
+- **3D Visualization Integration**: Ensures the code correctly renders drone positions and trajectories in a 3D plot, conditional on movement data.
+- **Session Analysis**: Assesses session completeness (e.g., replay availability, motion history structure) and identifies gaps (e.g., missing movement).
+
+### DEPENDENCIES
+- Drone simulation API (for command execution and data retrieval)
+- Position tracking library (for calculating distances and velocities)
+- 3D plotting framework (e.g., Matplotlib, Three.js for visualization)
+
+### USAGE
+To test realistic movement:
+1. **Option 1**: Use an existing session with confirmed movement (e.g., manually verify drone positions via API).
+2. **Option 2**: Create a new session by:
+   - Starting the simulation.
+   - Spawning drones and sending move commands.
+   - Ensuring drones execute movement (e.g., via API or UI).
+   - Stopping the session after movement occurs.
+3. **Option 3**: Manually test via UI by:
+   - Observing drone movement in real-time.
+   - Capturing the session post-movement.
+
+### RELATED
+[[3d-visualization-code]], [[drone-simulation-api-docs]], [[motion-tracking-algorithms]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The visualization code is functional but relies on accurate motion history data. If drones remain stationary in the replay, the issue lies in data collection—not the rendering logic.
+
+>[!WARNING]- Caution
+> Sessions with no movement will result in static drone plots. Always verify drone activity (e.g., via API or UI) before stopping a session to ensure data integrity.

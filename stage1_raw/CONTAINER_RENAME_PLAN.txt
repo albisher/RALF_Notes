@@ -1,0 +1,38 @@
+### **CONTAINER_RENAME_PLAN**
+### **TAGS**
+#refactoring, #container-management
+
+### **TYPE**
+documentation
+
+### **SUMMARY**
+Documentation outlining the renaming of a container from `quadcopter-simulator` to `hmrs-simulator` to reflect broader drone support.
+
+### **DETAILS**
+This plan details the rationale and steps for renaming the container from `quadcopter-simulator` to `hmrs-simulator` to accurately reflect the HMRS (Heterogeneous Multi-Robot System) framework, which supports multiple drone types beyond quadcopters. The original name was misleading, as the system supports octocopters, hexacopters, fixed-wing, helicopters, and other drone variants. The update includes renaming the container, updating documentation, scripts, and references across multiple files to ensure consistency.
+
+### **KEY_FUNCTIONS**
+- **`docker-compose.yml`**: Defines container names and services.
+- **`HMRS_SIMULATOR_TASKS.md`**: Documentation file for simulation tasks (renamed from `QUADCOPTER_SIMULATOR_TASKS.md`).
+- **`run_live.sh`**: Script that launches or manages the simulation container.
+- **`README.md`**: Project documentation with references to the container name.
+
+### **DEPENDENCIES**
+None (primarily involves file renaming and documentation updates).
+
+### **USAGE**
+To apply this change:
+1. Update the container name in `docker-compose.yml` to `hmrs-simulator`.
+2. Rename `QUADCOPTER_SIMULATOR_TASKS.md` to `HMRS_SIMULATOR_TASKS.md`.
+3. Update all references to `quadcopter-simulator` in documentation files (e.g., `README.md`, `docs/*`).
+4. Modify `run_live.sh` to reflect the new container name.
+5. Verify all scripts and documentation are consistent.
+
+### **RELATED**
+[[`docker-compose.yml`]], [[`QUADCOPTER_SIMULATOR_TASKS.md`]], [[`HMRS_SIMULATOR_TASKS.md`]]
+
+### **CALLOUTS**
+>[!INFO]- Important Note
+> The renaming ensures the system’s broader applicability is clearly communicated, avoiding confusion about drone type limitations.
+>[!WARNING]- Caution
+> Double-check all script and documentation references to `quadcopter-simulator` to avoid breaking dependencies. Test changes in a staging environment before deployment.

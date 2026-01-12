@@ -1,0 +1,43 @@
+### FILENAME
+addon_configurator
+
+### TAGS
+#drone-addons, #hardware-configuration, #ROS2-integration, #sensor-config
+
+### TYPE
+code-notes
+
+### SUMMARY
+Configures drone addons for different HMRS drone types (Scout, Tanker/Mule) with sensor and communication setup.
+
+### DETAILS
+This module provides helper functions to initialize and configure various addons for two specific HMRS drone types: **THE SCOUT** and **THE TANKER (Mule)**. Each function returns a list of configured addon instances, including mandatory and optional sensors, communication interfaces, and controllers. The Scout drone requires RTK GPS, LiDAR, and high-resolution cameras, while the Tanker/Mule prioritizes standard GPS and optional redundancy features.
+
+The configuration includes:
+- **Sensors** (e.g., LiDAR, cameras, IMU, gyroscopes)
+- **Communication** (ROS2/MAVLink)
+- **Flight controllers** (e.g., PX4 firmware)
+- **Optional monitoring** (e.g., vibration detection, weather stations)
+
+### KEY_FUNCTIONS
+- **`configure_scout_addons()`**: Sets up mandatory and optional addons for the Scout drone, emphasizing mapping (LiDAR, RGB) and photogrammetry.
+- **`configure_tanker_mule_addons()`**: Configures a lighter setup for the Tanker/Mule, omitting RTK and dual-GPS for efficiency.
+
+### DEPENDENCIES
+`.addons` (custom module with drone-specific addon classes like `GPSRTKAddon`, `LiDARAddon`, etc.)
+
+### USAGE
+```python
+from addon_configurator import configure_scout_addons, configure_tanker_mule_addons
+scout_addons = configure_scout_addons()  # Returns list of configured addons
+tanker_addons = configure_tanker_mule_addons()
+```
+
+### RELATED
+[[drone_hardware_specs]], [[sensor_datasheets]]
+
+### CALLOUTS
+>[!INFO]- Mandatory vs. Optional
+> Mandatory addons (e.g., GPSRTK, LiDAR) are critical for Scout’s mapping/navigation. Optional sensors (e.g., thermal camera) add specialized functionality.
+>[!WARNING]- RTK Dependency
+> If `rtk_enabled=True`, ensure dual-GPS antennas are physically installed to avoid signal loss.

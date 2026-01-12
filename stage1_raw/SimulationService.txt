@@ -1,0 +1,42 @@
+### FILENAME
+SimulationService
+
+### TAGS
+#Simulation, #Service, #API, #OOP, #DependencyInjection, #HTTP, #ErrorHandling
+
+### TYPE
+code-notes
+
+### SUMMARY
+Manages simulation lifecycle via HTTP API calls with error handling and logging.
+
+### DETAILS
+`SimulationService` is a class-based service implementing a single responsibility: controlling simulation lifecycle (start, pause, stop, reset, restart) through HTTP requests using an injected `APIBox` instance. It follows OOP principles with dependency injection, abstracting HTTP communication via `APIBox`. Each method (`startSimulation`, `pauseSimulation`, etc.) encapsulates a single operation, with error handling and logging for robustness.
+
+### KEY_FUNCTIONS
+- **constructor(apiBox)**: Initializes service with required `APIBox` dependency, validating its presence.
+- **startSimulation()**: Initiates simulation via `/api/start` POST request, logs success/failure.
+- **pauseSimulation()**: Pauses simulation via `/api/pause` POST request, logs status.
+- **stopSimulation()**: Terminates simulation via `/api/stop` POST request, logs status.
+- **resetSimulation()**: Resets simulation via `/api/reset` POST request, logs status.
+- **restartSimulation()**: Restarts simulation via `/api/restart` POST request, logs status.
+- **getStatus()**: Retrieves simulation status via `/api/status` GET request, returns `result.data` or raw result.
+
+### DEPENDENCIES
+APIBox
+
+### USAGE
+```javascript
+const apiBox = new APIBox(); // Assume APIBox is initialized elsewhere
+const simulationService = new SimulationService(apiBox);
+await simulationService.startSimulation(); // Example usage
+```
+
+### RELATED
+none
+
+### CALLOUTS
+>[!INFO]- Dependency Validation
+> Throws `Error` if `APIBox` is not provided during construction.
+>[!WARNING]- Error Propagation
+> Unhandled API errors are logged and re-thrown, preserving caller responsibility for error handling.

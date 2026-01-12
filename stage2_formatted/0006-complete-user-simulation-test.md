@@ -1,0 +1,66 @@
+**Tags:** #test-results, #api-testing, #drone-simulation, #system-validation, #user-workflow
+**Created:** 2026-01-12
+**Type:** test-reference
+
+# 0006-complete-user-simulation-test
+
+## Summary
+
+```
+Evaluates full user workflow via API calls for a drone swarm system, assessing system health and simulated operations.
+```
+
+## Details
+
+> This document records a simulated user workflow test for the **HMRS Window Cleaning Drone Swarm**, where API calls were used to mimic manual user actions. The test covered 11 steps, with a 9/11 success rate (82%). Key failures involved incorrect API endpoints for GPS and building creation, while partial success occurred due to a logging bug in drone command processing. The system health check and drone spawning functions passed, validating core functionality.
+
+## Key Functions
+
+### ``/api/health``
+
+Checks system health status and API availability.
+
+### ``/api/master-controls/gps``
+
+(Corrected to `/api/master-controls`) Sets GPS coordinates for drone swarm.
+
+### ``/api/start``
+
+Initiates the simulation process.
+
+### ``/api/buildings/spawn-random``
+
+Generates random buildings for testing.
+
+### ``/api/spawn``
+
+Spawns drones (scout or overseer) with specified type and position.
+
+### ``/api/command``
+
+Sends drone movement commands (partially functional due to logging bug).
+
+## Usage
+
+To replicate this test:
+1. Use the provided API endpoints in a script or tool.
+2. Correct endpoint mismatches (e.g., `/api/master-controls` instead of `/api/master-controls/gps`).
+3. Verify drone spawning and command responses manually (visual/logging checks).
+
+## Dependencies
+
+> `- HMRS Window Cleaning Drone Swarm API`
+> `logging system`
+> `drone control middleware.`
+
+## Related
+
+- [[HMRS API Documentation]]
+- [[Drone Swarm Control Logs]]
+- [[Window Cleaning Drone Specifications]]
+
+>[!INFO] Important Note
+> The **LoggingBox parameter mismatch** in Step 6 caused a 500 error, but the command endpoint was still reachable. Visual verification is needed to confirm drone movement despite the bug.
+
+>[!WARNING] Caution
+> Incorrect API endpoints (e.g., `/api/buildings/random` vs. `/api/buildings/spawn-random`) will fail silently. Always validate endpoints against the system documentation.

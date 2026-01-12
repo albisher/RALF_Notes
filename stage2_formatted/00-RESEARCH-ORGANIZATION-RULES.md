@@ -1,0 +1,71 @@
+**Tags:** #documentation, #organization, #naming-conventions, #metadata, #methodology, #file-structure, #consistency, #research-management, #markdown, #standards
+**Created:** 2026-01-12
+**Type:** research
+
+# RESEARCH-ORGANIZATION-RULES
+
+## Summary
+
+```
+Establishes standardized file and directory naming conventions for research documentation.
+```
+
+## Details
+
+> This document outlines a systematic approach to organizing research files, ensuring uniformity in naming, structure, and content quality. It enforces a **numbered prefix system** (e.g., `00-research-methodology.md`) to categorize files hierarchically, with `00-` reserved for overviews, `01-` for primary content, and `90-99` for appendices. Subdirectories must include an `00-overview.md` for clarity, while directory names use kebab-case for readability. The rules also mandate consistent numbering within each level, cross-referencing practices, and status tracking for active/legacy content.
+
+## Key Functions
+
+### ``00-` prefix`
+
+Designates overview, index, or methodology files.
+
+### ``01-99` prefix`
+
+Assigns sequential primary content files.
+
+### ``10-19` prefix`
+
+Marks supplementary or secondary content.
+
+### ``20-29` prefix`
+
+Identifies advanced/specialized topics.
+
+### ``90-99` prefix`
+
+Flags appendices, references, or legacy material.
+
+### ``00-overview.md``
+
+Required in subdirectories for category navigation.
+
+## Usage
+
+Adopt this structure for all research files/directories to maintain navigability and coherence. Example:
+```
+research/
+├── 00-RESEARCH-ORGANIZATION-RULES.md
+├── 00-research-methodology.md
+└── simulations/
+    ├── 00-simulators-overview.md
+    └── 01-advanced-algorithms.md
+```
+Follow numbering rules strictly to avoid conflicts.
+
+## Dependencies
+
+> `None (standalone standards document).`
+
+## Related
+
+- [[research-index]]
+- [[methodology-guidelines]]
+- [[documentation-best-practices]]
+
+>[!INFO] **Zero-Padding Rule**
+> Enforcing `00-` to `99-` prefixes ensures sequential, zero-padded numbering (e.g., `01` vs. `1`). Skipping numbers (e.g., `02` → `04`) breaks continuity.
+
+
+>[!WARNING] **Subdirectory Overrides**
+> If a subdirectory lacks an `00-overview.md`, its parent directory’s overview may mislead users. Always include it.

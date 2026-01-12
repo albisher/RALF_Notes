@@ -1,0 +1,55 @@
+**Tags:** #gps-synchronization, #plotly-updates, #osm-integration, #3d-camera, #fix-coordinates
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# gps-preset-all-views-sync-fix
+
+## Summary
+
+```
+Fixed GPS preset synchronization to ensure both OSM and Plotly views update consistently when a new location is selected.
+```
+
+## Details
+
+> This fix addresses a bug where selecting a GPS preset (Home, PAAET, Random, or Custom) caused only OSM-based views to update, leaving Plotly views (including 3D) showing stale data. The solution ensures both OSM and Plotly views are updated by:
+> 1. Converting OSM buildings to local coordinates and merging them into Plotly data.
+> 2. Resetting the Plotly 3D camera to a base position (0,0,0) aligned with the new GPS location.
+> 3. Updating all Plotly views (2D Top/Front/Side and 3D) with fresh data.
+
+## Key Functions
+
+### ``onUpdateGpsPosition(gpsData)``
+
+Core function that updates both OSM and Plotly views after a GPS preset change.
+
+### ``onEnableOSMViewForPreset(gpsData)``
+
+Previously only initialized OSM views; now ensures Plotly views are synchronized.
+
+## Usage
+
+To apply this fix:
+1. Replace the old `onUpdateGpsPosition()` implementation with the updated version.
+2. Ensure `osmIntegrationBox` and `plot3DBox` are properly initialized before triggering GPS updates.
+3. Call `onUpdateGpsPosition(gpsData)` when a new preset is selected (e.g., via a preset button).
+
+## Dependencies
+
+> ``window.osmIntegrationBox``
+> ``this.masterControls``
+> ``this.plot3DBox``
+> `Plotly.js libraries`
+> `Cesium/OSM integration utilities.`
+
+## Related
+
+- [[GPS-Preset-Logic]]
+- [[OSM-Plotly-Coordinate-Mapping]]
+- [[Plotly-3D-Camera-Reset]]
+
+>[!INFO] Critical Coordinate Conversion
+> The fix relies on `window.osmIntegrationBox.getOSMBuildingsForPlotly()` to convert OSM coordinates to local Plotly units. If this function fails, buildings may not merge correctly.
+
+>[!WARNING] Camera Reset Dependency
+> If `plot3DBox.resetCamera()` fails, the 3D view may remain misaligned with the new GPS location. Test with fallback camera settings if needed.

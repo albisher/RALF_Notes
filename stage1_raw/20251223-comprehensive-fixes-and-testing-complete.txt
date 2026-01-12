@@ -1,0 +1,35 @@
+### FILENAME
+simulation/frontend/components/visualization-view-component.js
+
+### TAGS
+#Vue.js, #Cesium, #Reactivity, #DOM-rendering, #Vue-3, #Frontend-Fixes, #Conditional-Rendering, #Error-Handling
+
+### TYPE
+code-notes
+
+### SUMMARY
+Document records fixes for Vue.js/Cesium 2D/3D viewer rendering and error handling in a simulation frontend component.
+
+### DETAILS
+This file contains fixes for conditional rendering issues in the Cesium 2D/3D viewer containers within a Vue.js-based simulation frontend. The primary change involved replacing `v-if` with `v-show` to ensure containers persist in the DOM, preventing race conditions during initialization. The fix was applied in `simulation/frontend/components/visualization-view-component.js` (lines 121-153) to address timing issues in quad-view and 2D-only views.
+
+---
+
+### KEY_FUNCTIONS
+- **`cesium-2d-top-viewer`/`cesium-3d-viewer` container rendering**: Changed from `v-if` to `v-show` to ensure persistent DOM presence.
+- **Error handling for command processing**: Added try-except block around `drone.receive_command()` to prevent HTTP 500 errors.
+
+### DEPENDENCIES
+Vue.js 3, Cesium.js, Vuex (for state management), `simulation/frontend` package dependencies.
+
+### USAGE
+To apply this fix, reload the page after modifying `simulation/frontend/components/visualization-view-component.js`. The fix requires a page refresh to take effect due to Vue’s reactivity system.
+
+### RELATED
+[[simulation/frontend/boxes/osm-integration-box.js]], [[simulation/hmrs_simulation_live.py]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The `v-if` → `v-show` change ensures containers exist in the DOM before initialization, preventing race conditions. This is critical for Cesium’s dependency on DOM elements being present early in the render cycle.
+>[!WARNING]- Caution
+> Manual verification is required for fixes like GPS preset coordinate updates (e.g., `simulation/frontend/components/header-component.js`), as they may not auto-refresh without user interaction. Test in a staging environment before production deployment.

@@ -1,0 +1,66 @@
+**Tags:** #flight-control, #drones, #px4, #ardupilot, #hardware, #heavy-lift, #open-source
+**Created:** 2026-01-12
+**Type:** documentation
+
+# flight-controller-overview
+
+## Summary
+
+```
+Provides an overview of flight controller software and hardware for HMRS drones, focusing on PX4/ArduPilot and CUAV X25 controllers.
+```
+
+## Details
+
+> This document outlines the core flight control systems for HMRS drones, detailing the use of open-source software (PX4 and ArduPilot) alongside compatible hardware controllers. It highlights key features of PX4’s modular architecture, ROS2 integration, and MAVLink protocol, alongside ArduPilot’s versatility across drone types. The hardware section emphasizes the CUAV X25 Super/EVO’s industrial-grade sensors, wide-range power supply, and compatibility with both PX4 and ArduPilot firmware.
+
+## Key Functions
+
+### `PX4 Autopilot`
+
+Primary flight control software for HMRS drones, supporting multirotor and heavy-lift configurations.
+
+### `MAVSDK`
+
+Intuitive API for MAVLink communication across platforms.
+
+### `ROS 2`
+
+Enables integration with ROS-based systems for computer vision tasks.
+
+### `CUAV X25 EVO`
+
+Recommended heavy-lift drone controller with advanced sensors and processing capabilities.
+
+### `MAVLink Protocol`
+
+Standardized communication interface for drone control systems.
+
+## Usage
+
+- **Software Selection**: Choose PX4 for advanced ROS/MAVLink integration or ArduPilot for broader hardware compatibility.
+- **Hardware Integration**: Use CUAV X25 EVO for heavy-lift drones, ensuring firmware compatibility with selected flight software.
+- **Documentation**: Refer to linked guides for parameter configuration, API usage, and troubleshooting.
+
+## Dependencies
+
+> `PX4-Autopilot (GitHub: [PX4/PX4-Autopilot](https://github.com/PX4/PX4-Autopilot))`
+> `ArduPilot (GitHub: [ArduPilot](https://github.com/ArduPilot/Auto))`
+> `MAVLink library`
+> `ROS2 (Micro XRCE-DDS)`
+> `STM32H7 processor.`
+
+## Related
+
+- [[01-px4-specifications]]
+- [[02-px4-integration]]
+- [[03-px4-documentation-links]]
+- [[04-ardupilot-specifications]]
+- [[05-ardupilot-integration]]
+- [[06-ardupilot-documentation-links]]
+
+>[!INFO] Key Trade-offs
+> PX4 excels in ROS2/MAVLink integration but may require more tuning for heavy-lift drones, while ArduPilot offers broader hardware support but lacks advanced ROS features.
+
+>[!WARNING] Firmware Compatibility
+> Ensure firmware versions match between flight software (PX4/ArduPilot) and hardware (CUAV X25) to avoid control instability or data loss.

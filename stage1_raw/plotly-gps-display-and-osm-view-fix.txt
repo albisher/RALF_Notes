@@ -1,0 +1,48 @@
+### FILENAME
+plotly-gps-display-and-osm-view-fix
+
+### TAGS
+#gps-tracking, #openstreetmap, #plotly, #visualization, #weather, #simulation, #cesium, #ui/ux, #automation, #data-fetching, #error-handling
+
+### TYPE
+code-notes
+
+### SUMMARY
+Fixes GPS display and OpenStreetMap (OSM) integration issues in a simulation app, including unit consistency, weather auto-refresh, drone data management, and conditional visualization adjustments.
+
+### DETAILS
+This file documents fixes for a simulation application involving GPS tracking, weather data, and visualization components. Key improvements include:
+- Ensuring temperature is displayed in Celsius and distances in meters.
+- Implementing automatic weather updates every 60 seconds when GPS coordinates are available.
+- Guaranteeing the drones array is empty when no drones exist to prevent stale data.
+- Conditionally rendering visualization views (2D Top and 3D Isometric) only when OSM is enabled, otherwise showing all four views (2D Top, Front, Side, 3D Isometric).
+
+### KEY_FUNCTIONS
+- **`startUpdates()`**: Initializes periodic weather refresh using `setInterval` with error handling.
+- **`updateDrones()`**: Clears drones array on API failures or missing data to maintain consistency.
+- **`visualization-view-component.js`**: Conditionally renders visualization areas based on OSM or Plotly mode.
+- **`fetchWeatherFromGPS()`**: (Inferred) Handles fetching weather data from GPS coordinates.
+
+### DEPENDENCIES
+- `simulation/frontend/app-data.js` (core logic for weather and drone updates)
+- `simulation/frontend/components/visualization-view-component.js` (UI rendering logic)
+- `simulation/frontend/styles/viewport.css` (CSS styling adjustments)
+- **Cesium** (for 2D/3D OSM visualization)
+- **Plotly** (for alternative visualization mode)
+
+### USAGE
+To apply these fixes:
+1. Ensure GPS coordinates (`latitude`, `longitude`) are available in `masterControls`.
+2. Trigger `startUpdates()` to begin automatic weather refreshes.
+3. Use `updateDrones()` to manage drone data consistency.
+4. Conditionally render visualization components based on `osmViewEnabled` flag.
+
+### RELATED
+[[simulation/frontend/app-data.js]], [[simulation/frontend/components/visualization-view-component.js]], [[simulation/frontend/styles/viewport.css]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The `setInterval` for weather updates is conditional on `weather.source === 'gps'` and valid GPS coordinates. Silent error handling prevents console clutter.
+
+>[!WARNING]- Caution
+> Explicitly clearing `this.drones = []` on errors ensures no stale drone entries persist, but ensure the simulation logic aligns with this behavior to avoid unintended side effects.

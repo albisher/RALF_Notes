@@ -1,0 +1,39 @@
+### QUICK_START
+QuickStart
+
+### TAGS
+#docker, #simulation, #physics, #multirotor, #hardware-in-the-loop, #HMRS, #self-contained
+
+### TYPE
+tutorial
+
+### SUMMARY
+A concise guide to setting up a Docker-based simulation environment for hardware-in-the-loop systems without requiring Python or virtual environments.
+
+### DETAILS
+This guide provides a step-by-step method to deploy a fully self-contained simulation environment using Docker. The setup leverages PyBullet for physics simulation, along with other libraries like NumPy, Matplotlib, and OpenCV. Users only need Docker installed on their host system to avoid dependency conflicts or Python environment management.
+
+### KEY_FUNCTIONS
+- **`docker-compose build`**: Builds the Docker image containing all required dependencies (first-time only).
+- **`docker compose run --rm simulator python simple_quadcopter.py --headless`**: Executes a headless quadcopter simulation in a Docker container.
+- **`docker compose run --rm simulator python verify_requirements.py`**: Validates that all dependencies are correctly installed and functional.
+- **`docker compose run --rm simulator python run_visual_save.py`**: Runs a visual demo that saves frames for later analysis.
+
+### DEPENDENCIES
+PyBullet 3.2.7, NumPy 2.2.6, Matplotlib 3.10.8, OpenCV 4.12.0.88, Docker Compose
+
+### USAGE
+1. Navigate to the `simulation` directory.
+2. Run `docker-compose build` to create the Docker image.
+3. Execute `docker compose run --rm simulator python simple_quadcopter.py --headless` to start the simulation.
+4. Use `docker compose run --rm simulator python verify_requirements.py` to check dependency status.
+
+### RELATED
+[[README.md]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The Docker container includes all dependencies pre-installed, eliminating the need for manual Python environment setup (e.g., `venv` or `conda`). This ensures compatibility across different systems.
+
+>[!WARNING]- Caution
+> Ensure Docker is running before executing any commands. If Docker fails to start, dependencies may not load correctly, leading to runtime errors. Verify Docker is installed and accessible via `docker --version`.

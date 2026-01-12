@@ -1,0 +1,37 @@
+### FILENAME
+osm-plotly-toggle-fixes-complete
+
+### TAGS
+#javascript, #vuejs, #openstreetmap, #plotly, #frontend, #data-visualization, #gps, #osm-integration, #reactivity, #debugging
+
+### TYPE
+code-notes
+
+### SUMMARY
+Fixed GPS preset selection issues and improved OSM-Plotly toggle smoothness for seamless data synchronization.
+
+### DETAILS
+This file documents fixes for GPS preset selection reliability in a Vue.js-based OSM-Plotly visualization system. The fixes address issues with dropdown selection updates, DOM value mismatches, and ensure OSM buildings persist correctly when toggling between OSM and Plotly views. Key improvements include DOM fallback reading, Vue reactivity enforcement, and explicit merging of OSM data into Plotly plots to prevent visibility gaps.
+
+### KEY_FUNCTIONS
+- **onGpsPresetChange()**: Enhanced function to reliably update coordinates from a dropdown selection, using DOM fallback and Vue reactivity.
+- **onToggleOSMView()**: Modified to merge OSM buildings into Plotly data, remove duplicates, and force updates to ensure synchronization.
+- **getOSMBuildingsForPlotly()**: Helper function (likely in `osmIntegrationBox`) that extracts OSM building data for Plotly visualization.
+
+### DEPENDENCIES
+Vue.js, Plotly.js, OpenStreetMap (OSM) API integration library (e.g., `osmIntegrationBox`), `simulation/frontend` module.
+
+### USAGE
+To apply these fixes:
+1. Replace the problematic `onGpsPresetChange()` in `simulation/frontend/components/header-component.js` with the updated logic.
+2. Modify `simulation/frontend/app-data.js` to include the enhanced `onToggleOSMView()` logic.
+3. Ensure `osmIntegrationBox` is properly initialized and provides `getOSMBuildingsForPlotly()` with valid OSM data.
+
+### RELATED
+[[simulation/frontend/components/header-component.js]], [[simulation/frontend/app-data.js]], [[osmIntegrationBox.js]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The fixes rely on DOM element access via `querySelector` and Vue reactivity (`$nextTick`). Ensure the DOM is fully rendered before running these updates to avoid race conditions.
+>[!WARNING]- Caution
+> Removing existing OSM buildings (`filter(b => b.type !== 'osm_hint')`) may cause data loss if buildings are critical for visualization. Test thoroughly in a staging environment before deployment.

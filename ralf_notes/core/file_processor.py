@@ -54,8 +54,13 @@ class FileProcessor:
         import time
         start_time = time.time()
 
-        # Get all files to process
-        all_files = self._get_all_files(source_paths)
+        # Get all files to process using the static method
+        all_files = FileProcessor.get_files_to_process(
+            source_paths,
+            self.config_manager.get('file_extensions', self.VALID_EXTENSIONS), # Use config, fallback to default
+            self.config_manager.get('skip_dirs', self.SKIP_DIRS), # Use config, fallback to default
+            self.config_manager.get('skip_files', self.SKIP_FILES) # Use config, fallback to default
+        )
         
         # Limit files if configured
         max_files = self.config_manager.get('max_files_to_process', 0)
@@ -139,22 +144,26 @@ class FileProcessor:
 
         return results
 
-    def _get_all_files(self, paths: List[Path]) -> List[Path]:
+    @staticmethod
+    def get_files_to_process(source_paths: List[Path],
+                             valid_extensions: tuple,
+                             skip_dirs: set,
+                             skip_files: set) -> List[Path]:
         """
-        Recursively find all valid files in paths.
+        Static method to recursively find all valid files in paths, respecting skip patterns.
         """
         files = []
-        for path in paths:
+        for path in source_paths:
             if not path.exists():
                 continue
             if path.is_file():
-                if path.suffix in self.VALID_EXTENSIONS and path.name not in self.SKIP_FILES:
+                if path.suffix in valid_extensions and path.name not in skip_files:
                     files.append(path)
             else:
                 for item in path.rglob('*'):
                     if item.is_file():
-                        if any(skip_dir in item.parts for skip_dir in self.SKIP_DIRS):
+                        if any(skip_dir in item.parts for skip_dir in skip_dirs):
                             continue
-                        if item.suffix in self.VALID_EXTENSIONS and item.name not in self.SKIP_FILES:
+                        if item.suffix in valid_extensions and item.name not in skip_files:
                             files.append(item)
         return sorted(files)

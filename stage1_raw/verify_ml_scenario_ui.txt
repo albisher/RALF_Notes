@@ -1,0 +1,35 @@
+### FILENAME
+verify_ml_scenario_ui
+
+### TAGS
+#automation, #ui_verification, #ml_scenario, #testing, #screenshot
+
+### TYPE
+code-notes
+
+### SUMMARY
+Script verifies ML Scenario UI functionality and captures screenshots for debugging.
+
+### DETAILS
+This script performs automated UI verification for an ML scenario application by checking server availability, browser setup, and UI elements (header, stats bar, scenario cards). It captures screenshots at critical points for debugging and logs failures. The script uses Selenium for browser automation and requests for server checks.
+
+### KEY_FUNCTIONS
+- **take_screenshot(driver, filename)**: Saves a screenshot of the current browser page to a timestamped directory.
+- **verify_ml_scenario_ui()**: Orchestrates the entire verification process, including server checks, browser setup, UI element validation, and screenshot capture.
+
+### DEPENDENCIES
+requests, selenium, datetime, os
+
+### USAGE
+1. Ensure the ML Scenario UI server is running (`http://localhost:5006`).
+2. Run the script to verify UI elements and capture screenshots.
+3. Check `simulation_output/ml_scenario_verification` for saved screenshots.
+
+### RELATED
+[[simulation/ml_scenario_ui.py]], [[documentation/ML_Scenario_UI_Guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script runs in headless mode (`--headless`) for efficiency but may not display UI elements visually. Ensure the server URL (`http://localhost:5006`) matches the deployed environment.
+>[!WARNING]- Caution
+> If the server fails to start, the script will exit immediately with an error. Verify the server is running before execution.

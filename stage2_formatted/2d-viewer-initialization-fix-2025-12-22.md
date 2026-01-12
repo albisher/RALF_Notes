@@ -1,0 +1,59 @@
+**Tags:** #VueJS, #CesiumJS, #Reactivity, #DOM-rendering, #Error-handling, #Conditional-rendering, #Race-conditions, #Frontend-initialization, #2D-visualization, #Conditional-logic
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# simulation/frontend/boxes/osm-integration-box.js
+
+## Summary
+
+```
+Fixes race conditions in 2D Cesium viewer initialization by validating container existence and dimensions before proceeding.
+```
+
+## Details
+
+> The fix addresses a race condition where the 2D Cesium viewer attempts to initialize before the DOM container (`cesium-2d-top-viewer`) is rendered. The solution includes:
+> 1. **Container existence check** before redirecting to `initCesium2DTopViewer`.
+> 2. **Enhanced validation** for container dimensions, visibility, and computed styles to ensure Cesium can render.
+> 3. **Conditional error logging** with detailed metadata (e.g., container ID, dimensions, visibility) to improve debugging.
+
+## Key Functions
+
+### ``initCesiumViewer``
+
+Checks if the container exists before proceeding with initialization.
+
+### ``initCesium2DTopViewer``
+
+Validates container dimensions, visibility, and stability before creating a Cesium viewer.
+
+### ``log` (in `loggingBox`)`
+
+Enhanced error logging with structured details for debugging.
+
+## Usage
+
+The fix is applied in a Vue component (`OSMIntegrationBox`) where `osmViewEnabled` controls rendering. Before initializing the Cesium viewer, the component now:
+1. Checks if the container exists via `document.getElementById(containerId)`.
+2. Validates container dimensions (`offsetWidth`, `offsetHeight`) and visibility.
+3. Logs errors with structured details if validation fails.
+
+## Dependencies
+
+> ``document``
+> ``window``
+> ``getComputedStyle``
+> ``Cesium.Viewer` (CesiumJS library)`
+> ``Vue` (for conditional rendering).`
+
+## Related
+
+- [[app-data]]
+- [[osm-integration-box]]
+
+>[!INFO] Important Note
+> The fix prevents silent failures by logging detailed errors (e.g., `WARNING: Container not found`) when the container is missing or invalid. This helps trace issues during development.
+
+
+>[!WARNING] Caution
+> If the container is dynamically removed or re-rendered after initialization, the final container check (`finalContainerCheck`) ensures robustness. However, repeated re-renders may still cause race conditions if not handled elsewhere in the app.

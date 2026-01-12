@@ -10,6 +10,8 @@ from .text_parser import TextParser
 from .note_formatter import NoteFormatter
 from .document_pipeline import DocumentPipeline
 from .file_processor import FileProcessor
+from .validator import Validator
+from .watcher import Watcher
 
 __all__ = [
     'GenerationContext',
@@ -21,4 +23,6 @@ __all__ = [
     'NoteFormatter',
     'DocumentPipeline',
     'FileProcessor',
+    'Validator',
+    'Watcher',
 ]

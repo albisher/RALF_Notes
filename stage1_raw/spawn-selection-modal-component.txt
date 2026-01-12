@@ -1,0 +1,48 @@
+### FILENAME
+SpawnSelectionModalComponent
+
+### TAGS
+#Vue, #React, #UI-Component, #Modal, #Drone-Simulation, #Selection-UI
+
+### TYPE
+code-notes
+
+### SUMMARY
+A Vue.js modal component for selecting and spawning configured drones, squads, or swarms in a drone simulation system.
+
+### DETAILS
+`SpawnSelectionModalComponent` is a Vue.js template-based component designed to display and allow users to select from preconfigured drone entities (swarms, squads, or individual drones) for spawning. It includes conditional rendering for empty states (no configurations) and a selection summary with the ability to remove or clear selections. The component uses Vue’s `v-for` loops to dynamically render swarms and their associated items, with visual feedback for selected items via click events and a toggle selection mechanism.
+
+The template includes:
+- A modal overlay with a close button.
+- A header with a title and close icon.
+- A conditional message when no configurations exist, directing users to configure drones first.
+- A selection summary for currently selected items with remove buttons.
+- A swarms section displaying available swarms with clickable cards, each marked as selected if applicable.
+
+### KEY_FUNCTIONS
+- **`getItemDisplayName(item)`**: Extracts and formats the display name of a drone entity (e.g., swarm name or squad name).
+- **`toggleSelection({ type, index })`**: Toggles selection state for a swarm or squad item (e.g., `type: 'swarm'`).
+- **`removeSelection(item)`**: Removes a selected item from the selection list.
+- **`clearSelection()`**: Clears all selected items.
+- **`isSelected({ type, index })`**: Checks if a specific swarm/squad is selected (likely a helper method).
+
+### DEPENDENCIES
+Vue.js (for reactivity and templating), Vuex/Pinia (likely for state management of drone configurations and selections).
+
+### USAGE
+1. **Render the Modal**: Include the component in a parent Vue template with `show` prop (boolean) and `close` event emitter.
+   ```html
+   <SpawnSelectionModalComponent v-if="showModal" @close="closeModal" />
+   ```
+2. **Initialize Configurations**: Ensure `swarms` and `selectedItems` are passed as props (e.g., from a parent component managing drone configurations).
+3. **Trigger Spawning**: After selection, emit an event (e.g., `spawnSelected`) with the selected items to spawn drones.
+
+### RELATED
+[[DroneConfigurationManager]], [[SpawnControllerComponent]]
+
+### CALLOUTS
+>[!INFO]- Selection Logic
+> The component relies on helper methods (`isSelected`, `toggleSelection`) to manage selection states. Ensure these methods are implemented in the component’s logic to avoid race conditions or incorrect state updates.
+>[!WARNING]- Empty State Handling
+> If `hasAnyConfigurations` is `false`, the component renders a fallback message. Ensure the parent component handles this gracefully (e.g., by redirecting users to the config tab).

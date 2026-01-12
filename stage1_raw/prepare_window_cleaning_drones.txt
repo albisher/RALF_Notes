@@ -1,0 +1,40 @@
+### FILENAME
+prepare_window_cleaning_drones
+
+### TAGS
+#drone-configuration, #window-cleaning, #automation, #AI, #IoT, #mission-preparation, #scout-drones, #sensors
+
+### TYPE
+code-notes
+
+### SUMMARY
+Generates drone configurations for window cleaning missions, defining large and small scout drones with detailed specs.
+
+### DETAILS
+This script initializes a `WindowCleaningDronePreparer` class to programmatically create and save reusable configurations for window-cleaning drones. It defines two drone types:
+- **Large scout drones** (full-featured with all sensors/addons) capable of autonomous mission completion.
+- **Small scout drones** (minimal sensors) for distributed work in teams.
+
+The class handles directory setup and generates a JSON configuration dictionary for each drone type, including specs like mass, battery life, sensors, and capabilities. The `create_large_scout_config` method populates a comprehensive configuration for autonomous missions, while the class structure supports extensibility for additional drone types.
+
+### KEY_FUNCTIONS
+- **`WindowCleaningDronePreparer.__init__`**: Sets up output directory for drone configurations.
+- **`create_large_scout_config`**: Creates a full-featured scout drone configuration with detailed specs (e.g., LiDAR, GPS, thermal inspection).
+- *(Incomplete)* **`create_small_scout_config`** (not shown in snippet): Likely follows a similar pattern for minimalist drones.
+
+### DEPENDENCIES
+`json`, `os`, `pathlib`, `typing`, `datetime` (standard libraries).
+
+### USAGE
+1. Instantiate `WindowCleaningDronePreparer` with an output directory (e.g., `"drone_configurations"`).
+2. Call `create_large_scout_config()` to generate a full drone config (e.g., for autonomous missions).
+3. Save the returned dictionary to JSON (e.g., `config_json = json.dumps(config, indent=4)`).
+
+### RELATED
+[[`drone_specs_standards.md`](drone_specs_standards.md)], [[`drone_mission_roles.md`](drone_mission_roles.md)]
+
+### CALLOUTS
+>[!INFO]- **Output Directory**
+> The script creates `drone_configurations` relative to the script’s parent directory. Ensure this path is writable.
+>[!WARNING]- **Incomplete Method**
+> The snippet omits `create_small_scout_config()`—verify its implementation matches the large scout’s structure.

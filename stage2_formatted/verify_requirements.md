@@ -1,0 +1,55 @@
+**Tags:** #requirement_verification, #system_validation, #simulator_check, #dependency_validation, #python_check
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# verify_requirements
+
+## Summary
+
+```
+Verifies HMRS system requirements against simulator capabilities and dependencies.
+```
+
+## Details
+
+> This script checks whether the HMRS simulator meets predefined system requirements, including Python version compatibility, installed dependencies (e.g., PyBullet, NumPy), and simulator-specific capabilities (e.g., multi-robot support, real-time physics). It logs pass/fail statuses for each requirement and returns a boolean indicating overall success.
+> 
+> The script uses `importlib` to dynamically check installed packages, `sys` for Python version detection, and `numpy` for numerical validation. It initializes a `RequirementsVerifier` class to track results in a structured dictionary.
+
+## Key Functions
+
+### ``check_python_version()``
+
+Validates Python version (3.10+) against the system.
+
+### ``check_dependencies()``
+
+Tests if required packages (PyBullet, NumPy) are installed via `importlib.import_module()`.
+
+### ``check_simulator_capabilities()``
+
+Instantiates a `QuadcopterSimulator` to verify headless mode and multi-robot support (incomplete due to missing full logic).
+
+## Usage
+
+1. Run the script directly to verify system requirements.
+2. Call `RequirementsVerifier().check_python_version()` or `RequirementsVerifier().check_dependencies()` individually.
+3. Append `check_simulator_capabilities()` to test simulator-specific features (e.g., `sim = QuadcopterSimulator(...)`).
+
+## Dependencies
+
+> ``sys``
+> ``importlib``
+> ``numpy``
+> ``typing``
+> ``time``
+
+## Related
+
+- [[none]]
+
+>[!INFO] Missing Logic
+> The `check_simulator_capabilities()` method currently only instantiates the simulator without fully validating its capabilities (e.g., sensor support, real-time performance). Extend this method to include assertions or runtime tests.
+
+>[!WARNING] Dynamic Imports
+> Using `importlib.import_module()` for package checks may fail if modules are not in the Python path. Prefer explicit package checks (e.g., `try: importlib.import_module('pybullet')`) for robustness.

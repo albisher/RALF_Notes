@@ -1,0 +1,39 @@
+### FILENAME
+LogsSidebarComponent
+
+### TAGS
+#VueJS, #UIComponent, #MapIntegration, #CommunicationLogs, #SidebarComponent, #Cesium, #OSM, #GPSNavigation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Component for displaying and filtering communication logs in a right sidebar with embedded mini-map functionality.
+
+### DETAILS
+`LogsSidebarComponent` is a Vue.js-based UI component that renders a right sidebar displaying communication logs when `currentView` is set to `'list'`. The component integrates a mini-map (using OSM imagery) and a GPS preset selector. The map section includes a crosshair overlay for GPS positioning, while the dropdown allows users to select predefined GPS locations. The sidebar is structured with a header, map container, and content area, with conditional rendering of the map and GPS controls.
+
+### KEY_FUNCTIONS
+- **`onGpsPresetChange`**: Handles selection changes in the GPS preset dropdown.
+- **`selectedGpsPreset`**: Stores the currently selected GPS preset (likely a reactive data property in Vue).
+- **Mini-map rendering**: Dynamically displays an OSM map image with a crosshair overlay for GPS centering.
+- **Conditional rendering**: Shows/hides the sidebar and map based on `currentView` state.
+
+### DEPENDENCIES
+Vue.js (for reactivity and templating), Cesium/OSM imagery (for map rendering), potentially external libraries for map styling or event handling.
+
+### USAGE
+To use this component:
+1. Set `currentView` to `'list'` to render the sidebar.
+2. Define `selectedGpsPreset` (e.g., via Vue’s `v-model` or props).
+3. Inject OSM map imagery into the `#osm-mini-map-img` element.
+4. Call `onGpsPresetChange` (implicitly triggered via `@change` event) to update GPS presets.
+
+### RELATED
+[[Vue.js Component Guide]], [[Cesium Integration Docs]], [[OSM Map API Reference]]
+
+### CALLOUTS
+>[!INFO]- Component State Dependency
+> The sidebar only renders when `currentView === 'list'`. Ensure this state is managed externally (e.g., via Vuex or parent component props).
+>[!WARNING]- External Map Dependency
+> The OSM map image must be dynamically loaded into `#osm-mini-map-img`; failure to do so will render an empty container. Test with placeholder imagery during development.

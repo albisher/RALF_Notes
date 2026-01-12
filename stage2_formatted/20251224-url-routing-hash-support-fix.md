@@ -1,0 +1,68 @@
+**Tags:** #hash-routing, #url-routing, #frontend-navigation, #reactive-ui, #web-development
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# url-routing-box.js
+
+## Summary
+
+```
+Fixes URL routing to support hash-based navigation (`#/sm/`) for the monitoring page, ensuring proper display and state synchronization.
+```
+
+## Details
+
+> The fix addresses a missing hash-based routing implementation in `URLRoutingBox`, which previously relied solely on `window.location.pathname`. The solution enhances URL parsing to handle both hash and pathname routes, ensuring:
+> - Initial page loads correctly recognize hash routes (e.g., `#/sm/`).
+> - Navigation updates URLs dynamically via hash (e.g., `#/sm/`).
+> - Browser back/forward functionality works with hash routes.
+> 
+> Key changes include:
+> - **Hash parsing** in `initializeFromURL()` to detect routes like `#/sm/`.
+> - **Event-driven updates** via `handleHashChange()` for real-time UI synchronization.
+> - **Fallback logic** to pathname if hash is absent.
+
+## Key Functions
+
+### ``initializeFromURL()``
+
+Parses `window.location.hash` and `window.location.pathname` to determine current route.
+
+### ``navigateToView()``
+
+Updates the URL to use hash-based routing (e.g., `#/sm`) and emits `route-change` events.
+
+### ``handlePopState()``
+
+Supports browser back/forward navigation by parsing both hash and pathname.
+
+### ``handleHashChange()``
+
+Listens to `hashchange` events, extracts the hash, and updates the view accordingly.
+
+### ``URLRoutingBox` class`
+
+Core class managing URL-to-view mapping, now fully hash-aware.
+
+## Usage
+
+1. **Initial Load**: The app now checks `window.location.hash` first, falling back to `window.location.pathname` if no hash exists.
+2. **Navigation**: Clicking a sidebar link (e.g., `/sm`) updates the URL to `#/sm/` and triggers `handleHashChange()`.
+3. **Browser Events**: Back/forward buttons and `hashchange` events are handled to maintain URL consistency.
+
+## Dependencies
+
+> ``window.location``
+> ``EventEmitter` (for `route-change` events)`
+> ``URL` object (for path normalization).`
+
+## Related
+
+- [[app-data]]
+- [[url-routing-box]]
+
+>[!INFO] Hash Normalization
+> The code removes the `#` prefix and ensures paths start with `/` (e.g., `#/sm/` → `/sm`). This prevents malformed URLs like `sm/` from being treated as a hash route.
+
+>[!WARNING] Testing Requirement
+> Browser refresh is needed to load updated code. Test cases must verify hash-based navigation (e.g., `#/sm/`) and state synchronization post-navigation.

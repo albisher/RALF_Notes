@@ -1,0 +1,40 @@
+### FILENAME
+research-methodology
+
+### TAGS
+#research, #peer-reviewed, #scholarly-sources, #methodology, #ai, #reproducibility, #simulation, #cross-verification, #2020-2025
+
+### TYPE
+research-methodology
+
+### SUMMARY
+Document outlines structured methodology for validating AI research using peer-reviewed sources, emphasizing reproducibility, recent findings, and cross-verification.
+
+### DETAILS
+This document establishes a rigorous research methodology for evaluating AI techniques by prioritizing peer-reviewed publications from top conferences (e.g., ICRA, NeurIPS) and ensuring reproducibility through open-source code and datasets. It highlights the advantage of training AI via many short simulations over long ones, supported by verified scholarly papers. The methodology includes structured folder organization for scholarly papers and video summaries, along with tools like Perplexity MCP for efficient research.
+
+### KEY_FUNCTIONS
+- **Verification Requirements**: Defines criteria for peer-reviewed, reproducible, and recent research.
+- **Critical Finding: Many Small AI Dreams**: Explains the benefit of short simulation episodes over long ones.
+- **Validation Checklist**: Provides a step-by-step guide for validating research recommendations.
+- **Research Organization**: Outlines folder structure for managing scholarly papers and videos.
+
+### DEPENDENCIES
+- Open-source AI simulation environments (e.g., MuJoCo, PyBullet)
+- Peer-reviewed academic databases (e.g., IEEE Xplore, ArXiv)
+- Video summarization tools (e.g., TwoMinutePapers)
+
+### USAGE
+1. Follow the verification checklist to validate research claims.
+2. Use the folder structure to organize verified papers and videos.
+3. Implement findings by leveraging short simulation episodes and parallel processing.
+4. Cross-reference multiple sources to ensure consensus.
+
+### RELATED
+[[scholarly-papers/00-verified-papers-overview.md]], [[videos/00-two-minute-papers-overview.md]]
+
+### CALLOUTS
+>[!INFO]- Critical Validation
+> Always cross-reference findings from at least two peer-reviewed sources to avoid misinformation.
+>[!WARNING]- Reproducibility Risk
+> Ensure open-source code and datasets are available to confirm experimental results independently.

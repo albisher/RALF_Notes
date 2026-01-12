@@ -1,0 +1,39 @@
+### FILENAME
+weather_system
+
+### TAGS
+#drone-weather, #simulation, #gps-integration, #weather-api, #onboard-sensors
+
+### TYPE
+code-notes
+
+### SUMMARY
+Simulates drone flight conditions using wind, turbulence, and visibility, supporting both onboard sensors and external forecasts.
+
+### DETAILS
+The `WeatherSystem` class models real-time weather effects for drone operations, combining wind vectors, turbulence, and visibility metrics. It integrates with an optional external weather API (via base GPS coordinates) and prioritizes onboard sensor data when available. The system dynamically updates conditions based on predefined ranges for wind speeds and turbulence, with configurable fallback to simulated defaults if sensors/API fail.
+
+### KEY_FUNCTIONS
+- **`__init__`**: Initializes weather state (calm conditions by default) and configures fallback modes (API vs onboard sensors). Sets up GPS coordinates for API integration if provided.
+- **`_update_forecast_from_api`**: (Internal) Fetches external weather data from a hypothetical `WeatherAPIIntegration` module.
+- **`wind_speeds`**: Dictionary mapping `WeatherCondition` enums to min/max wind speed ranges (e.g., `STORM` = 15–25 m/s).
+
+### DEPENDENCIES
+`.integrations.weather_api`, `numpy`, `random`, `time`, `typing`, `enum`
+
+### USAGE
+1. Initialize with optional GPS coordinates to enable API fallback:
+   ```python
+   ws = WeatherSystem(base_latitude=40.7128, base_longitude=-74.0060)
+   ```
+2. Use onboard sensors by setting `use_onboard_sensors = True` and providing data via `onboard_weather_data`.
+3. Simulate dynamic conditions (e.g., gusts) by calling methods like `_apply_wind_gusts()`.
+
+### RELATED
+[[weather_api_integration]], [[drone_flight_conditions]]
+
+### CALLOUTS
+>[!INFO]- API Priority
+> If `base_latitude`/`longitude` are provided, the system defaults to API forecasts unless sensors are active.
+>[!WARNING]- Fallback Risk
+> Without sensors/API, conditions default to `CALM` (simulated). Override with manual overrides if needed.

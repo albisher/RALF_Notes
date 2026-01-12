@@ -1,0 +1,36 @@
+### FILENAME
+analyze_ml_learning
+
+### TAGS
+#machine-learning, #data-analysis, #session-tracking, #json-processing, #defaultdict
+
+### TYPE
+code-notes
+
+### SUMMARY
+Analyzes machine learning session data to extract learned patterns, decision trends, and performance metrics.
+
+### DETAILS
+This script loads and aggregates data from multiple training sessions stored in a directory structure. It reads JSON files containing ML training data, simulation summaries, motion history, and detection data for each session. The `load_session_data` function retrieves all available data for a given session ID, while `analyze_what_learned` processes this data to identify recurring decision patterns, outcomes, and performance improvements across sessions. The analysis uses `defaultdict` to track patterns dynamically and compiles structured results into a dictionary.
+
+### KEY_FUNCTIONS
+- **load_session_data(session_id: str)**: Loads all JSON files (ML data, summary, motion history, detection) from a session directory into a unified dictionary.
+- **analyze_what_learned(session_data: List[Dict])**: Aggregates decision patterns, outcomes (e.g., mission success, buildings scouted/cleaned), and performance trends across sessions.
+
+### DEPENDENCIES
+numpy, pathlib, collections.defaultdict, json
+
+### USAGE
+1. Define `TRAINING_SESSIONS_DIR` pointing to the directory containing session folders.
+2. Call `load_session_data(session_id)` to fetch session data.
+3. Call `analyze_what_learned()` with a list of session dictionaries to generate insights.
+4. Output is a structured dictionary with patterns, outcomes, and trends.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script gracefully handles missing files by returning `None` for unloaded fields (e.g., `ml_data`, `summary`) and skips JSON parsing errors silently.
+>[!WARNING]- Caution
+> Ensure session directories exist and contain required JSON files (e.g., `ml_training_data.json`, `simulation_summary.json`) to avoid silent failures.

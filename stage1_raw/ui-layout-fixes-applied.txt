@@ -1,0 +1,38 @@
+### FILENAME
+ui-layout-fixes-applied
+
+### TAGS
+#ui-design, #responsive-layout, #css-fixes, #frontend-improvements, #react-components, #accessibility
+
+### TYPE
+code-notes
+
+### SUMMARY
+Applied responsive UI layout fixes to improve sidebar width, button consistency, and media query responsiveness.
+
+### DETAILS
+This document records fixes applied to a UI layout system, including adjustments to sidebar width (from fixed to responsive percentage), button height standardization, and responsive media queries for different screen sizes. The changes ensure better visual consistency, usability, and adaptability across devices.
+
+### KEY_FUNCTIONS
+- **sidebar.css**: Manages sidebar width and responsive behavior via CSS rules.
+- **buttons.css**: Standardizes button minimum height for visual uniformity.
+- **app-data.js**: Contains plot initialization logic (verified but may need further debugging for timing issues).
+
+### DEPENDENCIES
+`simulation/frontend/styles/sidebar.css`, `simulation/frontend/styles/buttons.css`, `app-data.js`
+
+### USAGE
+To apply these fixes:
+1. Replace the fixed `width: 360px` in `sidebar.css` with responsive rules.
+2. Add `min-height: 36px` to buttons in `buttons.css`.
+3. Ensure `app-data.js` plot initialization runs without timing conflicts.
+
+### RELATED
+[[Frontend-UI-Design-Guide]], [[Responsive-Design-Checklist]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The sidebar now uses `25%` width by default, increasing main content space from 67% to 75% on 1280px screens. This improves layout balance but may require UI adjustments if elements rely on fixed widths.
+
+>[!WARNING]- Caution
+> Mobile toggle functionality (sidebar fixed/overlay) may require additional user interaction testing. Ensure the `sidebar.open` class toggles correctly without conflicts.

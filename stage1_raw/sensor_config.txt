@@ -1,0 +1,46 @@
+### FILENAME
+sensor_config
+
+### TAGS
+#sensor-configuration, #drone-systems, #HMRS, #LiDAR, #depth-camera, #RTK-GPS, #IMU, #visual-servoing
+
+### TYPE
+code-notes
+
+### SUMMARY
+Defines research-based sensor specifications for HMRS (Human-Machine Robot Systems) drones, including LiDAR, cameras, GPS, and IMU configurations.
+
+### DETAILS
+This file defines a `SensorConfig` dataclass encapsulating sensor-specific parameters for HMRS drones, using research-backed defaults for each sensor type. It includes configurations for LiDAR (Velodyne VLP-16), depth cameras (Intel RealSense D455), polarization cameras (Sony IMX250MZR), RTK GPS, IMU, and visual servoing cameras (AprilTag). The class provides class and instance methods to retrieve sensor-specific configurations in dictionary format.
+
+### KEY_FUNCTIONS
+- **`SensorConfig`**: A dataclass defining sensor-specific parameters with research defaults.
+- **`from_research_specs()`**: Factory method to create a `SensorConfig` instance with default research specifications.
+- **`get_lidar_config()`**: Returns a dictionary of LiDAR-specific configurations (e.g., channels, range, resolution).
+- **`get_depth_camera_config()`**: Returns a dictionary of depth camera configurations (e.g., resolution, FOV).
+- **`get_polarization_camera_config()`**: Returns a dictionary of polarization camera settings (e.g., FPS, streak threshold).
+- **`get_depth_camera_config()`**: Returns a dictionary of depth camera configurations (e.g., resolution, FOV).
+
+### DEPENDENCIES
+`dataclasses`, `typing` (Python standard library modules)
+
+### USAGE
+```python
+# Create a SensorConfig instance with defaults
+config = SensorConfig()
+
+# Retrieve LiDAR configuration
+lidar_config = config.get_lidar_config()
+
+# Retrieve depth camera configuration
+depth_config = config.get_depth_camera_config()
+```
+
+### RELATED
+[[sensor_specs_research]], [[drone_sensor_benchmarks]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The `SensorConfig` class uses research-based defaults, ensuring compatibility with specific HMRS drone applications. Override attributes dynamically if custom configurations are needed.
+>[!WARNING]- Caution
+> Ensure sensor calibration matches these specifications to avoid misalignment in mapping, navigation, or visual servoing tasks.

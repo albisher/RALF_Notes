@@ -1,0 +1,42 @@
+### FILENAME
+hmrs_scout_drone
+
+### TAGS
+#autonomous_drones, #dynamic_mapping, #3d_mapping, #building_analysis, #ai_in_drones, #precomputation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Dynamic autonomous drone system for real-time centimeter-accurate 3D mapping of buildings without CAD input.
+
+### DETAILS
+This module implements an autonomous drone (`HMRSScoutDrone`) designed for pre-computational mapping tasks. It inherits from `BaseDrone` and integrates multiple specialized components (e.g., LiDAR processing, path planning, battery management) to generate high-fidelity 3D surface maps from raw sensor data. The drone operates in real-time, maintaining a lookahead buffer (default 10 minutes) to anticipate climber movements, enabling dynamic adjustments to mapping priorities. Key features include advanced LiDAR box processing, weather-aware flight control, and optional AI modules (e.g., collision avoidance, visual SLAM) for enhanced robustness.
+
+### KEY_FUNCTIONS
+- **`HMRSScoutDrone`**: Core class initializing the drone with configurable parameters for mapping and autonomy.
+- **`BuildingMapper`**: Handles building structure extraction from sensor data (e.g., LiDAR).
+- **`AdvancedLiDARBox`**: Processes raw LiDAR data into structured 3D coordinates.
+- **`PathPlannerBox`**: Dynamically computes optimal flight paths for mapping efficiency.
+- **`BatteryModel`**: Manages energy consumption and flight duration predictions.
+- **`WindSafetyBox`**: Adjusts flight parameters based on real-time weather conditions.
+- **`VisualSLAMBox` (optional)**: Enhances mapping accuracy via visual SLAM integration (if available).
+- **`AttentionCollisionAvoidanceBox` (optional)**: AI-driven collision avoidance for safer operations.
+
+### DEPENDENCIES
+numpy, PyBullet physics client, custom modules: `.base_drone`, `.building_mapper`, `.battery_model`, `.config.scout_drone_config`, `.addon_configurator`, and a series of `.boxes/*` modules (e.g., LiDAR, path planning, AI controllers).
+
+### USAGE
+1. Initialize the drone with required parameters (e.g., drone_id, initial position, physics client).
+2. Configure optional modules (e.g., `building_mapper`, `motion_pattern`) for custom behavior.
+3. Override `lookahead_minutes` or use default config (10 minutes ahead of climber).
+4. Deploy the drone in a dynamic environment where real-time mapping is critical (e.g., construction sites).
+
+### RELATED
+[[hmrs_base_drone]], [[hmrs_building_mapper]], [[hmrs_battery_model]]
+
+### CALLOUTS
+>[!INFO]- Dynamic Lookahead
+> The drone’s `lookahead_minutes` parameter dictates how far ahead of a climber it operates. Adjusting this value balances mapping accuracy (shorter lookahead = more precise but reactive) vs. coverage (longer lookahead = broader but less precise).
+>[!WARNING]- Weather Dependence
+> Wind and atmospheric conditions are managed via `weather_system`, but unmitigated turbulence may degrade LiDAR accuracy. Always validate `WindSafetyBox` integration for critical missions.

@@ -1,0 +1,42 @@
+### FILENAME
+simulation/swarm/master_coordinator.py
+
+### TAGS
+#time-synchronization, #drone-communication, #timestamp-formatting, #validation-checks, #master-coordination
+
+### TYPE
+code-fix
+
+### SUMMARY
+Fixes master drone communication system to ensure proper drone availability checks, time synchronization verification, and consistent ISO timestamp formatting.
+
+### DETAILS
+This file contains critical fixes for a drone swarm master system. The fixes address:
+1. **Drone availability validation** before communication to prevent errors when no drones are present.
+2. **Time synchronization verification** between the master and drones to ensure accurate communication timing.
+3. **Consistent ISO timestamp formatting** across all logs and operations to avoid parsing issues.
+
+The changes improve reliability by preventing communication attempts with invalid drone states and ensuring logs are formatted uniformly.
+
+### KEY_FUNCTIONS
+- **`register_drone()`**: Added drone availability check before processing.
+- **`_verify_time_sync()`**: New method to validate time synchronization between master and drones.
+- **`time.time()` replacements**: All instances updated to use ISO-formatted timestamps.
+
+### DEPENDENCIES
+`datetime`, `timezone`, `logging` (Python standard libraries), `getattr` (Python built-in)
+
+### USAGE
+To apply these fixes:
+1. Replace `time.time()` with `datetime.now(timezone.utc).isoformat()` in all timestamp-related operations.
+2. Add the `_verify_time_sync()` method to check time synchronization before communication.
+3. Implement the drone availability check in `register_drone()` before proceeding.
+
+### RELATED
+[[simulation/swarm/drone_coordinator.py]], [[drone-swarm-logging-guidelines]], [[time-sync-validation-test]]
+
+### CALLOUTS
+>[!INFO]- Critical Validation
+> The `_verify_time_sync()` method enforces a **1-second tolerance** for time differences between master and drones. Adjust this threshold if higher precision is needed.
+>[!WARNING]- Edge Case Handling
+> If `sim_time` is `None` for either side, the method defaults to system time checks. Ensure drones initialize `sim_time` properly to avoid false warnings.

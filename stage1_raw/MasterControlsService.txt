@@ -1,0 +1,42 @@
+### FILENAME
+MasterControlsService
+
+### TAGS
+#service, #OOP, #API, #dependency-injection, #GPS, #weather, #drone-controls
+
+### TYPE
+code-notes
+
+### SUMMARY
+Manages master controls (GPS, weather, buildings, drone brands) via HTTP API with fallback defaults.
+
+### DETAILS
+`MasterControlsService` implements a class-based service using dependency injection (APIBox) to handle master controls operations. It encapsulates logic for loading/saving GPS/weather/drone configurations, with fallback defaults on failure. The service follows OOP principles, abstracting API interactions behind clear methods.
+
+### KEY_FUNCTIONS
+- **`constructor(apiBox)`**: Initializes service with required APIBox dependency.
+- **`loadMasterControls()`**: Asynchronously fetches master controls data from API or returns defaults.
+- **`saveMasterControls(controls)`**: Saves master controls configuration via POST request.
+- **`fetchWeatherFromGPS(lat, lon)`**: Retrieves weather data from GPS coordinates.
+- **`applyWeatherSettings(weather)`**: Applies weather settings to simulation.
+- **`loadDroneBrands()`**: Loads available drone brands (placeholder implementation).
+
+### DEPENDENCIES
+APIBox
+
+### USAGE
+```javascript
+const apiBox = new APIBox(); // Assume this is configured elsewhere
+const service = new MasterControlsService(apiBox);
+await service.loadMasterControls(); // Loads data or returns defaults
+await service.saveMasterControls({ gpsMode: 'manual', ... });
+```
+
+### RELATED
+[[APIBox Documentation]], [[MasterControls API Spec]]
+
+### CALLOUTS
+>[!INFO]- Error Handling
+> All methods include try-catch blocks, returning defaults/fallbacks for `loadMasterControls` but re-throwing errors for other operations.
+>[!WARNING]- Fallback Defaults
+> `loadMasterControls` defaults to simulation values if API fails, which may not reflect real-world state.

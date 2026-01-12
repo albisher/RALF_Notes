@@ -1,0 +1,40 @@
+### FILENAME
+clear_and_create_fresh_session
+
+### TAGS
+#simulation, #session-management, #replay-data, #drone-automation, #api-integration
+
+### TYPE
+code-notes
+
+### SUMMARY
+Script clears existing simulation sessions, resets the environment, and spawns a drone to generate replay data for analysis.
+
+### DETAILS
+This script automates the lifecycle of a simulation environment by:
+1. Stopping or resetting the simulation if it’s running.
+2. Creating a new session with configurable duration (5 minutes) and GUI mode.
+3. Spawning a drone to move autonomously, generating structured replay data for later analysis.
+The script uses HTTP requests to interact with a local API (`http://localhost:5007`) and includes error handling for API failures.
+
+### KEY_FUNCTIONS
+- **stop_simulation()**: Attempts to gracefully stop the simulation via `/api/stop`; falls back to `/api/reset` if needed.
+- **reset_simulation()**: Forces a clean reset of the simulation state via `/api/reset` and validates success.
+- **create_new_session_with_replay_data()**: Orchestrates session creation, drone spawning, and data generation (partial; further logic omitted).
+
+### DEPENDENCIES
+requests, time, json
+
+### USAGE
+1. Run the script to clear existing sessions and start a fresh simulation.
+2. The script logs status updates (e.g., "✅ Simulation stopped") and waits for API responses.
+3. **Prerequisite**: Ensure the target API (`BASE_URL`) is running and accessible.
+
+### RELATED
+[[simulation_api_reference]], [[drone_automation_guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script assumes the API supports `/api/start`, `/api/stop`, and `/api/reset` endpoints. Verify these endpoints exist before execution.
+>[!WARNING]- Caution
+> If the API fails, the script may exit silently. Add retry logic or logging for production use.

@@ -1,0 +1,42 @@
+### FILENAME
+backend_test
+
+### TAGS
+#automated-testing, #backend-api, #simulation, #drone-mission, #reconnaissance
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automated backend API test suite for HMRS Simulator, validating complete building reconnaissance and mapping workflows.
+
+### DETAILS
+This script automates the entire reconnaissance and mapping mission workflow for the HMRS Simulator, testing all backend API endpoints. It includes utility functions for logging, HTTP requests, and distance calculations. The test suite is structured in phases, with Phase 0 handling system reset and state cleanup before mission execution.
+
+### KEY_FUNCTIONS
+- **log_test(test_name)**: Displays formatted test headers with colored output.
+- **log_success(message)**: Prints success messages in green.
+- **log_error(message)**: Prints error messages in red.
+- **log_warning(message)**: Prints warnings in yellow.
+- **log_info(message)**: Prints informational messages.
+- **api_get(endpoint)**: Executes GET requests to the backend API with timeout handling.
+- **api_post(endpoint, data)**: Executes POST requests with JSON payload and timeout handling.
+- **calculate_distance(pos1, pos2)**: Computes Euclidean distance between two 2D/3D coordinates.
+- **test_phase0_reset()**: Placeholder for Phase 0 reset logic (incomplete in snippet).
+
+### DEPENDENCIES
+requests, time, json, math, typing (Python standard libraries)
+
+### USAGE
+1. Run as a standalone script to execute automated backend API tests.
+2. Integrate into CI/CD pipelines for continuous validation of HMRS Simulator backend.
+3. Customize `BASE_URL` and `DRONE_TYPES` for different simulation environments.
+
+### RELATED
+[[backend_api_spec]], [[HMRS_Simulator_Architecture]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> This script assumes a running backend server at `http://localhost:5007`. Adjust `BASE_URL` if testing against a different endpoint.
+>[!WARNING]- Caution
+> Timeout values (e.g., `TIMEOUT=10`) may need adjustment for high-latency environments. Incomplete `test_phase0_reset()` may cause state inconsistencies.

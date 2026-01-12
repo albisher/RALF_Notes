@@ -1,0 +1,39 @@
+### FILENAME
+visual-simulation
+
+### TAGS
+#visualization, #simulation, #quadcopters, #matplotlib, #lidar, #dockerscript
+
+### TYPE
+tutorial
+
+### SUMMARY
+Guide for running and interpreting a 3D quadcopter simulation with visual outputs.
+
+### DETAILS
+This document provides instructions for executing a visual simulation of quadcopters using Python scripts. The simulation includes interactive 3D and top-down views, height vs. time graphs, and LiDAR scan visualizations. Users can choose between a local GUI (macOS), frame saving (works in Docker), or a convenience script. The simulation demonstrates quadcopter flight paths, obstacle detection via LiDAR, and control system behavior.
+
+### KEY_FUNCTIONS
+- **`run_visual_demo.py`**: Opens an interactive GUI with 3D/2D views and real-time updates.
+- **`run_visual_save.py`**: Saves simulation frames to `simulation_output/` for offline viewing.
+- **`run_visual.sh`**: Automates execution, prioritizing GUI then falling back to saving frames.
+- **`simulation_output/`**: Directory storing saved PNG frames from the simulation.
+
+### DEPENDENCIES
+matplotlib, Docker (optional for frame saving), Python 3.x
+
+### USAGE
+1. Navigate to the `simulation` directory.
+2. Choose an execution method (local GUI, Docker, or convenience script).
+3. Run the script (`source venv/bin/activate` if using virtualenv).
+4. Observe the GUI or check `simulation_output/` for saved frames.
+
+### RELATED
+[[0008-simulation-core]], [[0007-control-system]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Ensure `matplotlib` is installed (`pip install matplotlib`) to avoid frame-saving errors. The GUI may require additional dependencies like `pyqt5` or `tkinter` on macOS.
+
+>[!WARNING]- Caution
+> If using Docker, verify the container has write permissions for `simulation_output/` to avoid corrupted saved frames. Run `mkdir -p simulation_output` locally if permissions fail.

@@ -1,0 +1,42 @@
+### FILENAME
+dirty_glass_detector_box
+
+### TAGS
+#sensor_processing, #image_analysis, #detection_algorithms, #computer_vision, #drone_automation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Detects dirty glass surfaces using simulated image analysis from camera data, with configurable thresholds for dirtiness and surface area.
+
+### DETAILS
+The `DirtyGlassDetectorBox` class implements a basic dirty glass detection system that processes camera data to identify dirty surfaces. It divides the input image into a grid of cells and evaluates each cell’s brightness, contrast, and variance to compute a dirtiness score. If the score exceeds a threshold, the cell is flagged as potentially dirty. The detected surfaces are stored in a list and can be projected into 3D world coordinates using a helper method (`_project_cell_to_world`). This is a simplified simulation; a real implementation would likely use deep learning models (e.g., CNNs) for more accurate results.
+
+### KEY_FUNCTIONS
+- **`__init__`**: Initializes the detector with configurable thresholds for dirtiness and minimum surface area.
+- **`detect_from_camera`**: Processes camera data (RGB image) to detect dirty surfaces by analyzing brightness, contrast, and variance in grid cells.
+- **`_project_cell_to_world`**: (Internal) Simulates projecting a detected cell’s position from camera coordinates to 3D world coordinates (not fully implemented in snippet).
+
+### DEPENDENCIES
+numpy, typing
+
+### USAGE
+1. Instantiate the detector with desired thresholds:
+   ```python
+   detector = DirtyGlassDetectorBox(detection_threshold=0.4, min_surface_area=0.15)
+   ```
+2. Call `detect_from_camera` with camera data, drone position, and orientation:
+   ```python
+   results = detector.detect_from_camera(camera_data, drone_position, drone_orientation)
+   ```
+3. Results (`results`) contain dictionaries of detected dirty surfaces with positions and severity scores.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> This is a simplified simulation. For production, replace the basic image analysis with a trained CNN or advanced feature extraction (e.g., edge detection, texture analysis).
+>[!WARNING]- Caution
+> The `_project_cell_to_world` method is incomplete in this snippet. Implement 3D coordinate transformation logic to map detected cells to real-world positions accurately.

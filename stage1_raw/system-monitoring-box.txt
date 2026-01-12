@@ -1,0 +1,39 @@
+### FILENAME
+system-monitoring-box
+
+### TAGS
+#system-monitoring, #global-state, #real-time-tracking, #vue-integration, #interval-based
+
+### TYPE
+code-notes
+
+### SUMMARY
+Global system monitoring utility for continuous tracking of application state and performance metrics.
+
+### DETAILS
+This code defines a `SystemMonitoringBox` singleton that runs independently of Vue component lifecycle to track system health, diagnostics, and performance metrics. It maintains a global state object (`monitoringState`) with nested structures for diagnostics (e.g., socket connectivity, API health), metrics (e.g., log counts, API response times), error trends, and view-specific statuses (e.g., Cesium/Plotly component readiness). The box uses a 5-second interval (`updateInterval`) to periodically update its state, ensuring continuous monitoring even during user navigation.
+
+### KEY_FUNCTIONS
+- **Initialization**: Sets up tracking state and interval (`isInitialized`, `monitoringInterval`).
+- **State Management**: Centralized `monitoringState` object for diagnostics, metrics, and view-specific tracking.
+- **Interval-based Updates**: Polls system state every `updateInterval` (5000ms) to update metrics (e.g., `lastAPICall`, `loadingTimes`).
+
+### DEPENDENCIES
+None explicitly listed (likely relies on browser APIs or Vue lifecycle hooks indirectly).
+
+### USAGE
+To use this box, instantiate it and attach it to the global scope. It should be initialized early in the application lifecycle to ensure continuous monitoring. Example:
+```javascript
+const monitoringBox = new SystemMonitoringBox();
+window.systemMonitoringBox = monitoringBox; // Expose globally if needed.
+```
+Callers should update relevant metrics (e.g., `apiHealth`, `cesiumLoaded`) manually or via event listeners.
+
+### RELATED
+[[system-monitoring-state]], [[vue-component-lifecycle]]
+
+### CALLOUTS
+>[!INFO]- Critical Initialization
+> Ensure `SystemMonitoringBox` is instantiated **before** any Vue components or external libraries (e.g., Cesium/Plotly) load. Delay initialization if dependencies are dynamically loaded to avoid race conditions.
+>[!WARNING]- Manual Updates Required
+> Most metrics (e.g., `lastAPICall`, `errorRate`) must be updated manually by the application. Auto-tracking is limited to interval-based polling.

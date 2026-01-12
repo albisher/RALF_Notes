@@ -1,0 +1,45 @@
+### FILENAME
+SystemMonitoringPageComponent
+
+### TAGS
+#VueJS, #SystemMonitoring, #Dashboard, #RealTime, #UIComponent, #Reactivity, #DataVisualization, #Alerts
+
+### TYPE
+code-notes
+
+### SUMMARY
+A Vue.js component for displaying system monitoring metrics, logs, and alerts in a responsive dashboard.
+
+### DETAILS
+This component implements a Vue.js template for a **System Monitoring Page**, designed to render real-time system health metrics, status cards, and alerts. It uses a responsive grid layout to display three key health indicators (System Status, API Health, and Socket.IO Health) with gradient backgrounds and emoji icons. The component is conditionally rendered (`v-if`) based on `currentView` to ensure it only appears in the correct context. The styling is minimalist with dark-themed UI elements, ensuring visibility against a dark background.
+
+The template includes a header with a title and subtitle, followed by a grid of status cards. Each card shows a status indicator (e.g., "Operational" or "Connected") and a descriptive message. The component leverages inline styles for simplicity but could be refactored into a CSS class system for maintainability.
+
+### KEY_FUNCTIONS
+- **`template`**: Renders the UI structure for the system monitoring dashboard.
+- **`v-if="currentView === 'system-monitoring'"`: Conditionally renders the component based on a parent component’s state.
+- **`health-card` divs**: Container components for individual status indicators (e.g., System Status, API Health).
+
+### DEPENDENCIES
+Vue.js (for reactivity and conditional rendering), Vue’s `<div>` and `<style>` tags (inline).
+
+### USAGE
+To use this component:
+1. Import it into a parent Vue component.
+2. Set `currentView` to `'system-monitoring'` to render the component.
+3. Pass data (e.g., status updates) via props if needed (not shown in snippet).
+4. Embed the rendered output in a parent template.
+
+Example:
+```html
+<SystemMonitoringPageComponent v-if="currentView === 'system-monitoring'" />
+```
+
+### RELATED
+[[Vue.js Monitoring Dashboard Template]], [[System Health Metrics UI Patterns]]
+
+### CALLOUTS
+>[!INFO]- Component Context
+> This component assumes `currentView` is managed by a parent component (e.g., a router or state manager). Without it, the UI will not render.
+>[!WARNING]- Inline Styles
+> Inline styles are used for simplicity but may become unwieldy in larger projects. Consider extracting styles to a CSS file or CSS-in-JS solution for scalability.

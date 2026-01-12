@@ -1,0 +1,48 @@
+### FILENAME
+research-list-component
+
+### TAGS
+#Vue.js, #React, #UI-Component, #Research-Display, #List-Component, #Search-Filter, #Event-Emitting
+
+### TYPE
+code-notes
+
+### SUMMARY
+Displays a styled list of research documents with search and category filtering capabilities.
+
+### DETAILS
+`ResearchListComponent` is a Vue.js/Vue-like component designed to render a visually appealing list of research documents organized into categories. It includes a search bar for filtering documents dynamically and emits an event (`select-research`) when a document is clicked. The component uses conditional styling to highlight the selected document and applies hover effects for interactivity. The list is constrained to the viewport height minus a fixed header/footer area, with scrollable overflow for long lists.
+
+### KEY_FUNCTIONS
+- **`searchQuery`**: Reactive property storing the current search term for filtering documents.
+- **`filteredCategories`**: Computed property that filters documents based on `searchQuery` (implicitly handled via `v-for` loop).
+- **`selectedResearch`**: Reactive property tracking the currently selected document (used for styling).
+- **`$emit('select-research', doc)`**: Emits an event when a document is clicked, passing the document object for parent component handling.
+- **`@click` and `@mouseenter/@mouseleave` handlers**: Apply visual feedback (hover effects and selection highlight).
+
+### DEPENDENCIES
+Vue.js (or similar Vue-like framework for reactivity and `v-model`, `v-for`, `v-if`, `v-bind` directives).
+
+### USAGE
+1. **Include in Vue.js App**: Add `<ResearchListComponent />` to your template.
+2. **Provide Data**: Pass an array of categories, where each category has:
+   ```js
+   {
+     name: "Category Name",
+     docs: [
+       { path: "doc1", title: "Title 1" }, // Must include `path` for selection logic
+       { path: "doc2", title: "Title 2" }
+     ]
+   }
+   ```
+3. **Handle Events**: Listen for `select-research` in parent components to process selected documents.
+4. **Customize Styling**: Override inline styles or extend the component’s CSS classes.
+
+### RELATED
+[[research-document-model]], [[search-filter-component]]
+
+### CALLOUTS
+>[!INFO]- Reactive Data Binding
+> Ensure `searchQuery` and `selectedResearch` are reactive properties (e.g., via `ref` or `reactive` in Vue 3) to trigger updates when values change.
+>[!WARNING]- Event Emission
+> The `select-research` event must be handled by parent components to avoid memory leaks or unprocessed selections. Use `$emit` sparingly in complex apps.

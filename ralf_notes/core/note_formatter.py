@@ -6,9 +6,10 @@ Input: Parsed Dictionary (structured text)
 Output: Formatted Obsidian markdown
 Responsibility: Convert parsed data to beautiful Obsidian markdown
 """
-
+import re
 import datetime
 from typing import Dict, Any, List, Optional
+from pathlib import Path
 
 class NoteFormatter:
     """
@@ -51,16 +52,14 @@ class NoteFormatter:
         return content.strip() + '\n'
 
     def _format_frontmatter(self, data: Dict[str, Any]) -> str:
-        """Generate YAML frontmatter."""
+        """Generate frontmatter information without YAML wrapper."""
         date = datetime.datetime.now().strftime("%Y-%m-%d")
         tags = ', '.join(data.get('tags', ['#documentation']))
         doc_type = data.get('type', 'code-notes')
 
-        return f"""---
-tags: {tags}
-created: {date}
-type: {doc_type}
----"""
+        return f"""**Tags:** {tags}
+**Created:** {date}
+**Type:** {doc_type}"""
 
     def _format_header(self, data: Dict[str, Any]) -> str:
         """Generate H1 header."""
@@ -72,9 +71,12 @@ type: {doc_type}
         if not summary:
             return None
 
+        # Wrap summary in a code block as requested
         return f"""## Summary
 
-{summary}"""
+```
+{summary}
+```"""
 
     def _format_details(self, data: Dict[str, Any]) -> Optional[str]:
         """Generate Details section."""
@@ -82,9 +84,11 @@ type: {doc_type}
         if not details:
             return None
 
+        # Indent details with a blockquote as requested
+        indented_details = '\n> '.join(details.split('\n'))
         return f"""## Details
 
-{details}"""
+> {indented_details}"""
 
     def _format_key_functions(self, data: Dict[str, Any]) -> Optional[str]:
         """Generate Key Functions section."""
@@ -137,10 +141,11 @@ type: {doc_type}
         if not deps:
             return None
 
-        deps_list = ', '.join(f"`{dep}`" for dep in deps)
+        # Indent dependencies with a blockquote as requested
+        deps_list = '\n> '.join([f"`{dep}`" for dep in deps])
         return f"""## Dependencies
 
-{deps_list}"""
+> {deps_list}"""
 
     def _format_dependency_graph(self, data: Dict[str, Any]) -> Optional[str]:
         """Generate Dependency Graph section."""
@@ -178,7 +183,8 @@ type: {doc_type}
         if not related:
             return None
 
-        links = '\n'.join(f"- {link}" for link in related)
+        # Extract only the filename (without path and .md extension)
+        links = '\n'.join(f"- [[{Path(link).stem}]]" for link in related)
         return f"""## Related
 
 {links}"""
@@ -189,4 +195,11 @@ type: {doc_type}
         if not callouts:
             return None
 
-        return '\n\n'.join(callouts)
+        formatted_callouts = []
+        for callout in callouts:
+            # Remove the hyphen from the callout type
+            formatted_callout = re.sub(r'(>\[!\w+\])-', r'\1', callout)
+            formatted_callouts.append(formatted_callout)
+
+        # Add an extra empty line between callouts as requested
+        return '\n\n'.join(formatted_callouts)

@@ -1,0 +1,42 @@
+### **drone-movement-fix-implementation**
+### **TAGS**
+#drone-autonomy, #physics-engine, #simulation, #control-algorithms, #gravity-overrides
+
+### **TYPE**
+code-notes
+
+### **SUMMARY**
+Fixes drone movement failures by adjusting frame alignment, control gains, thrust, and physics constraints in a drone simulation.
+
+### **DETAILS**
+The implementation resolves drone immobility despite receiving `move_to` commands by addressing:
+1. **Coordinate frame mismatches** (forcing forces in `WORLD_FRAME` instead of `LINK_FRAME`).
+2. **Control priority** (prioritizing RC translator over motion patterns for reliability).
+3. **Increased control gains** (throttle/roll/pitch adjustments for smoother movement).
+4. **Base thrust optimization** (boosting thrust to overcome simulated gravity).
+5. **Physics damping** (removing linear damping to prevent unintended deceleration).
+
+### **KEY_FUNCTIONS**
+- **`applyExternalForce`** (in `simulation/swarm/base_drone.py`): Correctly aligns force vectors in `WORLD_FRAME` for accurate movement.
+- **`rc_translator` priority logic** (in `simulation/swarm/base_drone.py`): Ensures RC commands override motion patterns.
+- **Control gain adjustments** (in `simulation/swarm/boxes/rc_command_translator_box.py`): Enhances responsiveness of drone motors.
+- **Base thrust modification** (in `simulation/swarm/base_drone.py`): Increases thrust magnitude to counteract simulated gravity.
+
+### **DEPENDENCIES**
+`pybullet`, `numpy`, `ornatrix` (for coordinate transformations), custom drone simulation libraries.
+
+### **USAGE**
+Apply fixes by:
+1. Restarting the server (as noted in status).
+2. Updating `simulation/swarm/base_drone.py` (lines 221–233, 584–647, 668–672, 101–103, 770–772).
+3. Modifying `simulation/swarm/boxes/rc_command_translator_box.py` (lines 52–56).
+4. Adjusting `simulation/swarm/model_loader.py` (lines 128–131) if physics constraints persist.
+
+### **RELATED**
+[[drone_physics_optimization_notes]], [[simulation_frame_coordinate_guide]]
+
+### **CALLOUTS**
+>[!INFO]- **Frame Consistency**
+> Ensuring `WORLD_FRAME` alignment prevents misaligned force vectors, which can nullify movement commands. Always verify coordinate systems during debugging.
+>[!WARNING]- **Thrust Override Risk**
+> Increasing base thrust (e.g., from 0.5 to 0.6) may destabilize drones if gravity or damping constraints are not recalibrated. Test incrementally.

@@ -1,0 +1,56 @@
+**Tags:** #user-experience, #ui-design, #accessibility, #visual-content, #simulation-interface
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# 
+
+## Summary
+
+```
+Analyzes discrepancies between visible UI elements and expected user interface components in a simulation application.
+```
+
+## Details
+
+> This analysis document evaluates the user-facing UI of a simulation application (`HMRS Base Station - Operator Control Display`) by comparing actual visual content with intended functionality. It focuses on the `/` (simulation) page, highlighting working components (e.g., header bar, sidebar navigation) and identifying partial or missing functionality (e.g., blank 2D Top panel). The goal is to ensure all interactive elements are visible, functional, and correctly positioned from the user’s perspective, with findings derived from browser screenshots and accessibility snapshots.
+
+## Key Functions
+
+### `Header Bar`
+
+Displays session status, environmental data, and control buttons.
+
+### `Left Sidebar Navigation`
+
+Contains active menu items, playback controls, and command inputs.
+
+### `Main Content Area (2D Top)`
+
+Should visualize a 2D map but appears blank (dark blue/black).
+
+### `Right Panel (3D Isometric)`
+
+Correctly displays OSM data, crosshair, and attribution.
+
+## Usage
+
+This document is used for UI/UX audits to identify gaps between user expectations and actual UI behavior. Analysts should cross-reference findings with implementation teams to resolve missing or broken elements.
+
+## Dependencies
+
+> `- Browser-based UI rendering tools (e.g.`
+> `Chrome DevTools for screenshots)
+- Accessibility auditing tools (for snapshots)
+- Application backend (for dynamic data display)`
+
+## Related
+
+- [[User Interface Design Guidelines]]
+- [[Accessibility Compliance Checklist]]
+
+>[!INFO] Important Note
+> The **2D Top panel** is entirely blank, despite the presence of a label ("2D Top"). This suggests either a rendering issue or missing data visualization logic, which should be prioritized for debugging.
+
+
+>[!WARNING] Caution
+> The Arabic text on the OSM map in the 3D panel may cause usability issues for non-Arabic-speaking users if not properly localized or labeled. Ensure multilingual support is maintained.

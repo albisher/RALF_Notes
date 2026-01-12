@@ -1,0 +1,40 @@
+### FILENAME
+learning_drone
+
+### TAGS
+#legacy, #machine-learning, #drone-control, #ml-controller, #simulation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Legacy drone implementation using ML for autonomous learning in simulation.
+
+### DETAILS
+This file defines a `LearningDrone` class that inherits from `BaseDrone` and implements an ML-based flight controller. The drone learns from simulated scenarios, tracking GPS, battery status, and weather conditions to improve flight performance. It uses a shared `MLController` to adjust flight parameters dynamically, while logging successes and failures for reinforcement learning. The class includes components like `GPSTracker`, `BatteryModel`, and `WeatherSystem` for environmental awareness.
+
+The drone spawns at a base position, executes predefined `MissionTask` sequences, and records experiences (successes/failures) to refine its behavior. It maintains state variables like `learning_mode`, `experience_count`, and `consecutive_failures` to track progress.
+
+### KEY_FUNCTIONS
+- **`__init__`**: Initializes drone with ML controller, sensors, and learning state.
+- **`start_scenario`**: Begins a new learning scenario with provided `scenario` dict and weather condition.
+- **`MLController`**: Handles real-time ML-driven flight adjustments (inherited from `.ml_controller`).
+- **`GPSTracker`**: Monitors drone position/accuracy (inherited from `.gps_tracker`).
+- **`BatteryModel`**: Tracks energy consumption (inherited from `.battery_model`).
+
+### DEPENDENCIES
+`.base_drone`, `.gps_tracker`, `.battery_model`, `.ml_controller`, `.scenario_generator`, `.weather_system`, `.mission_tasks`, `.vision_drone`, `.worker_capabilities`
+
+### USAGE
+1. Instantiate `LearningDrone` with a unique `drone_number` and initial position.
+2. Call `start_scenario(scenario_dict, weather_condition)` to begin learning.
+3. The drone processes tasks via `MLController` and logs experiences for reinforcement learning.
+
+### RELATED
+[[swarm/boxes/MIGRATION_GUIDE.md]], [[learning_drone_boxed.py]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> This implementation is **deprecated**—use `learning_drone_boxed.py` instead, which follows a modular "box" architecture for better scalability and maintainability.
+>[!WARNING]- Caution
+> Avoid using this file in new projects. It lacks modern design patterns and may conflict with updated dependencies. Refer to the migration guide for updates.

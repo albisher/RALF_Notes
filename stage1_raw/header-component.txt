@@ -1,0 +1,41 @@
+### FILENAME
+header-component
+
+### TAGS
+#VueJS, #UIComponent, #SessionManagement, #DropdownMenu, #Reactivity
+
+### TYPE
+code-notes
+
+### SUMMARY
+A Vue.js header component managing session selection with dropdown functionality and status display.
+
+### DETAILS
+This component renders an application header displaying the station name and a session dropdown menu. It uses Vue’s reactivity to toggle a dropdown menu when clicked, filtering sessions based on a search query. The dropdown includes a refresh button to reload sessions and visually distinguishes active sessions (green) from inactive ones (gray). Session selection is triggered via the dropdown menu.
+
+### KEY_FUNCTIONS
+- **`showSessionDropdown`**: Toggles visibility of the session dropdown menu.
+- **`status.sessionId`**: Tracks the currently selected session ID (active/inactive state).
+- **`filteredSessions`**: Stores filtered sessions based on search input.
+- **`sessionSearchQuery`**: Handles user input for session filtering.
+- **`@click` handlers**: Trigger dropdown toggle and session selection logic.
+
+### DEPENDENCIES
+Vue.js (for reactivity and event handling), Vuex (likely for state management of `status` and `filteredSessions`).
+
+### USAGE
+1. Import and use the component in a Vue template:
+   ```html
+   <HeaderComponent @load-sessions="refreshSessions" />
+   ```
+2. Provide `status` and `filteredSessions` via props or Vuex store.
+3. Handle session selection via dropdown events.
+
+### RELATED
+[[Vue.js Component Guide]], [[Session Management Pattern]]
+
+### CALLOUTS
+>[!INFO]- Reactive State Management
+> Ensure `status.sessionId` and `filteredSessions` are properly synchronized with Vuex or props to avoid stale data.
+>[!WARNING]- Dropdown Positioning
+> The dropdown’s `position: absolute` relies on parent container positioning; ensure parent has `position: relative` to avoid layout issues.

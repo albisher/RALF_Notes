@@ -1,0 +1,40 @@
+### FILENAME
+10-ir-camera-specifications
+
+### TAGS
+#infrared-cameras, #thermal-imaging, #applications, #sensors, #research
+
+### TYPE
+documentation
+
+### SUMMARY
+Document detailing specifications and applications of infrared (IR) and thermal cameras, including sensor types, spectral ranges, and use cases.
+
+### DETAILS
+This document provides a structured overview of **Infrared (IR) camera sensors**, focusing on their **spectral ranges (NIR/SWIR/MWIR)**, **resolution (320×240 to 1920×1080)**, **frame rates (30 Hz to 1000 Hz)**, and **sensitivity (NETD: 20–100 mK)**. It contrasts IR cameras (operating in near- and short-wave infrared) with thermal cameras (long-wave infrared) and highlights their **key applications**, such as search-and-rescue, industrial inspections, agriculture, firefighting, and wildlife monitoring. The document also lists **specific sensor models** (e.g., CETHERMAL CV Series, FLIR Vue Pro R) with their technical specs and use cases.
+
+### KEY_FUNCTIONS
+- **Spectral Range Analysis**: Explains how different IR bands (NIR/SWIR/MWIR) enable unique imaging capabilities (e.g., vegetation detection, fog penetration).
+- **Resolution & Frame Rate Comparison**: Defines standard vs. ultra-high resolution and speed for real-time applications.
+- **NETD Sensitivity**: Explains how lower NETD improves thermal sensitivity for precise temperature detection.
+- **Field of View (FOV) Classification**: Categorizes cameras by FOV (wide/narrow) for targeted use cases (e.g., drones vs. telephoto lenses).
+- **Sensor-Specific Applications**: Maps sensor specs (e.g., CETHERMAL CV Series) to industries like drone-based inspections or wildlife tracking.
+
+### DEPENDENCIES
+None (standalone documentation; no external code or libraries required).
+
+### USAGE
+This document serves as a **reference guide** for engineers, researchers, and practitioners selecting IR cameras. Key steps:
+1. **Match spectral range** to application (e.g., NIR for vegetation, MWIR for thermal imaging).
+2. **Compare resolution/frame rate** to task demands (e.g., 1000 Hz for high-speed tracking).
+3. **Evaluate sensor specs** (e.g., CETHERMAL CV Series for lightweight drone use).
+4. **Apply to domain-specific needs** (e.g., firefighting hotspot detection).
+
+### RELATED
+[[Thermal_Camera_Comparison_Guide]], [[Infrared_Sensor_Selection_Guide]]
+
+### CALLOUTS
+>[!INFO]- Key Contrast: IR vs. Thermal Cameras
+> IR cameras (NIR/SWIR) rely on reflected light/heat, while thermal cameras (LWIR) detect emitted heat directly. IR cameras often require external illumination; thermal cameras operate autonomously.
+>[!WARNING]- Sensitivity Trade-offs
+> Higher NETD (e.g., >100 mK) reduces accuracy. Ultra-sensitive MWIR sensors may need cooling, increasing complexity/cost. Balance sensitivity with practical constraints (e.g., drone battery life).

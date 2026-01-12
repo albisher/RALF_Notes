@@ -1,0 +1,45 @@
+### FILENAME
+OSMIntegrationBox
+
+### TAGS
+#Cesium, #OpenStreetMap, #3DVisualization, #Geospatial, #ViewSynchronization, #DataCaching, #PerformanceTracking
+
+### TYPE
+code-notes
+
+### SUMMARY
+Manages OpenStreetMap (OSM) building data integration and synchronization between Cesium 3D/2D views with performance tracking.
+
+### DETAILS
+The `OSMIntegrationBox` class handles OSM data loading, caches converted buildings for Plotly visualization, and manages synchronization between Cesium 3D and 2D top-viewers. It enforces single responsibility by isolating OSM data handling from viewer logic. Core features include:
+- Concurrent loading prevention via `_loadingBuildings` promise.
+- Highlighting selected buildings via `selectedBuildings` Map.
+- GPS-based view centering with `centerMarker3D`/`centerMarker2D` HTML overlays.
+- Comprehensive tracking of location updates, viewer commands, and performance metrics (e.g., `locationUpdateCounts`, `cesiumCommandCounts`).
+- Best-practice validation for Cesium commands (e.g., `requestRender` timing thresholds).
+
+### KEY_FUNCTIONS
+- **`constructor()`**: Initializes viewer references, caches, and tracking structures.
+- **`_loadingBuildings`**: Prevents concurrent OSM building loads via a promise.
+- **`plotlyBuildingsCache`**: Stores converted OSM buildings for Plotly visualization to avoid reprocessing.
+- **`locationUpdateCounts`**: Tracks frequency of location-based updates across views.
+- **`cesiumCommandLog`**: Logs all Cesium viewer commands for performance analysis.
+- **`commandTiming`**: Validates timing thresholds (e.g., 16ms between `requestRender` calls).
+
+### DEPENDENCIES
+Cesium.js, Plotly.js (for building visualization), WebGL/HTML5 Canvas (for viewer rendering), Promises (for async control).
+
+### USAGE
+1. Initialize the class: `const box = new OSMIntegrationBox()`.
+2. Load OSM buildings: `box.loadOSMBuildings()`.
+3. Sync views to location: `box.syncViewsToLocation(lat, lng)`.
+4. Monitor performance via `box.cesiumCommandCounts` or `box.commandTiming`.
+
+### RELATED
+[[CesiumViewerIntegration]], [[OSMDataLoader]], [[PerformanceOptimizationGuide]]
+
+### CALLOUTS
+>[!INFO]- **Concurrency Prevention**
+> `_loadingBuildings` ensures only one OSM load runs at a time, preventing race conditions.
+>[!WARNING]- **Cache Invalidation**
+> `plotlyBuildingsCache` must be reset if OSM data changes significantly to avoid stale visualizations.

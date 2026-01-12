@@ -1,0 +1,38 @@
+### FILENAME
+decision_learning_box
+
+### TAGS
+#machine-learning, #decision-making, #strategy-optimization, #reinforcement-learning, #feature-weighting
+
+### TYPE
+code-notes
+
+### SUMMARY
+Optimizes decision strategies using mission outcomes and feature data for adaptive target selection and scout allocation.
+
+### DETAILS
+The `DecisionLearningBox` class implements a lightweight reinforcement learning system that adjusts decision weights based on past mission outcomes. It maintains separate weights for target selection strategies (e.g., `random`, `closest`) and scout allocation methods, dynamically updating them via a sliding memory buffer (`session_memory`). Feature importance is tracked for inputs like building height or distance, allowing the system to prioritize high-value attributes. The class records sessions with outcomes (success/failure) and applies a learning rate to modulate strategy adjustments.
+
+### KEY_FUNCTIONS
+- **`__init__(self, learning_rate: float = 0.1, memory_size: int = 100)`**: Initializes weights for target selection, scout allocation, and feature importance, along with a memory buffer for past sessions.
+- **`record_session(self, features: Dict, decisions: Dict, outcomes: Dict, session_id: str)`**: Stores a mission session (features, decisions, outcomes) in memory for later analysis, enabling adaptive strategy updates.
+
+### DEPENDENCIES
+numpy, pathlib, collections.defaultdict, pickle
+
+### USAGE
+1. Initialize the box with desired `learning_rate` and `memory_size`.
+2. Call `record_session()` after each mission with:
+   - `features`: Dictionary of input attributes (e.g., `{'building_height': 5, 'distance': 10}`).
+   - `decisions`: Dictionary of chosen strategies (e.g., `{'target_selection': 'closest', 'scout_allocation': 'first_available'}`).
+   - `outcomes`: Mission results (e.g., `{'success': True, 'buildings_mapped': 3}`).
+3. The box updates weights internally based on outcomes and session history.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Memory Management
+> The `session_memory` buffer caps at `memory_size` entries, discarding older sessions to maintain computational efficiency. Older records are overwritten sequentially.
+>[!WARNING]- Learning Rate Sensitivity
+> A `learning_rate` > 0.3 may cause unstable convergence if outcomes are inconsistent. Test with values between 0.01–0.2 for stability.

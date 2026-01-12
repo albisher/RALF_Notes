@@ -1,0 +1,43 @@
+### FILENAME
+single-session-movement-test
+
+### TAGS
+#test, #drone, #movement, #session, #debugging, #simulation, #translator, #logging
+
+### TYPE
+test-reference
+
+### SUMMARY
+A single-session test to clear old drone movement data, spawn a drone, and verify movement logging and playback functionality.
+
+### DETAILS
+This document outlines a structured test for verifying drone movement in a simulated environment. It involves clearing previous session data, initializing a new session, spawning a drone, and executing movement commands while monitoring logs and motion history. The test checks translator logs for motion pattern execution, motion history recording, and playback functionality to ensure accurate drone movement tracking.
+
+### KEY_FUNCTIONS
+- **`move_to`**: Sends a command to the drone to move to a specified target position.
+- **`training_sessions/` directory**: Stores session files, cleared before new sessions are created.
+- **`scout-1`**: The drone instance spawned at coordinates (0, 0, 5) for testing.
+- **`motion_history`**: Records drone position updates during movement.
+- **`replay_available`**: Status flag indicating whether recorded motion data can be replayed.
+
+### DEPENDENCIES
+- Drone simulation backend, motion pattern translator, logging system, session management module.
+
+### USAGE
+1. Clear old sessions by deleting the `training_sessions/` directory.
+2. Start a new simulation with a duration of 120 seconds.
+3. Spawn a Scout drone at (0, 0, 5) with the name `scout-1`.
+4. Execute a `move_to` command targeting [10, 10, 15].
+5. Monitor logs for `[MOTION PATTERN BOX]` and `[RC TRANSLATOR BOX]` messages.
+6. Verify motion history contains recorded position updates.
+7. Test playback to confirm movement path accuracy.
+
+### RELATED
+[[drone_simulation_backend]], [[motion_pattern_translator]], [[session_management_system]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Ensure the `update()` function is called correctly to trigger translator logs. If logs are missing, check for issues in the command execution loop.
+
+>[!WARNING]- Caution
+> Invalid control outputs may disrupt motion pattern execution. Validate thrust values and position updates in logs to prevent drone malfunctions.

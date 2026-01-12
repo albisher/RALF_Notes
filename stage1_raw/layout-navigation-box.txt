@@ -1,0 +1,41 @@
+### FILENAME
+layout-navigation-box
+
+### TAGS
+#sidebar-navigation, #state-management, #ui-component, #react-component, #navigation-system
+
+### TYPE
+code-notes
+
+### SUMMARY
+Manages sidebar navigation state for a UI layout system, defining navigation items and view selection logic.
+
+### DETAILS
+This class (`LayoutNavigationBox`) encapsulates the logic for handling sidebar navigation state, including predefined navigation items and methods to track and validate active views. It initializes with a static list of navigation items (e.g., simulation, session analysis) and provides getter/setter methods to manage the current view state. The `isActive()` method checks if a given view matches the current active view.
+
+### KEY_FUNCTIONS
+- **constructor()**: Initializes navigation items and sets default `currentView` to `'list'`.
+- **getNavItems()**: Returns the predefined array of navigation items with IDs, labels, and emoji icons.
+- **setCurrentView(viewId)**: Updates the `currentView` to the provided ID.
+- **getCurrentView()**: Retrieves the current active view ID.
+- **isActive(viewId)**: Validates if a given view ID matches the current active view.
+
+### DEPENDENCIES
+none (standalone utility class)
+
+### USAGE
+```javascript
+const navBox = new LayoutNavigationBox();
+const navItems = navBox.getNavItems(); // Array of navigation items
+navBox.setCurrentView('analysis'); // Set active view to 'analysis'
+const isActive = navBox.isActive('analysis'); // Check if 'analysis' is active
+```
+
+### RELATED
+none
+
+### CALLOUTS
+>[!INFO]- Default View
+> The `currentView` defaults to `'list'` upon initialization, ensuring a consistent starting state.
+>[!WARNING]- Hardcoded IDs
+> Navigation IDs (`list`, `analysis`, etc.) are hardcoded; external systems should validate these IDs before use.

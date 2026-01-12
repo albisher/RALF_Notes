@@ -1,0 +1,45 @@
+### FILENAME
+Docker_INDEPENDENT
+
+### TAGS
+#Docker, #Simulation, #Python, #DependencyManagement, #Isolation, #PyBullet, #NumPy, #Matplotlib, #CI/CD
+
+### TYPE
+code-notes
+
+### SUMMARY
+Self-contained Docker environment for Python simulations without virtual environment dependencies.
+
+### DETAILS
+This Docker setup provides a fully independent Python simulation environment by installing all dependencies directly inside the container via `apt-get` and `pip`, avoiding the need for a virtual environment (`venv`). The architecture ensures isolation from the host system, reproducibility across runs, and compatibility with cross-platform environments like macOS. The container includes essential packages such as PyBullet, NumPy, Matplotlib, and OpenCV, verified via a Python import check in the Dockerfile.
+
+### KEY_FUNCTIONS
+- **Dockerfile**: Defines container setup with system and Python package installations.
+- **docker-compose.yml**: Orchestrates container build and execution.
+- **requirements.txt**: Lists Python dependencies for containerized deployment.
+- **simple_quadcopter.py**: Example simulation script running inside the container.
+- **run_simulation.py**: Wrapper script for launching simulations in headless mode.
+
+### DEPENDENCIES
+- Docker Engine
+- Docker Compose
+- Python 3.10 (inside container)
+- PyBullet 3.2.7
+- NumPy 2.2.6
+- Matplotlib 3.10.8
+- OpenCV 4.12.0.88
+- System packages: `build-essential`, `cmake`, `libgl1`
+
+### USAGE
+1. **Build**: `docker-compose build` (from `simulation/` directory).
+2. **Run**: `docker compose run --rm simulator python simple_quadcopter.py --headless`.
+3. **Verify**: `docker compose run --rm simulator python -c "import pybullet; print('✅ PyBullet works!')"`.
+
+### RELATED
+[[Dockerfile_Analysis]], [[PyBullet_Installation_Guide]]
+
+### CALLOUTS
+>[!INFO]- Key Advantage
+> Docker avoids `venv` dependency entirely, ensuring compatibility across OSes (e.g., macOS) where PyBullet may fail with `venv`.
+>[!WARNING]- Dependency Conflict
+> If local `venv` is used alongside Docker, conflicts may arise—ensure Docker’s pre-installed packages take precedence.

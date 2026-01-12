@@ -1,0 +1,40 @@
+### FILENAME
+network-error-fix
+
+### TAGS
+#network-error, #frontend-backend, #fetch-api, #timeout-handling, #fallback-mechanism, #cors, #error-handling
+
+### TYPE
+code-notes
+
+### SUMMARY
+Fixes network errors during session loading by implementing timeouts, fallback endpoints, and improved error handling.
+
+### DETAILS
+The fix addresses a `TypeError` during session loading via `/api/sessions`, caused by server unavailability, timeouts, or CORS issues. The solution includes:
+1. **Frontend**: Added a 5-second timeout to `fetch` requests and a fallback to a database endpoint (`/api/sessions/db/list`) if the primary endpoint fails. Enhanced error handling to support both array and object responses, ensuring graceful degradation with an empty array if both endpoints fail.
+2. **Backend**: Added CORS headers (`Access-Control-Allow-Origin`) and structured error responses with detailed logging, returning empty session data (`[]`) and metadata (`total`) on failure.
+
+### KEY_FUNCTIONS
+- **`loadSessions` (frontend)**: Loads sessions with timeout and fallback logic.
+- **`/api/sessions` (backend)**: Handles session requests with CORS and error handling.
+- **`/api/sessions/db/list` (backend)**: Fallback endpoint for session data retrieval.
+
+### DEPENDENCIES
+- JavaScript (Node.js/front-end environment)
+- Python (Flask/Django-like backend framework)
+- Fetch API (for HTTP requests)
+- `AbortSignal` (for timeout handling)
+
+### USAGE
+1. **Frontend**: Call `loadSessions()`—it now handles timeouts and retries the fallback endpoint if the primary fails.
+2. **Backend**: Ensure `/api/sessions` includes CORS headers and logs errors properly.
+
+### RELATED
+[[network-error-handling-guide]], [[session-api-specification]]
+
+### CALLOUTS
+>[!INFO]- Timeout Protection
+> The 5-second timeout prevents indefinite hangs on unresponsive servers, improving UX.
+>[!WARNING]- Caution
+> Ensure backend endpoints (`/api/sessions` and `/api/sessions/db/list`) are accessible and handle errors gracefully to avoid silent failures.

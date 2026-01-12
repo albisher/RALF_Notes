@@ -1,0 +1,43 @@
+### FILENAME
+20251223-home-flight-test-findings
+
+### TAGS
+#flight-simulation, #debugging, #api-errors, #javascript-errors, #backend-testing, #log-management
+
+### TYPE
+research
+
+### SUMMARY
+Documentation of persistent issues and findings from a home flight simulation test, focusing on JavaScript errors, API failures, and missing motion history.
+
+### DETAILS
+This document records a home flight simulation test conducted on December 23, 2025. The test involved simulating and replaying drone flights from a home location, with issues primarily centered around JavaScript errors, backend API failures, and missing motion history data. The primary unresolved problem was a `deduplicateLogs` function error in the frontend, which was partially fixed but still caused intermittent failures due to browser caching. Additionally, all `/api/command` requests resulted in HTTP 500 errors, preventing drone movement and motion history recording. The test also noted that the simulation session was created but lacked recorded motion data, likely due to failed command execution.
+
+### KEY_FUNCTIONS
+- **`deduplicateLogs`**: Helper method for filtering duplicate logs in system monitoring; moved to `methods` section in `app-data.js` (line 934).
+- **`systemLogs`, `systemErrorLog`, `systemWarnings`, `systemAlerts`**: Frontend components calling `_deduplicateLogs` for log deduplication.
+- **`/api/command` endpoint**: Backend API for drone command processing (failing with HTTP 500).
+- **`hmrs_simulation_live.py`**: Backend script handling command processing and error handling.
+- **Motion history recording mechanism**: Mechanism to save drone movement data (incomplete due to command failures).
+
+### DEPENDENCIES
+- Frontend: `simulation/frontend/app-data.js` (JavaScript)
+- Backend: `hmrs_simulation_live.py` (Python)
+- External: Socket.IO for real-time communication, possibly third-party drone SDKs.
+
+### USAGE
+The test involved:
+1. Setting GPS coordinates to home location.
+2. Creating a simulation session.
+3. Executing drone commands via API or UI.
+4. Observing system logs and motion history for errors or missing data.
+
+### RELATED
+[[analysis/browser-testing/20251223-home-flight-simulation-test.md]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The `deduplicateLogs` error persists due to browser caching, even after code changes. Ensure to refresh the browser or clear cache to test fixes.
+
+>[!WARNING]- Caution
+> HTTP 500 errors on `/api/command` requests indicate backend issues. Investigate drone command processing logic and error handling in `hmrs_simulation_live.py` to prevent drone movement failures.

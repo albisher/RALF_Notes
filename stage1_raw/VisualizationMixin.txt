@@ -1,0 +1,44 @@
+### FILENAME
+VisualizationMixin
+
+### TAGS
+#Vue, #mixin, #visualization, #abort-controller, #data-fetching, #time-travel, #OOP
+
+### TYPE
+code-notes
+
+### SUMMARY
+Provides Vue component mixin for visualization functionality, including data fetching, plot initialization, and time-travel capabilities.
+
+### DETAILS
+`VisualizationMixin` is a Vue.js mixin designed to encapsulate visualization-related logic, enabling Vue components to leverage built-in plotting capabilities (3D/2D) and dynamic data fetching. It follows the mixin pattern for code reuse, relying on a `VisualizationService` for data retrieval and external plotting libraries (`plot3DBox`, `plot2DBox`) for rendering. The mixin manages state like `visualizationData`, `plotsInitialized`, and time-related controls (`timeTravelMode`). Key features include:
+- AbortController integration for canceling pending data fetches.
+- Conditional initialization of 3D/2D plots based on available APIs.
+- Error handling for missing dependencies (e.g., `APIBox` or `VisualizationService`).
+
+### KEY_FUNCTIONS
+- **`fetchVisualizationData()`**: Asynchronously retrieves visualization data via `VisualizationService`, cancels prior requests if active, and updates component state.
+- **`initializePlots()`**: Dynamically initializes 3D/2D plots (e.g., `plot3DBox.initPlot3D`, `plot2DBox.initPlot2D`) with predefined IDs and axes labels.
+
+### DEPENDENCIES
+`VisualizationService` (imported from `../services/VisualizationService.js`), `window.plot3DBox`, `window.plot2DBox`, `window.apiCommunicationBox`/`window.apiBox`.
+
+### USAGE
+1. Import and apply the mixin in a Vue component:
+   ```js
+   export default {
+       mixins: [VisualizationMixin],
+       // Component logic...
+   };
+   ```
+2. Call `fetchVisualizationData()` to trigger data retrieval.
+3. Override `updatePlots()` to handle post-fetch plot updates.
+
+### RELATED
+[[VisualizationService]], [[APIBox Documentation]], [[Vue Mixin Patterns]]
+
+### CALLOUTS
+>[!INFO]- AbortController Usage
+> The mixin uses `AbortController` to cancel pending data fetches, preventing memory leaks or stale operations. Always call `fetchController.abort()` before re-triggering `fetchVisualizationData()`.
+>[!WARNING]- Dependency Checks
+> Missing `window.apiCommunicationBox`/`window.apiBox` or `VisualizationService` will log errors. Ensure these are available in the global scope or handle gracefully in the component.

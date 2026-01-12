@@ -1,0 +1,66 @@
+**Tags:** #gps-integration, #osm, #cesium, #vue-reactivity, #3d-visualization, #kuwait-coordinates, #debugging
+**Created:** 2026-01-12
+**Type:** documentation
+
+# osm-gps-integration-status
+
+## Summary
+
+```
+Documentation tracking the OSM GPS integration status, highlighting partial completion and key issues in quad view rendering.
+```
+
+## Details
+
+> This document outlines the progress of integrating GPS presets with OpenStreetMap (OSM) in a 3D visualization system. The implementation includes dropdown selection for predefined GPS locations (Home and PAAET in Kuwait), OSM buildings loading via Cesium, and conditional rendering between OSM and Plotly views. Key issues identified include incorrect GPS coordinate updates, failed Cesium initialization, and improper OSM map display in the quad view panel.
+
+## Key Functions
+
+### ``osm-integration-box.js``
+
+Manages OSM data loading and Cesium viewer setup.
+
+### ``onGpsPresetChange()``
+
+Handles GPS preset selection events and triggers OSM updates.
+
+### ``onEnableOSMViewForPreset``
+
+Automatically enables OSM view when a preset is selected.
+
+### ``selectedGpsPreset` (Vue reactivity)`
+
+Tracks selected GPS preset in the UI.
+
+### ``Cesium.createWorldTerrain` fallback`
+
+Ensures terrain provider works even if OSM terrain fails.
+
+## Usage
+
+1. Select a GPS preset (Home/PAAET) from the dropdown.
+2. The system should update coordinates and auto-enable OSM view.
+3. The quad view should switch to OSM (Cesium) or Plotly based on toggle.
+4. Debug with hard refresh if Cesium errors persist.
+
+## Dependencies
+
+> `Cesium`
+> `Vue.js`
+> `Plotly.js (for fallback coordinate visualization)`
+> `OpenStreetMap API (for building data).`
+
+## Related
+
+- [[header-component]]
+- [[app-data]]
+- [[visualization-view-component]]
+
+>[!INFO] **GPS Preset Debugging**
+> Ensure `onGpsPresetChange()` is correctly firing in `header-component.js` (lines 312-327). Check Vue reactivity for `selectedGpsPreset` to avoid stale state.
+
+>[!WARNING] **Cesium Fallback**
+> If `Cesium.createWorldTerrain` fails, use `EllipsoidTerrainProvider` as a fallback. Cached JS may cause issues—force a hard refresh.
+
+>[!INFO] **OSM Auto-Enable**
+> Verify `onEnableOSMViewForPreset` logic in `app-data.js` (lines 2245-2338) triggers OSM loading on preset selection.

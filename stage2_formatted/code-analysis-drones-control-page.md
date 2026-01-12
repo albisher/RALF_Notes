@@ -1,0 +1,62 @@
+**Tags:** #ReactComponent, #UIComponent, #DroneControl, #VueTemplate, #ConditionalRendering, #APIIntegration
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# drones-control-page-component
+
+## Summary
+
+```
+Analyzes expected structure and behavior of the Drones Control page component for drone management UI.
+```
+
+## Details
+
+> This component (`DronesControlPageComponent`) and its subcomponent (`DronesControlViewComponent`) define the expected UI and data flow for a drone control interface. The page renders only when `currentView === 'drones-control'` and relies on props like `masterControls` (brand selection) and `droneConfigurations` (individual drone settings). The UI is split into two columns: left for brand/model selection and right for window cleaning presets and drone configurations. Key interactions include loading configurations via API (`/api/window-cleaning-configs`) and conditional rendering of elements based on prop states.
+
+## Key Functions
+
+### `loadWindowCleaningConfigs`
+
+Fetches window cleaning configurations from an API endpoint on component mount.
+
+### `masterControls.droneBrand.selected`
+
+Tracks the currently selected drone brand/model.
+
+### `droneConfigurations`
+
+Manages an array of drone-specific configurations (default empty array).
+
+### `squads`
+
+Manages drone squad groupings (default empty array).
+
+### `availableAddons`
+
+Manages available drone add-ons (default empty array).
+
+## Usage
+
+1. **Render Condition**: Only render when `currentView === 'drones-control'`.
+2. **Data Binding**: Bind `masterControls.droneBrand` props to dropdown/model selection.
+3. **API Integration**: Call `loadWindowCleaningConfigs()` on component mount to fetch presets.
+4. **Conditional UI**: Dynamically show/hide elements based on `droneConfigurations.length` or `masterControls.droneBrand.selected`.
+
+## Dependencies
+
+> `React/Vue framework (likely Vue.js given `v-if` and template syntax)`
+> `Axios/Fetch for API calls`
+> ``masterControls` object (internal state)`
+> ``droneConfigurations` array (internal state).`
+
+## Related
+
+- [[DronesControlViewComponent]]
+- [[MasterControlsComponent]]
+
+>[!INFO] Conditional Rendering
+> Elements like the model selector and capabilities display appear only when `masterControls.droneBrand.selected` is truthy, ensuring minimal UI clutter.
+
+>[!WARNING] API Dependency
+> `loadWindowCleaningConfigs()` must succeed to avoid empty states; error handling is implied but not shown in the code.

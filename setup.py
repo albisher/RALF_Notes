@@ -38,6 +38,8 @@ setup(
         "rich>=13.0.0",
         "ollama>=0.1.0",
         "psutil>=5.9.0",
+        "PyYAML>=6.0",
+        "watchdog>=2.2.0",
     ],
     entry_points={
         "console_scripts": [

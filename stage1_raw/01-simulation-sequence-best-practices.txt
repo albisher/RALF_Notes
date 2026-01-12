@@ -1,0 +1,38 @@
+### FILENAME
+simulation-sequence-best-practices
+
+### TAGS
+#physics-simulation, #best-practices, #fixed-timestep, #threading, #simulation-loop, #HMRS-simulator
+
+### TYPE
+code-notes
+
+### SUMMARY
+Document outlines best practices for structured simulation loop sequences, emphasizing fixed timesteps and proper thread synchronization in physics engines like PyBullet and PhysX.
+
+### DETAILS
+This document provides research-backed guidelines for optimizing simulation sequences in the HMRS simulator, drawing from PyBullet, PhysX, and Unity documentation. It highlights critical principles such as maintaining a fixed timestep (e.g., 240 Hz) to prevent jitter and instability, and enforcing a strict pre-simulation → physics → post-simulation workflow. The document also addresses threading best practices, including proper locking for command queues and minimizing contention between threads to avoid race conditions.
+
+### KEY_FUNCTIONS
+- **`fixed_timestep_loop`**: Manages the simulation with a consistent 240 Hz rate, accumulating real-time steps to ensure deterministic execution.
+- **`command_processing_sequence`**: Ensures commands are locked, processed, and applied sequentially before physics updates to prevent concurrent access issues.
+- **`physics_engine_step`**: Executes the core physics update (e.g., `step_simulation(dt)`) after processing inputs and before post-processing steps.
+
+### DEPENDENCIES
+PyBullet, PhysX, Unity Simulation (for reference), custom HMRS simulator components (e.g., `command_lock`, `data_lock`).
+
+### USAGE
+To apply these practices:
+1. **Fix Timestep**: Set `dt = 1.0/240.0` and enforce it in the simulation loop.
+2. **Lock Command Queues**: Use locks (e.g., `command_lock`) to serialize command processing.
+3. **Batch Updates**: Group redundant updates (e.g., drone/coordinator logic) to avoid redundant calculations.
+4. **Thread Synchronization**: Ensure thread-safe access to shared data (e.g., visualization or sensor logs).
+
+### RELATED
+[[Simulation_Engine_Architecture]], [[Threading_Synchronization_Guide]]
+
+### CALLOUTS
+>[!INFO]- Fixed Timestep Criticality
+> Variable timesteps degrade simulation stability and reproducibility. Always use a fixed timestep (e.g., 240 Hz) and synchronize real-time accumulation to avoid drift.
+>[!WARNING]- Redundant Updates
+> Updating the same component (e.g., master coordinator) multiple times per step introduces unnecessary overhead. Consolidate logic to minimize redundant work.

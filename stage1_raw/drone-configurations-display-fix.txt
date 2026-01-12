@@ -1,0 +1,39 @@
+### FILENAME
+drone-configurations-display-fix
+
+### TAGS
+#drone, #persistent-storage, #vue-reactivity, #docker, #api-endpoint, #database-persistence, #container-management, #json-file, #data-volume
+
+### TYPE
+code-notes
+
+### SUMMARY
+Fixes drone configuration display issues by ensuring saved drones persist across container restarts via volume mounting and improving Vue reactivity.
+
+### DETAILS
+The issue involved drones not displaying in the "🚁 Drone Configurations" section due to missing persistent storage for `drone_configurations.json`. The root cause was the file being saved in a non-persistent container path (`/app/drone_configurations.json`), causing data loss on container restarts. The solution included adding a Docker volume mount (`drone_config_data`) to `/app/data/drone_configs` and updating file path logic in backend and frontend components to use both persistent and fallback paths. Vue reactivity was enhanced to ensure UI updates correctly reflect loaded drone configurations.
+
+### KEY_FUNCTIONS
+- **`loadDroneConfigurations()` (app-data.js)**: Loads and updates drone configurations with improved Vue reactivity.
+- **`GET /api/drone-configurations` endpoint**: Retrieves drone configurations from the persistent storage.
+- **`POST /api/drone-configurations` endpoint**: Saves drone configurations to the persistent storage.
+- **`docker-compose.yml` volume mount (`drone_config_data`)**: Persists drone configurations across container restarts.
+- **`hmrs_simulation_live.py` file path logic**: Handles both persistent and fallback paths for drone configurations.
+
+### DEPENDENCIES
+Docker, `docker-compose`, Python (for backend scripts), Vue.js (for frontend reactivity), JSON handling libraries.
+
+### USAGE
+1. Apply the fix by updating `docker-compose.yml` and restarting containers.
+2. Ensure the `add_sensor_drones.py` script is run if drones were previously added.
+3. Verify persistence by restarting containers and checking if drones load correctly.
+
+### RELATED
+[[simulation/docker/docker-compose.yml]], [[simulation/hmrs_simulation_live.py]], [[simulation/frontend/app-data.js]], [[simulation/scripts/add_sensor_drones.py]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The volume mount (`drone_config_data`) must be created before the first container startup to avoid data loss. Ensure the directory `/app/data/drone_configs` exists in the host system or the container will create it automatically.
+
+>[!WARNING]- Caution
+> If the persistent directory (`/app/data/drone_configs`) is manually deleted or corrupted, drones may not load correctly until the container restarts. Always back up configurations before making changes.

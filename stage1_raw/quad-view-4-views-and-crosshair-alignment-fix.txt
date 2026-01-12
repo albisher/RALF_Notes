@@ -1,0 +1,40 @@
+### FILENAME
+quad-view-4-views-and-crosshair-alignment-fix
+
+### TAGS
+#map-visualization, #gps-alignment, #quad-view, #crosshair, #3d-2d-mapping, #osm-integration, #camera-alignment, #graphics-rendering, #gis
+
+### TYPE
+code-notes
+
+### SUMMARY
+Fixed quad-view component to ensure consistent display of all four views (2D Top, Front, Side, 3D) and improved crosshair alignment with GPS coordinates across 2D and 3D views.
+
+### DETAILS
+This fix addresses two critical issues in a map visualization system:
+1. **Quad View Rendering**: Previously, OSM-enabled quad views only displayed two views (2D Top and 3D Isometric), while users expected all four (2D Top, Front, Side, 3D). The solution removed conditional logic and CSS overrides to always render all four views.
+2. **Crosshair Alignment**: The green crosshair was centered in the viewport, but GPS coordinates did not align with the intersection point, causing misalignment in both 2D and 3D views. The solution added verification logic to ensure GPS coordinates are precisely at the crosshair intersection by adjusting camera positioning in both 2D and 3D modes.
+
+### KEY_FUNCTIONS
+- **`visualization-view-component.js`**: Manages quad-view rendering logic, ensuring all four views are displayed regardless of OSM state.
+- **Camera Positioning Logic**: Adjusts camera alignment to center GPS coordinates accurately in both 2D and 3D views.
+- **Conditional Rendering Override**: Removed conditional checks that previously limited quad-view visibility to 2 views when OSM was enabled.
+
+### DEPENDENCIES
+Cesium, Plotly.js, Vue.js (for template rendering), OSM data integration libraries.
+
+### USAGE
+To apply this fix:
+1. Replace the conditional quad-view rendering logic in `visualization-view-component.js` with the updated template.
+2. Implement the camera alignment verification logic post-camera positioning to ensure GPS coordinates align with the crosshair.
+3. Ensure CSS overrides for OSM-enabled quad views are removed to maintain consistent grid layout.
+
+### RELATED
+[[simulation/frontend/components/visualization-view-component.js]], [[camera-alignment-logic-document]], [[OSM-integration-guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The quad-view component now dynamically renders all four views (2D Top, Front, Side, 3D) regardless of OSM state, improving user experience by maintaining consistency across visualization modes.
+
+>[!WARNING]- Caution
+> Ensure compatibility with existing OSM/Cesium integration by testing the updated quad-view logic with both enabled and disabled states. Misalignment in camera positioning may still occur if the existing OSM data or camera logic is not updated alongside this fix.

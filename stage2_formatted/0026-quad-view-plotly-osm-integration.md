@@ -1,0 +1,67 @@
+**Tags:** #Plotly, #OpenStreetMap, #3DVisualization, #GIS, #QuadView, #FrontendIntegration, #DataVisualization, #GISVisualization, #CoordinateSystems
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# simulation/frontend/components/visualization-view-component.js
+
+## Summary
+
+```
+Research document outlining quad-view visualization integration of Plotly with OSM data for 2D top, front, side views and 3D isometric rendering.
+```
+
+## Details
+
+> This code analysis details the existing quad-view layout in `visualization-view-component.js`, structured as a 2x2 grid combining 2D top, front, side views (all Plotly-based) and a 3D isometric view. The system currently uses OSM data for the top view via `osm-integration-box.js`, converting OSM buildings to Plotly-compatible formats. The 2D views support X/Y, X/Z, Y/Z projections, while 3D views support Mesh3d, Scatter3d, and Surface rendering. The OSM integration relies on Overpass API for building data, which is then overlaid on Plotly plots. Challenges include converting OSM tiles to Plotly-compatible formats and integrating elevation data for front/side views.
+
+## Key Functions
+
+### ``getOSMBuildingsForPlotly(baseLatitude, baseLongitude)``
+
+Converts OSM building data into Plotly-compatible format for 2D top view.
+
+### ``loadOSMBuildings()``
+
+Initiates OSM building data loading via Overpass API.
+
+### ``loadBuildingsFromOverpass()``
+
+Fetches raw OSM building data from the Overpass API.
+
+### ``plot-2d-box.js``
+
+Handles 2D plot rendering (X/Y, X/Z, Y/Z projections) with OSM overlay.
+
+### ``plot-3d-box.js``
+
+Manages 3D plot rendering (Mesh3d, Scatter3d, Surface) for isometric views.
+
+## Usage
+
+To use this quad-view system:
+1. Select GPS coordinates in Master Controls.
+2. Trigger OSM data loading via `loadOSMBuildings()` in `osm-integration-box.js`.
+3. Render 2D top view with OSM buildings using `plot-2d-box.js`.
+4. Render 3D isometric view with Plotly’s 3D capabilities.
+5. Ensure elevation data is available for front/side views (X/Z projections).
+
+## Dependencies
+
+> ``osm-integration-box.js``
+> ``plot-2d-box.js``
+> ``plot-3d-box.js``
+> `Overpass API`
+> `Plotly library`
+
+## Related
+
+- [[osm-integration-box]]
+- [[plot-2d-box]]
+- [[plot-3d-box]]
+
+>[!INFO] Important Note
+> The current implementation lacks native OSM tile support in Plotly, requiring manual conversion of OSM data (e.g., buildings) into vector formats for overlay. Elevation data for front/side views must be pre-processed and integrated separately.
+
+
+>[!WARNING] Caution
+> Overpass API rate limits may impact performance during large-scale OSM data loads. Ensure coordinate ranges are optimized to avoid excessive API calls. Front/side views may require additional elevation datasets (e.g., SRTM) for accurate terrain representation.

@@ -1,0 +1,64 @@
+**Tags:** #weather-integration, #drone-motion, #atmospheric-physics, #hardcoded-values, #wind-forces, #air-density
+**Created:** 2026-01-12
+**Type:** research
+
+# drone-movement-weather-investigation
+
+## Summary
+
+```
+Investigates why drones fail to account for weather and atmospheric factors in movement, despite critical issues in wind, pressure, and air density calculations.
+```
+
+## Details
+
+> The report identifies four critical issues in drone weather integration: (1) missing weather system access in `BaseDrone`, (2) unapplied wind forces in drone physics, (3) hardcoded air density values ignoring altitude/pressure variations, and (4) thrust calculations without density adjustments. These omissions likely cause drones to underperform in varied atmospheric conditions.
+
+## Key Functions
+
+### ``BaseDrone.compute_control()``
+
+Motion pattern calculation without weather input.
+
+### ``weather_system.apply_wind_force()``
+
+Exists but is never invoked in `BaseDrone.update()`.
+
+### ``mission_config.py` (line 48)`
+
+Hardcoded `air_density` (1.225 kg/m³) across all configurations.
+
+### ``motion_patterns/*.py` (lines 156, 141, 352)`
+
+Hardcoded `rho` values for thrust/drag calculations.
+
+### ``battery_model.py` (line 75)`
+
+Drag calculations use fixed air density.
+
+## Usage
+
+To fix these issues, integrate weather data into `BaseDrone` via:
+1. Adding `weather_system` attribute in `__init__`.
+2. Passing dynamic wind/pressure values to `compute_control()`.
+3. Replacing hardcoded `air_density` with altitude/pressure-dependent calculations.
+4. Updating thrust/drag formulas to include density factors.
+
+## Dependencies
+
+> ``simulation/swarm/base_drone.py``
+> ``simulation/swarm/weather_system.py``
+> ``simulation/swarm/motion_patterns/``
+> ``simulation/swarm/mission_config.py``
+> ``simulation/swarm/battery_model.py``
+
+## Related
+
+- [[weather-integration-notes]]
+- [[drone-physics-optimization]]
+
+>[!INFO] Critical Weather Integration
+> Missing weather system integration means drones ignore wind, pressure, and altitude effects entirely, leading to inaccurate flight dynamics.
+
+>[!WARNING] Hardcoded Density Risk
+> Fixed air density (1.225 kg/m³) assumes sea level—drones at high altitudes suffer reduced lift and inefficient thrust calculations.

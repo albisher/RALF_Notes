@@ -1,0 +1,41 @@
+### FILENAME
+DEBUGGING_GUIDE
+
+### TAGS
+#debugging, #drones, #simulation, #docker, #waypoint_generation, #random_seed, #exploration_box
+
+### TYPE
+documentation
+
+### SUMMARY
+Guide for diagnosing and resolving issues where drone simulation outputs remain unchanged across runs due to fixed paths, box import failures, or deterministic random seeds.
+
+### DETAILS
+This guide addresses why a drone exploration script (`run_and_visualize.sh`) consistently produces identical paths, object positions, and visualizations. The root causes include improper box imports in Docker, failed exploration box initialization, or predictable random seeds. The document outlines potential issues, debugging steps (e.g., checking Docker logs, box availability, and waypoint generation), and quick fixes like ensuring correct volume mounts or forcing varied random seeds.
+
+### KEY_FUNCTIONS
+- **`generate_next_waypoint()`**: Generates dynamic waypoints; failure returns `None`, triggering fallback spiral.
+- **`BOXES_AVAILABLE`**: Boolean flag indicating if exploration boxes (e.g., `ExplorationEnhancementBox`) are loaded; `False` forces fixed waypoints.
+- **`use_enhanced_exploration`**: Determines if frontier-based waypoints are used; `False` defaults to fixed paths.
+- **Random seed generator**: Uses `time.time()`, `os.getpid()`, and `time.perf_counter()` to produce unique seeds per run.
+
+### DEPENDENCIES
+- Docker (for containerized simulation)
+- Python libraries: `os`, `time`, custom simulation modules (`simulation/swarm/boxes/exploration_enhancement_box.py`)
+
+### USAGE
+1. **Run script with logging**: Redirect output to `debug_output.txt` to capture warnings/errors.
+2. **Check Docker logs**: Verify box imports and initialization via `tee debug_output.txt`.
+3. **Validate box availability**: Confirm `/app/simulation` and Python path are correctly mounted.
+4. **Inspect waypoints**: Look for `[DEBUG]` messages in waypoint generation logs.
+5. **Force randomness**: Modify seed generation (e.g., via `time.perf_counter()`) if deterministic behavior persists.
+
+### RELATED
+[[simulation/docker/docker-compose.yml]], [[scenarios/exploration/run_and_visualize.sh]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> If `BOXES_AVAILABLE=False`, the script falls back to fixed waypoints, bypassing dynamic exploration. Ensure `/app/simulation` is mounted in Docker and Python imports resolve paths correctly.
+
+>[!WARNING]- Caution
+> Predictable random seeds (e.g., static `time.time()`) may cause identical object placements across runs. Use `time.perf_counter()` or process-specific PID to ensure uniqueness.

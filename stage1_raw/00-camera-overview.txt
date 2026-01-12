@@ -1,0 +1,39 @@
+### FILENAME
+00-camera-overview
+
+### TAGS
+#camera-systems, #drones, #depth-sensing, #sensor-integration, #HMRS, #polarization, #quality-inspection, #ROS2, #intel-realsense, #open-source-sdk
+
+### TYPE
+documentation
+
+### SUMMARY
+Provides an overview of camera addons for HMRS drones, detailing depth and polarization camera specifications and applications.
+
+### DETAILS
+This document outlines the camera requirements for various HMRS drones, focusing on depth and polarization cameras for applications like depth sensing, quality inspection, and visual servoing. It specifies key specifications for each camera type, including Intel RealSense D455 (for depth sensing) and Sony IMX250MZR (for streak detection and quality inspection), along with their integration capabilities, SDKs, and documentation resources.
+
+### KEY_FUNCTIONS
+- **Depth Camera (Intel RealSense D455)**:
+  - Enables stereoscopic depth sensing with high accuracy and frame rates.
+  - Integrates with ROS2 for drone applications.
+- **Polarization Camera (Sony IMX250MZR)**:
+  - Supports streak detection and quality inspection via multi-directional polarization filters.
+  - Processes images using OpenCV and other open-source tools for edge detection and color analysis.
+
+### DEPENDENCIES
+OpenCV, ROS2, Intel RealSense SDK 2.0 (librealsense), nvTorchCam
+
+### USAGE
+- **Depth Camera**: Deployed in THE SCOUT drone for depth mapping and motion compensation.
+- **Polarization Camera**: Used in THE OVERSEER drone for streak detection and quality inspection.
+- **Processing**: Leverages open-source libraries (OpenCV, DoLP algorithms) for real-time image analysis.
+
+### RELATED
+[[01-realsense-d455-specifications.md]], [[02-realsense-d455-integration.md]], [[03-realsense-d455-documentation-links.md]], [[04-sony-imx250mz]]
+
+### CALLOUTS
+>[!INFO]- Key Integration
+> The Intel RealSense D455 is production-ready with ROS2 support, ensuring seamless integration into drone systems for depth sensing.
+>[!WARNING]- Hardware Constraints
+> Polarization cameras like Sony IMX250MZR require careful handling due to their specialized sensor technology and limited weight (~67g). Ensure proper mounting to avoid mechanical stress.

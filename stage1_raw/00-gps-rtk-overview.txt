@@ -1,0 +1,40 @@
+### FILENAME
+gps-rtk-overview
+
+### TAGS
+#gps, #rtk, #drones, #precision-navigation, #cuav, #ardupilot, #pixhawk, #gnss, #centimeter-accuracy, #real-time-kinematics
+
+### TYPE
+documentation
+
+### SUMMARY
+Provides an overview of GPS/RTK addons for high-precision drone applications, detailing module specifications and integration for centimeter-level accuracy.
+
+### DETAILS
+This document outlines the requirements for GPS/RTK modules to achieve sub-centimeter positioning accuracy, essential for drones like THE SCOUT, which demand high mapping precision. It compares two RTK modules: the **CUAV C-RTK 9Ps** (recommended for production) and the **Here+ V2 RTK GNSS** (alternative). Both support multi-constellation GNSS (GPS, GLONASS, Galileo, BeiDou) and include features like barometric altitude correction and rapid RTK convergence. The document specifies integration with PX4 and ArduPilot, detailing UART/USB interfaces and protocol support (NMEA, UBX, RTCM 3.x). It also maps drone types to their respective GPS requirements, emphasizing THE SCOUT’s mandatory RTK use.
+
+### KEY_FUNCTIONS
+- **CUAV C-RTK 9Ps**: Provides 0.01m RTK accuracy with 184-channel u-blox ZED-F9P, compatible with PX4/ArduPilot via UART/USB.
+- **Here+ V2 RTK GNSS**: Offers integrated RTK with MS5611 barometer, designed for Pixhawk integration, including Rover/Base module pairing.
+- **RTK Survey-in Time**: CUAV module achieves <60s convergence for centimeter-level accuracy.
+- **GPS Heading**: Dual-module support for 0.4° accuracy (CUAV only).
+
+### DEPENDENCIES
+- PX4 ArduPilot flight control software
+- Open-source flight controllers (Pixhawk, Pixhawk 2.1)
+- NMEA/UBX/RTCM 3.x compatible firmware
+
+### USAGE
+1. Select a module based on drone type (e.g., CUAV for THE SCOUT).
+2. Integrate via UART/USB interfaces, configuring base/rover roles for RTK.
+3. Ensure compatible firmware (e.g., PX4/ArduPilot) supports the module’s protocols.
+4. Calibrate for optimal signal reception (e.g., Here+ V2’s 6cm ground plane).
+
+### RELATED
+[[01-cuav-c-rtk-9ps-specifications.md]], [[02-cuav-c-rtk-9ps-integration.md]], [[04-here-plus-v2-specifications.md]]
+
+### CALLOUTS
+>[!INFO]- Critical Accuracy Note
+> THE SCOUT drones require **mandatory RTK GPS** for centimeter-level mapping. Non-RTK modules (e.g., standard GPS) will fail to meet precision requirements.
+>[!WARNING]- Base/Rover Configuration
+> Misconfigured base/rover roles may cause RTK outages. Always verify module roles in firmware settings (e.g., PX4’s "GNSS Configuration" menu).

@@ -1,0 +1,52 @@
+**Tags:** #design-specification, #simulation, #robotics, #box-pattern, #code-duplication, #LiDAR, #physics-simulation
+**Created:** 2026-01-12
+**Type:** documentation
+
+# 0005-MISSING-BOXES-SPECIFICATION
+
+## Summary
+
+```
+Detailed design for 5 critical simulation boxes to eliminate code duplication and improve Box Pattern compliance.
+```
+
+## Details
+
+> This document outlines specifications for five missing simulation boxes, focusing on **LiDARScannerBox** as a critical priority. The design aims to abstract LiDAR sensor simulation with configurable parameters (e.g., noise models, FOV) to reduce redundancy across 210 lines of duplicated code. The box supports multiple LiDAR models (VLP-16, VLP-32, HDL-64) and customizable configurations, outputting a noisy point cloud based on input position/orientation.
+
+## Key Functions
+
+### `LiDARScannerBox`
+
+Core class simulating LiDAR sensors with configurable parameters (e.g., noise, FOV, range).
+
+### `LIDAR_MODELS`
+
+Dictionary defining supported LiDAR models (e.g., VLP-16 specs).
+
+### `__init__`
+
+Initializes the scanner with model-specific or customizable settings.
+
+## Usage
+
+1. Instantiate `LiDARScannerBox` with a model (e.g., `LiDARScannerBox('VLP-16')`) or custom parameters.
+2. Call methods to generate point clouds from input position/orientation.
+3. Replace duplicated LiDAR logic in other files with this abstraction.
+
+## Dependencies
+
+> `numpy`
+> `PyBullet (for physics client integration)`
+
+## Related
+
+- [[0005-MISSING-BOXES-SPECIFICATION:Box 2]]
+- [[0005-MISSING-BOXES-SPECIFICATION:Box 3]]
+- [[PyBullet Documentation]]
+
+>[!INFO] Critical Priority
+> **LiDARScannerBox** must be implemented first to eliminate 210 lines of duplicated code and decouple from PyBullet tightly.
+
+>[!WARNING] Physics Client Dependency
+> Ensure the physics client ID matches the PyBullet client used elsewhere to avoid runtime errors.

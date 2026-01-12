@@ -1,0 +1,58 @@
+**Tags:** #visualization, #3d-graphics, #cesium, #plotly, #geospatial, #ui-updates, #data-markers, #arrow-design, #high-res, #gps-markers
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# green-arrow-center-marker-fix
+
+## Summary
+
+```
+Replaces yellow center markers with a high-resolution green arrow for improved visual clarity in OSM and Plotly views.
+```
+
+## Details
+
+> This fix replaces the previous yellow center markers with a **high-resolution green arrow** (64x64 canvas in Cesium, triangle-down symbol in Plotly) to enhance visual distinction. The arrow is designed with a **sharp tip pointing downward** and a **wide base at the top**, ensuring it remains centered on GPS coordinates. The implementation ensures the marker updates across all views when repositioned, maintaining consistency. Both Cesium (billboard entity) and Plotly (scatter marker) frameworks were updated to support this change, with performance optimizations like caching the arrow image.
+
+## Key Functions
+
+### ``createGreenArrowImage()``
+
+Generates a high-resolution 64x64 green arrow canvas for Cesium.
+
+### `Cesium Billboard Entity`
+
+Renders the green arrow as a billboard with sharp rendering properties.
+
+### `Plotly Scatter Marker`
+
+Updates the center marker to use a `triangle-down` symbol with green color.
+
+### `Arrow Canvas Drawing Logic`
+
+Configures arrow dimensions (tip/base width) and positioning (vertical origin: BOTTOM, horizontal origin: CENTER).
+
+## Usage
+
+1. **Cesium Integration**: Replace the old `Point` entity with a `Billboard` using the generated `greenArrowImage` and configure `verticalOrigin`/`horizontalOrigin` for correct positioning.
+2. **Plotly Integration**: Update center markers in Plotly 2D/3D views by replacing `symbol` with `'triangle-down'` and setting `color` to `#00FF00`.
+3. **Dynamic Updates**: Ensure the marker’s `position` (latitude/longitude) is updated to reflect real-time GPS changes.
+
+## Dependencies
+
+> `Cesium.js`
+> `Plotly.js`
+> `HTML Canvas API (for arrow rendering)`
+> `JavaScript (for entity configuration).`
+
+## Related
+
+- [[Cesium Center Marker Documentation]]
+- [[Plotly Marker Symbols Guide]]
+- [[Geospatial Visualization Best Practices]]
+
+>[!INFO] Important Note
+> The arrow’s **sharp tip (2-pixel width)** and **40% base width** ensure visual clarity while maintaining a compact size (16x16 pixels in Cesium). Adjust `tipWidth` or `baseWidth` if contrast needs refinement.
+
+>[!WARNING] Caution
+> Avoid overlapping with other markers by setting `disableDepthTestDistance: Infinity` in Cesium to prioritize rendering. In Plotly, ensure no conflicting `z` coordinates exist for 3D markers.

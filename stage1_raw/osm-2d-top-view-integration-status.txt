@@ -1,0 +1,40 @@
+### FILENAME
+osm-2d-top-view-integration-status
+
+### TAGS
+#osm-integration, #cesium-2d-viewer, #vue-rendering, #3d-2d-view, #visualization-component
+
+### TYPE
+code-notes
+
+### SUMMARY
+Tracks progress and issues in integrating a 2D top-view OSM map alongside a 3D isometric view in a Cesium-based visualization system.
+
+### DETAILS
+This document outlines the status of integrating a 2D top-view component for OSM data, which should display the same geographic location as the 3D isometric view but currently fails due to a fallback to a Plotly grid. The implementation includes conditional rendering in Vue and initialization logic for a separate Cesium 2D viewer. Root causes identified include timing issues with container rendering and initialization failures, requiring fixes like adding lifecycle hooks and debugging DOM visibility.
+
+### KEY_FUNCTIONS
+- **`visualization-view-component.js`**: Conditional rendering of `cesium-2d-top-viewer` based on `osmViewEnabled`.
+- **`initCesium2DTopViewer()`** (in `osm-integration-box.js`): Initializes a Cesium 2D viewer for top-view rendering.
+- **`update2DTopView()`** (in `osm-integration-box.js`): Positions the 2D viewer’s camera at GPS coordinates.
+- **`onToggleOSMView()`** (in `app-data.js`): Triggers initialization of the 2D viewer when toggled.
+- **`onEnableOSMViewForPreset()`** (in `app-data.js`): Initializes the 2D viewer on GPS preset selection.
+
+### DEPENDENCIES
+Cesium.js, Vue.js, Plotly.js (fallback), OSM data integration libraries.
+
+### USAGE
+The system expects:
+1. A DOM container (`cesium-2d-top-viewer`) to render the 2D viewer.
+2. `osmViewEnabled` flag to trigger conditional rendering.
+3. Proper initialization of `initCesium2DTopViewer()` and camera updates via `update2DTopView()`.
+
+### RELATED
+[[simulation/frontend/components/visualization-view-component.js]], [[simulation/frontend/boxes/osm-integration-box.js]], [[simulation/frontend/app-data.js]]
+
+### CALLOUTS
+>[!INFO]- **Container Timing Issue**
+> The `cesium-2d-top-viewer` container may not exist in the DOM when `initCesium2DTopViewer()` is called, causing initialization failures. A Vue lifecycle hook or watcher should ensure the container is rendered before initialization.
+
+>[!WARNING]- **Visibility Overrides**
+> If the 2D viewer is initialized but remains invisible, check for CSS z-index conflicts or positioning issues that may override its rendering. Debugging DOM visibility with `console.log` can help identify the problem.

@@ -1,0 +1,64 @@
+**Tags:** #Cesium, #Plotly, #3D-Visualization, #Map-Viewing, #Geospatial, #UI-Improvement, #Coordinate-System, #Marker-System
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# center-marker-all-views-fix
+
+## Summary
+
+```
+Enhanced map views with persistent center markers for orientation in both OSM and Plotly modes across 2D/3D isometric perspectives.
+```
+
+## Details
+
+> This fix integrates dynamic center markers into two map visualization frameworks: Cesium (for OSM-based 2D/3D views) and Plotly (for custom 3D/2D box plots). Cesium markers use GPS coordinates (latitude/longitude), while Plotly markers default to local coordinate origins (0,0). Markers are always rendered above other elements via `disableDepthTestDistance` or fixed positioning. Implementation includes modular methods for adding/updating/removing markers, triggered by building loads or location synchronization.
+
+## Key Functions
+
+### `addCenterMarker(latitude, longitude)`
+
+Dynamically creates Cesium markers at specified GPS coordinates.
+
+### `clearCenterMarkers()`
+
+Removes all previously added center markers.
+
+### `updatePlot() (Plotly)`
+
+Injects center marker traces into Plotly 2D/3D plots.
+
+### `centerMarker2D/centerMarker3D (Cesium)`
+
+Stores marker configurations for 2D top and 3D isometric views.
+
+## Usage
+
+1. **Cesium Integration**:
+   - Call `addCenterMarker(latitude, longitude)` when OSM buildings load or when view coordinates change.
+   - Use `clearCenterMarkers()` to remove markers before reloading data.
+
+2. **Plotly Integration**:
+   - The `updatePlot()` method in `plot-2d-box.js`/`plot-3d-box.js` automatically injects center markers.
+   - Markers persist regardless of data changes due to fixed local coordinate defaults.
+
+## Dependencies
+
+> `Cesium.js`
+> `Plotly.js`
+> `Cesium Utilities (for coordinate conversions)`
+> `OSM data loader (for Cesium)`
+> `custom plot-2d-box.js and plot-3d-box.js scripts.`
+
+## Related
+
+- [[Cesium Map Documentation]]
+- [[Plotly 3D Visualization Guide]]
+- [[Coordinate-System Conversion Cheat Sheet]]
+- [[OSM Data Loading Best Practices]]
+
+>[!INFO] Important Note
+> Cesium markers use `disableDepthTestDistance: Infinity` to ensure they always render above other elements, regardless of z-order. This requires Cesium 1.80+.
+
+>[!WARNING] Caution
+> Plotly markers default to local coordinates (0,0,0). If your data uses non-zero offsets, ensure the center marker’s position aligns with the intended origin to avoid visual misalignment.

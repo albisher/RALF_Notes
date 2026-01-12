@@ -1,0 +1,59 @@
+**Tags:** #javascript, #map-visualization, #quad-view, #osm-integration, #plotly, #data-rendering, #layout-mode, #frontend-component
+**Created:** 2026-01-12
+**Type:** code-notes
+
+# app-data.js
+
+## Summary
+
+```
+Fixed quad-view map component to consistently display all four views (2D Top, 2D Front, 2D Side, 3D Isometric) with conditional OSM/Plotly rendering based on enabled state.
+```
+
+## Details
+
+> The fix ensures quad-view mode preserves OSM rendering for 2D Top and 3D Isometric views while maintaining Plotly for 2D Front/Side views. Previously, OSM was disabled when switching to quad mode, causing incomplete rendering. The solution removed OSM disabling logic for quad layouts and added conditional plot initialization to prevent redundant updates.
+
+## Key Functions
+
+### `onLayoutModeChange()`
+
+Modified to preserve OSM state during quad-view transitions.
+
+### `initializePlots()`
+
+Updated to skip Plotly initialization for OSM-enabled views in quad mode.
+
+### `updatePlotsWithData()`
+
+Modified to skip Plotly updates for OSM-enabled views in quad mode.
+
+### `onToggleOSMView()`
+
+Retained for non-quad modes but excluded from quad-view logic.
+
+## Usage
+
+To use this fix:
+1. Ensure OSM is enabled in the application.
+2. Switch to quad-view mode—OSM will now render in 2D Top and 3D Isometric views.
+3. Plotly will render in 2D Front and Side views.
+4. Avoid disabling OSM manually in quad-view mode (previously disabled OSM entirely).
+
+## Dependencies
+
+> ``simulation/frontend` (core frontend module)`
+> ``osm-view` (OpenStreetMap integration)`
+> ``plotly` (interactive plotting library).`
+
+## Related
+
+- [[app-data]]
+- [[osm-view-component]]
+- [[plotly-rendering-module]]
+
+>[!INFO] Quad-View OSM Preservation
+> The fix ensures OSM maps appear in 2D Top and 3D Isometric views when enabled, while Plotly remains active for 2D Front/Side views. This maintains user expectations of a fully rendered quad-view layout.
+
+>[!WARNING] Conditional Rendering
+> If OSM is disabled in quad-view mode, only Plotly plots will appear. Ensure OSM is explicitly enabled before switching to quad-view to avoid empty grids or black screens.

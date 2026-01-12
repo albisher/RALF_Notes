@@ -1,0 +1,63 @@
+**Tags:** #hardware-addons, #drone-systems, #gps-rtk, #lidar, #robotics, #px4-integration, #ardupilot, #multi-robot-systems, #sensor-devices, #open-source-sdk
+**Created:** 2026-01-12
+**Type:** documentation-research
+
+# complete-addons-list
+
+## Summary
+
+```
+Comprehensive list of hardware and software addons for the HMRS drone project, detailing specifications, documentation, and integration status.
+```
+
+## Details
+
+> This document catalogs all required hardware components, including GPS/RTK modules and LiDAR sensors, for the HMRS (Heterogeneous Multi-Robot System) drone project. Each entry provides technical specifications, compatibility details (e.g., PX4/ArduPilot), and integration paths (e.g., UART/USB interfaces). The list prioritizes production-ready and open-source options, with links to official documentation and user manuals. The structure organizes addons by category (GPS/RTK, LiDAR) and notes their mandatory/alternative roles in drone operations.
+
+## Key Functions
+
+### `CUAV C-RTK 9Ps RTK GNSS`
+
+Provides high-precision RTK positioning for all HMRS drones, compatible with PX4/ArduPilot via UART/USB.
+
+### `Here+ V2 RTK GNSS`
+
+Alternative RTK GPS solution for HMRS drones, supporting Pixhawk and Pixhawk 2.1.
+
+### `Velodyne VLP-16 Puck LITE`
+
+Commercial LiDAR for THE SCOUT drones, offering 360° horizontal FOV and ±3 cm accuracy.
+
+### `Ouster OS1/OS2 LiDAR`
+
+Open-source LiDAR with ROS/ROS2 support, enabling cross-platform data processing.
+
+### `Livox LiDAR`
+
+Open-source LiDAR with ROS packages, supporting multiple models (Mid-40, Tele-15, etc.).
+
+## Usage
+
+1. **Select Addons**: Choose between CUAV/Here+ for GPS and Velodyne/Ouster/Livox for LiDAR based on project needs.
+2. **Integrate Hardware**: Connect via UART/USB interfaces (e.g., PX4/ArduPilot for GPS; ROS/ROS2 for LiDAR).
+3. **Verify Compatibility**: Ensure firmware (PX4/ArduPilot) and SDKs (e.g., Ouster SDK) align with drone software.
+4. **Documentation**: Refer to provided links for installation/configuration guides.
+
+## Dependencies
+
+> `- PX4/ArduPilot firmware (for GPS/RTK integration)
+- ROS/ROS2 (for Ouster/Livox LiDAR SDKs)
+- Python (for Ouster SDK installation via `pip install ouster-sdk`)`
+
+## Related
+
+- [[HMRS Drone Architecture]]
+- [[PX4 Firmware Guide]]
+- [[ArduPilot GPS Integration]]
+- [[ROS2 LiDAR Processing]]
+
+>[!INFO] Important Note
+> **THE SCOUT Mandatory**: The CUAV C-RTK 9Ps is *mandatory* for THE SCOUT drones due to its RTK accuracy and PX4 compatibility. Backup options (e.g., Here+) are available for other drones.
+
+>[!WARNING] Caution
+> **LiDAR Power**: Velodyne VLP-16 consumes ~8W—ensure power supply meets IP67-rated requirements to avoid environmental damage. Ouster/Livox LiDARs are more power-efficient but require ROS/ROS2 setup.

@@ -1,0 +1,42 @@
+### FILENAME
+session-selection-replay-integration
+
+### TAGS
+#session-replay, #quadview-integration, #automation, #time-travel, #javascript
+
+### TYPE
+code-notes
+
+### SUMMARY
+Integrates session selection with automatic replay loading and quadview visualization for simulation playback controls.
+
+### DETAILS
+This module handles automatic session replay loading when a user selects a session from the top bar. It ensures the quadview updates with replay data, including drone trajectories, buildings, and base positions, while managing playback controls (play/pause/stop) and time travel mode. The system prevents live data interference by enforcing `timeTravelMode` during replay.
+
+### KEY_FUNCTIONS
+- **`selectSession()`**: Initiates session selection logic; checks for `replay_data` and triggers automatic loading or explicit replay call.
+- **`updateReplayVisualization()`**: Constructs drone trajectories and updates all four quadview perspectives (3D, top, front, side) using replay data.
+- **`playReplay()`**: Manages playback with a 100ms interval, increments `replayTime`, and auto-pauses at `replayMaxTime`.
+- **`pauseReplay()`**: Stops playback and preserves current `replayTime`.
+- **`stopReplay()`**: Resets playback to the start, halts time updates, and refreshes visualization.
+- **`onReplayTimeUpdate()`**: Handles manual time slider adjustments, pausing playback if active.
+- **`updatePlotsWithData()`**: Updates quadview views (3D, top, front, side) with replay drones, buildings, and base positions, respecting `timeTravelMode`.
+
+### DEPENDENCIES
+`simulation-view`, `quadview`, `motion-history`, `time-travel-utils`, `replay-controls`, `drone-visualization`, `building-rendering`
+
+### USAGE
+1. **Trigger Session Selection**: Call `selectSession(sessionId)` when a user picks a session from the dropdown.
+2. **Automatic Replay Handling**: If `replay_data` exists, load it automatically; otherwise, call `loadSessionReplay()`.
+3. **Playback Controls**: Use `playReplay()`, `pauseReplay()`, or `stopReplay()` to manage playback.
+4. **Time Travel**: Enable `timeTravelMode = true` to disable live updates during replay.
+
+### RELATED
+[[session-selection-component]], [[quadview-rendering]], [[time-travel-mechanics]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **`timeTravelMode` Enforcement**: Always set `timeTravelMode = true` during replay to prevent live data from overwriting replay history. This ensures visual consistency.
+
+>[!WARNING]- Caution
+> **ISO vs. `sim_time` Handling**: Ensure `sim_time` is used for time matching in replay data. Incorrect timestamp conversion may cause misaligned drone positions or playback errors.

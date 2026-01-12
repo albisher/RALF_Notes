@@ -1,0 +1,45 @@
+### FILENAME
+osm-viewer-swap-and-logs-fix
+
+### TAGS
+#osm-viewer, #3d-viewer, #logging, #cesium, #fix, #sidebar, #quad-view, #debugging, #javascript
+
+### TYPE
+code-fix
+
+### SUMMARY
+Fixes OSM viewer swap misassignment and ensures view logs appear in the sidebar for proper visualization and debugging.
+
+### DETAILS
+This fix addresses two critical issues in an OSM (OpenStreetMap) viewer application:
+1. **Incorrect View Swapping**: The 2D view was incorrectly assigned to the 3D isometric panel, causing visual misalignment. The root was in improper initialization logic where both containers were redirected to generic Cesium methods.
+2. **Missing Logs in Sidebar**: View check logs were not displayed in the sidebar due to type filtering in the logging system, preventing debugging of quad-view operations.
+
+The solution involved explicit container-based initialization and expanded logging to include all log types, ensuring logs appear in the UI.
+
+### KEY_FUNCTIONS
+- **`initializeOSMViewsForLayout`**: Reassigned viewer initialization based on container IDs (`cesium-2d-top-viewer`/`cesium-3d-viewer`).
+- **`initCesium2DTopViewer`/`initCesiumViewer`**: Updated to handle correct container-specific initialization.
+- **`_logToUI` (logging-box.js)**: Modified to include all log types in `communicationLog` array.
+- **`logViewChecks` (app-data.js)**: Added `type: 'communication'` to ensure logs appear in the sidebar.
+
+### DEPENDENCIES
+- `simulation/frontend/app-data.js`
+- `simulation/frontend/boxes/logging-box.js`
+- Cesium.js libraries (implicitly used for 2D/3D viewer initialization)
+
+### USAGE
+To apply this fix:
+1. Replace the generic `initCesiumViewer(containerId)` calls with container-specific logic in `app-data.js`.
+2. Update `_logToUI` to log all entries (not just `'communication'` type) in `logging-box.js`.
+3. Ensure `logViewChecks` includes `type: 'communication'` for quad-view logs.
+
+### RELATED
+[[simulation/frontend/app-data.js]], [[simulation/frontend/boxes/logging-box.js]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The fix ensures **quad-view initialization** works correctly by explicitly routing containers to their respective Cesium viewers, preventing visual conflicts between 2D/3D modes.
+
+>[!WARNING]- Caution
+> Overwriting generic initialization methods may break other dependencies if not thoroughly tested. Always validate with live OSM data before deployment.

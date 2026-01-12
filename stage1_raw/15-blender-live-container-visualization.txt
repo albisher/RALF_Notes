@@ -1,0 +1,52 @@
+### FILENAME
+15-blender-live-container-visualization
+
+### TAGS
+#real-time-visualization, #docker-integration, #blender-api, #pybullet, #interactive-control, #containerized-simulation, #zmq-communication, #live-data-streaming, #robotics-simulation, #blendzmq, #flask-webserver
+
+### TYPE
+research
+
+### SUMMARY
+Explores real-time visualization and interactive control of containerized simulations in Blender using ZeroMQ and alternative methods.
+
+### DETAILS
+This document investigates whether a Dockerized PyBullet-based simulation can be visualized in real-time within Blender and controlled interactively from it. The current setup streams data via Flask to a web browser, but the research evaluates ZeroMQ-based communication for higher performance and non-blocking updates. The simulation provides drone positions, building maps, and sensor data at ~10 FPS, but the proposed ZeroMQ approach enables direct, network-based data exchange between the container and Blender, enhancing responsiveness and scalability.
+
+### KEY_FUNCTIONS
+- **ZeroMQ Publisher**: Exposes simulation data (e.g., drone positions, building maps) via a TCP socket in the container.
+- **BlendZMQ Add-on**: Subscribes to ZeroMQ messages in Blender, updating visual objects in real-time without UI freezing.
+- **Flask Web Server**: Current fallback for streaming data to a browser (port 5007), but deprecated in favor of ZeroMQ.
+- **PyBullet Headless Mode**: Core simulation engine running inside Docker, generating data for visualization/control.
+
+### DEPENDENCIES
+- ZeroMQ library (`zmq`), installed in both container and Blender host.
+- Blender (3.6+), with the [BlendZMQ add-on](https://github.com/NumesSanguis/Blender-ZMQ-add-on).
+- Docker container with Python and PyBullet pre-installed.
+- Flask (for legacy web streaming, if not replaced by ZeroMQ).
+
+### USAGE
+1. **Container Setup**:
+   - Run PyBullet simulation in Docker with ZeroMQ publisher:
+     ```bash
+     docker run -p 5555:5555 -v /path/to/data:/data my_simulation_image
+     ```
+   - Ensure the container exposes port `5555` (ZeroMQ port).
+
+2. **Blender Setup**:
+   - Install [BlendZMQ](https://github.com/NumesSanguis/Blender-ZMQ-add-on).
+   - Configure the add-on to connect to `tcp://<container-ip>:5555`.
+   - Open Blender and let the add-on update visuals in real-time.
+
+3. **Interactive Control**:
+   - Use Blender’s Python API or add-ons to send HTTP POST requests to the simulation’s `/api/command` endpoint (e.g., via `requests` library).
+
+### RELATED
+[[14-flask-webstreaming-for-blender]], [[16-zero-mq-blender-integration-guide]], [[pybullet-docker-setup]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> ZeroMQ requires the container’s network interface to be accessible from Blender. If running on a cloud VM or remote host, ensure the container’s IP is resolvable (e.g., via `docker inspect <container>` or a reverse proxy).
+
+>[!WARNING]- Caution
+> PyBullet’s headless mode may not handle all simulation edge cases (e.g., physics collisions) identically to a GUI version. Test ZeroMQ updates in a staging environment before full deployment.
