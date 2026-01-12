@@ -37,6 +37,11 @@ from .tuning.throughput_benchmarker import ThroughputBenchmarker
 from .tuning.sample_generator import SampleCodeGenerator
 from .tuning.config_builder import OptimizedConfigBuilder
 from .utils.logger import setup_logging # ADD THIS IMPORT
+from .tagging.tag_collector import TagCollector
+from .tagging.tag_analyzer import TagAnalyzer, TagPattern
+from .tagging.tag_refinement_llm import TagRefinementLLM
+from .tagging.refinement_guide_builder import RefinementGuideBuilder
+from .tagging.tag_replacer import TagReplacer
 
 
 def display_config_table(console: Console, config_manager: ConfigManager):
@@ -44,6 +49,7 @@ def display_config_table(console: Console, config_manager: ConfigManager):
     table = Table(title="[bold]⚙️ Current Configuration[/bold]", style="cyan", show_header=True, header_style="bold magenta")
     table.add_column("Setting", style="dim", width=20)
     table.add_column("Value", style="bold")
+
 
     config = config_manager.config
     for key, value in config.items():
@@ -988,4 +994,178 @@ def check_health():
     console.success("\nRALF Note health check passed! Your system is ready.")
 
 
-# ... (rest of the file)
+tags_app = typer.Typer(
+    name="tags",
+    help="🏷️ Commands for managing and refining document tags."
+)
+app.add_typer(tags_app, name="tags")
+
+
+@tags_app.command("analyze")
+def tags_analyze(
+    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config)."),
+    output: Path = typer.Option("tag_refinement_guide.json", "--output", "-o", help="Output JSON file for the refinement guide."),
+    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override LLM model name for tag refinement."),
+    max_tags: int = typer.Option(100, "--max-tags", help="Maximum number of tags to send to LLM for refinement."),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
+):
+    """
+    Analyzes existing tags and generates a refinement guide using an LLM.
+    """
+    console = Console(quiet=quiet)
+    config_manager = ConfigManager()
+    
+    if target_dir:
+        _validate_path_exists(target_dir, "target_dir", console)
+        _validate_path_is_dir(target_dir, "target_dir", console)
+    else:
+        target_dir = Path(config_manager.get("target_dir"))
+        _validate_path_exists(target_dir, "configured target_dir", console)
+        _validate_path_is_dir(target_dir, "configured target_dir", console)
+    
+    _validate_path_is_writable(output.parent, "output directory", console)
+
+    if model:
+        try:
+            config_manager.set("model_name", model)
+        except ValueError as e:
+            console.error(f"Invalid model name '{model}': {e}. Please ensure it's a valid Ollama model.")
+            raise typer.Exit(1)
+
+    console.info(f"Starting tag analysis in '{target_dir}'...")
+    
+    collector = TagCollector()
+    tag_data = collector.collect_tags(target_dir)
+
+    console.info(f"Collected {tag_data['total_unique_tags']} unique tags from {tag_data['total_files']} files.")
+    
+    analyzer = TagAnalyzer()
+    analysis_report = analyzer.analyze(tag_data)
+    
+    console.info(f"Identified {analysis_report['total_patterns']} potential tag patterns.")
+
+    llm_client = Client(host=config_manager.get("ollama_host"))
+    llm_refiner = TagRefinementLLM(llm_client, model=config_manager.get("model_name"))
+
+    console.info("Requesting LLM to generate refinement suggestions (this may take a moment)...")
+    llm_suggestions = llm_refiner.generate_refinements(analysis_report)
+    
+    guide_builder = RefinementGuideBuilder()
+    final_guide = guide_builder.build_guide(llm_suggestions, analysis_report, output)
+
+    if final_guide.get('llm_error'):
+        console.error(f"LLM encountered an error during refinement suggestion: {final_guide['llm_error']}")
+        console.info("The guide was still generated but may be incomplete or contain errors.")
+    
+    console.success(f"Tag refinement guide generated successfully: {output}")
+    console.info("Please review the guide before applying changes.")
+
+@tags_app.command("apply")
+def tags_apply(
+    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config)."),
+    guide: Path = typer.Option(..., "--guide", "-g", help="Path to the tag refinement guide JSON file."),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview changes without writing to files."),
+    no_backup: bool = typer.Option(False, "--no-backup", help="Do NOT create a backup before applying changes."),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
+):
+    """
+    Applies tag refinements to markdown files based on a generated guide.
+    """
+    console = Console(quiet=quiet)
+    config_manager = ConfigManager()
+
+    if target_dir:
+        _validate_path_exists(target_dir, "target_dir", console)
+        _validate_path_is_dir(target_dir, "target_dir", console)
+    else:
+        target_dir = Path(config_manager.get("target_dir"))
+        _validate_path_exists(target_dir, "configured target_dir", console)
+        _validate_path_is_dir(target_dir, "configured target_dir", console)
+
+    _validate_path_exists(guide, "guide", console)
+
+    try:
+        guide_content = guide.read_text(encoding='utf-8')
+        refinement_guide = json.loads(guide_content)
+    except Exception as e:
+        console.error(f"Failed to load or parse refinement guide from '{guide}': {e}")
+        raise typer.Exit(1)
+
+    console.info(f"Applying tag refinements to files in '{target_dir}' using guide '{guide}'...")
+
+    replacer = TagReplacer(refinement_guide)
+    results = replacer.apply_refinements(target_dir, dry_run=dry_run, backup=not no_backup)
+
+    if results.get('backup_path'):
+        console.info(f"Backup created at: {results['backup_path']}")
+
+    console.success("Tag refinement application summary:")
+    console.print(f"  Files processed: {results['files_processed']}")
+    console.print(f"  Files modified: {results['files_modified']}")
+    console.print(f"  Tags replaced/deleted: {results['tags_replaced']}")
+    
+    if dry_run:
+        console.warning("This was a DRY RUN. No files were actually modified.")
+
+    if results['errors']:
+        console.error(f"Errors encountered during application for {len(results['errors'])} files.")
+        for error_info in results['errors']:
+            console.error(f"  File: {error_info['file']}, Error: {error_info['error']}")
+        raise typer.Exit(1)
+    
+    console.success("Tag refinement application complete.")
+
+
+@tags_app.command("stats")
+def tags_stats(
+    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config)."),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
+):
+    """
+    Displays statistics about tags found in markdown files.
+    """
+    console = Console(quiet=quiet)
+    config_manager = ConfigManager()
+
+    if target_dir:
+        _validate_path_exists(target_dir, "target_dir", console)
+        _validate_path_is_dir(target_dir, "target_dir", console)
+    else:
+        target_dir = Path(config_manager.get("target_dir"))
+        _validate_path_exists(target_dir, "configured target_dir", console)
+        _validate_path_is_dir(target_dir, "configured target_dir", console)
+
+    console.info(f"Collecting tag statistics from '{target_dir}'...")
+    
+    collector = TagCollector()
+    tag_data = collector.collect_tags(target_dir)
+
+    tag_frequency = tag_data['tag_frequency']
+    total_files = tag_data['total_files']
+    total_unique_tags = tag_data['total_unique_tags']
+
+    console.print("\n📊 Tag Statistics:")
+    console.print(f"  Total files analyzed: {total_files}")
+    console.print(f"  Total unique tags found: {total_unique_tags}")
+
+    if tag_frequency:
+        sorted_tags = sorted(tag_frequency.items(), key=lambda item: item[1], reverse=True)
+        console.print("\n📈 Top 10 Most Frequent Tags:")
+        for tag, count in sorted_tags[:10]:
+            console.print(f"  - {tag}: {count} uses")
+        
+        console.print("\n📉 10 Least Frequent Tags:")
+        for tag, count in sorted_tags[-10:]:
+            console.print(f"  - {tag}: {count} uses")
+        
+        console.print("\n📄 Tags and associated files (sample):")
+        # Display sample files for a few tags
+        sample_tags = list(tag_frequency.keys())[:3] # Get first 3 tags
+        for tag in sample_tags:
+            console.print(f"  Tag: {tag}")
+            for filename in tag_data['tag_to_files'].get(tag, [])[:2]: # Show first 2 files
+                console.print(f"    - {filename}")
+            if len(tag_data['tag_to_files'].get(tag, [])) > 2:
+                console.print("    ...")
+    else:
+        console.info("No tags found in the specified directory.")
