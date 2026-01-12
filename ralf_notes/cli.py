@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Optional, List, Tuple
 from ollama import Client
 from datetime import datetime
+import logging # ADD THIS IMPORT
 
 from .version import VERSION
 from .config_manager import ConfigManager
@@ -35,6 +36,7 @@ from .tuning.latency_benchmarker import LatencyBenchmarker
 from .tuning.throughput_benchmarker import ThroughputBenchmarker
 from .tuning.sample_generator import SampleCodeGenerator
 from .tuning.config_builder import OptimizedConfigBuilder
+from .utils.logger import setup_logging # ADD THIS IMPORT
 
 
 def display_config_table(console: Console, config_manager: ConfigManager):
@@ -65,6 +67,33 @@ def display_config_table(console: Console, config_manager: ConfigManager):
     console.info(f"Config file: {config_manager.config_path}")
 
 
+def _validate_path_exists(path: Path, param_name: str, console: Console):
+    """Validates if a given path exists."""
+    if not path.exists():
+        console.error(f"Error: Path for '{param_name}' does not exist: {path}")
+        raise typer.Exit(1)
+
+def _validate_path_is_dir(path: Path, param_name: str, console: Console):
+    """Validates if a given path is a directory."""
+    if not path.is_dir():
+        console.error(f"Error: Path for '{param_name}' is not a directory: {path}")
+        raise typer.Exit(1)
+
+def _validate_path_is_writable(path: Path, param_name: str, console: Console):
+    """Validates if a given path is writable."""
+    if not path.is_dir(): # Check if it's a directory first
+        console.error(f"Error: Path for '{param_name}' is not a directory: {path}")
+        raise typer.Exit(1)
+    # Test writability by trying to create and delete a temporary file
+    try:
+        test_file = path / ".ralf_notes_test_write"
+        test_file.touch()
+        test_file.unlink()
+    except OSError as e:
+        console.error(f"Error: Path for '{param_name}' is not writable: {path} ({e})")
+        raise typer.Exit(1)
+
+
 app = typer.Typer(
     name="ralf-notes",
     help="🚀 RALF Note v2.0 - AI-Powered Obsidian Documentation Generator",
@@ -90,21 +119,52 @@ def callback(
     """
     RALF Note v2.0 - AI-Powered Obsidian Documentation Generator
     """
-    pass
+    config_manager = ConfigManager() # Initialize config_manager here
+    log_level = config_manager.get("log_level", "INFO")
+    log_file_path = config_manager.get("log_file", None)
+    
+    # If log_file is specified in config, convert to Path object
+    if log_file_path:
+        log_file_path = Path(log_file_path)
+    
+    setup_logging(log_level, log_file_path) # Initialize logging
+    logger = logging.getLogger(__name__)
+    logger.debug("Logging initialized via CLI callback.")
 
 def build_pipeline(config_manager: ConfigManager) -> DocumentPipeline:
     """Build the document generation pipeline."""
-    client = Client(host=config_manager.get("ollama_host"))
-    gen_config = StructuredTextGeneratorConfig(
-        model_name=config_manager.get("model_name"),
-        num_ctx=config_manager.get("num_ctx"),
-        temperature=config_manager.get("temperature"),
-        chunk_size=config_manager.get("chunk_size"),
-        max_content_length=config_manager.get("max_content_length"),  # ADD
-        max_chunk_summary_length=config_manager.get("max_chunk_summary_length"),  # ADD
-        ollama_host=config_manager.get("ollama_host")
-    )
-    generator = StructuredTextGenerator(client, gen_config)
+    ollama_host = config_manager.get("ollama_host")
+    model_name = config_manager.get("model_name")
+    try:
+        client = Client(host=ollama_host)
+        # Attempt to list models to verify connection, though a full check is in check_health
+        client.list() 
+    except Exception as e:
+        logger.error(f"Failed to connect to Ollama at {ollama_host}: {e}", exc_info=True)
+        raise RuntimeError(f"Failed to connect to Ollama at '{ollama_host}'. "
+                           f"Please ensure Ollama is running and accessible. "
+                           f"Run 'ralf-notes check-health' for diagnostics. Error: {e}") from e
+    
+    try:
+        gen_config = StructuredTextGeneratorConfig(
+            model_name=model_name,
+            num_ctx=config_manager.get("num_ctx"),
+            temperature=config_manager.get("temperature"),
+            chunk_size=config_manager.get("chunk_size"),
+            max_content_length=config_manager.get("max_content_length"),
+            max_chunk_summary_length=config_manager.get("max_chunk_summary_length"),
+            ollama_host=ollama_host,
+            retry_attempts=config_manager.get("retry_attempts"),
+            initial_backoff_seconds=config_manager.get("initial_backoff_seconds"),
+            backoff_multiplier=config_manager.get("backoff_multiplier")
+        )
+        generator = StructuredTextGenerator(client, gen_config)
+    except Exception as e:
+        logger.error(f"Failed to initialize StructuredTextGenerator with model '{model_name}': {e}", exc_info=True)
+        raise RuntimeError(f"Failed to initialize generator with model '{model_name}'. "
+                           f"Ensure the model is pulled ('ollama pull {model_name}') and configuration is valid. "
+                           f"Error: {e}") from e
+
     parser = TextParser()
     formatter = NoteFormatter()
     return DocumentPipeline(generator, parser, formatter)
@@ -181,9 +241,9 @@ def init(
             else:
                 console.info("Reset cancelled.")
         if add_source:
-            if not Path(add_source).exists():
-                console.error(f"Path does not exist: {add_source}")
-                raise typer.Exit(1)
+            source_path_obj = Path(add_source)
+            _validate_path_exists(source_path_obj, "add_source", console)
+            _validate_path_is_dir(source_path_obj, "add_source", console) # Source path should be a directory
             config_manager.add_source_path(add_source)
             config_manager.save()
             console.success(f"Added source path: {add_source}")
@@ -192,22 +252,39 @@ def init(
             config_manager.save()
             console.success(f"Removed source path: {remove_source}")
         if set_target:
+            target_dir_obj = Path(set_target)
+            _validate_path_is_writable(target_dir_obj, "set_target", console)
             config_manager.set_target_dir(set_target)
             config_manager.save()
             console.success(f"Target directory set to: {set_target}")
         if set_stage1_raw_output:
+            raw_output_dir_obj = Path(set_stage1_raw_output)
+            _validate_path_is_writable(raw_output_dir_obj, "set_stage1_raw_output", console)
             config_manager.set_stage1_raw_output_dir(set_stage1_raw_output)
             config_manager.save()
             console.success(f"Stage 1 raw output directory set to: {set_stage1_raw_output}")
         if set_initial_formatted:
+            formatted_dir_obj = Path(set_initial_formatted)
+            _validate_path_is_writable(formatted_dir_obj, "set_initial_formatted", console)
             config_manager.set_initial_formatted_dir(set_initial_formatted)
             config_manager.save()
             console.success(f"Initial formatted output directory set to: {set_initial_formatted}")
         if set_review_needed:
+            review_needed_dir_obj = Path(set_review_needed)
+            _validate_path_is_writable(review_needed_dir_obj, "set_review_needed", console)
             config_manager.set_review_needed_dir(set_review_needed)
             config_manager.save()
             console.success(f"Review needed directory set to: {set_review_needed}")
         
+        if set_model:
+            config_manager.set("model_name", set_model)
+            config_manager.save()
+            console.success(f"Ollama model name set to: {set_model}")
+        if set_max_files is not None:
+            config_manager.set("max_files_to_process", set_max_files)
+            config_manager.save()
+            console.success(f"Max files to process set to: {set_max_files}")
+
         if show:
             display_config_table(console, config_manager)
         return
@@ -225,16 +302,32 @@ def init(
     while True:
         path = typer.prompt("Source path (leave empty to finish)", default="", show_default=False)
         if not path: break
-        if Path(path).exists():
+        source_path_obj = Path(path)
+        try:
+            _validate_path_exists(source_path_obj, "source_path", console)
+            _validate_path_is_dir(source_path_obj, "source_path", console)
             source_paths.append(path)
             console.success(f"Added: {path}")
-        else:
-            console.warning(f"Path does not exist: {path}")
+        except typer.Exit:
+            # Continue to next prompt if validation fails
+            pass
     
     target_dir = typer.prompt("Target directory for final Obsidian notes", default="./to_obsidian")
+    target_dir_obj = Path(target_dir)
+    _validate_path_is_writable(target_dir_obj, "target_dir", console)
+
     stage1_raw_output_dir = typer.prompt("Stage 1 raw output directory", default="./stage1_raw")
+    stage1_raw_output_dir_obj = Path(stage1_raw_output_dir)
+    _validate_path_is_writable(stage1_raw_output_dir_obj, "stage1_raw_output_dir", console)
+
     initial_formatted_dir = typer.prompt("Stage 2 initial formatted directory", default="./stage2_formatted")
+    initial_formatted_dir_obj = Path(initial_formatted_dir)
+    _validate_path_is_writable(initial_formatted_dir_obj, "initial_formatted_dir", console)
+
     review_needed_dir = typer.prompt("Stage 3 review needed directory", default="./review_needed")
+    review_needed_dir_obj = Path(review_needed_dir)
+    _validate_path_is_writable(review_needed_dir_obj, "review_needed_dir", console)
+
     model_name = typer.prompt("Ollama model name", default="ministral-3:3b")
     
     config_manager.config["source_paths"] = source_paths
@@ -242,7 +335,7 @@ def init(
     config_manager.config["stage1_raw_output_dir"] = stage1_raw_output_dir
     config_manager.config["initial_formatted_dir"] = initial_formatted_dir
     config_manager.config["review_needed_dir"] = review_needed_dir
-    config_manager.config["model_name"] = model_name
+    config_manager.set("model_name", model_name) # Use set for validation
     config_manager.save()
     
     console.success(f"\nConfiguration saved to: {config_manager.config_path}")
@@ -256,19 +349,39 @@ def _generate_raw_logic(
     config_manager: ConfigManager,
     console: Console
 ) -> bool: # Returns True on success, False on failure
-    source_paths = [source_path] if source_path else [Path(p) for p in config_manager.get("source_paths", [])]
-    if not source_paths:
-        console.error("No source paths configured!")
-        console.info("Run 'ralf-notes init' to set up configuration")
-        return False
+    import time
+    start_time = time.time()
+
+    source_paths_cfg = [Path(p) for p in config_manager.get("source_paths", [])]
+    if source_path:
+        _validate_path_exists(source_path, "source_path", console)
+        _validate_path_is_dir(source_path, "source_path", console)
+        source_paths = [source_path]
+    else:
+        if not source_paths_cfg:
+            console.error("No source paths configured! Cannot generate documentation.")
+            console.info("Please run 'ralf-notes init' to set up your configuration or specify a source path with 'ralf-notes generate-raw <path>'.")
+            return False
+        # Validate configured source paths
+        for p in source_paths_cfg:
+            _validate_path_exists(p, "configured source path", console)
+            _validate_path_is_dir(p, "configured source path", console)
+        source_paths = source_paths_cfg
 
     stage1_raw_output_dir = output if output else Path(config_manager.get("stage1_raw_output_dir"))
-    if model: config_manager.set_model(model)
+    _validate_path_is_writable(stage1_raw_output_dir, "raw_output", console) # Validate output directory
+
+    if model: 
+        try:
+            config_manager.set("model_name", model) # Use set for validation
+        except ValueError as e:
+            console.error(f"Invalid model name '{model}': {e}. Please ensure it's a valid Ollama model.")
+            return False
 
     if not quiet:
-        console.info(f"Model: {config_manager.get('model_name')}")
-        console.info(f"Raw output folder: {stage1_raw_output_dir}")
-        console.info("Source folders:")
+        console.info(f"Using Model: {config_manager.get('model_name')}")
+        console.info(f"Raw Output Folder: {stage1_raw_output_dir}")
+        console.info("Source Folders:")
         for sp in source_paths: console.info(f"  - {sp}")
         console.print("")
 
@@ -281,11 +394,15 @@ def _generate_raw_logic(
             chunk_size=config_manager.get("chunk_size"),
             max_content_length=config_manager.get("max_content_length"),
             max_chunk_summary_length=config_manager.get("max_chunk_summary_length"),
-            ollama_host=config_manager.get("ollama_host")
+            ollama_host=config_manager.get("ollama_host"),
+            retry_attempts=config_manager.get("retry_attempts"),
+            initial_backoff_seconds=config_manager.get("initial_backoff_seconds"),
+            backoff_multiplier=config_manager.get("backoff_multiplier")
         )
         generator = StructuredTextGenerator(client, gen_config)
     except Exception as e:
-        console.error(f"Failed to initialize generator: {e}")
+        console.error(f"Failed to initialize the document generation system: {e}")
+        console.info("Please check your Ollama setup and configuration. Run 'ralf-notes check-health' for diagnostics.")
         return False
 
     stage1_raw_output_dir.mkdir(parents=True, exist_ok=True)
@@ -326,16 +443,18 @@ def _generate_raw_logic(
                     console.success(f"Generated Raw: {output_file_path.name}")
             except Exception as e:
                 console.error(f"Failed to generate raw output for {file_path.name}: {e}")
+                console.info(f"This often indicates an issue with the LLM. Check Ollama logs or try a different model/context size.")
                 failed_count += 1
             progress.update(task, advance=1)
     
+    duration = time.time() - start_time
     results = {
         'total': processed_count + failed_count,
         'success': processed_count,
         'failed': failed_count,
         'dry_run': False,
-        'duration': 0,
-        'files_per_second': 0
+        'duration': duration,
+        'files_per_second': processed_count / duration if duration > 0 else 0
     }
     show_summary(results, console, quiet)
     return failed_count == 0
@@ -351,26 +470,50 @@ def _format_initial_logic(
     config_manager: ConfigManager,
     console: Console
 ) -> bool: # Returns True on success, False on failure
-    stage1_raw_source_paths = [path] if path else [Path(p) for p in [config_manager.get("stage1_raw_output_dir", "./stage1_raw")]]
-    if not stage1_raw_source_paths:
-        console.error("No raw output paths configured!")
-        console.info("Run 'ralf-notes init' to set up configuration or specify --path")
-        return False
+    import time
+    start_time = time.time()
+
+    stage1_raw_source_paths_cfg = [Path(p) for p in [config_manager.get("stage1_raw_output_dir", "./stage1_raw")]]
+    if path:
+        _validate_path_exists(path, "path", console)
+        _validate_path_is_dir(path, "path", console)
+        stage1_raw_source_paths = [path]
+    else:
+        if not stage1_raw_source_paths_cfg:
+            console.error("No raw output paths configured! Cannot format documentation.")
+            console.info("Please run 'ralf-notes init' to set up your configuration or specify a path with 'ralf-notes format-initial <path>'.")
+            return False
+        for p in stage1_raw_source_paths_cfg:
+            _validate_path_exists(p, "configured raw output path", console)
+            _validate_path_is_dir(p, "configured raw output path", console)
+        stage1_raw_source_paths = stage1_raw_source_paths_cfg
 
     initial_formatted_dir = output if output else Path(config_manager.get("initial_formatted_dir"))
-    if model: config_manager.set_model(model)
+    _validate_path_is_writable(initial_formatted_dir, "formatted_output", console) # Validate output directory
+
+    if model: 
+        try:
+            config_manager.set("model_name", model) # Use set for validation
+        except ValueError as e:
+            console.error(f"Invalid model name '{model}': {e}. Please ensure it's a valid Ollama model.")
+            return False
 
     if not quiet:
-        console.info(f"Model: {config_manager.get('model_name')} (for pipeline setup)")
-        console.info(f"Raw source folder: {stage1_raw_source_paths[0]}")
-        console.info(f"Formatted output folder: {initial_formatted_dir}")
+        console.info(f"Using Model: {config_manager.get('model_name')} (for pipeline setup)")
+        console.info(f"Raw Source Folder: {stage1_raw_source_paths[0]}")
+        console.info(f"Formatted Output Folder: {initial_formatted_dir}")
         console.print("")
 
     try:
         pipeline = build_pipeline(config_manager)
-    except Exception as e:
-        console.error(f"Failed to initialize pipeline: {e}")
+    except RuntimeError as e: # Catch the specific RuntimeError from build_pipeline
+        console.error(f"Failed to initialize pipeline for formatting: {e}")
+        console.info("Please check your Ollama setup and configuration. Run 'ralf-notes check-health' for diagnostics.")
         return False
+    except Exception as e:
+        console.error(f"An unexpected error occurred during pipeline initialization: {e}")
+        return False
+
 
     processor = FileProcessor(pipeline, config_manager)
     initial_formatted_dir.mkdir(parents=True, exist_ok=True)
@@ -416,21 +559,26 @@ def _format_initial_logic(
                             console.success(f"Formatted: {formatted_output_path.name}")
                     else:
                         failed_count += 1
-                        console.error(f"Failed to format {formatted_output_path.name}: Empty markdown generated.")
+                        console.error(f"Failed to format {formatted_output_path.name}: Empty markdown generated. This usually means the LLM response was not correctly structured.")
+                        console.info("Refer to the logs for details or check the raw output in '%s'.", file_path)
                 except Exception as e:
                     failed_count += 1
                     console.error(f"Failed to format {formatted_output_path.name}: {e}")
+                    console.info("This indicates an issue during parsing or formatting. Check the raw output for structured text compliance.")
             else:
                 processed_count += 1
 
             progress.update(task, advance=1)
     
+    duration = time.time() - start_time
     results = {
         'total': processed_count + failed_count + skipped_count,
         'success': processed_count,
         'failed': failed_count,
         'skipped': skipped_count,
-        'dry_run': dry_run
+        'dry_run': dry_run,
+        'duration': duration,
+        'files_per_second': processed_count / duration if duration > 0 else 0
     }
     show_summary(results, console, quiet)
     return failed_count == 0
@@ -446,19 +594,34 @@ def _finalize_logic(
     config_manager: ConfigManager,
     console: Console
 ) -> bool:
-    initial_formatted_source_paths = [path] if path else [Path(p) for p in [config_manager.get("initial_formatted_dir", "./stage2_formatted")]]
-    if not initial_formatted_source_paths:
-        console.error("No initial formatted paths configured!")
-        console.info("Run 'ralf-notes init' to set up configuration or specify --path")
-        return False
+    import time
+    start_time = time.time()
+
+    initial_formatted_source_paths_cfg = [Path(p) for p in [config_manager.get("initial_formatted_dir", "./stage2_formatted")]]
+    if path:
+        _validate_path_exists(path, "path", console)
+        _validate_path_is_dir(path, "path", console)
+        initial_formatted_source_paths = [path]
+    else:
+        if not initial_formatted_source_paths_cfg:
+            console.error("No initial formatted paths configured! Cannot finalize documentation.")
+            console.info("Please run 'ralf-notes init' to set up your configuration or specify a path with 'ralf-notes finalize <path>'.")
+            return False
+        for p in initial_formatted_source_paths_cfg:
+            _validate_path_exists(p, "configured initial formatted path", console)
+            _validate_path_is_dir(p, "configured initial formatted path", console)
+        initial_formatted_source_paths = initial_formatted_source_paths_cfg
 
     final_output_dir = output if output else Path(config_manager.get("target_dir"))
+    _validate_path_is_writable(final_output_dir, "final_output", console) # Validate output directory
+
     review_needed_dir = review_output if review_output else Path(config_manager.get("review_needed_dir"))
+    _validate_path_is_writable(review_needed_dir, "review_output", console) # Validate review output directory
 
     if not quiet:
-        console.info(f"Initial formatted source folder: {initial_formatted_source_paths[0]}")
-        console.info(f"Final output folder: {final_output_dir}")
-        console.info(f"Review needed folder: {review_needed_dir}")
+        console.info(f"Initial Formatted Source Folder: {initial_formatted_source_paths[0]}")
+        console.info(f"Final Output Folder: {final_output_dir}")
+        console.info(f"Review Needed Folder: {review_needed_dir}")
         console.print("")
 
     final_output_dir.mkdir(parents=True, exist_ok=True)
@@ -506,21 +669,25 @@ def _finalize_logic(
                         file_path.rename(review_output_path)
                         failed_count += 1
                         if not quiet:
-                            console.warning(f"Validation failed for {file_path.name}. Moved to review needed.")
+                            console.warning(f"Validation failed for {file_path.name}. Moving to review needed: {review_output_path}")
                 else:
                     processed_count += 1 # In dry run, we still count as processed if it would have been.
 
             except Exception as e:
                 failed_count += 1
                 console.error(f"Failed to finalize {file_path.name}: {e}")
+                console.info("An error occurred during file movement or validation. Check permissions or file integrity.")
             progress.update(task, advance=1)
     
+    duration = time.time() - start_time
     results = {
         'total': processed_count + failed_count + skipped_count,
         'success': processed_count,
         'failed': failed_count,
         'skipped': skipped_count,
-        'dry_run': dry_run
+        'dry_run': dry_run,
+        'duration': duration,
+        'files_per_second': processed_count / duration if duration > 0 else 0
     }
     show_summary(results, console, quiet)
     return failed_count == 0
@@ -654,12 +821,18 @@ def generate(
     overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing documents"),
     quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
     model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name"),
+    delay: Optional[float] = typer.Option(None, "--delay", help="Delay between file processing in seconds. (Overrides config)"),
+    timeout: Optional[int] = typer.Option(None, "--timeout", help="Timeout for each LLM call in seconds. (Overrides config)"),
+    retries: Optional[int] = typer.Option(None, "--retries", help="Number of retry attempts for LLM calls. (Overrides config)"),
 ):
     """Generate Obsidian documentation from source files (Stage 1 + 2 + 3)"""
     console = Console(quiet=quiet)
     config_manager = ConfigManager()
 
-    if model: config_manager.set_model(model)
+    if model: config_manager.set("model_name", model)
+    if delay is not None: config_manager.set("request_delay_seconds", delay)
+    if timeout is not None: config_manager.set("request_timeout_seconds", timeout)
+    if retries is not None: config_manager.set("retry_attempts", retries)
 
     console.info("[bold green]--- Stage 1: Raw Content Generation ---[/bold green]")
     if not _generate_raw_logic(
@@ -781,7 +954,7 @@ def finalize(
 @app.command()
 def check_health():
     """
-    Checks the health of the RALF Note system, including Ollama connection.
+    Checks the health of the RALF Note system, including Ollama connection and model availability.
     """
     console = Console()
     config_manager = ConfigManager()
@@ -789,26 +962,30 @@ def check_health():
     ollama_host = config_manager.get("ollama_host")
     model_name = config_manager.get("model_name")
 
-    console.info(f"Checking Ollama connection to {ollama_host}...")
+    console.info(f"Attempting to connect to Ollama at {ollama_host}...")
     try:
         client = Client(host=ollama_host)
-        # Attempt to list models to verify connection
-        client.list()
+        client.list() # Attempt to list models to verify connection
         console.success(f"Successfully connected to Ollama at {ollama_host}")
     except Exception as e:
-        console.error(f"Failed to connect to Ollama at {ollama_host}: {e}")
+        console.error(f"Failed to connect to Ollama at {ollama_host}.")
+        console.info(f"Please ensure Ollama is running and accessible at this address. "
+                     f"You can change the host in the configuration ('ralf-notes init --set-ollama-host <new-host>').")
+        console.info(f"Error details: {e}")
         raise typer.Exit(1)
 
     console.info(f"Checking if model '{model_name}' is available...")
     try:
         client.show(model_name)
-        console.success(f"Model '{model_name}' is available.")
+        console.success(f"Model '{model_name}' is available and ready for use.")
     except Exception as e:
-        console.error(f"Model '{model_name}' is not available: {e}")
-        console.info(f"Please pull the model using: ollama pull {model_name}")
+        console.error(f"Model '{model_name}' is not available on your Ollama instance.")
+        console.info(f"Please pull the model using: [bold yellow]ollama pull {model_name}[/bold yellow].")
+        console.info(f"You can also change the configured model name ('ralf-notes init --set-model <new-model>').")
+        console.info(f"Error details: {e}")
         raise typer.Exit(1)
 
-    console.success("RALF Note health check passed!")
+    console.success("\nRALF Note health check passed! Your system is ready.")
 
 
 # ... (rest of the file)

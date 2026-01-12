@@ -13,6 +13,9 @@ from .structured_text_generator import StructuredTextGenerator
 from .text_parser import TextParser
 from .note_formatter import NoteFormatter
 from ollama._types import ResponseError
+import logging # ADD THIS IMPORT
+
+logger = logging.getLogger(__name__) # ADD THIS LINE
 
 
 class DocumentPipeline:
@@ -52,10 +55,12 @@ class DocumentPipeline:
             metadata contains: cached, valid, errors, data
         """
         filename = file_path.stem
+        logger.info("Generating document for file: %s", file_path) # ADD LOGGING
 
         try:
             # 1. Read file
             content = file_path.read_text(encoding='utf-8')
+            logger.debug("Read content for %s", filename) # ADD LOGGING
 
             # 2. Generate structured text (single LLM call!)
             context = GenerationContext(
@@ -63,15 +68,20 @@ class DocumentPipeline:
                 content=content,
                 file_path=str(file_path)
             )
-            raw_text = self.generator.generate(context)
+            raw_text = self.generator.generate(context) # CORRECTED LINE
+            logger.debug("Generated raw text for %s", filename) # ADD LOGGING
 
             # 3. Parse text
             parsed_data = self.parser.parse_or_fallback(raw_text, filename)
+            logger.debug("Parsed data for %s", filename) # ADD LOGGING
             
             # 4. Format markdown
             markdown = self.formatter.format(parsed_data)
+            logger.debug("Formatted markdown for %s", filename) # ADD LOGGING
 
             is_valid = "#parsing-failed" not in parsed_data.get("tags", [])
+            if not is_valid:
+                logger.warning("Generated document for %s is invalid (parsing failed tag present).", filename) # ADD LOGGING
 
             metadata = {
                 'cached': False,
@@ -79,11 +89,13 @@ class DocumentPipeline:
                 'errors': [] if is_valid else [parsed_data.get("details", "")],
                 'data': parsed_data
             }
+            logger.info("Document generation complete for %s", filename) # ADD LOGGING
 
             return (markdown, metadata)
 
         except ResponseError as oe:
             error_message = f"Ollama API Error: {oe}"
+            logger.error("Ollama API Error during generation for %s: %s", filename, error_message, exc_info=True) # ADD LOGGING
             error_markdown = f"""# {filename}
 
 > [!ERROR] Generation Failed: Ollama API Error
@@ -103,6 +115,7 @@ Manual review required."""
             # Error handling
             import traceback
             error_message = f"Unexpected Error during document generation: {e}\n{traceback.format_exc()}"
+            logger.error("Unexpected Error during generation for %s: %s", filename, error_message, exc_info=True) # ADD LOGGING
             error_markdown = f"""# {filename}
 
 > [!ERROR] Generation Failed: Unexpected Error

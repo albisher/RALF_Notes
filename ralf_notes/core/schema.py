@@ -9,9 +9,6 @@ UNIFIED_SYSTEM_PROMPT = '''Analyze this code file. Return ONLY the following str
 
 EXACT FORMAT:
 
-### FILENAME
-<filename_without_extension_only>
-
 ### TAGS
 #<tag1>, #<tag2>, #<tag3> (at least 2, max 10, comma-separated, starting with #)
 

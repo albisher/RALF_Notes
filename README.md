@@ -14,12 +14,15 @@ AI-powered documentation generator that transforms your code into beautiful Obsi
 
 - 🚀 **Single LLM Call** - 9x faster than multi-generator approach
 - 🎨 **Beautiful TUI** - Colored output, progress bars, ASCII art
-- 📦 **Unified JSON** - One structured response, deterministic formatting
+- 📝 **Unified Structured Text** - One structured response, deterministic formatting (replaces JSON)
 - 🏗️ **Clean Architecture** - Boxes methodology, OOP, dependency injection
 - 💻 **Professional CLI** - Typer-powered with intuitive commands
 - 📊 **Real-time Progress** - See exactly what's happening
 - 🔄 **Batch Processing** - Process entire codebases at once
-- 🎯 **Smart Validation** - Auto-fixes common issues
+- ✅ **Robust Input Validation** - Ensures correct usage and prevents errors
+- 🔒 **Rate Limiting & Retries** - Configurable delays, timeouts, and exponential backoff for LLM calls
+- 🪵 **Comprehensive Logging** - Detailed logs for debugging and monitoring
+- 🎯 **Smart Validation** - Auto-fixes common issues (where applicable)
 
 ---
 
@@ -44,12 +47,12 @@ pip install ralf-notes
 
 ```bash
 # Run interactive setup wizard
-ralf-notes setup
+ralf-notes init
 
 # This will:
-# 1. Create configuration
-# 2. Set up directories
-# 4. Guide you through first use
+# 1. Create configuration (at ~/.ralf-notes/config.json)
+# 2. Guide you through setting source paths, target directory, and Ollama model.
+# 3. Validate paths for existence and writability.
 ```
 
 ### Generate Documentation
@@ -74,16 +77,15 @@ That's it! Your documentation will be in your configured output directory.
 
 ```bash
 # Complete setup wizard (first-time users)
-ralf-notes setup
-
-# Initialize configuration
 ralf-notes init
 
 # Manage configuration
-ralf-notes config --show                    # View config
-ralf-notes config --add-source /path        # Add source directory
-ralf-notes config --set-target /path        # Set output directory
-ralf-notes config --set-model model-name    # Change model
+ralf-notes init --show                    # View config
+ralf-notes init --add-source /path        # Add source directory
+ralf-notes init --set-target /path        # Set output directory
+ralf-notes init --set-model model-name    # Change model
+ralf-notes init --set-log-level DEBUG     # Set logging level (DEBUG, INFO, WARNING, ERROR)
+ralf-notes init --set-log-file /path/to/log.log # Set custom log file
 
 # Check status
 ralf-notes status
@@ -112,6 +114,9 @@ ralf-notes generate --quiet
 
 # Use different model
 ralf-notes generate --model qwen2.5:14b
+
+# Apply rate limiting
+ralf-notes generate --delay 0.5 --timeout 60 --retries 5
 ```
 
 ### Testing & Info
@@ -121,7 +126,7 @@ ralf-notes generate --model qwen2.5:14b
 ralf-notes check-health
 
 # Show version
-ralf-notes version
+ralf-notes --version
 
 # Get help
 ralf-notes --help
@@ -166,12 +171,14 @@ RALF Note stores configuration at `~/.ralf-notes/config.json`
 
 ```bash
 # Interactive setup
-ralf-notes setup
+ralf-notes init
 
 # Or manually configure
-ralf-notes config --add-source ~/projects/my-app
-ralf-notes config --set-target ~/Documents/MyDocs
-ralf-notes config --set-model qwen2.5:14b
+ralf-notes init --add-source ~/projects/my-app
+ralf-notes init --set-target ~/Documents/MyDocs
+ralf-notes init --set-model qwen2.5:14b
+ralf-notes init --set-log-level DEBUG
+ralf-notes init --set-log-file /var/log/ralf-notes.log
 ```
 
 ### Configuration File
@@ -185,7 +192,12 @@ Default location: `~/.ralf-notes/config.json`
   "model_name": "ministral-3:3b",
   "ollama_host": "http://127.0.0.1:11434",
   "temperature": 0.1,
-  "num_ctx": 10000
+  "num_ctx": 10000,
+  "request_delay_seconds": 0.5,
+  "request_timeout_seconds": 60,
+  "retry_attempts": 5,
+  "log_level": "INFO",
+  "log_file": null
 }
 ```
 
@@ -195,27 +207,26 @@ Default location: `~/.ralf-notes/config.json`
 
 | Metric | Value |
 |--------|-------|
-| **Processing Time** | ~14s per file |
+| **Processing Time** | ~14s per file (will be affected by `--delay` and retries) |
 | **LLM Calls** | 1 per file (9x reduction!) |
-| **Batch 100 files** | ~23 minutes |
+| **Batch 100 files** | ~23 minutes (will be affected by `--delay` and retries) |
 | **Code Complexity** | 58% less than V1 |
 
 ---
 
 ## 🏗️ Architecture
 
-RALF Note v2.0 uses a unified JSON approach:
+RALF Note v2.0 uses a **unified structured text approach**:
 
 ```
-File → JSONGenerator → JSONExtractor → JSONValidator → MarkdownFormatter → Obsidian MD
-         (1 LLM call)   (Parse JSON)    (Validate)      (Format)         (Beautiful!)
+File → StructuredTextGenerator → TextParser → MarkdownFormatter → Obsidian MD
+          (1 LLM call)        (Parse text)    (Format)         (Beautiful!)
 ```
 
 ### Key Components
 
-- **JSONGenerator** - Single LLM call for all sections
-- **JSONExtractor** - Robust JSON parsing with fallbacks
-- **JSONValidator** - Schema validation and auto-fixing
+- **StructuredTextGenerator** - Single LLM call for all sections
+- **TextParser** - Robust structured text parsing with fallbacks
 - **MarkdownFormatter** - Deterministic markdown generation
 - **DocumentPipeline** - Orchestrates the flow
 - **FileProcessor** - Batch processing with progress
@@ -229,22 +240,27 @@ All following **Boxes methodology** with clean OOP design.
 
 ```
 RALF_Notes/
-├── core_v2/              # Core components
-│   ├── models.py         # Data models
-│   ├── json_generator.py # LLM interaction
-│   ├── json_extractor.py # JSON parsing
-│   ├── json_validator.py # Validation
-│   ├── markdown_formatter.py # Formatting
-│   ├── document_pipeline.py  # Orchestration
-│   └── file_processor.py     # Batch processing
-├── tui/                  # Terminal UI
-│   ├── console.py        # Rich console
-│   ├── progress.py       # Progress bars
-│   └── ascii_art.py      # ASCII banners
+├── ralf_notes/           # Core components and CLI
+│   ├── core/             # Core logic
+│   │   ├── models.py     # Data models
+│   │   ├── structured_text_generator.py # LLM interaction
+│   │   ├── text_parser.py # Text parsing
+│   │   ├── note_formatter.py # Formatting
+│   │   ├── document_pipeline.py  # Orchestration
+│   │   └── file_processor.py     # Batch processing
+│   ├── tui/              # Terminal UI
+│   │   ├── console.py    # Rich console
+│   │   ├── progress.py   # Progress bars
+│   │   └── ascii_art.py  # ASCII banners
+│   ├── utils/            # Utility functions
+│   │   └── logger.py     # Centralized logging setup
+│   ├── config_manager.py # Configuration management
+│   ├── cli.py            # Main CLI commands
+│   └── version.py        # Version info
 ├── roadmap/              # Implementation docs
-├── ralf.py               # Main CLI
-├── config.py             # Configuration
-└── LICENSE               # License terms
+├── tests/                # Unit and integration tests
+├── LICENSE               # License terms
+└── README.md             # Project overview
 ```
 
 ---
@@ -297,7 +313,10 @@ Required libraries and modules
 | **Code Lines** | ~1,437 | ~600 |
 | **TUI** | None | Beautiful! |
 | **Complexity** | High | Low |
-| **Speed** | ~15s/file | ~14s/file |
+| **Speed** | ~15s/file | ~14s/file (affected by rate limiting) |
+| **Rate Limiting** | None | Configurable delays, timeouts, retries |
+| **Logging** | Basic prints | Comprehensive file/console logging |
+| **Input Validation** | Minimal | Robust path and numeric validation |
 
 ---
 
@@ -313,9 +332,11 @@ Required libraries and modules
 
 ## 📚 Documentation
 
+- **User Guide:** [docs/USER_GUIDE.md](docs/USER_GUIDE.md)
 - **Quick Start:** [QUICK_START_V2.md](QUICK_START_V2.md)
 - **Implementation:** [V2_IMPLEMENTATION_COMPLETE.md](V2_IMPLEMENTATION_COMPLETE.md)
 - **Roadmap:** [roadmap/README.md](roadmap/README.md)
+- **Troubleshooting:** [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 - **Archive:** [ARCHIVE_SUMMARY.md](ARCHIVE_SUMMARY.md)
 
 ---
@@ -346,27 +367,6 @@ By contributing, you agree that your contributions will be licensed under the sa
 - 💰 **Paid for teams** - $1/month/user for businesses
 - 🚫 **No commercial forks** - Can't create competing products
 - 📧 **Contact for licensing:** [abalbisher@gmail.com](mailto:abalbisher@gmail.com)
-
----
-
-## 🐛 Troubleshooting
-
-### "ModuleNotFoundError: No module named 'typer'"
-```bash
-pip install typer rich ollama
-```
-
-### "Failed to connect to Ollama"
-```bash
-# Start Ollama
-ollama serve
-
-# Pull model
-ollama pull ministral-3:3b
-```
-
-### "JSON parsing failed"
-This is normal! The fallback creates a warning document with debug info.
 
 ---
 

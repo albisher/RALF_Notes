@@ -105,10 +105,10 @@ class DocumentManager:
 class DocumentPipeline:
     """Orchestrates document generation flow."""
 
-class JSONExtractor:
-    """Extracts and parses JSON from text."""
+class TextParser:
+    """Extracts and parses structured text."""
 
-class MarkdownFormatter:
+class NoteFormatter:
     """Formats data as markdown."""
 ```
 
@@ -132,9 +132,9 @@ class SuperAdvancedGenerator(AdvancedGenerator):
 ```python
 class DocumentPipeline:
     def __init__(self,
-                 generator: Generator,
-                 parser: Parser,
-                 formatter: Formatter):
+                 generator: StructuredTextGenerator,
+                 parser: TextParser,
+                 formatter: NoteFormatter):
         self.generator = generator      # Composed
         self.parser = parser            # Composed
         self.formatter = formatter      # Composed
@@ -147,17 +147,17 @@ class DocumentPipeline:
 ```python
 class TextParser:
     # Public interface
-    def parse(self, raw_text: str) -> Dict[str, Any]:
+    def parse(self, raw_text: str, filename: str) -> Dict[str, Any]:
         """Parse text into structured data."""
         sections = self._split_into_sections(raw_text)
-        return self._build_parsed_data(sections)
+        return self._build_parsed_data(sections, filename)
 
     # Private implementation details
     def _split_into_sections(self, text: str) -> Dict[str, str]:
         """Internal: split text into sections."""
         ...
 
-    def _build_parsed_data(self, sections: Dict[str, str]) -> Dict[str, Any]:
+    def _build_parsed_data(self, sections: Dict[str, str], filename: str) -> Dict[str, Any]:
         """Internal: build final data structure."""
         ...
 ```
@@ -178,17 +178,17 @@ class DocumentPipeline:
     def __init__(self):
         # Creates its own dependencies - BAD!
         self.client = Client()
-        self.generator = Generator(self.client)
-        self.parser = Parser()
+        self.generator = StructuredTextGenerator(self.client)
+        self.parser = TextParser()
 ```
 
 ✅ **Good - Dependency Injection:**
 ```python
 class DocumentPipeline:
     def __init__(self,
-                 generator: Generator,    # Injected
-                 parser: Parser,          # Injected
-                 formatter: Formatter):   # Injected
+                 generator: StructuredTextGenerator,    # Injected
+                 parser: TextParser,          # Injected
+                 formatter: NoteFormatter):   # Injected
         """All dependencies passed in constructor."""
         self.generator = generator
         self.parser = parser
@@ -346,7 +346,8 @@ class FileProcessor:
         """Initialize with pipeline."""
         self.pipeline: DocumentPipeline = pipeline
 
-    def process_paths(self,
+    def process_paths(
+                      self,
                       source_paths: List[Path],
                       target_dir: Path,
                       dry_run: bool = False,
@@ -580,9 +581,9 @@ from pathlib import Path
 from ollama import Client
 
 
-# ============================================================================
+# ============================================================================ 
 # MODELS (Dataclasses)
-# ============================================================================
+# ============================================================================ 
 
 @dataclass
 class GeneratorConfig:
@@ -604,13 +605,16 @@ class GenerationContext:
 
     Input: File information
     Output: Context for generation
-    Responsibility: Hold file data and metadata
+    Responsibility: Hold file data and metadata for processing
     """
+    # Required fields
     filename: str
     content: str
     file_path: str
-    metadata: Dict[str, Any] = field(default_factory=dict)
 
+    # Optional fields with defaults
+    metadata: Dict[str, Any] = field(default_factory=dict)
+    created: datetime = field(default_factory=datetime.now)
 
 @dataclass
 class GenerationResult:
@@ -624,17 +628,17 @@ class GenerationResult:
     errors: List[str] = field(default_factory=list)
 
 
-# ============================================================================
+# ============================================================================ 
 # COMPONENTS (Classes with DI)
-# ============================================================================
+# ============================================================================ 
 
-class TextGenerator:
+class StructuredTextGenerator:
     """
-    Box: Text Generator
+    Box: Structured Text Generator
 
     Input: GenerationContext
-    Output: Raw text from LLM
-    Responsibility: Generate documentation text via LLM
+    Output: Raw structured text from LLM
+    Responsibility: Generate structured analysis via LLM
     """
 
     def __init__(self,
@@ -696,23 +700,25 @@ class TextParser:
     """
     Box: Text Parser
 
-    Input: Raw LLM text
+    Input: Raw LLM text, filename
     Output: Parsed dictionary
     Responsibility: Parse structured text into data
     """
 
-    def parse(self, raw_text: str) -> Dict[str, Any]:
+    def parse(self, raw_text: str, filename: str) -> Dict[str, Any]:
         """
         Parse text into structured data.
 
         Args:
             raw_text: Raw text from LLM
+            filename: Name of the file being processed
 
         Returns:
             Parsed data dictionary
         """
         # Implementation
         return {
+            "filename": filename,
             "summary": self._extract_summary(raw_text),
             "tags": self._extract_tags(raw_text)
         }
@@ -728,9 +734,9 @@ class TextParser:
         return ["#tag1", "#tag2"]
 
 
-class MarkdownFormatter:
+class NoteFormatter:
     """
-    Box: Markdown Formatter
+    Box: Note Formatter
 
     Input: Parsed dictionary
     Output: Formatted markdown string
@@ -777,9 +783,9 @@ class DocumentPipeline:
     """
 
     def __init__(self,
-                 generator: TextGenerator,
+                 generator: StructuredTextGenerator,
                  parser: TextParser,
-                 formatter: MarkdownFormatter):
+                 formatter: NoteFormatter):
         """
         Initialize pipeline.
 
@@ -788,9 +794,9 @@ class DocumentPipeline:
             parser: Text parsing component
             formatter: Markdown formatting component
         """
-        self.generator: TextGenerator = generator
+        self.generator: StructuredTextGenerator = generator
         self.parser: TextParser = parser
-        self.formatter: MarkdownFormatter = formatter
+        self.formatter: NoteFormatter = formatter
 
     def generate_document(self, file_path: Path) -> GenerationResult:
         """
@@ -815,7 +821,7 @@ class DocumentPipeline:
             raw_text = self.generator.generate(context)
 
             # Parse
-            parsed_data = self.parser.parse(raw_text)
+            parsed_data = self.parser.parse(raw_text, context.filename) # Pass filename to parser
 
             # Format
             markdown = self.formatter.format(parsed_data)
@@ -834,9 +840,9 @@ class DocumentPipeline:
             )
 
 
-# ============================================================================
+# ============================================================================ 
 # COMPOSITION ROOT (Where DI happens)
-# ============================================================================
+# ============================================================================ 
 
 def build_pipeline(config: GeneratorConfig) -> DocumentPipeline:
     """
@@ -853,17 +859,17 @@ def build_pipeline(config: GeneratorConfig) -> DocumentPipeline:
     """
     # Create dependencies
     client = Client(host='http://127.0.0.1:11434')
-    generator = TextGenerator(client, config)
+    generator = StructuredTextGenerator(client, config)
     parser = TextParser()
-    formatter = MarkdownFormatter()
+    formatter = NoteFormatter()
 
     # Inject dependencies into pipeline
     return DocumentPipeline(generator, parser, formatter)
 
 
-# ============================================================================
+# ============================================================================ 
 # USAGE EXAMPLE
-# ============================================================================
+# ============================================================================ 
 
 if __name__ == '__main__':
     # Configure
@@ -883,214 +889,3 @@ if __name__ == '__main__':
     else:
         print(f"Errors: {result.errors}")
 ```
-
----
-
-## 🚫 Anti-Patterns to Avoid
-
-### 1. God Objects
-
-❌ **Bad:**
-```python
-class DocumentManager:
-    # Does everything - generates, parses, formats, saves, loads, validates...
-    def generate(self): pass
-    def parse(self): pass
-    def format(self): pass
-    def save(self): pass
-    def load(self): pass
-    def validate(self): pass
-```
-
-### 2. Hidden Dependencies
-
-❌ **Bad:**
-```python
-class Generator:
-    def generate(self):
-        client = Client()  # Hidden dependency!
-        return client.generate()
-```
-
-### 3. Primitive Obsession
-
-❌ **Bad:**
-```python
-def process(name: str, age: int, email: str, address: str): pass
-```
-
-✅ **Good:**
-```python
-@dataclass
-class User:
-    name: str
-    age: int
-    email: str
-    address: str
-
-def process(user: User): pass
-```
-
-### 4. Magic Numbers/Strings
-
-❌ **Bad:**
-```python
-if len(content) > 8000:  # Magic number!
-    content = content[:8000]
-```
-
-✅ **Good:**
-```python
-MAX_CONTENT_LENGTH = 8000
-
-if len(content) > MAX_CONTENT_LENGTH:
-    content = content[:MAX_CONTENT_LENGTH]
-```
-
-### 5. Shotgun Surgery
-
-If changing one concept requires editing many files, your separation of concerns is wrong.
-
----
-
-## 🎓 Learning Path
-
-### For New Developers
-
-1. **Start with Boxes** - Understand the Box pattern first
-2. **Learn DI** - Practice dependency injection
-3. **Study existing code** - Read RALF Notes codebase
-4. **Review PRs** - Learn from code reviews
-5. **Refactor practice** - Take anti-patterns and fix them
-
-### Resources
-
-- **Codebase:** RALF Notes (`/Users/amac/Documents/code/RALF_Notes/`)
-- **Verification:** `roadmap/05-boxes-oop-verification.md`
-- **Reviews:** `feedback/` directory
-- **Examples:** All files in `ralf_notes/core/`
-
----
-
-## 📞 Quick Reference Card
-
-```python
-# ALWAYS DO:
-"""Box: Name | Input: X | Output: Y | Responsibility: Z"""
-def method(self, param: Type) -> ReturnType:
-    """Docstring with Args and Returns."""
-
-@dataclass
-class Data:
-    """Data class with typed fields."""
-    field: Type
-
-class Component:
-    def __init__(self, dependency: Dependency):
-        self.dependency = dependency  # Injected
-
-# NEVER DO:
-- No Box documentation
-- No type hints
-- Creating dependencies inside class
-- Multiple responsibilities
-- Magic numbers
-- Bare except
-- Mutable default arguments
-```
-
----
-
-## ✅ Compliance Verification
-
-To verify code follows this style guide:
-
-```bash
-# Run type checker
-mypy ralf_notes/
-
-# Check for:
-1. Every class has Box docstring ✅
-2. Every method has type hints ✅
-3. All dependencies injected ✅
-4. No hardcoded values ✅
-5. Single responsibility per class ✅
-```
-
----
-
-## 📚 Appendix: Pattern Catalog
-
-### Pattern: Configuration Object
-
-```python
-@dataclass
-class ComponentConfig:
-    """Configuration for component."""
-    setting_a: str
-    setting_b: int
-    setting_c: float = 0.1
-
-class Component:
-    def __init__(self, config: ComponentConfig):
-        self.config = config
-```
-
-### Pattern: Result Object
-
-```python
-@dataclass
-class ProcessingResult:
-    """Results from processing."""
-    success: bool
-    data: Optional[Any] = None
-    errors: List[str] = field(default_factory=list)
-```
-
-### Pattern: Context Object
-
-```python
-@dataclass
-class ProcessingContext:
-    """Context for processing operation."""
-    input_data: str
-    metadata: Dict[str, Any] = field(default_factory=dict)
-```
-
-### Pattern: Builder Function
-
-```python
-def build_component(config: Config) -> Component:
-    """Build component with dependencies."""
-    dep_a = DependencyA()
-    dep_b = DependencyB()
-    return Component(dep_a, dep_b, config)
-```
-
----
-
-**Document Version:** 1.0
-**Last Updated:** 2026-01-10
-**Status:** Canonical Reference
-
-This guide represents the authoritative programming style for this project. All code must conform to these patterns.
-
----
-
-## 🎯 How to Use This Guide in Future Conversations
-
-**To have Claude apply this style, include this at the start of your conversation:**
-
-```
-I need code written following my programming style guide at:
-/Users/amac/Documents/code/RALF_Notes/docs/PROGRAMMING_STYLE_GUIDE.md
-
-Key patterns:
-- Boxes methodology (Input/Output/Responsibility)
-- OOP with dependency injection
-- Type hints on everything
-- Dataclasses for models
-- Single Responsibility Principle
-```
-
-Or simply say: **"Follow the RALF Notes programming style"** and reference this guide.

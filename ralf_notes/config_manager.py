@@ -31,7 +31,14 @@ class ConfigManager:
         "chunk_size": 100000,
         "max_content_length": 8000,
         "max_chunk_summary_length": 4000,
-        "max_files_to_process": 0  # 0 for no limit
+        "max_files_to_process": 0,  # 0 for no limit
+        "request_delay_seconds": 0,  # 0 = no delay
+        "request_timeout_seconds": 300,  # 5 minutes
+        "retry_attempts": 3,
+        "initial_backoff_seconds": 1,
+        "backoff_multiplier": 2,
+        "log_level": "INFO",  # DEBUG, INFO, WARNING, ERROR
+        "log_file": None,  # None = default location
     }
 
     def __init__(self, config_path: Optional[Path] = None):
@@ -82,10 +89,11 @@ class ConfigManager:
         "max_content_length": lambda x: isinstance(x, int) and x > 0,
         "max_chunk_summary_length": lambda x: isinstance(x, int) and x > 0,
         "max_files_to_process": lambda x: isinstance(x, int) and x >= 0,
-        "stage1_raw_output_dir": lambda x: isinstance(x, str),
-        "initial_formatted_dir": lambda x: isinstance(x, str),
-        "review_needed_dir": lambda x: isinstance(x, str),
-        "ollama_host": lambda x: isinstance(x, str) and (x.startswith("http://") or x.startswith("https://"))
+        "request_delay_seconds": lambda x: isinstance(x, (int, float)) and x >= 0,
+        "request_timeout_seconds": lambda x: isinstance(x, int) and x > 0,
+        "ollama_host": lambda x: isinstance(x, str) and (x.startswith("http://") or x.startswith("https://")),
+        "log_level": lambda x: x in ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+        "log_file": lambda x: x is None or isinstance(x, str)
     }
 
     def set(self, key: str, value: Any):

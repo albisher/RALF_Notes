@@ -1,10 +1,13 @@
 import time
 import random
-from typing import List, Optional
+import logging
+from typing import List, Optional, Dict, Any
 from ollama import Client
 
-from .models import ModelBenchmarkResults, SystemProfile, ContextTest, ChunkTest
+from .models import ModelBenchmarkResults, SystemProfile, ContextTest, ChunkTest, BenchmarkConfig # Import BenchmarkConfig
 from .sample_generator import SampleCodeGenerator
+
+logger = logging.getLogger(__name__)
 
 class ModelBenchmarker:
     """
@@ -27,7 +30,9 @@ class ModelBenchmarker:
         self,
         model_name: str,
         profile: SystemProfile,
-        benchmark_config: 'BenchmarkConfig'
+        benchmark_config: BenchmarkConfig,
+        progress: Any = None, # ADD progress object
+        main_task_id: Any = None # ADD main task ID
     ) -> ModelBenchmarkResults:
         """
         Benchmark model with different settings.
@@ -40,6 +45,7 @@ class ModelBenchmarker:
         Returns:
             Complete benchmark results with recommendations
         """
+        logger.info("Starting benchmark for model: %s with intensity: %s", model_name, benchmark_config.intensity)
         if benchmark_config.intensity == "quick":
             context_test_sizes = [4096, 8192]
             chunk_test_sizes = [100000]
@@ -53,19 +59,35 @@ class ModelBenchmarker:
         context_tests = self._benchmark_context_sizes(
             model_name,
             profile,
-            test_sizes=context_test_sizes
+            test_sizes=context_test_sizes,
+            timeout=benchmark_config.request_timeout_seconds,
+            progress=progress, # Pass progress
+            main_task_id=main_task_id # Pass main task ID
         )
+        logger.debug("Context size benchmarks completed.")
+        if progress and main_task_id is not None:
+            progress.update(main_task_id, advance=len(context_test_sizes) * 3) # Each context test has 3 attempts
+
 
         chunk_tests = self._benchmark_chunk_sizes(
             model_name,
             profile,
-            test_sizes=chunk_test_sizes
+            test_sizes=chunk_test_sizes,
+            timeout=benchmark_config.request_timeout_seconds,
+            progress=progress, # Pass progress
+            main_task_id=main_task_id # Pass main task ID
         )
+        logger.debug("Chunk size benchmarks completed.")
+        if progress and main_task_id is not None:
+            progress.update(main_task_id, advance=len(chunk_test_sizes) * 3) # Each chunk test has 3 attempts
 
         optimal_ctx = self._find_optimal_context(context_tests, profile)
         optimal_chunk = self._find_optimal_chunk(chunk_tests, profile)
         optimal_content = self._calculate_optimal_content_length(optimal_ctx)
-        optimal_temp = self._find_optimal_temperature(model_name)
+        optimal_temp = self._find_optimal_temperature(model_name) # This should actually be benchmarked
+
+        logger.info("Benchmark complete for %s. Optimal ctx: %d, chunk: %d, content: %d, temp: %.1f",
+                    model_name, optimal_ctx, optimal_chunk, optimal_content, optimal_temp)
 
         return ModelBenchmarkResults(
             model_name=model_name,
@@ -81,59 +103,79 @@ class ModelBenchmarker:
         self,
         model_name: str,
         profile: SystemProfile,
-        test_sizes: List[int]
+        test_sizes: List[int],
+        timeout: int,
+        progress: Any = None, # ADD progress object
+        main_task_id: Any = None # ADD main task ID
     ) -> List[ContextTest]:
         """
-        Test different context window sizes.
-        
-        Args:
-            model_name: The name of the model to benchmark.
-            profile: The system profile for resource constraints.
-            test_sizes: A list of context sizes to test.
-            
-        Returns:
-            A list of ContextTest results.
+        Test different context window sizes using actual LLM calls.
         """
         results = []
-        sample_code = self.sample_generator.generate_sample()
+        base_sample_code = self.sample_generator.generate_long_sample(max_length=max(test_sizes) * 2) # Use a larger sample for context tests
+        
+        if progress and main_task_id is not None:
+            context_task_id = progress.add_task(f"[cyan]Benchmarking Context Sizes ({model_name})...", total=len(test_sizes) * 3, parent=main_task_id) # 3 attempts per size
 
         for size in test_sizes:
+            logger.debug("Benchmarking context size: %d for model %s", size, model_name)
+            if progress and context_task_id is not None:
+                progress.update(context_task_id, description=f"[cyan]Benchmarking Context Size: {size}")
+
             estimated_memory = self._estimate_memory_usage(size)
             if estimated_memory > profile.available_ram_gb * 0.8 * 1024:
-                print(f"Skipping context size {size}: requires too much memory.")
+                logger.warning("Skipping context size %d: estimated memory usage %.2fMB exceeds 80%% of available RAM (%.2fMB).",
+                               size, estimated_memory, profile.available_ram_gb * 0.8 * 1024)
+                if progress and context_task_id is not None:
+                    progress.update(context_task_id, advance=3) # Advance for skipped attempts
                 continue
 
             latencies = []
             successes = 0
             memory_usages = []
+            quality_scores = []
+            response_text = ""
 
-            for _ in range(3):
+            current_sample_code = base_sample_code[:size]
+
+            for _ in range(3): # Run multiple times for average
                 try:
                     start = time.time()
                     memory_before = self._get_memory_usage()
 
-                    # In a real scenario, this would be an actual LLM call
-                    # For now, simulate it
-                    time.sleep(0.1 + (size / 100000.0)) # Simulate latency based on size
-                    response_text = '{"key": "value"}' if random.random() > 0.1 else "invalid json"
+                    response = self.client.generate(
+                        model=model_name,
+                        system="Return a summary of the provided code.",
+                        prompt=f"Code:\n{current_sample_code}",
+                        options={"num_ctx": size, "temperature": 0.1, "timeout": timeout}
+                    )
+                    response_text = response['response']
 
                     latencies.append((time.time() - start) * 1000)
                     successes += 1
                     memory_after = self._get_memory_usage()
                     memory_usages.append(memory_after - memory_before)
+                    quality_scores.append(self._evaluate_quality(response_text))
+                    logger.debug("Context size %d test successful (attempt %d). Latency: %.2fms", size, _ + 1, latencies[-1])
                 except Exception as e:
-                    print(f"Error during context size benchmark for size {size}: {e}")
+                    logger.error("Error during context size benchmark for size %d (attempt %d): %s", size, _ + 1, e)
+                finally:
+                    if progress and context_task_id is not None:
+                        progress.update(context_task_id, advance=1)
 
             if latencies:
                 avg_latency = sum(latencies) / len(latencies)
                 avg_memory_usage = sum(memory_usages) / len(memory_usages) if memory_usages else 0
+                avg_quality_score = sum(quality_scores) / len(quality_scores) if quality_scores else 0
                 results.append(ContextTest(
                     num_ctx=size,
                     avg_latency_ms=avg_latency,
-                    success_rate=successes / 3.0,
+                    success_rate=float(successes) / 3.0,
                     memory_usage_mb=avg_memory_usage,
-                    quality_score=self._evaluate_quality(response_text)
+                    quality_score=avg_quality_score
                 ))
+            else:
+                logger.warning("No successful runs for context size %d.", size)
 
         return results
 
@@ -141,35 +183,80 @@ class ModelBenchmarker:
         self,
         model_name: str,
         profile: SystemProfile,
-        test_sizes: List[int]
+        test_sizes: List[int],
+        timeout: int,
+        progress: Any = None, # ADD progress object
+        main_task_id: Any = None # ADD main task ID
     ) -> List[ChunkTest]:
         """
-        Test different chunk sizes for large file summarization.
-        
-        Args:
-            model_name: The name of the model to benchmark.
-            profile: The system profile for resource constraints.
-            test_sizes: A list of chunk sizes to test.
-
-        Returns:
-            A list of ChunkTest results.
+        Test different chunk sizes for large file summarization using actual LLM calls.
         """
         results = []
-        
-        for size in test_sizes:
-            # This is a simplified placeholder
-            avg_latency = 500 + (size / 2000)
-            success_rate = 1.0
-            memory_usage = 50 + (size / 20000)
-            response_text = '{"summary": "This is a chunk summary."}'
+        large_sample_code = self.sample_generator.generate_long_sample(max_length=max(test_sizes) * 2)
 
-            results.append(ChunkTest(
-                chunk_size=size,
-                avg_latency_ms=avg_latency,
-                success_rate=success_rate,
-                memory_usage_mb=memory_usage,
-                quality_score=self._evaluate_quality(response_text)
-            ))
+        if progress and main_task_id is not None:
+            chunk_task_id = progress.add_task(f"[cyan]Benchmarking Chunk Sizes ({model_name})...", total=len(test_sizes) * 3, parent=main_task_id) # 3 attempts per size
+
+        for size in test_sizes:
+            logger.debug("Benchmarking chunk size: %d for model %s", size, model_name)
+            if progress and chunk_task_id is not None:
+                progress.update(chunk_task_id, description=f"[cyan]Benchmarking Chunk Size: {size}")
+            
+            current_chunk = large_sample_code[:size]
+
+            estimated_memory = self._estimate_memory_usage(size)
+            if estimated_memory > profile.available_ram_gb * 0.8 * 1024:
+                logger.warning("Skipping chunk size %d: estimated memory usage %.2fMB exceeds 80%% of available RAM (%.2fMB).",
+                               size, estimated_memory, profile.available_ram_gb * 0.8 * 1024)
+                if progress and chunk_task_id is not None:
+                    progress.update(chunk_task_id, advance=3) # Advance for skipped attempts
+                continue
+
+            latencies = []
+            successes = 0
+            memory_usages = []
+            quality_scores = []
+            response_text = ""
+
+            for _ in range(3): # Run multiple times for average
+                try:
+                    start = time.time()
+                    memory_before = self._get_memory_usage()
+
+                    response = self.client.generate(
+                        model=model_name,
+                        system="Return a concise summary of the provided code chunk in structured text format: ### SUMMARY\n<summary>",
+                        prompt=f"Code chunk:\n{current_chunk}",
+                        options={"num_ctx": size, "temperature": 0.1, "timeout": timeout}
+                    )
+                    response_text = response['response']
+
+                    latencies.append((time.time() - start) * 1000)
+                    successes += 1
+                    memory_after = self._get_memory_usage()
+                    memory_usages.append(memory_after - memory_before)
+                    quality_scores.append(self._evaluate_quality(response_text, expect_structured_summary=True))
+                    logger.debug("Chunk size %d test successful (attempt %d). Latency: %.2fms", size, _ + 1, latencies[-1])
+                except Exception as e:
+                    logger.error("Error during chunk size benchmark for size %d (attempt %d): %s", size, _ + 1, e)
+                finally:
+                    if progress and chunk_task_id is not None:
+                        progress.update(chunk_task_id, advance=1)
+
+            if latencies:
+                avg_latency = sum(latencies) / len(latencies)
+                avg_memory_usage = sum(memory_usages) / len(memory_usages) if memory_usages else 0
+                avg_quality_score = sum(quality_scores) / len(quality_scores) if quality_scores else 0
+                results.append(ChunkTest(
+                    chunk_size=size,
+                    avg_latency_ms=avg_latency,
+                    success_rate=float(successes) / 3.0,
+                    memory_usage_mb=avg_memory_usage,
+                    quality_score=avg_quality_score
+                ))
+            else:
+                logger.warning("No successful runs for chunk size %d.", size)
+
         return results
 
 
@@ -182,34 +269,33 @@ class ModelBenchmarker:
         Find optimal context size balancing speed, quality, and resources.
 
         Strategy:
-        1. Filter out tests with low success rate (<90%)
+        1. Filter out tests with low success rate (<90%) and low quality (<0.7)
         2. Find the largest context that doesn't exceed memory budget
         3. Prefer larger contexts if latency difference is < 20%
         """
-        good_tests = [t for t in tests if t.success_rate >= 0.9]
+        logger.debug("Finding optimal context size from %d tests.", len(tests))
+        good_tests = [t for t in tests if t.success_rate >= 0.9 and t.quality_score >= 0.7]
         if not good_tests:
+            logger.warning("No good context tests found. Returning safe default 8192.")
             return 8192  # Safe default
 
-        memory_budget_mb = profile.available_ram_gb * 0.5 * 1024
+        memory_budget_mb = profile.available_ram_gb * 0.5 * 1024 # Use 50% of available RAM
         memory_ok_tests = [t for t in good_tests if t.memory_usage_mb < memory_budget_mb]
 
         if not memory_ok_tests:
-            return min((t.num_ctx for t in good_tests), default=8192)
+            logger.warning("No context tests fit memory budget. Returning largest context from good tests.")
+            return max((t.num_ctx for t in good_tests), default=8192)
 
-        sorted_tests = sorted(memory_ok_tests, key=lambda t: t.num_ctx, reverse=True)
-        if len(sorted_tests) <= 1:
-            return sorted_tests[0].num_ctx
-
-        baseline_latency = sorted(sorted_tests, key=lambda t: t.num_ctx)[0].avg_latency_ms
-        if baseline_latency == 0:
-            return sorted_tests[0].num_ctx
-
-        for test in sorted_tests:
-            latency_increase = (test.avg_latency_ms - baseline_latency) / baseline_latency
-            if latency_increase <= 0.20:
-                return test.num_ctx
-
-        return sorted_tests[-1].num_ctx
+        # Prioritize larger contexts with good quality and reasonable latency
+        # Sort by quality then context size
+        sorted_tests = sorted(memory_ok_tests, key=lambda t: (t.quality_score, t.num_ctx), reverse=True)
+        
+        # Pick the best quality and largest context that meets criteria
+        # For simplicity, pick the first one from the sorted list
+        optimal_test = sorted_tests[0]
+        logger.info("Optimal context found: %d (Latency: %.2fms, Quality: %.2f)",
+                    optimal_test.num_ctx, optimal_test.avg_latency_ms, optimal_test.quality_score)
+        return optimal_test.num_ctx
 
     def _find_optimal_chunk(
         self,
@@ -217,20 +303,32 @@ class ModelBenchmarker:
         profile: SystemProfile
     ) -> int:
         """
-        Find optimal chunk size.
-        Simplified for now, just picks the largest successful chunk size that fits in memory.
+        Find optimal chunk size balancing speed, quality, and resources.
+        
+        Strategy:
+        1. Filter out tests with low success rate (<90%) and low quality (<0.7)
+        2. Find the largest chunk that doesn't exceed memory budget
+        3. Prefer larger chunks for better content processing per call
         """
-        good_tests = [t for t in tests if t.success_rate >= 0.9]
+        logger.debug("Finding optimal chunk size from %d tests.", len(tests))
+        good_tests = [t for t in tests if t.success_rate >= 0.9 and t.quality_score >= 0.7]
         if not good_tests:
+            logger.warning("No good chunk tests found. Returning safe default 100000.")
             return 100000
 
-        memory_budget_mb = profile.available_ram_gb * 0.5 * 1024
+        memory_budget_mb = profile.available_ram_gb * 0.5 * 1024 # Use 50% of available RAM
         memory_ok_tests = [t for t in good_tests if t.memory_usage_mb < memory_budget_mb]
 
         if not memory_ok_tests:
+            logger.warning("No chunk tests fit memory budget. Returning largest chunk from good tests.")
             return max((t.chunk_size for t in good_tests), default=100000)
         
-        return max(t.chunk_size for t in memory_ok_tests)
+        # Prioritize larger chunks with good quality
+        sorted_tests = sorted(memory_ok_tests, key=lambda t: (t.quality_score, t.chunk_size), reverse=True)
+        optimal_test = sorted_tests[0]
+        logger.info("Optimal chunk found: %d (Latency: %.2fms, Quality: %.2f)",
+                    optimal_test.chunk_size, optimal_test.avg_latency_ms, optimal_test.quality_score)
+        return optimal_test.chunk_size
 
 
     def _calculate_optimal_content_length(self, optimal_num_ctx: int) -> int:
@@ -238,23 +336,51 @@ class ModelBenchmarker:
         Calculate optimal max content length for a single prompt.
         Heuristic: Assumes content should take up about 75% of the context window.
         """
-        return int(optimal_num_ctx * 0.75)
+        content_length = int(optimal_num_ctx * 0.75)
+        logger.debug("Calculated optimal content length: %d based on context %d", content_length, optimal_num_ctx)
+        return content_length
 
     def _find_optimal_temperature(self, model_name: str) -> float:
         """
         Determine optimal temperature for a given model.
-        Returns a fixed low temperature for consistent JSON output.
+        Returns a fixed low temperature for consistent structured text output.
         """
-        return 0.1
+        logger.debug("Determining optimal temperature for %s. Fixed to 0.1 for structured text.", model_name)
+        return 0.1 # Fixed low temperature for consistent structured text output
 
-    def _evaluate_quality(self, response_text: str) -> float:
+    def _evaluate_quality(self, response_text: str, expect_structured_summary: bool = False) -> float:
         """
         Evaluates the quality of the LLM's response.
-        Placeholder that gives a higher score if it looks like JSON.
+        Checks for structured text format compliance and content.
+        Score from 0.0 to 1.0.
         """
-        if response_text and '{' in response_text and '}' in response_text:
-            return 0.9 + random.uniform(-0.1, 0.1) # High score for JSON-like
-        return 0.2 + random.uniform(-0.1, 0.1) # Low score otherwise
+        score = 0.0
+        # Basic check for structured text format
+        if "### SUMMARY" in response_text and "### TAGS" in response_text and "### TYPE" in response_text:
+            score += 0.5 # Base score for structured format
+
+        if expect_structured_summary:
+            if "### SUMMARY" in response_text and len(response_text.split("### SUMMARY")[-1].strip()) > 10:
+                score += 0.3 # Higher score if summary content is present
+        else:
+            if "### FILENAME" not in response_text: # Filename is no longer expected from LLM, good.
+                score += 0.1
+            if len(response_text) > 100: # Ensure some content is generated
+                score += 0.1
+
+        # Check for presence of key structured text markers
+        expected_markers = ["### SUMMARY", "### TAGS", "### TYPE", "### KEY_FUNCTIONS", "### DEPENDENCIES", "### USAGE", "### RELATED", "### CALLOUTS"]
+        found_markers = sum(1 for marker in expected_markers if marker in response_text)
+        score += (found_markers / len(expected_markers)) * 0.3 # Contribution from finding markers
+
+        # Deduct for presence of unexpected markers (e.g., if it tries to generate FILENAME)
+        if "### FILENAME" in response_text:
+            score -= 0.2
+
+        # Ensure score is within 0-1 range
+        final_score = max(0.0, min(1.0, score + random.uniform(-0.05, 0.05))) # Add a small random jitter
+        logger.debug("Evaluated quality: %.2f for response: %s...", final_score, response_text[:100].replace('\n', ' '))
+        return final_score
 
     def _get_memory_usage(self) -> float:
         """
@@ -271,4 +397,4 @@ class ModelBenchmarker:
         Simulates estimating memory usage for a given context size in MB.
         """
         # Very rough estimate: (tokens * bytes_per_token) + base_overhead
-        return (num_ctx * 1.5) / (1024 * 1024) + 50 # Base 50MB overhead
+        return (num_ctx * 1.5) / 1024 / 1024 * 1024 + 50 # Base 50MB overhead, converted to MB
