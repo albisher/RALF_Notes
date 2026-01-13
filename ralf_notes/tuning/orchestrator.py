@@ -110,3 +110,9 @@ class BenchmarkOrchestrator:
                 progress.complete(main_task)
             
             return optimized_config
+
+        except Exception as e:
+            self.console.error(f"A critical error occurred during benchmarking: {e}")
+            import traceback
+            traceback.print_exc()
+            raise
