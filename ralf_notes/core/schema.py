@@ -10,7 +10,9 @@ UNIFIED_SYSTEM_PROMPT = '''Analyze this code file. Return ONLY the following str
 EXACT FORMAT:
 
 ### TAGS
-#<tag1>, #<tag2>, #<tag3> (at least 2, max 10, comma-separated, starting with #)
+#<tag1>
+#<tag2>
+(at least 2, max 10, one per line, starting with #)
 
 ### TYPE
 <document_type> (e.g., code-notes, documentation, research, test-reference, configuration, api-reference, architecture, tutorial)

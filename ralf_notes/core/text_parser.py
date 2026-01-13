@@ -158,12 +158,20 @@ class TextParser:
         return content.strip()
 
     def _parse_tags(self, content: str) -> List[str]:
-        """Parses comma-separated tags into a list."""
+        """Parses tags into a list (supports comma-separated or one-per-line)."""
         if not content:
             return []
-        tags = [tag.strip() for tag in content.split(',') if tag.strip().startswith('#')]
-        logger.debug("Parsed tags: %s", tags) # ADD LOGGING
-        return tags
+        
+        # Split by newline first, then by comma to support both formats
+        raw_tags = []
+        for line in content.split('\n'):
+            for tag in line.split(','):
+                cleaned_tag = tag.strip()
+                if cleaned_tag.startswith('#'):
+                    raw_tags.append(cleaned_tag)
+        
+        logger.debug("Parsed tags: %s", raw_tags) # ADD LOGGING
+        return raw_tags
 
     def _parse_key_functions(self, content: str) -> List[Dict[str, str]]:
         """Parses a bulleted list of key functions."""
