@@ -70,6 +70,7 @@ class ThroughputTest:
     delay: float
     throughput_fps: float
     total_time: float
+    successful_requests: int
 
 @dataclass
 class ThroughputBenchmarkResults:
