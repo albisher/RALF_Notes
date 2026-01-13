@@ -1000,6 +1000,24 @@ tags_app = typer.Typer(
 )
 app.add_typer(tags_app, name="tags")
 
+@tags_app.callback(invoke_without_command=True)
+def _tags_default_welcome(ctx: typer.Context):
+    """
+    Displays welcome message and basic instructions for tags commands if no subcommand is given.
+    """
+    if ctx.invoked_subcommand is None:
+        console = Console()
+        console.info("Welcome to RALF Note Tag Management!")
+        console.print("")
+        console.print("[bold]To manage tags:[/bold]")
+        console.print("  1. Run [bold green]ralf-notes tags analyze[/bold green] to generate a refinement guide.")
+        console.print("  2. Review the generated guide (e.g., [green]tag_refinement_guide.json[/green]).")
+        console.print("  3. Run [bold green]ralf-notes tags apply[/bold green] to apply the refinements.")
+        console.print("  4. Use [bold green]ralf-notes tags stats[/bold green] to view current tag statistics.")
+        console.print("")
+        console.print("For more information, run [bold green]ralf-notes tags --help[/bold green].")
+        raise typer.Exit()
+
 
 @tags_app.command("analyze")
 def tags_analyze(

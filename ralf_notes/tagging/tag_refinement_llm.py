@@ -29,29 +29,29 @@ class TagRefinementLLM:
 3. **No separators in tags:** Tags must not contain spaces, hyphens, underscores, or other separators within the single word (e.g., NOT #data-processing, NOT #data_processing). If a concept requires multiple words, either find a single word equivalent or consider it a compound tag which should be suggested for merging into a single word, or removed.
 
 **Output Format (JSON):**
-{
+{{
   "refinements": [
-    {
+    {{
       "old_tags": ["#sensor-config", "#sensor-configuration"],
       "new_tag": "#sensorconfig",
       "reason": "Standardize naming, prefer shorter form and enforce single word rule"
-    },
-    {
+    }},
+    {{
       "old_tags": ["#data-processing", "#datahandler"],
       "new_tag": "#dataprocessing",
       "reason": "Consolidate related data operations and enforce single word rule"
-    }
+    }}
   ],
   "new_tags": [
-    {
+    {{
       "tag": "#corearchitecture",
       "reason": "Group all architectural tags",
       "merge_from": ["#architecture", "#design", "#structure"]
-    }
+    }}
   ],
   "keep_as_is": ["#python", "#typescript", "#api"],
   "delete": ["#temp", "#old", "#deprecated"]
-}
+}}
 
 **Guidelines:**
 1. Strictly adhere to the **IMPORTANT TAGGING RULES** above.

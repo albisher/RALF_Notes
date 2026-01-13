@@ -398,43 +398,74 @@ Let's build RALF Note 2.0! 🚀
 
 ## Document Index
 
+### Current Documents
+
 | Document | Purpose | Audience |
 |----------|---------|----------|
-| [README.md](README.md) | Overview & summary | Everyone |
-| [00-poc-analysis.md](00-poc-analysis.md) | PoC learnings | Architects |
-| [01-structured-text-design.md](01-structured-text-design.md) | Data structure | Developers |
-| [02-architecture-refactoring.md](02-architecture-refactoring.md) | Code design | Developers |
-| [03-tui-implementation.md](03-tui-implementation.md) | UI/UX design | Frontend devs |
-| [04-implementation-roadmap.md](04-implementation-roadmap.md) | V2 Execution plan | Project managers |
-| [05-boxes-oop-verification.md](05-boxes-oop-verification.md) | Style verification | Architects |
-| [06-auto-tuning-system.md](06-auto-tuning-system.md) | Auto-tuning design | Developers |
-| [07-enhancement-roadmap.md](07-enhancement-roadmap.md) | **Current Phase (6-9)** | Everyone |
-| [08-rate-limit-options.md](08-rate-limit-options.md) | Rate limiting options | Developers |
-| [09-work-assessment-jan-2026.md](09-work-assessment-jan-2026.md) | Work quality assessment | Reviewers |
-| [10-documentation-updates-jan-2026.md](10-documentation-updates-jan-2026.md) | Doc consistency fixes | Maintainers |
-| [11-tag-refinement-system.md](11-tag-refinement-system.md) | **Tag refinement (Phase 9)** | Everyone |
+| [README.md](README.md) | Roadmap overview & index | Everyone |
+| [archive/README.md](archive/README.md) | Archive index | Everyone |
 
-**Read in order for best understanding.**
+### Active Documentation
+
+| Document | Purpose | Audience |
+|----------|---------|----------|
+| [docs/USER_GUIDE.md](../docs/USER_GUIDE.md) | Comprehensive user guide | Users |
+| [docs/TROUBLESHOOTING.md](../docs/TROUBLESHOOTING.md) | Troubleshooting guide | Users |
+| [docs/PROGRAMMING_STYLE_GUIDE.md](../docs/PROGRAMMING_STYLE_GUIDE.md) | Boxes + OOP + DI methodology | Developers |
+| [docs/status/PROJECT_STATUS.md](../docs/status/PROJECT_STATUS.md) | Project dashboard | Everyone |
+| [docs/status/REFLECTION.md](../docs/status/REFLECTION.md) | V2 completion analysis | Everyone |
+
+### Recent Feedback & Analysis
+
+| Document | Purpose | Audience |
+|----------|---------|----------|
+| [feedback/11-code-review-jan-2026.md](../feedback/11-code-review-jan-2026.md) | Code review findings | Developers |
+| [feedback/12-display-bugs-jan-2026.md](../feedback/12-display-bugs-jan-2026.md) | Display bug analysis | Developers |
+| [feedback/13-cli-structure-issues-jan-2026.md](../feedback/13-cli-structure-issues-jan-2026.md) | CLI design issues | Everyone |
+
+### Archived Documents
+
+**V2 Planning (archive/v2-planning/):**
+- 00-poc-analysis.md - PoC analysis
+- 01-structured-text-design.md - Format design
+- 02-architecture-refactoring.md - Architecture
+- 03-tui-implementation.md - TUI design
+- 04-implementation-roadmap.md - V2 plan
+- 05-boxes-oop-verification.md - Verification
+
+**V2 Implementation (archive/v2-implementation/):**
+- 06-auto-tuning-system.md - Auto-tune design
+- 07-enhancement-roadmap.md - Phases 6-9 ✅ COMPLETE
+- 08-rate-limit-options.md - Rate limiting
+- 09-work-assessment-jan-2026.md - Assessment
+- 10-documentation-updates-jan-2026.md - Doc updates
+- 11-tag-refinement-system.md - Tag refinement
+
+**Session Summaries (archive/sessions/):**
+- SESSION_SUMMARY_JAN_11_2026.md
+- SESSION_SUMMARY_JAN_11_PART2.md
+- SESSION_SUMMARY_JAN_11_PART3.md
+
+See [archive/README.md](archive/README.md) for complete archive index.
 
 ---
 
 ## 🎯 Current Status (January 2026)
 
-**V2 Implementation:** ✅ **COMPLETE** (See [docs/status/REFLECTION.md](../docs/status/REFLECTION.md))
+**V2 Implementation:** ✅ **COMPLETE** (All Phases 1-9)
 
-**Current Phase:** **Phase 6 - Bug Fixes & Polish** (See [07-enhancement-roadmap.md](07-enhancement-roadmap.md))
+**Roadmap Status:** All planned development phases complete. Historical documents archived.
 
-**Key Documents for Current Work:**
-1. **[07-enhancement-roadmap.md](07-enhancement-roadmap.md)** - Active roadmap (Phases 6-9) ⭐
-2. **[docs/status/PROJECT_STATUS.md](../docs/status/PROJECT_STATUS.md)** - Project dashboard
-3. **[docs/status/REFLECTION.md](../docs/status/REFLECTION.md)** - V2 completion analysis
-4. **[docs/status/SESSION_WORK_SUMMARY.md](../docs/status/SESSION_WORK_SUMMARY.md)** - Recent work
-5. **[feedback/11-code-review-jan-2026.md](../feedback/11-code-review-jan-2026.md)** - Code review findings
+**Archive Location:** `archive/` directory
+- V2 Planning documents: `archive/v2-planning/`
+- V2 Implementation documents: `archive/v2-implementation/`
+- Session summaries: `archive/sessions/`
 
-**Next Steps:**
-- Fix 2 critical bugs from code review (Phase 6)
-- Fix timing display bug (Phase 6)
-- Implement rate limiting (Phase 7)
-- Add comprehensive logging (Phase 7)
-- Complete auto-tuning system (Phase 7)
-- Tag refinement system (Phase 9)
+**Key Active Documents:**
+1. **[docs/status/PROJECT_STATUS.md](../docs/status/PROJECT_STATUS.md)** - Current project status
+2. **[docs/status/REFLECTION.md](../docs/status/REFLECTION.md)** - V2 completion analysis
+3. **[docs/USER_GUIDE.md](../docs/USER_GUIDE.md)** - User guide
+4. **[docs/TROUBLESHOOTING.md](../docs/TROUBLESHOOTING.md)** - Troubleshooting
+5. **[archive/README.md](archive/README.md)** - Complete archive index
+
+**Development Complete:** January 13, 2026

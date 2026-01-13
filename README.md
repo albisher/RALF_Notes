@@ -119,6 +119,19 @@ ralf-notes generate --model qwen2.5:14b
 ralf-notes generate --delay 0.5 --timeout 60 --retries 5
 ```
 
+### Tag Management
+
+```bash
+# Analyze tags and generate a refinement guide (JSON)
+ralf-notes tags analyze /path/to/docs --output tag_guide.json
+
+# Apply refinements based on the guide
+ralf-notes tags apply /path/to/docs --guide tag_guide.json --dry-run
+
+# Show tag statistics
+ralf-notes tags stats /path/to/docs
+```
+
 ### Testing & Info
 
 ```bash
@@ -252,6 +265,13 @@ RALF_Notes/
 │   │   ├── console.py    # Rich console
 │   │   ├── progress.py   # Progress bars
 │   │   └── ascii_art.py  # ASCII banners
+│   ├── tagging/          # Tag Refinement System
+│   │   ├── __init__.py
+│   │   ├── tag_collector.py
+│   │   ├── tag_analyzer.py
+│   │   ├── tag_refinement_llm.py
+│   │   ├── refinement_guide_builder.py
+│   │   └── tag_replacer.py
 │   ├── utils/            # Utility functions
 │   │   └── logger.py     # Centralized logging setup
 │   ├── config_manager.py # Configuration management
@@ -259,6 +279,7 @@ RALF_Notes/
 │   └── version.py        # Version info
 ├── roadmap/              # Implementation docs
 ├── tests/                # Unit and integration tests
+│   └── tagging/          # Tagging tests
 ├── LICENSE               # License terms
 └── README.md             # Project overview
 ```
@@ -317,6 +338,7 @@ Required libraries and modules
 | **Rate Limiting** | None | Configurable delays, timeouts, retries |
 | **Logging** | Basic prints | Comprehensive file/console logging |
 | **Input Validation** | Minimal | Robust path and numeric validation |
+| **Tag Refinement** | None | Analyze, refine, and apply tag changes |
 
 ---
 

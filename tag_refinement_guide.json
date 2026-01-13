@@ -1,0 +1,109 @@
+{
+  "version": "1.0",
+  "generated_at": "/Users/amac/Documents/code/RALF_Notes",
+  "total_tags_analyzed": 0,
+  "refinements": [
+    {
+      "old_tags": [
+        "#api-docs",
+        "#api-reference"
+      ],
+      "new_tag": "#apidocs",
+      "reason": "Standardize API documentation tags to a single, concise word"
+    },
+    {
+      "old_tags": [
+        "#error-handling",
+        "#exception-handling"
+      ],
+      "new_tag": "#errorhandling",
+      "reason": "Combine related error management concepts into a single, unified tag"
+    },
+    {
+      "old_tags": [
+        "#performance-tuning",
+        "#optimization"
+      ],
+      "new_tag": "#performance",
+      "reason": "Generalize optimization-focused tags into a broader performance tag"
+    },
+    {
+      "old_tags": [
+        "#user-guide",
+        "#tutorial"
+      ],
+      "new_tag": "#tutorial",
+      "reason": "Ensure consistency in user-facing guidance tags (if not already merged)"
+    },
+    {
+      "old_tags": [
+        "#security-best-practices",
+        "#security-guidelines"
+      ],
+      "new_tag": "#security",
+      "reason": "Aggregate security-related tags under a single broader category"
+    },
+    {
+      "old_tags": [
+        "#database-connection",
+        "#db-connection"
+      ],
+      "new_tag": "#dbconnect",
+      "reason": "Simplify database connection-related tags to a single word"
+    }
+  ],
+  "new_tags": [
+    {
+      "tag": "#devops",
+      "reason": "Introduce a unified tag for DevOps-related documentation (e.g., CI/CD, deployment)",
+      "merge_from": [
+        "#ci-cd",
+        "#deployment",
+        "#automation"
+      ]
+    },
+    {
+      "tag": "#monitoring",
+      "reason": "Introduce a tag for system monitoring and observability",
+      "merge_from": [
+        "#logging",
+        "#metrics",
+        "#alerts"
+      ]
+    },
+    {
+      "tag": "#compatibility",
+      "reason": "Group tags related to software compatibility (e.g., versions, plugins)",
+      "merge_from": [
+        "#version-support",
+        "#plugin-support"
+      ]
+    }
+  ],
+  "keep_as_is": [
+    "#python",
+    "#typescript",
+    "#javascript",
+    "#java",
+    "#api",
+    "#security",
+    "#database",
+    "#user"
+  ],
+  "delete": [
+    "#temp",
+    "#old",
+    "#deprecated",
+    "#none",
+    "#none-tag"
+  ],
+  "statistics": {
+    "mean_usage": 0,
+    "max_usage": 0,
+    "min_usage": 0,
+    "rare_tags": [],
+    "common_tags": []
+  },
+  "patterns_found": 0,
+  "llm_error": null
+}

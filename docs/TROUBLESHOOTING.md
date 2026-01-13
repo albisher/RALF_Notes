@@ -108,6 +108,16 @@ If you encounter errors related to paths not existing or not having write permis
 
 ---
 
+### Tag Refinement System Issues
+Issues specific to the `ralf-notes tags` commands.
+
+**Solution:**
+- **LLM not following tag rules:** If the LLM generates tags that violate the single-word or "none" rules, try adjusting the LLM model or its temperature. The prompt for `TagRefinementLLM` explicitly states these rules, but LLMs can sometimes still deviate.
+- **Malformed refinement guide:** If `ralf-notes tags apply` fails to load the guide, ensure the JSON file is valid and follows the expected structure. Check for syntax errors.
+- **Unexpected tag changes:** If the applied tags are not what you expected, review the `tag_refinement_guide.json` thoroughly. Use `ralf-notes tags apply --dry-run` to preview changes before applying them permanently. Always ensure you have a backup of your files.
+
+---
+
 ### Debugging with Logs
 RALF Note provides comprehensive logging to help diagnose issues.
 
