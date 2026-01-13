@@ -83,6 +83,8 @@ class TagReplacer:
 
         logger.info("Applying tag refinements to files in directory: %s (Dry Run: %s)", directory, dry_run)
 
+        applied_changes = []
+
         for md_file in directory.glob('**/*.md'):
             try:
                 content = md_file.read_text(encoding='utf-8')
@@ -98,6 +100,10 @@ class TagReplacer:
                         logger.debug("Modified file: %s", md_file)
                     else:
                         logger.debug("Dry run: Would modify file: %s", md_file)
+                    
+                    # Track changes for report
+                    applied_changes.append(f"- {md_file.name}: {replaced_count} tags updated")
+
             except Exception as e:
                 logger.error("Error applying refinements to file %s: %s", md_file, e)
                 results['errors'].append({
@@ -105,6 +111,23 @@ class TagReplacer:
                     'error': str(e)
                 })
         
+        # Save applied tags report
+        if applied_changes and not dry_run:
+            report_path = directory / "applied_tags.md"
+            report_content = f"""# Applied Tag Refinements
+**Date:** {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+**Total Files Modified:** {results['files_modified']}
+**Total Tags Updated:** {results['tags_replaced']}
+
+## Changes per File
+{chr(10).join(applied_changes)}
+"""
+            try:
+                report_path.write_text(report_content, encoding='utf-8')
+                logger.info("Saved applied tags report to: %s", report_path)
+            except Exception as e:
+                logger.error("Failed to save applied tags report: %s", e)
+
         logger.info("Finished applying tag refinements.")
         return results
 
@@ -133,6 +156,11 @@ class TagReplacer:
                         fm_modified = False
                         
                         for tag in current_tags:
+                            # Filter "none" explicitly
+                            if tag.lower() == "none" or tag.lower() == "#none":
+                                fm_modified = True
+                                continue
+
                             if tag in self.replacement_map:
                                 replacement = self.replacement_map[tag]
                                 if replacement is None:
@@ -158,6 +186,9 @@ class TagReplacer:
         # 2. Process Body (Global replacement)
         # We perform replacement on the current new_content
         for old_tag, new_tag in self.replacement_map.items():
+            # Skip replacing if old tag is "none" as a body word (too risky), usually treated as None in map
+            if old_tag.lower() == "none": continue
+
             # Match #tag followed by non-word char or end of string
             # and preceded by non-word char or start of string
             # Use negative lookbehind/lookahead for word characters to ensure we don't match #python in #python3
