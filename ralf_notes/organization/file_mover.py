@@ -22,7 +22,9 @@ class FileMover:
                            directory: Path,
                            strategy: str = 'flat',
                            clean_names: bool = True,
-                           dry_run: bool = False) -> Dict[str, Any]:
+                           dry_run: bool = False,
+                           progress: Any = None,
+                           main_task_id: Any = None) -> Dict[str, Any]:
         """
         Organize an existing directory.
         """
@@ -39,13 +41,22 @@ class FileMover:
 
         files = list(directory.glob('**/*.md'))
         
+        if progress and main_task_id is not None:
+            progress.update(main_task_id, total=len(files))
+
         for md_file in files:
-            if md_file.name in ['applied_tags.md', 'applied_links.md', 'unique_tags.txt']:
+            if md_file.name in ['applied_tags.md', 'applied_links.md', 'unique_tags.txt', 'applied_organization.md']:
+                if progress and main_task_id is not None:
+                    progress.update(main_task_id, advance=1)
                 continue
                 
             results['processed'] += 1
             
             try:
+                # Update progress description
+                if progress and main_task_id is not None:
+                    progress.update(main_task_id, description=f"[cyan]Organizing: {md_file.name}")
+
                 # 1. Get metadata
                 content = md_file.read_text(encoding='utf-8')
                 metadata = parser.parse_markdown(content)
@@ -57,24 +68,27 @@ class FileMover:
                 rel_path = self.strategist.get_target_path(new_name, metadata, strategy)
                 target_full_path = directory / rel_path
                 
-                if md_file == target_full_path:
-                    continue
+                if md_file != target_full_path:
+                    if not dry_run:
+                        target_full_path.parent.mkdir(parents=True, exist_ok=True)
+                        # Handle name collision
+                        if target_full_path.exists():
+                            target_full_path = self._handle_collision(target_full_path)
+                        
+                        md_file.rename(target_full_path)
+                        results['moved'] += 1
+                    else:
+                        logger.info("Dry run: Would move %s to %s", md_file.name, rel_path)
+                        results['moved'] += 1
                 
-                if not dry_run:
-                    target_full_path.parent.mkdir(parents=True, exist_ok=True)
-                    # Handle name collision
-                    if target_full_path.exists():
-                        target_full_path = self._handle_collision(target_full_path)
-                    
-                    md_file.rename(target_full_path)
-                    results['moved'] += 1
-                else:
-                    logger.info("Dry run: Would move %s to %s", md_file.name, rel_path)
-                    results['moved'] += 1
+                if progress and main_task_id is not None:
+                    progress.update(main_task_id, advance=1)
 
             except Exception as e:
                 logger.error("Failed to organize %s: %s", md_file.name, e)
                 results['errors'].append({'file': md_file.name, 'error': str(e)})
+                if progress and main_task_id is not None:
+                    progress.update(main_task_id, advance=1)
 
         return results
 

@@ -1547,25 +1547,43 @@ def organize(
     _validate_path_exists(target_dir, "target_dir", console)
     _validate_path_is_dir(target_dir, "target_dir", console)
 
-    console.step(f"Organizing files in [path]{target_dir}[/path]", 1)
-    console.substep(f"Strategy: [highlight]{strategy}[/highlight]")
-    console.substep(f"Clean Names: [highlight]{'Yes' if clean_names else 'No'}[/highlight]")
+    console.info(f"Reorganizing [path]{target_dir}[/path]")
+    console.substep(f"Strategy: [highlight]{strategy}[/highlight], Clean Names: [highlight]{clean_names}[/highlight]")
 
     mover = FileMover()
-    with console.status("Reorganizing files..."):
-        results = mover.organize_directory(
-            directory=target_dir,
-            strategy=strategy,
-            clean_names=clean_names,
-            dry_run=dry_run
-        )
-
-    console.success("Organization summary:")
-    console.print(f"  Files processed: {results['processed']}")
-    console.print(f"  Files moved/renamed: {results['moved']}")
     
-    if results['errors']:
-        console.warning(f"Encountered {len(results['errors'])} errors during organization.")
+    # Live Dashboard
+    dashboard_model = "Organization Mode"
+    dashboard_target = str(target_dir)
+    
+    try:
+        with ProgressManager(console) as progress:
+            main_task = progress.add_task("[bold blue]Organizing...", total=100) # Total will be updated by mover
+            
+            with Live(get_dashboard(model=dashboard_model, target=dashboard_target, status="Organizing"), console=console.console, refresh_per_second=4) as live:
+                results = mover.organize_directory(
+                    directory=target_dir,
+                    strategy=strategy,
+                    clean_names=clean_names,
+                    dry_run=dry_run,
+                    progress=progress,
+                    main_task_id=main_task
+                )
+                live.update(get_dashboard(model=dashboard_model, target=dashboard_target, status="Finished", progress=100.0))
+
+        console.success("Organization complete.")
+        summary = f"""
+Files Processed: {results['processed']}
+Files Moved/Renamed: {results['moved']}
+"""
+        console.panel(summary, title="📊 Result Summary", style="success")
+        
+        if results['errors']:
+            console.warning(f"Encountered {len(results['errors'])} errors during organization.")
+
+    except Exception as e:
+        console.error(f"Organization failed: {e}")
+        raise typer.Exit(1)
 
 if __name__ == "__main__":
     app()

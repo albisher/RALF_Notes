@@ -1,0 +1,6434 @@
+{
+  "fixes": [
+    {
+      "file": "uiutilsmixin_1.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "ml-learning-page-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "sensor-addon.md",
+      "old": "add_sensor_drones",
+      "new": "add-sensor-drones",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sensor-addon.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "quad-view-plotly-views-fix-2025-01-27.md",
+      "old": "09-performance-optimization",
+      "new": "performance-optimization",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "addons-overview.md",
+      "old": "00-complete-addons-list",
+      "new": "complete-addons-list",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "addons-overview.md",
+      "old": "00-gps-rtk-overview",
+      "new": "gps-rtk-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "addons-overview.md",
+      "old": "00-lidar-overview",
+      "new": "lidar-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "addons-overview.md",
+      "old": "00-camera-overview",
+      "new": "camera-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "addons-overview.md",
+      "old": "00-communication-overview",
+      "new": "communication-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "addons-overview.md",
+      "old": "00-sensors-overview",
+      "new": "sensors-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "addons-overview.md",
+      "old": "00-flight-controller-overview",
+      "new": "flight-controller-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sensor-simulation-status.md",
+      "old": "lidar_processor_box",
+      "new": "lidar-processor-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sensor-simulation-status.md",
+      "old": "advanced_lidar_box",
+      "new": "advanced-lidar-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sensor-simulation-status.md",
+      "old": "camera_processor_box",
+      "new": "camera-processor-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sensor-simulation-status.md",
+      "old": "visual_slam_box",
+      "new": "visual-slam-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sensor-simulation-status.md",
+      "old": "SENSOR_SIMULATION_STATUS",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "socketiomixin_1.md",
+      "old": "SocketIOMixin",
+      "new": "socketiomixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "socketiomixin_1.md",
+      "old": "logging_box",
+      "new": "logging-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "droneconfigmixin_1.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "droneconfigmixin_1.md",
+      "old": "DroneConfigService",
+      "new": "droneconfigservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "create-and-verify-session.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-overview.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "docker-overview.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "interactive-ui-test.md",
+      "old": "interactive_ui_test",
+      "new": "interactive-ui-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "interactive-ui-test.md",
+      "old": "0003-ui-verification-guide",
+      "new": "ui-verification-guide",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "research-organization-rules.md",
+      "old": "00-research-methodology",
+      "new": "research-methodology",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "research-organization-rules.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "research-organization-rules.md",
+      "old": "00-verified-papers-overview",
+      "new": "verified-papers-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "quad-view-hard-refresh-plotly-sync-fix.md",
+      "old": "visualize_logs",
+      "new": "visualize-logs",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulationdatamixin_1.md",
+      "old": "SocketIOMixin",
+      "new": "socketiomixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "get-simulation-running-now.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "get-simulation-running-now.md",
+      "old": "SimulationDataMixin",
+      "new": "simulationdatamixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-tanker-lifeline-drone.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-tanker-lifeline-drone.md",
+      "old": "tanker_lifeline_config",
+      "new": "tanker-lifeline-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-drone-boxed.md",
+      "old": "worker_capabilities",
+      "new": "worker-capabilities",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-drone-boxed.md",
+      "old": "scenario_generator",
+      "new": "scenario-generator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "reset-button-drone-loading-verification.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "command-processing-analysis.md",
+      "old": "hmrs_scout_drone",
+      "new": "hmrs-scout-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-original-specification.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "hmrs-original-specification.md",
+      "old": "00-executive-overview",
+      "new": "executive-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verify-ml-scenario-ui.md",
+      "old": "ml_scenario_ui",
+      "new": "ml-scenario-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verify-ml-scenario-ui.md",
+      "old": "ml_scenario_ui",
+      "new": "ml-scenario-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "system-monitoring-page-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "ui-layout-quality-perfect-check.md",
+      "old": "VisualizationState",
+      "new": "visualizationstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-success.md",
+      "old": "DOCKER_SETUP",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "weathermixin_1.md",
+      "old": "03-blender-integration",
+      "new": "blender-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "platform-selection.md",
+      "old": "01-platform-selection",
+      "new": "platform-selection",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "position-tracking-verification.md",
+      "old": "01-simulation-videos",
+      "new": "simulation-videos",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "position-tracking-verification.md",
+      "old": "00-all-references",
+      "new": "all-references",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "position-tracking-verification.md",
+      "old": "0006-position-tracking-verification",
+      "new": "position-tracking-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-complete_1.md",
+      "old": "0002-docker-setup",
+      "new": "docker-setup",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-complete_1.md",
+      "old": "0003-docker-independent",
+      "new": "docker-independent",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "osm-integration-box.md",
+      "old": "09-performance-optimization",
+      "new": "performance-optimization",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "spawn-selection-modal-component.md",
+      "old": "DroneConfigState",
+      "new": "droneconfigstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-drones-specifications-table.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-drones-specifications-table.md",
+      "old": "0002-window-cleaning-mission-workflow",
+      "new": "window-cleaning-mission-workflow",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sessionstate_1.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "sessionstate_1.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "enhanced-features.md",
+      "old": "00-all-references",
+      "new": "all-references",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "enhanced-features.md",
+      "old": "worker_capabilities",
+      "new": "worker-capabilities",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "research-verification-alternatives.md",
+      "old": "01-simulation-videos",
+      "new": "simulation-videos",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "coordination-autonomy.md",
+      "old": "03-multi-robot-coordination-papers",
+      "new": "multi-robot-coordination-papers",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-configurations-display-fix.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-configurations-display-fix.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "single-session-movement-test.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "app.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "app.md",
+      "old": "SocketIOMixin",
+      "new": "socketiomixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docking-system-box.md",
+      "old": "mission_state_machine_box",
+      "new": "mission-state-machine-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "motion-history-replay-fixes.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "motion-history-replay-fixes.md",
+      "old": "create_replayable_session",
+      "new": "create-replayable-session",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "scenario-organization-complete.md",
+      "old": "SCENARIO_ORGANIZATION_COMPLETE",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "scenario-organization-complete.md",
+      "old": "AUTONOMOUS_EXPLORATION_COMPLETE",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "implementation-compliance-guide.md",
+      "old": "20251219-codebase-compliance-assessment",
+      "new": "codebase-compliance-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "implementation-compliance-guide.md",
+      "old": "20251219-logging-mechanism-assessment",
+      "new": "logging-mechanism-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "implementation-compliance-guide.md",
+      "old": "20251219-reusability-usability-assessment",
+      "new": "reusability-usability-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "clear-and-create-fresh-session.md",
+      "old": "SimulationService",
+      "new": "simulationservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verification-live.md",
+      "old": "0002-docker-setup",
+      "new": "docker-setup",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "mainappdata_1.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "quick-reference.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "quick-reference.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "perplexity-mcp-setup.md",
+      "old": "00-research-methodology",
+      "new": "research-methodology",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "perplexity-mcp-setup.md",
+      "old": "01-simulation-videos",
+      "new": "simulation-videos",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "perplexity-mcp-setup.md",
+      "old": "10-simulator-videos-reviews",
+      "new": "simulator-videos-reviews",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sessionservice_1.md",
+      "old": "SessionService",
+      "new": "sessionservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "visualization-view-component.md",
+      "old": "VisualizationState",
+      "new": "visualizationstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "visualization-view-component.md",
+      "old": "00-simulation-research-summary",
+      "new": "simulation-research-summary",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "mastercontrolsmixin_1.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "mastercontrolsmixin_1.md",
+      "old": "MasterControlsService",
+      "new": "mastercontrolsservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "executive-overview.md",
+      "old": "00-overseer-overview",
+      "new": "overseer-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "executive-overview.md",
+      "old": "00-coordination-autonomy",
+      "new": "coordination-autonomy",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "executive-overview.md",
+      "old": "00-operational-workflow",
+      "new": "operational-workflow",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "executive-overview.md",
+      "old": "00-system-integration",
+      "new": "system-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "executive-overview.md",
+      "old": "00-regulatory-compliance",
+      "new": "regulatory-compliance",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "executive-overview.md",
+      "old": "00-all-references",
+      "new": "all-references",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sensor-suite.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "master-coordinator.md",
+      "old": "00-communication-protocol",
+      "new": "communication-protocol",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "master-coordinator.md",
+      "old": "add_sensor_drones",
+      "new": "add-sensor-drones",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-learning-overview.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "session-db-box-implementation.md",
+      "old": "SessionState",
+      "new": "sessionstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "session-db-box-implementation.md",
+      "old": "SessionMixin",
+      "new": "sessionmixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "session-db-box-implementation.md",
+      "old": "SimulationMixin",
+      "new": "simulationmixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "tiltrotor-motion.md",
+      "old": "base_motion_pattern",
+      "new": "base-motion-pattern",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "tiltrotor-motion.md",
+      "old": "test_sensor_simulation",
+      "new": "test-sensor-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "master-controller.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "master-controller.md",
+      "old": "00-communication-protocol",
+      "new": "communication-protocol",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "kuwait-test-locations.md",
+      "old": "0021-real-world-street-maps-from-gps",
+      "new": "real-world-street-maps-from-gps",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "observer-camera.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "tanker-overview.md",
+      "old": "01-mule-option",
+      "new": "mule-option",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "tanker-overview.md",
+      "old": "02-lifeline-option",
+      "new": "lifeline-option",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "executive-summary-and-roadmap.md",
+      "old": "0010-docker-fix-verification",
+      "new": "docker-fix-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "executive-summary-and-roadmap.md",
+      "old": "0002-docker-setup",
+      "new": "docker-setup",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hidden-building-system.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hidden-building-system.md",
+      "old": "autonomous_exploration_test",
+      "new": "autonomous-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-session-verification-complete.md",
+      "old": "0017-server-restart-instructions",
+      "new": "server-restart-instructions",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-command-session-test.md",
+      "old": "test_drone_command_session",
+      "new": "test-drone-command-session",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "details-modal-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "refactoring-plan.md",
+      "old": "00-codebase-architecture-assessment",
+      "new": "codebase-architecture-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "scout-drone-config.md",
+      "old": "sensor_config",
+      "new": "sensor-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "logging-box_1.md",
+      "old": "docking_system_box",
+      "new": "docking-system-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "logging-box_1.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "reusability-usability-assessment.md",
+      "old": "20251219-codebase-compliance-assessment",
+      "new": "codebase-compliance-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "reusability-usability-assessment.md",
+      "old": "20251219-logging-mechanism-assessment",
+      "new": "logging-mechanism-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-verification-guide.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "dronestate_1.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "final-corrected-test.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "final-corrected-test.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "master-controls-integrations.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "logs-sidebar-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "drone-movement-rc-tracking-implementation.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-movement-rc-tracking-implementation.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-movement-rc-tracking-implementation.md",
+      "old": "test_drone_movement_with_rc_tracking",
+      "new": "test-drone-movement-with-rc-tracking",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "phase-3-generic-boxes-legacy-removed.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "load-and-spawn-window-cleaning-drones.md",
+      "old": "prepare_window_cleaning_drones",
+      "new": "prepare-window-cleaning-drones",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sim-time-fix_1.md",
+      "old": "verify_time_based_data",
+      "new": "verify-time-based-data",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sim-time-fix_1.md",
+      "old": "0007-time-based-data-verification",
+      "new": "time-based-data-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-verification.md",
+      "old": "0001-performance-report",
+      "new": "performance-report",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-session-verification-report.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "complete-system-summary.md",
+      "old": "00-realtime-visualization-architecture",
+      "new": "realtime-visualization-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "visualizationmixin_1.md",
+      "old": "VisualizationService",
+      "new": "visualizationservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-scenario-ui-live-update.md",
+      "old": "ml_scenario_ui",
+      "new": "ml-scenario-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "click-analysis-simulation-page.md",
+      "old": "04-ros-simulation",
+      "new": "ros-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "container-setup-complete.md",
+      "old": "0007-docker-ml-scenario-ui",
+      "new": "docker-ml-scenario-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "container-setup-complete.md",
+      "old": "0001-docker-readme",
+      "new": "docker-readme",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "container-setup-complete.md",
+      "old": "0004-container-setup-complete",
+      "new": "container-setup-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "container-setup-complete.md",
+      "old": "0001-docker-readme",
+      "new": "docker-readme",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "all-issues-fixed-summary.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "all-issues-fixed-summary.md",
+      "old": "create_replayable_session",
+      "new": "create-replayable-session",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "move-to-command-translation-analysis.md",
+      "old": "hmrs_drone_spawner",
+      "new": "hmrs-drone-spawner",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "move-to-command-translation-analysis.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-all-boxes.md",
+      "old": "test_boxes",
+      "new": "test-boxes",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-all-boxes.md",
+      "old": "path_planner_box",
+      "new": "path-planner-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "vision-drone.md",
+      "old": "00-realtime-visualization-architecture",
+      "new": "realtime-visualization-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-verification-ml-scenarios.md",
+      "old": "0001-ml-scenarios-readme",
+      "new": "ml-scenarios-readme",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-verification-ml-scenarios.md",
+      "old": "0004-ui-verification-ml-scenarios",
+      "new": "ui-verification-ml-scenarios",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hardcoded-0-0-5-investigation.md",
+      "old": "hmrs_scout_drone",
+      "new": "hmrs-scout-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hardcoded-0-0-5-investigation.md",
+      "old": "hmrs_overseer_drone",
+      "new": "hmrs-overseer-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hardcoded-0-0-5-investigation.md",
+      "old": "mission_config",
+      "new": "mission-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "swarm-live.md",
+      "old": "swarm_simulator",
+      "new": "swarm-simulator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "lidar-scanner-box.md",
+      "old": "PyBullet Physics Engine Docs",
+      "new": "pybullet-physics-engine-docs",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "migration-guide.md",
+      "old": "MIGRATION_GUIDE",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "timestamp-format-analysis.md",
+      "old": "SimulationDataMixin",
+      "new": "simulationdatamixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "quad-view-4-views-and-crosshair-alignment-fix.md",
+      "old": "00-hmrs-integration-ideas",
+      "new": "hmrs-integration-ideas",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "weather-air-density-gps-fixes-complete.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "weather-air-density-gps-fixes-complete.md",
+      "old": "gps_tracker",
+      "new": "gps-tracker",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "weather-air-density-gps-fixes-complete.md",
+      "old": "weather_system",
+      "new": "weather-system",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "weather-air-density-gps-fixes-complete.md",
+      "old": "hmrs_drone_spawner",
+      "new": "hmrs-drone-spawner",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "weather-air-density-gps-fixes-complete.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "efficiency-monitor-box.md",
+      "old": "scenario_generator",
+      "new": "scenario-generator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "window-cleaning-drone-configurations.md",
+      "old": "addon_configurator",
+      "new": "addon-configurator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "container-rename-complete_1.md",
+      "old": "CONTAINER_RENAME_PLAN",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "container-rename-complete_1.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "comprehensive-fixes-and-testing-complete.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-movement-issue.md",
+      "old": "01-simulation-videos",
+      "new": "simulation-videos",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-simulator.md",
+      "old": "learning_drone",
+      "new": "learning-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-simulator.md",
+      "old": "ml_controller",
+      "new": "ml-controller",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-simulator.md",
+      "old": "scenario_generator",
+      "new": "scenario-generator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-simulator.md",
+      "old": "weather_system",
+      "new": "weather-system",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "implementation-summary.md",
+      "old": "__init__",
+      "new": "init",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "implementation-summary.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "implementation-summary.md",
+      "old": "integration_example",
+      "new": "integration-example",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-complete.md",
+      "old": "DOCKER_INDEPENDENT",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "docker-complete.md",
+      "old": "DOCKER_SETUP",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "d-viewer-initialization-fix-2025-12-22.md",
+      "old": "2d-viewer-initialization-fix-2025-12-22",
+      "new": "d-viewer-initialization-fix-2025-12-22",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "backend-502-bad-gateway-fix.md",
+      "old": "0006-docker-success",
+      "new": "docker-success",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "swarm-simulator.md",
+      "old": "worker_drone_boxed",
+      "new": "worker-drone-boxed",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "swarm-simulator.md",
+      "old": "mission_config",
+      "new": "mission-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "master-communication-time-sync-fix.md",
+      "old": "master_coordinator",
+      "new": "master-coordinator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "master-communication-time-sync-fix.md",
+      "old": "20251224-drone-spawn-ui-update-fix",
+      "new": "drone-spawn-ui-update-fix",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "multi-container-architecture.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "research-methodology.md",
+      "old": "00-verified-papers-overview",
+      "new": "verified-papers-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "research-methodology.md",
+      "old": "00-two-minute-papers-overview",
+      "new": "two-minute-papers-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "logs-sidebar-fixes-implementation.md",
+      "old": "0024-logs-sidebar-thorough-study",
+      "new": "logs-sidebar-thorough-study",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-scenario-ui-live.md",
+      "old": "ml_scenario_manager",
+      "new": "ml-scenario-manager",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "code-analysis-master-controls-page.md",
+      "old": "MasterControlsState",
+      "new": "mastercontrolsstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-ml-scenario-ui.md",
+      "old": "DOCKER_ML_SCENARIO_UI",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "layout-option-5-production-deployment.md",
+      "old": "test_boxes",
+      "new": "test-boxes",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "3d-modeling-tools.md",
+      "old": "Live Simulation Codebase",
+      "new": "live-simulation-codebase",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "tabs-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "d-replay-analysis.md",
+      "old": "visualization_box",
+      "new": "visualization-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "d-replay-analysis.md",
+      "old": "01-simulation-videos",
+      "new": "simulation-videos",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sidebar-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "logging-verification-summary.md",
+      "old": "0000-future-overview",
+      "new": "future-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-videos.md",
+      "old": "00-two-minute-papers-overview",
+      "new": "two-minute-papers-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-videos.md",
+      "old": "10-simulator-videos-reviews",
+      "new": "simulator-videos-reviews",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-videos.md",
+      "old": "00-simulation-tools-overview",
+      "new": "simulation-tools-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "example-usage.md",
+      "old": "test_boxes",
+      "new": "test-boxes",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "example-usage.md",
+      "old": "02-sensor-suite",
+      "new": "sensor-suite",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "example-usage.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "mission-config.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "disable-auto-spawn-implementation.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "disable-auto-spawn-implementation.md",
+      "old": "addon_configurator",
+      "new": "addon-configurator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "disable-auto-spawn-implementation.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "system-validation-results.md",
+      "old": "0010-docker-fix-verification",
+      "new": "docker-fix-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "folder-assessment-and-rename.md",
+      "old": "0024-logs-sidebar-thorough-study",
+      "new": "logs-sidebar-thorough-study",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "folder-assessment-and-rename.md",
+      "old": "0020-integration-complete",
+      "new": "integration-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "folder-assessment-and-rename.md",
+      "old": "LAST_WORK_SUMMARY",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "folder-assessment-and-rename.md",
+      "old": "ORGANIZATION_COMPLETE",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "visualizationcomputed_1.md",
+      "old": "VisualizationComputed",
+      "new": "visualizationcomputed_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "visualizationcomputed_1.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-simulation-live.md",
+      "old": "swarm_live",
+      "new": "swarm-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-simulation-live.md",
+      "old": "swarm_live",
+      "new": "swarm-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-simulation-live.md",
+      "old": "swarm_live",
+      "new": "swarm-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-simulation-live.md",
+      "old": "swarm_live",
+      "new": "swarm-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "communication-addon.md",
+      "old": "communication_addon",
+      "new": "communication-addon",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "position-vs-gps-location-analysis.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "buildingmixin_1.md",
+      "old": "logging_box",
+      "new": "logging-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "logging-compliance-implementation.md",
+      "old": "logging_box",
+      "new": "logging-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "logging-compliance-implementation.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "logging-compliance-implementation.md",
+      "old": "master_coordinator",
+      "new": "master-coordinator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "logging-compliance-implementation.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "exploration-enhancements.md",
+      "old": "simple_exploration_test",
+      "new": "simple-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "exploration-enhancements.md",
+      "old": "EXPLORATION_ENHANCEMENTS",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "docker-independent_1.md",
+      "old": "0003-docker-independent",
+      "new": "docker-independent",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-independent_1.md",
+      "old": "0003-docker-independent",
+      "new": "docker-independent",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-independent_1.md",
+      "old": "0003-docker-independent",
+      "new": "docker-independent",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "session-db-verification-success.md",
+      "old": "session_creator_box",
+      "new": "session-creator-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "session-db-verification-success.md",
+      "old": "session_db_box",
+      "new": "session-db-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "worker-drone-boxed.md",
+      "old": "worker_drone_boxed",
+      "new": "worker-drone-boxed",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "worker-drone-boxed.md",
+      "old": "path_planner_box",
+      "new": "path-planner-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "worker-drone-boxed.md",
+      "old": "gps_tracker",
+      "new": "gps-tracker",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "dji-integration-research.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verify-position-tracking.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-fixes-plotly-error.md",
+      "old": "comprehensive_ui_test",
+      "new": "comprehensive-ui-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-scenario-ui-verification.md",
+      "old": "0002-ml-scenario-ui",
+      "new": "ml-scenario-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-scenario-ui-verification.md",
+      "old": "0003-ml-scenario-ui-verification",
+      "new": "ml-scenario-ui-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-live.md",
+      "old": "swarm_live",
+      "new": "swarm-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-live.md",
+      "old": "swarm_live",
+      "new": "swarm-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-live.md",
+      "old": "swarm_live",
+      "new": "swarm-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "run-visual_1.md",
+      "old": "run_visual_demo",
+      "new": "run-visual-demo",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "run-visual_1.md",
+      "old": "run_visual_save",
+      "new": "run-visual-save",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drones-control-view-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "drones-control-view-component.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "lidar-3d-mapping-explanation.md",
+      "old": "lidar_scanner_box",
+      "new": "lidar-scanner-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "lidar-3d-mapping-explanation.md",
+      "old": "base_station_box",
+      "new": "base-station-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "lidar-3d-mapping-explanation.md",
+      "old": "advanced_lidar_box",
+      "new": "advanced-lidar-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "osm-plotly-sync-after-rebuild-check.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "osm-plotly-sync-after-rebuild-check.md",
+      "old": "00-integrations-implementation-summary",
+      "new": "integrations-implementation-summary",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-scenario-ui.md",
+      "old": "SimulationMixin",
+      "new": "simulationmixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "worker-capabilities.md",
+      "old": "weather_system",
+      "new": "weather-system",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "lidar-addon.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-system-box.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-drone-command-session.md",
+      "old": "test_session_endpoints",
+      "new": "test-session-endpoints",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-drone-command-session.md",
+      "old": "11-drone-simulation-libraries",
+      "new": "drone-simulation-libraries",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "logging-and-communication-features.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "view-status-and-command-logging-requirements.md",
+      "old": "90-hmrs-original-specification",
+      "new": "hmrs-original-specification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-simulator-tasks.md",
+      "old": "01-simulation-videos",
+      "new": "simulation-videos",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-simulator-tasks.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "scout-overview.md",
+      "old": "01-platform-selection",
+      "new": "platform-selection",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "scout-overview.md",
+      "old": "02-sensor-suite",
+      "new": "sensor-suite",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "scout-overview.md",
+      "old": "03-processing-analysis",
+      "new": "processing-analysis",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "communication-implementation.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "communication-implementation.md",
+      "old": "master_coordinator",
+      "new": "master-coordinator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "communication-implementation.md",
+      "old": "communication_addon",
+      "new": "communication-addon",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "overseer-drone-config.md",
+      "old": "hmrs_overseer_drone",
+      "new": "hmrs-overseer-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "overseer-drone-config.md",
+      "old": "sensor_config",
+      "new": "sensor-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "lidar-overview.md",
+      "old": "12-fluid-level-sensor-specifications",
+      "new": "fluid-level-sensor-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "lidar-overview.md",
+      "old": "00-system-integration",
+      "new": "system-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "lidar-overview.md",
+      "old": "09-weather-station-sensors-specifications",
+      "new": "weather-station-sensors-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "lidar-overview.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "lidar-overview.md",
+      "old": "03-blender-integration",
+      "new": "blender-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simple-exploration-enhancement-opportunities.md",
+      "old": "test_boxes",
+      "new": "test-boxes",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "mission-planning-optimizer-box.md",
+      "old": "swarm_simulator",
+      "new": "swarm-simulator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-frontend-healthcheck-fix.md",
+      "old": "LAST_WORK_SUMMARY",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "docker-readme.md",
+      "old": "0007-docker-ml-scenario-ui",
+      "new": "docker-ml-scenario-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "autonomous-exploration-complete.md",
+      "old": "simple_exploration_test",
+      "new": "simple-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "autonomous-exploration-complete.md",
+      "old": "frontier_explorer_box",
+      "new": "frontier-explorer-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "autonomous-exploration-complete.md",
+      "old": "exploration_manager_box",
+      "new": "exploration-manager-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "oop-box-reuse-assessment.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-actual-test-results.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "complete-learning-system.md",
+      "old": "learning_drone",
+      "new": "learning-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "complete-learning-system.md",
+      "old": "learning_simulator",
+      "new": "learning-simulator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "complete-learning-system.md",
+      "old": "scenario_generator",
+      "new": "scenario-generator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "success-live-simulation.md",
+      "old": "Live Simulation Codebase",
+      "new": "live-simulation-codebase",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "success-live-simulation.md",
+      "old": "Flask Docker Setup Guide",
+      "new": "flask-docker-setup-guide",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "success-live-simulation.md",
+      "old": "PyBullet Physics Engine Docs",
+      "new": "pybullet-physics-engine-docs",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-efficiency-enhancements-implementation.md",
+      "old": "00-drone-swarm-communication-research",
+      "new": "drone-swarm-communication-research",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-efficiency-enhancements-implementation.md",
+      "old": "00-flight-controller-overview",
+      "new": "flight-controller-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "unified-iso-timestamp-implementation.md",
+      "old": "logging_box",
+      "new": "logging-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-types-motion-patterns.md",
+      "old": "00-drone-implementation-analysis",
+      "new": "drone-implementation-analysis",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "compliance-status-final.md",
+      "old": "__init__",
+      "new": "init",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "compliance-status-final.md",
+      "old": "hmrs_simulation_core",
+      "new": "hmrs-simulation-core",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "realtime-simulation-features.md",
+      "old": "PyBullet Physics Engine Docs",
+      "new": "pybullet-physics-engine-docs",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-scenarios-readme.md",
+      "old": "0002-ml-scenario-ui",
+      "new": "ml-scenario-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "universal-iso-timestamp-implementation.md",
+      "old": "logging_box",
+      "new": "logging-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-tanker-mule-drone.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-tanker-mule-drone.md",
+      "old": "building_mapper",
+      "new": "building-mapper",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-tanker-mule-drone.md",
+      "old": "tanker_mule_config",
+      "new": "tanker-mule-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "quick-start.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "prepare-phase-2d-top-quadview-documentation.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-efficiency-enhancements.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-sequence-best-practices.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "droneservice_1.md",
+      "old": "DroneService",
+      "new": "droneservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "box-pattern-violations.md",
+      "old": "0003-BOX-PATTERN-VIOLATIONS",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "box-pattern-violations.md",
+      "old": "0003-BOX-PATTERN-VIOLATIONS",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "box-pattern-violations.md",
+      "old": "0003-BOX-PATTERN-VIOLATIONS",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "docker-success_1.md",
+      "old": "0002-docker-setup",
+      "new": "docker-setup",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "integrations-implementation-summary.md",
+      "old": "osm_buildings",
+      "new": "osm-buildings",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "integrations-implementation-summary.md",
+      "old": "google_maps_3d",
+      "new": "google-maps-3d",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "integrations-implementation-summary.md",
+      "old": "weather_api",
+      "new": "weather-api",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "integrations-implementation-summary.md",
+      "old": "drone_brand_adapters",
+      "new": "drone-brand-adapters",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "camera-overview.md",
+      "old": "07-gyroscope-sensors-specifications",
+      "new": "gyroscope-sensors-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "camera-overview.md",
+      "old": "03-blender-integration",
+      "new": "blender-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "camera-overview.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-complete-visible-working-checklist.md",
+      "old": "backend_test",
+      "new": "backend-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "base-station-box.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verification-results.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verification-results.md",
+      "old": "test_session_endpoints",
+      "new": "test-session-endpoints",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-fixes-applied.md",
+      "old": "0005-learning-curve-implementation",
+      "new": "learning-curve-implementation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-fixes-applied.md",
+      "old": "0006-simulation-results",
+      "new": "simulation-results",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "autonomous-exploration-test.md",
+      "old": "simple_exploration_test",
+      "new": "simple-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "autonomous-exploration-test.md",
+      "old": "swarm_simulator",
+      "new": "swarm-simulator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "web-app-layout-rebuild-options.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "master-controls-page-component.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "movement-verification-report.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "movement-verification-report.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "last-work-summary_1.md",
+      "old": "0011-docker-gui-fix",
+      "new": "docker-gui-fix",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "last-work-summary_1.md",
+      "old": "0010-docker-fix-verification",
+      "new": "docker-fix-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "user-experience-content-analysis.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "weather-system.md",
+      "old": "weather_api",
+      "new": "weather-api",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "quad-view-default-plotly-fix.md",
+      "old": "VisualizationMixin",
+      "new": "visualizationmixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "live-simulation.md",
+      "old": "Live Simulation Codebase",
+      "new": "live-simulation-codebase",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "gymnasium-env-box.md",
+      "old": "gymnasium_env_box",
+      "new": "gymnasium-env-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "fixed-wing-motion.md",
+      "old": "base_motion_pattern",
+      "new": "base-motion-pattern",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "complete-boxing-refactoring-summary.md",
+      "old": "00-drone-architecture-requirements",
+      "new": "drone-architecture-requirements",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "complete-boxing-refactoring-summary.md",
+      "old": "20251219-compliance-implementation-summary",
+      "new": "compliance-implementation-summary",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-2d-3d-layout-enhancement",
+      "new": "2d-3d-layout-enhancement",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-addons-overview",
+      "new": "addons-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-all-references",
+      "new": "all-references",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-camera-overview",
+      "new": "camera-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-codebase-architecture-assessment",
+      "new": "codebase-architecture-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-communication-overview",
+      "new": "communication-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-communication-protocol",
+      "new": "communication-protocol",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-complete-addons-list",
+      "new": "complete-addons-list",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-coordination-autonomy",
+      "new": "coordination-autonomy",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-drone-architecture-requirements",
+      "new": "drone-architecture-requirements",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-drone-implementation-analysis",
+      "new": "drone-implementation-analysis",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-drone-swarm-communication-research",
+      "new": "drone-swarm-communication-research",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-executive-overview",
+      "new": "executive-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-flight-controller-overview",
+      "new": "flight-controller-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-gps-rtk-overview",
+      "new": "gps-rtk-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-hmrs-integration-ideas",
+      "new": "hmrs-integration-ideas",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-integrations-implementation-summary",
+      "new": "integrations-implementation-summary",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-lidar-overview",
+      "new": "lidar-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-master-controls-research",
+      "new": "master-controls-research",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-operational-workflow",
+      "new": "operational-workflow",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-overseer-overview",
+      "new": "overseer-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-realistic-simulation-implementation-summary",
+      "new": "realistic-simulation-implementation-summary",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-realtime-visualization-architecture",
+      "new": "realtime-visualization-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-regulatory-compliance",
+      "new": "regulatory-compliance",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-research-methodology",
+      "new": "research-methodology",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-sensors-overview",
+      "new": "sensors-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-simulation-research-summary",
+      "new": "simulation-research-summary",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-simulation-tools-overview",
+      "new": "simulation-tools-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-system-integration",
+      "new": "system-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-two-minute-papers-overview",
+      "new": "two-minute-papers-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "00-verified-papers-overview",
+      "new": "verified-papers-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0000-future-overview",
+      "new": "future-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0000-guides-overview",
+      "new": "guides-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0000-implementation-overview",
+      "new": "implementation-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0001-docker-readme",
+      "new": "docker-readme",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0001-ml-scenarios-readme",
+      "new": "ml-scenarios-readme",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0001-performance-report",
+      "new": "performance-report",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0002-docker-setup",
+      "new": "docker-setup",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0002-ml-scenario-ui",
+      "new": "ml-scenario-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0002-run-visual",
+      "new": "run-visual",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0002-ui-verification",
+      "new": "ui-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0002-window-cleaning-mission-workflow",
+      "new": "window-cleaning-mission-workflow",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0003-BOX-PATTERN-VIOLATIONS",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0003-docker-independent",
+      "new": "docker-independent",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0003-ml-scenario-ui-verification",
+      "new": "ml-scenario-ui-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0003-ui-verification-guide",
+      "new": "ui-verification-guide",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0004-container-setup-complete",
+      "new": "container-setup-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0004-gps-connection-system",
+      "new": "gps-connection-system",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0004-ui-verification-ml-scenarios",
+      "new": "ui-verification-ml-scenarios",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0005-learning-curve-implementation",
+      "new": "learning-curve-implementation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0006-docker-success",
+      "new": "docker-success",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0006-position-tracking-verification",
+      "new": "position-tracking-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0006-simulation-results",
+      "new": "simulation-results",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0007-REFACTORING-TODO-LIST",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0007-docker-ml-scenario-ui",
+      "new": "docker-ml-scenario-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0007-time-based-data-verification",
+      "new": "time-based-data-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0008-container-rename-plan",
+      "new": "container-rename-plan",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0008-swarm-simulation",
+      "new": "swarm-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0009-restart-and-verify",
+      "new": "restart-and-verify",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0010-docker-fix-verification",
+      "new": "docker-fix-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0011-docker-gui-fix",
+      "new": "docker-gui-fix",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0012-multi-container-architecture",
+      "new": "multi-container-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0013-docker-troubleshooting",
+      "new": "docker-troubleshooting",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0013-hmrs-simulator-tasks",
+      "new": "hmrs-simulator-tasks",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0017-server-restart-instructions",
+      "new": "server-restart-instructions",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0018-modern-drone-simulation-enhancements-2025",
+      "new": "modern-drone-simulation-enhancements-2025",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0018-movement-fixes-applied",
+      "new": "movement-fixes-applied",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0019-open-source-libraries-integration",
+      "new": "open-source-libraries-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0020-integration-complete",
+      "new": "integration-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0021-real-world-street-maps-from-gps",
+      "new": "real-world-street-maps-from-gps",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0024-logs-sidebar-thorough-study",
+      "new": "logs-sidebar-thorough-study",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "0026-quad-view-plotly-osm-integration",
+      "new": "quad-view-plotly-osm-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "01-full-featured-simulators",
+      "new": "full-featured-simulators",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "01-many-small-dreams-papers",
+      "new": "many-small-dreams-papers",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "01-mule-option",
+      "new": "mule-option",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "01-platform-selection",
+      "new": "platform-selection",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "01-simulation-sequence-best-practices",
+      "new": "simulation-sequence-best-practices",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "01-simulation-videos",
+      "new": "simulation-videos",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "02-inspection-sensors",
+      "new": "inspection-sensors",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "02-lifeline-option",
+      "new": "lifeline-option",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "02-python-simulators",
+      "new": "python-simulators",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "02-sensor-suite",
+      "new": "sensor-suite",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "02-simulation-to-reality-papers",
+      "new": "simulation-to-reality-papers",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "03-bird-deterrent",
+      "new": "bird-deterrent",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "03-blender-integration",
+      "new": "blender-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "03-multi-robot-coordination-papers",
+      "new": "multi-robot-coordination-papers",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "03-processing-analysis",
+      "new": "processing-analysis",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "04-ros-simulation",
+      "new": "ros-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "05-sensor-simulation",
+      "new": "sensor-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "06-hardware-in-loop",
+      "new": "hardware-in-loop",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "07-academic-research-tools",
+      "new": "academic-research-tools",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "07-gyroscope-sensors-specifications",
+      "new": "gyroscope-sensors-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "08-3d-modeling-tools",
+      "new": "3d-modeling-tools",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "09-performance-optimization",
+      "new": "performance-optimization",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "09-weather-station-sensors-specifications",
+      "new": "weather-station-sensors-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "10-ir-camera-specifications",
+      "new": "ir-camera-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "10-simulator-videos-reviews",
+      "new": "simulator-videos-reviews",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "11-drone-simulation-libraries",
+      "new": "drone-simulation-libraries",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "11-thermal-camera-specifications",
+      "new": "thermal-camera-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "12-fluid-level-sensor-specifications",
+      "new": "fluid-level-sensor-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "12-research-verification-alternatives",
+      "new": "research-verification-alternatives",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "14-flask-webstreaming-for-blender",
+      "new": "flask-webstreaming-for-blender",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "20251219-codebase-compliance-assessment",
+      "new": "codebase-compliance-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "20251219-compliance-implementation-summary",
+      "new": "compliance-implementation-summary",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "20251219-logging-mechanism-assessment",
+      "new": "logging-mechanism-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "20251219-reusability-usability-assessment",
+      "new": "reusability-usability-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "20251223-home-flight-simulation-test",
+      "new": "home-flight-simulation-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "20251224-drone-spawn-ui-update-fix",
+      "new": "drone-spawn-ui-update-fix",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "20251224-logging-verification-summary",
+      "new": "logging-verification-summary",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "2d-viewer-initialization-fix-2025-12-22",
+      "new": "d-viewer-initialization-fix-2025-12-22",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "3d-replay-visualization-test",
+      "new": "d-replay-visualization-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "90-hmrs-original-specification",
+      "new": "hmrs-original-specification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "AUTONOMOUS_EXPLORATION_COMPLETE",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "CODE-ANALYSIS-SUMMARY",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "CONTAINER_RENAME_PLAN",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "CRITICAL-ISSUES",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "DOCKER_COMPLETE",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "DOCKER_INDEPENDENT",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "DOCKER_ML_SCENARIO_UI",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "DOCKER_SETUP",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "DroneComputed",
+      "new": "dronecomputed_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "DroneConfigService",
+      "new": "droneconfigservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "DroneConfigState",
+      "new": "droneconfigstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "DroneService",
+      "new": "droneservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "DroneState",
+      "new": "dronestate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "EXPLORATION_ALGORITHMS_RESEARCH",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "EXPLORATION_ENHANCEMENTS",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "Flask Docker Setup Guide",
+      "new": "flask-docker-setup-guide",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "HMRS_SIMULATOR_TASKS",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "LAST_WORK_SUMMARY",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "Live Simulation Codebase",
+      "new": "live-simulation-codebase",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "MIGRATION_GUIDE",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "MLLearningService",
+      "new": "mllearningservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "MasterControlsService",
+      "new": "mastercontrolsservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "MasterControlsState",
+      "new": "mastercontrolsstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "ORGANIZATION_COMPLETE",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "PyBullet Physics Engine Docs",
+      "new": "pybullet-physics-engine-docs",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "RUN_VISUAL",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "SCENARIO_ORGANIZATION_COMPLETE",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "SENSOR_SIMULATION_STATUS",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "SessionMixin",
+      "new": "sessionmixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "SessionService",
+      "new": "sessionservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "SessionState",
+      "new": "sessionstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "SimulationDataMixin",
+      "new": "simulationdatamixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "SimulationMixin",
+      "new": "simulationmixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "SimulationService",
+      "new": "simulationservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "SocketIOMixin",
+      "new": "socketiomixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "VisualizationComputed",
+      "new": "visualizationcomputed_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "VisualizationMixin",
+      "new": "visualizationmixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "VisualizationService",
+      "new": "visualizationservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "VisualizationState",
+      "new": "visualizationstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "__init__",
+      "new": "init",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "add_sensor_drones",
+      "new": "add-sensor-drones",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "addon_configurator",
+      "new": "addon-configurator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "advanced_lidar_box",
+      "new": "advanced-lidar-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "attention_collision_avoidance_box",
+      "new": "attention-collision-avoidance-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "autonomous_exploration_live",
+      "new": "autonomous-exploration-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "autonomous_exploration_test",
+      "new": "autonomous-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "backend_test",
+      "new": "backend-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "base_motion_pattern",
+      "new": "base-motion-pattern",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "base_station_box",
+      "new": "base-station-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "battery_model",
+      "new": "battery-model",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "building_mapper",
+      "new": "building-mapper",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "camera_processor_box",
+      "new": "camera-processor-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "communication_addon",
+      "new": "communication-addon",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "comprehensive_ui_test",
+      "new": "comprehensive-ui-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "create_replayable_session",
+      "new": "create-replayable-session",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "docking_system_box",
+      "new": "docking-system-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "drone_brand_adapters",
+      "new": "drone-brand-adapters",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "exploration_manager_box",
+      "new": "exploration-manager-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "fixed_wing_motion",
+      "new": "fixed-wing-motion",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "flight_controller_addon",
+      "new": "flight-controller-addon",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "flight_path_optimizer_box",
+      "new": "flight-path-optimizer-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "frontier_explorer_box",
+      "new": "frontier-explorer-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "google_maps_3d",
+      "new": "google-maps-3d",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "gps_tracker",
+      "new": "gps-tracker",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "ground_master",
+      "new": "ground-master",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "ground_truth_logger_box",
+      "new": "ground-truth-logger-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "gymnasium_env_box",
+      "new": "gymnasium-env-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "helicopter_motion",
+      "new": "helicopter-motion",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "hmrs_drone_spawner",
+      "new": "hmrs-drone-spawner",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "hmrs_overseer_drone",
+      "new": "hmrs-overseer-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "hmrs_scout_drone",
+      "new": "hmrs-scout-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "hmrs_simulation_core",
+      "new": "hmrs-simulation-core",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "integration_example",
+      "new": "integration-example",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "interactive_controller",
+      "new": "interactive-controller",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "interactive_ui_test",
+      "new": "interactive-ui-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "learning_curve",
+      "new": "learning-curve",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "learning_drone",
+      "new": "learning-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "learning_drone_boxed",
+      "new": "learning-drone-boxed",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "learning_simulator",
+      "new": "learning-simulator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "lidar_addon",
+      "new": "lidar-addon",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "lidar_processor_box",
+      "new": "lidar-processor-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "lidar_scanner_box",
+      "new": "lidar-scanner-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "lidar_visualization_translator_box",
+      "new": "lidar-visualization-translator-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "logging_box",
+      "new": "logging-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "master_controller",
+      "new": "master-controller",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "master_coordinator",
+      "new": "master-coordinator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "master_learning",
+      "new": "master-learning",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "mission_config",
+      "new": "mission-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "mission_state_machine_box",
+      "new": "mission-state-machine-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "mission_tasks",
+      "new": "mission-tasks",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "ml_controller",
+      "new": "ml-controller",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "ml_scenario_manager",
+      "new": "ml-scenario-manager",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "ml_scenario_ui",
+      "new": "ml-scenario-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "model_loader",
+      "new": "model-loader",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "multirotor_motion",
+      "new": "multirotor-motion",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "nerf_building_reconstruction_box",
+      "new": "nerf-building-reconstruction-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "none",
+      "new": null,
+      "reason": "None link"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "osm_buildings",
+      "new": "osm-buildings",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "overseer_drone_config",
+      "new": "overseer-drone-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "path_planner_box",
+      "new": "path-planner-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "prepare_window_cleaning_drones",
+      "new": "prepare-window-cleaning-drones",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "rc_command_translator_box",
+      "new": "rc-command-translator-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "resource_estimator_box",
+      "new": "resource-estimator-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "run_and_visualize",
+      "new": "run-and-visualize",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "run_ml_sessions",
+      "new": "run-ml-sessions",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "run_visual_demo",
+      "new": "run-visual-demo",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "run_visual_save",
+      "new": "run-visual-save",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "scenario_generator",
+      "new": "scenario-generator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "sensor_config",
+      "new": "sensor-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "session_creator_box",
+      "new": "session-creator-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "session_db_box",
+      "new": "session-db-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "simple_exploration_test",
+      "new": "simple-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "simple_quadcopter_live",
+      "new": "simple-quadcopter-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "swarm_controller",
+      "new": "swarm-controller",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "swarm_live",
+      "new": "swarm-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "swarm_simulator",
+      "new": "swarm-simulator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "tanker_lifeline_config",
+      "new": "tanker-lifeline-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "tanker_mule_config",
+      "new": "tanker-mule-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "test_attention_collision_avoidance_box",
+      "new": "test-attention-collision-avoidance-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "test_boxes",
+      "new": "test-boxes",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "test_drone_command_session",
+      "new": "test-drone-command-session",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "test_drone_movement_with_rc_tracking",
+      "new": "test-drone-movement-with-rc-tracking",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "test_home_flight_playback",
+      "new": "test-home-flight-playback",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "test_sensor_simulation",
+      "new": "test-sensor-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "test_session_endpoints",
+      "new": "test-session-endpoints",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "test_session_visualization_ui",
+      "new": "test-session-visualization-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "verify_requirements",
+      "new": "verify-requirements",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "verify_time_based_data",
+      "new": "verify-time-based-data",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "vision_drone",
+      "new": "vision-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "visual_slam_box",
+      "new": "visual-slam-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "visualization_box",
+      "new": "visualization-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "visualize_exploration",
+      "new": "visualize-exploration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "visualize_logs",
+      "new": "visualize-logs",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "weather_api",
+      "new": "weather-api",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "weather_system",
+      "new": "weather-system",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "worker_capabilities",
+      "new": "worker-capabilities",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "worker_drone",
+      "new": "worker-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "worker_drone_boxed",
+      "new": "worker-drone-boxed",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "applied_links.md",
+      "old": "zoom_box",
+      "new": "zoom-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-persistence-verification.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-persistence-verification.md",
+      "old": "addon_configurator",
+      "new": "addon-configurator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-persistence-verification.md",
+      "old": "add_sensor_drones",
+      "new": "add-sensor-drones",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "performance-optimization.md",
+      "old": "01-many-small-dreams-papers",
+      "new": "many-small-dreams-papers",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "performance-optimization.md",
+      "old": "none",
+      "new": null,
+      "reason": "None link"
+    },
+    {
+      "file": "live-verification-complete.md",
+      "old": "Live Simulation Codebase",
+      "new": "live-simulation-codebase",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "live-verification-complete.md",
+      "old": "PyBullet Physics Engine Docs",
+      "new": "pybullet-physics-engine-docs",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-integrity-issue.md",
+      "old": "0013-docker-troubleshooting",
+      "new": "docker-troubleshooting",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-integrity-issue.md",
+      "old": "0012-multi-container-architecture",
+      "new": "multi-container-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-integrity-issue.md",
+      "old": "0010-docker-fix-verification",
+      "new": "docker-fix-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "plot-2d-box.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-browser-verification.md",
+      "old": "00-master-controls-research",
+      "new": "master-controls-research",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "visual-simulation_1.md",
+      "old": "VisualizationState",
+      "new": "visualizationstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "visual-simulation_1.md",
+      "old": "test_sensor_simulation",
+      "new": "test-sensor-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-screenshot-based-checklist.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-simulator-tasks_1.md",
+      "old": "backend_test",
+      "new": "backend-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-simulator-tasks_1.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "compliance-implementation-progress.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "compliance-implementation-progress.md",
+      "old": "master_coordinator",
+      "new": "master-coordinator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "codebase-boxes-oop-compliance-analysis.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "click-analysis-session-analysis-page.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "start-server.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "start-server.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "backend-test.md",
+      "old": "backend_test",
+      "new": "backend-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "backend-test.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "view-consistency-no-blackout-fix.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "app-data.md",
+      "old": "00-drone-swarm-communication-research",
+      "new": "drone-swarm-communication-research",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "building-mapper.md",
+      "old": "osm_buildings",
+      "new": "osm-buildings",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "reports-overview.md",
+      "old": "master_learning",
+      "new": "master-learning",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "reports-overview.md",
+      "old": "0000-implementation-overview",
+      "new": "implementation-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "reports-overview.md",
+      "old": "0002-ui-verification",
+      "new": "ui-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "flight-path-optimizer-box.md",
+      "old": "flight_path_optimizer_box",
+      "new": "flight-path-optimizer-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "run-and-visualize.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "run-and-visualize.md",
+      "old": "simple_exploration_test",
+      "new": "simple-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "init.md",
+      "old": "base_motion_pattern",
+      "new": "base-motion-pattern",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "init.md",
+      "old": "multirotor_motion",
+      "new": "multirotor-motion",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "init.md",
+      "old": "fixed_wing_motion",
+      "new": "fixed-wing-motion",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "movement-fix-summary.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "movement-fix-summary.md",
+      "old": "rc_command_translator_box",
+      "new": "rc-command-translator-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "movement-fix-summary.md",
+      "old": "model_loader",
+      "new": "model-loader",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "home-flight-test-findings.md",
+      "old": "20251223-home-flight-simulation-test",
+      "new": "home-flight-simulation-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "osm-gps-integration-complete.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "visualize-exploration.md",
+      "old": "base_station_box",
+      "new": "base-station-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "visualize-exploration.md",
+      "old": "simple_exploration_test",
+      "new": "simple-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "code-analysis-config-page.md",
+      "old": "DroneConfigState",
+      "new": "droneconfigstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "swarm-simulation.md",
+      "old": "0012-multi-container-architecture",
+      "new": "multi-container-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "swarm-simulation.md",
+      "old": "0008-swarm-simulation",
+      "new": "swarm-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "master-controls-view-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "logging-mechanism-assessment.md",
+      "old": "20251219-codebase-compliance-assessment",
+      "new": "codebase-compliance-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "logging-mechanism-assessment.md",
+      "old": "20251219-reusability-usability-assessment",
+      "new": "reusability-usability-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "advanced-lidar-box.md",
+      "old": "lidar_processor_box",
+      "new": "lidar-processor-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "advanced-lidar-box.md",
+      "old": "nerf_building_reconstruction_box",
+      "new": "nerf-building-reconstruction-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "system-monitoring-session-test-findings.md",
+      "old": "20251223-home-flight-simulation-test",
+      "new": "home-flight-simulation-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "plotly-gps-display-and-osm-view-fix.md",
+      "old": "00-simulation-tools-overview",
+      "new": "simulation-tools-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "auto-spawn-disable-browser-verification.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-architecture-requirements.md",
+      "old": "11-drone-simulation-libraries",
+      "new": "drone-simulation-libraries",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "visual-simulation.md",
+      "old": "0006-simulation-results",
+      "new": "simulation-results",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "visual-simulation.md",
+      "old": "0004-gps-connection-system",
+      "new": "gps-connection-system",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "building-spawn-and-system-step-logging.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "building-spawn-and-system-step-logging.md",
+      "old": "addon_configurator",
+      "new": "addon-configurator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "base-drone.md",
+      "old": "swarm_controller",
+      "new": "swarm-controller",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "base-drone.md",
+      "old": "base_motion_pattern",
+      "new": "base-motion-pattern",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "cost-development-timeline.md",
+      "old": "00-regulatory-compliance",
+      "new": "regulatory-compliance",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "compliance-implementation-summary.md",
+      "old": "20251219-logging-mechanism-assessment",
+      "new": "logging-mechanism-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "compliance-implementation-summary.md",
+      "old": "03-blender-integration",
+      "new": "blender-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "session-visualization-ui-test.md",
+      "old": "test_sensor_simulation",
+      "new": "test-sensor-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "analyze-command-processing.md",
+      "old": "test_drone_command_session",
+      "new": "test-drone-command-session",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "analyze-command-processing.md",
+      "old": "11-thermal-camera-specifications",
+      "new": "thermal-camera-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sim-time-fix.md",
+      "old": "verify_time_based_data",
+      "new": "verify-time-based-data",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sim-time-fix.md",
+      "old": "0007-time-based-data-verification",
+      "new": "time-based-data-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulator-videos-reviews.md",
+      "old": "00-research-methodology",
+      "new": "research-methodology",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulator-videos-reviews.md",
+      "old": "01-many-small-dreams-papers",
+      "new": "many-small-dreams-papers",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-home-flight-browser.md",
+      "old": "test_home_flight_playback",
+      "new": "test-home-flight-playback",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simple-exploration-test.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "cameramixin_1.md",
+      "old": "master_controller",
+      "new": "master-controller",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "api-methods.md",
+      "old": "0012-multi-container-architecture",
+      "new": "multi-container-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-overseer-drone.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-overseer-drone.md",
+      "old": "overseer_drone_config",
+      "new": "overseer-drone-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "nav-sidebar-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "nav-sidebar-component.md",
+      "old": "SimulationDataMixin",
+      "new": "simulationdatamixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "complete-user-simulation-test.md",
+      "old": "00-drone-swarm-communication-research",
+      "new": "drone-swarm-communication-research",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "communication-overview.md",
+      "old": "10-ir-camera-specifications",
+      "new": "ir-camera-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "communication-overview.md",
+      "old": "00-system-integration",
+      "new": "system-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "communication-overview.md",
+      "old": "10-ir-camera-specifications",
+      "new": "ir-camera-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "communication-overview.md",
+      "old": "03-blender-integration",
+      "new": "blender-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-simulation-core.md",
+      "old": "swarm_live",
+      "new": "swarm-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-simulation-core.md",
+      "old": "swarm_live",
+      "new": "swarm-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-simulation-core.md",
+      "old": "swarm_live",
+      "new": "swarm-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-simulation-core.md",
+      "old": "swarm_live",
+      "new": "swarm-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "code-size-analysis.md",
+      "old": "autonomous_exploration_live",
+      "new": "autonomous-exploration-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "code-size-analysis.md",
+      "old": "autonomous_exploration_test",
+      "new": "autonomous-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "readme-visualization.md",
+      "old": "hmrs_simulation_core",
+      "new": "hmrs-simulation-core",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "guides-overview.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "helicopter-motion.md",
+      "old": "helicopter_motion",
+      "new": "helicopter-motion",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "helicopter-motion.md",
+      "old": "base_motion_pattern",
+      "new": "base-motion-pattern",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-fixes.md",
+      "old": "ml_controller",
+      "new": "ml-controller",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-fixes.md",
+      "old": "learning_drone",
+      "new": "learning-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-fixes.md",
+      "old": "scenario_generator",
+      "new": "scenario-generator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "random-gps-on-load-and-crosshair-center-fix.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "weather-onboard-forecast-integration-complete.md",
+      "old": "weather_system",
+      "new": "weather-system",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "weather-onboard-forecast-integration-complete.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "vendor-onboarding-tutorial.md",
+      "old": "Live Simulation Codebase",
+      "new": "live-simulation-codebase",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "logs-sidebar-thorough-study.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-actual-visible-working-checklist.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "hmrs-readme.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "future-overview.md",
+      "old": "0000-implementation-overview",
+      "new": "implementation-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "executive-summary.md",
+      "old": "autonomous_exploration_live",
+      "new": "autonomous-exploration-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "dronecomputed_1.md",
+      "old": "DroneState",
+      "new": "dronestate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "dronecomputed_1.md",
+      "old": "DroneState",
+      "new": "dronestate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-page-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "test-and-fix-movement.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "green-arrow-center-marker-fix.md",
+      "old": "VisualizationService",
+      "new": "visualizationservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-troubleshooting.md",
+      "old": "Flask Docker Setup Guide",
+      "new": "flask-docker-setup-guide",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "app-layout5.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "app-layout5.md",
+      "old": "SocketIOMixin",
+      "new": "socketiomixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "notification-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "refactoring-todo-list.md",
+      "old": "0007-REFACTORING-TODO-LIST",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "base-motion-pattern.md",
+      "old": "PyBullet Physics Engine Docs",
+      "new": "pybullet-physics-engine-docs",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "implemented-recommendations.md",
+      "old": "integration_example",
+      "new": "integration-example",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "implemented-recommendations.md",
+      "old": "00-simulation-tools-overview",
+      "new": "simulation-tools-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ros-simulation.md",
+      "old": "00-communication-protocol",
+      "new": "communication-protocol",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-quad-view-layout-fix.md",
+      "old": "00-2d-3d-layout-enhancement",
+      "new": "2d-3d-layout-enhancement",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-performance.md",
+      "old": "SimulationDataMixin",
+      "new": "simulationdatamixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-performance.md",
+      "old": "PyBullet Physics Engine Docs",
+      "new": "pybullet-physics-engine-docs",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "readme-check-status_1.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "gps-rtk-overview.md",
+      "old": "10-ir-camera-specifications",
+      "new": "ir-camera-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "gps-rtk-overview.md",
+      "old": "0026-quad-view-plotly-osm-integration",
+      "new": "quad-view-plotly-osm-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "gps-rtk-overview.md",
+      "old": "11-thermal-camera-specifications",
+      "new": "thermal-camera-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "progress-summary.md",
+      "old": "logging_box",
+      "new": "logging-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "progress-summary.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "progress-summary.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "progress-summary.md",
+      "old": "master_coordinator",
+      "new": "master-coordinator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "create-replayable-session.md",
+      "old": "SimulationService",
+      "new": "simulationservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "gps-tracker.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "confirmation-dialog-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "code-duplication-report.md",
+      "old": "autonomous_exploration_test",
+      "new": "autonomous-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "code-duplication-report.md",
+      "old": "ground_truth_logger_box",
+      "new": "ground-truth-logger-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "time-based-data-verification.md",
+      "old": "0003-ui-verification-guide",
+      "new": "ui-verification-guide",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "vue-production-build-and-socketio-stability-fix.md",
+      "old": "SocketIOMixin",
+      "new": "socketiomixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verify-time-based-data.md",
+      "old": "verify_requirements",
+      "new": "verify-requirements",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verify-time-based-data.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drones-base-config-view-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "drones-base-config-view-component.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "api-data-excessive-polling-fix.md",
+      "old": "01-simulation-sequence-best-practices",
+      "new": "simulation-sequence-best-practices",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "autonomous-exploration-live.md",
+      "old": "autonomous_exploration_test",
+      "new": "autonomous-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "autonomous-exploration-live.md",
+      "old": "swarm_simulator",
+      "new": "swarm-simulator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "live-simulation_1.md",
+      "old": "Flask Docker Setup Guide",
+      "new": "flask-docker-setup-guide",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "codebase-assessment.md",
+      "old": "00-codebase-architecture-assessment",
+      "new": "codebase-architecture-assessment",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "codebase-assessment.md",
+      "old": "12-research-verification-alternatives",
+      "new": "research-verification-alternatives",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "home-flight-simulation-test.md",
+      "old": "20251224-drone-spawn-ui-update-fix",
+      "new": "drone-spawn-ui-update-fix",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "home-flight-simulation-test.md",
+      "old": "20251224-logging-verification-summary",
+      "new": "logging-verification-summary",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-fix-verification.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-fix-verification.md",
+      "old": "01-simulation-videos",
+      "new": "simulation-videos",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "addon-configurator.md",
+      "old": "drone_brand_adapters",
+      "new": "drone-brand-adapters",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "header-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "rc-translator-box-created.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-scenario-ui_1.md",
+      "old": "ml_scenario_manager",
+      "new": "ml-scenario-manager",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-scenario-ui_1.md",
+      "old": "hmrs_simulation_core",
+      "new": "hmrs-simulation-core",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sensors-overview.md",
+      "old": "07-gyroscope-sensors-specifications",
+      "new": "gyroscope-sensors-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sensors-overview.md",
+      "old": "0019-open-source-libraries-integration",
+      "new": "open-source-libraries-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drones-control-page-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "drones-control-page-component.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-attention-collision-avoidance-box.md",
+      "old": "attention_collision_avoidance_box",
+      "new": "attention-collision-avoidance-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-attention-collision-avoidance-box.md",
+      "old": "test_attention_collision_avoidance_box",
+      "new": "test-attention-collision-avoidance-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-sensor-simulation.md",
+      "old": "visualize_exploration",
+      "new": "visualize-exploration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-sensor-simulation.md",
+      "old": "lidar_addon",
+      "new": "lidar-addon",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-scout-drone.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-scout-drone.md",
+      "old": "building_mapper",
+      "new": "building-mapper",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "hmrs-scout-drone.md",
+      "old": "battery_model",
+      "new": "battery-model",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "log-timestamp-display-fix.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verification-after-compose-restart-complete.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-results.md",
+      "old": "Live Simulation Codebase",
+      "new": "live-simulation-codebase",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "lidar-processor-box.md",
+      "old": "lidar_visualization_translator_box",
+      "new": "lidar-visualization-translator-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "run-live.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "run-live.md",
+      "old": "simple_quadcopter_live",
+      "new": "simple-quadcopter-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "restart-and-verify.md",
+      "old": "0009-restart-and-verify",
+      "new": "restart-and-verify",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "restart-and-verify.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "restart-and-verify.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "restart-and-verify.md",
+      "old": "test_session_endpoints",
+      "new": "test-session-endpoints",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "improvements_1.md",
+      "old": "SimulationService",
+      "new": "simulationservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "blender-live-container-visualization.md",
+      "old": "14-flask-webstreaming-for-blender",
+      "new": "flask-webstreaming-for-blender",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "blender-live-container-visualization.md",
+      "old": "03-blender-integration",
+      "new": "blender-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "blender-live-container-visualization.md",
+      "old": "0002-docker-setup",
+      "new": "docker-setup",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "movement-fixes-applied.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "movement-fixes-applied.md",
+      "old": "0018-movement-fixes-applied",
+      "new": "movement-fixes-applied",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-movement-weather-investigation.md",
+      "old": "00-addons-overview",
+      "new": "addons-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "app-component-layout5.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "socket-io-box.md",
+      "old": "SocketIOMixin",
+      "new": "socketiomixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-types-implementation.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-types-implementation.md",
+      "old": "hmrs_drone_spawner",
+      "new": "hmrs-drone-spawner",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-types-implementation.md",
+      "old": "flight_controller_addon",
+      "new": "flight-controller-addon",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "butterfly-movement-analysis.md",
+      "old": "11-drone-simulation-libraries",
+      "new": "drone-simulation-libraries",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "debugging-guide.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "debugging-guide.md",
+      "old": "run_and_visualize",
+      "new": "run-and-visualize",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulationmixin_1.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "simulationmixin_1.md",
+      "old": "SimulationService",
+      "new": "simulationservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "phase1-libraries-installed-and-running.md",
+      "old": "0020-integration-complete",
+      "new": "integration-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-gui-fix.md",
+      "old": "0013-docker-troubleshooting",
+      "new": "docker-troubleshooting",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-gui-fix.md",
+      "old": "0002-docker-setup",
+      "new": "docker-setup",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "assessment-complete.md",
+      "old": "test_boxes",
+      "new": "test-boxes",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "assessment-complete.md",
+      "old": "test_boxes",
+      "new": "test-boxes",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "assessment-complete.md",
+      "old": "master_coordinator",
+      "new": "master-coordinator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "all-phases-integration-complete.md",
+      "old": "__init__",
+      "new": "init",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "flight-controller-overview.md",
+      "old": "10-ir-camera-specifications",
+      "new": "ir-camera-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "flight-controller-overview.md",
+      "old": "00-system-integration",
+      "new": "system-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "flight-controller-overview.md",
+      "old": "10-ir-camera-specifications",
+      "new": "ir-camera-specifications",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "flight-controller-overview.md",
+      "old": "00-system-integration",
+      "new": "system-integration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "flight-controller-overview.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "session-playback-implementation.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "weather-station-sensors-specifications.md",
+      "old": "00-hmrs-integration-ideas",
+      "new": "hmrs-integration-ideas",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "improved-3d-models.md",
+      "old": "visualization_box",
+      "new": "visualization-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "run-visual.md",
+      "old": "0002-run-visual",
+      "new": "run-visual",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "osm-plotly-toggle-smoothness-analysis.md",
+      "old": "00-drone-implementation-analysis",
+      "new": "drone-implementation-analysis",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "implementation-verification.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "implementation-verification.md",
+      "old": "hmrs_scout_drone",
+      "new": "hmrs-scout-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "implementation-verification.md",
+      "old": "battery_model",
+      "new": "battery-model",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-implementation-analysis.md",
+      "old": "00-realistic-simulation-implementation-summary",
+      "new": "realistic-simulation-implementation-summary",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "integration-complete.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "view-checks-logging-verification.md",
+      "old": "2d-viewer-initialization-fix-2025-12-22",
+      "new": "d-viewer-initialization-fix-2025-12-22",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "2d-3d-layout-enhancement.md",
+      "old": "11-drone-simulation-libraries",
+      "new": "drone-simulation-libraries",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "2d-3d-layout-enhancement.md",
+      "old": "00-realtime-visualization-architecture",
+      "new": "realtime-visualization-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "2d-3d-layout-enhancement.md",
+      "old": "VisualizationState",
+      "new": "visualizationstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-ml-scenario-ui_1.md",
+      "old": "0007-docker-ml-scenario-ui",
+      "new": "docker-ml-scenario-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-ml-scenario-ui_1.md",
+      "old": "ml_scenario_ui",
+      "new": "ml-scenario-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "osm-plotly-sync-ui-analysis-complete.md",
+      "old": "00-hmrs-integration-ideas",
+      "new": "hmrs-integration-ideas",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "session-flow-documentation.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "gap-analysis-what-is-needed.md",
+      "old": "00-overseer-overview",
+      "new": "overseer-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "gap-analysis-what-is-needed.md",
+      "old": "00-coordination-autonomy",
+      "new": "coordination-autonomy",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "pettingzoo-env-box.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "complete-addons-list.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "run-simulation.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "run-simulation.md",
+      "old": "swarm_simulator",
+      "new": "swarm-simulator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "programmatic-simulation-implementation.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "programmatic-simulation-implementation.md",
+      "old": "00-all-references",
+      "new": "all-references",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "socket-io-investigation.md",
+      "old": "SocketIOMixin",
+      "new": "socketiomixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "quick-start_1.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "container-rename-plan_1.md",
+      "old": "0013-hmrs-simulator-tasks",
+      "new": "hmrs-simulator-tasks",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "container-rename-plan_1.md",
+      "old": "0001-docker-readme",
+      "new": "docker-readme",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sessionmixin_1.md",
+      "old": "SessionService",
+      "new": "sessionservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "output-configuration.md",
+      "old": "simple_exploration_test",
+      "new": "simple-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "output-configuration.md",
+      "old": "autonomous_exploration_test",
+      "new": "autonomous-exploration-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "output-configuration.md",
+      "old": "visualize_exploration",
+      "new": "visualize-exploration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "output-configuration.md",
+      "old": "visualize_logs",
+      "new": "visualize-logs",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "lidar-visualization-translator-box.md",
+      "old": "lidar_processor_box",
+      "new": "lidar-processor-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simple-test-ready.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "drone-config-browser-verification.md",
+      "old": "11-drone-simulation-libraries",
+      "new": "drone-simulation-libraries",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-run-ml-ui.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "debug-output.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "debug-output.md",
+      "old": "swarm_controller",
+      "new": "swarm-controller",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "debug-output.md",
+      "old": "tanker_mule_config",
+      "new": "tanker-mule-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-swarm-communication-research.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-swarm-communication-research.md",
+      "old": "SocketIOMixin",
+      "new": "socketiomixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "realistic-simulation-implementation-tracker.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "realistic-simulation-implementation-tracker.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "realistic-simulation-implementation-tracker.md",
+      "old": "battery_model",
+      "new": "battery-model",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "replay-fixes-applied.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "replay-fixes-applied.md",
+      "old": "11-drone-simulation-libraries",
+      "new": "drone-simulation-libraries",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "all-fixes-complete-final-summary.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "session-analysis-page-implementation.md",
+      "old": "05-sensor-simulation",
+      "new": "sensor-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "session-analysis-page-implementation.md",
+      "old": "3d-replay-visualization-test",
+      "new": "d-replay-visualization-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "swarm-live-scientific.md",
+      "old": "swarm_simulator",
+      "new": "swarm-simulator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "swarm-live-scientific.md",
+      "old": "mission_config",
+      "new": "mission-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "swarm-live-scientific.md",
+      "old": "PyBullet Physics Engine Docs",
+      "new": "pybullet-physics-engine-docs",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "mastercontrolsservice_1.md",
+      "old": "MasterControlsService",
+      "new": "mastercontrolsservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "research-list-component.md",
+      "old": "00-research-methodology",
+      "new": "research-methodology",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "two-minute-papers-overview.md",
+      "old": "01-simulation-videos",
+      "new": "simulation-videos",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "session-playback-fixes.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-home-flight-playback.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-home-flight-playback.md",
+      "old": "hmrs_simulation_core",
+      "new": "hmrs-simulation-core",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "click-analysis-drones-control-page.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "click-analysis-drones-control-page.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verified-papers-overview.md",
+      "old": "01-many-small-dreams-papers",
+      "new": "many-small-dreams-papers",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verified-papers-overview.md",
+      "old": "02-simulation-to-reality-papers",
+      "new": "simulation-to-reality-papers",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verified-papers-overview.md",
+      "old": "03-multi-robot-coordination-papers",
+      "new": "multi-robot-coordination-papers",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "verification-overview.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "verification-overview.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "analyze-drone-motion.md",
+      "old": "test_session_visualization_ui",
+      "new": "test-session-visualization-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "battery-model.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-visual-slam-box.md",
+      "old": "visual_slam_box",
+      "new": "visual-slam-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "single-session-test-results.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "interactive-system-guide.md",
+      "old": "11-drone-simulation-libraries",
+      "new": "drone-simulation-libraries",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "interactive-system-guide.md",
+      "old": "battery_model",
+      "new": "battery-model",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "interactive-system-guide.md",
+      "old": "learning_curve",
+      "new": "learning-curve",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "interactive-system-guide.md",
+      "old": "interactive_controller",
+      "new": "interactive-controller",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "open-source-libraries-integration.md",
+      "old": "0020-integration-complete",
+      "new": "integration-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "open-source-libraries-integration.md",
+      "old": "0018-modern-drone-simulation-enhancements-2025",
+      "new": "modern-drone-simulation-enhancements-2025",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "droneconfigstate_1.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-boxes.md",
+      "old": "test_boxes",
+      "new": "test-boxes",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "container-rename-complete.md",
+      "old": "0008-container-rename-plan",
+      "new": "container-rename-plan",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "container-rename-complete.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-results.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "real-world-street-maps-from-gps.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-run.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "docker-run.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "visualizationstate_1.md",
+      "old": "VisualizationState",
+      "new": "visualizationstate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "visualizationstate_1.md",
+      "old": "zoom_box",
+      "new": "zoom-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ui-browser-test-checklist.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "implementation-overview.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "implementation-overview.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "integration-example.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "all-references.md",
+      "old": "00-lidar-overview",
+      "new": "lidar-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "comprehensive-analysis-summary_1.md",
+      "old": "CODE-ANALYSIS-SUMMARY",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "comprehensive-analysis-summary_1.md",
+      "old": "CRITICAL-ISSUES",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "visualizationservice_1.md",
+      "old": "VisualizationService",
+      "new": "visualizationservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "error-log-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "error-log-component.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "d-top-view-update-after-gps-preset-fix.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-learning-view-component.md",
+      "old": "DroneState",
+      "new": "dronestate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-learning-view-component.md",
+      "old": "MLLearningService",
+      "new": "mllearningservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "comprehensive-movement-verification.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-research-summary.md",
+      "old": "01-many-small-dreams-papers",
+      "new": "many-small-dreams-papers",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-research-summary.md",
+      "old": "00-research-methodology",
+      "new": "research-methodology",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "comprehensive-ui-test.md",
+      "old": "comprehensive_ui_test",
+      "new": "comprehensive-ui-test",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "final-implementation-summary.md",
+      "old": "0001-performance-report",
+      "new": "performance-report",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "final-implementation-summary.md",
+      "old": "0004-container-setup-complete",
+      "new": "container-setup-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "gps-connection-system.md",
+      "old": "test_session_visualization_ui",
+      "new": "test-session-visualization-ui",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "learning-drone.md",
+      "old": "MIGRATION_GUIDE",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "learning-drone.md",
+      "old": "learning_drone_boxed",
+      "new": "learning-drone-boxed",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "organization-complete.md",
+      "old": "test_boxes",
+      "new": "test-boxes",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "multirotor-motion.md",
+      "old": "base_motion_pattern",
+      "new": "base-motion-pattern",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "multirotor-motion.md",
+      "old": "run_simulation",
+      "new": "run-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "quad-view-only-plotly-fix.md",
+      "old": "VisualizationMixin",
+      "new": "visualizationmixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "readme-docker.md",
+      "old": "DOCKER_COMPLETE",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "readme-docker.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "readme-docker.md",
+      "old": "DOCKER_ML_SCENARIO_UI",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "drones-control-page-browser-check-report.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "drones-control-page-browser-check-report.md",
+      "old": "Sensor Suite Architecture",
+      "new": "sensor-suite-architecture",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "excessive-api-polling-fix.md",
+      "old": "SocketIOMixin",
+      "new": "socketiomixin_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "osm-2d-top-view-black-screen-issue.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "fixes-applied.md",
+      "old": "EXPLORATION_ALGORITHMS_RESEARCH",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "fixes-applied.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ground-master.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ground-master.md",
+      "old": "worker_drone",
+      "new": "worker-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ground-master.md",
+      "old": "mission_config",
+      "new": "mission-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "appstate_1.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "deployment-issues-root-cause-analysis.md",
+      "old": "RUN_VISUAL",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "deployment-issues-root-cause-analysis.md",
+      "old": "HMRS_SIMULATOR_TASKS",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "deployment-issues-root-cause-analysis.md",
+      "old": "README",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "sessions-overview.md",
+      "old": "run_ml_sessions",
+      "new": "run-ml-sessions",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sessions-overview.md",
+      "old": "0000-implementation-overview",
+      "new": "implementation-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sessions-overview.md",
+      "old": "0002-ui-verification",
+      "new": "ui-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "all-phases-libraries-installed-verification.md",
+      "old": "nerf_building_reconstruction_box",
+      "new": "nerf-building-reconstruction-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "overseer-overview.md",
+      "old": "01-platform-selection",
+      "new": "platform-selection",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "overseer-overview.md",
+      "old": "02-inspection-sensors",
+      "new": "inspection-sensors",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "overseer-overview.md",
+      "old": "03-bird-deterrent",
+      "new": "bird-deterrent",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "check-and-start-docker.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "resource-estimator-box.md",
+      "old": "resource_estimator_box",
+      "new": "resource-estimator-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "resource-estimator-box.md",
+      "old": "mission_tasks",
+      "new": "mission-tasks",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "frontier-explorer-box.md",
+      "old": "path_planner_box",
+      "new": "path-planner-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "worker-drone.md",
+      "old": "MIGRATION_GUIDE",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "worker-drone.md",
+      "old": "worker_drone_boxed",
+      "new": "worker-drone-boxed",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "quad-view-center-sync-and-crosshairs-fix.md",
+      "old": "0000-guides-overview",
+      "new": "guides-overview",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "quad-view-center-sync-and-crosshairs-fix.md",
+      "old": "00-session-flow-documentation",
+      "new": "session-flow-documentation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "iso-timestamps-rc-translator-integration.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "iso-timestamps-rc-translator-integration.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "iso-timestamps-rc-translator-integration.md",
+      "old": "rc_command_translator_box",
+      "new": "rc-command-translator-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "sensor-drones-added-and-verified.md",
+      "old": "addon_configurator",
+      "new": "addon-configurator",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "session-db-analysis-202512131946.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "session-db-analysis-202512131946.md",
+      "old": "session_db_box",
+      "new": "session-db-box",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "interactive-controller.md",
+      "old": "hmrs_simulation_core",
+      "new": "hmrs-simulation-core",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-tools-overview.md",
+      "old": "01-full-featured-simulators",
+      "new": "full-featured-simulators",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-tools-overview.md",
+      "old": "02-python-simulators",
+      "new": "python-simulators",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-tools-overview.md",
+      "old": "04-ros-simulation",
+      "new": "ros-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-tools-overview.md",
+      "old": "05-sensor-simulation",
+      "new": "sensor-simulation",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-tools-overview.md",
+      "old": "06-hardware-in-loop",
+      "new": "hardware-in-loop",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-tools-overview.md",
+      "old": "07-academic-research-tools",
+      "new": "academic-research-tools",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "simulation-tools-overview.md",
+      "old": "08-3d-modeling-tools",
+      "new": "3d-modeling-tools",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "test-ui-replay-flow.md",
+      "old": "test_drone_command_session",
+      "new": "test-drone-command-session",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "how-to-run.md",
+      "old": "0005-docker-complete",
+      "new": "docker-complete",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "how-to-run.md",
+      "old": "visualize_exploration",
+      "new": "visualize-exploration",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "dronemixin_1.md",
+      "old": "Vue",
+      "new": null,
+      "reason": "No target found"
+    },
+    {
+      "file": "dronemixin_1.md",
+      "old": "DroneState",
+      "new": "dronestate_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "dronemixin_1.md",
+      "old": "DroneComputed",
+      "new": "dronecomputed_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "dronemixin_1.md",
+      "old": "DroneService",
+      "new": "droneservice_1",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "tanker-mule-config.md",
+      "old": "sensor_config",
+      "new": "sensor-config",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "drone-movement-fix-implementation.md",
+      "old": "11-drone-simulation-libraries",
+      "new": "drone-simulation-libraries",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "random-gps-mena-cities-and-dropdown-fixes.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "server-restart-instructions.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "last-work-summary.md",
+      "old": "0011-docker-gui-fix",
+      "new": "docker-gui-fix",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "last-work-summary.md",
+      "old": "0010-docker-fix-verification",
+      "new": "docker-fix-verification",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "mission-executor.md",
+      "old": "mission_tasks",
+      "new": "mission-tasks",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "mission-executor.md",
+      "old": "vision_drone",
+      "new": "vision-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "mission-executor.md",
+      "old": "ground_master",
+      "new": "ground-master",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "mission-executor.md",
+      "old": "learning_drone",
+      "new": "learning-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-scenario-manager.md",
+      "old": "03-bird-deterrent",
+      "new": "bird-deterrent",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "ml-scenario-manager.md",
+      "old": "02-inspection-sensors",
+      "new": "inspection-sensors",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "realistic-simulation-implementation-summary.md",
+      "old": "base_drone",
+      "new": "base-drone",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "realistic-simulation-implementation-summary.md",
+      "old": "hmrs_simulation_live",
+      "new": "hmrs-simulation-live",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "realistic-simulation-implementation-summary.md",
+      "old": "00-realistic-simulation-implementation-summary",
+      "new": "realistic-simulation-implementation-summary",
+      "reason": "Fuzzy match"
+    },
+    {
+      "file": "refactoring-complete.md",
+      "old": "Simulation_Engine_Architecture",
+      "new": "simulation-engine-architecture",
+      "reason": "Fuzzy match"
+    }
+  ],
+  "orphans": [
+    "drone-persistence-verification.md",
+    "power-optimizer-box.md",
+    "start-server.md",
+    "interactive-system-guide.md",
+    "dirty-glass-detector-box.md",
+    "universal-programming-skill.md",
+    "sensor-simulation-status.md",
+    "replay-fixes-applied.md",
+    "all-analysis-fixes-complete.md",
+    "project-comprehensive-assessment.md",
+    "time-restrictions.md",
+    "verify-without-pybullet.md",
+    "buildingmixin_1.md",
+    "simulation-results_1.md",
+    "phase-2-services-and-mixins-complete.md",
+    "run-live.md",
+    "d-top-view-update-after-gps-preset-fix.md",
+    "cameramixin_1.md",
+    "container-rename-complete.md",
+    "ui-quad-view-layout-fix.md",
+    "drone-efficiency-enhancements.md",
+    "simple-quadcopter.md",
+    "production-scenarios.md",
+    "quick-start_1.md",
+    "vibration-detector-specifications.md",
+    "tanker-overview.md",
+    "3d-building-reconstruction-from-images.md",
+    "playback-workflow-test-results.md",
+    "battery-monitoring-sensor-specifications.md",
+    "weathermixin_1.md",
+    "final-corrected-test.md",
+    "master-communication-time-sync-fix.md",
+    "osm-gps-integration-complete.md",
+    "url-routing-sidebar-pages.md",
+    "oop-principles-review.md",
+    "droneconfigmixin_1.md",
+    "reset-button-drone-loading-verification.md",
+    "container-rename-complete_1.md",
+    "view-loading-time-monitoring-2025-01-27.md",
+    "session-analysis-page-browser-check.md",
+    "confirmation-dialog-component.md",
+    "create-and-verify-db-session.md",
+    "ui-screenshot-based-checklist.md",
+    "exploration-enhancements.md",
+    "test-ui-replay-flow.md",
+    "last-work-summary_1.md",
+    "tabs-component.md",
+    "test-home-flight-browser.md",
+    "hmrs-tanker-mule-drone.md",
+    "quick-start.md",
+    "verify-hmrs-live-ui.md",
+    "spawn-modal-and-dropdown-fix.md",
+    "kuwait-test-locations.md",
+    "applied_links.md",
+    "deployment-issues-root-cause-analysis.md",
+    "visual-simulation.md",
+    "osm-plotly-toggle-smoothness-analysis.md",
+    "realtime-simulation-features.md",
+    "improvements_1.md",
+    "test-drone-persistence.md",
+    "view-loading-and-toggle-fixes.md",
+    "success-live-simulation.md",
+    "refactoring-todo-list.md",
+    "analyze-drone-motion.md",
+    "analyze-command-processing.md",
+    "notification-logs-to-proper-logging.md",
+    "verify-position-tracking.md",
+    "building-load-and-usage-logging.md",
+    "comprehensive-analysis-summary_1.md",
+    "ui-complete-visible-working-checklist.md",
+    "applied_tags.md",
+    "motor-efficiency-manager-box.md",
+    "random-gps-on-load-and-crosshair-center-fix.md",
+    "ml-scenario-ui_1.md",
+    "verification-live.md",
+    "osm-gps-integration-status.md",
+    "code-analysis-config-page.md",
+    "docker-ml-scenario-ui_1.md",
+    "ros2-interface-box.md",
+    "container-sync-status-enhancement-2025-01-27.md",
+    "sim-time-fix_1.md",
+    "weather-check-interval-config-control.md",
+    "code-analysis-research-news-page.md",
+    "prepare-phase-2d-top-quadview-documentation.md",
+    "ui-browser-mcp-evaluation.md",
+    "webgl-extension-warnings-solutions.md",
+    "all-fixes-complete-final-summary.md",
+    "sensor-addon.md",
+    "osm-plotly-sync-test-results.md",
+    "progress-summary.md",
+    "center-crosshair-all-views-fix.md",
+    "system-monitoring-route-change-fix-2025-01-27.md",
+    "test-3d-replay-visualization.md",
+    "quad-view-hard-refresh-plotly-sync-fix.md",
+    "autonomous-exploration-mapping-system.md",
+    "random-building-spawning-disabled-for-osm.md",
+    "autonomous-exploration-complete.md",
+    "test-mission-planning-optimizer-box.md",
+    "market-competition-analysis.md",
+    "camera-addon.md",
+    "osm-weather-fetch-and-2d-view-fix.md",
+    "test-flight-for-sm-monitoring.md",
+    "center-marker-all-views-fix.md",
+    "3d-isometric-game-assets.md",
+    "docker-setup_1.md",
+    "sim-time-fix.md",
+    "learning-system-complete.md",
+    "phase-3-generic-boxes-legacy-removed.md",
+    "mission-planning-optimizer-box.md",
+    "quick-reference.md",
+    "quad-view-default-plotly-fix.md",
+    "view-usage-logs-user-interactions-fix.md",
+    "how-to-run.md",
+    "layout-option-5-production-deployment.md",
+    "session-clear-and-movement-test.md",
+    "logging-box_1.md",
+    "vendor-onboarding-tutorial.md",
+    "movement-verification-report.md",
+    "datetime-import-fix.md",
+    "pybullet-install.md",
+    "all-phases-libraries-installed-verification.md",
+    "tether-manager-box.md",
+    "validationbox_1.md",
+    "reset-view-refresh-button-alignment-and-functionality-fix-2025-01-27.md",
+    "osm-viewer-swap-and-logs-fix.md",
+    "test-replay-3d-ui.md",
+    "open-source-libraries-phase1-integration.md",
+    "create-butterfly-session.md",
+    "check-and-start-docker.md",
+    "console-errors-suppression-fix.md",
+    "create-circular-flight-session.md",
+    "layout-mode-button-fix.md",
+    "test-summary.md",
+    "implementation-verification.md",
+    "final-implementation-summary.md",
+    "code-analysis-simulation-page-2d-viewer.md",
+    "box-pattern-violations.md",
+    "git-sync.md",
+    "session-analysis-page-implementation.md",
+    "quad-view-sync-and-osm-2d-top-fix.md",
+    "weather-onboard-forecast-integration-complete.md",
+    "home-flight-test-findings.md",
+    "vue-production-build-and-socketio-stability-fix.md",
+    "osm-plotly-sync-after-rebuild-check.md",
+    "scout-drone-config.md",
+    "drone-efficiency-enhancements-implementation.md",
+    "check-session-db.md",
+    "mission-executor.md",
+    "backend-502-bad-gateway-fix.md",
+    "debugging-guide.md",
+    "frontier-exploration.md",
+    "view-consistency-no-blackout-fix.md",
+    "enhanced-features.md",
+    "compliance-status-final.md",
+    "live-verification-complete.md",
+    "critical-issues_1.md",
+    "readme-docker.md",
+    "duplicate-logs-fix.md",
+    "dronemixin_1.md",
+    "verify-osm-plotly-sync.md",
+    "weather-air-density-gps-fixes-complete.md",
+    "plotly-gps-display-and-osm-view-fix.md",
+    "auto-spawn-disable-browser-verification.md",
+    "none.md",
+    "quad-view-4-views-and-crosshair-alignment-fix.md",
+    "fix-async-functions.md",
+    "storagebox_1.md",
+    "base-addon.md",
+    "verify-ml-scenario-ui.md",
+    "verify-master-controls-ui.md",
+    "formatting-methods.md",
+    "ui-current-state-evaluation.md",
+    "osm-street-maps-compass-and-plotly-fix.md",
+    "toggle-button-removed-and-building-load-optimization.md",
+    "crosshair-center-alignment-fix.md",
+    "code-analysis-master-controls-page.md",
+    "osm-plotly-sync-browser-verification.md",
+    "ml-scenario-ui-research.md",
+    "run-visual_1.md",
+    "code-analysis-summary_1.md",
+    "osm-2d-top-view-fixes-summary.md",
+    "migration-guide.md",
+    "session-analysis-page-browser-check-update.md",
+    "reduced-notifications-proper-logging.md",
+    "osm-plotly-sync-ui-analysis-complete.md",
+    "realistic-simulation-implementation-tracker.md",
+    "dji-integration-research.md",
+    "hmrs-drones-specifications-table.md",
+    "debug-output.md",
+    "spawn-modal-drone-configurations-fix.md",
+    "ui-layout-quality-perfect-check.md",
+    "dji-dock-3-automated-docking-system.md",
+    "building-spawn-and-system-step-logging.md",
+    "javascript-syntax-fixes-2026-01-02.md",
+    "weather-api-real-data-requirement.md",
+    "details-modal-component.md",
+    "observer-camera.md",
+    "wind-safety-box.md",
+    "codebase-assessment.md",
+    "container-rename-plan_1.md",
+    "interactive-plot-setup.md",
+    "2025-simulation-optimization-techniques.md",
+    "verify-routes-after-restart.md",
+    "url-routing-hash-support-fix.md",
+    "plotmixin_1.md",
+    "test-and-fix-movement.md",
+    "assessment-complete.md",
+    "osm-overpass-api-fixes-complete.md",
+    "tiltrotor-motion.md",
+    "ml-scenario-ui-live.md",
+    "ui-final-complete-checklist.md",
+    "complex-behavior-boxed.md",
+    "quad-view-only-plotly-fix.md",
+    "drone-types-implementation.md",
+    "readme-visualization.md",
+    "ui-final-browser-test-checklist.md",
+    "ui-methods.md",
+    "verify-session-ui-complete.md",
+    "error-log-component.md",
+    "ml-learning-page-component.md",
+    "docker-complete_1.md",
+    "cachebox_1.md",
+    "quad-view-center-sync-and-crosshairs-fix.md",
+    "image-to-game-assets-conversion.md",
+    "drone-name-formatter-box.md",
+    "view-checks-logging-working.md",
+    "session-test-summary.md",
+    "ml-learning-overview.md",
+    "test-performance.md",
+    "mastercontrolsmixin_1.md",
+    "create-3drones-circle-session.md",
+    "session-db-analysis-202512131946.md",
+    "compliance-implementation-progress.md",
+    "mainappdata_1.md",
+    "implementation-compliance-guide.md",
+    "mllearningmixin_1.md",
+    "live-simulation.md",
+    "analysis-fixes-summary.md",
+    "lidar-3d-mapping-explanation.md",
+    "osm-dedicated-button-replaces-both-fix.md",
+    "ui-layout-fixes-applied.md",
+    "docker-independent_1.md",
+    "ui-complete-visible-working-final.md",
+    "example-usage.md",
+    "analyze-ml-learning.md",
+    "osm-plotly-toggle-fixes-complete.md",
+    "test-ros2-interface-box.md",
+    "hmrs-simulator-tasks_1.md",
+    "docker-frontend-healthcheck-fix.md",
+    "gps-path-tracking_1.md",
+    "verification-after-compose-restart-complete.md",
+    "logging-box-fallback-necessity-research.md",
+    "cost-development-timeline.md",
+    "readme-check-status_1.md",
+    "programmatic-simulation-implementation.md",
+    "comprehensive-fixes-and-testing-complete.md",
+    "complete-user-simulation-test.md",
+    "project-knowledge-base.md",
+    "executive-summary-and-roadmap.md",
+    "quad-view-page-navigation-content-loss-fix.md",
+    "maintenance-tracker-box.md",
+    "disable-auto-spawn-implementation.md",
+    "hidden-building-system.md",
+    "bio-inspired-motion.md",
+    "simple-test-ready.md",
+    "single-session-test-results.md",
+    "scenario-organization-complete.md",
+    "ml-controller-box.md",
+    "osm-2d-top-view-integration-status.md",
+    "visual-simulation_1.md",
+    "default-layout-mode-and-button-fix.md",
+    "oop-box-reuse-assessment.md",
+    "docker-overview.md",
+    "ui-playback-issue-found.md",
+    "command-processing-analysis.md",
+    "drone-sessions-created.md",
+    "conclusion-recommendations.md",
+    "learning-fixes.md",
+    "create-drone-type-sessions.md",
+    "verify-drone-movement.md",
+    "apibox_1.md",
+    "blender-live-container-visualization.md",
+    "communication-implementation.md",
+    "d-top-osm-vector-trigger-flow.md",
+    "live-simulation_1.md",
+    "eventbusbox_1.md",
+    "ml-fixes-applied.md",
+    "buildingservice_1.md",
+    "random-gps-city-selection-fix.md",
+    "fixes-iteration-2025-12-21.md",
+    "gps-rtk-addon.md",
+    "system-monitoring-session-test-findings.md",
+    "check-system-status.md",
+    "osm-plotly-sync-final-browser-check.md",
+    "ui-browser-verification.md",
+    "ui-visible-vs-working-checklist.md",
+    "ui-ux-layout-quality-evaluation.md",
+    "ui-actual-visible-working-checklist.md",
+    "log-categorization-fix.md",
+    "code-size-analysis.md",
+    "organization-complete.md",
+    "phase-4-complete-migration-plan.md",
+    "programmatic-session-runner.md",
+    "scout-overview.md",
+    "lidar-visualization-explanation.md",
+    "learning-live.md",
+    "click-analysis-session-analysis-page.md",
+    "gps-path-tracking.md",
+    "excessive-api-polling-fix.md",
+    "osm-2d-top-view-black-screen-issue.md",
+    "last-work-summary.md",
+    "learning-system-box.md",
+    "phase1-libraries-installed-and-running.md",
+    "hmrs-simulation-live-ui-template.md",
+    "load-and-spawn-window-cleaning-drones.md",
+    "polarization-camera-box.md",
+    "system-monitoring-implementation-complete.md",
+    "butterfly-session-created.md",
+    "perplexity-mcp-setup.md",
+    "uiutilsmixin_1.md",
+    "system-validation-results.md",
+    "gap-analysis-what-is-needed.md",
+    "exploration-algorithms-research.md",
+    "wait-and-start.md",
+    "test-results-summary.md",
+    "session-playback-fixes.md",
+    "fixes-applied-2025-12-21.md",
+    "implemented-recommendations.md",
+    "codebase-boxes-oop-compliance-analysis.md",
+    "visual-swarm-programmer-component.md",
+    "osm-plotly-sync-verification.md",
+    "gps-position-no-view-switch-fix-2025-01-27.md",
+    "reorganization-summary.md",
+    "ui-fixes-plotly-error.md",
+    "ui-horizontal-layout-fix.md",
+    "lidar-real-world-update.md",
+    "quad-view-plotly-views-fix-2025-01-27.md",
+    "test-visual-slam-box.md",
+    "socket-io-investigation.md",
+    "osm-plotly-sync-complete.md",
+    "create-home-flight-session.md",
+    "create-and-verify-session.md",
+    "ui-fix-confirmation-dialog.md",
+    "exploration-enhancement-box.md",
+    "osm-plotly-sync-gps-fix-complete.md",
+    "unified-iso-timestamp-implementation.md",
+    "session-playback-implementation.md",
+    "weather-display-all-fields-implementation.md",
+    "test-user-simulation.md",
+    "modular-architecture-progress-report.md",
+    "vue_1.md",
+    "verification-overview.md",
+    "research-organization-rules.md",
+    "click-analysis-drones-control-page.md",
+    "test-command-logging.md",
+    "output-configuration.md",
+    "executive-summary.md",
+    "code-duplication-report.md",
+    "sessions-overview.md",
+    "test-performance-docker.md",
+    "zoom-box_1.md",
+    "reports-overview.md",
+    "ui-session-verification-complete.md",
+    "gps-preset-sequence-comparison.md",
+    "improved-3d-models.md",
+    "simple-exploration-enhancement-opportunities.md",
+    "logging-and-communication-features.md",
+    "get-simulation-running-now.md",
+    "appstate_1.md",
+    "test-output.md",
+    "view-status-and-command-logging-requirements.md",
+    "simple-quadcopter-visual.md",
+    "random-gps-mena-cities-and-dropdown-fixes.md",
+    "efficiency-monitor-box.md",
+    "ml-scenario-ui-live-update.md",
+    "programming-methodology.md",
+    "swarm-live-scientific.md",
+    "syntax-error-fix-2025-12-21.md",
+    "ui-browser-check-status.md",
+    "osm-plotly-sync-verification-complete.md",
+    "system-monitoring-page-prop-shadowing-fix.md",
+    "fixes-applied.md",
+    "movement-fix-summary.md",
+    "swarm-simulation_1.md",
+    "scientific-swarm.md",
+    "gps-preset-all-views-sync-fix.md",
+    "lidar-sensor-specifications.md",
+    "movement-test-hardcoded-verification.md",
+    "drone-movement-weather-investigation.md",
+    "scenario-utils-box.md",
+    "refactoring-progress-report.md",
+    "docker-integrity-issue.md",
+    "pettingzoo-env-box.md",
+    "test-all-boxes.md",
+    "box-enhancements.md",
+    "complete-boxing-refactoring-summary.md",
+    "formatterbox_1.md",
+    "master-controls-page-component.md",
+    "drone-types-motion-patterns.md",
+    "hardcoded-values-audit.md",
+    "clear-and-create-fresh-session.md",
+    "folder-assessment-and-rename.md",
+    "d-replay-analysis.md",
+    "readme_1.md",
+    "click-analysis-summary.md",
+    "disappearing-logs-fix.md",
+    "file-organization-complete.md",
+    "sensor-drones-added-and-verified.md",
+    "log-timestamp-display-fix.md",
+    "complete-learning-system.md",
+    "future-expansion-ideas.md",
+    "generate-visualization-screenshot.md",
+    "test-nerf-building-reconstruction-box.md",
+    "start-ml-scenario-ui.md",
+    "risk-analysis-failsafes.md",
+    "session-selection-replay-integration.md",
+    "gps-selection-plotly-processing-log.md",
+    "remaining-issues-to-fix.md",
+    "comprehensive-movement-verification.md",
+    "ui-layout-mode-selector-fix.md",
+    "test-results.md",
+    "scenario.md",
+    "position-vs-gps-location-analysis.md",
+    "green-arrow-center-marker-fix.md",
+    "browser-testing-2d-top-view-update-findings.md",
+    "web-app-layout-rebuild-options.md",
+    "refactoring-complete.md",
+    "verification-results.md",
+    "legend-click-to-focus-verification.md",
+    "hmrs-readme.md",
+    "timetravelmixin_1.md",
+    "architecture-refactoring-initiative.md",
+    "browser-analysis-quad-view-issues.md",
+    "osm-plotly-sync-browser-findings.md",
+    "refactoring-plan.md",
+    "missing-boxes-specification.md",
+    "docker-success_1.md",
+    "learning-system.md",
+    "implementation-summary.md",
+    "session-buildings-box.md",
+    "ml-learning-report.md",
+    "browser-test-kuwait-city-2025-12-21.md",
+    "hmrs-tanker-lifeline-drone.md",
+    "api-data-excessive-polling-fix.md",
+    "decision-learning-box.md",
+    "complete-system-summary.md",
+    "webglmixin_1.md",
+    "move-to-command-boxes-verification.md",
+    "create-specific-drone-sessions.md"
+  ],
+  "broken_count": 994,
+  "none_count": 2,
+  "total_files": 794
+}
