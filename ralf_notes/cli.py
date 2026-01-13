@@ -1189,17 +1189,22 @@ def fine_tune(
     # Set benchmark intensity
     timeout = config_manager.get("request_timeout_seconds", 300)
     if quick:
-        benchmark_config = BenchmarkConfig(intensity="quick", request_timeout_seconds=timeout)
+        benchmark_config = BenchmarkConfig(intensity="quick", request_timeout_seconds=timeout, max_attempts=1)
     elif full:
-        benchmark_config = BenchmarkConfig(intensity="full", request_timeout_seconds=timeout)
+        benchmark_config = BenchmarkConfig(intensity="full", request_timeout_seconds=timeout, max_attempts=3)
     else:
-        benchmark_config = BenchmarkConfig(intensity="normal", request_timeout_seconds=timeout)
+        benchmark_config = BenchmarkConfig(intensity="normal", request_timeout_seconds=timeout, max_attempts=1)
 
     # Run benchmarks
     try:
-        optimized = orchestrator.run_full_benchmark(benchmark_config)
+        dashboard_model = config_manager.get('model_name')
+        dashboard_target = config_manager.get('target_dir')
+        
+        with Live(get_dashboard(model=dashboard_model, target=dashboard_target, status="Optimizing"), console=console.console, refresh_per_second=4) as live:
+            optimized = orchestrator.run_full_benchmark(benchmark_config)
+            live.update(get_dashboard(model=dashboard_model, target=dashboard_target, status="Finished", progress=100.0, tuned=True))
 
-        console.rule("✅ [bold green]Tuning Complete[/bold green]")
+        console.rule("✅ [bold green]Optimization Complete[/bold green]")
 
         # Show report
         if report:

@@ -40,11 +40,8 @@ class BenchmarkOrchestrator:
         """
         Run complete benchmarking suite.
         """
-        from rich.live import Live
         from ..tui import ProgressManager
         
-        self.console.info(f"Starting optimization suite (Intensity: [bold magenta]{benchmark_config.intensity}[/bold magenta])")
-
         try:
             with ProgressManager(self.console) as progress:
                 main_task = progress.add_task("[bold]Total Progress", total=4)
@@ -52,7 +49,6 @@ class BenchmarkOrchestrator:
                 # 1. Profile system
                 progress.update(main_task, description="[bold blue]Step 1: Profiling System")
                 system_profile: SystemProfile = self.system_profiler.profile()
-                self.console.substep(f"CPU: {system_profile.cpu_cores} cores, RAM: {system_profile.available_ram_gb:.1f}GB available")
                 progress.update(main_task, advance=1)
                 
                 model_name = self.config_manager.get("model_name", "ministral-3:3b")
@@ -62,7 +58,6 @@ class BenchmarkOrchestrator:
                 model_results: ModelBenchmarkResults = self.model_benchmarker.benchmark_model(
                     model_name, system_profile, benchmark_config, progress=progress, main_task_id=main_task
                 )
-                self.console.substep(f"Optimal Context: [highlight]{model_results.optimal_num_ctx}[/highlight], Chunk: [highlight]{model_results.optimal_chunk_size}[/highlight]")
                 progress.update(main_task, advance=1)
                 
                 # 3. Find optimal latency
@@ -70,7 +65,6 @@ class BenchmarkOrchestrator:
                 latency_results: LatencyBenchmarkResults = self.latency_benchmarker.benchmark_latency(
                     model_name, model_results.optimal_num_ctx, benchmark_config
                 )
-                self.console.substep(f"Avg Latency: [highlight]{latency_results.avg_request_latency_ms:.1f}ms[/highlight]")
                 progress.update(main_task, advance=1)
 
                 # 4. Find optimal throughput
@@ -79,7 +73,6 @@ class BenchmarkOrchestrator:
                     system_profile, latency_results, model_name, model_results.optimal_num_ctx, benchmark_config,
                     progress=progress, main_task_id=main_task
                 )
-                self.console.substep(f"Throughput: [highlight]{throughput_results.max_throughput_fps:.1f} files/s[/highlight]")
                 progress.update(main_task, advance=1)
 
                 # 5. Aggregate

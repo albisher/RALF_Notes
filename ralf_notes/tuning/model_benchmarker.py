@@ -48,25 +48,28 @@ class ModelBenchmarker:
         logger.info("Starting benchmark for model: %s with intensity: %s", model_name, benchmark_config.intensity)
         if benchmark_config.intensity == "quick":
             context_test_sizes = [4096, 8192]
-            chunk_test_sizes = [100000]
+            chunk_test_sizes = [50000]
         elif benchmark_config.intensity == "full":
             context_test_sizes = [2048, 4096, 6144, 8192, 12288, 16384, 32768]
             chunk_test_sizes = [50000, 100000, 150000, 200000, 300000, 400000]
         else: # normal
-            context_test_sizes = [4096, 8192, 16384]
-            chunk_test_sizes = [100000, 200000]
+            context_test_sizes = [4096, 8192, 12288]
+            chunk_test_sizes = [50000, 100000]
+
+        max_attempts = benchmark_config.max_attempts
 
         context_tests = self._benchmark_context_sizes(
             model_name,
             profile,
             test_sizes=context_test_sizes,
             timeout=benchmark_config.request_timeout_seconds,
+            attempts=max_attempts,
             progress=progress, # Pass progress
             main_task_id=main_task_id # Pass main task ID
         )
         logger.debug("Context size benchmarks completed.")
         if progress and main_task_id is not None:
-            progress.update(main_task_id, advance=len(context_test_sizes) * 3) # Each context test has 3 attempts
+            progress.update(main_task_id, advance=len(context_test_sizes) * max_attempts)
 
 
         chunk_tests = self._benchmark_chunk_sizes(
@@ -74,12 +77,13 @@ class ModelBenchmarker:
             profile,
             test_sizes=chunk_test_sizes,
             timeout=benchmark_config.request_timeout_seconds,
+            attempts=max_attempts,
             progress=progress, # Pass progress
             main_task_id=main_task_id # Pass main task ID
         )
         logger.debug("Chunk size benchmarks completed.")
         if progress and main_task_id is not None:
-            progress.update(main_task_id, advance=len(chunk_test_sizes) * 3) # Each chunk test has 3 attempts
+            progress.update(main_task_id, advance=len(chunk_test_sizes) * max_attempts)
 
         optimal_ctx = self._find_optimal_context(context_tests, profile)
         optimal_chunk = self._find_optimal_chunk(chunk_tests, profile)
@@ -105,6 +109,7 @@ class ModelBenchmarker:
         profile: SystemProfile,
         test_sizes: List[int],
         timeout: int,
+        attempts: int = 3,
         progress: Any = None, # ADD progress object
         main_task_id: Any = None # ADD main task ID
     ) -> List[ContextTest]:
@@ -115,19 +120,19 @@ class ModelBenchmarker:
         base_sample_code = self.sample_generator.generate_long_sample(max_length=max(test_sizes) * 2) # Use a larger sample for context tests
         
         if progress and main_task_id is not None:
-            context_task_id = progress.add_task(f"[cyan]Benchmarking Context Sizes ({model_name})...", total=len(test_sizes) * 3) # 3 attempts per size
+            context_task_id = progress.add_task(f"[cyan]Context Benchmarking ({model_name})...", total=len(test_sizes) * attempts)
 
         for size in test_sizes:
             logger.debug("Benchmarking context size: %d for model %s", size, model_name)
             if progress and context_task_id is not None:
-                progress.update(context_task_id, description=f"[cyan]Benchmarking Context Size: {size}")
+                progress.update(context_task_id, description=f"[cyan]Context Size: {size}")
 
             estimated_memory = self._estimate_memory_usage(size)
             if estimated_memory > profile.available_ram_gb * 0.8 * 1024:
                 logger.warning("Skipping context size %d: estimated memory usage %.2fMB exceeds 80%% of available RAM (%.2fMB).",
                                size, estimated_memory, profile.available_ram_gb * 0.8 * 1024)
                 if progress and context_task_id is not None:
-                    progress.update(context_task_id, advance=3) # Advance for skipped attempts
+                    progress.update(context_task_id, advance=attempts) # Advance for skipped attempts
                 continue
 
             latencies = []
@@ -138,7 +143,7 @@ class ModelBenchmarker:
 
             current_sample_code = base_sample_code[:size]
 
-            for _ in range(3): # Run multiple times for average
+            for _ in range(attempts): # Run multiple times for average
                 try:
                     start = time.time()
                     memory_before = self._get_memory_usage()
@@ -170,7 +175,7 @@ class ModelBenchmarker:
                 results.append(ContextTest(
                     num_ctx=size,
                     avg_latency_ms=avg_latency,
-                    success_rate=float(successes) / 3.0,
+                    success_rate=float(successes) / attempts,
                     memory_usage_mb=avg_memory_usage,
                     quality_score=avg_quality_score
                 ))
@@ -185,6 +190,7 @@ class ModelBenchmarker:
         profile: SystemProfile,
         test_sizes: List[int],
         timeout: int,
+        attempts: int = 3,
         progress: Any = None, # ADD progress object
         main_task_id: Any = None # ADD main task ID
     ) -> List[ChunkTest]:
@@ -195,12 +201,12 @@ class ModelBenchmarker:
         large_sample_code = self.sample_generator.generate_long_sample(max_length=max(test_sizes) * 2)
 
         if progress and main_task_id is not None:
-            chunk_task_id = progress.add_task(f"[cyan]Benchmarking Chunk Sizes ({model_name})...", total=len(test_sizes) * 3) # 3 attempts per size
+            chunk_task_id = progress.add_task(f"[cyan]Chunk Benchmarking ({model_name})...", total=len(test_sizes) * attempts)
 
         for size in test_sizes:
             logger.debug("Benchmarking chunk size: %d for model %s", size, model_name)
             if progress and chunk_task_id is not None:
-                progress.update(chunk_task_id, description=f"[cyan]Benchmarking Chunk Size: {size}")
+                progress.update(chunk_task_id, description=f"[cyan]Chunk Size: {size}")
             
             current_chunk = large_sample_code[:size]
 
@@ -209,7 +215,7 @@ class ModelBenchmarker:
                 logger.warning("Skipping chunk size %d: estimated memory usage %.2fMB exceeds 80%% of available RAM (%.2fMB).",
                                size, estimated_memory, profile.available_ram_gb * 0.8 * 1024)
                 if progress and chunk_task_id is not None:
-                    progress.update(chunk_task_id, advance=3) # Advance for skipped attempts
+                    progress.update(chunk_task_id, advance=attempts) # Advance for skipped attempts
                 continue
 
             latencies = []
@@ -218,7 +224,7 @@ class ModelBenchmarker:
             quality_scores = []
             response_text = ""
 
-            for _ in range(3): # Run multiple times for average
+            for _ in range(attempts): # Run multiple times for average
                 try:
                     start = time.time()
                     memory_before = self._get_memory_usage()
@@ -250,7 +256,7 @@ class ModelBenchmarker:
                 results.append(ChunkTest(
                     chunk_size=size,
                     avg_latency_ms=avg_latency,
-                    success_rate=float(successes) / 3.0,
+                    success_rate=float(successes) / attempts,
                     memory_usage_mb=avg_memory_usage,
                     quality_score=avg_quality_score
                 ))

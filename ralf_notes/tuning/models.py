@@ -7,6 +7,7 @@ from datetime import datetime
 class BenchmarkConfig:
     intensity: str = "normal" # "quick", "normal", "full"
     request_timeout_seconds: int = 300
+    max_attempts: int = 3
 
 @dataclass
 class SystemProfile:
