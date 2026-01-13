@@ -443,6 +443,7 @@ Let's build RALF Note 2.0! 🚀
 
 **Future Phases:**
 - [roadmap/12-link-management-system.md](12-link-management-system.md) - Link Management (Planned)
+- [roadmap/13-file-organization-system.md](13-file-organization-system.md) - File Organization (Planned)
 
 **Session Summaries (archive/sessions/):**
 - SESSION_SUMMARY_JAN_11_2026.md
