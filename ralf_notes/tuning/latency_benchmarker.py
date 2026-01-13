@@ -1,6 +1,6 @@
 import time
 import random
-from typing import List, Optional
+from typing import List, Optional, Any
 from ollama import Client
 
 from .models import LatencyBenchmarkResults, SystemProfile, ModelBenchmarkResults
