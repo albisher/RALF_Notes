@@ -65,12 +65,12 @@ class BenchmarkOrchestrator:
             
             attempts = benchmark_config.max_attempts
             total_steps = (
-                1 + # Profile
-                (ctx_sizes * attempts) + 
-                (chunk_sizes * attempts) + 
-                latency_samples + 
-                (throughput_seq * req_per_test) + 
-                (throughput_par * req_per_test * 2)
+                1 + # Step 1: Profile
+                (ctx_sizes * attempts) + # Step 2: Model (Context)
+                (chunk_sizes * attempts) + # Step 2: Model (Chunk)
+                latency_samples + # Step 3: Latency
+                (throughput_seq * req_per_test) + # Step 4: Throughput (Seq)
+                (throughput_par * req_per_test * 2) # Step 4: Throughput (Par)
             )
 
             with ProgressManager(self.console) as progress:
@@ -81,18 +81,18 @@ class BenchmarkOrchestrator:
                 system_profile: SystemProfile = self.system_profiler.profile()
                 progress.update(main_task, advance=1)
                 
-                # 2. Benchmark model
+                # 2. Benchmark model (Advances internally)
                 model_results: ModelBenchmarkResults = self.model_benchmarker.benchmark_model(
                     model_name, system_profile, benchmark_config, progress=progress, main_task_id=main_task
                 )
                 
-                # 3. Find optimal latency
+                # 3. Find optimal latency (Advances internally)
                 progress.update(main_task, description="[bold blue]Benchmarking Latency")
                 latency_results: LatencyBenchmarkResults = self.latency_benchmarker.benchmark_latency(
                     model_name, model_results.optimal_num_ctx, benchmark_config, progress=progress, main_task_id=main_task
                 )
 
-                # 4. Find optimal throughput
+                # 4. Find optimal throughput (Advances internally)
                 throughput_results: ThroughputBenchmarkResults = self.throughput_benchmarker.benchmark_throughput(
                     system_profile, latency_results, model_name, model_results.optimal_num_ctx, benchmark_config,
                     progress=progress, main_task_id=main_task

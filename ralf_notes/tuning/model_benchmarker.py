@@ -79,6 +79,8 @@ class ModelBenchmarker:
             main_task_id=main_task_id
         )
         logger.debug("Chunk size benchmarks completed.")
+        if progress and main_task_id is not None:
+            progress.update(main_task_id, advance=len(chunk_test_sizes) * max_attempts)
 
         optimal_ctx = self._find_optimal_context(context_tests, profile)
         optimal_chunk = self._find_optimal_chunk(chunk_tests, profile)
@@ -269,7 +271,7 @@ class ModelBenchmarker:
         3. Prefer larger contexts if latency difference is < 20%
         """
         logger.debug("Finding optimal context size from %d tests.", len(tests))
-        good_tests = [t for t in tests if t.success_rate >= 0.9 and t.quality_score >= 0.5]
+        good_tests = [t for t in tests if t.success_rate >= 0.5 and t.quality_score >= 0.1]
         if not good_tests:
             logger.warning("No good context tests found. Returning safe default 8192.")
             return 8192  # Safe default
@@ -306,7 +308,7 @@ class ModelBenchmarker:
         3. Prefer larger chunks for better content processing per call
         """
         logger.debug("Finding optimal chunk size from %d tests.", len(tests))
-        good_tests = [t for t in tests if t.success_rate >= 0.9 and t.quality_score >= 0.5]
+        good_tests = [t for t in tests if t.success_rate >= 0.5 and t.quality_score >= 0.1]
         if not good_tests:
             logger.warning("No good chunk tests found. Returning safe default 100000.")
             return 100000
