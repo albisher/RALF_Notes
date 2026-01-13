@@ -60,6 +60,14 @@ class TagReplacer:
         # ... (rest of method same as previous state)
         logger.info("Applying tag refinements to files in directory: %s (Dry Run: %s)", directory, dry_run)
 
+        results = {
+            'files_processed': 0,
+            'files_modified': 0,
+            'tags_replaced': 0,
+            'errors': [],
+            'backup_path': None
+        }
+
         final_unique_tags = set()
 
         for md_file in directory.glob('**/*.md'):
