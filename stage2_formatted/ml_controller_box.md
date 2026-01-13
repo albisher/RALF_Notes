@@ -1,0 +1,55 @@
+**Tags:** #neural_network, #control_system, #ml_automation, #robotics, #single_responsibility
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# ml_controller_box
+
+## Summary
+
+```
+A neural network-based controller for motor thrust computation from a 16-dimensional state vector.
+```
+
+## Details
+
+> The `MLControllerBox` class implements a lightweight neural network to map a 16-dimensional input state vector (position, velocity, orientation, target error, wind) into four normalized motor thrust outputs (0.0–1.0). It uses a single hidden layer with configurable neuron count (default 32) and random initialization. The class enforces a strict single-responsibility principle, delegating logging to an external `LoggingBox` if available.
+
+## Key Functions
+
+### ``__init__``
+
+Initializes weights (`W1`, `W2`) and biases (`b1`, `b2`) for a feedforward neural network with configurable architecture.
+
+### ``_log_initialization``
+
+Logs initialization details (e.g., layer sizes) using a `LoggingBox` (falls back to `print` if unavailable).
+
+### ``W1`, `W2`, `b1`, `b2``
+
+Read-only properties exposing internal weights/bias matrices (protected for internal use).
+
+## Usage
+
+```python
+controller = MLControllerBox(input_size=16, hidden_size=32, output_size=4)
+state_input = np.random.rand(16)  # Example input vector
+thrust_output = controller._forward_pass(state_input)  # Requires manual forward pass
+```
+**Note**: The class lacks a public `forward_pass` method—this must be implemented externally (e.g., in a parent class or wrapper).
+
+## Dependencies
+
+> ``numpy``
+> ``swarm.boxes.logging_box` (optional logging dependency).`
+
+## Related
+
+- [[swarm.boxes]]
+- [[neural_network_architecture_docs]]
+
+>[!WARNING] Missing Public API
+> The class lacks a public `forward_pass` method. Users must implement this logic separately (e.g., via a wrapper or parent class) to compute thrust outputs from inputs.
+> **Fix**: Add a `forward_pass` method or expose `_forward_pass` as a protected method.
+
+>[!INFO] Read-Only Weights
+> Internal weights (`_W1`, `_W2`) are exposed via properties (`W1`, `W2`) for debugging/serialization, but direct modification is discouraged. Use controlled interfaces (e.g., `set_weights`) if needed.

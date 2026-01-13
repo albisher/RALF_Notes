@@ -1,0 +1,65 @@
+**Tags:** #swarm_robotics, #drone_simulation, #hmr_simulation, #mission_coordination, #sensor_data_processing
+**Created:** 2026-01-13
+**Type:** documentation
+
+# 0005-scientific-swarm
+
+## Summary
+
+```
+A scientific simulation of a drone swarm mission with coordinated ground control and sensor integration for building exploration.
+```
+
+## Details
+
+> This document outlines a **HMRS (Human-Machine Robotic Swarm) mission** where a **Ground Master Control Station** oversees **4 Worker Drones** flying from a base to a target building. The system integrates **LiDAR, depth cameras, and a ground observer camera** to provide real-time sensor data for mission coordination. The simulation includes structured phases: takeoff, transit, approach, and operating, with a **6-panel visualization dashboard** for monitoring progress.
+
+## Key Functions
+
+### `Ground Master Control Station`
+
+Processes sensor data, generates commands, and tracks mission progress.
+
+### `Worker Drones (4)`
+
+Execute mission tasks, adapt to commands, and track performance metrics.
+
+### `Ground Observer Camera`
+
+Elevates at 2m to observe swarm state and report real-time data.
+
+### `Mission Phases`
+
+Structured takeoff, transit, approach, and operating stages with defined parameters.
+
+### `Sensor Specifications`
+
+LiDAR (100m range, ±3cm accuracy) and depth camera (6m range) for spatial awareness.
+
+## Usage
+
+1. Deploy the **Ground Master Control Station** at the base (0,0,0).
+2. Configure drone positions (50m from base) and sensor placements (2m elevation).
+3. Run the simulation with predefined mission parameters (e.g., 5m altitude, 10m approach distance).
+4. Monitor the **6-panel dashboard** for real-time progress, sensor data, and worker performance.
+
+## Dependencies
+
+> `- **LiDAR sensors** (e.g.`
+> `Velodyne VLP-16)
+- **Depth cameras** (e.g.`
+> `RealSense D455)
+- **Ground-based control software** (for command generation and data processing)
+- **3D visualization libraries** (for dashboard rendering)`
+
+## Related
+
+- [[HMRS Research Paper]]
+- [[Drone Swarm Coordination Protocols]]
+- [[LiDAR Sensor Calibration Guide]]
+
+>[!INFO] Important Note
+> The **Ground Master** must process sensor data within 2 seconds to maintain mission stability; delays may cause formation drift.
+
+>[!WARNING] Caution
+> Workers must avoid collisions with the building or each other; adaptive control adjusts for errors but cannot fully prevent catastrophic failures.

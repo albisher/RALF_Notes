@@ -1,0 +1,62 @@
+**Tags:** #APIService, #DroneManagement, #ConfigurationCRUD, #DependencyInjection, #OOP
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# DroneConfigService
+
+## Summary
+
+```
+Manages drone configuration CRUD operations via HTTP API communication.
+```
+
+## Details
+
+> The `DroneConfigService` implements a class-based service using dependency injection (APIBox) to handle drone configuration CRUD (Create, Read, Update, Delete) operations. It encapsulates HTTP requests for drone configurations, window cleaning configurations, and addons. The service follows a single responsibility principle, focusing solely on drone configuration management. Error handling is centralized, with logging for failures and fallback to empty arrays where applicable.
+
+## Key Functions
+
+### ``constructor(apiBox)``
+
+Initializes the service with an APIBox instance, validating its presence.
+
+### ``loadDroneConfigurations()``
+
+Asynchronously retrieves all drone configurations via API.
+
+### ``saveDroneConfigurations(configurations)``
+
+Asynchronously saves drone configurations to the API.
+
+### ``loadWindowCleaningConfig(configFilename)``
+
+Asynchronously loads a specific window cleaning configuration file.
+
+### ``getAvailableAddons()``
+
+Asynchronously fetches a list of available drone addons.
+
+### ``createDroneConfig(config)``
+
+Asynchronously creates a new drone configuration entry.
+
+## Usage
+
+1. Instantiate `DroneConfigService` with an `APIBox` instance.
+2. Call methods like `loadDroneConfigurations()`, `saveDroneConfigurations()`, etc., to manage drone configurations.
+3. Handle errors gracefully (e.g., logging and returning empty arrays where applicable).
+
+## Dependencies
+
+> `APIBox`
+
+## Related
+
+- [[DroneAPIClient]]
+- [[APIBoxDocumentation]]
+
+>[!INFO] Error Handling
+> Methods like `loadDroneConfigurations()` and `getAvailableAddons()` return empty arrays on failure instead of throwing errors, ensuring graceful degradation.
+
+>[!WARNING] API Assumptions
+> Assumes APIBox returns structured data (`result.data` or `result`) with configurations/addons. Non-compliant APIs may fail silently or return unexpected formats.

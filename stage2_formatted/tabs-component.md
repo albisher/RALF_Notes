@@ -1,0 +1,61 @@
+**Tags:** #VueJS, #UI-Component, #Tab-Navigation, #Single-Page-App, #Reactivity, #Event-Driven
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# tabs-component
+
+## Summary
+
+```
+A Vue.js tab navigation component for switching between different views in a single-page application.
+```
+
+## Details
+
+> `TabsComponent` is a Vue.js single-responsibility tab navigation UI component. It dynamically renders five tab buttons with conditional styling based on the `currentView` state. Each button emits an event (`view-change`) to update the parent component’s active view. The component uses inline styles and Vue’s reactivity (`:class` and `:style`) to manage visual feedback (active tab highlighting) and emits events for view transitions.
+
+## Key Functions
+
+### ``currentView``
+
+Tracks the active tab state (e.g., `'list'`, `'master'`).
+
+### `Tab buttons`
+
+Each button triggers an event (`@click`) to switch views via `$emit`.
+
+### `Conditional styling`
+
+Applies active tab visuals (color, border, background) based on `currentView`.
+
+## Usage
+
+1. Import and use in a Vue component:
+   ```html
+   <TabsComponent @view-change="handleViewChange" />
+   ```
+2. Define `currentView` in parent logic (e.g., `ref` or `data`):
+   ```js
+   currentView = 'list';
+   ```
+3. Handle emitted events in parent:
+   ```js
+   handleViewChange(view) { this.currentView = view; }
+   ```
+
+## Dependencies
+
+> `Vue.js (for reactivity and event handling)`
+> `Vue’s Composition API (implicitly via `$emit`).`
+
+## Related
+
+- [[Vue]]
+- [[Single-Page Application Navigation Patterns]]
+
+>[!INFO] Active Tab Logic
+> The `:class` and `:style` bindings dynamically apply active tab styles (e.g., green text, dark background) when `currentView` matches the button’s label. This relies on Vue’s reactivity to update DOM visually without re-rendering the entire component.
+
+
+>[!WARNING] Event Emission
+> Ensure parent components properly handle `$emit('view-change')` to update state. Missing listeners may cause silent view transitions. Test edge cases (e.g., rapid clicks).

@@ -1,0 +1,64 @@
+**Tags:** #UI Testing, #Session Endpoints, #API Verification, #Frontend Validation, #Browser Console Checks
+**Created:** 2026-01-13
+**Type:** test-reference
+
+# 0003-ui-verification-guide
+
+## Summary
+
+```
+Guide for verifying UI interactions and API responses for session management and replay functionality in a web application.
+```
+
+## Details
+
+> This guide outlines step-by-step UI verification for session endpoints, focusing on session listing, selection, and replay functionality. It includes manual UI checks and automated console/network tab validation to ensure proper API responses (e.g., `GET /api/sessions`, `POST /api/sessions/<id>/select`, `GET /api/sessions/<id>/replay`). The process emphasizes error handling for missing endpoints or unavailable motion history, with fallback behaviors documented.
+
+## Key Functions
+
+### `Session List Endpoint (`GET /api/sessions`)`
+
+Displays session cards with IDs; verifies automatic loading and console/network tab confirmation.
+
+### `Session Select Endpoint (`POST /api/sessions/<id>/select`)`
+
+Highlights selected session and triggers a success notification; logs errors (e.g., 404) with fallback to local UI.
+
+### `Session Replay Endpoint (`GET /api/sessions/<id>/replay`)`
+
+Loads replay controls (time slider, play/pause buttons) if motion history exists; shows warnings for missing data.
+
+### `Replay Controls`
+
+Manages drone position updates and time progression via UI interactions.
+
+## Usage
+
+1. **Prerequisites Met**: Ensure server runs on `http://localhost:5007` and browser console is open.
+2. **Manual Steps**:
+   - Navigate to `/visualization` and verify session cards.
+   - Select sessions and check console/network tab for API calls.
+   - Trigger replay and validate UI controls.
+3. **Console/Network Checks**: Monitor logs for expected messages (e.g., `🔍 Selecting session`) or errors (e.g., `❌ 404`).
+
+## Dependencies
+
+> `- Web browser (Chrome/Firefox)`
+> `browser developer tools (F12)`
+> `local server at `http://localhost:5007`.
+- Frontend framework (likely React/React-like) for UI rendering.
+- Backend API endpoints (`/api/sessions``
+> ``/api/sessions/<id>/select``
+> ``/api/sessions/<id>/replay`).`
+
+## Related
+
+- [[Session API Documentation]]
+- [[Backend Endpoint Specifications]]
+
+>[!INFO] Important Note
+> **Fallback Behavior**: If a session select endpoint fails (404), the UI will prompt a warning and proceed with local selection, ensuring no UI glitches.
+>
+
+>[!WARNING] Caution
+> **Deprecated Data**: Sessions created before motion history implementation may show warnings like "Replay data not available" but still function as expected. Avoid treating this as a critical failure.

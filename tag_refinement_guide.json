@@ -9,53 +9,85 @@
         "#api-reference"
       ],
       "new_tag": "#apidocs",
-      "reason": "Standardize API documentation tags to a single, concise word"
+      "reason": "Standardize to a single-word prefix for consistency with other technical tags"
+    },
+    {
+      "old_tags": [
+        "#api-endpoint",
+        "#endpoint"
+      ],
+      "new_tag": "#endpoint",
+      "reason": "Ensure consistency; #endpoint is already valid and widely used. No redundancy reduction needed."
     },
     {
       "old_tags": [
         "#error-handling",
-        "#exception-handling"
+        "#error-handling-guide"
       ],
       "new_tag": "#errorhandling",
-      "reason": "Combine related error management concepts into a single, unified tag"
+      "reason": "Shorten while maintaining clarity; consolidates common error-related documentation"
     },
     {
       "old_tags": [
         "#performance-tuning",
-        "#optimization"
+        "#performance"
       ],
       "new_tag": "#performance",
-      "reason": "Generalize optimization-focused tags into a broader performance tag"
-    },
-    {
-      "old_tags": [
-        "#user-guide",
-        "#tutorial"
-      ],
-      "new_tag": "#tutorial",
-      "reason": "Ensure consistency in user-facing guidance tags (if not already merged)"
+      "reason": "#performance is already a valid tag; #performance-tuning is redundant if #performance covers broader context."
     },
     {
       "old_tags": [
         "#security-best-practices",
-        "#security-guidelines"
+        "#security"
       ],
       "new_tag": "#security",
-      "reason": "Aggregate security-related tags under a single broader category"
+      "reason": "#security is already a valid tag; #security-best-practices is redundant if #security covers broader scope."
     },
     {
       "old_tags": [
-        "#database-connection",
-        "#db-connection"
+        "#user-guide",
+        "#user"
       ],
-      "new_tag": "#dbconnect",
-      "reason": "Simplify database connection-related tags to a single word"
+      "new_tag": "#userguide",
+      "reason": "Shorten while maintaining clarity; consolidates user-facing documentation."
+    },
+    {
+      "old_tags": [
+        "#installation-guide",
+        "#install"
+      ],
+      "new_tag": "#install",
+      "reason": "#install is already a valid tag; #installation-guide is redundant if #install covers broader context."
+    },
+    {
+      "old_tags": [
+        "#debugging",
+        "#debug"
+      ],
+      "new_tag": "#debug",
+      "reason": "#debug is already a valid tag; no redundancy reduction needed."
+    },
+    {
+      "old_tags": [
+        "#logging",
+        "#log"
+      ],
+      "new_tag": "#log",
+      "reason": "#log is already a valid tag; no redundancy reduction needed."
+    },
+    {
+      "old_tags": [
+        "#monitoring",
+        "#monitor"
+      ],
+      "new_tag": "#monitor",
+      "reason": "#monitor is already a valid tag; no redundancy reduction needed."
     }
   ],
   "new_tags": [
     {
       "tag": "#devops",
-      "reason": "Introduce a unified tag for DevOps-related documentation (e.g., CI/CD, deployment)",
+      "reason": "Group all DevOps-related documentation (e.g., CI/CD, deployment, automation)",
       "merge_from": [
         "#ci-cd",
         "#deployment",
@@ -63,39 +95,49 @@
       ]
     },
     {
-      "tag": "#monitoring",
-      "reason": "Introduce a tag for system monitoring and observability",
+      "tag": "#cloud",
+      "reason": "Group all cloud-related documentation (e.g., AWS, Azure, GCP, serverless)",
       "merge_from": [
-        "#logging",
-        "#metrics",
-        "#alerts"
+        "#aws",
+        "#azure",
+        "#gcp",
+        "#serverless"
       ]
     },
     {
-      "tag": "#compatibility",
-      "reason": "Group tags related to software compatibility (e.g., versions, plugins)",
+      "tag": "#compliance",
+      "reason": "Group all compliance-related documentation (e.g., GDPR, HIPAA, security standards)",
       "merge_from": [
-        "#version-support",
-        "#plugin-support"
+        "#gdpr",
+        "#hipaa",
+        "#security-compliance"
+      ]
+    },
+    {
+      "tag": "#ci-cd",
+      "reason": "Explicitly mark CI/CD documentation (if not already covered under #devops)",
+      "merge_from": [
+        "#continuous-integration",
+        "#continuous-delivery"
       ]
     }
   ],
   "keep_as_is": [
     "#python",
     "#typescript",
+    "#api",
     "#javascript",
     "#java",
-    "#api",
-    "#security",
-    "#database",
-    "#user"
+    "#csharp",
+    "#nodejs",
+    "#linux",
+    "#windows",
+    "#macos"
   ],
   "delete": [
     "#temp",
     "#old",
-    "#deprecated",
-    "#none",
-    "#none-tag"
+    "#deprecated"
   ],
   "statistics": {
     "mean_usage": 0,

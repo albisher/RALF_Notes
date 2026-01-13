@@ -1,0 +1,64 @@
+**Tags:** #drone_simulation, #session_management, #api_integration, #automation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# create_and_verify_session
+
+## Summary
+
+```
+Script automates drone session creation, drone spawning, and simulation execution for testing drone movement verification.
+```
+
+## Details
+
+> This script orchestrates a drone simulation workflow by:
+> 1. Waiting for a backend server to initialize via `/api/health` endpoint,
+> 2. Spawning a configurable number of buildings and drones (scouts/tankers) via `/api/sessions/spawn` and `/api/spawn`,
+> 3. Starting a simulation for a specified duration via `/api/start`,
+> 4. Providing basic error handling and status feedback for each step.
+> 
+> The script uses `requests` to interact with a REST API running on `http://localhost:5007`, with configurable parameters like drone counts and simulation length.
+
+## Key Functions
+
+### `wait_for_server(max_wait=30)`
+
+Polls `/api/health` until server responds with HTTP 200 or times out.
+
+### `spawn_session(num_buildings=3)`
+
+Initiates a new session with specified building count via POST to `/api/sessions/spawn`.
+
+### `spawn_drones(scout_count=2, tanker_count=1)`
+
+Distributes drones (scouts/tankers) at predefined positions using `/api/spawn`.
+
+### `start_session(duration=120)`
+
+Triggers simulation for a configurable duration via `/api/start`.
+
+## Usage
+
+```bash
+python3 create_and_verify_session.py
+```
+Configure parameters via function arguments (e.g., `spawn_session(num_buildings=5)`).
+
+## Dependencies
+
+> `requests`
+> `time`
+> `json`
+> `sys`
+
+## Related
+
+- [[drone_simulation_backend]]
+- [[session_management_protocol]]
+
+>[!INFO] Important Note
+> Server must be running at `http://localhost:5007` before execution. The script defaults to 30-second max wait for server readiness.
+
+>[!WARNING] Caution
+> Timeout values (10s for API calls) may fail if network latency is high. Increase `max_wait` or `timeout` parameters if server is slow to respond.

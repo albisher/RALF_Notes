@@ -1,0 +1,51 @@
+**Tags:** #aerial-logistics, #resupply-system, #heavy-lift, #drone-technology, #tether-management, #mid-air-transport, #production-ready, #logistics-engineering
+**Created:** 2026-01-13
+**Type:** documentation
+
+# 00-tanker-overview
+
+## Summary
+
+```
+Provides an overview of a production-ready aerial tanker/logistics system for mid-air resupply and active tether management.
+```
+
+## Details
+
+> This document outlines a **heavy-lift logistics platform** designed for mid-wall resupply or active tether management to optimize payload efficiency. It details two primary operational options: **mid-air cartridge swapping** (Option A) and **active tether management** (Option B), referencing external drone technologies. The system is verified with current 2024–2025 open-source alternatives and best practices, ensuring readiness for deployment.
+
+## Key Functions
+
+### `Mission Profile`
+
+Enables mid-air resupply and reduces payload burden by eliminating descent cycles.
+
+### `Option A (Mule)`
+
+Mid-air cartridge swap for efficient payload transfer.
+
+### `Option B (Lifeline)`
+
+Active tether management for dynamic resupply and climbing support.
+
+## Usage
+
+Refer to linked documents (`01-mule-option.md`, `02-lifeline-option.md`) for implementation details. Validate against referenced drone technologies (links provided) to ensure compatibility with current best practices.
+
+## Dependencies
+
+> `- External drone hardware (e.g.`
+> `Hongfei HZH-Y150`
+> `Bonvaero`
+> `SpiderUAV H300) for payload and logistics capabilities.`
+
+## Related
+
+- [[01-mule-option]]
+- [[02-lifeline-option]]
+
+>[!INFO] **Production Verification**
+> All components are verified with 2024–2025 open-source alternatives and best practices, ensuring reliability and scalability.
+
+>[!WARNING] **Dependency Risk**
+> External drone hardware must be validated against system requirements to avoid compatibility issues.

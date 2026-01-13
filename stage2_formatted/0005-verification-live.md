@@ -1,0 +1,62 @@
+**Tags:** #verification, #live_simulation, #docker, #flask, #pybullet, #real_time
+**Created:** 2026-01-13
+**Type:** documentation
+
+# 0005-verification-live
+
+## Summary
+
+```
+Verifies and documents the live quadcopter simulation server setup, including Docker, Flask, and PyBullet integration.
+```
+
+## Details
+
+> This document confirms the operational status of a live simulation server running on port 5003, using Docker, Flask for HTTP streaming, and PyBullet for physics-based simulation. It details verification results for the container, HTTP server, simulation process, and image stream, ensuring real-time updates (10 FPS) are available via a browser dashboard. The setup includes a 6-panel dashboard with live visualizations like 3D/Top views, LiDAR scans, and metrics.
+
+## Key Functions
+
+### `Live Simulation Server`
+
+Runs on port 5003, serving real-time quadcopter simulation data.
+
+### `Docker Container (`live-quad-sim`)`
+
+Manages the simulation environment, ensuring PyBullet and Flask are active.
+
+### `Flask HTTP Server`
+
+Streams PNG images to `/stream` endpoint at ~10 FPS.
+
+### `PyBullet Simulation`
+
+Background physics engine generating frames for real-time rendering.
+
+### `Background Thread`
+
+Handles continuous simulation frame generation and refreshes browser at 100ms intervals.
+
+## Usage
+
+1. Access via `http://localhost:5003` in a browser.
+2. Verify status with `curl -I http://localhost:5003` or `docker ps | grep live-quad-sim`.
+3. Stream images with `curl http://localhost:5003/stream > test.png`.
+
+## Dependencies
+
+> `Docker`
+> `Flask`
+> `PyBullet`
+> `Python (for backend execution).`
+
+## Related
+
+- [[0004-docker_setup]]
+- [[0006-hmr_development]]
+- [[pybullet_guide]]
+
+>[!INFO] Important Note
+> Ensure Docker is running before accessing the simulation. The container (`live-quad-sim`) must be active to generate real-time updates.
+
+>[!WARNING] Caution
+> If the browser does not refresh, check for console errors (e.g., CORS issues) or verify the container is running. A stale browser tab may cause delays.

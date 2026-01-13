@@ -1,0 +1,67 @@
+**Tags:** #ROS2, #DDS, #MAVLink, #Drone-Coordination, #Task-Management, #Logging, #Multirotor-Systems
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# master_coordinator
+
+## Summary
+
+```
+Central drone coordination system managing communication, task routing, and logging across multiple drones.
+```
+
+## Details
+
+> The `MasterCoordinator` class acts as a central control hub for a drone swarm system (HMRS), integrating ROS2, DDS, and MAVLink protocols. It maintains drone registries, manages task execution via a queue, collects sensor data and logs, and dynamically selects leader drones. The system enforces standardized logging limits (1000 entries) and routes messages between drones using configurable communication add-ons. It also processes building inspection data (e.g., windows, cracks) from drones and tracks system-wide status updates.
+
+## Key Functions
+
+### ``__init__``
+
+Initializes drone communication channels, logging infrastructure, and task queues.
+
+### ``task_queue``
+
+Thread-safe queue for distributing tasks across drones.
+
+### ``drone_logs``
+
+Stores per-drone log entries with a capped history (1000 entries).
+
+### ``building_processing_data``
+
+Aggregates building inspection findings (e.g., roof, cracks) from drones.
+
+### ``message_routing``
+
+Dynamic mapping of drones to communication protocols (ROS2/DDS/MAVLink).
+
+## Usage
+
+1. Instantiate `MasterCoordinator` with a name (e.g., `coordinator = MasterCoordinator("Master")`).
+2. Register drones via `coordinator.drones[drone_name] = drone_instance`.
+3. Assign tasks using `coordinator.task_queue.put(task_data)`.
+4. Retrieve logs via `coordinator.all_logs` or `coordinator.drone_logs[drone_name]`.
+5. Trigger leader election or building processing via dedicated methods (e.g., `coordinator.select_leader()`).
+
+## Dependencies
+
+> ``.boxes.logging_box``
+> ``numpy``
+> ``typing``
+> ``queue``
+> ``datetime``
+> ``threading``
+> ``json``
+
+## Related
+
+- [[drone_communication_protocols]]
+- [[drone_task_scheduling]]
+- [[sensor_data_processing]]
+
+>[!INFO] Standardized Logging
+> Enforces a fixed log history limit (`max_log_history=1000`) to prevent memory overload, with support for UI/console/socketio output.
+
+>[!WARNING] LoggingBox Dependency
+> If `LoggingBox` is unavailable, logging falls back to a placeholder (`self.logger = None`), losing UI/socketio capabilities. Ensure `.boxes.logging_box` is imported.

@@ -1,0 +1,62 @@
+**Tags:** #bash-script, #docker, #simulation, #visualization, #logging, #containerization
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# run_and_visualize
+
+## Summary
+
+```
+Executes a simulation script in Docker, logs execution, and prepares visualization outputs.
+```
+
+## Details
+
+> This script orchestrates running a Python-based simulation inside a Docker container, ensuring the scenario file is copied into the container if missing. It logs the file’s existence, size, and presence of specific imports (e.g., `from swarm.boxes`). The script then executes the simulation inside Docker, logs container-level details (e.g., working directory, timestamps), and sets up a directory structure for visualization outputs. Error handling checks for missing files and logs Docker operations.
+
+## Key Functions
+
+### `File Validation`
+
+Checks if the scenario file exists, reports its size, and verifies the presence of required imports (e.g., `swarm.boxes`).
+
+### `Docker Setup`
+
+Ensures the target directory (`/app/scenarios/exploration/simple-exploration`) exists in the container and copies the scenario file.
+
+### `Simulation Execution`
+
+Runs the simulation inside Docker, logging container-specific metadata (e.g., working directory, timestamps) to a log file.
+
+### `Logging`
+
+Redirects all operations to a local log file (`docker_execution.log`) and appends container logs to it.
+
+## Usage
+
+1. Navigate to the script’s directory and execute it (`./run_and_visualize`).
+2. The script:
+   - Validates the scenario file.
+   - Copies it into the Docker container if missing.
+   - Runs the simulation inside Docker.
+   - Logs all operations to `visualization/docker_execution.log`.
+3. Visualization outputs are generated in the container’s `/app/scenarios/exploration/visualization` directory.
+
+## Dependencies
+
+> `- Docker Compose (`docker compose`)`
+> `Docker CLI (`docker`)`
+> `Python script (`simple_exploration_test.py`).
+- External dependencies: `simulation/docker/docker-compose.yml` (Docker Compose config).`
+
+## Related
+
+- [[docker-compose]]
+- [[simple-exploration_test]]
+
+>[!INFO] Important Note
+> The script uses `tee -a` to append logs to both the local `docker_execution.log` and the container’s log file (`/app/scenarios/exploration/visualization/docker_execution.log`). If the container fails, check the local log for errors.
+
+
+>[!WARNING] Caution
+> If the scenario file is corrupted or lacks required imports (e.g., `from swarm.boxes`), the script will log an error but continue execution. Ensure the file is valid before running.

@@ -1,0 +1,52 @@
+**Tags:** #serialization, #session-management, #data-persistence, #numpy-handling, #json
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# session_buildings_box
+
+## Summary
+
+```
+Handles saving and loading building data for session replay to ensure persistence across simulation states.
+```
+
+## Details
+
+> This module provides a `SessionBuildingsBox` class responsible for serializing and deserializing building configurations into a JSON file within a session directory. It ensures buildings are preserved even if the simulation state is reset, enabling visualization during replay. The class includes methods to save buildings to a structured JSON file (`buildings.json`) and load them back, with special handling for NumPy arrays to convert them to lists for JSON compatibility.
+
+## Key Functions
+
+### `save_buildings`
+
+Saves a list of building dictionaries to a JSON file in the specified session directory, including metadata like session ID and building count. Logs success/failure and cleans data for JSON serialization.
+
+### `load_buildings`
+
+Retrieves and returns building data from a JSON file in the session directory, returning an empty list if the file does not exist or fails to load.
+
+### `_clean_building_data`
+
+Private helper that converts NumPy arrays (via `tolist()`) and other non-serializable data types into JSON-compatible formats.
+
+## Usage
+
+1. Create an instance of `SessionBuildingsBox`.
+2. Call `save_buildings()` with a session directory path and a list of building dictionaries to persist.
+3. Call `load_buildings()` with the same session directory path to retrieve saved buildings.
+
+## Dependencies
+
+> `pathlib`
+> `json`
+> `logging`
+> `numpy (for array handling)`
+
+## Related
+
+- [[none]]
+
+>[!INFO] Data Cleaning
+> The `_clean_building_data` method explicitly checks for NumPy arrays using `hasattr(value, 'tolist')` to ensure compatibility with JSON serialization. This avoids errors when saving data containing arrays.
+
+>[!WARNING] Error Handling
+> Both `save_buildings` and `load_buildings` wrap operations in try-except blocks to log errors and return `False`/`[]` on failure, ensuring graceful degradation.

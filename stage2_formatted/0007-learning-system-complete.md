@@ -1,0 +1,74 @@
+**Tags:** #machine-learning, #drone-automation, #simulation, #neural-networks, #robotics, #physics-simulation, #real-time-learning, #weather-conditions, #mission-planning, #data-visualization, #containerized-applications
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# 0007-learning-system-complete
+
+## Summary
+
+```
+A fully implemented machine learning-based drone learning system with randomized scenarios, weather challenges, and real-time visualization.
+```
+
+## Details
+
+> This system trains drones using reinforcement learning to navigate complex tasks, including random positions, motor calibrations, and orientation recovery. It employs a neural network for control, integrated with PyBullet for realistic physics, and captures scenario outcomes via screenshots organized by scenario type and timestamp. The system supports live drone spawning, real-time learning, and performance statistics, including weather effects and mission task sequences. Weather conditions (e.g., wind, turbulence) dynamically alter flight dynamics, while task-specific operations (e.g., cleaning, debris removal) are tracked for progress and validation.
+
+## Key Functions
+
+### `Random Scenario Generation`
+
+Creates varied learning environments (e.g., random positions, motor states, orientations).
+
+### `Neural Network Controller`
+
+Implements ML-based drone control with learned weights for adaptive behavior.
+
+### `Screenshot System`
+
+Automatically captures drone performance visualizations with success/failure metrics.
+
+### `Weather Simulation`
+
+Applies 6 weather conditions (calm, wind, turbulence, storm) to simulate real-world challenges.
+
+### `Mission Task Automation`
+
+Executes predefined tasks (e.g., air/water jets, cleaning) with progress tracking.
+
+### `Live Learning Container`
+
+Runs continuous training in a containerized environment (Port 5005) with real-time drone spawning.
+
+### `Statistics Dashboard`
+
+Tracks success rates, scenario history, and performance trends across all scenarios.
+
+## Usage
+
+1. **Run Simulation**: Launch the system at Port 5005 to spawn drones and observe live learning.
+2. **Train Drones**: Execute randomized scenarios (e.g., `random_position`, `base_to_building`) to improve neural network performance.
+3. **Analyze Results**: Review screenshots in `simulation_output/learning_scenarios/` and daily summaries in `summaries/`.
+4. **Adjust Weather/Tasks**: Modify weather conditions or mission tasks via configuration files to test robustness.
+5. **Monitor Performance**: Use statistics to evaluate success rates and refine learning algorithms.
+
+## Dependencies
+
+> `PyBullet (physics simulation)`
+> `TensorFlow/PyTorch (neural network training)`
+> `Flask/Django (live visualization)`
+> `containerized Docker (learning container)`
+> `OpenCV (image processing for screenshots).`
+
+## Related
+
+- [[PyBullet Documentation]]
+- [[Reinforcement Learning in Robotics]]
+- [[Docker for Machine Learning]]
+- [[Neural Network Training Best Practices]]
+
+>[!INFO] **Real-Time Adaptation**
+> The system dynamically adjusts drone behavior based on live sensor data and learned weights, enabling continuous improvement without manual retraining.
+
+>[!WARNING] **Weather Sensitivity**
+> High wind or turbulence may cause failed scenarios; validate performance under extreme conditions to ensure robustness.

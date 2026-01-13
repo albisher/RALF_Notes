@@ -1,0 +1,90 @@
+**Tags:** #abstract-class, #drone-sdk, #unified-interface, #adapters, #abstraction, #drone-control
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# drone_brand_adapters
+
+## Summary
+
+```
+System for abstracting drone SDKs (DJI, Parrot) into a standardized adapter pattern.
+```
+
+## Details
+
+> This file defines a **DroneBrandAdapter** abstract base class (ABC) that enforces a consistent interface for drone SDKs (e.g., DJI, Parrot). Concrete adapters (like `DJIAdapter`) implement abstract methods (`connect`, `get_position`, etc.) to bridge between SDKs and a unified control layer. The `DJIAdapter` subclass checks SDK availability (simulated here) and handles connection/disconnect logic. The system abstracts platform-specific SDK quirks, enabling cross-brand drone integration via a single API.
+
+## Key Functions
+
+### `DroneBrandAdapter`
+
+Abstract base class defining the unified interface for drone SDKs.
+
+### ``connect()``
+
+Abstract method to establish connection (returns `bool`).
+
+### ``disconnect()``
+
+Abstract method to terminate connection.
+
+### ``get_position()``
+
+Abstract method returning current drone position (as `np.ndarray` or `None`).
+
+### ``get_orientation()``
+
+Abstract method returning drone orientation (quaternion, `np.ndarray` or `None`).
+
+### ``send_command()``
+
+Abstract method to dispatch drone commands (e.g., `move_to`, `land`).
+
+### ``get_telemetry()``
+
+Abstract method returning telemetry data (as `Dict`).
+
+### ``is_available()``
+
+Abstract method to check SDK availability.
+
+### `DJIAdapter`
+
+Concrete adapter for DJI drones.
+
+### ``_check_sdk_availability()``
+
+Simulated check for DJI SDK (prints status).
+
+### ``is_available()``
+
+Returns `True` only if SDK is installed and config allows it.
+
+## Usage
+
+1. Extend `DroneBrandAdapter` for new drone brands.
+2. Implement abstract methods (e.g., `connect()`) with SDK-specific logic.
+3. Use `DJIAdapter` (or others) via `DroneBrandAdapter` interface:
+   ```python
+   adapter = DJIAdapter("Matrice 300 RTK")
+   if adapter.is_available():
+       adapter.connect()
+       position = adapter.get_position()
+   ```
+
+## Dependencies
+
+> ``.config``
+> ``numpy` (via `import numpy as np`)`
+> ``typing` (for type hints).`
+
+## Related
+
+- [[drone_sdk_bridge]]
+- [[drone_control_abstraction]]
+
+>[!INFO] SDK Simulation
+> The `_check_sdk_availability()` method simulates SDK checks with placeholder logic. Replace with actual imports (e.g., `import dji_sdk`) for real drone control.
+
+>[!WARNING] Dependency Warning
+> `DJIAdapter` assumes `dji-sdk` is installed. If missing, it falls back to simulation mode or prints a warning. Ensure `config.get('dji_sdk_enabled', False)` is set correctly.

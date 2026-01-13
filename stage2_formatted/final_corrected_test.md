@@ -1,0 +1,78 @@
+**Tags:** #drone_simulation, #api_test, #system_health, #building_spawn, #weather_check
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# final_corrected_test
+
+## Summary
+
+```
+Automated test script for drone simulation system health and functionality checks.
+```
+
+## Details
+
+> This script performs a series of API calls to verify the operational status of a drone simulation system. It checks system health, retrieves available drone vendors, spawns buildings and drones, verifies weather conditions, and validates simulation state. The script is designed to validate the complete functionality of a drone management and simulation platform, including building creation, weather integration, and ML scenario availability.
+
+## Key Functions
+
+### `Health Check`
+
+Verifies system operational status via `/api/health`.
+
+### `Drone Brand List`
+
+Fetches available drone vendors via `/api/master-controls/drone-brands`.
+
+### `Building Spawn`
+
+Creates a random building with specified dimensions and name via `/api/buildings/spawn-random`.
+
+### `Building List`
+
+Retrieves and displays all buildings in the simulation via `/api/buildings/list`.
+
+### `Window Cleaning Configs`
+
+Lists available window-cleaning drone configurations via `/api/window-cleaning-configs`.
+
+### `Weather Check`
+
+Validates current weather conditions via `/api/master-controls/weather/current`.
+
+### `Tethered Power Spawn`
+
+Spawns a Tanker-Lifeline drone (tethered power source) via `/api/spawn`.
+
+### `Simulation State`
+
+Retrieves the complete state of the simulation via `/api/state`.
+
+### `ML Scenarios`
+
+Lists available machine learning training scenarios via `/api/scenarios/list`.
+
+### `Session Management`
+
+Checks saved simulation sessions via `/api/sessions`.
+
+## Usage
+
+Run the script directly (`python3 final_corrected_test.py`) to execute automated checks against a local drone simulation server running on `http://localhost:5007`. The script logs each step's success/failure and prints a summary of operational status.
+
+## Dependencies
+
+> `requests`
+> `json`
+> `time`
+
+## Related
+
+- [[final_simulation_server]]
+- [[drone_simulation_api_spec]]
+
+>[!INFO] Important Note
+> This script assumes the backend server is running on `localhost:5007`. If the server URL changes, update `BASE_URL` accordingly.
+
+>[!WARNING] Caution
+> If any API endpoint fails, the script will log the error but continue checking other functionalities. Ensure all dependencies (e.g., weather API) are properly configured to avoid partial failures.

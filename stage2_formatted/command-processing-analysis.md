@@ -1,0 +1,61 @@
+**Tags:** #command-processing, #drone-control, #simulation, #controller, #movement-algorithms
+**Created:** 2026-01-13
+**Type:** research
+
+# command-processing-analysis
+
+## Summary
+
+```
+Analyzes drone command flow, dependencies, and potential issues in a simulation environment.
+```
+
+## Details
+
+> This document outlines how drones process commands in a simulation system, detailing the sequence from command submission to execution. The analysis covers command queuing, processing, and execution, emphasizing the need for specific drone attributes (`receive_command()`, `command_mode`, `target_position`) and controllers (`motion_pattern` or `ml_controller_box`). It highlights critical dependencies, such as the simulation loop (`step()`) and drone capabilities, while identifying potential failures (e.g., missing controllers, unprocessed commands).
+
+## Key Functions
+
+### ``receive_command()``
+
+Processes incoming commands (e.g., `move_to`, `hover`) and updates drone state.
+
+### ``step()``
+
+Executes queued commands in the simulation loop, triggering drone movement logic.
+
+### ``update()``
+
+Applies thrusts based on `command_mode` and controller logic (e.g., `motion_pattern` or `ml_controller_box`).
+
+### ``apply_thrust()``
+
+Physically moves the drone toward the target position.
+
+## Usage
+
+1. **Send Commands**: Use `/api/command` to queue drone actions (e.g., `move_to`).
+2. **Run Simulation**: Ensure `step()` is called iteratively to process queued commands.
+3. **Validate Drone State**: Confirm drones have required attributes (e.g., `command_mode`, `target_position`).
+4. **Monitor Controllers**: Verify controllers (`ml_controller_box`) are operational for movement.
+
+## Dependencies
+
+> `- `BaseDrone` class (provides `receive_command()``
+> ``command_mode``
+> ``target_position`).
+- Simulation framework (`step()` loop).
+- Controller modules (`motion_pattern``
+> ``ml_controller_box`).
+- External API (`/api/command` endpoint).`
+
+## Related
+
+- [[hmrs_scout_drone]]
+- [[BaseDrone class documentation]]
+
+>[!INFO] Critical Dependencies
+> Drone commands fail if the simulation loop (`step()`) is not running, or if the drone lacks a controller (e.g., `ml_controller_box`). Always check drone attributes (`command_mode`, `target_position`) before execution.
+
+>[!WARNING] Controller Failures
+> If `motion_pattern` or `ml_controller_box` returns `None`, the drone will log a warning and stall. Test controllers with edge cases (e.g., invalid inputs) to avoid runtime errors.

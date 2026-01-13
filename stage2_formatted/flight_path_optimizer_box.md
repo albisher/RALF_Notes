@@ -1,0 +1,79 @@
+**Tags:** #drone-automation, #path-optimization, #flight-control, #AI-algorithms, #numerical-optimization
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# flight_path_optimizer_box
+
+## Summary
+
+```
+Optimizes drone flight paths to minimize distance and time while avoiding obstacles and wind.
+```
+
+## Details
+
+> This module implements a `FlightPathOptimizerBox` class designed to enhance drone flight efficiency by reducing unnecessary movements and optimizing waypoint sequences. It processes input waypoints, current position, obstacles, and wind conditions to generate an optimized path with associated efficiency metrics. The optimizer prioritizes steady forward flight, minimizes hovering penalties, and dynamically adjusts based on configurable parameters like speed thresholds.
+> 
+> The class includes initialization with tunable parameters (e.g., `min_speed`, `hover_penalty`) and a core `optimize_waypoints()` method that integrates helper functions like distance/time calculations and redundant waypoint removal. Logging is used for debugging and tracking optimization performance.
+
+## Key Functions
+
+### ``optimize_waypoints()``
+
+Core method that computes optimized waypoints and metrics by filtering redundant points and adjusting path order.
+
+### ``_calculate_path_distance()``
+
+(Placeholder) Computes Euclidean distance between consecutive points in a path.
+
+### ``_estimate_path_time()``
+
+(Placeholder) Estimates flight time based on speed and distance.
+
+### ``_remove_redundant_waypoints()``
+
+Filters waypoints to eliminate those too close to neighbors (default threshold: 1.0m).
+
+### ``optimization_history``
+
+Tracks saved metrics (e.g., distance/time improvements) for post-flight analysis.
+
+## Usage
+
+1. Initialize the optimizer with desired parameters:
+   ```python
+   optimizer = FlightPathOptimizerBox(
+       enable_optimization=True,
+       min_speed=2.0,
+       optimal_speed=5.0,
+       hover_penalty=1.5
+   )
+   ```
+2. Call `optimize_waypoints()` with input data:
+   ```python
+   waypoints = np.array([[...], [...], ...])  # 3D positions
+   current_pos = np.array([...])
+   obstacles = [{'position': [...], 'radius': 2.0}]  # Optional
+   wind_velocity = np.array([...])  # Optional
+
+   optimized_path, metrics = optimizer.optimize_waypoints(
+       waypoints, current_pos, obstacles, wind_velocity
+   )
+   ```
+3. Retrieve saved metrics via `optimizer.optimization_history`.
+
+## Dependencies
+
+> `numpy`
+> `logging`
+
+## Related
+
+- [[flight_path_visualizer]]
+- [[drone_obstacle_avoidance_system]]
+
+>[!INFO] Placeholder Methods
+> Methods like `_calculate_path_distance()` and `_estimate_path_time()` are stubs and should be implemented with physics-based calculations (e.g., using drone speed and waypoint spacing).
+
+>[!WARNING] Redundancy Threshold
+> The `min_distance=1.0` parameter in `_remove_redundant_waypoints()` is arbitrary. Adjust this value based on drone maneuverability to avoid overly aggressive pruning of waypoints.

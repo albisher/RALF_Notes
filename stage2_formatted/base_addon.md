@@ -1,0 +1,58 @@
+**Tags:** #OOP, #Drone-Systems, #Addon-Design, #Hardware-Simulation, #Protocol-Communication
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# base_addon
+
+## Summary
+
+```
+Core abstract base class for drone addon modules with physical and communication properties.
+```
+
+## Details
+
+> This file defines a foundational `BaseAddon` class using the Abstract Base Class (ABC) pattern, serving as a template for all HMRS drone addons. It encapsulates physical attributes (weight, dimensions, power consumption), state management (attachment status, power status), and data history tracking. The class leverages Python’s `Enum` for standardized addon types and enforces a modular design via abstract methods (not fully implemented here). Data generation and communication protocols are abstracted, allowing child classes to implement specific behaviors while inheriting common functionality like attachment/detachment and state tracking.
+
+## Key Functions
+
+### ``BaseAddon.__init__()``
+
+Initializes addon with type, metadata, and default state (e.g., `is_attached=False`). Logs initialization details.
+
+### ``attach(self, drone)``
+
+Placeholder for attaching the addon to a drone (to be overridden by subclasses).
+
+### ``data_history``
+
+Stores recent sensor/state data (max 1000 entries) for performance tracking.
+
+### ``variables``
+
+Dynamic dictionary for addon-specific parameters (e.g., calibration values).
+
+## Usage
+
+1. Subclass `BaseAddon` and implement abstract methods (e.g., `generate_data()`) for specific addon logic.
+2. Pass drone reference during attachment (e.g., `addon.attach(drone)`).
+3. Override `variables` or `data_history` for custom behavior (e.g., `self.variables["sensor_range"] = 100`).
+
+## Dependencies
+
+> `numpy`
+> `typing`
+> `abc`
+> `enum`
+> `time`
+
+## Related
+
+- [[BaseAddonExample]]
+- [[DroneHardwareSimulator]]
+
+>[!INFO] State Management
+> State variables like `is_attached` and `is_powered` are initialized to `False`/`None` but should be updated dynamically during runtime (e.g., via `update()` methods in subclasses).
+
+>[!WARNING] Protocol Abstraction
+> The `communication_protocol` field is optional but critical for hardware-specific implementations. Subclasses must define how data is transmitted (e.g., UART vs. ROS2).

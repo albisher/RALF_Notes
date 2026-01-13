@@ -1,0 +1,65 @@
+**Tags:** #automation, #git, #version-control, #bash-script, #sync, #ci-cd
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# git_sync
+
+## Summary
+
+```
+Automates Git syncing (pull, commit, push) with error handling and logging.
+```
+
+## Details
+
+> This Bash script automates Git operations to fetch, merge, and push changes to a remote repository (GitHub). It detects local changes, stages them, commits with a timestamped message, and pushes to the remote branch (`main`). The script includes conditional logic to handle cases where the local branch is behind or diverged from the remote, with appropriate warnings/errors. It logs all actions to `.git_sync.log` and exits gracefully on critical failures.
+
+## Key Functions
+
+### ``log_message()``
+
+Logs timestamped messages to both console and a log file.
+
+### ``git fetch``
+
+Pulls remote changes without modifying local state.
+
+### ``git pull``
+
+Attempts to merge remote changes, with conflict detection.
+
+### ``git add -A``
+
+Stages all local changes (including untracked files).
+
+### ``git commit``
+
+Commits staged changes with an auto-generated timestamped message.
+
+### ``git push``
+
+Pushes commits to the remote repository.
+
+## Usage
+
+1. Place the script in your project directory.
+2. Run `./git_sync` from the project root.
+3. The script will:
+   - Log all actions to `.git_sync.log`.
+   - Exit with `1` on critical errors (e.g., merge conflicts).
+   - Exit with `0` on success or non-critical failures.
+
+## Dependencies
+
+> `git (Git version control)`
+> `Bash (shell scripting)`
+
+## Related
+
+- [[none]]
+
+>[!INFO] Important Note
+> The script assumes the local branch is named `main`. Change `main` to your branch name if needed (e.g., `master`).
+
+>[!WARNING] Caution
+> Avoid running this script during active manual commits—it may overwrite uncommitted changes. Test in a backup branch first.

@@ -1,0 +1,49 @@
+**Tags:** #session_management, #database_operations, #simulation, #pathlib, #datetime
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# session_creator_box
+
+## Summary
+
+```
+Manages session creation and database saving for simulation workflows.
+```
+
+## Details
+
+> The `SessionCreatorBox` class handles the creation of simulation sessions with proper directory structure and database persistence. It orchestrates the sequence of operations: generating a session ID, validating inputs, and ensuring the session is saved to a database via `SessionDBBox`. The `create_session` method constructs a session with configurable parameters (e.g., building counts, metadata) and returns metadata about the session’s status.
+
+## Key Functions
+
+### ``__init__(self, session_db_box=None, training_sessions_dir`
+
+str = "training_sessions")`**: Initializes the box with a database handler and creates the session directory if it doesn’t exist.
+
+### ``create_session(self, session_name`
+
+Optional[str] = None, base_position: Optional[list] = None, num_buildings: int = 0, num_invisible_buildings: int = 0, metadata: Optional[Dict[str, Any]] = None)`**: Creates a session with sanitized naming, generates a timestamp-based ID, and returns a dictionary with session details and success flags.
+
+## Usage
+
+1. Instantiate `SessionCreatorBox` with an optional `SessionDBBox` and directory path.
+2. Call `create_session()` with parameters like `session_name`, `num_buildings`, or `metadata`.
+3. Retrieve the session ID, directory path, and success status from the returned dictionary.
+
+## Dependencies
+
+> ``typing``
+> ``pathlib``
+> ``datetime``
+> ``logging``
+> ``re` (imported dynamically in `create_session`).`
+
+## Related
+
+- [[none]]
+
+>[!INFO] Sanitization Logic
+> The `session_name` is sanitized by replacing spaces/hyphens, removing special characters, and ensuring no leading/trailing hyphens. This prevents invalid filenames.
+
+>[!WARNING] Timestamp Collision
+> If two sessions are created in the same minute with identical sanitized names, the second session’s ID will reuse the timestamp prefix (e.g., `202310051430-Test`). Ensure uniqueness by validating IDs post-creation.

@@ -1,0 +1,92 @@
+**Tags:** #real-time-simulation, #drone-swarm, #web-visualization, #pybullet, #flask, #swarm-ai, #live-data-streaming, #building-mapping, #ml-integration
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# hmrs_simulation_live
+
+## Summary
+
+```
+A real-time drone swarm simulation with live web visualization for HMRS (Human-Machine Robotic Swarm) operations, integrating building mapping and mission progress tracking.
+```
+
+## Details
+
+> This script creates a live web-based simulation environment for HMRS drones using PyBullet for physics simulation and Flask for web visualization. It supports multiple drone types (scout, tanker, lifeline, overseer) and integrates building mapping via `BuildingMapper`. The system streams real-time data to a web interface, allowing users to visualize drone positions, mission progress, and building structures. The simulation includes optional features like logging, session management, and machine learning-driven decision-making, though these are conditionally loaded based on available dependencies.
+> 
+> The code uses threading for concurrent physics simulation and web server operations, enabling smooth real-time updates. It also supports optional database integration for session persistence and ML strategy optimization.
+
+## Key Functions
+
+### ``HMRSSimulationLive``
+
+Core class managing the simulation lifecycle, including drone spawning, physics simulation, and web server integration.
+
+### ``BuildingMapper``
+
+Handles real-time building structure mapping and visualization.
+
+### ``HMRSDroneSpawner``
+
+Manages drone instantiation with configurable types (e.g., scout, tanker).
+
+### ``MasterCoordinator``
+
+Orchestrates drone missions and swarm behavior.
+
+### ``SocketIO` (Flask-SocketIO)`
+
+Enables bidirectional communication between the web interface and simulation backend for live updates.
+
+### ``DecisionLearningBox``
+
+Optional module for ML-driven decision optimization (if available).
+
+### ``SessionDBBox``
+
+Optional database backend for session management (e.g., saving/loading simulations).
+
+## Usage
+
+1. **Setup**:
+   - Install dependencies (`pybullet`, `flask`, `numpy`, etc.).
+   - Ensure optional modules (`SessionDBBox`, `DecisionLearningBox`) are available if needed.
+   - Initialize the simulation with:
+     ```python
+     simulation = HMRSSimulationLive()
+     simulation.run()
+     ```
+
+2. **Run**:
+   - Start the Flask server (e.g., `python hmrs_simulation_live.py`).
+   - Access the web interface at `http://localhost:5000` to visualize drones, building maps, and mission progress.
+
+3. **Customization**:
+   - Modify drone types, building layouts, or mission logic in `swarm/` modules.
+   - Adjust web UI templates in `templates/` (if using Flask’s `render_template_string`).
+
+## Dependencies
+
+> `- PyBullet (`pybullet`)`
+> `PyBullet data (`pybullet_data`): Physics engine for drone simulation.
+- NumPy (`numpy`)`
+> `Matplotlib (`matplotlib`): Data processing and visualization.
+- Flask (`flask`)`
+> `Flask-SocketIO (`flask_socketio`): Web framework and real-time communication.
+- Optional: SQLite/PostgreSQL (via `swarm.boxes.session_db_box`): Database for session persistence.
+- Optional: Machine learning libraries (e.g.`
+> `TensorFlow/PyTorch): For decision learning (if `DecisionLearningBox` is used).`
+
+## Related
+
+- [[swarm]]
+- [[swarm]]
+- [[swarm]]
+- [[swarm]]
+
+>[!INFO] Optional Features
+> The simulation supports optional modules like `SessionDBBox` (database persistence) and `DecisionLearningBox` (ML-driven decisions). These are conditionally loaded and may require additional setup (e.g., installing dependencies or configuring databases).
+
+
+>[!WARNING] Dependency Fallback
+> If critical modules (e.g., `SessionDBBox`) are missing, the server logs warnings and continues operation without those features. Always check logs for errors during startup.

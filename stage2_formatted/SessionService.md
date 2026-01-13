@@ -1,0 +1,61 @@
+**Tags:** #session-management, #api-service, #error-handling, #fallback-mechanism, #async-io
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# SessionService
+
+## Summary
+
+```
+Manages session lifecycle via HTTP API calls with fallback retry logic.
+```
+
+## Details
+
+> `SessionService` implements a class-based service for handling session-related operations (e.g., loading, selecting, creating sessions) using dependency injection. It relies on an `APIBox` instance for HTTP requests and includes retry logic for `/api/sessions` failures by falling back to `/api/sessions/db/list`. The service validates response formats and gracefully returns empty arrays on errors. Key methods include `loadSessions()` (with retry logic), `selectSession()`, `createDemoSession()`, and `loadSessionReplay()`.
+
+## Key Functions
+
+### ``constructor(apiBox)``
+
+Initializes service with required `APIBox` dependency.
+
+### ``loadSessions()``
+
+Fetches sessions via `/api/sessions` (primary) or `/api/sessions/db/list` (fallback), with retry on failure.
+
+### ``selectSession(sessionId)``
+
+Selects a session via POST to `/api/sessions/{sessionId}/select`.
+
+### ``createDemoSession()``
+
+Creates a demo session via `/api/sessions/create-demo`.
+
+### ``loadSessionReplay(sessionId)``
+
+Loads replay data for a session (incomplete due to missing `sessionId` parameter in snippet).
+
+## Usage
+
+```javascript
+const apiBox = new APIBox(); // Assume configured
+const sessionService = new SessionService(apiBox);
+await sessionService.loadSessions(); // Load all sessions
+await sessionService.selectSession("123"); // Select a session
+```
+
+## Dependencies
+
+> `APIBox`
+
+## Related
+
+- [[SessionService_test_reference]]
+- [[APIBox_documentation]]
+
+>[!INFO] Retry Logic
+> Implements a fallback retry mechanism for `/api/sessions` failures, attempting `/api/sessions/db/list` twice before returning an empty array.
+
+>[!WARNING] Error Handling
+> Throws errors for critical operations (e.g., `selectSession`) but logs them for non-critical ones (e.g., `loadSessions`). Always handle exceptions externally.

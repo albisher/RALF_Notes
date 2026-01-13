@@ -1,0 +1,64 @@
+**Tags:** #migration, #box-based-architecture, #object-oriented-design, #single-responsibility-principle, #reusability
+**Created:** 2026-01-13
+**Type:** documentation
+
+# MIGRATION_GUIDE
+
+## Summary
+
+```
+A structured guide for migrating existing code to a box-based architecture, emphasizing OOP principles, single responsibility, and interface adherence.
+```
+
+## Details
+
+> This guide provides a comprehensive approach to transitioning from legacy implementations to a modular, box-based architecture. It enforces adherence to OOP principles, ensuring each box encapsulates a single responsibility while promoting reusability and adherence to interfaces. The migration examples illustrate how to replace monolithic components with specialized boxes, maintaining compatibility with existing method names and interfaces.
+
+## Key Functions
+
+### `MLControllerBox`
+
+Handles machine learning-based control logic for drones.
+
+### `PathPlannerBox`
+
+Manages path planning for autonomous navigation.
+
+### `LiDARProcessorBox`
+
+Processes sensor data from LiDAR systems.
+
+### `LearningDroneBoxed`
+
+Uses `MLControllerBox` for control computation.
+
+### `WorkerDrone`
+
+Updated to use path planning via a box interface.
+
+## Usage
+
+1. Replace direct instantiations of legacy classes (e.g., `MLController`) with box-based equivalents (e.g., `MLControllerBox`).
+2. Ensure all interactions follow the box interface (e.g., `update_weights`, `compute_control`).
+3. Split responsibilities into separate boxes (e.g., `PathPlannerBox`, `LiDARProcessorBox`) to adhere to single responsibility.
+4. Combine boxes for complex workflows (e.g., `path_planner.plan_straight_line` + `controller.compute_control`).
+
+## Dependencies
+
+> ``numpy``
+> ``.boxes` module (custom module containing box-based implementations)`
+> ``.ml_controller``
+> ``.worker_drone` (legacy modules).`
+
+## Related
+
+- [[MIGRATION_EXAMPLES]]
+- [[OOP_GUIDE]]
+- [[DRONE_ARCHITECTURE_DOC]]
+
+>[!INFO] Important Note
+> The migration ensures backward compatibility by preserving method names and interfaces, minimizing code changes. Direct state access (e.g., `controller.W1`) is explicitly discouraged to enforce encapsulation.
+
+
+>[!WARNING] Caution
+> Violating single responsibility (e.g., a box handling multiple tasks like path planning and control) can lead to maintainability issues. Always decompose monolithic logic into specialized boxes.

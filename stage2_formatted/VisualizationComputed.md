@@ -1,0 +1,82 @@
+**Tags:** #computed-properties, #visualization, #logging, #filtering, #drone-simulation, #sidebars
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# VisualizationComputed
+
+## Summary
+
+```
+Manages computed properties for filtering and organizing drone simulation logs and communication data.
+```
+
+## Details
+
+> This module (`VisualizationComputed.js`) provides computed properties for filtering and processing simulation logs, communication data, and filtering criteria. It implements logic for:
+> - Filtering logs based on time, phase systems, sender/receiver, and log types.
+> - Sorting logs chronologically (oldest/nearest first or latest first depending on mode).
+> - Extracting unique senders, receivers, and log types from communication logs.
+> The module relies on external state (`simulationLogs`, `communicationLog`, `logFilters`, etc.) and applies conditional filtering based on user settings like `timeTravelMode` and `disablePhaseFiltering`.
+
+## Key Functions
+
+### `filteredLogs()`
+
+Filters and sorts logs based on mode (time travel vs. normal) and applied filters (sender, receiver, type).
+
+### `simulationLogs()`
+
+Extracts only drone simulation logs from a broader communication log.
+
+### `uniqueSenders()`
+
+Returns a sorted array of unique sender IDs from communication logs.
+
+### `uniqueReceivers()`
+
+Returns a sorted array of unique receiver IDs.
+
+### `uniqueTypes()`
+
+Returns a sorted array of unique log types.
+
+### `isDroneSimulationLog()`
+
+Helper method (assumed to be defined elsewhere) to identify drone-specific logs.
+
+## Usage
+
+To use this module, inject it into a component (e.g., a sidebar) and access its computed properties:
+```javascript
+const computed = new VisualizationComputed({
+    communicationLog: [...], // Raw log data
+    simulationLogs: [...],   // Pre-filtered drone logs (optional)
+    logFilters: { sender: "X", receiver: "Y" }, // Example filters
+    timeTravelMode: true,
+    currentTime: 1000,       // Time to filter up to
+    disablePhaseFiltering: false,
+});
+const filteredLogs = computed.filteredLogs(); // Returns filtered/sorted logs
+```
+
+## Dependencies
+
+> ``window.loggingPhaseSystem``
+> ``this.communicationLog``
+> ``this.simulationLogs``
+> ``this.logFilters``
+> ``this.timeTravelMode``
+> ``this.currentTime``
+> ``this.disablePhaseFiltering` (assumed to be injected or passed in).`
+
+## Related
+
+- [[VisualizationComponent]]
+- [[LoggingSystem]]
+- [[DroneSimulationModule]]
+
+>[!INFO] Time Travel Mode Logic
+> When `timeTravelMode` is enabled, logs are filtered to only include entries with `sim_time <= currentTime` and sorted chronologically (oldest first). Otherwise, logs default to descending order (latest first).
+
+>[!WARNING] Phase Filtering Dependency
+> Requires `window.loggingPhaseSystem` to be defined and functional. If missing, phase-based filtering will be ignored. Always validate this dependency before use.

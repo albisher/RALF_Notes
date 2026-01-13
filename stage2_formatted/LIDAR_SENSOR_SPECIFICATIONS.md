@@ -1,0 +1,52 @@
+**Tags:** #LiDAR, #Sensor_Specifications, #Data_Formats, #Aerospace, #Remote_Sensing
+**Created:** 2026-01-13
+**Type:** research
+
+# LIDAR_SENSOR_SPECIFICATIONS
+
+## Summary
+
+```
+Document outlines real-world LiDAR sensor specifications, focusing on LAS format and manufacturer details like Velodyne VLP-16 Puck LITE.
+```
+
+## Details
+
+> This document provides detailed specifications for real-world LiDAR sensors, emphasizing the **LAS (LASer) format** standard, which defines point data records with fields like coordinates, intensity, classification, and timestamps. It also includes manufacturer-specific details for the **Velodyne VLP-16 Puck LITE**, covering its sensor geometry (16 channels, ±15° vertical FOV), operational parameters (300,000 points/sec, 10 Hz rotation), and accuracy (±3 cm typical). The document highlights optional features like RGB and waveform data, critical for advanced applications.
+
+## Key Functions
+
+### `LAS Format Fields`
+
+Defines core metadata for each LiDAR point (e.g., classification, scan angle).
+
+### `Velodyne VLP-16 Puck LITE Specs`
+
+Provides hardware/performance details (e.g., range, resolution, UDP packet structure).
+
+### `Scan Direction/Edge Flags`
+
+Contextual flags for aerial LiDAR applications.
+
+## Usage
+
+- **Researchers**: Use LAS format fields for data analysis (e.g., classification, intensity-based surface modeling).
+- **Engineers**: Apply Velodyne specs to configure hardware (e.g., FOV, rotation rate) for LiDAR systems.
+
+## Dependencies
+
+> `ASPRS LAS standard documentation`
+> `Velodyne sensor manuals (for proprietary specs).`
+
+## Related
+
+- [[LiDAR_Data_Processing_Guide]]
+- [[Aerospace_Sensor_Standards]]
+- [[Velodyne_VLP-16_Driver_Reference]]
+
+>[!INFO] **LAS Classification Codes**
+> Classification (uint8) determines point type (e.g., 2=Ground, 9=Water). Misclassification can distort terrain models—validate with ground-truth data.
+
+
+>[!WARNING] **Intensity Interpretation**
+> Intensity (0–65535) reflects signal strength but is **not** directly proportional to distance. High values may indicate clutter (e.g., dense vegetation) rather than far surfaces. Normalize for sensor-specific gain settings.

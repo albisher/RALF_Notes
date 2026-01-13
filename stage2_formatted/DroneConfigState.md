@@ -1,0 +1,44 @@
+**Tags:** #drone, #configuration, #state-management, #swarm, #addons, #OOP, #sensor
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# DroneConfigState
+
+## Summary
+
+```
+Manages drone configuration states, including base station, drones, swarms, squads, and sensor addons.
+```
+
+## Details
+
+> `DroneConfigState` is a class that encapsulates drone configuration data, adhering to a single responsibility principle. It provides a default state structure for drone operations, including base station settings, drone configurations, swarm/squad management, naming conventions, and available sensor addons (e.g., cameras, LiDAR, environmental sensors). The class uses static methods to initialize and manage these configurations, ensuring modularity and reusability. The `availableAddons` array lists sensor options with metadata like cost, weight, and type, enabling dynamic configuration selection.
+
+## Key Functions
+
+### ``getDefaultState()``
+
+Returns a preconfigured object with base station, drone, swarm, squad, and addon definitions.
+
+### ``editingDroneIndex`/`editingSwarmIndex`/`editingSquadIndex``
+
+Tracks active editing states for drones/swarms/squads (null = inactive).
+
+## Usage
+
+Initialize with `DroneConfigState.getDefaultState()` to load a structured configuration. Extend by adding/editing entries in `droneConfigurations`, `swarms`, or `availableAddons`. Use editing indices to modify configurations dynamically.
+
+## Dependencies
+
+> `None (purely data/state management; no external libraries).`
+
+## Related
+
+- [[DroneSystemArchitecture]]
+- [[SensorDatabase]]
+
+>[!INFO] Naming Convention
+> The `namingConvention` (e.g., `'numbered'` or `'lettered'`) dictates drone/squad naming patterns (e.g., Scout_1 vs. Scout_A). Modify this to adjust naming logic.
+
+>[!WARNING] Immutable Defaults
+> `getDefaultState()` returns a shallow copy. For deep cloning, use tools like `JSON.parse(JSON.stringify())` to avoid unintended shared references.

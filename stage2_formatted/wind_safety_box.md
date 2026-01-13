@@ -1,0 +1,58 @@
+**Tags:** #wind_safety, #safety_assessment, #wind_conditions, #drone_operations, #single_responsibility
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# wind_safety_box
+
+## Summary
+
+```
+A wind safety checker module for evaluating safe drone operation based on wind speed and direction.
+```
+
+## Details
+
+> The `WindSafetyBox` class implements a wind safety assessment system with two primary functions: `check_wind_safety()` evaluates whether current wind conditions are safe for operation, and `get_wind_effect_on_drone()` estimates how wind affects drone positioning. It uses a configurable wind speed limit (default 25 km/h) and converts between km/h and m/s for calculations. The class returns structured safety statuses with recommendations for different wind conditions.
+
+## Key Functions
+
+### ``__init__(self, wind_limit_kmh`
+
+float = 25.0)`**: Initializes the safety checker with a configurable wind speed limit (converted internally to m/s).
+
+### ``check_wind_safety(self, wind_speed_kmh`
+
+float, wind_direction: Optional[float] = None)`**: Evaluates if wind conditions are safe, returning a dictionary with safety status, speed metrics, and recommendations based on proximity to the limit.
+
+### ``get_wind_effect_on_drone(self, wind_speed_kmh`
+
+float, wind_direction: float, drone_position: np.ndarray, target_position: np.ndarray)`**: Estimates wind-induced displacement between drone and target positions (placeholder function with placeholder logic).
+
+## Usage
+
+```python
+# Initialize with default 25 km/h limit
+safety_checker = WindSafetyBox()
+
+# Check wind safety
+result = safety_checker.check_wind_safety(wind_speed_kmh=20.0)
+print(result['recommendation'])
+
+# (Note: get_wind_effect_on_drone() requires additional logic to implement wind displacement calculations)
+```
+
+## Dependencies
+
+> `numpy`
+> `typing`
+
+## Related
+
+- [[Wind Safety Guidelines]]
+- [[Drone Flight Regulations]]
+
+>[!INFO] Default Limit
+> The class uses a default wind limit of 25 km/h, but this can be customized during initialization.
+
+>[!WARNING] Placeholder Function
+> `get_wind_effect_on_drone()` currently lacks implementation for calculating wind-induced displacement—expand with physics-based calculations for drone navigation.

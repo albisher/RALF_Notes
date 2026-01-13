@@ -1,0 +1,61 @@
+**Tags:** #UI-Design, #Simulation, #Plotly, #Interactive-Visualization, #3D-2D-Views, #CAD-Style
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# hmrs_simulation_live_ui_template
+
+## Summary
+
+```
+A CAD-inspired quad-view UI template for HMRS simulation with 3D isometric and 3 2D orthographic views (top, front, side) and interactive time-based path visualization.
+```
+
+## Details
+
+> This template implements a **quad-view layout** combining **1 3D isometric view** and **3 2D orthographic views** (top, front, side) for a simulation dashboard. It uses **Plotly.js** for dynamic, interactive path visualization over time. The UI follows a **dark gradient theme** with a **CAD-like aesthetic**, including a sidebar for controls, status indicators, and buttons for simulation actions. The layout is responsive and designed for **real-time data visualization** within a constrained viewport.
+> 
+> The template includes:
+> - A **header** with title and status animation.
+> - A **main flex layout** splitting space between a **sidebar** (for controls) and **viewing area**.
+> - **Plotly.js** integration for interactive path rendering.
+> - **Dark-themed styling** with gradient backgrounds and interactive buttons.
+
+## Key Functions
+
+### `Plotly.js integration`
+
+Visualizes dynamic path data across multiple views.
+
+### `Interactive time-based controls`
+
+Adjustable sliders/buttons for temporal navigation.
+
+### `CAD-inspired UI elements`
+
+Gradient headers, dark-themed buttons, and structured sections.
+
+### `Status badge animation`
+
+Visual feedback for simulation state.
+
+## Usage
+
+1. Copy the HTML/JS template into an HTML file.
+2. Replace placeholder content (e.g., `QUAD_VIEW_UI_TEMPLATE`) with dynamic data.
+3. Integrate with backend simulation logic via interactive controls (e.g., buttons, sliders).
+4. Customize styling (CSS) to match application branding.
+
+## Dependencies
+
+> `- Plotly.js (v2.27.0)`
+> `loaded via CDN.`
+
+## Related
+
+- [[None]]
+
+>[!INFO] Interactive Path Visualization
+> The template relies on Plotly.js for real-time path rendering. Ensure backend data feeds time-series data to the `updateTraces()` function for dynamic updates.
+
+>[!WARNING] External Dependency
+> Plotly.js loads from a CDN. For production, consider self-hosting or bundling the library to reduce latency.

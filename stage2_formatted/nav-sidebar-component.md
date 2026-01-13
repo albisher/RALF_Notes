@@ -1,0 +1,65 @@
+**Tags:** #VueJS, #UI-Component, #Navigation, #Simulation-Tool, #Reactivity, #Event-Dispatch
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# nav-sidebar-component
+
+## Summary
+
+```
+A Vue.js navigation sidebar component with dynamic navigation items and simulation-specific quick controls.
+```
+
+## Details
+
+> The `NavSidebarComponent` is a Vue.js template-based component that renders a sidebar navigation menu with icons and labels. It dynamically loops through `navItems` (likely an external data source) and emits events (`nav-change`) when clicked. The component conditionally displays quick controls (e.g., buttons for starting/pausing/resetting simulations) only when `currentView === 'list'`. These controls include emoji-based icons and disabled states based on `status` prop validation.
+
+## Key Functions
+
+### ``v-for` loop`
+
+Renders navigation items (`navItems`) with dynamic `key` and `active` class logic.
+
+### ``isActive()``
+
+Checks if a navigation item matches the active state (likely via a parent component’s logic).
+
+### `Event Emission`
+
+Dispatches `nav-change`, `quick-new-session`, `quick-start`, `quick-pause`, `quick-reset`, `quick-restart-server`, and `quick-spawn` events to parent components.
+
+### `Conditional Rendering`
+
+Uses `v-if` to show/hide quick controls based on `currentView` prop.
+
+## Usage
+
+1. **Props**:
+   - `navItems`: Array of objects with `id`, `icon`, and `label` properties.
+   - `currentView`: Determines if quick controls are visible (e.g., `'list'`).
+   - `status`: Object with `running` boolean for enabling/disabling buttons.
+2. **Emits**:
+   - Trigger navigation changes via `nav-change(item.id)`.
+   - Trigger simulation actions via `quick-*` events (e.g., `quick-start`).
+3. **Styling**: Uses inline styles and CSS classes (e.g., `primary`, `danger`) for button styling.
+
+## Dependencies
+
+> `Vue.js (for reactivity`
+> `v-for`
+> `v-if`
+> `and event handling)`
+> `likely external `navItems` data structure`
+> `and `status` prop (for disabled states).`
+
+## Related
+
+- [[Vue]]
+- [[Simulation UI Patterns]]
+- [[Navigation Event Handlers]]
+
+>[!INFO] Dynamic Data Binding
+> The component relies on external props (`navItems`, `currentView`, `status`) for reactivity. Ensure these props are passed from the parent component to maintain state consistency.
+
+>[!WARNING] Event Overload
+> Emitting multiple `quick-*` events may cause confusion if not documented. Consider adding event namespaces or clear documentation for each action.

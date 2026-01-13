@@ -1,0 +1,54 @@
+**Tags:** #bash-script, #docker, #simulation, #containerization, #devops
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# docker-run
+
+## Summary
+
+```
+Convenience script to manage Docker-based simulation workflows, including building and running containers.
+```
+
+## Details
+
+> This script automates Docker operations for a simulation environment. It first checks if Docker is running, then processes command-line arguments to either build a Docker image (`--build`/`-b`) or execute a simulation command (default: `run_simulation.py`). The script uses `docker compose` to orchestrate container lifecycle, ensuring clean removal (`--rm`) of containers post-execution.
+
+## Key Functions
+
+### ``docker info` check`
+
+Validates Docker service availability.
+
+### ``docker compose build``
+
+Constructs Docker images from `docker-compose.yml`.
+
+### ``docker compose run --rm``
+
+Executes the specified Python command inside a container, automatically deleting the container afterward.
+
+## Usage
+
+1. Run `./docker-run` to execute the default command (`run_simulation.py`).
+2. Use `--build` or `-b` to rebuild images before running.
+   Example: `./docker-run --build run_simulation.py`.
+
+## Dependencies
+
+> `docker`
+> `docker-compose`
+> `Python (for `run_simulation.py`)`
+> ``docker/docker-compose.yml` (compose file).`
+
+## Related
+
+- [[docker-compose]]
+- [[Dockerfile]]
+- [[run_simulation]]
+
+>[!INFO] Docker Dependency
+> Ensure Docker Desktop is running before executing this script. The script exits with an error if Docker is unavailable.
+
+>[!WARNING] Argument Order
+> Arguments like `--build` must appear before the target command (e.g., `./docker-run -b run_simulation.py`). Shifting arguments ensures correct parsing.

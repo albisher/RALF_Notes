@@ -1,0 +1,56 @@
+**Tags:** #capability-tracking, #worker-ai, #skill-progression, #enum-based, #probabilistic
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# worker_capabilities
+
+## Summary
+
+```
+Tracks and dynamically adjusts worker capabilities via probabilistic scoring and success/failure history.
+```
+
+## Details
+
+> This module defines a `WorkerCapabilities` system where each worker’s abilities (e.g., flight, inspection) are initialized with default scores (0.0–1.0) and refined based on success/failure attempts. The `CapabilityType` enum categorizes skills, while `update_capability()` adjusts scores: success raises them (up to 1.0), failure lowers them (down to 0.1). The `can_perform()` method checks if a worker meets a threshold (default 0.3) for a given capability, and `get_best_capabilities()` returns the top *count* skills by score.
+
+## Key Functions
+
+### ``__init__(worker_id)``
+
+Initializes worker capabilities with default scores and zero success/failure history.
+
+### ``update_capability(capability, success)``
+
+Dynamically updates a capability’s score based on success/failure.
+
+### ``can_perform(capability, min_score=0.3)``
+
+Returns `True` if the worker’s score meets or exceeds `min_score`.
+
+### ``get_best_capabilities(count=3)``
+
+Returns the top *count* capabilities by score (e.g., flight, inspection).
+
+## Usage
+
+1. Instantiate `WorkerCapabilities(worker_id)` to initialize a worker’s skills.
+2. Call `update_capability(capability, success)` after each attempt (e.g., `worker.update_capability(CapabilityType.FLIGHT, True)`).
+3. Query capabilities with `can_perform()` or retrieve top skills via `get_best_capabilities()`.
+
+## Dependencies
+
+> `numpy (for potential future extensions)`
+> `typing (for type hints)`
+> `enum (for `CapabilityType` enum).`
+
+## Related
+
+- [[worker_ai_system]]
+- [[skill_learning_protocol]]
+
+>[!INFO] Capability Thresholds
+> Default `min_score` in `can_perform()` is 0.3, but can be adjusted to fine-tune difficulty.
+
+>[!WARNING] Skill Cap Limits
+> Scores cap at 1.0 (max proficiency) and floor at 0.1 (min viable capability). Avoid extreme values.

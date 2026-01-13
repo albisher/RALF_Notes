@@ -1,0 +1,61 @@
+**Tags:** #mission-configuration, #swarm-simulation, #drone-autonomy, #scientific-parameters
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# mission_config
+
+## Summary
+
+```
+Defines scientific parameters for a drone swarm mission simulation, including positions, flight specs, and sensor capabilities.
+```
+
+## Details
+
+> This file defines a `MissionConfig` dataclass containing all parameters for a High-Mobility Robotic Swarm (HMRS) simulation. It includes base and target positions, flight mechanics, sensor specifications, formation dynamics, and physical constraints. The `get_building_corners()` method computes all 8 corners of a rectangular building, while `get_approach_waypoint()` (incomplete) would distribute worker drones along the building face for coordinated approach.
+
+## Key Functions
+
+### `MissionConfig`
+
+Dataclass holding all mission parameters (positions, flight specs, sensors, physics).
+
+### `get_building_corners()`
+
+Returns 8 corner coordinates of a rectangular building using its dimensions and position.
+
+### `get_approach_waypoint()`
+
+(Incomplete) Would generate waypoints for drone distribution along a building face.
+
+## Usage
+
+```python
+from mission_config import MissionConfig
+
+# Initialize mission config
+config = MissionConfig()
+
+# Get building corners
+corners = config.get_building_corners()
+
+# Access parameters (e.g., max_flight_time)
+print(config.max_flight_time)
+```
+
+## Dependencies
+
+> `numpy`
+> `typing`
+> `dataclasses`
+
+## Related
+
+- [[HMRS_Simulation_Architecture]]
+- [[Drone_Swarm_Formation_Protocol]]
+
+>[!INFO] Building Corners Calculation
+> Uses centered coordinates (origin at building center) to compute all 8 corners, accounting for width, height, and depth.
+
+>[!WARNING] Incomplete Waypoint Logic
+> The `get_approach_waypoint()` method is cut off and lacks logic for distributing drones evenly along the building face.

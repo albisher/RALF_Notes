@@ -1,0 +1,55 @@
+**Tags:** #drone_simulation, #circular_flight, #waypoint_generation, #automation, #api_integration
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# create_3drones_circle_session
+
+## Summary
+
+```
+Automates drone flight session creation for 3 drones flying circular paths at predefined altitudes.
+```
+
+## Details
+
+> This script automates a drone flight session where three drones fly in circles of 3m diameter at 12m height using a local simulation API. It handles simulation setup, stopping, and waypoint generation via a custom `generate_circular_waypoints` function. The script interacts with a backend API (`http://localhost:5007`) to manage drone configurations and flight paths.
+
+## Key Functions
+
+### `generate_circular_waypoints`
+
+Generates evenly spaced waypoints for a circular flight path around a given center with specified radius and height.
+
+### `Session creation`
+
+Initiates a new simulation session with demo buildings and drone configurations.
+
+### `Simulation control`
+
+Stops/resets the simulation if running before starting the flight session.
+
+## Usage
+
+1. Run the script to stop any existing simulation (if running).
+2. Creates a new session named "3DronesCircle" with 2 buildings.
+3. Starts the simulation and implicitly begins drone flight in circular paths.
+4. Assumes a backend API (`BASE_URL`) is running at `http://localhost:5007`.
+
+## Dependencies
+
+> `requests`
+> `time`
+> `json`
+> `numpy`
+> `math`
+
+## Related
+
+- [[none]]
+
+>[!INFO] Important Note
+> The script assumes the backend API (`BASE_URL`) is accessible and handles API calls with retries for transient failures.
+>
+
+>[!WARNING] Caution
+> Manual intervention may be needed if the API fails to respond after retries. Ensure the simulation server is running before execution.

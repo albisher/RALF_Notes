@@ -1,0 +1,56 @@
+**Tags:** #data_processing, #lidar, #visualization, #robotics, #numerical_math, #pybullet
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# lidar_visualization_translator_box
+
+## Summary
+
+```
+Converts raw LiDAR point cloud data into structured visualization-ready format with sensor metadata.
+```
+
+## Details
+
+> This box processes raw LiDAR point cloud data (X, Y, Z coordinates) from `LiDARProcessorBox`, enriches it with sensor-specific fields (intensity, angles, timestamps), and formats it for visualization/plotting. It supports multiple LiDAR models (e.g., Velodyne VLP-16) and converts data into a dictionary with standardized fields like azimuth/elevation angles, channel IDs, and range measurements. The translation includes optional PyBullet ray test results for extracting surface normals/object IDs.
+
+## Key Functions
+
+### ``translate_lidar_data``
+
+Core function that takes raw LiDAR inputs (point cloud, distances, ray directions/results) and returns a structured dictionary with metadata fields (e.g., `azimuth`, `elevation`, `intensity`). It also handles model-specific parameters like `num_channels` and angular resolution.
+
+### ``__init__``
+
+Initializes the translator with a specified LiDAR model (e.g., `velodyne_vlp16`), tracking variables (`scan_start_time`, `point_counter`), and prints initialization confirmation.
+
+## Usage
+
+1. Instantiate the box with a model (e.g., `translator = LiDARVisualizationTranslatorBox(model="velodyne_vlp16")`).
+2. Call `translate_lidar_data` with raw LiDAR inputs:
+   ```python
+   formatted_data = translator.translate_lidar_data(
+       point_cloud=np.array([[x1,y1,z1],...]),
+       distances=np.array([d1,d2,...]),
+       ray_results=[(hit_x, hit_y, hit_z, obj_id), ...]  # Optional
+   )
+   ```
+3. Use `formatted_data` for visualization (e.g., plotting in Python libraries like `matplotlib` or `plotly`).
+
+## Dependencies
+
+> `numpy`
+> `PyBullet (via `ray_results`/`ray_directions` optional parameters)`
+> `typing extensions.`
+
+## Related
+
+- [[LiDARProcessorBox]]
+- [[PyBullet documentation]]
+- [[LiDAR point cloud visualization tutorials]]
+
+>[!INFO] Model-Specific Handling
+> The `num_channels` and `vertical_min/max` parameters (e.g., `-15.0` to `15.0` for VLP-16) must match the LiDAR model’s vertical field-of-view (FOV). Incorrect values may distort elevation angles.
+
+>[!WARNING] Ray Results Dependency
+> If `ray_results` is provided, the function extracts surface normals/object IDs from PyBullet ray tests. Omitting this parameter discards these fields, reducing metadata richness.

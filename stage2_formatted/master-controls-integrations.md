@@ -1,0 +1,76 @@
+**Tags:** #master-controls, #integrations, #gps, #3d-maps, #weather, #drone-sdk, #api-integration
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# master-controls-integrations
+
+## Summary
+
+```
+Implementation of a centralized Master Controls system for session management, integrating GPS, 3D maps, weather, and drone SDKs.
+```
+
+## Details
+
+> This implementation consolidates session-related controls into a unified system, enabling dynamic configuration of GPS (simulation vs real), 3D map sources (OSM/Google), building selection, time restrictions, training modes, weather systems, and drone brand compatibility. The solution includes modular integration modules, a frontend UI, and backend API endpoints to manage these features cohesively.
+
+## Key Functions
+
+### ``config.py``
+
+Manages API keys and integration settings centrally.
+
+### ``osm_buildings.py``
+
+Fetches OpenStreetMap 3D building data via Overpass API.
+
+### ``google_maps_3d.py``
+
+Handles Google Maps 3D tiles integration with API key validation.
+
+### ``weather_api.py``
+
+Provides real-time weather data (wind, precipitation) with fallback to simulation.
+
+### ``drone_brand_adapters.py``
+
+Abstracts drone SDKs (DJI/Parrot) into a unified interface.
+
+### ``time_restrictions.py``
+
+Enforces time-based operation limits with timezone support.
+
+### ``/api/master-controls` (backend)`
+
+REST endpoints for saving/loading configurations.
+
+### `Simulation loop enforcement`
+
+Checks time restrictions every 10 seconds in the simulation loop.
+
+## Usage
+
+1. Configure API keys in `config.py`.
+2. Initialize integrations via `simulation/swarm/integrations/` modules.
+3. Frontend (`index.html`) loads controls UI; backend (`hmrs_simulation_live.py`) processes API requests.
+4. Time restrictions and weather systems auto-adjust based on runtime conditions.
+
+## Dependencies
+
+> `OpenStreetMap API`
+> `Google Maps API`
+> `OpenWeatherMap API`
+> `PyOverpass (for OSM data)`
+> `PyDroneSDK (or custom drone SDK wrappers).`
+
+## Related
+
+- [[index]]
+- [[hmrs_simulation_live]]
+- [[config]]
+
+>[!INFO] **API Key Management**
+> Store Google Maps and OpenWeatherMap keys securely (e.g., environment variables). Unauthorized access risks rate limits or account suspension.
+
+>[!WARNING] **OSM Data Limitations**
+> Overpass API has rate limits (~100 requests/minute). Implement caching (e.g., `weather_api.py`) to avoid throttling.

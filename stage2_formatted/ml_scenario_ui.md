@@ -1,0 +1,90 @@
+**Tags:** #Flask, #Web-UI, #ML-Scenario, #PyBullet, #Real-Time-Visualization, #Simulation, #Threading, #Data-Visualization, #Swarm-Automation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# ml_scenario_ui
+
+## Summary
+
+```
+Web interface for ML scenario selection and tracking with live simulation visualization.
+```
+
+## Details
+
+> This Flask-based application provides a user interface for selecting and managing multiple machine learning (ML) scenarios. It integrates with a `MLScenarioManager` to fetch and display available scenarios from a JSON configuration file (`ml_scenarios.json`). The UI includes tabs for filtering scenarios and a live simulation visualization using Matplotlib and PyBullet for physics-based rendering. A background thread handles real-time updates to scenario statuses and positions of simulated objects (e.g., quadcopters), while threading ensures thread-safe access to shared data like simulation state and frame history.
+> 
+> The UI features a gradient-themed dashboard with stats bars for scenario metrics, and a responsive design for scenario selection. The backend uses Flask for routing, rendering HTML templates dynamically, and handling AJAX requests for live updates. PyBullet is used for physics simulation, though it may fail if not installed.
+
+## Key Functions
+
+### ``MLScenarioManager``
+
+Manages loading and querying ML scenarios from a JSON config file.
+
+### ``ScenarioStatus``
+
+Likely a class representing the state of a scenario (e.g., running, paused, completed).
+
+### ``simulation_thread``
+
+Background thread running live simulation updates (e.g., quadcopter positions).
+
+### ``frame_lock``
+
+Thread-safe lock for updating the visualization frame data.
+
+### ``simulation_running``
+
+Boolean flag tracking whether the simulation is active.
+
+### ``render_template_string``
+
+Flask method rendering dynamic HTML with embedded JavaScript for live updates.
+
+### ``matplotlib`/`pybullet``
+
+Libraries for generating and rendering 3D/physics-based visualizations.
+
+## Usage
+
+1. **Setup**:
+   - Install dependencies (`Flask`, `numpy`, `matplotlib`, `pybullet`).
+   - Place `ml_scenarios.json` in the `config` folder with ML scenario definitions.
+   - Run the Flask app: `python ml_scenario_ui.py`.
+
+2. **Features**:
+   - **Scenario Selection**: Users pick scenarios via tabs (e.g., "Ongoing," "Completed").
+   - **Live Visualization**: 3D plot updates in real-time via JavaScript (e.g., quadcopter trajectories).
+   - **Threaded Simulation**: Background thread updates simulation state (e.g., quadcopter positions) safely.
+
+3. **API Endpoints**:
+   - `/` – Render main UI.
+   - `/scenarios` – Fetch scenario list (JSON).
+   - `/update` – AJAX endpoint for live simulation updates (e.g., via JavaScript polling).
+
+## Dependencies
+
+> `Flask`
+> ``numpy``
+> ``matplotlib``
+> ``pybullet``
+> ``pybullet_data``
+> ``swarm.ml_scenario_manager` (custom module)`
+> ``threading``
+> ``time``
+> ``os``
+> ``sys`.`
+
+## Related
+
+- [[ml_scenario_manager]]
+- [[swarm_automation_system]]
+- [[physics_simulation_config]]
+
+>[!INFO] **Thread Safety**
+> The `frame_lock` ensures thread-safe updates to `positions_history` and `time_history` when multiple threads (e.g., Flask request handlers + simulation thread) access shared data. Without it, race conditions could corrupt visualization data.
+
+
+>[!WARNING] **PyBullet Dependency**
+> If `pybullet` is unavailable, the app will fail silently. Ensure it’s installed (`pip install pybullet`) or handle the `PYBULLET_AVAILABLE = False` case gracefully in production.

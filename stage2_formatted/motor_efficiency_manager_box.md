@@ -1,0 +1,59 @@
+**Tags:** #drone-automation, #motor-optimization, #flight-control, #efficiency-management, #octocopter-hexacopter
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# motor_efficiency_manager_box
+
+## Summary
+
+```
+Optimizes motor thrust distribution for drone efficiency based on flight phase and drone type.
+```
+
+## Details
+
+> This module implements a `MotorEfficiencyManagerBox` class that dynamically adjusts motor thrust distribution to maximize efficiency during different flight phases (e.g., hover, forward flight, climb). It supports quadcopters, hexacopters, and octocopters by distinguishing between forward and rear motors for asymmetric power allocation. The class initializes motor position indices and efficiency parameters like motor reduction ratios during forward flight.
+
+## Key Functions
+
+### ``__init__``
+
+Initializes the manager with motor count, drone type, and efficiency mode settings.
+
+### ``forward_motor_indices`/`rear_motor_indices``
+
+Stores motor position indices for forward/rear optimization (e.g., octocopters use 8 motors in a circular pattern).
+
+### ``forward_flight_motor_reduction``
+
+Sets efficiency reduction (85%) for forward-facing motors during forward flight.
+
+### ``hover_motor_count`/`forward_flight_motor_count``
+
+Configures active motor counts per phase (e.g., all motors for hover, fewer for forward flight).
+
+## Usage
+
+```python
+manager = MotorEfficiencyManagerBox(motor_count=8, drone_type="octocopter", enable_efficiency_mode=True)
+# Initialize with motor count (4, 6, or 8), drone type, and enable efficiency optimizations.
+# Example: Adjust thrust distribution dynamically during flight phases.
+```
+
+## Dependencies
+
+> `numpy`
+> `typing`
+> `enum`
+> `logging`
+
+## Related
+
+- [[motor_optimization_algorithm]]
+- [[flight_phase_handler]]
+
+>[!INFO] **Flight Phase Handling**
+> The class relies on an external `FlightPhase` enum (e.g., `Hover`, `ForwardFlight`) to determine motor allocation. Ensure the enum is properly defined elsewhere in the system.
+
+>[!WARNING] **Hardcoded Values**
+> Efficiency parameters like `forward_flight_motor_reduction` (0.85) are hardcoded. For dynamic tuning, consider passing these as configurable arguments or using a lookup table.

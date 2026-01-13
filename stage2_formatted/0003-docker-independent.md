@@ -1,0 +1,69 @@
+**Tags:** #docker, #simulation, #python, #dependency-management, #isolation, #reproducibility, #venv-free
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# 0003-docker-independent
+
+## Summary
+
+```
+Self-contained Docker environment for simulations without virtual environment dependencies.
+```
+
+## Details
+
+> This Docker setup provides a fully isolated Python simulation environment with pre-installed dependencies (PyBullet, NumPy, Matplotlib, etc.) directly in the container, eliminating the need for a virtual environment (`venv`). The architecture ensures reproducibility, isolation from the host system, and compatibility across platforms (including macOS for PyBullet). The Dockerfile includes verification steps to confirm all packages are installed before building the image.
+
+## Key Functions
+
+### `Dockerfile`
+
+Defines container with Python 3.10 and system/dependency packages.
+
+### `docker-compose.yml`
+
+Manages multi-container orchestration for simulations.
+
+### `requirements.txt`
+
+Lists Python dependencies for containerized installation.
+
+### `simple_quadcopter.py`
+
+Example simulation script using PyBullet.
+
+### `run_simulation.py`
+
+Wrapper script for running simulations in headless mode.
+
+### `verification script`
+
+Checks installed packages (`pybullet`, `numpy`, `matplotlib`) post-build.
+
+## Usage
+
+1. **Build**: `docker-compose build` (in `simulation/` directory).
+2. **Run**: `docker compose run --rm simulator python simple_quadcopter.py --headless`.
+3. **Verify**: `docker compose run --rm simulator python -c "import pybullet; print('✅ PyBullet works!')"`.
+4. **Check Installed Packages**: `docker compose run --rm simulator pip list`.
+
+## Dependencies
+
+> `- Docker Engine
+- Docker Compose
+- Python 3.10+ (in container)
+- System packages: `build-essential``
+> ``cmake``
+> ``libgl1` (for PyBullet)`
+
+## Related
+
+- [[0003-docker-independent-dockerfile]]
+- [[0003-docker-independent-docker-compose]]
+- [[0003-docker-independent-requirements]]
+
+>[!INFO] Docker vs venv
+> Docker containers manage their own Python environments, while `venv` creates isolated Python packages on the host. Docker’s isolation is stronger and eliminates dependency conflicts (e.g., PyBullet fails on macOS with `venv`).
+
+>[!WARNING] Ignore venv errors
+> Docker ignores `venv` files entirely. If errors appear, they stem from local development, not the container. Always use `docker compose` commands.

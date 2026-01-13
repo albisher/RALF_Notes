@@ -1,0 +1,82 @@
+**Tags:** #timestamp-unification, #iso-8601, #logging-standardization, #frontend-backend-sync, #timezone-handling
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# unified-iso-timestamp-implementation
+
+## Summary
+
+```
+Standardizes timestamp formats across frontend/backend logs to ISO 8601 (UTC) for consistency.
+```
+
+## Details
+
+> This document outlines a unified approach to timestamp generation in a codebase, replacing inconsistent methods (`Date.now()`, `time.time()`, manual ISO strings) with standardized ISO 8601 format (UTC) across all logging components. The solution ensures all timestamps are generated uniformly, improving cross-system comparability and compatibility. Backward compatibility is preserved via fallback numeric timestamps (`timestamp_ms` in frontend, `timestamp_unix` in backend).
+
+## Key Functions
+
+### ``new Date().toISOString()`** (JavaScript)`
+
+Converts current time to ISO 8601 string (e.g., `"2024-12-23T15:30:45.123Z"`).
+
+### ``datetime.now(timezone.utc).isoformat()`** (Python)`
+
+Generates UTC ISO timestamp (e.g., `"2024-12-23T15:30:45.123456+00:00"`).
+
+### ``simulation/frontend/boxes/logging-box.js``
+
+Frontend logging box already uses ISO 8601.
+
+### ``simulation/swarm/boxes/logging_box.py``
+
+Backend logging box already uses UTC ISO format.
+
+### ``simulation/frontend/boxes/api-communication-box.js``
+
+Updated to enforce ISO format for API logs.
+
+### ``simulation/frontend/methods/ui-methods.js``
+
+Standardized error logs to ISO format.
+
+### ``simulation/frontend/boxes/osm-integration-box.js``
+
+OSM data logs now use ISO format.
+
+### ``simulation/frontend/index.html``
+
+Fetch interceptor logs now use ISO format.
+
+### ``simulation/frontend/app-data.js``
+
+Log entry conversion prioritizes ISO strings.
+
+### ``simulation/frontend/pages/system-monitoring-page-component.js``
+
+Fallback logs now use ISO format.
+
+## Usage
+
+1. Replace legacy timestamp generation (`Date.now()`, `time.time()`) with ISO 8601 format.
+2. Ensure all log entries include both ISO string (`timestamp`) and numeric fallback (`timestamp_ms`/`timestamp_unix`).
+3. Use standardized parsers to handle both formats seamlessly.
+
+## Dependencies
+
+> `JavaScript libraries: `Date` object`
+> ``toISOString()`.
+Python libraries: `datetime` module`
+> ``timezone` (from `datetime`).`
+
+## Related
+
+- [[logging-box]]
+- [[logging_box]]
+- [[index]]
+
+>[!INFO] Important Note
+> ISO 8601 timestamps (e.g., `"2024-12-23T15:30:45.123Z"`) are timezone-aware by default (UTC). Ensure all systems use UTC to avoid inconsistencies.
+
+>[!WARNING] Caution
+> Override numeric fallback timestamps (`timestamp_ms`/`timestamp_unix`) only if absolutely necessary, as they retain precision lost in ISO string conversion (e.g., milliseconds truncated to seconds).

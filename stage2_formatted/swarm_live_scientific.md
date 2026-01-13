@@ -1,0 +1,74 @@
+**Tags:** #swarm-robotics, #pybullet, #3d-visualization, #flask, #scientific-simulation, #mission-coordination, #multi-agent-systems
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# swarm_live_scientific
+
+## Summary
+
+```
+A live swarm simulation tool for scientific visualization of robotic worker coordination from base to building.
+```
+
+## Details
+
+> This script implements a **LiveSwarmSimulatorScientific** class using PyBullet for physics simulation and Flask for a web-based visualization interface. It simulates a ground master coordinating 4 robotic workers (headless mode) to complete a mission from a base to a building, displaying metrics and 3D spatial data. The visualization includes a white background with a 3D mission overview, dynamically updating the swarm’s state (positions, paths) and mission progress metrics.
+> 
+> The class integrates with `SwarmSimulator` (from `swarm.swarm_simulator`) and `MissionConfig` (from `swarm.mission_config`) to define the mission parameters (e.g., base/building positions, dimensions). Threading ensures safe concurrent access to visualization frames, while `matplotlib` renders the 3D scene with configurable limits (e.g., X/Y/Z axes adjusted dynamically based on mission distance).
+
+## Key Functions
+
+### ``__init__(self, mission_config`
+
+MissionConfig = None)`**: Initializes the simulator with a mission configuration, sets up the swarm, and starts the ground master mission.
+
+### ``generate_frame_image(self) -> bytes``
+
+Creates a 3D visualization frame with a white background, plotting the mission context (base, building, worker paths) using `matplotlib` and `pybullet` data.
+
+### ``swarm.setup_swarm()``
+
+Configures the robotic swarm (e.g., worker count, physics engine settings).
+
+### ``swarm.ground_master.start_mission()``
+
+Triggers the mission execution from the base to the building.
+
+### ``mission_config.get_mission_summary()``
+
+Retrieves mission metadata (e.g., distance, building dimensions) for visualization.
+
+## Usage
+
+1. **Initialize**: Create an instance with a `MissionConfig` object (defaults to a basic config).
+   ```python
+   simulator = LiveSwarmSimulatorScientific(MissionConfig())
+   ```
+2. **Run**: The simulator automatically starts the mission and visualization loop (thread-safe frame generation).
+3. **Visualize**: The `generate_frame_image()` method returns a PNG-like byte stream for rendering in a web interface (Flask) or external viewer.
+4. **Extend**: Customize mission parameters (e.g., worker paths, building geometry) via `MissionConfig`.
+
+## Dependencies
+
+> ``pybullet``
+> ``pybullet_data``
+> ``numpy``
+> ``matplotlib``
+> ``flask``
+> ``swarm.swarm_simulator``
+> ``swarm.mission_config``
+
+## Related
+
+- [[swarm_simulator]]
+- [[mission_config]]
+- [[pybullet_physics_engine_docs]]
+
+>[!INFO] Scientific Metrics
+> The simulator tracks metrics like worker distances, mission progress, and spatial accuracy, enabling quantitative analysis of swarm coordination.
+
+>[!WARNING] Headless Mode
+> Workers run in headless mode (`num_workers=4, headless=True`), meaning no real hardware interaction—use only for simulation/testing.
+
+>[!CAUTION] Thread Safety
+> Frame generation is thread-locked via `frame_lock`, so avoid concurrent modifications to `self.swarm` or `self.mission_config`.

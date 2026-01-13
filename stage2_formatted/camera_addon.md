@@ -1,0 +1,63 @@
+**Tags:** #Simulation, #Camera, #Physics, #Addon, #RealisticData, #PyBullet, #DataGeneration
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# camera_addon
+
+## Summary
+
+```
+Generates simulated camera data for depth, polarization, and RGB cameras within a physics-based simulation environment.
+```
+
+## Details
+
+> The `CameraAddon` class extends `BaseAddon` to provide a framework for realistic camera data generation. It initializes with configurable parameters like resolution, field of view (FOV), and frame rate (FPS). The `generate_data` method controls frame timing and delegates frame capture to subclasses via an abstract method `_capture_frame`. When no drone is attached, it returns placeholder data. The class uses PyBullet for physics simulation integration and includes timing logic to ensure frame generation aligns with FPS requirements.
+
+## Key Functions
+
+### ``__init__``
+
+Initializes camera attributes (resolution, FOV, FPS) and inherits from `BaseAddon`.
+
+### ``generate_data``
+
+Manages frame generation timing and delegates to `_capture_frame` or `_generate_no_data` based on attachment status.
+
+### ``_capture_frame`** (abstract)`
+
+Subclasses must implement this to capture real data (e.g., depth/polarization/RGB).
+
+### ``_generate_no_data``
+
+Returns placeholder data when no drone is attached.
+
+### ``on_attac``
+
+Likely a placeholder for attachment event handling (incomplete in snippet).
+
+## Usage
+
+1. Subclass `CameraAddon` and implement `_capture_frame` to define camera-specific logic (e.g., simulate depth/polarization).
+2. Call `generate_data(dt)` to produce frames at the configured FPS.
+3. Attach to a drone (e.g., via `self.drone`) to enable real data capture.
+
+## Dependencies
+
+> `pybullet`
+> `numpy`
+> `typing`
+> `abc`
+> `time`
+> `random`
+> ``.base_addon` (local module)`
+
+## Related
+
+- [[None]]
+
+>[!INFO] Abstract Method Requirement
+> Subclasses **must** implement `_capture_frame` to define how frames are generated (e.g., physics-based rendering or synthetic data).
+
+>[!WARNING] Timing Sensitivity
+> Frame generation relies on `frame_period` (1/FPS). Delays beyond this period may cause frame drops or desynchronization.

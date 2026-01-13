@@ -1,0 +1,50 @@
+**Tags:** #Vue, #React, #UI-Component, #Notification-System, #Single-Responsibility
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# notification-component
+
+## Summary
+
+```
+A Vue.js notification component for displaying and interacting with user alerts.
+```
+
+## Details
+
+> The `NotificationComponent` is a Vue.js component designed to render a list of notifications dynamically via `v-for`. It accepts an array of notifications as a prop, each containing metadata like `type`, `icon`, `message`, and optional `clickable`/`onClick` properties. Clicking a notification triggers `handleNotificationClick`, which executes `onClick` if applicable. Users can dismiss notifications via a close button, emitting an event (`remove-notification`) to remove them from the parent component.
+
+## Key Functions
+
+### `handleNotificationClick`
+
+Executes `onClick` callback if the notification is clickable.
+
+### ``remove-notification` emit`
+
+Triggers removal of a notification by index (used by parent components).
+
+## Usage
+
+1. Import the component in a Vue/React app.
+2. Pass an array of notifications via `props.notifications`.
+3. Handle removal via `v-on:remove-notification` in the parent.
+4. Optionally, bind `onClick` to a function for interactive notifications.
+
+## Dependencies
+
+> `Vue (for reactivity`
+> ``v-for``
+> ``@click``
+> `and event handling).`
+
+## Related
+
+- [[Vue]]
+- [[Single Responsibility Principle in UI Components]]
+
+>[!INFO] Dynamic Rendering
+> Uses `v-for` to render notifications based on the `notifications` prop array, ensuring reactivity.
+
+>[!WARNING] Event Overlap
+> `@click.stop` on the close button prevents event bubbling, but ensure parent components handle `remove-notification` correctly to avoid memory leaks.

@@ -1,0 +1,73 @@
+**Tags:** #VueJS, #MachineLearning, #DroneDataVisualization, #DataViewComponent, #Vuex, #Reactivity
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# ml-learning-view-component
+
+## Summary
+
+```
+Displays and manages machine learning data for drones with interactive controls and error handling.
+```
+
+## Details
+
+> This component is a Vue.js template for a **ML Learning Data View** component, designed to render and interact with drone-specific machine learning datasets. It includes conditional rendering for loading, error states, and summary statistics. The UI features controls for refreshing data, exporting selected entries, and managing drone selections via checkboxes.
+> 
+> The component emits events (`fetch-ml-learning-data`, `export-selected-ml-data`, etc.) to trigger parent logic, leveraging Vue’s reactivity for dynamic updates. The styling is minimalist with a dark theme, emphasizing readability and usability.
+
+## Key Functions
+
+### ``currentView === 'ml-learning'``
+
+Conditionally renders the component when the parent app is in the ML learning mode.
+
+### `Refresh Controls`
+
+Emits `fetch-ml-learning-data` to reload data (e.g., via a Vuex store or API call).
+
+### `Export/Selection`
+
+Emits `export-selected-ml-data` when selected drones are chosen, with disabled state logic.
+
+### `Select/Unselect All`
+
+Emits `select-all-ml-drones`/`clear-ml-selection` for bulk operations.
+
+### `Loading/Error States`
+
+Conditionally renders spinners (`⏳`) or error messages (`<strong>Error:</strong>`) based on `mlLearningDataLoading`/`mlLearningDataError`.
+
+## Usage
+
+1. **Mount the Component**: Include `<MLLearningViewComponent v-if="currentView === 'ml-learning'" />` in a parent template.
+2. **Provide Props**: Pass `currentView`, `mlLearningData`, `mlLearningDataLoading`, `mlLearningDataError`, `selectedMLDrones`, and emit events via `$emit`.
+3. **Trigger Actions**:
+   - Call `fetch-ml-learning-data` to refresh data.
+   - Select/unselect drones via `select-all-ml-drones`/`clear-ml-selection`.
+   - Export selected data via `export-selected-ml-data`.
+
+## Dependencies
+
+> `Vue.js (for reactivity`
+> `v-if`
+> `v-else`
+> `and event binding)`
+> `Vuex (likely for state management of `mlLearningData``
+> ``selectedMLDrones``
+> `etc.)`
+> `and external ML/data APIs (e.g.`
+> `drone telemetry services).`
+
+## Related
+
+- [[DroneDataStore]]
+- [[MLDataExportService]]
+- [[VuexStateManagement]]
+
+>[!INFO] **Event Emission**
+> This component relies on parent logic to handle emitted events (e.g., API calls or state updates). Ensure parent components subscribe to these events (e.g., `fetch-ml-learning-data` triggers a data fetch via Vuex).
+
+
+>[!WARNING] **State Management**
+> The `selectedMLDrones` and `mlLearningData` are likely stored in Vuex. If not, manually manage reactivity (e.g., using `ref`/`reactive` in Composition API). Inconsistent state may cause UI glitches.

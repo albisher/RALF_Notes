@@ -1,0 +1,59 @@
+**Tags:** #ui-testing, #database-integration, #session-management, #server-restart, #replay-visualization
+**Created:** 2026-01-13
+**Type:** test-reference
+
+# ui-session-verification-complete
+
+## Summary
+
+```
+Verification report for UI session management, database integration, and replay functionality, highlighting completion statuses and pending server restart requirements.
+```
+
+## Details
+
+> This document evaluates the completion status of UI session verification, focusing on session saving/loading, replay visualization, and buildings integration. It notes that while core functionality (saving/loading sessions and replay data) is operational, buildings and base position data require a server restart to load from the database. The report includes test results for four key areas: session database saving, API loadability, session loading correctness, and buildings display readiness.
+
+## Key Functions
+
+### `SessionSavingBox`
+
+Handles saving session data (including buildings) to `buildings.json` on session completion.
+
+### `SessionBuildingsBox`
+
+Manages loading and displaying buildings during replay; needs server restart for database integration.
+
+### ``_save_session_logs``
+
+Logical function responsible for saving buildings metadata (position, size, ground truth) in JSON format.
+
+### `API Endpoint (`POST /api/sessions/{session_id}/select`)`
+
+Loads session data via API, returning structured JSON with session and replay details.
+
+## Usage
+
+To verify session management:
+1. **Save Sessions**: Use `SessionSavingBox` to save session data to `buildings.json` after completion.
+2. **Load via API**: Call `POST /api/sessions/{session_id}/select` to load session data for replay.
+3. **Replay**: Use `SessionBuildingsBox` to display buildings; ensure server restart loads buildings from the database.
+
+## Dependencies
+
+> `- Database backend (for storing session and building data)
+- Server restart mechanism (for loading buildings and base position from DB)
+- File system (for saving/loading `buildings.json`)`
+
+## Related
+
+- [[ui-session-management-system]]
+- [[database-session-logic]]
+- [[server-restart-procedure]]
+
+>[!INFO] Important Note
+> New sessions are correctly saved to the database, but buildings and base position data require a server restart to load from the database. This is a known limitation until the server is updated.
+
+
+>[!WARNING] Caution
+> Old sessions (pre-DB implementation) are not saved to the database, as expected. Ensure compatibility with legacy sessions if needed.

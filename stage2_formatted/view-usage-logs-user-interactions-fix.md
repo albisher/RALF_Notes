@@ -1,0 +1,59 @@
+**Tags:** #user-interaction-logging, #system-monitoring, #frontend-development, #data-filtering, #debugging-fix
+**Created:** 2026-01-13
+**Type:** code-fix
+
+# view-usage-logs-user-interactions-fix
+
+## Summary
+
+```
+Fixes incorrect display of system logs in the "View & Usage Logs" panel, ensuring only user interactions are shown.
+```
+
+## Details
+
+> The fix refines the `viewUsageLogs()` computed property to exclude system-generated commands (e.g., `plotly_command`, `cesium_command`) and includes only logs tied to user actions like clicks, zooms, and navigation. The solution enhances filtering by adding `type: 'user_interaction'` and related metadata (e.g., `action`, `object_type`) to distinguish user-triggered events from automated processes. Logging levels (e.g., `INFO` instead of `DEBUG`) and display formatting were also updated for clarity.
+
+## Key Functions
+
+### ``viewUsageLogs()``
+
+Computed property that filters logs by user interaction criteria.
+
+### ``clearViewUsageLogs()``
+
+Updated to remove user logs instead of system logs.
+
+### ``simulation/frontend/app-data.js``
+
+Modified logging to include `type: 'user_interaction'` and action fields.
+
+### ``simulation/frontend/boxes/system-monitoring-box.js``
+
+Adjusted log types for user-triggered events (e.g., `'view_load'`).
+
+## Usage
+
+1. **Trigger Fix**: After deployment, the "View & Usage Logs" panel now displays only user interactions (e.g., clicks, zooms) instead of system commands.
+2. **Debugging**: Use the updated logs to verify user actions (e.g., GPS updates, object tracking) without interference from system logs.
+
+## Dependencies
+
+> ``simulation/frontend``
+> ``cesium``
+> ``plotly``
+> ``debugger` (for logging levels)`
+> ``react` (frontend framework).`
+
+## Related
+
+- [[app-data]]
+- [[system-monitoring-box]]
+- [[system-monitoring-page-component]]
+
+>[!INFO] Important Note
+> The fix ensures logs are categorized by `type: 'user_interaction'` with action-specific metadata (e.g., `action: 'pan_map'`), improving traceability of user actions over system events.
+
+
+>[!WARNING] Caution
+> Overly broad filtering may exclude valid system-triggered logs if not carefully reviewed. Test edge cases (e.g., user-initiated system updates) to avoid unintended data loss.

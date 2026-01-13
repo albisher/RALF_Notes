@@ -1,0 +1,53 @@
+**Tags:** #3D-camera, #zoom-control, #mixin, #interactive-visualization, #local-storage
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# CameraMixin
+
+## Summary
+
+```
+Manages 3D camera zoom and state for interactive plots, with zoom persistence via localStorage.
+```
+
+## Details
+
+> `CameraMixin` is a JavaScript mixin object implementing a **single responsibility** for 3D camera controls and zoom management. It integrates with a 3D plot system (likely using a library like Three.js or similar) to handle zoom in/out operations, clamps zoom values between `0.1` and `10.0`, and persists zoom state in `localStorage`. The `handleZoom3D` method adjusts camera distance dynamically based on zoom direction, while `applyZoom3D` updates the camera’s eye position relative to the plot’s center. Mouse-position tracking is optional and stored for centering on zoom.
+
+## Key Functions
+
+### `handleZoom3D(direction, zoomToMouse, mousePos)`
+
+Adjusts zoom level (`in`/`out`) and applies it to the 3D plot, optionally centering on mouse position.
+
+### `applyZoom3D(forceUpdate)`
+
+Updates the camera’s eye position based on current zoom, preventing redundant updates unless forced.
+
+### `zoom3D`
+
+Internal state variable storing the current zoom factor (default: `1.0`).
+
+## Usage
+
+1. Attach `CameraMixin` as a mixin to a class/instance (e.g., `class MyPlot extends CameraMixin`).
+2. Initialize `plot3DBox` and set `zoom3D` (default: `1.0`).
+3. Call `handleZoom3D('in')` or `handleZoom3D('out')` to adjust zoom.
+4. Optionally pass `zoomToMouse` + `mousePos` to center on mouse position.
+
+## Dependencies
+
+> `- `plot3DBox` (assumed 3D plot container with `isInitialized` and layout properties).
+- `localStorage` (for persistence of zoom state).
+- DOM element with ID `plot-3d` (hosting the 3D visualization).`
+
+## Related
+
+- [[CameraController]]
+- [[Plot3D-Library-Docs]]
+
+>[!INFO] Initialization Check
+> Always verify `plot3DBox.isInitialized('plot-3d')` before calling `handleZoom3D` to avoid warnings.
+
+>[!WARNING] Zoom Clamping
+> Clamped zoom values (`0.1`–`10.0`) may truncate extreme zooms; consider adding user feedback for edge cases.

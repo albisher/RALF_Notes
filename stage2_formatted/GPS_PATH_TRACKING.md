@@ -1,0 +1,58 @@
+**Tags:** #gps-tracking, #drone-autonomy, #real-time-data, #coordinate-systems, #rtk-addon, #motion-history, #sensor-data, #physics-simulation, #base-station, #3d-path
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# GPS_PATH_TRACKING
+
+## Summary
+
+```
+Tracks dual GPS coordinate systems (absolute/relative) and physics positions for drone path analysis in 3D.
+```
+
+## Details
+
+> This implementation integrates GPS RTK addons to log drone trajectories in both real-world coordinates and relative to a base station. It maintains a motion history with timestamps, velocities, orientations, and metadata (e.g., fix quality, satellite counts). Fallback to physics simulation occurs if GPS fails. The system visualizes GPS paths and validates time-based data, ensuring compatibility with legacy sensor formats.
+
+## Key Functions
+
+### ``update_visualization_data()``
+
+Updates motion history with GPS/physics coordinates.
+
+### ``_collect_sensor_readings()``
+
+Retrieves GPS data from addons (e.g., CUAV C-RTK 9Ps).
+
+### ``gps_relative = gps_absolute - base_position``
+
+Computes relative coordinates dynamically.
+
+### ``verify_time_based_data.py``
+
+Displays GPS path metrics (e.g., accuracy, HDOP).
+
+## Usage
+
+1. Initialize `self.base_position` (default: `[0, 0, 0]`).
+2. Call `update_visualization_data()` in simulation loops to log GPS/physics data.
+3. Use `verify_time_based_data.py` to inspect paths/coordinates post-flight.
+
+## Dependencies
+
+> ``hmrs_simulation_live.py``
+> ``verify_time_based_data.py``
+> `GPS/RTK addon modules (e.g.`
+> `CUAV C-RTK 9Ps)`
+> `drone autonomy libraries.`
+
+## Related
+
+- [[`GPS_RTK_ADDON_INTEGRATION]]
+- [[`DRONE_MOTION_HISTORY]]
+
+>[!INFO] **Dual Coordinate Fallback**
+> If GPS fails, physics position (relative to base) is used as a substitute, ensuring continuous tracking.
+
+>[!WARNING] **Base Position Sensitivity**
+> Incorrect `base_position` values will skew relative GPS coordinates. Validate base station accuracy before deployment.

@@ -1,0 +1,57 @@
+**Tags:** #HTTP, #API, #Fetch, #AbortController, #RequestManagement, #Logging, #Async
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# api-communication-box
+
+## Summary
+
+```
+Handles HTTP API requests/responses with request cancellation, logging, and JSON payload support.
+```
+
+## Details
+
+> The `APICommunicationBox` class manages HTTP API interactions via the Fetch API. It supports GET/POST/PUT/DELETE requests, includes request cancellation via AbortController, and maintains a default header (`Content-Type: application/json`). The class tracks request IDs to prevent duplicate requests and logs API calls to `window.loggingBox`. Timing metrics and response parsing (JSON) are implemented, with cleanup of AbortControllers after successful completion.
+
+## Key Functions
+
+### ``constructor(baseURL = '')``
+
+Initializes the box with a base URL and an AbortController Map for request tracking.
+
+### ``request(endpoint, options)``
+
+Core method to execute HTTP requests with configurable method, data, headers, and cancellation via `requestId`.
+
+## Usage
+
+```javascript
+const box = new APICommunicationBox('https://api.example.com');
+const response = await box.request('/users', {
+  method: 'POST',
+  data: { name: 'Alice' },
+  requestId: 'unique-id-123'
+});
+```
+- **`requestId`**: Required for cancellation; cancels prior requests with the same ID.
+- **`loggingBox`**: Optional external logger for request/response tracking.
+
+## Dependencies
+
+> ``fetch``
+> ``AbortController``
+> ``performance.now()``
+> ``JSON.stringify()``
+> ``window.loggingBox` (external logging system).`
+
+## Related
+
+- [[API_Request_Examples]]
+- [[AbortController_Usage]]
+
+>[!INFO] Request Cancellation
+> AbortControllers are stored in a Map by `requestId`. If a new request with the same ID is made, the prior one is aborted.
+
+>[!WARNING] AbortController Cleanup
+> AbortControllers are not automatically cleaned up if an error occurs. Manually delete them from `this.abortControllers` after cancellation to avoid memory leaks.

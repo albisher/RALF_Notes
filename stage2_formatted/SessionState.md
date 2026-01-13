@@ -1,0 +1,83 @@
+**Tags:** #Vue, #StateManagement, #SessionReplay, #ReplayLogic, #SingleResponsibility, #OOP
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# SessionState
+
+## Summary
+
+```
+Manages session and replay state for a Vue.js application, ensuring centralized control over session data and replay functionality.
+```
+
+## Details
+
+> `SessionState.js` implements a class-based utility to handle session and replay state in a Vue.js application. It adheres to the Single Responsibility Principle by focusing solely on session management (e.g., storing sessions, selecting sessions) and replay state (e.g., tracking replay time, drone positions, and data). The class provides static methods to initialize, update, and retrieve state, leveraging Vue’s `data()` function for reactivity. Default state is defined via `getDefaultState()`, while methods like `setSessions`, `selectReplaySession`, and `setReplayData` update Vue instances with session/replay data. Time and drone positions are clamped to valid ranges (e.g., `replayTime` is constrained between 0 and `replayMaxTime`).
+
+## Key Functions
+
+### ``getDefaultState()``
+
+Returns a structured default state object for sessions and replay.
+
+### ``data()``
+
+Mimics Vue’s `data()` function, returning the default state.
+
+### ``setSessions(vueInstance, sessions)``
+
+Updates the Vue instance’s sessions list.
+
+### ``selectReplaySession(vueInstance, session)``
+
+Sets the currently selected replay session.
+
+### ``setSessionDetails(vueInstance, details)``
+
+Stores detailed session metadata.
+
+### ``setReplayData(vueInstance, data)``
+
+Initializes/reconfigures replay data (e.g., `max_time`) and updates the Vue instance.
+
+### ``setReplayTime(vueInstance, time)``
+
+Validates and sets the current replay time (clamped to `[0, replayMaxTime]`).
+
+### ``setReplayDrones(vueInstance, drones)``
+
+Updates drone positions for the current replay frame.
+
+## Usage
+
+1. Import `SessionState` in a Vue component:
+   ```js
+   import SessionState from './SessionState';
+   ```
+2. Use static methods to manage state:
+   ```js
+   SessionState.setSessions(this, sessions); // Update sessions
+   SessionState.setReplayTime(this, 60);     // Set replay time (clamped)
+   ```
+3. Initialize state via `SessionState.data()` in `data()`:
+   ```js
+   data() {
+     return SessionState.data();
+   }
+   ```
+
+## Dependencies
+
+> `Vue.js (for reactivity integration)`
+> `no external libraries.`
+
+## Related
+
+- [[Vue]]
+- [[Session Replay Architectures]]
+
+>[!INFO] Reactive Integration
+> This class assumes Vue’s reactivity system. State updates via `set*` methods trigger Vue’s reactivity chain if bound to `this` in a component.
+
+>[!WARNING] Clamping Assumption
+> `setReplayTime` enforces bounds (`[0, replayMaxTime]`). Ensure `replayMaxTime` is set correctly to avoid unexpected behavior.

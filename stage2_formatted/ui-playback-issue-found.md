@@ -1,0 +1,50 @@
+**Tags:** #bug, #ui_replay, #session_data, #root_cause, #motion_history
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# ui-playback-issue-found
+
+## Summary
+
+```
+Identifies why a user cannot playback sessions due to missing motion history data in a session file.
+```
+
+## Details
+
+> The issue stems from a session (`202512131946-Quadcopter`) having an empty `motion_history` JSON object, resulting in zero drone updates and no replay capability. The test confirmed the session exists but lacks recorded motion data, causing playback to fail despite UI and API functioning correctly. The root cause includes scenarios like no drones being spawned, drones not moving, or improper recording of motion history.
+
+## Key Functions
+
+### ``test_ui_replay_flow.py``
+
+Script that verifies session existence, playback availability, and motion history integrity.
+
+### ``_save_session_logs()``
+
+Function responsible for saving session data, including motion history, which appears to be missing or not populated correctly.
+
+## Usage
+
+To resolve playback issues:
+1. **Option 1:** Search for sessions with existing motion history using a script.
+2. **Option 2:** Create a new session with drone movement to generate data.
+3. **Option 3:** Debug `_save_session_logs()` to ensure motion history is recorded properly.
+
+## Dependencies
+
+> ``python``
+> ``json``
+> ``curl``
+> ``training_sessions` directory (for session files)`
+> ``api/sessions` endpoint.`
+
+## Related
+
+- [[None]]
+
+>[!INFO] Important Note
+> The UI correctly identifies the absence of motion history but fails to provide playback because the data is empty. The server’s `/api/sessions/{id}/replay` endpoint returns `replay_available: false`, but this is expected due to the lack of data.
+
+>[!WARNING] Caution
+> If Option 3 is pursued, ensure that drones are actively moving and that `_save_session_logs()` is called with valid motion history data before saving. Incomplete or empty motion history will persist as a recurring issue.

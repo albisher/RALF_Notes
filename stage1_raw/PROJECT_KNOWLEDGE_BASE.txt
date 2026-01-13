@@ -1,43 +1,38 @@
-### PROJECT_KNOWLEDGE_BASE
-
 ### TAGS
-#simulation, #drone_swarm, #ai_automation, #flask_api, #postgresql, #docker, #multi_robot_coordination, #window_cleaning, #real_time_visualization, #pybullet, #python_backend, #vue_frontend
+#simulation, #drone-swarm, #ai-coordination, #multi-robot-system, #flask-api, #python, #postgresql, #docker, #3d-visualization, #window-cleaning, #real-time-control, #vendor-integration
 
 ### TYPE
 documentation
 
 ### SUMMARY
-A comprehensive knowledge base for an operational HMRS (Heterogeneous Multi-Robot System) window cleaning drone swarm simulation platform, designed for AI assistants and developers.
+A comprehensive knowledge base for the **HMRS Window Cleaning Drone Swarm**, detailing architecture, API, and workflow for autonomous multi-drone coordination in window cleaning simulations.
 
 ### DETAILS
-This project provides a **multi-drone coordination system** for autonomous window cleaning, integrating vendor-agnostic drones with real-time 3D visualization and session persistence. It leverages PyBullet for physics simulation, Flask for REST APIs, and PostgreSQL for data storage. The architecture supports heterogeneous drone swarms, LiDAR-based building mapping, and ML-driven optimization, enabling simulation before real-world deployment.
+This project provides a **heterogeneous drone swarm simulation platform** for window cleaning, enabling vendor-agnostic drone integration, real-time 3D visualization, and ML-driven swarm optimization. It simulates physics, weather, and sensor data using PyBullet and integrates with a Flask backend for RESTful API control. The system supports session persistence via PostgreSQL and Docker orchestration for containerized deployment.
 
 ### KEY_FUNCTIONS
-- **Swarm Controller**: Manages heterogeneous drone coordination.
-- **Multi-Use Platform**: Supports DJI, Parrot, Autel, and custom drones.
-- **Window Cleaning Focus**: Specialized for facade maintenance tasks.
-- **Session Persistence**: Allows replay and analysis of drone operations.
-- **Vendor Onboarding**: Facilitates easy integration of any drone brand.
+- **Swarm Controller**: Orchestrates multiple drones (DJI, Parrot, custom) for coordinated cleaning tasks.
+- **Multi-Use Platform**: Dynamically integrates drones from different vendors via standardized APIs.
+- **Window Cleaning Focus**: Specialized for facade maintenance with LiDAR and computer vision mapping.
+- **Session Persistence**: Stores and replays drone operations for analysis.
+- **Real-Time Visualization**: Uses Plotly.js and Leaflet for interactive 3D/2D drone swarm tracking.
 
 ### DEPENDENCIES
-- Python 3.10+
-- Flask, Socket.IO, PyBullet, PostgreSQL
-- Docker Compose, Nginx, Leaflet, Plotly.js, Vue.js
-- Scientific libraries (NumPy, SciPy)
+- **Backend**: Flask, Socket.IO, PyBullet, PostgreSQL, NumPy, SciPy
+- **Frontend**: Vue.js 3, Plotly.js, Leaflet, Socket.IO Client
+- **Infrastructure**: Docker Compose, Nginx, PostgreSQL 15
 
 ### USAGE
-1. **Setup**: Clone the repository and navigate to the project directory.
-2. **Docker Compose**: Run `docker compose -f docker/docker-compose.yml up -d` to start containers.
-3. **API Health Check**: Use `curl http://localhost:5007/api/health` to verify backend health.
-4. **Web Interface**: Open `http://localhost:5007` in a browser for real-time visualization.
-5. **Stop System**: Use `docker compose -f docker/docker-compose.yml stop` to halt containers gracefully.
+1. Deploy via Docker Compose (`docker compose up`).
+2. Access the Flask API at `http://localhost:5007/api/`.
+3. Use Socket.IO for real-time drone control and visualization.
+4. Integrate custom drones via vendor-specific adapters in the swarm controller.
 
 ### RELATED
-[[None]]
+[[Project_Architecture_Diagram]], [[Drone_Swarm_Integration_Guide]], [[Simulation_Setup_Tutorial]]
 
 ### CALLOUTS
->[!INFO]- Important Note
-> The system uses **Docker Compose** for container orchestration, ensuring modular deployment of backend, frontend, and simulation services. Ensure PostgreSQL and PyBullet are properly configured to avoid runtime errors.
-
->[!WARNING]- Caution
-> **Session persistence** relies on PostgreSQL; ensure the database is accessible and not overloaded. For production, consider scaling PostgreSQL horizontally if handling high volumes of sessions.
+>[!INFO]- **Session Persistence**
+> Data is stored in PostgreSQL, allowing replay of drone operations for analysis. Critical for debugging and optimization.
+>[!WARNING]- **Docker Dependency**
+> Requires Docker Compose for containerized deployment. Ensure PostgreSQL and Flask backend are accessible within the network.

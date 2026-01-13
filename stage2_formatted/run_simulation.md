@@ -1,0 +1,53 @@
+**Tags:** #simulation, #quadcopter, #pybullet, #fallback, #headless, #visual_demo
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# run_simulation
+
+## Summary
+
+```
+Script runs a quadcopter simulation with PyBullet fallback to a visual demo if PyBullet is unavailable.
+```
+
+## Details
+
+> This script dynamically checks for PyBullet availability and runs either a physics-based simulation or a simplified visual demo. It detects headless environments (e.g., Docker) and adjusts behavior accordingly. The script initializes a quadcopter simulator, tests sensors (LiDAR, camera, IMU), and executes a hover control loop for 30 seconds. If PyBullet fails, it gracefully switches to a matplotlib-based demo.
+
+## Key Functions
+
+### `check_pybullet()`
+
+Checks if PyBullet is installed via `ImportError`.
+
+### `run_pybullet_simulation()`
+
+Orchestrates PyBullet physics simulation with headless/GUI mode detection. Creates a quadcopter, tests sensors, and runs a control loop.
+
+### `run_visual_demo()`
+
+Falls back to a simpler visualization if PyBullet is unavailable.
+
+## Usage
+
+1. Run with `python run_simulation.py`.
+2. If PyBullet is installed, it executes a physics simulation; otherwise, it runs a visual demo.
+3. Use mouse/keyboard to control the simulation (e.g., hover control via `simple_hover_control`).
+
+## Dependencies
+
+> ``pybullet``
+> ``simple_quadcopter` (simulator module)`
+> ``matplotlib` (for visual demo)`
+> ``run_visual_demo` (demo module).`
+
+## Related
+
+- [[simulation_environment_setup]]
+- [[quadcopter_simulator_docs]]
+
+>[!INFO] Headless Mode Detection
+> Detects Docker or missing `DISPLAY` to optimize for server environments, reducing resource usage.
+
+>[!WARNING] Fallback Behavior
+> If PyBullet fails, the script **silently** switches to a visual demo, which may lack physics realism. Ensure `matplotlib` is installed for this fallback.

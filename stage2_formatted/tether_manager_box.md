@@ -1,0 +1,46 @@
+**Tags:** #climbing-systems, #robotics, #control-system, #tether-management, #pid-controller
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# tether_manager_box
+
+## Summary
+
+```
+Manages tether tension and length for a robotic or climbing system using PID control.
+```
+
+## Details
+
+> The `TetherManagerBox` class implements a PID-based controller to regulate tether tension and length based on sensor inputs (force, climber/tanker positions, wind data). It initializes with configurable thresholds (e.g., tension tolerance, snag detection) and computes winch commands to maintain target tension while preventing excessive length or snags. The system processes real-time inputs to adjust winch speed dynamically.
+
+## Key Functions
+
+### ``__init__``
+
+Sets up PID parameters, state variables (e.g., `current_length`, `current_tension`), and initializes tolerances.
+
+### ``compute_winch_control``
+
+Computes proportional control term (`p_term`) for tension error, though the rest of PID logic (integral/derivative terms) is omitted in the snippet. Returns a dictionary with winch commands, target length, and tension error.
+
+## Usage
+
+1. Instantiate `TetherManagerBox` with desired thresholds (e.g., `target_tension=15.0`).
+2. Call `compute_winch_control` with sensor readings (e.g., `current_tension`, climber/tanker positions).
+3. Use returned `winch_command` to drive the winch motor.
+
+## Dependencies
+
+> `numpy`
+> `typing`
+
+## Related
+
+- [[None]]
+
+>[!INFO] PID Parameters
+> PID gains (`kp=0.5`, `ki=0.1`, `kd=0.2`) are heuristic and may require tuning for stability.
+
+>[!WARNING] Snag Detection
+> Snags are detected via force deviation (`snag_threshold=5.0N`). Exceeding this triggers a safety response (not shown in snippet).

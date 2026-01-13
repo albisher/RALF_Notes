@@ -1,0 +1,59 @@
+**Tags:** #docker, #simulation, #pybullet, #headless-mode, #fix-verification, #gpu, #containerization
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# 0010-docker-fix-verification
+
+## Summary
+
+```
+Fixes Docker container to run PyBullet simulation in headless mode, resolving X server connection errors and ensuring proper simulation execution.
+```
+
+## Details
+
+> This document records the resolution of a Docker container issue where PyBullet simulations attempted GUI mode, causing failures due to X server unavailability. The fix involved modifying `run_simulation.py` to detect Docker environments and default to headless mode, while updating the `Dockerfile` to use `hmrs_simulation_live.py` for production. Verification confirmed successful headless execution, advancing simulation time, and proper API health checks.
+
+## Key Functions
+
+### ``run_simulation.py``
+
+Detects Docker environment and switches to headless mode by default.
+
+### ``Dockerfile``
+
+Updated default command to `hmrs_simulation_live.py` for production.
+
+### ``hmrs_simulation_live.py``
+
+Main simulation script ensuring headless execution in Docker.
+
+### ``verify_time_based_data.py``
+
+(Hypothetical) Script to validate position tracking post-fix.
+
+## Usage
+
+1. Deploy updated `Dockerfile` and `run_simulation.py` in the Docker container.
+2. Run `docker compose up` to verify containers start.
+3. Monitor logs (`docker compose logs`) for simulation progress.
+4. Test headless mode via `docker compose exec` commands.
+
+## Dependencies
+
+> `pybullet`
+> `Docker Compose`
+> `Python libraries for PyBullet simulation (e.g.`
+> ``pybullet` package).`
+
+## Related
+
+- [[0010-dockerfile-update]]
+- [[0011-pybullet-headless-config]]
+- [[0012-simulation-debugging]]
+
+>[!INFO] Critical Headless Check
+> Ensure `pybullet.connect(pybullet.DIRECT)` is used in Docker to avoid X server dependencies. The fix explicitly tests this with `docker compose exec` commands.
+
+>[!WARNING] Position Tracking Validation
+> While simulation time advances, verify position data consistency with `verify_time_based_data.py` to confirm positional changes post-fix.

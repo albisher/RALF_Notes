@@ -1,0 +1,64 @@
+**Tags:** #data_learning, #simulation, #knowledge_management, #exploration_ai, #continuous_improvement
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# learning_system_box
+
+## Summary
+
+```
+A modular learning system for tracking and improving exploration patterns in simulations.
+```
+
+## Details
+
+> The `LearningSystemBox` class accumulates knowledge from multiple simulation runs, storing object distributions, path effectiveness, and exploration patterns. It uses a JSON file to persist data between sessions, with default values initialized for tracking simulation metrics like object counts, waypoints, and coverage areas. The system enables continuous improvement by updating its knowledge base after each simulation run.
+
+## Key Functions
+
+### ``__init__(self, knowledge_file`
+
+str = "exploration_knowledge.json")`**: Initializes the learning system with a specified JSON file for knowledge storage.
+
+### ``_load_knowledge(self) -> Dict``
+
+Loads existing knowledge from the JSON file or returns default values if the file doesn’t exist.
+
+### ``_default_knowledge(self) -> Dict``
+
+Returns a structured default knowledge dictionary with counters and empty lists for tracking objects, paths, and patterns.
+
+### ``_save_knowledge(self)``
+
+Saves updated knowledge to the JSON file with a timestamp.
+
+### ``learn_from_simulation(self, objects_found`
+
+List[Dict], waypoints_used: List[List[float]], coverage_stats: Dict)`**: Processes a completed simulation to update distributions, paths, and patterns (incomplete snippet; likely extends to append data to `knowledge`).
+
+## Usage
+
+1. Initialize the system with a knowledge file path (defaults to `"exploration_knowledge.json"`).
+2. Call `learn_from_simulation()` after each simulation to update the knowledge base with:
+   - Objects found (e.g., `{"type": "cube", "position": [...]}`).
+   - Waypoints used (e.g., `[x1, y1, z1], [x2, y2, z2]`).
+   - Coverage statistics (e.g., area scanned, efficiency metrics).
+3. The system auto-saves updates to the JSON file.
+
+## Dependencies
+
+> `numpy`
+> `json`
+> `os`
+> `datetime`
+
+## Related
+
+- [[simulation_engine_architecture]]
+- [[data_persistence_patterns]]
+
+>[!INFO] Persistence
+> The knowledge file (`exploration_knowledge.json`) stores all accumulated data, enabling cross-session tracking. Ensure the file path is writable.
+
+>[!WARNING] Error Handling
+> Missing or corrupt files trigger fallback to defaults. Critical simulations may lose partial data if file operations fail. Test edge cases (e.g., file permissions).

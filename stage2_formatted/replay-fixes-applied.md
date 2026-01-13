@@ -1,0 +1,62 @@
+**Tags:** #drone-simulation, #replay-system, #bug-fixes, #motion-history, #debugging
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# replay-fixes-applied
+
+## Summary
+
+```
+Fixes applied to improve drone motion history recording, command processing, and replay functionality in a simulation system.
+```
+
+## Details
+
+> This document details fixes for issues in a simulation system where motion history recording was incomplete, command processing was invisible, and replay endpoints returned empty data. The fixes enhance recording logic, add logging for debugging, and ensure continuous motion history capture even during pauses. Key changes include improved motion history trimming, command processing logging, and streamlined replay endpoint handling.
+
+## Key Functions
+
+### ``simulation/hmrs_simulation_live.py` (lines 3857-3860)`
+
+Enhanced motion history trimming logic to retain up to 200 points.
+
+### ``simulation/hmrs_simulation_live.py` (lines 4327-4329)`
+
+Added debug logging for command processing to verify execution.
+
+### ``simulation/hmrs_simulation_live.py` (lines 4397-4409)`
+
+Enhanced command processing with error handling and drone controller validation.
+
+### ``simulation/hmrs_simulation_live.py` (lines 3550-3573)`
+
+Simplified replay endpoint logging to reduce clutter while retaining essential troubleshooting info.
+
+### ``simulation/hmrs_simulation_live.py` (line 5334)`
+
+Ensured `update_visualization_data()` runs even when the operation is paused, guaranteeing continuous motion history recording.
+
+## Usage
+
+To test these fixes:
+1. Create a new simulation session.
+2. Verify motion history contains substantial data (200+ points).
+3. Confirm drones respond to commands via logging.
+4. Test replay functionality in the UI to ensure non-empty motion history loads.
+
+## Dependencies
+
+> ``simulation/hmrs_simulation_live.py` (core simulation module)`
+> `external logging frameworks (if applicable).`
+
+## Related
+
+- [[hmrs_simulation_live]]
+- [[drone-simulation-architecture]]
+- [[replay-system-design]]
+
+>[!INFO] Critical Recording Logic
+> Motion history now records every simulation step (240Hz) regardless of operation state, ensuring comprehensive data capture even during pauses.
+
+>[!WARNING] Debug Output Balance
+> Reduced excessive debug logging to avoid clutter while retaining essential troubleshooting visibility for command processing and replay issues.

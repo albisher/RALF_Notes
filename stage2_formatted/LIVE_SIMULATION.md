@@ -1,0 +1,58 @@
+**Tags:** #real-time, #web-interface, #simulation, #docker, #pybullet, #flask, #quadcopter, #live-updates, #3d-visualization, #physics-simulation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# LIVE_SIMULATION
+
+## Summary
+
+```
+A Docker-based real-time web interface for simulating quadcopters using PyBullet physics, accessible via browser.
+```
+
+## Details
+
+> This system runs a quadcopter simulation in real-time using PyBullet physics engine, with a Flask web server streaming visual updates to a browser. The simulation generates frames at approximately 10 frames per second (FPS), which are rendered in a 6-panel dashboard (3D view, top view, height graph, LiDAR scan, velocity graph, and info panel). The Docker container exposes port 5000, allowing direct browser access via `http://localhost:5000`. The setup leverages Docker Compose for container management, ensuring minimal local setup requirements.
+
+## Key Functions
+
+### ``docker compose run --rm -p 5000`
+
+5000 simulator python simple_quadcopter_live.py`**: Starts the simulation container with Flask and PyBullet, mapping port 5000 for browser access.
+
+### ``simple_quadcopter_live.py``
+
+Main script containing PyBullet simulation logic, Flask server setup, and real-time frame streaming to the browser.
+
+### `Flask web server`
+
+Streams live frames to the browser at ~10 FPS, enabling auto-refreshing visualization.
+
+### `PyBullet physics engine`
+
+Runs in a background thread to simulate quadcopter dynamics and generate frames.
+
+## Usage
+
+1. Run the Docker Compose command to start the simulation container.
+2. Open a browser and navigate to `http://localhost:5000`.
+3. Observe real-time quadcopter movement and sensor data in the 6-panel dashboard.
+
+## Dependencies
+
+> `PyBullet`
+> `Flask`
+> `Docker Compose`
+> `Python (with PyBullet and Flask libraries).`
+
+## Related
+
+- [[Live_Simulation_Setup]]
+- [[PyBullet_Guide]]
+- [[Flask_Web_App_Notes]]
+
+>[!INFO] Important Note
+> Ensure Docker is running before executing the `docker compose` command. If Docker Desktop is not installed, use the system’s native Docker service.
+
+>[!WARNING] Caution
+> If port 5000 is already in use, change the host port (e.g., `-p 5001:5000`) to avoid conflicts. Access the simulation via the updated port (e.g., `http://localhost:5001`).

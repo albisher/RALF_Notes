@@ -1,0 +1,60 @@
+**Tags:** #dead_code, #real_time_communication, #web_tech, #flask, #socket_io, #http_polling, #web_sockets, #code_review
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# SOCKET_IO_INVESTIGATION
+
+## Summary
+
+```
+Investigation reveals unused Socket.IO implementation in favor of efficient HTTP polling for real-time updates.
+```
+
+## Details
+
+> The report analyzes a codebase where Socket.IO was incorrectly implemented but never utilized. The application relies entirely on HTTP polling via REST API endpoints (`/api/realtime-status`, `/api/state`, etc.), with no need for WebSocket/Socket.IO. The investigation confirms Socket.IO components (`socket-io-box.js`, CDN, initialization) exist but are unused, alongside missing backend Socket.IO support. The recommendation is to remove Socket.IO entirely, as HTTP polling suffices for current requirements.
+
+## Key Functions
+
+### ``startUpdates()` (app-data.js)`
+
+Initiates HTTP polling intervals for status/drone updates.
+
+### ``updateStatus()` (api-methods.js)`
+
+Executes `fetch()` to poll `/api/realtime-status`.
+
+### ``socket-io-box.js``
+
+Unused Socket.IO class (box) created but never invoked.
+
+### ``index.html``
+
+Loads Socket.IO CDN (unused in practice).
+
+## Usage
+
+**Current (HTTP Polling)**:
+1. Frontend calls `updateStatus()`/`updateDrones()` via `fetch()`.
+2. Backend Flask routes (`@app.route`) handle requests.
+3. Data is periodically refreshed via polling.
+
+**Proposed (Socket.IO Removal)**:
+Remove Socket.IO components entirely; retain HTTP polling.
+
+## Dependencies
+
+> ``socket.io-client``
+> ``socket.io-box.js` (unused)`
+> `Flask (no `flask-socketio` dependency).`
+
+## Related
+
+- [[Socket]]
+- [[HTTP_Polling_Comparison]]
+
+>[!INFO] **Critical Dead Code**
+> Socket.IO components exist but are never called. Removing them simplifies the codebase and resolves connection errors.
+
+>[!WARNING] **Unintended Consequences**
+> If real-time bidirectional communication is later needed, Socket.IO must be reimplemented with `flask-socketio`. Current HTTP polling lacks this capability.

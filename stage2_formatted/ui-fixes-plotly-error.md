@@ -1,0 +1,70 @@
+**Tags:** #plotly, #ui-error-handling, #dom-validation, #conditional-rendering, #error-prevention
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# ui-fixes-plotly-error
+
+## Summary
+
+```
+Fixes Plotly DOM element errors during tab switching by adding conditional checks and error handling.
+```
+
+## Details
+
+> This document details a UI fix for a Plotly error that occurred when switching between tabs in a simulation application. The root issue was that Plotly was attempting to access a DOM element (`plot-3d`) that was conditionally rendered and removed when switching views. The solution involved adding view state checks, DOM element validation, error handling, and reinitialization logic to ensure Plotly operations only proceed when elements exist and are accessible.
+
+## Key Functions
+
+### ``initPlot3D()``
+
+Initializes the 3D plot with checks for current view and DOM element status.
+
+### ``initPlot2D()``
+
+Initializes the 2D plot with similar validation and error handling.
+
+### ``updatePlot3D()``
+
+Updates the 3D plot data, ensuring it only runs when the element is valid.
+
+### ``updatePlot2D()``
+
+Updates the 2D plot data with conditional checks.
+
+### ``updatePlotsWithData()``
+
+Manages batch updates for both plots with validation.
+
+### ``initializePlots()``
+
+Orchestrates plot initialization with view and element checks.
+
+### ``watch` for `currentView``
+
+Reinitializes plots when switching back to the list view.
+
+## Usage
+
+To apply this fix:
+1. Update the specified functions in `simulation/frontend/index.html` with the added checks.
+2. Ensure the `currentView` state is properly managed to trigger reinitialization when switching views.
+3. Run the provided UI test (`comprehensive_ui_test.py`) to verify the fix resolves the error.
+
+## Dependencies
+
+> `Plotly.js library`
+> `DOM manipulation utilities (likely vanilla JS or a framework like React/Vue)`
+> `Selenium for UI testing.`
+
+## Related
+
+- [[index]]
+- [[comprehensive_ui_test]]
+
+>[!INFO] Important Note
+> The fix ensures Plotly operations only execute when the target DOM element exists and is connected. This prevents crashes during tab switching by validating the element state before every Plotly call.
+
+
+>[!WARNING] Caution
+> Conditional rendering of UI elements (like buttons) may still result in warnings about missing elements. These are expected and unrelated to the Plotly error fix. Focus on resolving Plotly-specific errors during testing.

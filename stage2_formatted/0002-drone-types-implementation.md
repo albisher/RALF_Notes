@@ -1,0 +1,77 @@
+**Tags:** #drone-simulation, #multi-rotor, #fixed-wing, #helicopter, #tiltrotor, #bio-inspired, #modular-design, #swarm-ai, #flight-mechanics
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# 0002-drone-types-implementation
+
+## Summary
+
+```
+Implementation of diverse drone types with specialized motion patterns for simulation and swarm control.
+```
+
+## Details
+
+> This file outlines a modular motion pattern system for drone simulation, supporting eight distinct drone types: quadcopters, hexacopters, octocopters, fixed-wing, VTOL hybrids, single-rotor helicopters, tiltrotors, ornithopters, and insect-like drones. The system abstracts flight mechanics via an abstract base class (`base_motion_pattern.py`) and specialized implementations for each drone type. The `BaseDrone` class integrates motion patterns, defaulting to a legacy ML controller for backward compatibility. The `HMRSDroneSpawner` extends drone spawning to include new types via an enum and motion pattern initialization. HMRS-specific drone classes (`scout_drone`, `tanker_mule_drone`, etc.) now support optional motion pattern parameters.
+
+## Key Functions
+
+### ``base_motion_pattern.py``
+
+Abstract base class defining motion pattern interface for all drone types.
+
+### ``multirotor_motion.py``
+
+Implements flight mechanics for quadcopters, hexacopters, and octocopters.
+
+### ``fixed_wing_motion.py``
+
+Handles forward flight and VTOL hybrid modes for fixed-wing drones.
+
+### ``helicopter_motion.py``
+
+Manages single-rotor helicopter dynamics (main + tail rotor).
+
+### ``tiltrotor_motion.py``
+
+Controls rotor tilt transitions between VTOL and forward flight.
+
+### ``bio_inspired_motion.py``
+
+Simulates bird-like (ornithopter) and insect-like flapping-wing drones.
+
+### ``__init__.py``
+
+Exports drone motion patterns for modular access.
+
+### ``base_drone.py``
+
+Modified to support optional `motion_pattern` initialization and priority over ML controllers.
+
+### ``hmrs_drone_spawner.py``
+
+Extended `HMRSDroneType` enum and `available_drones` dictionary to include new drone types.
+
+## Usage
+
+1. **Spawn a drone** using `HMRSDroneSpawner` with a drone type enum (e.g., `HMRSDroneType.QUADCOPTER`).
+2. **Pass optional parameters** like `position` and `name` to customize drone creation.
+3. **Integrate motion patterns** via `BaseDrone`’s `motion_pattern` parameter (e.g., `quadcopter = spawner.spawn_drone(..., motion_pattern=QuadcopterMotion)`).
+
+## Dependencies
+
+> ``simulation/swarm/base_drone.py``
+> ``simulation/swarm/hmrs_drone_spawner.py``
+> ``swarm` module (for drone spawning utilities).`
+
+## Related
+
+- [[base_drone]]
+- [[hmrs_drone_spawner]]
+- [[flight_controllers]]
+
+>[!INFO] Priority Handling
+> Motion patterns take precedence over ML controllers in `BaseDrone.update()`, ensuring specialized flight logic overrides generic behavior.
+
+>[!WARNING] Backward Compatibility
+> Legacy ML controllers default when no motion pattern is provided, risking unintended behavior for unsupported drone types. Test spawning all new drones to verify fallback logic.

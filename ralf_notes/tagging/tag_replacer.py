@@ -110,66 +110,79 @@ class TagReplacer:
 
     def _replace_tags_in_file(self, content: str) -> tuple[str, bool, int]:
         """
-        Replace tags in file content.
+        Replace tags in file content (frontmatter and body).
 
         Returns: (new_content, was_modified, tags_replaced_count)
         """
-        if not content.startswith('---'):
-            return content, False, 0
+        import re
+        modified = False
+        total_replaced = 0
+        new_content = content
 
-        # Find frontmatter boundaries
-        end_idx = content.find('---', 3)
-        if end_idx == -1:
-            return content, False, 0
+        # 1. Process Frontmatter
+        if content.startswith('---'):
+            end_idx = content.find('---', 3)
+            if end_idx != -1:
+                frontmatter_yaml_block = content[3:end_idx].strip()
+                body = content[end_idx + 3:]
+                try:
+                    data = yaml.safe_load(frontmatter_yaml_block)
+                    if data and 'tags' in data:
+                        current_tags = self._parse_tags(data['tags'])
+                        new_tags_set = set()
+                        fm_modified = False
+                        
+                        for tag in current_tags:
+                            if tag in self.replacement_map:
+                                replacement = self.replacement_map[tag]
+                                if replacement is None:
+                                    fm_modified = True
+                                    total_replaced += 1
+                                elif replacement != tag:
+                                    new_tags_set.add(replacement)
+                                    fm_modified = True
+                                    total_replaced += 1
+                                else:
+                                    new_tags_set.add(tag)
+                            else:
+                                new_tags_set.add(tag)
+                        
+                        if fm_modified:
+                            data['tags'] = sorted(list(new_tags_set))
+                            new_frontmatter = yaml.dump(data, default_flow_style=False, allow_unicode=True, sort_keys=False).strip()
+                            new_content = f"---\n{new_frontmatter}\n---{body}"
+                            modified = True
+                except Exception as e:
+                    logger.error("Error processing frontmatter: %s", e)
 
-        frontmatter_yaml_block = content[3:end_idx].strip()
-        body = content[end_idx + 3:]
-
-        try:
-            data = yaml.safe_load(frontmatter_yaml_block)
-            if not data or 'tags' not in data:
-                return content, False, 0
-
-            # Get current tags
-            current_tags = self._parse_tags(data['tags'])
-
-            # Apply replacements
-            new_tags_set: Set[str] = set() # Use a set to avoid duplicate tags
-            modified = False
-            replaced_count = 0
-
-            for tag in current_tags:
-                if tag in self.replacement_map:
-                    replacement = self.replacement_map[tag]
-                    if replacement is None: # Tag marked for deletion
-                        modified = True
-                        replaced_count += 1
-                        logger.debug("Deleting tag '%s'.", tag)
-                    elif replacement != tag: # Tag marked for replacement
-                        new_tags_set.add(replacement)
-                        modified = True
-                        replaced_count += 1
-                        logger.debug("Replacing tag '%s' with '%s'.", tag, replacement)
-                    else: # Tag is in map but maps to itself (keep as is explicitly)
-                        new_tags_set.add(tag)
-                else: # Tag not in map, keep as is
-                    new_tags_set.add(tag)
+        # 2. Process Body (Global replacement)
+        # We perform replacement on the current new_content
+        for old_tag, new_tag in self.replacement_map.items():
+            # Match #tag followed by non-word char or end of string
+            # and preceded by non-word char or start of string
+            # Use negative lookbehind/lookahead for word characters to ensure we don't match #python in #python3
+            pattern = r'(?<![a-zA-Z0-9])' + re.escape(old_tag) + r'(?![a-zA-Z0-9])'
             
-            # Sort new tags for consistent output
-            final_tags = sorted(list(new_tags_set))
+            if re.search(pattern, new_content):
+                if new_tag:
+                    new_content, count = re.subn(pattern, new_tag, new_content)
+                else:
+                    # Deletion: replace with empty string
+                    # Try to clean up trailing commas/spaces
+                    new_content, count = re.subn(pattern, '', new_content)
+                    # Optional: clean up leftover double commas or spaces
+                    new_content = re.sub(r',\s*,', ',', new_content)
+                
+                if count > 0:
+                    modified = True
+                    # We don't increment total_replaced here because frontmatter count might overlap
+                    # or we want a per-file modified status. 
+                    # But for stats, let's count it if not already counted in FM.
+                    # This is tricky without double counting. 
+                    # For simplicity, if we modified the body, we mark modified=True.
+        
+        return new_content, modified, total_replaced
 
-            if not modified:
-                return content, False, 0
-
-            # Rebuild frontmatter
-            data['tags'] = final_tags # Ensure tags are stored as a list for cleaner YAML
-            new_frontmatter = yaml.dump(data, default_flow_style=False, allow_unicode=True, sort_keys=False).strip() # Preserve order if possible
-            new_content = f"---\n{new_frontmatter}\n---{body}"
-
-            return new_content, True, replaced_count
-        except Exception as e:
-            logger.error("Error processing frontmatter in file content: %s", e)
-            return content, False, 0 # Return original content on error
 
     def _parse_tags(self, tags_value: Any) -> List[str]:
         """Parse tags from YAML value (supports list or comma-separated string)."""

@@ -1,0 +1,61 @@
+**Tags:** #iso-timestamps, #rc-translator, #drone-control, #simulation, #automation, #time-formatting, #priority-handling, #fallback-mechanism
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# iso-timestamps-rc-translator-integration
+
+## Summary
+
+```
+Converts Unix timestamps to ISO 8601 format and integrates an RC translator for drone movement priority handling.
+```
+
+## Details
+
+> This document outlines changes to replace Unix timestamp floats with ISO 8601-formatted timestamps across simulation files, enhancing readability and compatibility. It also introduces an RC translator box that prioritizes direct motor control over motion patterns or ML fallback, improving drone movement responsiveness. The integration ensures consistent command processing with clear priority rules.
+
+## Key Functions
+
+### ``datetime.now().isoformat()``
+
+Converts current timestamp to ISO 8601 string.
+
+### ``RCCommandTranslatorBox``
+
+Handles direct motor control for drone movement.
+
+### ``BaseDrone.update()``
+
+Processes `move_to` commands by converting them to RC states.
+
+### ``hmrs_simulation_live.py``
+
+Command processing logic prioritizes RC translator over motion patterns/ML fallback.
+
+## Usage
+
+1. Replace `time.time()` with `datetime.now().isoformat()` in timestamp fields.
+2. Initialize `RCCommandTranslatorBox` in `BaseDrone.__init__()` if not already done.
+3. Use `rc_translator.set_rc_state()` for direct motor adjustments in `move_to` commands.
+4. Ensure `BaseDrone.update()` and `receive_command()` follow priority rules (RC → Motion Pattern → ML fallback).
+
+## Dependencies
+
+> ``time``
+> ``datetime``
+> ``simulation/hmrs_simulation_live.py``
+> ``simulation/swarm/base_drone.py``
+> ``boxes.rc_command_translator_box``
+
+## Related
+
+- [[hmrs_simulation_live]]
+- [[base_drone]]
+- [[rc_command_translator_box]]
+
+>[!INFO] Important Note
+> The RC translator now handles `move_to` commands by calculating direction vectors and translating them into throttle/roll/pitch/yaw values, ensuring smooth drone movement without ML interference.
+
+
+>[!WARNING] Caution
+> Overriding `throttle`/`roll`/`pitch` values directly may cause instability if not calibrated. Always validate RC state computations in `compute_thrusts()`.

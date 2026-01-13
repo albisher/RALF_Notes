@@ -1,0 +1,67 @@
+**Tags:** #robotics, #open-source, #communication, #swarm-coordination, #ros2, #dds, #autonomous-systems, #real-time, #embedded-systems, #aerial-robotics, #networking
+**Created:** 2026-01-13
+**Type:** documentation
+
+# 00-communication-protocol
+
+## Summary
+
+```
+Defines an open-source communication protocol for swarm robotics using ROS2 and DDS middleware.
+```
+
+## Details
+
+> This document outlines a recommended communication architecture for decentralized robot swarms, leveraging ROS2 with open-source DDS implementations (Fast DDS, Cyclone DDS, or OpenDDS). It emphasizes peer-to-peer communication, real-time data distribution, and scalability for multi-robot systems. The stack includes middleware like Micro XRCE-DDS Agent for low-latency integration with PX4 autopilots, enabling efficient drone-to-drone coordination via mesh networks (e.g., 5G/WiFi 6) with bandwidth and latency targets.
+
+## Key Functions
+
+### `ROS2 Humble/Jazzy`
+
+Core ROS2 framework for heterogeneous robot coordination.
+
+### `Fast DDS/Cyclone DDS/OpenDDS`
+
+DDS middleware for reliable, QoS-enabled communication.
+
+### `Micro XRCE-DDS Agent`
+
+Bridges PX4 µORB with ROS2, reducing latency vs. MAVLink-ROS.
+
+### `BATMAN-adv`
+
+Open-source mesh networking for swarm connectivity.
+
+### `PX4 Autopilot`
+
+Open-source autopilot with ROS2 integration for drone control.
+
+## Usage
+
+1. Deploy ROS2 + DDS middleware on companion computers.
+2. Configure shared DDS Domain ID for swarm coordination.
+3. Integrate Micro XRCE-DDS Agent between PX4 and ROS2 nodes.
+4. Use mesh networking (e.g., BATMAN-adv) for drone-to-drone communication.
+5. Optimize bandwidth/latency for real-time swarm operations (e.g., 10-30 Hz updates).
+
+## Dependencies
+
+> `ROS2 (Humble/Jazzy)`
+> `Fast DDS/Cyclone DDS/OpenDDS`
+> `PX4`
+> `Micro XRCE-DDS Agent`
+> `BATMAN-adv mesh networking library.`
+
+## Related
+
+- [[ROS2 Documentation]]
+- [[OpenDDS GitHub]]
+- [[PX4 ROS2 Integration Guide]]
+- [[Swarm Robotics Research Papers]]
+
+>[!INFO] Important Note
+> **DDS Domain ID**: Must be globally unique across the swarm to avoid conflicts. Shared across all HMRS fleet nodes.
+>
+
+>[!WARNING] Caution
+> **Latency Sensitivity**: Exceeding 50 ms latency may degrade swarm synchronization. Test with real-world conditions (e.g., 5G mesh interference).

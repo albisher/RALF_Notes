@@ -1,0 +1,59 @@
+**Tags:** #swarm_simulation, #pybullet, #flask, #web_visualization, #robotics, #multiagent
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# swarm_live
+
+## Summary
+
+```
+A live swarm simulation with a web-based visualization interface, demonstrating a master teaching four workers to coordinate via PyBullet physics engine.
+```
+
+## Details
+
+> This script creates an interactive swarm simulation using PyBullet for physics and Flask for a web-based visualization. It initializes a `SwarmSimulator` with four workers and a master controller, then renders a 3D visualization showing the master’s position (red star), four colored workers (cyan, lime, magenta, orange), and an observer camera (blue square). The visualization updates in real-time via Matplotlib, with a 2x3 grid layout where the top-left subplot displays the primary 3D swarm view. The simulation runs in a headless mode by default but can be extended for live web interaction.
+
+## Key Functions
+
+### ``LiveSwarmSimulator.__init__()``
+
+Initializes the swarm with 4 workers, sets up the simulation, and starts the master’s learning mission.
+
+### ``generate_frame_image()``
+
+Generates a Matplotlib figure with a 3D visualization of the swarm state, including master, workers, and observer camera positions.
+
+### ``SwarmSimulator`** (imported)`
+
+Core class handling swarm dynamics, physics, and state management (e.g., `get_swarm_state()`, `master_controller`).
+
+## Usage
+
+1. Initialize `LiveSwarmSimulator()` to start the simulation.
+2. Call `generate_frame_image()` to render the current swarm state (e.g., for Flask to stream as a web response).
+3. Extend with Flask routes to serve the rendered image dynamically (e.g., `/stream` endpoint).
+4. Run the simulation loop in a separate thread (e.g., `threading.Thread(target=sim_loop)`) to update the state and regenerate frames.
+
+## Dependencies
+
+> `pybullet`
+> `pybullet_data`
+> `numpy`
+> `matplotlib`
+> `flask`
+> `mpl_toolkits.mplot3d`
+> `threading`
+> `io`
+> `os`
+
+## Related
+
+- [[swarm_simulator]]
+- [[flask_app]]
+
+>[!INFO] Master Visualization
+> The master’s position is marked with a red star (`*`) and labeled "Master" for easy identification in the 3D plot. The text label appears slightly offset from the position to avoid overlap.
+
+>[!WARNING] Headless Mode
+> The simulation runs in headless mode by default (`num_workers=4, headless=True`). If you want to visualize the simulation interactively, remove `headless=True` and ensure PyBullet’s GUI is enabled (e.g., `p.connect(p.GUI)`). This may impact performance on low-end systems.

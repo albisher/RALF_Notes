@@ -1,0 +1,52 @@
+**Tags:** #simulation, #time_fix, #threading, #debugging, #error_handling
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# SIM_TIME_FIX
+
+## Summary
+
+```
+Fixes simulation time (`sim_time`) stuck at 0.0s by restructuring loop logic, improving thread management, and enhancing error handling.
+```
+
+## Details
+
+> The issue involved a simulation thread where `sim_time` remained at 0.0s, preventing time-dependent operations. The root cause was improper loop structure in `run_simulation_thread()`, causing loop-dependent logic (scouting, sleep, progress updates) to execute outside the loop, and potential thread synchronization failures. The fix restructured the loop to ensure continuous execution, added robust thread initialization checks, and improved error handling with debug outputs to verify `sim_time` progression.
+
+## Key Functions
+
+### ``run_simulation_thread()``
+
+Main simulation loop with fixed loop structure and improved thread management.
+
+### `Debug verification prints`
+
+Logs first 5 steps to confirm `sim_time` incrementation.
+
+### `Thread lifecycle checks`
+
+Ensures thread remains active after initialization.
+
+## Usage
+
+Apply the fixes in `hmrs_simulation_live.py` by:
+1. Restructuring loop logic to include loop-dependent code inside `try` blocks.
+2. Adding thread initialization and cleanup checks.
+3. Running `verify_time_based_data.py` to validate `sim_time` progression and thread behavior.
+
+## Dependencies
+
+> ``hmrs_simulation_live.py``
+> ``verify_time_based_data.py` (external verification script).`
+
+## Related
+
+- [[`verify_time_based_data]]
+- [[0007-time-based-data-verification]]
+
+>[!INFO] Critical Loop Restructuring
+> Ensure all loop-dependent operations (e.g., scouting, sleep) are enclosed within the `try` block inside the `while` loop to maintain continuous execution.
+
+>[!WARNING] Thread Initialization Check
+> Verify `self.running` flag is set before starting the thread to avoid premature termination. Debug output confirms thread lifecycle.

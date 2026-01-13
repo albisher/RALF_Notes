@@ -839,17 +839,25 @@ def generate(
             
             # Stage 1: Generate Raw
             raw_file_path = stage1_raw_output_dir / f"{file_path.stem}.txt"
-            content = file_path.read_text(encoding='utf-8')
-            context = GenerationContext(
-                filename=file_path.stem,
-                content=content,
-                file_path=str(file_path)
-            )
             
-            if not _generate_raw_single(context, raw_file_path, pipeline.generator, quiet, console):
-                failed_count += 1
-                progress.update(task, advance=1)
-                continue
+            run_stage_1 = True
+            if raw_file_path.exists() and not overwrite:
+                if not quiet:
+                    console.info(f"Skipping Stage 1 (Raw exists): {raw_file_path.name}")
+                run_stage_1 = False
+            
+            if run_stage_1:
+                content = file_path.read_text(encoding='utf-8')
+                context = GenerationContext(
+                    filename=file_path.stem,
+                    content=content,
+                    file_path=str(file_path)
+                )
+                
+                if not _generate_raw_single(context, raw_file_path, pipeline.generator, quiet, console):
+                    failed_count += 1
+                    progress.update(task, advance=1)
+                    continue
 
             # Stage 2: Format
             if not _format_initial_single(raw_file_path, initial_formatted_dir, pipeline, dry_run, overwrite, quiet, console):

@@ -1,0 +1,53 @@
+**Tags:** #mission_management, #drone_coordination, #vision_observation, #task_execution
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# mission_executor
+
+## Summary
+
+```
+Manages drone mission execution with task assignment, observation, and confirmation workflows.
+```
+
+## Details
+
+> The `MissionExecutor` class orchestrates drone missions by assigning tasks to worker drones, collecting observations via a vision drone, and verifying task completion through ground master confirmation. It maintains state for tracking task assignments, observations, and confirmations across drones. The system processes a predefined sequence of tasks, updating drone positions and triggering observations/completions dynamically.
+
+## Key Functions
+
+### `start_mission(task_sequence)`
+
+Initializes task assignment to worker drones and begins mission execution.
+
+### `update(dt)`
+
+Iterates through all worker drones, updates their tasks, collects observations from the vision drone, and checks for task completion to trigger confirmation requests.
+
+## Usage
+
+1. Initialize with a list of worker drones, a vision drone, and ground master.
+2. Call `start_mission()` with a `TaskSequence` to begin execution.
+3. Periodically call `update(dt)` to process mission state and observations.
+
+## Dependencies
+
+> ``.mission_tasks` (TaskSequence`
+> `TaskType`
+> `MissionTask)`
+> ``.vision_drone``
+> ``.ground_master``
+> ``.learning_drone``
+
+## Related
+
+- [[mission_tasks]]
+- [[vision_drone]]
+- [[ground_master]]
+- [[learning_drone]]
+
+>[!INFO] State Management
+> The executor uses dictionaries (`task_assignments`, `task_observations`, `task_confirmations`) to track task statuses per drone, enabling dynamic reassignment if tasks fail or complete.
+
+>[!WARNING] Idempotency Risk
+> Task IDs (e.g., `id(worker.current_task)`) are used for observation/confirmation tracking. If tasks are recreated, stale IDs may cause misalignment in observations. Consider a unique task identifier system.

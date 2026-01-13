@@ -1,0 +1,71 @@
+**Tags:** #docker, #simulation, #pybullet, #macos, #headless, #x11, #containerization, #dependency-management
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# 0002-docker-setup
+
+## Summary
+
+```
+Creates a Docker-based isolated environment for running PyBullet simulations, avoiding macOS compilation issues.
+```
+
+## Details
+
+> This setup provides a Docker container with pre-installed dependencies (PyBullet, NumPy, Matplotlib, OpenCV) for a PyBullet-based simulator. It avoids macOS-specific compilation issues by using a Linux-based container and ensures consistent environments across platforms. The container mounts host Python files for live code updates and saves outputs to the host machine. Docker Compose simplifies multi-container management, with support for both GUI and headless modes.
+
+## Key Functions
+
+### ``docker compose build``
+
+Builds the Docker image with PyBullet and dependencies.
+
+### ``docker compose run --rm simulator python run_simulation.py``
+
+Executes the main simulation script inside the container.
+
+### ``docker-compose run --rm simulator python verify_requirements.py``
+
+Validates installed dependencies.
+
+### ``docker-compose run --rm simulator bash``
+
+Opens an interactive shell inside the container.
+
+### ``Dockerfile``
+
+Defines the base image (`python:3.10-slim`) and installs PyBullet and dependencies directly via `pip` (no virtual environment).
+
+## Usage
+
+1. Navigate to the `simulation/` directory and run `docker compose build`.
+2. For GUI mode on macOS, install XQuartz and run with `DISPLAY=host.docker.internal:0`.
+3. Use `docker compose run` to execute scripts (e.g., `run_simulation.py` or `run_visual_demo.py`).
+4. For headless mode, omit GUI flags (e.g., `--headless`).
+
+## Dependencies
+
+> `- Docker Compose`
+> `Docker CLI`
+> ``python:3.10-slim` (base image)`
+> `PyBullet`
+> `NumPy`
+> `Matplotlib`
+> `OpenCV`
+> ``XQuartz` (macOS GUI support).`
+
+## Related
+
+- [[Dockerfile]]
+- [[requirements]]
+- [[PyBullet Documentation]]
+- [[XQuartz Installation Guide]]
+
+>[!INFO] Docker Isolation
+> The container runs PyBullet and dependencies in isolation, avoiding macOS compilation conflicts. Changes to host Python files are live in the container due to file mounting.
+
+>[!WARNING] XQuartz Requirement
+> On macOS, XQuartz must be installed and `xhost +localhost` enabled for GUI applications to work. Docker must use `host.docker.internal` for network resolution.
+
+>[!INFO] No Virtual Environment
+> The container installs packages system-wide (no `venv`), ensuring consistent Python environment across runs.

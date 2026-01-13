@@ -1,0 +1,75 @@
+**Tags:** #flask, #socketio, #pybullet, #autonomous-robotics, #live-visualization, #3d-plotting, #swarm-robotics, #real-time-logging
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# autonomous_exploration_live
+
+## Summary
+
+```
+A Flask/SocketIO-based autonomous exploration system that logs and visualizes 3D scene data in real-time.
+```
+
+## Details
+
+> This script integrates a PyBullet physics engine with a Flask backend and SocketIO for live web visualization. It logs ground truth data (e.g., object spawns) to a JSON file and streams logs to a frontend via SocketIO. Key components include:
+> - **PyBullet** for simulation physics.
+> - **Flask/SocketIO** for real-time data streaming.
+> - **Plotly** for 3D visualization (optional).
+> - **Swarm modules** (e.g., `AdvancedLiDARBox`, `ExplorationManagerBox`) for autonomous behavior.
+> 
+> The `GroundTruthLogger` class records object metadata (position, size, body ID) and saves it to a file while logging to console and frontend if a `LoggingBox` is attached.
+
+## Key Functions
+
+### ``GroundTruthLogger``
+
+Logs hidden object spawns (position, size, body ID) to file and console.
+
+### ``log_object()``
+
+Records a new object with metadata.
+
+### ``_save()``
+
+Persists logged data to a JSON file in the `scenarios` directory.
+
+### ``AdvancedLiDARBox`, `AttentionCollisionAvoidanceBox`, `FrontierExplorerBox``
+
+Swarm modules managing exploration/avoidance logic.
+
+### ``ExplorationManagerBox``
+
+Orchestrates autonomous exploration tasks.
+
+### ``LoggingBox``
+
+Handles frontend/console logging via `emit` (SocketIO).
+
+## Usage
+
+1. Initialize `GroundTruthLogger` with a `logging_box` reference.
+2. Call `log_object()` for each spawned object in the simulation.
+3. Stream logs via SocketIO to a frontend (e.g., Plotly Dash or custom HTML).
+4. Plot 3D data if Plotly is available (otherwise, logs are saved to JSON).
+
+## Dependencies
+
+> ``pybullet``
+> ``pybullet_data``
+> ``numpy``
+> ``flask``
+> ``flask_socketio``
+> ``plotly``
+> ``swarm.boxes.*` (custom modules).`
+
+## Related
+
+- [[autonomous_exploration_core]]
+- [[swarm_robotics_simulation]]
+
+>[!INFO] Important Note
+> The `GroundTruthLogger` intentionally hides spawn logs from the command-and-control (C&C) system, ensuring only simulation-specific data is exposed to the frontend.
+
+>[!WARNING] Caution
+> If `Plotly` is unavailable, 3D plots will not render, but logs are still saved to `scenarios/ground_truth_log.json`. Ensure the `scenarios` directory exists before execution.

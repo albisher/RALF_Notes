@@ -1,0 +1,67 @@
+**Tags:** #state-management, #drone-system, #vuejs, #single-responsibility-principle
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# DroneState
+
+## Summary
+
+```
+Manages drone-related state in a Vue.js application, including drone collections, selections, and forms.
+```
+
+## Details
+
+> `DroneState` is a utility class for managing drone state in a Vue.js application, adhering to the Single Responsibility Principle. It provides default state initialization, methods to manipulate drone collections (add, remove, update), and handles selection logic. The class integrates with Vue’s `data()` function to maintain state across components, including drone lists, sensor data, and form configurations for spawning and commanding drones.
+
+## Key Functions
+
+### ``getDefaultState()``
+
+Returns a structured default state object for drones, selection, and forms.
+
+### ``data()``
+
+Vue-compatible method returning the default state (used in Vue components).
+
+### ``setDrones(vueInstance, drones)``
+
+Updates the drones collection in a Vue instance.
+
+### ``addDrone(vueInstance, drone)``
+
+Appends a new drone to the collection.
+
+### ``removeDrone(vueInstance, droneName)``
+
+Filters out a drone by name and clears selection if applicable.
+
+### ``updateDrone(vueInstance, droneName, updates)``
+
+Modifies an existing drone’s properties.
+
+### ``clearSelection(vueInstance)``
+
+(Implicitly called in `removeDrone`) Resets `selectedDrone` to `null`.
+
+## Usage
+
+1. Import `DroneState` in a Vue component.
+2. Call `DroneState.data()` to initialize state.
+3. Use utility methods (`setDrones`, `addDrone`, etc.) to modify drone collections dynamically.
+
+## Dependencies
+
+> `Vue.js (for `data()` integration)`
+> `no external libraries.`
+
+## Related
+
+- [[Vue]]
+- [[Single Responsibility Principle]]
+
+>[!INFO] State Initialization
+> The `data()` method leverages Vue’s reactivity system, ensuring state updates propagate across components. Default values (e.g., `spawnForm`) define initial drone configurations.
+
+>[!WARNING] Implicit Dependencies
+> Methods like `removeDrone` assume `vueInstance` is a Vue component with `drones` and `selectedDrone` properties. Always validate `vueInstance` before use.

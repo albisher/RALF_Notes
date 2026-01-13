@@ -1,0 +1,60 @@
+**Tags:** #autonomous_drones, #3d_simulation, #pybullet, #exploration_algorithms, #swarm_robotics
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# autonomous_exploration_test
+
+## Summary
+
+```
+Test script for autonomous drone exploration in a 3D environment using PyBullet, featuring frontier-based navigation.
+```
+
+## Details
+
+> This script implements an autonomous drone capable of exploring a randomly generated 3D environment without predefined waypoints. It leverages PyBullet for physics simulation and integrates a frontier-based exploration strategy. The drone uses LiDAR data to detect obstacles and map the environment in 50cm-resolution voxels, then identifies unexplored areas (frontiers) to navigate toward. The system is designed to run within a Docker container and replaces a simpler LiDAR-based drone with advanced autonomy.
+
+## Key Functions
+
+### `AutonomousExplorationDrone`
+
+Core class handling drone physics, LiDAR processing, and frontier-based navigation.
+
+### ``AdvancedLiDARBox``
+
+Manages LiDAR data acquisition and spatial mapping.
+
+### ``FrontierExplorerBox``
+
+Detects and prioritizes unexplored regions (frontiers) for exploration.
+
+### ``spawn_random_objects``
+
+(Imported from `simple_exploration_test`) Spawns dynamic 3D objects in the simulation.
+
+## Usage
+
+1. Run in Docker container using the provided `docker-compose.yml` to launch PyBullet.
+2. Execute the script (`python autonomous_exploration_test.py`) to start autonomous exploration.
+3. The drone will spawn at a predefined position, spawn random 3D objects, and autonomously explore using frontier detection.
+
+## Dependencies
+
+> `pybullet`
+> `pybullet_data`
+> `numpy`
+> `swarm.boxes.advanced_lidar_box`
+> `swarm.boxes.attention_collision_avoidance_box`
+> `swarm.boxes.frontier_explorer_box`
+> `swarm.boxes.exploration_manager_box`
+
+## Related
+
+- [[simple_exploration_test]]
+- [[swarm_boxes_module]]
+
+>[!INFO] Initialization Check
+> Ensure PyBullet is installed and running in the Docker container. The script checks for PyBullet availability and exits if not found, redirecting users to the Docker command.
+
+>[!WARNING] Voxel Resolution Impact
+> The `voxel_size` (0.5m) determines map granularity. Smaller values improve detail but increase computational load. Adjust based on simulation scale.
