@@ -701,10 +701,10 @@ def _finalize_logic(
 
 @app.command()
 def watch(
-    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing notes")
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output")
-    interval: int = typer.Option(1, "--interval", "-i", help="Polling interval in seconds")
-    delete_source: bool = typer.Option(False, "--delete-source", help="Delete source files after finalizing.")
+    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing notes"),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
+    interval: int = typer.Option(1, "--interval", "-i", help="Polling interval in seconds"),
+    delete_source: bool = typer.Option(False, "--delete-source", help="Delete source files after finalizing."),
 ):
     """Watch for new raw files and process them automatically."""
     console = Console(quiet=quiet)
@@ -759,19 +759,19 @@ def watch(
 
 @app.command()
 def generate(
-    source_path: Optional[Path] = typer.Argument(None, help="Source path to process (overrides config)")
-    final_output: Optional[Path] = typer.Option(None, "--output", "-o", help="Final output directory (overrides config)")
-    raw_output: Optional[Path] = typer.Option(None, "--raw-output", help="Stage 1 raw output directory (overrides config)")
-    formatted_output: Optional[Path] = typer.Option(None, "--formatted-output", help="Stage 2 formatted output directory (overrides config)")
-    review_output: Optional[Path] = typer.Option(None, "--review-output", help="Stage 3 review needed directory (overrides config)")
-    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without writing files")
-    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing documents")
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output")
-    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name")
-    delay: Optional[float] = typer.Option(None, "--delay", help="Delay between file processing in seconds. (Overrides config)")
-    timeout: Optional[int] = typer.Option(None, "--timeout", help="Timeout for each LLM call in seconds. (Overrides config)")
-    retries: Optional[int] = typer.Option(None, "--retries", help="Number of retry attempts for LLM calls. (Overrides config)")
-    delete_source: bool = typer.Option(False, "--delete-source", help="Delete source files after finalizing (move behavior). Default is copy.")
+    source_path: Optional[Path] = typer.Argument(None, help="Source path to process (overrides config)"),
+    final_output: Optional[Path] = typer.Option(None, "--output", "-o", help="Final output directory (overrides config)"),
+    raw_output: Optional[Path] = typer.Option(None, "--raw-output", help="Stage 1 raw output directory (overrides config)"),
+    formatted_output: Optional[Path] = typer.Option(None, "--formatted-output", help="Stage 2 formatted output directory (overrides config)"),
+    review_output: Optional[Path] = typer.Option(None, "--review-output", help="Stage 3 review needed directory (overrides config)"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without writing files"),
+    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing documents"),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
+    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name"),
+    delay: Optional[float] = typer.Option(None, "--delay", help="Delay between file processing in seconds. (Overrides config)"),
+    timeout: Optional[int] = typer.Option(None, "--timeout", help="Timeout for each LLM call in seconds. (Overrides config)"),
+    retries: Optional[int] = typer.Option(None, "--retries", help="Number of retry attempts for LLM calls. (Overrides config)"),
+    delete_source: bool = typer.Option(False, "--delete-source", help="Delete source files after finalizing (move behavior). Default is copy."),
 ):
     """Generate Obsidian documentation from source files (Process per file through all stages)"""
     import time
@@ -881,10 +881,10 @@ def generate(
 
 @app.command(name="generate-raw")
 def generate_raw(
-    path: Optional[Path] = typer.Argument(None, help="Source path to process (overrides config)")
-    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output directory for raw LLM responses (overrides config)")
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output")
-    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name")
+    path: Optional[Path] = typer.Argument(None, help="Source path to process (overrides config)"),
+    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output directory for raw LLM responses (overrides config)"),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
+    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name"),
 ):
     """Generate raw LLM responses from source files (Stage 1)"""
     console = Console(quiet=quiet)
@@ -903,12 +903,12 @@ def generate_raw(
 
 @app.command(name="format-initial")
 def format_initial(
-    path: Optional[Path] = typer.Argument(None, help="Raw output path to process (overrides config)")
-    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output directory for formatted notes (overrides config)")
-    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without writing files")
-    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing notes")
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output")
-    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name") # Model needed for pipeline initialization
+    path: Optional[Path] = typer.Argument(None, help="Raw output path to process (overrides config)"),
+    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output directory for formatted notes (overrides config)"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without writing files"),
+    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing notes"),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
+    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name"), # Model needed for pipeline initialization
 ):
     """Format raw LLM responses into Obsidian notes (Stage 2)"""
     console = Console(quiet=quiet)
@@ -929,13 +929,13 @@ def format_initial(
 
 @app.command(name="finalize")
 def finalize(
-    path: Optional[Path] = typer.Argument(None, help="Initial formatted notes path to finalize (overrides config)")
-    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Final output directory (overrides config)")
-    review_output: Optional[Path] = typer.Option(None, "--review-output", help="Directory for files needing review (overrides config)")
-    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without writing files or moving files")
-    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing files in final output")
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output")
-    delete_source: bool = typer.Option(False, "--delete-source", help="Delete source files after finalizing (move behavior). Default is copy.")
+    path: Optional[Path] = typer.Argument(None, help="Initial formatted notes path to finalize (overrides config)"),
+    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Final output directory (overrides config)"),
+    review_output: Optional[Path] = typer.Option(None, "--review-output", help="Directory for files needing review (overrides config)"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without writing files or moving files"),
+    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing files in final output"),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
+    delete_source: bool = typer.Option(False, "--delete-source", help="Delete source files after finalizing (move behavior). Default is copy."),
 ):
     """Finalize formatted notes by validating and moving to final destinations (Stage 3)"""
     console = Console(quiet=quiet)
@@ -1196,11 +1196,11 @@ def _tags_default_welcome(ctx: typer.Context):
 
 @tags_app.command("analyze")
 def tags_analyze(
-    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config).")
-    output: Path = typer.Option("tag_refinement_guide.json", "--output", "-o", help="Output JSON file for the refinement guide.")
-    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override LLM model name for tag refinement.")
-    max_tags: int = typer.Option(100, "--max-tags", help="Maximum number of tags to send to LLM for refinement.")
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output.")
+    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config)."),
+    output: Path = typer.Option("tag_refinement_guide.json", "--output", "-o", help="Output JSON file for the refinement guide."),
+    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override LLM model name for tag refinement."),
+    max_tags: int = typer.Option(100, "--max-tags", help="Maximum number of tags to send to LLM for refinement."),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
 ):
     """
     Analyzes existing tags and generates a refinement guide using an LLM.
@@ -1255,11 +1255,11 @@ def tags_analyze(
 
 @tags_app.command("apply")
 def tags_apply(
-    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config).")
-    guide: Path = typer.Option(..., "--guide", "-g", help="Path to the tag refinement guide JSON file.")
-    dry_run: bool = typer.Option(False, "--dry-run", help="Preview changes without writing to files.")
-    no_backup: bool = typer.Option(False, "--no-backup", help="Do NOT create a backup before applying changes.")
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output.")
+    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config)."),
+    guide: Path = typer.Option(..., "--guide", "-g", help="Path to the tag refinement guide JSON file."),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview changes without writing to files."),
+    no_backup: bool = typer.Option(False, "--no-backup", help="Do NOT create a backup before applying changes."),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
 ):
     """
     Applies tag refinements to markdown files based on a generated guide.
@@ -1311,8 +1311,8 @@ def tags_apply(
 
 @tags_app.command("stats")
 def tags_stats(
-    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config).")
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output.")
+    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config)."),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
 ):
     """
     Displays statistics about tags found in markdown files.
