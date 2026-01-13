@@ -112,11 +112,30 @@ ralf-notes generate --overwrite
 # Quiet mode (minimal output)
 ralf-notes generate --quiet
 
+# Delete source files after processing (Move behavior)
+ralf-notes generate --delete-source
+
 # Use different model
 ralf-notes generate --model qwen2.5:14b
 
 # Apply rate limiting
 ralf-notes generate --delay 0.5 --timeout 60 --retries 5
+```
+
+### Auto-Tuning & Optimization
+
+```bash
+# Run automatic system optimization
+ralf-notes fine-tune
+
+# Quick tune (faster, fewer tests)
+ralf-notes fine-tune --quick
+
+# Full comprehensive tune (slower, more accurate)
+ralf-notes fine-tune --full
+
+# Generate report without saving
+ralf-notes fine-tune --no-save
 ```
 
 ### Tag Management

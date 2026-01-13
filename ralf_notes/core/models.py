@@ -76,3 +76,6 @@ class StructuredTextGeneratorConfig:
     max_content_length: int = 8000
     max_chunk_summary_length: int = 4000
     ollama_host: str = 'http://127.0.0.1:11434'
+    retry_attempts: int = 3
+    initial_backoff_seconds: float = 1.0
+    backoff_multiplier: float = 2.0

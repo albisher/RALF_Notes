@@ -174,8 +174,9 @@ RALF Note uses a 3-stage pipeline to generate documentation:
 3.  **Stage 3: Validation, Filtering & Finalization (`ralf-notes finalize`)**
     -   Reads the initially formatted markdown notes from Stage 2.
     -   (Optional) Performs validation checks on the note content (e.g., ensuring all required sections are present).
-    -   Moves valid notes to your final `target_dir`.
-    -   Moves notes requiring review to your `review_needed_dir`.
+    -   **Copies** valid notes to your final `target_dir` (preserving source by default).
+    -   **Copies** notes requiring review to your `review_needed_dir`.
+    -   Optionally deletes the source files from `initial_formatted_dir` if `--delete-source` is used.
 
 ### 4.1. Full Pipeline (Recommended)
 
@@ -207,6 +208,12 @@ You can customize this process with various options:
     ```bash
     ralf-notes generate --quiet
     ```
+-   **Delete Source Files (Move Behavior):**
+    ```bash
+    ralf-notes generate --delete-source
+    ```
+    *Use this if you want to clean up the intermediate formatted files after they are finalized.*
+
 -   **Override Model on the Fly:**
     ```bash
     ralf-notes generate --model mistral:7b
@@ -242,14 +249,15 @@ ralf-notes format-initial [RAW_INPUT_PATH] [--output <FORMATTED_OUTPUT_DIR>] [--
 
 #### Stage 3: Finalization
 ```bash
-ralf-notes finalize [FORMATTED_INPUT_PATH] [--output <FINAL_OUTPUT_DIR>] [--review-output <REVIEW_DIR>] [--dry-run] [--overwrite] [--quiet]
+ralf-notes finalize [FORMATTED_INPUT_PATH] [--output <FINAL_OUTPUT_DIR>] [--review-output <REVIEW_DIR>] [--dry-run] [--overwrite] [--quiet] [--delete-source]
 ```
 -   `[FORMATTED_INPUT_PATH]`: Optional. Overrides configured initial formatted directory as input.
 -   `--output`: Optional. Overrides configured final target directory.
 -   `--review-output`: Optional. Overrides configured review needed directory.
--   `--dry-run`: Prevents moving files.
+-   `--dry-run`: Prevents copying files.
 -   `--overwrite`: Overwrites existing files in the final target directory.
 -   `--quiet`: Suppresses verbose terminal output.
+-   `--delete-source`: Deletes the source file from the input directory after successful finalization (turning the copy into a move).
 
 ---
 
@@ -357,11 +365,47 @@ ralf-notes tags stats ~/ObsidianVault/CodeNotes
 
 ---
 
-## 🎯 8. What's Next (Auto-Tuning)
+## 🎯 8. Auto-Tuning & Optimization (`ralf-notes fine-tune`)
 
-RALF Note includes an experimental auto-tuning system designed to find optimal LLM parameters for your specific hardware and chosen model. This feature will be accessible via a dedicated `ralf-notes tune` command (coming soon).
+RALF Note includes an intelligent auto-tuning system that benchmarks your system and LLM to find the optimal configuration for performance and reliability.
 
-The auto-tuning process benchmarks various `num_ctx`, `chunk_size`, and other parameters to recommend the most efficient settings balancing speed, quality, and resource usage.
+### Purpose
+-   **Discovery:** Finds the best `num_ctx`, `chunk_size`, `request_delay`, and concurrency settings.
+-   **Profiling:** Measures your CPU, RAM, and Ollama response times.
+-   **Automation:** Automatically saves optimal settings to your config.
+
+### Usage
+
+Run the fine-tune command to start the benchmarking process:
+
+```bash
+ralf-notes fine-tune
+```
+
+### Modes
+
+-   **Normal (Default):** Runs a standard suite of tests (5-10 mins). Good balance of speed and accuracy.
+-   **Quick (`--quick`):** Runs a minimal set of tests (2-5 mins). Useful for a fast check.
+    ```bash
+    ralf-notes fine-tune --quick
+    ```
+-   **Full (`--full`):** Runs comprehensive tests (10-20 mins). Recommended for production setups to squeeze out maximum performance.
+    ```bash
+    ralf-notes fine-tune --full
+    ```
+
+### Options
+
+-   `--save / --no-save`: Automatically save (or not) the optimized configuration to `config.json`. Default is to ask or save.
+-   `--report / --no-report`: Display a detailed benchmark report at the end. Default is `True`.
+
+### Output Report
+
+The command produces a detailed report including:
+-   **System Profile:** CPU cores, RAM usage, GPU detection.
+-   **Model Settings:** Optimal context size and chunk parameters.
+-   **Performance Settings:** Recommended concurrency, delays, and timeouts.
+-   **Confidence Score:** A 0-100% score indicating how reliable the benchmark results are.
 
 ---
 

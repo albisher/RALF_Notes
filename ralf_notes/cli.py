@@ -10,7 +10,10 @@ from pathlib import Path
 from typing import Optional, List, Tuple
 from ollama import Client
 from datetime import datetime
-import logging # ADD THIS IMPORT
+import logging
+import shutil
+import json
+import time
 
 from .version import VERSION
 from .config_manager import ConfigManager
@@ -36,12 +39,13 @@ from .tuning.latency_benchmarker import LatencyBenchmarker
 from .tuning.throughput_benchmarker import ThroughputBenchmarker
 from .tuning.sample_generator import SampleCodeGenerator
 from .tuning.config_builder import OptimizedConfigBuilder
-from .utils.logger import setup_logging # ADD THIS IMPORT
+from .utils.logger import setup_logging
 from .tagging.tag_collector import TagCollector
 from .tagging.tag_analyzer import TagAnalyzer, TagPattern
 from .tagging.tag_refinement_llm import TagRefinementLLM
 from .tagging.refinement_guide_builder import RefinementGuideBuilder
 from .tagging.tag_replacer import TagReplacer
+from .core.watcher import Watcher
 
 
 def display_config_table(console: Console, config_manager: ConfigManager):
@@ -146,6 +150,7 @@ def build_pipeline(config_manager: ConfigManager) -> DocumentPipeline:
         # Attempt to list models to verify connection, though a full check is in check_health
         client.list() 
     except Exception as e:
+        logger = logging.getLogger(__name__)
         logger.error(f"Failed to connect to Ollama at {ollama_host}: {e}", exc_info=True)
         raise RuntimeError(f"Failed to connect to Ollama at '{ollama_host}'. "
                            f"Please ensure Ollama is running and accessible. "
@@ -166,6 +171,7 @@ def build_pipeline(config_manager: ConfigManager) -> DocumentPipeline:
         )
         generator = StructuredTextGenerator(client, gen_config)
     except Exception as e:
+        logger = logging.getLogger(__name__)
         logger.error(f"Failed to initialize StructuredTextGenerator with model '{model_name}': {e}", exc_info=True)
         raise RuntimeError(f"Failed to initialize generator with model '{model_name}'. "
                            f"Ensure the model is pulled ('ollama pull {model_name}') and configuration is valid. "
@@ -347,6 +353,114 @@ def init(
     console.success(f"\nConfiguration saved to: {config_manager.config_path}")
     console.info("\nNext steps:\n  1. Ensure Ollama is running: ollama serve\n  2. Pull the model: ollama pull {model_name}\n  3. Test connection: ralf-notes check-health\n  4. Generate docs: ralf-notes generate\n")
 
+
+# --- Single File Processors ---
+
+def _generate_raw_single(
+    context: GenerationContext,
+    output_path: Path,
+    generator: StructuredTextGenerator,
+    quiet: bool,
+    console: Console
+) -> bool:
+    try:
+        generator.generate_and_save_raw(context, output_path)
+        if not quiet:
+            console.success(f"Generated Raw: {output_path.name}")
+        return True
+    except Exception as e:
+        console.error(f"Failed to generate raw output for {context.filename}: {e}")
+        return False
+
+def _format_initial_single(
+    file_path: Path,
+    output_dir: Path,
+    pipeline: DocumentPipeline,
+    dry_run: bool,
+    overwrite: bool,
+    quiet: bool,
+    console: Console
+) -> bool:
+    filename_stem = file_path.stem
+    formatted_output_path = output_dir / f"{filename_stem}.md"
+    formatted_output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if formatted_output_path.exists() and not overwrite:
+        if not quiet:
+            console.warning(f"Skipping {formatted_output_path.name} (output already exists)")
+        return True # Not a failure, just skipped
+
+    if not quiet:
+        console.file("Formatting", file_path.name)
+
+    if dry_run:
+        return True
+
+    try:
+        raw_content = file_path.read_text(encoding='utf-8')
+        parsed_data = pipeline.parser.parse_or_fallback(raw_content, filename_stem)
+        markdown = pipeline.formatter.format(parsed_data)
+
+        if markdown.strip():
+            formatted_output_path.write_text(markdown, encoding='utf-8')
+            if not quiet:
+                console.success(f"Formatted: {formatted_output_path.name}")
+            return True
+        else:
+            console.error(f"Failed to format {formatted_output_path.name}: Empty markdown.")
+            return False
+    except Exception as e:
+        console.error(f"Failed to format {formatted_output_path.name}: {e}")
+        return False
+
+def _finalize_single(
+    file_path: Path,
+    output_dir: Path,
+    review_dir: Path,
+    dry_run: bool,
+    overwrite: bool,
+    delete_source: bool,
+    quiet: bool,
+    console: Console
+) -> bool:
+    filename_stem = file_path.stem
+    final_output_path = output_dir / f"{filename_stem}.md"
+    review_output_path = review_dir / f"{filename_stem}.md"
+
+    if final_output_path.exists() and not overwrite:
+        if not quiet:
+            console.warning(f"Skipping {final_output_path.name} (output already exists)")
+        return True
+
+    if dry_run:
+        return True
+        
+    try:
+        # Placeholder for validation
+        is_valid = True 
+        
+        target_path = final_output_path if is_valid else review_output_path
+        
+        if file_path != target_path:
+            shutil.copy2(file_path, target_path)
+            if delete_source:
+                try:
+                    file_path.unlink()
+                except Exception as e:
+                    console.warning(f"Failed to delete source {file_path}: {e}")
+        
+        if not quiet:
+            if is_valid:
+                console.success(f"Finalized: {target_path.name}")
+            else:
+                console.warning(f"Review Needed: {target_path.name}")
+        return True
+    except Exception as e:
+        console.error(f"Failed to finalize {file_path.name}: {e}")
+        return False
+
+# --- Batch Logic Wrappers ---
+
 def _generate_raw_logic(
     source_path: Optional[Path],
     output: Optional[Path],
@@ -366,90 +480,60 @@ def _generate_raw_logic(
     else:
         if not source_paths_cfg:
             console.error("No source paths configured! Cannot generate documentation.")
-            console.info("Please run 'ralf-notes init' to set up your configuration or specify a source path with 'ralf-notes generate-raw <path>'.")
             return False
-        # Validate configured source paths
         for p in source_paths_cfg:
             _validate_path_exists(p, "configured source path", console)
             _validate_path_is_dir(p, "configured source path", console)
         source_paths = source_paths_cfg
 
     stage1_raw_output_dir = output if output else Path(config_manager.get("stage1_raw_output_dir"))
-    _validate_path_is_writable(stage1_raw_output_dir, "raw_output", console) # Validate output directory
+    _validate_path_is_writable(stage1_raw_output_dir, "raw_output", console)
 
-    if model: 
-        try:
-            config_manager.set("model_name", model) # Use set for validation
-        except ValueError as e:
-            console.error(f"Invalid model name '{model}': {e}. Please ensure it's a valid Ollama model.")
-            return False
+    if model: config_manager.set("model_name", model)
 
     if not quiet:
         console.info(f"Using Model: {config_manager.get('model_name')}")
         console.info(f"Raw Output Folder: {stage1_raw_output_dir}")
-        console.info("Source Folders:")
         for sp in source_paths: console.info(f"  - {sp}")
         console.print("")
 
     try:
-        client = Client(host=config_manager.get("ollama_host"))
-        gen_config = StructuredTextGeneratorConfig(
-            model_name=config_manager.get("model_name"),
-            num_ctx=config_manager.get("num_ctx"),
-            temperature=config_manager.get("temperature"),
-            chunk_size=config_manager.get("chunk_size"),
-            max_content_length=config_manager.get("max_content_length"),
-            max_chunk_summary_length=config_manager.get("max_chunk_summary_length"),
-            ollama_host=config_manager.get("ollama_host"),
-            retry_attempts=config_manager.get("retry_attempts"),
-            initial_backoff_seconds=config_manager.get("initial_backoff_seconds"),
-            backoff_multiplier=config_manager.get("backoff_multiplier")
-        )
-        generator = StructuredTextGenerator(client, gen_config)
+        pipeline = build_pipeline(config_manager)
     except Exception as e:
-        console.error(f"Failed to initialize the document generation system: {e}")
-        console.info("Please check your Ollama setup and configuration. Run 'ralf-notes check-health' for diagnostics.")
+        console.error(f"Failed to initialize pipeline: {e}")
         return False
 
     stage1_raw_output_dir.mkdir(parents=True, exist_ok=True)
-    processed_count = 0
-    failed_count = 0
     
-    valid_extensions_for_stage1 = config_manager.get('file_extensions', FileProcessor.VALID_EXTENSIONS)
-    skip_dirs_for_stage1 = config_manager.get('skip_dirs', FileProcessor.SKIP_DIRS)
-    skip_files_for_stage1 = config_manager.get('skip_files', FileProcessor.SKIP_FILES)
-
     files_to_process = FileProcessor.get_files_to_process(
         source_paths,
-        valid_extensions_for_stage1,
-        skip_dirs_for_stage1,
-        skip_files_for_stage1
+        config_manager.get('file_extensions', FileProcessor.VALID_EXTENSIONS),
+        config_manager.get('skip_dirs', FileProcessor.SKIP_DIRS),
+        config_manager.get('skip_files', FileProcessor.SKIP_FILES)
     )
 
+    processed_count = 0
+    failed_count = 0
 
     with ProgressManager(console) as progress:
         task = progress.add_task("[cyan]Generating Raw Output...", total=len(files_to_process))
         for file_path in files_to_process:
-            filename_stem = file_path.stem
-            output_file_path = stage1_raw_output_dir / f"{filename_stem}.txt"
-
             if not quiet:
                 console.file("From Source", file_path.name)
 
-            try:
-                content = file_path.read_text(encoding='utf-8')
-                context = GenerationContext(
-                    filename=filename_stem,
-                    content=content,
-                    file_path=str(file_path)
-                )
-                generator.generate_and_save_raw(context, output_file_path)
+            output_file_path = stage1_raw_output_dir / f"{file_path.stem}.txt"
+            content = file_path.read_text(encoding='utf-8')
+            context = GenerationContext(
+                filename=file_path.stem,
+                content=content,
+                file_path=str(file_path)
+            )
+
+            success = _generate_raw_single(context, output_file_path, pipeline.generator, quiet, console)
+            
+            if success:
                 processed_count += 1
-                if not quiet:
-                    console.success(f"Generated Raw: {output_file_path.name}")
-            except Exception as e:
-                console.error(f"Failed to generate raw output for {file_path.name}: {e}")
-                console.info(f"This often indicates an issue with the LLM. Check Ollama logs or try a different model/context size.")
+            else:
                 failed_count += 1
             progress.update(task, advance=1)
     
@@ -458,7 +542,6 @@ def _generate_raw_logic(
         'total': processed_count + failed_count,
         'success': processed_count,
         'failed': failed_count,
-        'dry_run': False,
         'duration': duration,
         'files_per_second': processed_count / duration if duration > 0 else 0
     }
@@ -475,7 +558,7 @@ def _format_initial_logic(
     model: Optional[str],
     config_manager: ConfigManager,
     console: Console
-) -> bool: # Returns True on success, False on failure
+) -> bool:
     import time
     start_time = time.time()
 
@@ -485,44 +568,23 @@ def _format_initial_logic(
         _validate_path_is_dir(path, "path", console)
         stage1_raw_source_paths = [path]
     else:
-        if not stage1_raw_source_paths_cfg:
-            console.error("No raw output paths configured! Cannot format documentation.")
-            console.info("Please run 'ralf-notes init' to set up your configuration or specify a path with 'ralf-notes format-initial <path>'.")
-            return False
-        for p in stage1_raw_source_paths_cfg:
-            _validate_path_exists(p, "configured raw output path", console)
-            _validate_path_is_dir(p, "configured raw output path", console)
         stage1_raw_source_paths = stage1_raw_source_paths_cfg
 
     initial_formatted_dir = output if output else Path(config_manager.get("initial_formatted_dir"))
-    _validate_path_is_writable(initial_formatted_dir, "formatted_output", console) # Validate output directory
+    _validate_path_is_writable(initial_formatted_dir, "formatted_output", console)
 
-    if model: 
-        try:
-            config_manager.set("model_name", model) # Use set for validation
-        except ValueError as e:
-            console.error(f"Invalid model name '{model}': {e}. Please ensure it's a valid Ollama model.")
-            return False
+    if model: config_manager.set("model_name", model)
 
     if not quiet:
-        console.info(f"Using Model: {config_manager.get('model_name')} (for pipeline setup)")
         console.info(f"Raw Source Folder: {stage1_raw_source_paths[0]}")
         console.info(f"Formatted Output Folder: {initial_formatted_dir}")
         console.print("")
 
     try:
         pipeline = build_pipeline(config_manager)
-    except RuntimeError as e: # Catch the specific RuntimeError from build_pipeline
-        console.error(f"Failed to initialize pipeline for formatting: {e}")
-        console.info("Please check your Ollama setup and configuration. Run 'ralf-notes check-health' for diagnostics.")
-        return False
     except Exception as e:
-        console.error(f"An unexpected error occurred during pipeline initialization: {e}")
+        console.error(f"Failed to initialize pipeline: {e}")
         return False
-
-
-    processor = FileProcessor(pipeline, config_manager)
-    initial_formatted_dir.mkdir(parents=True, exist_ok=True)
 
     files_to_format = FileProcessor.get_files_to_process(
         stage1_raw_source_paths,
@@ -533,55 +595,24 @@ def _format_initial_logic(
 
     processed_count = 0
     failed_count = 0
-    skipped_count = 0
 
     with ProgressManager(console) as progress:
         task = progress.add_task("[cyan]Formatting Raw Output...", total=len(files_to_format))
         for file_path in files_to_format:
-            filename_stem = file_path.stem
-            formatted_output_path = initial_formatted_dir / f"{filename_stem}.md"
-            formatted_output_path.parent.mkdir(parents=True, exist_ok=True)
-
-            if formatted_output_path.exists() and not overwrite:
-                if not quiet:
-                    console.warning(f"Skipping {formatted_output_path.name} (output already exists. Use --overwrite to replace.)")
-                skipped_count += 1
-                progress.update(task, advance=1)
-                continue
-            
-            if not quiet:
-                console.file("Formatting", file_path.name)
-
-            if not dry_run:
-                try:
-                    raw_content = file_path.read_text(encoding='utf-8')
-                    parsed_data = pipeline.parser.parse_or_fallback(raw_content, filename_stem)
-                    markdown = pipeline.formatter.format(parsed_data)
-
-                    if markdown.strip():
-                        formatted_output_path.write_text(markdown, encoding='utf-8')
-                        processed_count += 1
-                        if not quiet:
-                            console.success(f"Formatted: {formatted_output_path.name}")
-                    else:
-                        failed_count += 1
-                        console.error(f"Failed to format {formatted_output_path.name}: Empty markdown generated. This usually means the LLM response was not correctly structured.")
-                        console.info("Refer to the logs for details or check the raw output in '%s'.", file_path)
-                except Exception as e:
-                    failed_count += 1
-                    console.error(f"Failed to format {formatted_output_path.name}: {e}")
-                    console.info("This indicates an issue during parsing or formatting. Check the raw output for structured text compliance.")
-            else:
+            success = _format_initial_single(
+                file_path, initial_formatted_dir, pipeline, dry_run, overwrite, quiet, console
+            )
+            if success:
                 processed_count += 1
-
+            else:
+                failed_count += 1
             progress.update(task, advance=1)
     
     duration = time.time() - start_time
     results = {
-        'total': processed_count + failed_count + skipped_count,
+        'total': processed_count + failed_count,
         'success': processed_count,
         'failed': failed_count,
-        'skipped': skipped_count,
         'dry_run': dry_run,
         'duration': duration,
         'files_per_second': processed_count / duration if duration > 0 else 0
@@ -597,6 +628,7 @@ def _finalize_logic(
     dry_run: bool,
     overwrite: bool,
     quiet: bool,
+    delete_source: bool,
     config_manager: ConfigManager,
     console: Console
 ) -> bool:
@@ -609,25 +641,19 @@ def _finalize_logic(
         _validate_path_is_dir(path, "path", console)
         initial_formatted_source_paths = [path]
     else:
-        if not initial_formatted_source_paths_cfg:
-            console.error("No initial formatted paths configured! Cannot finalize documentation.")
-            console.info("Please run 'ralf-notes init' to set up your configuration or specify a path with 'ralf-notes finalize <path>'.")
-            return False
-        for p in initial_formatted_source_paths_cfg:
-            _validate_path_exists(p, "configured initial formatted path", console)
-            _validate_path_is_dir(p, "configured initial formatted path", console)
         initial_formatted_source_paths = initial_formatted_source_paths_cfg
 
     final_output_dir = output if output else Path(config_manager.get("target_dir"))
-    _validate_path_is_writable(final_output_dir, "final_output", console) # Validate output directory
+    _validate_path_is_writable(final_output_dir, "final_output", console)
 
     review_needed_dir = review_output if review_output else Path(config_manager.get("review_needed_dir"))
-    _validate_path_is_writable(review_needed_dir, "review_output", console) # Validate review output directory
+    _validate_path_is_writable(review_needed_dir, "review_output", console)
 
     if not quiet:
-        console.info(f"Initial Formatted Source Folder: {initial_formatted_source_paths[0]}")
-        console.info(f"Final Output Folder: {final_output_dir}")
-        console.info(f"Review Needed Folder: {review_needed_dir}")
+        console.info(f"Source Folder: {initial_formatted_source_paths[0]}")
+        console.info(f"Final Output: {final_output_dir}")
+        console.info(f"Review Output: {review_needed_dir}")
+        console.info(f"Mode: {'Move (Delete Source)' if delete_source else 'Copy (Keep Source)'}")
         console.print("")
 
     final_output_dir.mkdir(parents=True, exist_ok=True)
@@ -635,62 +661,35 @@ def _finalize_logic(
 
     files_to_finalize = FileProcessor.get_files_to_process(
         initial_formatted_source_paths,
-        ('.md',), # Finalize operates on .md files
+        ('.md',),
         config_manager.get('skip_dirs', FileProcessor.SKIP_DIRS),
         config_manager.get('skip_files', FileProcessor.SKIP_FILES)
     )
 
     processed_count = 0
     failed_count = 0
-    skipped_count = 0
 
     with ProgressManager(console) as progress:
         task = progress.add_task("[cyan]Finalizing Notes...", total=len(files_to_finalize))
         for file_path in files_to_finalize:
             if not quiet:
                 console.file("Finalizing", file_path.name)
-
-            try:
-                filename_stem = file_path.stem
-                final_output_path = final_output_dir / f"{filename_stem}.md"
-                review_output_path = review_needed_dir / f"{filename_stem}.md"
-
-                if final_output_path.exists() and not overwrite:
-                    if not quiet:
-                        console.warning(f"Skipping {final_output_path.name} (output already exists. Use --overwrite to replace.)")
-                    skipped_count += 1
-                    progress.update(task, advance=1)
-                    continue
-                
-                if not dry_run:
-                    # Placeholder for actual validation logic, if any, before moving
-                    is_valid = True # For now, assume valid. Actual validation can be added here.
-                    if is_valid:
-                        if file_path != final_output_path:
-                            file_path.rename(final_output_path)
-                        processed_count += 1
-                        if not quiet:
-                            console.success(f"Finalized: {final_output_path.name}")
-                    else:
-                        file_path.rename(review_output_path)
-                        failed_count += 1
-                        if not quiet:
-                            console.warning(f"Validation failed for {file_path.name}. Moving to review needed: {review_output_path}")
-                else:
-                    processed_count += 1 # In dry run, we still count as processed if it would have been.
-
-            except Exception as e:
+            
+            success = _finalize_single(
+                file_path, final_output_dir, review_needed_dir, dry_run, overwrite, delete_source, quiet, console
+            )
+            
+            if success:
+                processed_count += 1
+            else:
                 failed_count += 1
-                console.error(f"Failed to finalize {file_path.name}: {e}")
-                console.info("An error occurred during file movement or validation. Check permissions or file integrity.")
             progress.update(task, advance=1)
     
     duration = time.time() - start_time
     results = {
-        'total': processed_count + failed_count + skipped_count,
+        'total': processed_count + failed_count,
         'success': processed_count,
         'failed': failed_count,
-        'skipped': skipped_count,
         'dry_run': dry_run,
         'duration': duration,
         'files_per_second': processed_count / duration if duration > 0 else 0
@@ -698,83 +697,14 @@ def _finalize_logic(
     show_summary(results, console, quiet)
     return failed_count == 0
 
-
-def _format_initial_single(
-    file_path: Path,
-    output_dir: Path,
-    dry_run: bool,
-    overwrite: bool,
-    config_manager,
-    console
-):
-    # This logic is extracted and simplified from _format_initial_logic
-    try:
-        pipeline = build_pipeline(config_manager)
-    except Exception as e:
-        console.error(f"Failed to initialize pipeline: {e}")
-        return
-
-    filename_stem = file_path.stem
-    formatted_output_path = output_dir / f"{filename_stem}.md"
-    formatted_output_path.parent.mkdir(parents=True, exist_ok=True)
-
-    if formatted_output_path.exists() and not overwrite:
-        console.warning(f"Skipping {formatted_output_path.name} (output already exists. Use --overwrite to replace.)")
-        return
-
-    console.file("Formatting", file_path.name)
-
-    if not dry_run:
-        try:
-            raw_content = file_path.read_text(encoding='utf-8')
-            parsed_data = pipeline.parser.parse_or_fallback(raw_content, filename_stem)
-            markdown = pipeline.formatter.format(parsed_data)
-
-            if markdown.strip():
-                formatted_output_path.write_text(markdown, encoding='utf-8')
-                console.success(f"Formatted: {formatted_output_path.name}")
-            else:
-                console.error(f"Failed to format {formatted_output_path.name}: Empty markdown generated.")
-        except Exception as e:
-            console.error(f"Failed to format {formatted_output_path.name}: {e}")
-
-def _finalize_single(
-    file_path: Path,
-    output_dir: Path,
-    review_dir: Path,
-    dry_run: bool,
-    overwrite: bool,
-    console
-):
-    # This logic is extracted and simplified from _finalize_logic
-    filename_stem = file_path.stem
-    final_output_path = output_dir / f"{filename_stem}.md"
-    review_output_path = review_dir / f"{filename_stem}.md"
-
-    if final_output_path.exists() and not overwrite:
-        console.warning(f"Skipping {final_output_path.name} (output already exists. Use --overwrite to replace.)")
-        return
-    
-    if not dry_run:
-        try:
-            is_valid = True  # Placeholder
-            if is_valid:
-                if file_path != final_output_path:
-                    file_path.rename(final_output_path)
-                console.success(f"Finalized: {final_output_path.name}")
-            else:
-                file_path.rename(review_output_path)
-                console.warning(f"Validation failed for {file_path.name}. Moved to review needed.")
-        except Exception as e:
-            console.error(f"Failed to finalize {file_path.name}: {e}")
-
-from .core.watcher import Watcher
+# --- Commands ---
 
 @app.command()
 def watch(
-    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing notes"),
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
-    interval: int = typer.Option(1, "--interval", "-i", help="Polling interval in seconds"),
+    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing notes")
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output")
+    interval: int = typer.Option(1, "--interval", "-i", help="Polling interval in seconds")
+    delete_source: bool = typer.Option(False, "--delete-source", help="Delete source files after finalizing.")
 ):
     """Watch for new raw files and process them automatically."""
     console = Console(quiet=quiet)
@@ -784,6 +714,13 @@ def watch(
     formatted_dir = Path(config_manager.get("initial_formatted_dir"))
     final_dir = Path(config_manager.get("target_dir"))
     review_dir = Path(config_manager.get("review_needed_dir"))
+    
+    # We need a pipeline for formatting
+    try:
+        pipeline = build_pipeline(config_manager)
+    except Exception as e:
+        console.error(f"Failed to initialize pipeline for watch mode: {e}")
+        raise typer.Exit(1)
 
     console.info(f"Watching for new files in: {raw_dir} with interval {interval}s")
 
@@ -791,26 +728,30 @@ def watch(
         console.info(f"New file detected: {file_path.name}")
         
         # Stage 2: Format
-        _format_initial_single(
+        success = _format_initial_single(
             file_path=file_path,
             output_dir=formatted_dir,
-            dry_run=False, # Watch mode should not be dry run
+            pipeline=pipeline,
+            dry_run=False,
             overwrite=overwrite,
-            config_manager=config_manager,
+            quiet=quiet,
             console=console
         )
         
-        # Stage 3: Finalize
-        formatted_file_path = formatted_dir / f"{file_path.stem}.md"
-        if formatted_file_path.exists():
-            _finalize_single(
-                file_path=formatted_file_path,
-                output_dir=final_dir,
-                review_dir=review_dir,
-                dry_run=False, # Watch mode should not be dry run
-                overwrite=overwrite,
-                console=console
-            )
+        if success:
+            # Stage 3: Finalize
+            formatted_file_path = formatted_dir / f"{file_path.stem}.md"
+            if formatted_file_path.exists():
+                _finalize_single(
+                    file_path=formatted_file_path,
+                    output_dir=final_dir,
+                    review_dir=review_dir,
+                    dry_run=False,
+                    overwrite=overwrite,
+                    delete_source=delete_source,
+                    quiet=quiet,
+                    console=console
+                )
 
     watcher = Watcher(raw_dir, process_file, interval=interval)
     watcher.run()
@@ -818,20 +759,23 @@ def watch(
 
 @app.command()
 def generate(
-    source_path: Optional[Path] = typer.Argument(None, help="Source path to process (overrides config)"),
-    final_output: Optional[Path] = typer.Option(None, "--output", "-o", help="Final output directory (overrides config)"),
-    raw_output: Optional[Path] = typer.Option(None, "--raw-output", help="Stage 1 raw output directory (overrides config)"),
-    formatted_output: Optional[Path] = typer.Option(None, "--formatted-output", help="Stage 2 formatted output directory (overrides config)"),
-    review_output: Optional[Path] = typer.Option(None, "--review-output", help="Stage 3 review needed directory (overrides config)"),
-    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without writing files"),
-    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing documents"),
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
-    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name"),
-    delay: Optional[float] = typer.Option(None, "--delay", help="Delay between file processing in seconds. (Overrides config)"),
-    timeout: Optional[int] = typer.Option(None, "--timeout", help="Timeout for each LLM call in seconds. (Overrides config)"),
-    retries: Optional[int] = typer.Option(None, "--retries", help="Number of retry attempts for LLM calls. (Overrides config)"),
+    source_path: Optional[Path] = typer.Argument(None, help="Source path to process (overrides config)")
+    final_output: Optional[Path] = typer.Option(None, "--output", "-o", help="Final output directory (overrides config)")
+    raw_output: Optional[Path] = typer.Option(None, "--raw-output", help="Stage 1 raw output directory (overrides config)")
+    formatted_output: Optional[Path] = typer.Option(None, "--formatted-output", help="Stage 2 formatted output directory (overrides config)")
+    review_output: Optional[Path] = typer.Option(None, "--review-output", help="Stage 3 review needed directory (overrides config)")
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without writing files")
+    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing documents")
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output")
+    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name")
+    delay: Optional[float] = typer.Option(None, "--delay", help="Delay between file processing in seconds. (Overrides config)")
+    timeout: Optional[int] = typer.Option(None, "--timeout", help="Timeout for each LLM call in seconds. (Overrides config)")
+    retries: Optional[int] = typer.Option(None, "--retries", help="Number of retry attempts for LLM calls. (Overrides config)")
+    delete_source: bool = typer.Option(False, "--delete-source", help="Delete source files after finalizing (move behavior). Default is copy.")
 ):
-    """Generate Obsidian documentation from source files (Stage 1 + 2 + 3)"""
+    """Generate Obsidian documentation from source files (Process per file through all stages)"""
+    import time
+    start_time = time.time()
     console = Console(quiet=quiet)
     config_manager = ConfigManager()
 
@@ -840,55 +784,107 @@ def generate(
     if timeout is not None: config_manager.set("request_timeout_seconds", timeout)
     if retries is not None: config_manager.set("retry_attempts", retries)
 
-    console.info("[bold green]--- Stage 1: Raw Content Generation ---[/bold green]")
-    if not _generate_raw_logic(
-        source_path=source_path,
-        output=raw_output,
-        quiet=quiet,
-        model=model,
-        config_manager=config_manager,
-        console=console
-    ):
-        console.error("Stage 1 failed. Aborting full generation.")
+    # 1. Setup Directories
+    source_paths_cfg = [Path(p) for p in config_manager.get("source_paths", [])]
+    if source_path:
+        _validate_path_exists(source_path, "source_path", console)
+        _validate_path_is_dir(source_path, "source_path", console)
+        source_paths = [source_path]
+    else:
+        if not source_paths_cfg:
+            console.error("No source paths configured! Cannot generate documentation.")
+            raise typer.Exit(1)
+        source_paths = source_paths_cfg
+
+    stage1_raw_output_dir = raw_output if raw_output else Path(config_manager.get("stage1_raw_output_dir"))
+    initial_formatted_dir = formatted_output if formatted_output else Path(config_manager.get("initial_formatted_dir"))
+    final_output_dir = final_output if final_output else Path(config_manager.get("target_dir"))
+    review_needed_dir = review_output if review_output else Path(config_manager.get("review_needed_dir"))
+
+    for d in [stage1_raw_output_dir, initial_formatted_dir, final_output_dir, review_needed_dir]:
+        d.mkdir(parents=True, exist_ok=True)
+        _validate_path_is_writable(d, f"Output Dir {d}", console)
+
+    if not quiet:
+        console.info(f"Model: {config_manager.get('model_name')}")
+        console.info(f"Sources: {[str(p) for p in source_paths]}")
+        console.info(f"Output: {final_output_dir}")
+        console.print("")
+
+    # 2. Initialize Pipeline
+    try:
+        pipeline = build_pipeline(config_manager)
+    except Exception as e:
+        console.error(f"Failed to initialize pipeline: {e}")
         raise typer.Exit(1)
 
-    console.info("[bold green]--- Stage 2: Initial Formatting ---[/bold green]")
-    if not _format_initial_logic(
-        path=raw_output,
-        output=formatted_output,
-        dry_run=dry_run,
-        overwrite=overwrite,
-        quiet=quiet,
-        model=model,
-        config_manager=config_manager,
-        console=console
-    ):
-        console.error("Stage 2 failed. Aborting full generation.")
-        raise typer.Exit(1)
+    # 3. Get Files
+    files_to_process = FileProcessor.get_files_to_process(
+        source_paths,
+        config_manager.get('file_extensions', FileProcessor.VALID_EXTENSIONS),
+        config_manager.get('skip_dirs', FileProcessor.SKIP_DIRS),
+        config_manager.get('skip_files', FileProcessor.SKIP_FILES)
+    )
 
-    console.info("[bold green]--- Stage 3: Validation, Filtering & Finalization ---[/bold green]")
-    if not _finalize_logic(
-        path=formatted_output,
-        output=final_output,
-        review_output=review_output,
-        dry_run=dry_run,
-        overwrite=overwrite,
-        quiet=quiet,
-        config_manager=config_manager,
-        console=console
-    ):
-        console.error("Stage 3 failed. Aborting full generation.")
-        raise typer.Exit(1)
+    processed_count = 0
+    failed_count = 0
 
-    console.success("\nFull generation pipeline completed successfully!")
+    # 4. Process Loop
+    with ProgressManager(console) as progress:
+        task = progress.add_task("[cyan]Processing Pipeline...", total=len(files_to_process))
+        
+        for file_path in files_to_process:
+            if not quiet:
+                console.print(f"[bold cyan]Processing:[/bold cyan] {file_path.name}")
+            
+            # Stage 1: Generate Raw
+            raw_file_path = stage1_raw_output_dir / f"{file_path.stem}.txt"
+            content = file_path.read_text(encoding='utf-8')
+            context = GenerationContext(
+                filename=file_path.stem,
+                content=content,
+                file_path=str(file_path)
+            )
+            
+            if not _generate_raw_single(context, raw_file_path, pipeline.generator, quiet, console):
+                failed_count += 1
+                progress.update(task, advance=1)
+                continue
+
+            # Stage 2: Format
+            if not _format_initial_single(raw_file_path, initial_formatted_dir, pipeline, dry_run, overwrite, quiet, console):
+                failed_count += 1
+                progress.update(task, advance=1)
+                continue
+            
+            # Stage 3: Finalize
+            formatted_file_path = initial_formatted_dir / f"{file_path.stem}.md"
+            if not _finalize_single(formatted_file_path, final_output_dir, review_needed_dir, dry_run, overwrite, delete_source, quiet, console):
+                failed_count += 1
+                progress.update(task, advance=1)
+                continue
+            
+            processed_count += 1
+            progress.update(task, advance=1)
+
+    duration = time.time() - start_time
+    results = {
+        'total': len(files_to_process),
+        'success': processed_count,
+        'failed': failed_count,
+        'dry_run': dry_run,
+        'duration': duration,
+        'files_per_second': processed_count / duration if duration > 0 else 0
+    }
+    show_summary(results, console, quiet)
 
 
 @app.command(name="generate-raw")
 def generate_raw(
-    path: Optional[Path] = typer.Argument(None, help="Source path to process (overrides config)"),
-    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output directory for raw LLM responses (overrides config)"),
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
-    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name"),
+    path: Optional[Path] = typer.Argument(None, help="Source path to process (overrides config)")
+    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output directory for raw LLM responses (overrides config)")
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output")
+    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name")
 ):
     """Generate raw LLM responses from source files (Stage 1)"""
     console = Console(quiet=quiet)
@@ -907,12 +903,12 @@ def generate_raw(
 
 @app.command(name="format-initial")
 def format_initial(
-    path: Optional[Path] = typer.Argument(None, help="Raw output path to process (overrides config)"),
-    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output directory for formatted notes (overrides config)"),
-    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without writing files"),
-    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing notes"),
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
-    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name"), # Model needed for pipeline initialization
+    path: Optional[Path] = typer.Argument(None, help="Raw output path to process (overrides config)")
+    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output directory for formatted notes (overrides config)")
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without writing files")
+    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing notes")
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output")
+    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override model name") # Model needed for pipeline initialization
 ):
     """Format raw LLM responses into Obsidian notes (Stage 2)"""
     console = Console(quiet=quiet)
@@ -933,12 +929,13 @@ def format_initial(
 
 @app.command(name="finalize")
 def finalize(
-    path: Optional[Path] = typer.Argument(None, help="Initial formatted notes path to finalize (overrides config)"),
-    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Final output directory (overrides config)"),
-    review_output: Optional[Path] = typer.Option(None, "--review-output", help="Directory for files needing review (overrides config)"),
-    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without writing files or moving files"),
-    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing files in final output"),
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
+    path: Optional[Path] = typer.Argument(None, help="Initial formatted notes path to finalize (overrides config)")
+    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Final output directory (overrides config)")
+    review_output: Optional[Path] = typer.Option(None, "--review-output", help="Directory for files needing review (overrides config)")
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without writing files or moving files")
+    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing files in final output")
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output")
+    delete_source: bool = typer.Option(False, "--delete-source", help="Delete source files after finalizing (move behavior). Default is copy.")
 ):
     """Finalize formatted notes by validating and moving to final destinations (Stage 3)"""
     console = Console(quiet=quiet)
@@ -951,6 +948,7 @@ def finalize(
         dry_run=dry_run,
         overwrite=overwrite,
         quiet=quiet,
+        delete_source=delete_source,
         config_manager=config_manager,
         console=console
     ):
@@ -994,6 +992,183 @@ def check_health():
     console.success("\nRALF Note health check passed! Your system is ready.")
 
 
+# --- Tuning System Helpers ---
+
+def estimate_throughput(config: OptimizedConfig) -> float:
+    """Estimate throughput in files/minute based on optimized settings."""
+    # Base throughput from delay
+    if config.request_delay_seconds > 0:
+        base_fps = 1.0 / config.request_delay_seconds
+    else:
+        # If no delay, limited by timeout or processing time (assume 5s per file avg optimized)
+        base_fps = 1.0 / 5.0
+        
+    # Scale by parallelism
+    fps = base_fps * config.max_concurrent_requests
+    
+    return fps * 60 # per minute
+
+def save_optimized_config(config_manager: ConfigManager, config: OptimizedConfig):
+    """Save the optimized configuration to the config file."""
+    # Model Settings
+    config_manager.set("model_name", config.model_name)
+    config_manager.set("num_ctx", config.num_ctx)
+    config_manager.set("temperature", config.temperature)
+    config_manager.set("chunk_size", config.chunk_size)
+    config_manager.set("max_content_length", config.max_content_length)
+    config_manager.set("max_chunk_summary_length", config.max_chunk_summary_length)
+
+    # Performance Settings
+    config_manager.set("request_delay_seconds", config.request_delay_seconds)
+    config_manager.set("max_concurrent_requests", config.max_concurrent_requests)
+    config_manager.set("retry_attempts", config.retry_attempts)
+    config_manager.set("initial_backoff_seconds", config.initial_backoff_seconds)
+    config_manager.set("backoff_multiplier", config.backoff_multiplier)
+    config_manager.set("request_timeout_seconds", config.request_timeout_seconds)
+
+    # Batch Settings
+    config_manager.set("batch_size", config.batch_size)
+    config_manager.set("batch_delay_seconds", config.batch_delay_seconds)
+    
+    config_manager.save()
+
+def display_tuning_report(console: Console, config: OptimizedConfig):
+    """Display comprehensive tuning report."""
+
+    # System Profile
+    console.panel(
+        f"""CPU: {config.system_profile.cpu_cores} cores / {config.system_profile.cpu_threads} threads\nRAM: {config.system_profile.available_ram_gb:.1f} GB available / {config.system_profile.total_ram_gb:.1f} GB total\nGPU: {"Yes" if config.system_profile.has_gpu else "No"}\nOllama: {config.system_profile.ollama_version} @ {config.system_profile.ollama_host}""",
+        title="💻 System Profile",
+        style="cyan"
+    )
+
+    console.print("")
+
+    # Optimized Settings
+    console.panel(
+        f"""Model: {config.model_name}\nContext Size: {config.num_ctx}\nChunk Size: {config.chunk_size}\nTemperature: {config.temperature}\nMax Content Length: {config.max_content_length}""",
+        title="🤖 Model Settings",
+        style="green"
+    )
+
+    console.print("")
+
+    console.panel(
+        f"""Parallel Requests: {config.max_concurrent_requests}\nRequest Delay: {config.request_delay_seconds}s\nTimeout: {config.request_timeout_seconds}s\nRetry Attempts: {config.retry_attempts}\nBackoff: {config.initial_backoff_seconds}s × {config.backoff_multiplier}""",
+        title="⚡ Performance Settings",
+        style="magenta"
+    )
+
+    console.print("")
+
+    console.panel(
+        f"""Batch Size: {config.batch_size} files\nBatch Delay: {config.batch_delay_seconds}s\nEstimated Throughput: {estimate_throughput(config):.2f} files/min""",
+        title="📦 Batch Settings",
+        style="yellow"
+    )
+
+    console.print("")
+    console.info(f"Confidence Score: {config.confidence_score:.1f}%")
+    console.info(f"Benchmarked: {config.benchmark_date}")
+
+@app.command(name="fine-tune")
+def fine_tune(
+    quick: bool = typer.Option(
+        False,
+        "--quick",
+        help="Quick tune (fewer tests, faster)"
+    ),
+    full: bool = typer.Option(
+        False,
+        "--full",
+        help="Full comprehensive tuning (more tests, slower)"
+    ),
+    save: bool = typer.Option(
+        True,
+        "--save/--no-save",
+        help="Save results to config file"
+    ),
+    report: bool = typer.Option(
+        True,
+        "--report/--no-report",
+        help="Show detailed report"
+    )
+):
+    """
+    Automatically tune RALF Note for optimal performance on this system.
+
+    This will:
+    - Profile your system (CPU, RAM, GPU, Ollama)
+    - Benchmark your model with different settings
+    - Find optimal context size, chunk size, and performance settings
+    - Save optimized configuration
+
+    Duration:
+    - Quick mode: 2-5 minutes
+    - Normal mode: 5-10 minutes
+    - Full mode: 10-20 minutes
+    """
+    console = Console()
+    config_manager = ConfigManager()
+
+    console.print("")
+    console.rule("🔧 RALF Note Auto-Tuning System", style="bold cyan")
+    console.print("")
+
+    # Initialize components
+    system_profiler = SystemProfiler()
+    sample_generator = SampleCodeGenerator()
+
+    client = Client(host=config_manager.get("ollama_host"))
+
+    model_benchmarker = ModelBenchmarker(client, sample_generator)
+    latency_benchmarker = LatencyBenchmarker(client, sample_generator)
+    throughput_benchmarker = ThroughputBenchmarker(client, sample_generator)
+    config_builder = OptimizedConfigBuilder()
+
+    orchestrator = BenchmarkOrchestrator(
+        config_manager=config_manager,
+        system_profiler=system_profiler,
+        model_benchmarker=model_benchmarker,
+        latency_benchmarker=latency_benchmarker,
+        throughput_benchmarker=throughput_benchmarker,
+        optimized_config_builder=config_builder,
+        console=console
+    )
+
+    # Set benchmark intensity
+    if quick:
+        benchmark_config = BenchmarkConfig(intensity="quick")
+    elif full:
+        benchmark_config = BenchmarkConfig(intensity="full")
+    else:
+        benchmark_config = BenchmarkConfig(intensity="normal")
+
+    # Run benchmarks
+    try:
+        with console.status("Running benchmarks..."):
+            optimized = orchestrator.run_full_benchmark(benchmark_config)
+
+        console.print("")
+        console.rule("✅ Tuning Complete", style="bold green")
+        console.print("")
+
+        # Show report
+        if report:
+            display_tuning_report(console, optimized)
+
+        # Save to config
+        if save:
+            if typer.confirm("\nSave optimized settings to config?"):
+                save_optimized_config(config_manager, optimized)
+                console.success("Configuration updated!")
+                console.info(f"Confidence: {optimized.confidence_score:.1f}%")
+
+    except Exception as e:
+        console.error(f"Tuning failed: {e}")
+        raise typer.Exit(1)
+
+
 tags_app = typer.Typer(
     name="tags",
     help="🏷️ Commands for managing and refining document tags."
@@ -1021,11 +1196,11 @@ def _tags_default_welcome(ctx: typer.Context):
 
 @tags_app.command("analyze")
 def tags_analyze(
-    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config)."),
-    output: Path = typer.Option("tag_refinement_guide.json", "--output", "-o", help="Output JSON file for the refinement guide."),
-    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override LLM model name for tag refinement."),
-    max_tags: int = typer.Option(100, "--max-tags", help="Maximum number of tags to send to LLM for refinement."),
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
+    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config).")
+    output: Path = typer.Option("tag_refinement_guide.json", "--output", "-o", help="Output JSON file for the refinement guide.")
+    model: Optional[str] = typer.Option(None, "--model", "-m", help="Override LLM model name for tag refinement.")
+    max_tags: int = typer.Option(100, "--max-tags", help="Maximum number of tags to send to LLM for refinement.")
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output.")
 ):
     """
     Analyzes existing tags and generates a refinement guide using an LLM.
@@ -1080,11 +1255,11 @@ def tags_analyze(
 
 @tags_app.command("apply")
 def tags_apply(
-    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config)."),
-    guide: Path = typer.Option(..., "--guide", "-g", help="Path to the tag refinement guide JSON file."),
-    dry_run: bool = typer.Option(False, "--dry-run", help="Preview changes without writing to files."),
-    no_backup: bool = typer.Option(False, "--no-backup", help="Do NOT create a backup before applying changes."),
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
+    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config).")
+    guide: Path = typer.Option(..., "--guide", "-g", help="Path to the tag refinement guide JSON file.")
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview changes without writing to files.")
+    no_backup: bool = typer.Option(False, "--no-backup", help="Do NOT create a backup before applying changes.")
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output.")
 ):
     """
     Applies tag refinements to markdown files based on a generated guide.
@@ -1136,8 +1311,8 @@ def tags_apply(
 
 @tags_app.command("stats")
 def tags_stats(
-    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config)."),
-    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
+    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config).")
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output.")
 ):
     """
     Displays statistics about tags found in markdown files.
@@ -1187,3 +1362,6 @@ def tags_stats(
                 console.print("    ...")
     else:
         console.info("No tags found in the specified directory.")
+
+if __name__ == "__main__":
+    app()
