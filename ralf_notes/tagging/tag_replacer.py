@@ -4,6 +4,7 @@ from typing import Dict, List, Any, Optional
 import yaml
 import shutil
 import datetime
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -128,7 +129,6 @@ class TagReplacer:
 
         Returns: (new_content, was_modified, tags_replaced_count, final_tags_list)
         """
-        import re
         modified = False
         total_replaced = 0
         new_content = content
