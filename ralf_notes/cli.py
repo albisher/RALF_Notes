@@ -807,7 +807,8 @@ def generate(
 
     if not quiet:
         console.info(f"Model: {config_manager.get('model_name')}")
-        console.info(f"Sources: {[str(p) for p in source_paths]}")
+        sources_str = ", ".join(str(p) for p in source_paths)
+        console.info(f"Sources: {sources_str}")
         console.info(f"Output: {final_output_dir}")
         console.print("")
 
@@ -1281,7 +1282,7 @@ def tags_analyze(
 @tags_app.command("apply")
 def tags_apply(
     target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config)."),
-    guide: Path = typer.Option(..., "--guide", "-g", help="Path to the tag refinement guide JSON file."),
+    guide: Path = typer.Option(Path("tag_refinement_guide.json"), "--guide", "-g", help="Path to the tag refinement guide JSON file."),
     dry_run: bool = typer.Option(False, "--dry-run", help="Preview changes without writing to files."),
     no_backup: bool = typer.Option(False, "--no-backup", help="Do NOT create a backup before applying changes."),
     quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
@@ -1300,7 +1301,10 @@ def tags_apply(
         _validate_path_exists(target_dir, "configured target_dir", console)
         _validate_path_is_dir(target_dir, "configured target_dir", console)
 
-    _validate_path_exists(guide, "guide", console)
+    if not guide.exists():
+        console.error(f"Guide file not found: {guide}")
+        console.info("Please run 'ralf-notes tags analyze' first to generate a guide, or specify one with --guide.")
+        raise typer.Exit(1)
 
     try:
         guide_content = guide.read_text(encoding='utf-8')
