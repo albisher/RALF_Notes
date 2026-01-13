@@ -216,7 +216,14 @@ class TagReplacer:
         # Extract all tags from the final content to return the complete set for this file
         from .tag_collector import TagCollector
         collector = TagCollector()
-        final_tags = collector._extract_tags(new_content)
+        raw_final_tags = collector._extract_tags(new_content)
+        
+        # Ensure reported tags are also sanitized
+        final_tags = set()
+        for t in raw_final_tags:
+            sanitized_list = self._sanitize_tag(t)
+            for st in sanitized_list:
+                final_tags.add(st)
         
         return new_content, modified, total_replaced, final_tags
 
