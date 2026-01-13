@@ -40,47 +40,59 @@ class BenchmarkOrchestrator:
         """
         Run complete benchmarking suite.
         """
-        self.console.info(f"Running benchmarks with intensity: [bold magenta]{benchmark_config.intensity}[/bold magenta]")
+        from rich.live import Live
+        from ..tui import ProgressManager
+        
+        self.console.info(f"Starting optimization suite (Intensity: [bold magenta]{benchmark_config.intensity}[/bold magenta])")
 
         try:
-            # 1. Profile system
-            self.console.step("Profiling system resources", 1)
-            system_profile: SystemProfile = self.system_profiler.profile()
-            self.console.substep(f"CPU: {system_profile.cpu_cores} cores, RAM: {system_profile.available_ram_gb:.1f}GB available")
+            with ProgressManager(self.console) as progress:
+                main_task = progress.add_task("[bold]Total Progress", total=4)
+                
+                # 1. Profile system
+                progress.update(main_task, description="[bold blue]Step 1: Profiling System")
+                system_profile: SystemProfile = self.system_profiler.profile()
+                self.console.substep(f"CPU: {system_profile.cpu_cores} cores, RAM: {system_profile.available_ram_gb:.1f}GB available")
+                progress.update(main_task, advance=1)
+                
+                model_name = self.config_manager.get("model_name", "ministral-3:3b")
+
+                # 2. Benchmark model
+                progress.update(main_task, description=f"[bold blue]Step 2: Benchmarking {model_name}")
+                model_results: ModelBenchmarkResults = self.model_benchmarker.benchmark_model(
+                    model_name, system_profile, benchmark_config, progress=progress, main_task_id=main_task
+                )
+                self.console.substep(f"Optimal Context: [highlight]{model_results.optimal_num_ctx}[/highlight], Chunk: [highlight]{model_results.optimal_chunk_size}[/highlight]")
+                # Advance 1 is handled by update inside if needed or here
+                
+                # 3. Find optimal latency
+                progress.update(main_task, description="[bold blue]Step 3: Benchmarking Latency")
+                latency_results: LatencyBenchmarkResults = self.latency_benchmarker.benchmark_latency(
+                    model_name, model_results.optimal_num_ctx, benchmark_config
+                )
+                self.console.substep(f"Avg Latency: [highlight]{latency_results.avg_request_latency_ms:.1f}ms[/highlight]")
+                progress.update(main_task, advance=1)
+
+                # 4. Find optimal throughput
+                progress.update(main_task, description="[bold blue]Step 4: Benchmarking Throughput")
+                throughput_results: ThroughputBenchmarkResults = self.throughput_benchmarker.benchmark_throughput(
+                    system_profile, latency_results, model_name, model_results.optimal_num_ctx, benchmark_config,
+                    progress=progress, main_task_id=main_task
+                )
+                self.console.substep(f"Throughput: [highlight]{throughput_results.max_throughput_fps:.1f} files/s[/highlight]")
+                progress.update(main_task, advance=1)
+
+                # 5. Aggregate
+                progress.update(main_task, description="[bold green]Finalizing results...")
+                optimized_config: OptimizedConfig = self.optimized_config_builder.build(
+                    system_profile,
+                    model_results,
+                    latency_results,
+                    throughput_results
+                )
+                
+                progress.complete(main_task)
             
-            model_name = self.config_manager.get("model_name", "ministral-3:3b")
-
-            # 2. Benchmark model
-            self.console.step(f"Benchmarking model '{model_name}'", 2)
-            model_results: ModelBenchmarkResults = self.model_benchmarker.benchmark_model(
-                model_name, system_profile, benchmark_config
-            )
-            self.console.substep(f"Optimal Context: [highlight]{model_results.optimal_num_ctx}[/highlight], Optimal Chunk: [highlight]{model_results.optimal_chunk_size}[/highlight]")
-
-            # 3. Find optimal latency
-            self.console.step("Benchmarking latency and retries", 3)
-            latency_results: LatencyBenchmarkResults = self.latency_benchmarker.benchmark_latency(
-                model_name, model_results.optimal_num_ctx, benchmark_config
-            )
-            self.console.substep(f"Avg Latency: [highlight]{latency_results.avg_request_latency_ms:.1f}ms[/highlight], Retries: [highlight]{latency_results.optimal_retry_attempts}[/highlight]")
-
-            # 4. Find optimal throughput
-            self.console.step("Benchmarking throughput and parallelism", 4)
-            throughput_results: ThroughputBenchmarkResults = self.throughput_benchmarker.benchmark_throughput(
-                system_profile, latency_results, model_name, model_results.optimal_num_ctx, benchmark_config
-            )
-            self.console.substep(f"Optimal Parallel: [highlight]{throughput_results.optimal_parallel_requests}[/highlight], Throughput: [highlight]{throughput_results.max_throughput_fps:.1f} files/s[/highlight]")
-
-            # 5. Aggregate and build optimized config
-            self.console.step("Finalizing optimized configuration", 5)
-            optimized_config: OptimizedConfig = self.optimized_config_builder.build(
-                system_profile,
-                model_results,
-                latency_results,
-                throughput_results
-            )
-            
-            self.console.success("Successfully built optimized configuration.")
             return optimized_config
 
         except Exception as e:

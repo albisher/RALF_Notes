@@ -1197,10 +1197,9 @@ def fine_tune(
 
     # Run benchmarks
     try:
-        console.step(f"Starting benchmarks (Intensity: [highlight]{benchmark_config.intensity}[/highlight])", 1)
         optimized = orchestrator.run_full_benchmark(benchmark_config)
 
-        console.rule("Tuning Complete", style="green")
+        console.rule("✅ [bold green]Tuning Complete[/bold green]")
 
         # Show report
         if report:
