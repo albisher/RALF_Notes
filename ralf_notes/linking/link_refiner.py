@@ -70,10 +70,10 @@ class LinkRefiner:
                         
                         # Regex to match [[link]], [[link|alias]], etc.
                         # We want to replace just the target part
-                        pattern = r'[[\' + re.escape(old_link) + r'([|#][^]]+)?]]'
+                        pattern = r'\[\[' + re.escape(old_link) + r'([|#][^\]]+)?\]\]'
                         
                         if new_link:
-                            replacement = f'[[{new_link}\1]]'
+                            replacement = f'[[{new_link}\\1]]'
                             new_content, count = re.subn(pattern, replacement, new_content)
                         else:
                             # Removal
@@ -89,7 +89,7 @@ class LinkRefiner:
                 
                 # Collect valid links from final content for the report
                 # Pattern: [[link]]
-                found_links = re.findall(r'[[\'([^]|#]+)(?:[|#][^]]+)?]]', new_content)
+                found_links = re.findall(r'\[\[([^\]|#]+)(?:[|#][^\]]+)?\]\]', new_content)
                 for l in found_links:
                     valid_links.add(l.strip())
 
