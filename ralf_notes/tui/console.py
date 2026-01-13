@@ -1,7 +1,7 @@
 """
 Box: Console Manager
 
-Responsibility: Centralized console output with consistent styling
+Responsibility: Centralized console output with consistent styling and high-level UI components
 """
 
 from rich.console import Console as RichConsole
@@ -9,7 +9,9 @@ from rich.theme import Theme
 from rich.panel import Panel
 from rich.text import Text
 from rich.table import Table
-from typing import Optional, Dict, Any
+from rich.status import Status
+from typing import Optional, Dict, Any, List
+from contextlib import contextmanager
 
 
 # Custom theme
@@ -21,7 +23,9 @@ RALF_THEME = Theme({
     "dim": "dim",
     "highlight": "bold magenta",
     "code": "bold blue",
-    "path": "italic cyan"
+    "path": "italic cyan",
+    "step": "bold underline white",
+    "substep": "dim italic white"
 })
 
 
@@ -42,7 +46,7 @@ class Console:
         self.console = RichConsole(theme=RALF_THEME)
         self.quiet = quiet
 
-    def print(self, message: str, style: Optional[str] = None):
+    def print(self, message: Any, style: Optional[str] = None):
         """Print message with optional style."""
         if not self.quiet:
             self.console.print(message, style=style)
@@ -63,6 +67,15 @@ class Console:
         """Error message."""
         self.print(f"{icon}  {message}", style="error")
 
+    def step(self, message: str, step_num: Optional[int] = None):
+        """Step message."""
+        prefix = f"Step {step_num}: " if step_num else "→ "
+        self.print(f"\n{prefix}{message}", style="step")
+
+    def substep(self, message: str):
+        """Substep message."""
+        self.print(f"  • {message}", style="substep")
+
     def processing(self, message: str, icon: str = "⚙️"):
         """Processing message."""
         self.print(f"{icon}  {message}", style="dim")
@@ -71,29 +84,42 @@ class Console:
         """File operation message."""
         self.print(f"📄  {action}: [path]{filename}[/path]")
 
-    def panel(self, content: str, title: str = "", style: str = "info"):
+    def panel(self, content: Any, title: str = "", style: str = "info"):
         """Display content in a panel."""
         if not self.quiet:
             self.console.print(Panel(content, title=title, border_style=style))
 
-    def banner(self, banner_text: str):
-        """Display ASCII banner."""
+    def banner(self, banner_obj: Any):
+        """Display banner (can be string or renderable)."""
         if not self.quiet:
-            self.console.print(Text(banner_text, style="bold cyan"))
+            self.console.print(banner_obj)
 
     def rule(self, title: str = "", style: str = "dim"):
         """Display horizontal rule."""
         if not self.quiet:
             self.console.rule(title, style=style)
 
-    def table_from_dict(self, data: Dict[str, Any], title: str = ""):
+    @contextmanager
+    def status(self, message: str, spinner: str = "dots"):
+        """Context manager for showing status with a spinner."""
+        if self.quiet:
+            yield
+        else:
+            with self.console.status(message, spinner=spinner) as status:
+                yield status
+
+    def table_from_dict(self, data: Dict[str, Any], title: str = "", columns: List[str] = None):
         """Display key-value pairs as table."""
         if self.quiet:
             return
 
-        table = Table(title=title, show_header=False)
-        table.add_column("Key", style="cyan")
-        table.add_column("Value", style="white")
+        table = Table(title=title, show_header=columns is not None)
+        if columns:
+            for col in columns:
+                table.add_column(col, style="cyan" if "Key" in col or "Setting" in col else "white")
+        else:
+            table.add_column("Key", style="cyan")
+            table.add_column("Value", style="white")
 
         for key, value in data.items():
             table.add_row(str(key), str(value))

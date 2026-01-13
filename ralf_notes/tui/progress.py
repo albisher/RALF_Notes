@@ -11,7 +11,8 @@ from rich.progress import (
     BarColumn,
     TaskProgressColumn,
     TimeRemainingColumn,
-    TimeElapsedColumn
+    TimeElapsedColumn,
+    MofNCompleteColumn
 )
 from typing import Optional
 
@@ -39,13 +40,15 @@ class ProgressManager:
             self.progress = Progress(
                 SpinnerColumn(),
                 TextColumn("[bold blue]{task.description}"),
-                BarColumn(),
+                BarColumn(bar_width=None),
+                MofNCompleteColumn(),
                 TaskProgressColumn(),
                 "•",
                 TimeElapsedColumn(),
                 "•",
                 TimeRemainingColumn(),
-                console=self.console.console
+                console=self.console.console,
+                expand=True
             )
             self.progress.__enter__()
         return self
@@ -70,7 +73,7 @@ class ProgressManager:
             return self.progress.add_task(description, total=total)
         return None
 
-    def update(self, task_id, advance: int = 1, description: str = None):
+    def update(self, task_id, advance: int = 1, description: str = None, total: int = None):
         """
         Update progress.
 
@@ -78,12 +81,15 @@ class ProgressManager:
             task_id: Task ID
             advance: Amount to advance
             description: Optional new description
+            total: Optional new total
         """
         if self.progress and task_id is not None:
+            kwargs = {'advance': advance}
             if description:
-                self.progress.update(task_id, advance=advance, description=description)
-            else:
-                self.progress.advance(task_id, advance)
+                kwargs['description'] = description
+            if total:
+                kwargs['total'] = total
+            self.progress.update(task_id, **kwargs)
 
     def complete(self, task_id):
         """
