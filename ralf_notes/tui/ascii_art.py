@@ -72,7 +72,8 @@ def get_dashboard(
     target: str = "N/A",
     status: str = "Ready",
     progress: float = 0.0,
-    current_file: str = ""
+    current_file: str = "",
+    tuned: bool = False
 ):
     """
     Create a dashboard-style panel for real-time progress.
@@ -82,7 +83,9 @@ def get_dashboard(
     info_table.add_column(style="bold cyan")
     info_table.add_column()
     
-    info_table.add_row("Model:", model)
+    tuning_status = "[bold green]Optimized[/bold green]" if tuned else "[bold yellow]Default[/bold yellow]"
+    
+    info_table.add_row("Model:", f"{model} ({tuning_status})")
     info_table.add_row("Target:", f"[italic]{target}[/italic]")
     info_table.add_row("Status:", f"[bold]{status}[/bold]")
     

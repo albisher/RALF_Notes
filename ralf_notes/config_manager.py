@@ -39,6 +39,7 @@ class ConfigManager:
         "backoff_multiplier": 2,
         "log_level": "INFO",  # DEBUG, INFO, WARNING, ERROR
         "log_file": None,  # None = default location
+        "benchmark_date": None, # Last time system was tuned
     }
 
     def __init__(self, config_path: Optional[Path] = None):

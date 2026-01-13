@@ -226,8 +226,9 @@ def _default_welcome(ctx: typer.Context):
         console.print("  1. Run [bold green]ralf-notes init[/bold green] to set up your configuration.")
         console.print("     (This will guide you through setting source paths, target directory, and Ollama model.)")
         console.print("  2. Run [bold green]ralf-notes generate[/bold green] to generate documentation.")
-        console.print("  3. Run [bold green]ralf-notes tags analyze[/bold green] to refine your documentation tags.")
-        console.print("  4. Use [bold green]ralf-notes check-health[/bold green] to verify your Ollama setup.")
+        console.print("  3. Run [bold green]ralf-notes fine-tune[/bold green] to optimize for your hardware.")
+        console.print("  4. Run [bold green]ralf-notes tags analyze[/bold green] to refine your documentation tags.")
+        console.print("  5. Use [bold green]ralf-notes check-health[/bold green] to verify your Ollama setup.")
         console.print("")
         console.print("For more information, run [bold green]ralf-notes --help[/bold green].")
         raise typer.Exit()
@@ -835,8 +836,9 @@ def generate(
         # Start Live Dashboard
         dashboard_model = config_manager.get('model_name')
         dashboard_target = str(final_output_dir)
+        dashboard_tuned = config_manager.get('benchmark_date') is not None
         
-        with Live(get_dashboard(model=dashboard_model, target=dashboard_target), console=console.console, refresh_per_second=4) as live:
+        with Live(get_dashboard(model=dashboard_model, target=dashboard_target, tuned=dashboard_tuned), console=console.console, refresh_per_second=4) as live:
             for i, file_path in enumerate(files_to_process):
                 current_file = file_path.name
                 pct = (i / len(files_to_process)) * 100
@@ -845,7 +847,8 @@ def generate(
                     target=dashboard_target, 
                     status="Processing", 
                     progress=pct,
-                    current_file=current_file
+                    current_file=current_file,
+                    tuned=dashboard_tuned
                 ))
                 
                 # Stage 1: Generate Raw
@@ -905,7 +908,8 @@ def generate(
                 target=dashboard_target, 
                 status="Finished", 
                 progress=100.0,
-                current_file="All files processed"
+                current_file="All files processed",
+                tuned=dashboard_tuned
             ))
 
     duration = time.time() - start_time
@@ -924,6 +928,10 @@ def generate(
         tags_file.write_text("\n".join(sorted(list(pipeline.unique_tags))), encoding='utf-8')
         if not quiet:
             console.print(f"\n✨ [bold]Unique tags saved to:[/bold] [path]{tags_file}[/path]")
+
+    tuned_at = config_manager.get('benchmark_date')
+    if tuned_at:
+        console.print(f"🔧 [dim]System last optimized: {tuned_at}[/dim]")
 
     show_summary(results, console, quiet)
 
@@ -1082,6 +1090,9 @@ def save_optimized_config(config_manager: ConfigManager, config: OptimizedConfig
     config_manager.set("batch_size", config.batch_size)
     config_manager.set("batch_delay_seconds", config.batch_delay_seconds)
     
+    # Metadata
+    config_manager.set("benchmark_date", config.benchmark_date)
+    
     config_manager.save()
 
 def display_tuning_report(console: Console, config: OptimizedConfig):
@@ -1090,7 +1101,7 @@ def display_tuning_report(console: Console, config: OptimizedConfig):
     # System Profile
     console.panel(
         f"""CPU: {config.system_profile.cpu_cores} cores / {config.system_profile.cpu_threads} threads\nRAM: {config.system_profile.available_ram_gb:.1f} GB available / {config.system_profile.total_ram_gb:.1f} GB total\nGPU: {"Yes" if config.system_profile.has_gpu else "No"}\nOllama: {config.system_profile.ollama_version} @ {config.system_profile.ollama_host}""",
-        title="💻 System Profile",
+        title="💻 [bold cyan]System Profile[/bold cyan]",
         style="cyan"
     )
 
@@ -1098,29 +1109,29 @@ def display_tuning_report(console: Console, config: OptimizedConfig):
 
     # Optimized Settings
     console.panel(
-        f"""Model: {config.model_name}\nContext Size: {config.num_ctx}\nChunk Size: {config.chunk_size}\nTemperature: {config.temperature}\nMax Content Length: {config.max_content_length}""",
-        title="🤖 Model Settings",
+        f"""Model: [bold green]{config.model_name}[/bold green]\nContext Size: [highlight]{config.num_ctx}[/highlight]\nChunk Size: {config.chunk_size}\nTemperature: {config.temperature}\nMax Content Length: {config.max_content_length}""",
+        title="🤖 [bold green]Model Settings[/bold green]",
         style="green"
     )
 
     console.print("")
 
     console.panel(
-        f"""Parallel Requests: {config.max_concurrent_requests}\nRequest Delay: {config.request_delay_seconds}s\nTimeout: {config.request_timeout_seconds}s\nRetry Attempts: {config.retry_attempts}\nBackoff: {config.initial_backoff_seconds}s × {config.backoff_multiplier}""",
-        title="⚡ Performance Settings",
+        f"""Parallel Requests: [highlight]{config.max_concurrent_requests}[/highlight]\nRequest Delay: [highlight]{config.request_delay_seconds}s[/highlight]\nTimeout: {config.request_timeout_seconds}s\nRetry Attempts: {config.retry_attempts}\nBackoff: {config.initial_backoff_seconds}s × {config.backoff_multiplier}""",
+        title="⚡ [bold magenta]Performance Settings[/bold magenta]",
         style="magenta"
     )
 
     console.print("")
 
     console.panel(
-        f"""Batch Size: {config.batch_size} files\nBatch Delay: {config.batch_delay_seconds}s\nEstimated Throughput: {estimate_throughput(config):.2f} files/min""",
-        title="📦 Batch Settings",
+        f"""Batch Size: [highlight]{config.batch_size}[/highlight] files\nBatch Delay: {config.batch_delay_seconds}s\nEstimated Throughput: [bold yellow]{estimate_throughput(config):.2f}[/bold yellow] files/min""",
+        title="📦 [bold yellow]Batch Settings[/bold yellow]",
         style="yellow"
     )
 
     console.print("")
-    console.info(f"Confidence Score: [bold green]{config.confidence_score:.1f}%[/bold green]")
+    console.success(f"Confidence Score: [bold green]{config.confidence_score:.1f}%[/bold green]")
     console.info(f"Benchmarked: {config.benchmark_date}")
 
 @app.command(name="fine-tune")
