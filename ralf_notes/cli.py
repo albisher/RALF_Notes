@@ -46,6 +46,10 @@ from .tagging.tag_refinement_llm import TagRefinementLLM
 from .tagging.refinement_guide_builder import RefinementGuideBuilder
 from .tagging.tag_replacer import TagReplacer
 from .core.watcher import Watcher
+from .linking.link_collector import LinkCollector
+from .linking.link_resolver import LinkResolver
+from .linking.link_refiner import LinkRefiner
+from .organization.file_mover import FileMover
 
 
 def display_config_table(console: Console, config_manager: ConfigManager):
@@ -1391,6 +1395,133 @@ def tags_stats(
                 console.print("    ...")
     else:
         console.info("No tags found in the specified directory.")
+
+
+# --- Links Management ---
+
+links_app = typer.Typer(
+    name="links",
+    help="🔗 Commands for managing and fixing document wikilinks."
+)
+app.add_typer(links_app, name="links")
+
+@links_app.command("analyze")
+def links_analyze(
+    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config)."),
+    output: Path = typer.Option("link_refinement_guide.json", "--output", "-o", help="Output JSON file for the refinement guide."),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
+):
+    """
+    Analyzes wikilinks and generates a refinement guide.
+    """
+    console = Console(quiet=quiet)
+    config_manager = ConfigManager()
+    
+    if not target_dir:
+        target_dir = Path(config_manager.get("target_dir"))
+    
+    _validate_path_exists(target_dir, "target_dir", console)
+    _validate_path_is_dir(target_dir, "target_dir", console)
+
+    console.info(f"Analyzing links in '{target_dir}'...")
+    
+    collector = LinkCollector()
+    link_data = collector.collect_links(target_dir)
+    
+    resolver = LinkResolver()
+    analysis_report = resolver.resolve_links(link_data)
+    
+    console.info(f"Found {link_data['total_links']} links across {link_data['total_files']} files.")
+    console.info(f"Identified {analysis_report['broken_count']} broken links and {analysis_report['none_count']} 'none' links.")
+    console.info(f"Identified {len(analysis_report['orphans'])} orphan files.")
+
+    # Save guide
+    try:
+        output.write_text(json.dumps(analysis_report, indent=2), encoding='utf-8')
+        console.success(f"Link refinement guide generated: {output}")
+    except Exception as e:
+        console.error(f"Failed to save guide: {e}")
+
+@links_app.command("apply")
+def links_apply(
+    target_dir: Optional[Path] = typer.Argument(None, help="Directory containing markdown files (overrides config)."),
+    guide: Path = typer.Option(Path("link_refinement_guide.json"), "--guide", "-g", help="Path to the link refinement guide JSON file."),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview changes without writing to files."),
+    no_backup: bool = typer.Option(False, "--no-backup", help="Do NOT create a backup before applying changes."),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
+):
+    """
+    Applies link refinements to markdown files.
+    """
+    console = Console(quiet=quiet)
+    config_manager = ConfigManager()
+
+    if not target_dir:
+        target_dir = Path(config_manager.get("target_dir"))
+    
+    _validate_path_exists(target_dir, "target_dir", console)
+    
+    if not guide.exists():
+        console.error(f"Guide file not found: {guide}")
+        raise typer.Exit(1)
+
+    try:
+        refinement_guide = json.loads(guide.read_text(encoding='utf-8'))
+    except Exception as e:
+        console.error(f"Failed to parse guide: {e}")
+        raise typer.Exit(1)
+
+    console.info(f"Applying link refinements to '{target_dir}'...")
+
+    refiner = LinkRefiner(refinement_guide)
+    results = refiner.apply_fixes(target_dir, dry_run=dry_run, backup=not no_backup)
+
+    console.success("Link refinement summary:")
+    console.print(f"  Files processed: {results['files_processed']}")
+    console.print(f"  Files modified: {results['files_modified']}")
+    console.print(f"  Links fixed/removed: {results['links_fixed']}")
+    
+    if not dry_run:
+        console.success(f"Applied Link Schema saved to: {target_dir}/applied_links.md")
+
+# --- Organization ---
+
+@app.command()
+def organize(
+    target_dir: Optional[Path] = typer.Argument(None, help="Directory to organize (overrides config)."),
+    strategy: str = typer.Option("flat", help="Organization strategy: flat, type, or tag."),
+    clean_names: bool = typer.Option(True, "--clean-names/--no-clean-names", help="Remove numeric prefixes from filenames."),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview changes without moving files."),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
+):
+    """
+    Organize markdown files into folders and clean up filenames.
+    """
+    console = Console(quiet=quiet)
+    config_manager = ConfigManager()
+
+    if not target_dir:
+        target_dir = Path(config_manager.get("target_dir"))
+    
+    _validate_path_exists(target_dir, "target_dir", console)
+    _validate_path_is_dir(target_dir, "target_dir", console)
+
+    console.info(f"Organizing files in '{target_dir}' using strategy '{strategy}'...")
+
+    mover = FileMover()
+    results = mover.organize_directory(
+        directory=target_dir,
+        strategy=strategy,
+        clean_names=clean_names,
+        dry_run=dry_run
+    )
+
+    console.success("Organization summary:")
+    console.print(f"  Files processed: {results['processed']}")
+    console.print(f"  Files moved/renamed: {results['moved']}")
+    
+    if results['errors']:
+        console.warning(f"Encountered {len(results['errors'])} errors during organization.")
 
 if __name__ == "__main__":
     app()
