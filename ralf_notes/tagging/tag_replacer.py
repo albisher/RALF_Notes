@@ -180,6 +180,7 @@ class TagReplacer:
                                 else:
                                     for r in sanitized_existing: new_tags_set.add(r)
                                     fm_modified = True
+                                    total_replaced += 1
                         
                         if fm_modified:
                             sorted_fm_tags = sorted(list(new_tags_set))
