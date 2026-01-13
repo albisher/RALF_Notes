@@ -27,7 +27,9 @@ class LatencyBenchmarker:
         self,
         model_name: str,
         num_ctx: int,
-        benchmark_config: 'BenchmarkConfig'
+        benchmark_config: 'BenchmarkConfig',
+        progress: Any = None,
+        main_task_id: Any = None
     ) -> LatencyBenchmarkResults:
         """
         Benchmark request latencies.
@@ -36,6 +38,8 @@ class LatencyBenchmarker:
             model_name: Model to test
             num_ctx: Context size to use
             benchmark_config: The benchmark configuration object.
+            progress: Progress manager
+            main_task_id: Main task ID
 
         Returns:
             Latency statistics and recommendations
@@ -53,6 +57,8 @@ class LatencyBenchmarker:
         sample_code = self.sample_generator.generate_sample()
 
         for i in range(sample_count):
+            if progress and main_task_id is not None:
+                progress.update(main_task_id, description=f"[cyan]Latency Test: {i+1}/{sample_count}")
             start = time.time()
 
             try:
@@ -73,6 +79,9 @@ class LatencyBenchmarker:
                 latencies.append(simulated_latency)
             except Exception:
                 errors += 1
+            finally:
+                if progress and main_task_id is not None:
+                    progress.update(main_task_id, advance=1)
 
         if not latencies:
             # All failed - use conservative defaults

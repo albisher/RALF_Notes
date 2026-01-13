@@ -75,13 +75,10 @@ class ThroughputBenchmarker:
             delays=delays,
             requests_to_make=requests_per_test,
             timeout=benchmark_config.request_timeout_seconds,
-            progress=progress, # Pass progress
-            main_task_id=main_task_id # Pass main task ID
+            progress=progress,
+            main_task_id=main_task_id
         )
         logger.debug("Sequential throughput tests completed.")
-        if progress and main_task_id is not None:
-            progress.update(main_task_id, advance=len(delays) * requests_per_test)
-
 
         parallel_results = []
         if profile.cpu_threads >= 1: # Even 1 thread can do parallel if tasks are IO bound
@@ -91,12 +88,10 @@ class ThroughputBenchmarker:
                 levels=parallel_levels,
                 requests_to_make=requests_per_test * 2, # More requests for parallel tests
                 timeout=benchmark_config.request_timeout_seconds,
-                progress=progress, # Pass progress
-                main_task_id=main_task_id # Pass main task ID
+                progress=progress,
+                main_task_id=main_task_id
             )
             logger.debug("Parallel throughput tests completed.")
-            if progress and main_task_id is not None:
-                progress.update(main_task_id, advance=len(parallel_levels) * requests_per_test * 2)
         else:
             logger.info("Skipping parallel throughput tests due to insufficient CPU threads (%d)", profile.cpu_threads)
 
@@ -140,13 +135,10 @@ class ThroughputBenchmarker:
         results = []
         sample_code = self.sample_generator.generate_long_sample(max_length=num_ctx // 2) # Use half context size for content
         
-        if progress and main_task_id is not None:
-            seq_task_id = progress.add_task(f"[cyan]Sequential Tests ({model_name})...", total=len(delays) * requests_to_make)
-
         for delay in delays:
             logger.debug("Testing sequential throughput with delay: %.2f seconds", delay)
-            if progress and seq_task_id is not None:
-                progress.update(seq_task_id, description=f"[cyan]Sequential (delay: {delay:.2f}s)")
+            if progress and main_task_id is not None:
+                progress.update(main_task_id, description=f"[cyan]Sequential (delay: {delay:.2f}s)")
             start = time.time()
             successful_requests = 0
 
@@ -163,8 +155,8 @@ class ThroughputBenchmarker:
                 except Exception as e:
                     logger.warning("Sequential request %d failed: %s", i + 1, e)
                 finally:
-                    if progress and seq_task_id is not None:
-                        progress.update(seq_task_id, advance=1)
+                    if progress and main_task_id is not None:
+                        progress.update(main_task_id, advance=1)
                     
                 if delay > 0 and i < requests_to_make - 1:
                     time.sleep(delay)
@@ -199,13 +191,10 @@ class ThroughputBenchmarker:
         results = []
         sample_code = self.sample_generator.generate_long_sample(max_length=num_ctx // 2) # Use half context size for content
 
-        if progress and main_task_id is not None:
-            parallel_task_id = progress.add_task(f"[cyan]Parallel Tests ({model_name})...", total=len(levels) * requests_to_make)
-
         for parallel_count in levels:
             logger.debug("Testing parallel throughput with %d workers", parallel_count)
-            if progress and parallel_task_id is not None:
-                progress.update(parallel_task_id, description=f"[cyan]Parallel (workers: {parallel_count})")
+            if progress and main_task_id is not None:
+                progress.update(main_task_id, description=f"[cyan]Parallel (workers: {parallel_count})")
             start = time.time()
             successful_requests = 0
 
@@ -227,8 +216,8 @@ class ThroughputBenchmarker:
                 for future in futures:
                     if future.result():
                         successful_requests += 1
-                    if progress and parallel_task_id is not None:
-                        progress.update(parallel_task_id, advance=1)
+                    if progress and main_task_id is not None:
+                        progress.update(main_task_id, advance=1)
 
             duration = time.time() - start
             throughput = successful_requests / duration if duration > 0 else 0

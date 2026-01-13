@@ -43,37 +43,60 @@ class BenchmarkOrchestrator:
         from ..tui import ProgressManager
         
         try:
+            # Calculate total steps
+            model_name = self.config_manager.get("model_name", "ministral-3:3b")
+            
+            # Setup intensity parameters to calculate total
+            if benchmark_config.intensity == "quick":
+                ctx_sizes, chunk_sizes = 2, 1
+                latency_samples = 5
+                throughput_seq, throughput_par = 2, 2
+                req_per_test = 2
+            elif benchmark_config.intensity == "full":
+                ctx_sizes, chunk_sizes = 7, 6
+                latency_samples = 20
+                throughput_seq, throughput_par = 4, 4
+                req_per_test = 5
+            else: # normal
+                ctx_sizes, chunk_sizes = 3, 2
+                latency_samples = 10
+                throughput_seq, throughput_par = 3, 2
+                req_per_test = 3
+            
+            attempts = benchmark_config.max_attempts
+            total_steps = (
+                1 + # Profile
+                (ctx_sizes * attempts) + 
+                (chunk_sizes * attempts) + 
+                latency_samples + 
+                (throughput_seq * req_per_test) + 
+                (throughput_par * req_per_test * 2)
+            )
+
             with ProgressManager(self.console) as progress:
-                main_task = progress.add_task("[bold]Total Progress", total=4)
+                main_task = progress.add_task("[bold]Optimization Progress", total=total_steps)
                 
                 # 1. Profile system
-                progress.update(main_task, description="[bold blue]Step 1: Profiling System")
+                progress.update(main_task, description="[bold blue]Profiling System")
                 system_profile: SystemProfile = self.system_profiler.profile()
                 progress.update(main_task, advance=1)
                 
-                model_name = self.config_manager.get("model_name", "ministral-3:3b")
-
                 # 2. Benchmark model
-                progress.update(main_task, description=f"[bold blue]Step 2: Benchmarking {model_name}")
                 model_results: ModelBenchmarkResults = self.model_benchmarker.benchmark_model(
                     model_name, system_profile, benchmark_config, progress=progress, main_task_id=main_task
                 )
-                progress.update(main_task, advance=1)
                 
                 # 3. Find optimal latency
-                progress.update(main_task, description="[bold blue]Step 3: Benchmarking Latency")
+                progress.update(main_task, description="[bold blue]Benchmarking Latency")
                 latency_results: LatencyBenchmarkResults = self.latency_benchmarker.benchmark_latency(
-                    model_name, model_results.optimal_num_ctx, benchmark_config
+                    model_name, model_results.optimal_num_ctx, benchmark_config, progress=progress, main_task_id=main_task
                 )
-                progress.update(main_task, advance=1)
 
                 # 4. Find optimal throughput
-                progress.update(main_task, description="[bold blue]Step 4: Benchmarking Throughput")
                 throughput_results: ThroughputBenchmarkResults = self.throughput_benchmarker.benchmark_throughput(
                     system_profile, latency_results, model_name, model_results.optimal_num_ctx, benchmark_config,
                     progress=progress, main_task_id=main_task
                 )
-                progress.update(main_task, advance=1)
 
                 # 5. Aggregate
                 progress.update(main_task, description="[bold green]Finalizing results...")
@@ -87,9 +110,3 @@ class BenchmarkOrchestrator:
                 progress.complete(main_task)
             
             return optimized_config
-
-        except Exception as e:
-            self.console.error(f"A critical error occurred during benchmarking: {e}")
-            import traceback
-            traceback.print_exc()
-            raise

@@ -64,13 +64,10 @@ class ModelBenchmarker:
             test_sizes=context_test_sizes,
             timeout=benchmark_config.request_timeout_seconds,
             attempts=max_attempts,
-            progress=progress, # Pass progress
-            main_task_id=main_task_id # Pass main task ID
+            progress=progress,
+            main_task_id=main_task_id
         )
         logger.debug("Context size benchmarks completed.")
-        if progress and main_task_id is not None:
-            progress.update(main_task_id, advance=len(context_test_sizes) * max_attempts)
-
 
         chunk_tests = self._benchmark_chunk_sizes(
             model_name,
@@ -78,12 +75,10 @@ class ModelBenchmarker:
             test_sizes=chunk_test_sizes,
             timeout=benchmark_config.request_timeout_seconds,
             attempts=max_attempts,
-            progress=progress, # Pass progress
-            main_task_id=main_task_id # Pass main task ID
+            progress=progress,
+            main_task_id=main_task_id
         )
         logger.debug("Chunk size benchmarks completed.")
-        if progress and main_task_id is not None:
-            progress.update(main_task_id, advance=len(chunk_test_sizes) * max_attempts)
 
         optimal_ctx = self._find_optimal_context(context_tests, profile)
         optimal_chunk = self._find_optimal_chunk(chunk_tests, profile)
@@ -119,20 +114,17 @@ class ModelBenchmarker:
         results = []
         base_sample_code = self.sample_generator.generate_long_sample(max_length=max(test_sizes) * 2) # Use a larger sample for context tests
         
-        if progress and main_task_id is not None:
-            context_task_id = progress.add_task(f"[cyan]Context Benchmarking ({model_name})...", total=len(test_sizes) * attempts)
-
         for size in test_sizes:
             logger.debug("Benchmarking context size: %d for model %s", size, model_name)
-            if progress and context_task_id is not None:
-                progress.update(context_task_id, description=f"[cyan]Context Size: {size}")
+            if progress and main_task_id is not None:
+                progress.update(main_task_id, description=f"[cyan]Benchmarking Context Size: {size}")
 
             estimated_memory = self._estimate_memory_usage(size)
             if estimated_memory > profile.available_ram_gb * 0.8 * 1024:
                 logger.warning("Skipping context size %d: estimated memory usage %.2fMB exceeds 80%% of available RAM (%.2fMB).",
                                size, estimated_memory, profile.available_ram_gb * 0.8 * 1024)
-                if progress and context_task_id is not None:
-                    progress.update(context_task_id, advance=attempts) # Advance for skipped attempts
+                if progress and main_task_id is not None:
+                    progress.update(main_task_id, advance=attempts) # Advance for skipped attempts
                 continue
 
             latencies = []
@@ -165,8 +157,8 @@ class ModelBenchmarker:
                 except Exception as e:
                     logger.error("Error during context size benchmark for size %d (attempt %d): %s", size, _ + 1, e)
                 finally:
-                    if progress and context_task_id is not None:
-                        progress.update(context_task_id, advance=1)
+                    if progress and main_task_id is not None:
+                        progress.update(main_task_id, advance=1)
 
             if latencies:
                 avg_latency = sum(latencies) / len(latencies)
@@ -200,13 +192,10 @@ class ModelBenchmarker:
         results = []
         large_sample_code = self.sample_generator.generate_long_sample(max_length=max(test_sizes) * 2)
 
-        if progress and main_task_id is not None:
-            chunk_task_id = progress.add_task(f"[cyan]Chunk Benchmarking ({model_name})...", total=len(test_sizes) * attempts)
-
         for size in test_sizes:
             logger.debug("Benchmarking chunk size: %d for model %s", size, model_name)
-            if progress and chunk_task_id is not None:
-                progress.update(chunk_task_id, description=f"[cyan]Chunk Size: {size}")
+            if progress and main_task_id is not None:
+                progress.update(main_task_id, description=f"[cyan]Benchmarking Chunk Size: {size}")
             
             current_chunk = large_sample_code[:size]
 
@@ -214,8 +203,8 @@ class ModelBenchmarker:
             if estimated_memory > profile.available_ram_gb * 0.8 * 1024:
                 logger.warning("Skipping chunk size %d: estimated memory usage %.2fMB exceeds 80%% of available RAM (%.2fMB).",
                                size, estimated_memory, profile.available_ram_gb * 0.8 * 1024)
-                if progress and chunk_task_id is not None:
-                    progress.update(chunk_task_id, advance=attempts) # Advance for skipped attempts
+                if progress and main_task_id is not None:
+                    progress.update(main_task_id, advance=attempts) # Advance for skipped attempts
                 continue
 
             latencies = []
@@ -246,8 +235,8 @@ class ModelBenchmarker:
                 except Exception as e:
                     logger.error("Error during chunk size benchmark for size %d (attempt %d): %s", size, _ + 1, e)
                 finally:
-                    if progress and chunk_task_id is not None:
-                        progress.update(chunk_task_id, advance=1)
+                    if progress and main_task_id is not None:
+                        progress.update(main_task_id, advance=1)
 
             if latencies:
                 avg_latency = sum(latencies) / len(latencies)
@@ -280,7 +269,7 @@ class ModelBenchmarker:
         3. Prefer larger contexts if latency difference is < 20%
         """
         logger.debug("Finding optimal context size from %d tests.", len(tests))
-        good_tests = [t for t in tests if t.success_rate >= 0.9 and t.quality_score >= 0.7]
+        good_tests = [t for t in tests if t.success_rate >= 0.9 and t.quality_score >= 0.5]
         if not good_tests:
             logger.warning("No good context tests found. Returning safe default 8192.")
             return 8192  # Safe default
@@ -317,7 +306,7 @@ class ModelBenchmarker:
         3. Prefer larger chunks for better content processing per call
         """
         logger.debug("Finding optimal chunk size from %d tests.", len(tests))
-        good_tests = [t for t in tests if t.success_rate >= 0.9 and t.quality_score >= 0.7]
+        good_tests = [t for t in tests if t.success_rate >= 0.9 and t.quality_score >= 0.5]
         if not good_tests:
             logger.warning("No good chunk tests found. Returning safe default 100000.")
             return 100000
