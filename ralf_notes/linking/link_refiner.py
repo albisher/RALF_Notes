@@ -69,14 +69,15 @@ class LinkRefiner:
                         new_link = fix['new']
                         
                         # Regex to match [[link]], [[link|alias]], etc.
-                        # We want to replace just the target part
+                        # We escape [[ and ]] for the regex
                         pattern = r'\[\[' + re.escape(old_link) + r'([|#][^\]]+)?\]\]'
                         
                         if new_link:
-                            replacement = f'[[{new_link}\\1]]'
+                            # Replace target part, preserve alias/heading (group 1)
+                            replacement = r'[[' + new_link + r'\1]]'
                             new_content, count = re.subn(pattern, replacement, new_content)
                         else:
-                            # Removal
+                            # Removal of the entire link
                             new_content, count = re.subn(pattern, '', new_content)
                         
                         if count > 0:
@@ -88,7 +89,7 @@ class LinkRefiner:
                     results['files_modified'] += 1
                 
                 # Collect valid links from final content for the report
-                # Pattern: [[link]]
+                # Pattern: [[link]] (captures just the filename part)
                 found_links = re.findall(r'\[\[([^\]|#]+)(?:[|#][^\]]+)?\]\]', new_content)
                 for l in found_links:
                     valid_links.add(l.strip())
@@ -118,7 +119,7 @@ class LinkRefiner:
 {chr(10).join([f'- [[{l}]]' for l in sorted_links]) if sorted_links else "No active links."} 
 
 ## Orphan Files (Not linked to by any other file)
-{chr(10).join([f'- {o}' for t in sorted_orphans]) if sorted_orphans else "No orphan files."} 
+{chr(10).join([f'- {o}' for o in sorted_orphans]) if sorted_orphans else "No orphan files."} 
 """
         try:
             report_path.write_text(report_content, encoding='utf-8')

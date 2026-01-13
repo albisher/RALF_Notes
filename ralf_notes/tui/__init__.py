@@ -6,6 +6,6 @@ Beautiful terminal interface with Rich
 
 from .console import Console
 from .progress import ProgressManager
-from .ascii_art import get_banner, get_banner_with_status, create_progress_bar
+from .ascii_art import Banner, get_dashboard
 
-__all__ = ['Console', 'ProgressManager', 'get_banner', 'get_banner_with_status', 'create_progress_bar']
+__all__ = ['Console', 'ProgressManager', 'Banner', 'get_dashboard']
