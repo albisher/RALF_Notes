@@ -83,14 +83,21 @@ class TagReplacer:
 
         logger.info("Applying tag refinements to files in directory: %s (Dry Run: %s)", directory, dry_run)
 
-        applied_changes = []
+        final_unique_tags = set()
 
         for md_file in directory.glob('**/*.md'):
+            # Skip the report file itself if it exists
+            if md_file.name == "applied_tags.md": continue
+
             try:
                 content = md_file.read_text(encoding='utf-8')
-                new_content, modified, replaced_count = self._replace_tags_in_file(content)
+                new_content, modified, replaced_count, current_file_tags = self._replace_tags_in_file(content)
 
                 results['files_processed'] += 1
+                
+                # Collect tags for final report
+                for t in current_file_tags:
+                    final_unique_tags.add(t)
 
                 if modified:
                     results['files_modified'] += 1
@@ -100,9 +107,6 @@ class TagReplacer:
                         logger.debug("Modified file: %s", md_file)
                     else:
                         logger.debug("Dry run: Would modify file: %s", md_file)
-                    
-                    # Track changes for report
-                    applied_changes.append(f"- {md_file.name}: {replaced_count} tags updated")
 
             except Exception as e:
                 logger.error("Error applying refinements to file %s: %s", md_file, e)
@@ -111,16 +115,18 @@ class TagReplacer:
                     'error': str(e)
                 })
         
-        # Save applied tags report
-        if applied_changes and not dry_run:
+        # Save applied tags report (Unique tags list)
+        if final_unique_tags and not dry_run:
             report_path = directory / "applied_tags.md"
-            report_content = f"""# Applied Tag Refinements
+            sorted_tags = sorted(list(final_unique_tags))
+            
+            report_content = f"""# Applied Tag Schema
 **Date:** {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-**Total Files Modified:** {results['files_modified']}
-**Total Tags Updated:** {results['tags_replaced']}
+**Total Unique Tags:** {len(sorted_tags)}
+**Files Processed:** {results['files_processed']}
 
-## Changes per File
-{chr(10).join(applied_changes)}
+## Tag List
+{chr(10).join([f"- {t}" for t in sorted_tags])}
 """
             try:
                 report_path.write_text(report_content, encoding='utf-8')
@@ -131,16 +137,17 @@ class TagReplacer:
         logger.info("Finished applying tag refinements.")
         return results
 
-    def _replace_tags_in_file(self, content: str) -> tuple[str, bool, int]:
+    def _replace_tags_in_file(self, content: str) -> tuple[str, bool, int, List[str]]:
         """
         Replace tags in file content (frontmatter and body).
 
-        Returns: (new_content, was_modified, tags_replaced_count)
+        Returns: (new_content, was_modified, tags_replaced_count, final_tags_list)
         """
         import re
         modified = False
         total_replaced = 0
         new_content = content
+        final_tags = set()
 
         # 1. Process Frontmatter
         if content.startswith('---'):
@@ -157,7 +164,7 @@ class TagReplacer:
                         
                         for tag in current_tags:
                             # Filter "none" explicitly
-                            if tag.lower() == "none" or tag.lower() == "#none":
+                            if tag.lower() in ["none", "#none"]:
                                 fm_modified = True
                                 continue
 
@@ -176,43 +183,38 @@ class TagReplacer:
                                 new_tags_set.add(tag)
                         
                         if fm_modified:
-                            data['tags'] = sorted(list(new_tags_set))
+                            sorted_fm_tags = sorted(list(new_tags_set))
+                            data['tags'] = sorted_fm_tags
                             new_frontmatter = yaml.dump(data, default_flow_style=False, allow_unicode=True, sort_keys=False).strip()
                             new_content = f"---\n{new_frontmatter}\n---{body}"
                             modified = True
+                            for t in sorted_fm_tags: final_tags.add(t)
+                        else:
+                            for t in current_tags: final_tags.add(t)
                 except Exception as e:
                     logger.error("Error processing frontmatter: %s", e)
 
         # 2. Process Body (Global replacement)
-        # We perform replacement on the current new_content
         for old_tag, new_tag in self.replacement_map.items():
-            # Skip replacing if old tag is "none" as a body word (too risky), usually treated as None in map
             if old_tag.lower() == "none": continue
-
-            # Match #tag followed by non-word char or end of string
-            # and preceded by non-word char or start of string
-            # Use negative lookbehind/lookahead for word characters to ensure we don't match #python in #python3
             pattern = r'(?<![a-zA-Z0-9])' + re.escape(old_tag) + r'(?![a-zA-Z0-9])'
             
             if re.search(pattern, new_content):
                 if new_tag:
                     new_content, count = re.subn(pattern, new_tag, new_content)
                 else:
-                    # Deletion: replace with empty string
-                    # Try to clean up trailing commas/spaces
                     new_content, count = re.subn(pattern, '', new_content)
-                    # Optional: clean up leftover double commas or spaces
                     new_content = re.sub(r',\s*,', ',', new_content)
                 
                 if count > 0:
                     modified = True
-                    # We don't increment total_replaced here because frontmatter count might overlap
-                    # or we want a per-file modified status. 
-                    # But for stats, let's count it if not already counted in FM.
-                    # This is tricky without double counting. 
-                    # For simplicity, if we modified the body, we mark modified=True.
+
+        # Extract all tags from the final content to return the complete set for this file
+        from .tag_collector import TagCollector
+        collector = TagCollector()
+        final_tags = collector._extract_tags(new_content)
         
-        return new_content, modified, total_replaced
+        return new_content, modified, total_replaced, final_tags
 
 
     def _parse_tags(self, tags_value: Any) -> List[str]:
