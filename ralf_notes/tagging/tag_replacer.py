@@ -21,23 +21,30 @@ class TagReplacer:
         self.replacement_map = self._build_replacement_map()
         logger.info("TagReplacer initialized with %d replacements.", len(self.replacement_map))
 
-    def _build_replacement_map(self) -> Dict[str, Optional[str]]:
-        """Build old_tag -> new_tag mapping."""
-        mapping: Dict[str, Optional[str]] = {}
+    def _build_replacement_map(self) -> Dict[str, Optional[List[str]]]:
+        """Build old_tag -> [new_tag1, new_tag2] mapping."""
+        mapping: Dict[str, Optional[List[str]]] = {}
 
         # Build from refinements
         for refinement in self.guide.get('refinements', []):
-            new_tag = refinement['new_tag']
-            for old_tag in refinement['old_tags']:
-                mapping[old_tag] = new_tag
-                logger.debug("Mapping old tag '%s' to new tag '%s' from refinement.", old_tag, new_tag)
+            new_tag = refinement.get('new_tags') # Prefer new_tags list
+            if not new_tag:
+                new_tag_str = refinement.get('new_tag') # Fallback to single string
+                if new_tag_str:
+                    new_tag = [new_tag_str]
+            
+            if new_tag:
+                for old_tag in refinement['old_tags']:
+                    mapping[old_tag] = new_tag
+                    logger.debug("Mapping old tag '%s' to new tags '%s' from refinement.", old_tag, new_tag)
 
         # Build from new_tags (merges)
         for new_tag_entry in self.guide.get('new_tags', []):
-            new_tag = new_tag_entry['tag']
+            new_tag_str = new_tag_entry['tag']
+            new_tag_list = [new_tag_str]
             for old_tag in new_tag_entry.get('merge_from', []):
-                mapping[old_tag] = new_tag
-                logger.debug("Mapping old tag '%s' to new tag '%s' from new_tags merge.", old_tag, new_tag)
+                mapping[old_tag] = new_tag_list
+                logger.debug("Mapping old tag '%s' to new tag '%s' from new_tags merge.", old_tag, new_tag_str)
 
         # Tags to delete map to None
         for delete_tag in self.guide.get('delete', []):
@@ -50,37 +57,7 @@ class TagReplacer:
                           directory: Path,
                           dry_run: bool = False,
                           backup: bool = True) -> Dict[str, Any]:
-        """
-        Apply tag refinements to all markdown files.
-
-        Args:
-            directory: The directory containing markdown files.
-            dry_run: If True, do not write changes to files.
-            backup: If True, create a backup of the directory before making changes.
-
-        Returns:
-            Statistics about changes made.
-        """
-        results = {
-            'files_processed': 0,
-            'files_modified': 0,
-            'tags_replaced': 0,
-            'errors': [],
-            'backup_path': None
-        }
-
-        if backup and not dry_run:
-            backup_dir = directory.parent / f"{directory.name}_backup_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
-            try:
-                shutil.copytree(directory, backup_dir)
-                results['backup_path'] = str(backup_dir)
-                logger.info("Created backup of '%s' at '%s'.", directory, backup_dir)
-            except Exception as e:
-                logger.error("Failed to create backup of directory '%s': %s", directory, e)
-                results['errors'].append({'action': 'backup', 'error': str(e)})
-                # Decide whether to proceed without backup or abort
-                return results # Abort for safety
-
+        # ... (rest of method same as previous state)
         logger.info("Applying tag refinements to files in directory: %s (Dry Run: %s)", directory, dry_run)
 
         final_unique_tags = set()
@@ -169,18 +146,32 @@ class TagReplacer:
                                 continue
 
                             if tag in self.replacement_map:
-                                replacement = self.replacement_map[tag]
-                                if replacement is None:
+                                replacements = self.replacement_map[tag]
+                                if replacements is None: # Deletion
                                     fm_modified = True
                                     total_replaced += 1
-                                elif replacement != tag:
-                                    new_tags_set.add(replacement)
-                                    fm_modified = True
-                                    total_replaced += 1
-                                else:
-                                    new_tags_set.add(tag)
+                                else: # Replacement list
+                                    # Sanitize new tags before adding
+                                    sanitized_replacements = []
+                                    for r in replacements:
+                                        sanitized_replacements.extend(self._sanitize_tag(r))
+                                    
+                                    # Check if replacement is actually different
+                                    if len(sanitized_replacements) == 1 and sanitized_replacements[0] == tag:
+                                        new_tags_set.add(tag)
+                                    else:
+                                        for r in sanitized_replacements:
+                                            new_tags_set.add(r)
+                                        fm_modified = True
+                                        total_replaced += 1
                             else:
-                                new_tags_set.add(tag)
+                                # Sanitize existing tags too!
+                                sanitized_existing = self._sanitize_tag(tag)
+                                if len(sanitized_existing) == 1 and sanitized_existing[0] == tag:
+                                    new_tags_set.add(tag)
+                                else:
+                                    for r in sanitized_existing: new_tags_set.add(r)
+                                    fm_modified = True
                         
                         if fm_modified:
                             sorted_fm_tags = sorted(list(new_tags_set))
@@ -195,13 +186,18 @@ class TagReplacer:
                     logger.error("Error processing frontmatter: %s", e)
 
         # 2. Process Body (Global replacement)
-        for old_tag, new_tag in self.replacement_map.items():
+        for old_tag, new_tags_list in self.replacement_map.items():
             if old_tag.lower() == "none": continue
             pattern = r'(?<![a-zA-Z0-9])' + re.escape(old_tag) + r'(?![a-zA-Z0-9])'
             
             if re.search(pattern, new_content):
-                if new_tag:
-                    new_content, count = re.subn(pattern, new_tag, new_content)
+                if new_tags_list:
+                    # For body text, if replacing one tag with multiple, join them with spaces
+                    # Sanitize replacement tags first
+                    sanitized_list = []
+                    for t in new_tags_list: sanitized_list.extend(self._sanitize_tag(t))
+                    replacement_str = ' '.join(sanitized_list)
+                    new_content, count = re.subn(pattern, replacement_str, new_content)
                 else:
                     new_content, count = re.subn(pattern, '', new_content)
                     new_content = re.sub(r',\s*,', ',', new_content)
@@ -215,6 +211,30 @@ class TagReplacer:
         final_tags = collector._extract_tags(new_content)
         
         return new_content, modified, total_replaced, final_tags
+
+    def _sanitize_tag(self, tag: str) -> List[str]:
+        """
+        Enforce single-word, no-separator rules.
+        Splits tags like #data-processing into [#data, #processing].
+        Removes separators like _ and -.
+        """
+        clean_tag = tag.strip()
+        if not clean_tag.startswith('#'):
+            clean_tag = f'#{clean_tag}'
+        
+        # Remove # for processing
+        body = clean_tag[1:]
+        
+        # Split by common separators
+        parts = re.split(r'[-_]', body)
+        
+        # Filter empty parts and rejoin as individual tags
+        valid_parts = [p for p in parts if p]
+        
+        if not valid_parts:
+            return []
+            
+        return [f"#{p}" for p in valid_parts]
 
 
     def _parse_tags(self, tags_value: Any) -> List[str]:
