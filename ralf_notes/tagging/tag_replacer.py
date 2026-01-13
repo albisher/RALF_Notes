@@ -214,11 +214,12 @@ class TagReplacer:
 
     def _sanitize_tag(self, tag: str) -> List[str]:
         """
-        Enforce single-word, no-separator rules.
+        Enforce single-word, no-separator, singular rules.
         Splits tags like #data-processing into [#data, #processing].
         Removes separators like _ and -.
+        Naively singularizes tags.
         """
-        clean_tag = tag.strip()
+        clean_tag = tag.strip().lower()
         if not clean_tag.startswith('#'):
             clean_tag = f'#{clean_tag}'
         
@@ -228,13 +229,22 @@ class TagReplacer:
         # Split by common separators
         parts = re.split(r'[-_]', body)
         
-        # Filter empty parts and rejoin as individual tags
+        # Filter empty parts
         valid_parts = [p for p in parts if p]
         
-        if not valid_parts:
+        sanitized = []
+        for part in valid_parts:
+            # Naive singularization: remove 's' at end if word is long enough
+            # Avoid changing words like 'bus', 'process', 'status', 'analysis'
+            if len(part) > 3 and part.endswith('s') and not part.endswith(('ss', 'is', 'us')):
+                part = part[:-1]
+            
+            sanitized.append(f"#{part}")
+            
+        if not sanitized:
             return []
             
-        return [f"#{p}" for p in valid_parts]
+        return sanitized
 
 
     def _parse_tags(self, tags_value: Any) -> List[str]:
