@@ -110,3 +110,12 @@ class SampleCodeGenerator:
 
         idx: int = size_map.get(size, 1)
         return self.SAMPLES[idx]
+
+    def generate_long_sample(self, max_length: int) -> str:
+        """
+        Generate a very long code sample by repeating existing samples.
+        Used for context window and chunk size benchmarking.
+        """
+        base_code = self.SAMPLES[2] # Large sample
+        repeats = (max_length // len(base_code)) + 1
+        return (base_code * repeats)[:max_length]
