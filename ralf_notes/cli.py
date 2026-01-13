@@ -1187,12 +1187,13 @@ def fine_tune(
     )
 
     # Set benchmark intensity
+    timeout = config_manager.get("request_timeout_seconds", 300)
     if quick:
-        benchmark_config = BenchmarkConfig(intensity="quick")
+        benchmark_config = BenchmarkConfig(intensity="quick", request_timeout_seconds=timeout)
     elif full:
-        benchmark_config = BenchmarkConfig(intensity="full")
+        benchmark_config = BenchmarkConfig(intensity="full", request_timeout_seconds=timeout)
     else:
-        benchmark_config = BenchmarkConfig(intensity="normal")
+        benchmark_config = BenchmarkConfig(intensity="normal", request_timeout_seconds=timeout)
 
     # Run benchmarks
     try:
