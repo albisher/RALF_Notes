@@ -115,7 +115,7 @@ class ModelBenchmarker:
         base_sample_code = self.sample_generator.generate_long_sample(max_length=max(test_sizes) * 2) # Use a larger sample for context tests
         
         if progress and main_task_id is not None:
-            context_task_id = progress.add_task(f"[cyan]Benchmarking Context Sizes ({model_name})...", total=len(test_sizes) * 3, parent=main_task_id) # 3 attempts per size
+            context_task_id = progress.add_task(f"[cyan]Benchmarking Context Sizes ({model_name})...", total=len(test_sizes) * 3) # 3 attempts per size
 
         for size in test_sizes:
             logger.debug("Benchmarking context size: %d for model %s", size, model_name)
@@ -195,7 +195,7 @@ class ModelBenchmarker:
         large_sample_code = self.sample_generator.generate_long_sample(max_length=max(test_sizes) * 2)
 
         if progress and main_task_id is not None:
-            chunk_task_id = progress.add_task(f"[cyan]Benchmarking Chunk Sizes ({model_name})...", total=len(test_sizes) * 3, parent=main_task_id) # 3 attempts per size
+            chunk_task_id = progress.add_task(f"[cyan]Benchmarking Chunk Sizes ({model_name})...", total=len(test_sizes) * 3) # 3 attempts per size
 
         for size in test_sizes:
             logger.debug("Benchmarking chunk size: %d for model %s", size, model_name)

@@ -71,9 +71,8 @@ class LatencyBenchmarker:
                     raise Exception("Simulated Ollama error")
                 
                 latencies.append(simulated_latency)
-            except Exception as e:
+            except Exception:
                 errors += 1
-                print(f"Simulated Ollama error during latency benchmark: {e}")
 
         if not latencies:
             # All failed - use conservative defaults

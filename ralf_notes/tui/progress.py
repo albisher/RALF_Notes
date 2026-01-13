@@ -58,19 +58,20 @@ class ProgressManager:
         if self.progress:
             self.progress.__exit__(*args)
 
-    def add_task(self, description: str, total: int):
+    def add_task(self, description: str, total: int, **kwargs):
         """
         Add a progress task.
 
         Args:
             description: Task description
             total: Total items
+            **kwargs: Extra fields for the task
 
         Returns:
             Task ID or None
         """
         if self.progress:
-            return self.progress.add_task(description, total=total)
+            return self.progress.add_task(description, total=total, **kwargs)
         return None
 
     def update(self, task_id, advance: int = 1, description: str = None, total: int = None):

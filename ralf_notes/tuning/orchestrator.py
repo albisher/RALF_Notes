@@ -63,7 +63,7 @@ class BenchmarkOrchestrator:
                     model_name, system_profile, benchmark_config, progress=progress, main_task_id=main_task
                 )
                 self.console.substep(f"Optimal Context: [highlight]{model_results.optimal_num_ctx}[/highlight], Chunk: [highlight]{model_results.optimal_chunk_size}[/highlight]")
-                # Advance 1 is handled by update inside if needed or here
+                progress.update(main_task, advance=1)
                 
                 # 3. Find optimal latency
                 progress.update(main_task, description="[bold blue]Step 3: Benchmarking Latency")

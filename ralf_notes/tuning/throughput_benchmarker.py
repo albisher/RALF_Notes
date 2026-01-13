@@ -141,7 +141,7 @@ class ThroughputBenchmarker:
         sample_code = self.sample_generator.generate_long_sample(max_length=num_ctx // 2) # Use half context size for content
         
         if progress and main_task_id is not None:
-            seq_task_id = progress.add_task(f"[cyan]Sequential Tests ({model_name})...", total=len(delays) * requests_to_make, parent=main_task_id)
+            seq_task_id = progress.add_task(f"[cyan]Sequential Tests ({model_name})...", total=len(delays) * requests_to_make)
 
         for delay in delays:
             logger.debug("Testing sequential throughput with delay: %.2f seconds", delay)
@@ -200,7 +200,7 @@ class ThroughputBenchmarker:
         sample_code = self.sample_generator.generate_long_sample(max_length=num_ctx // 2) # Use half context size for content
 
         if progress and main_task_id is not None:
-            parallel_task_id = progress.add_task(f"[cyan]Parallel Tests ({model_name})...", total=len(levels) * requests_to_make, parent=main_task_id)
+            parallel_task_id = progress.add_task(f"[cyan]Parallel Tests ({model_name})...", total=len(levels) * requests_to_make)
 
         for parallel_count in levels:
             logger.debug("Testing parallel throughput with %d workers", parallel_count)

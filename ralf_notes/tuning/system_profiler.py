@@ -21,7 +21,6 @@ class SystemProfiler:
         Returns:
             SystemProfile with all detected capabilities
         """
-        print("Profiling system...")
         return SystemProfile(
             cpu_cores=self._detect_cpu_cores(),
             cpu_threads=self._detect_cpu_threads(),
@@ -38,32 +37,28 @@ class SystemProfiler:
         """Detect physical CPU cores."""
         try:
             return psutil.cpu_count(logical=False) or 0
-        except Exception as e:
-            print(f"Could not detect CPU cores: {e}")
+        except Exception:
             return 0
 
     def _detect_cpu_threads(self) -> int:
         """Detect logical CPU threads."""
         try:
             return psutil.cpu_count(logical=True) or 0
-        except Exception as e:
-            print(f"Could not detect CPU threads: {e}")
+        except Exception:
             return 0
 
     def _detect_total_ram(self) -> float:
         """Detect total system RAM in GB."""
         try:
             return psutil.virtual_memory().total / (1024**3)
-        except Exception as e:
-            print(f"Could not detect total RAM: {e}")
+        except Exception:
             return 0.0
 
     def _detect_available_ram(self) -> float:
         """Detect available RAM in GB."""
         try:
             return psutil.virtual_memory().available / (1024**3)
-        except Exception as e:
-            print(f"Could not detect available RAM: {e}")
+        except Exception:
             return 0.0
 
     def _detect_gpu(self) -> bool:
@@ -86,8 +81,7 @@ class SystemProfiler:
             client = Client(host=self._get_ollama_host())
             client.list()
             return True
-        except Exception as e:
-            print(f"Ollama check failed: {e}")
+        except Exception:
             return False
 
     def _get_ollama_version(self) -> str:
