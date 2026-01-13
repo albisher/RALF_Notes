@@ -42,6 +42,7 @@ class DocumentPipeline:
         self.generator = structured_text_generator
         self.parser = text_parser
         self.formatter = note_formatter
+        self.unique_tags = set()
 
     def generate_document(self, file_path: Path) -> Tuple[str, Dict[str, Any]]:
         """
@@ -74,6 +75,11 @@ class DocumentPipeline:
             # 3. Parse text
             parsed_data = self.parser.parse_or_fallback(raw_text, filename)
             logger.debug("Parsed data for %s", filename) # ADD LOGGING
+            
+            # Update unique tags
+            if parsed_data.get("tags"):
+                for tag in parsed_data["tags"]:
+                    self.unique_tags.add(tag)
             
             # 4. Format markdown
             markdown = self.formatter.format(parsed_data)

@@ -12,7 +12,7 @@
         "#performance-tracking"
       ],
       "new_tag": "#performance",
-      "reason": "Group related performance concepts under a single broader tag, adhering to single-word rule"
+      "reason": "Group related performance-related concepts under a single broader tag, adhering to single-word rule"
     },
     {
       "old_tags": [
@@ -22,7 +22,7 @@
         "#container-restarts"
       ],
       "new_tag": "#containers",
-      "reason": "Simplify to a single-word tag while retaining core concept of container management"
+      "reason": "Simplify to a single-word tag while maintaining the core concept of container management"
     },
     {
       "old_tags": [
@@ -33,7 +33,7 @@
         "#drone-models"
       ],
       "new_tag": "#drones",
-      "reason": "Standardize to a single-word tag for drone-related documentation"
+      "reason": "Consolidate drone-related tags into a single-word tag"
     },
     {
       "old_tags": [
@@ -42,7 +42,7 @@
         "#learning-system"
       ],
       "new_tag": "#learning",
-      "reason": "Combine related learning concepts under a single tag"
+      "reason": "Combine related learning concepts into a single-word tag"
     },
     {
       "old_tags": [
@@ -53,7 +53,7 @@
         "#real-time-ui"
       ],
       "new_tag": "#realtime",
-      "reason": "Group real-time functionalities under a concise single-word tag"
+      "reason": "Merge all real-time concepts into a single-word tag"
     },
     {
       "old_tags": [
@@ -62,7 +62,7 @@
         "#scenario-organization"
       ],
       "new_tag": "#scenarios",
-      "reason": "Simplify to a single-word tag for scenario management"
+      "reason": "Simplify to a single-word tag while retaining the core idea of scenario management"
     },
     {
       "old_tags": [
@@ -72,7 +72,7 @@
         "#worker-ai"
       ],
       "new_tag": "#workers",
-      "reason": "Standardize worker-related tags under a single-word tag"
+      "reason": "Combine worker-related tags into a single-word tag"
     },
     {
       "old_tags": [
@@ -83,7 +83,7 @@
         "#battery-simulation"
       ],
       "new_tag": "#battery",
-      "reason": "Combine battery-related tags under a single-word tag"
+      "reason": "Standardize battery-related tags into a single-word tag"
     },
     {
       "old_tags": [
@@ -94,7 +94,7 @@
         "#interactive-components"
       ],
       "new_tag": "#interactive",
-      "reason": "Group interactive functionalities under a single-word tag"
+      "reason": "Combine all interactive elements into a single-word tag"
     },
     {
       "old_tags": [
@@ -104,27 +104,20 @@
         "#swarm-management",
         "#swarm-automations"
       ],
-      "new_tag": "#swarms",
-      "reason": "Standardize swarm-related tags under a single-word tag"
+      "new_tag": "#swarm",
+      "reason": "Merge swarm-related concepts into a single-word tag"
     }
   ],
   "new_tags": [
     {
-      "tag": "#sysmonitor",
-      "reason": "Introduce a new tag for system monitoring and broader performance-related documentation (if not already covered by #performance)",
+      "tag": "#systems",
+      "reason": "Introduce a broader tag for system-level documentation (e.g., architecture, integration, deployment)",
       "merge_from": [
-        "#monitoring",
-        "#tracking",
-        "#optimization"
-      ]
-    },
-    {
-      "tag": "#simulation",
-      "reason": "Introduce a new tag for simulation-related documentation (if not already covered by #drones or #interactive)",
-      "merge_from": [
-        "#simulation",
-        "#drone-simulation",
-        "#swarm-simulation"
+        "#corearchitecture",
+        "#architecture",
+        "#design",
+        "#structure",
+        "#integration"
       ]
     }
   ],
@@ -132,7 +125,14 @@
     "#python",
     "#typescript",
     "#api",
-    "#corearchitecture"
+    "#drone",
+    "#learning",
+    "#realtime",
+    "#scenarios",
+    "#workers",
+    "#battery",
+    "#interactive",
+    "#swarm"
   ],
   "delete": [],
   "statistics": {

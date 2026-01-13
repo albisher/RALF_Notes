@@ -865,6 +865,15 @@ def generate(
                 progress.update(task, advance=1)
                 continue
             
+            # Extract tags for the unique list (simpler approach)
+            try:
+                raw_content = raw_file_path.read_text(encoding='utf-8')
+                parsed_tags = pipeline.parser._parse_tags(pipeline.parser._split_into_sections(raw_content).get("TAGS", ""))
+                for tag in parsed_tags:
+                    pipeline.unique_tags.add(tag)
+            except:
+                pass
+
             # Stage 3: Finalize
             formatted_file_path = initial_formatted_dir / f"{file_path.stem}.md"
             if not _finalize_single(formatted_file_path, final_output_dir, review_needed_dir, dry_run, overwrite, delete_source, quiet, console):
@@ -884,6 +893,14 @@ def generate(
         'duration': duration,
         'files_per_second': processed_count / duration if duration > 0 else 0
     }
+    
+    # Save unique tags list
+    if pipeline.unique_tags:
+        tags_file = final_output_dir / "unique_tags.txt"
+        tags_file.write_text("\n".join(sorted(list(pipeline.unique_tags))), encoding='utf-8')
+        if not quiet:
+            console.info(f"Unique tags saved to: {tags_file}")
+
     show_summary(results, console, quiet)
 
 
