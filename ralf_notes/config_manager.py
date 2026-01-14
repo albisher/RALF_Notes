@@ -40,6 +40,8 @@ class ConfigManager:
         "log_level": "INFO",  # DEBUG, INFO, WARNING, ERROR
         "log_file": None,  # None = default location
         "benchmark_date": None, # Last time system was tuned
+        "organize_strategy": "flat", # flat, type, or tag
+        "clean_filenames": True, # Remove numeric prefixes
     }
 
     def __init__(self, config_path: Optional[Path] = None):

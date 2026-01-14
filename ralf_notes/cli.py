@@ -418,11 +418,31 @@ def _finalize_single(
     overwrite: bool,
     delete_source: bool,
     quiet: bool,
-    console: Console
+    console: Console,
+    strategy: str = 'flat',
+    clean_names: bool = False
 ) -> bool:
-    filename_stem = file_path.stem
-    final_output_path = output_dir / f"{filename_stem}.md"
-    review_output_path = review_dir / f"{filename_stem}.md"
+    # 1. Get metadata for organization if needed
+    metadata = {}
+    if strategy != 'flat' and not dry_run:
+        try:
+            from .core.text_parser import TextParser
+            parser = TextParser()
+            metadata = parser.parse_markdown(file_path.read_text(encoding='utf-8'))
+        except Exception as e:
+            logger.debug(f"Could not parse metadata for organization: {e}")
+
+    # 2. Calculate target path
+    from .organization.name_sanitizer import NameSanitizer
+    from .organization.folder_strategist import FolderStrategist
+    sanitizer = NameSanitizer()
+    strategist = FolderStrategist()
+
+    target_name = sanitizer.sanitize(file_path.name) if clean_names else file_path.name
+    rel_path = strategist.get_target_path(target_name, metadata, strategy)
+    
+    final_output_path = output_dir / rel_path
+    review_output_path = review_dir / target_name
 
     if final_output_path.exists() and not overwrite:
         if not quiet:
@@ -439,6 +459,7 @@ def _finalize_single(
         target_path = final_output_path if is_valid else review_output_path
         
         if file_path != target_path:
+            target_path.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(file_path, target_path)
             if delete_source:
                 try:
@@ -448,9 +469,9 @@ def _finalize_single(
         
         if not quiet:
             if is_valid:
-                console.success(f"Finalized: {target_path.name}")
+                console.success(f"Finalized: [path]{rel_path}[/path]")
             else:
-                console.warning(f"Review Needed: {target_path.name}")
+                console.warning(f"Review Needed: [path]{target_name}[/path]")
         return True
     except Exception as e:
         console.error(f"Failed to finalize {file_path.name}: {e}")
@@ -627,7 +648,9 @@ def _finalize_logic(
     quiet: bool,
     delete_source: bool,
     config_manager: ConfigManager,
-    console: Console
+    console: Console,
+    strategy: str = 'flat',
+    clean_names: bool = False
 ) -> bool:
     import time
     start_time = time.time()
@@ -651,6 +674,7 @@ def _finalize_logic(
         console.info(f"Final Output: {final_output_dir}")
         console.info(f"Review Output: {review_needed_dir}")
         console.info(f"Mode: {'Move (Delete Source)' if delete_source else 'Copy (Keep Source)'}")
+        console.info(f"Strategy: {strategy}, Clean Names: {clean_names}")
         console.print("")
 
     final_output_dir.mkdir(parents=True, exist_ok=True)
@@ -673,7 +697,9 @@ def _finalize_logic(
                 console.file("Finalizing", file_path.name)
             
             success = _finalize_single(
-                file_path, final_output_dir, review_needed_dir, dry_run, overwrite, delete_source, quiet, console
+                file_path, final_output_dir, review_needed_dir, dry_run, overwrite, delete_source, quiet, console,
+                strategy=strategy,
+                clean_names=clean_names
             )
             
             if success:
@@ -702,6 +728,8 @@ def watch(
     quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
     interval: int = typer.Option(1, "--interval", "-i", help="Polling interval in seconds"),
     delete_source: bool = typer.Option(False, "--delete-source", help="Delete source files after finalizing."),
+    strategy: str = typer.Option("flat", help="Organization strategy: flat, type, or tag."),
+    clean_names: bool = typer.Option(True, "--clean-names/--no-clean-names", help="Remove numeric prefixes from filenames."),
 ):
     """Watch for new raw files and process them automatically."""
     console = Console(quiet=quiet)
@@ -747,7 +775,9 @@ def watch(
                     overwrite=overwrite,
                     delete_source=delete_source,
                     quiet=quiet,
-                    console=console
+                    console=console,
+                    strategy=strategy,
+                    clean_names=clean_names
                 )
 
     watcher = Watcher(raw_dir, process_file, interval=interval)
@@ -769,6 +799,8 @@ def generate(
     timeout: Optional[int] = typer.Option(None, "--timeout", help="Timeout for each LLM call in seconds. (Overrides config)"),
     retries: Optional[int] = typer.Option(None, "--retries", help="Number of retry attempts for LLM calls. (Overrides config)"),
     delete_source: bool = typer.Option(False, "--delete-source", help="Delete source files after finalizing (move behavior). Default is copy."),
+    organize_strategy: Optional[str] = typer.Option(None, "--strategy", help="Organization strategy: flat, type, or tag. (Overrides config)"),
+    clean_names: Optional[bool] = typer.Option(None, "--clean-names/--no-clean-names", help="Remove numeric prefixes from filenames. (Overrides config)"),
 ):
     """Generate Obsidian documentation from source files (Process per file through all stages)"""
     import time
@@ -780,6 +812,10 @@ def generate(
     if delay is not None: config_manager.set("request_delay_seconds", delay)
     if timeout is not None: config_manager.set("request_timeout_seconds", timeout)
     if retries is not None: config_manager.set("retry_attempts", retries)
+    
+    # Organization overrides
+    strategy = organize_strategy if organize_strategy else config_manager.get("organize_strategy", "flat")
+    clean = clean_names if clean_names is not None else config_manager.get("clean_filenames", True)
 
     console.banner(Banner.get_renderable())
 
@@ -902,7 +938,18 @@ def generate(
 
                 # Stage 3: Finalize
                 formatted_file_path = initial_formatted_dir / f"{file_path.stem}.md"
-                if not _finalize_single(formatted_file_path, final_output_dir, review_needed_dir, dry_run, overwrite, delete_source, True, console):
+                if not _finalize_single(
+                    file_path=formatted_file_path, 
+                    output_dir=final_output_dir, 
+                    review_dir=review_needed_dir, 
+                    dry_run=dry_run, 
+                    overwrite=overwrite, 
+                    delete_source=delete_source, 
+                    quiet=True, 
+                    console=console,
+                    strategy=strategy,
+                    clean_names=clean
+                ):
                     failed_count += 1
                     progress.update(task, advance=1)
                     continue
@@ -1001,6 +1048,8 @@ def finalize(
     overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing files in final output"),
     quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output"),
     delete_source: bool = typer.Option(False, "--delete-source", help="Delete source files after finalizing (move behavior). Default is copy."),
+    strategy: str = typer.Option("flat", help="Organization strategy: flat, type, or tag."),
+    clean_names: bool = typer.Option(True, "--clean-names/--no-clean-names", help="Remove numeric prefixes from filenames."),
 ):
     """Finalize formatted notes by validating and moving to final destinations (Stage 3)"""
     console = Console(quiet=quiet)
@@ -1015,7 +1064,9 @@ def finalize(
         quiet=quiet,
         delete_source=delete_source,
         config_manager=config_manager,
-        console=console
+        console=console,
+        strategy=strategy,
+        clean_names=clean_names
     ):
         raise typer.Exit(1)
 
@@ -1538,8 +1589,8 @@ Links Fixed/Removed: {results['links_fixed']}
 @app.command()
 def organize(
     target_dir: Optional[Path] = typer.Argument(None, help="Directory to organize (overrides config)."),
-    strategy: str = typer.Option("flat", help="Organization strategy: flat, type, or tag."),
-    clean_names: bool = typer.Option(True, "--clean-names/--no-clean-names", help="Remove numeric prefixes from filenames."),
+    strategy: Optional[str] = typer.Option(None, help="Organization strategy: flat, type, or tag. (Overrides config)"),
+    clean_names: Optional[bool] = typer.Option(None, "--clean-names/--no-clean-names", help="Remove numeric prefixes from filenames. (Overrides config)"),
     dry_run: bool = typer.Option(False, "--dry-run", help="Preview changes without moving files."),
     quiet: bool = typer.Option(False, "--quiet", "-q", help="Minimal output."),
 ):
@@ -1556,9 +1607,13 @@ def organize(
     
     _validate_path_exists(target_dir, "target_dir", console)
     _validate_path_is_dir(target_dir, "target_dir", console)
+    
+    # Defaults from config
+    org_strategy = strategy if strategy else config_manager.get("organize_strategy", "flat")
+    org_clean = clean_names if clean_names is not None else config_manager.get("clean_filenames", True)
 
     console.info(f"Reorganizing [path]{target_dir}[/path]")
-    console.substep(f"Strategy: [highlight]{strategy}[/highlight], Clean Names: [highlight]{clean_names}[/highlight]")
+    console.substep(f"Strategy: [highlight]{org_strategy}[/highlight], Clean Names: [highlight]{org_clean}[/highlight]")
 
     mover = FileMover()
     
@@ -1573,8 +1628,8 @@ def organize(
             with Live(get_dashboard(model=dashboard_model, target=dashboard_target, status="Organizing"), console=console.console, refresh_per_second=4) as live:
                 results = mover.organize_directory(
                     directory=target_dir,
-                    strategy=strategy,
-                    clean_names=clean_names,
+                    strategy=org_strategy,
+                    clean_names=org_clean,
                     dry_run=dry_run,
                     progress=progress,
                     main_task_id=main_task
