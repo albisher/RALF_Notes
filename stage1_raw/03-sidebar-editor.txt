@@ -1,0 +1,45 @@
+### TAGS
+#UI/UX-Design
+#Vue.js
+#Event-Driven-Interface
+#Collapsible-Component
+#Sidebar-Design
+
+### TYPE
+documentation
+
+### SUMMARY
+Design iteration for a collapsible sidebar event editor that enhances accessibility and organization in a timeline interface.
+
+### DETAILS
+This design proposes moving the event editor to a **right-sliding collapsible sidebar**, improving usability by keeping the editor accessible without permanent space occupation. The sidebar slides in from the right when an event is selected, offering smooth animations and configurable overlay/push behavior. The main layout splits into a two-column structure: the left column displays the event list, the middle column features expanded timeline settings, and the right column hosts the sidebar toggle (visible when closed). Auto-open functionality ensures the sidebar appears immediately upon event selection, while manual toggling allows users to control visibility. The design prioritizes settings prominence, enhancing visibility and organization through dedicated column space and detailed settings panels.
+
+### KEY_FUNCTIONS
+- **EventEditorSidebar.vue**: Manages collapsible sidebar state, toggle logic, and event editing via `EventEditorForm`.
+- **TimelineStage.vue**: Restructures layout into a two-column system (events + settings) with sidebar integration.
+- **CSS Animations**: Handles smooth transitions for sidebar opening/closing and overlay/push modes.
+- **Auto-Open Behavior**: Automatically opens sidebar when an event is selected (configurable).
+- **Settings Enhancement**: Expands the settings panel with detailed explanations, visual previews, and better organization.
+
+### DEPENDENCIES
+Vue.js (for component structure), CSS/JS animations (for smooth transitions), external UI libraries (e.g., Bootstrap/Vue components if used), and timeline-related state management (e.g., Vuex/Pinia for event data).
+
+### USAGE
+1. **Initial Setup**: Implement `EventEditorSidebar.vue` and integrate it into the timeline layout.
+2. **Event Selection**: Click an event to auto-open the sidebar (or toggle manually).
+3. **Editing**: Fill out the `EventEditorForm` with event details (name, date, metadata).
+4. **Saving**: Use the "Save" button to update the event and close the sidebar.
+5. **Customization**: Adjust CSS for animations, overlay/push modes, and sidebar width/position.
+
+### RELATED
+[[Timeline Interface Design]], [[Vue.js Component Patterns]], [[Mobile UI Adaptations]]
+
+### CALLOUTS
+>[!INFO]- **Auto-Open Priority**
+> Ensure the sidebar opens smoothly with a transition animation when an event is selected. This reduces friction for users who want to edit immediately.
+>[!WARNING]- **Mobile Considerations**
+> Test the sidebar width and push/overlay modes on mobile devices. A narrow sidebar may require a bottom-drawer alternative (Variation C) to avoid usability issues.
+>[!INFO]- **State Management**
+> Use Vuex/Pinia to persist the sidebar’s open/closed preference and event data across sessions. This avoids manual toggling and ensures consistency.
+>[!WARNING]- **Accessibility**
+> Add ARIA labels (`aria-label`) for the toggle button and keyboard shortcuts (e.g., `Esc` to close) to comply with WCAG standards.

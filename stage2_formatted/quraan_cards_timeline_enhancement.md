@@ -1,0 +1,69 @@
+**Tags:** #Islamic_history #Quran #Timeline_enhancement #Card_display #World_map, #Timeline_management #Scripting #UI_Enhancement #Coordinate_handling
+**Created:** 2026-01-13
+**Type:** documentation
+
+# quraan_cards_timeline_enhancement
+
+## Summary
+
+```
+Enhanced Quraan world with 27 Islamic historical cards and refined the timeline to accurately reflect all events spanning from 555 CE to 632 CE.
+```
+
+## Details
+
+> This enhancement expands the Quraan world by adding 17 new Islamic historical cards, including key battles, significant events, notable characters, and locations. The implementation ensures the timeline dynamically adjusts to include all card dates, improving the `generateTopTimelineMarkers()` function to calculate the correct date range (555–632 CE). Card display components (`CardModal.vue`) and map integration (`useMapOperations.js`) were updated to show precise coordinates, timestamps, and locations with improved styling. The changes ensure accurate visualization of historical events in the Quraan world interface.
+
+## Key Functions
+
+### ``generateTopTimelineMarkers()``
+
+Dynamically computes the min/max timeline dates from all card entries.
+
+### ``CardModal.vue``
+
+Displays formatted date and location with icons for each card.
+
+### ``formatDate()` & `formatLocation()``
+
+Helper methods for rendering historical timestamps and geographic references.
+
+### ``create_quraan_world.py``
+
+Script to generate and populate 27 new Islamic historical cards with metadata.
+
+### ``WorkflowPage.vue``
+
+Updates the timeline to reflect the full historical period (555–632 CE).
+
+### ``useMapOperations.js``
+
+Handles map marker coordinates for accurate placement of Quraan world cards.
+
+## Usage
+
+1. Access the Quraan world via the UI (ID: 45).
+2. Navigate to the timeline to verify the expanded 77-year range (555–632 CE).
+3. Check the map to ensure all 27 cards appear with correct coordinates.
+4. Review card details in `CardModal.vue` to confirm formatted timestamps and locations.
+
+## Dependencies
+
+> ``vue``
+> ``vuex``
+> ``leaflet` (for map integration)`
+> ``python` (for `create_quraan_world.py`)`
+> ``docker-compose` (for containerized deployment).`
+
+## Related
+
+- [[Quraan_World_Architecture]]
+- [[Islamic_Historical_Data_Sources]]
+- [[Timeline_Visualization_Guide]]
+
+>[!INFO] **Timeline Accuracy**
+> The timeline now dynamically adjusts to include all card dates, ensuring events are correctly positioned between 555 CE and 632 CE. This eliminates discrepancies from previous static ranges.
+
+
+>[!WARNING] **Coordinate Validation**
+> Ensure all new cards include validated latitude/longitude data in both array and object formats to prevent rendering errors on the map. Test with `useMapOperations.js` to confirm compatibility.

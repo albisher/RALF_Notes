@@ -1,0 +1,57 @@
+**Tags:** #cryptography, #n8n, #encryption, #key-management, #hashing
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# n8n_encryption_key
+
+## Summary
+
+```
+Stores and analyzes an encryption key used in n8n workflows for secure data handling.
+```
+
+## Details
+
+> This appears to be a **base64-encoded hexadecimal string** representing an encryption key or secret identifier, likely used in **n8n’s authentication, node keys, or secure data storage**. The string is 64 characters long, matching the expected length of a base64-encoded key (e.g., 32 bytes of raw data encoded in base64 yields ~44 chars, but this is longer, suggesting it may be a longer key or a hashed version). The value could be:
+> - A **node key** for n8n workflows.
+> - A **hash** (e.g., SHA-256) of a password or secret.
+> - A **custom key** for encryption/decryption in workflows.
+> 
+> No context is provided, so its exact purpose is unclear without additional metadata (e.g., where it’s stored or used).
+
+## Key Functions
+
+### ``n8n_encryption_key``
+
+Likely a placeholder for a key used in authentication or data encryption within n8n workflows.
+
+## Usage
+
+To use this key in n8n:
+1. **Store it securely** (e.g., in n8n’s settings or a secrets manager).
+2. **Reference it in workflows** (e.g., via a node like "Set Variable" or "Execute HTTP Request" with a key parameter).
+3. **Validate it** if it’s a hashed key (e.g., compare against a known hash).
+
+## Dependencies
+
+> `None (standalone key string`
+> `no external dependencies implied).`
+
+## Related
+
+- [[n8n_node_keys]]
+- [[n8n_secure_storage]]
+- [[base64_hex_conversion]]
+
+>[!INFO] Key Length and Format
+> This key is **64 chars long**, which is unusual for a typical 32-byte (256-bit) key (base64 encodes 32 bytes as ~44 chars). It may be:
+> - A **longer key** (e.g., 64 bytes → ~88 chars base64).
+> - A **hash** (e.g., SHA-512 outputs 128 hex chars → ~96 base64 chars).
+> - A **custom format** (e.g., UUID or GUID-like).
+>
+
+>[!WARNING] Security Risk
+> Without context, this key could be:
+> - **Exposed in plaintext** (risk if stored in logs or configs).
+> - **Misinterpreted** (e.g., used as a password instead of a key).
+> Always validate its purpose in the broader system.

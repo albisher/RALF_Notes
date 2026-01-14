@@ -1,0 +1,45 @@
+### TAGS
+#hash-generation
+#deterministic-derivation
+#salt-based
+#precision-modes
+#box-pattern
+
+### TYPE
+code-notes
+
+### SUMMARY
+Centralized hash generator utility consolidating SHA-256 hashing and deterministic integer/float derivation with precision modes.
+
+### DETAILS
+This module implements a master box for hash generation utilities, abstracting 20+ generator-specific hash functions into three precision modes: standard (8 hex chars), high (16 hex chars), and cosmic (full hash). It uses SHA-256 for core hashing and applies salt-based derivation for deterministic output variation. The `execute()` method routes operations like `hash_input`, `derive_int_from_hash`, and `select_from_list` to appropriate methods while maintaining type safety and error handling.
+
+### KEY_FUNCTIONS
+- **hash_input(input_str)**: Generates SHA-256 hash from input string, returning a 64-character hex string.
+- **derive_int_from_hash(input_hash, salt, max_value, precision)**: Derives an integer from a hash using salt and precision mode (standard/high/cosmic), returning a value in [0, max_value).
+- **derive_float_from_hash(input_hash, salt)**: Derives a float from a hash using salt (precision defaults to 2 decimal places).
+- **select_from_list(input_hash, salt, item_list, default)**: Selects an item from a list based on hash/salt, returning the chosen item or a default.
+- **assign_number(input_hash, salt, min_value, max_value)**: Assigns a random integer within a specified range using hash/salt.
+- **assign_float(input_hash, salt, min_value, max_value, precision)**: Assigns a random float within bounds with configurable precision.
+
+### DEPENDENCIES
+`hashlib`, `logging`, `..core.box_interface` (Box, BoxInput, BoxOutput)
+
+### USAGE
+1. Initialize `HashGeneratorMasterBox()` and call `execute()` with a `BoxInput` containing an `operation` key.
+2. For example:
+   ```python
+   input_data = BoxInput({"operation": "hash_input", "input_str": "data"})
+   box = HashGeneratorMasterBox()
+   result = box.execute(input_data)
+   ```
+3. Use derived values in downstream generators via `result.data`.
+
+### RELATED
+[[`coordinate.py`]], [[`physical_appearance.py`]], [[`time_existence.py`]], [[`biomes.py`]] (likely generator files using this master box)
+
+### CALLOUTS
+>[!INFO]- Precision Modes
+> Precision modes (`standard`, `high`, `cosmic`) determine how many hex characters from the SHA-256 output are used. Standard mode (8 chars) is most common, while cosmic mode uses the full 64 chars for maximum entropy.
+>[!WARNING]- Salt Sensitivity
+> Derived values are sensitive to salt input. Changing salt alters output deterministically, enabling controlled variation across generators. Ensure salt consistency across dependent modules.

@@ -1,0 +1,49 @@
+**Tags:** #giant-types, #dnd-5e-race, #monster-statistics, #fantasy-creatures
+**Created:** 2026-01-13
+**Type:** documentation
+
+# giant_types
+
+## Summary
+
+```
+Lists D&D 5th Edition giant races and elemental/ancient variants with descriptive names.
+```
+
+## Details
+
+> This file enumerates the distinct **Giant** races from *Dungeons & Dragons 5th Edition*, including elemental, elementalized, and legendary variants. Each entry represents a unique subtype of giant, categorized by elemental affinity (fire, frost, storm, etc.) or thematic traits (ancient, colossal). The list serves as a reference for monster statistics, lore, and creature descriptions in fantasy campaigns.
+
+## Key Functions
+
+### `Race Identification`
+
+Classifies giants by subtype (e.g., *Fire Giant*, *Storm Giant*).
+
+### `Lore Reference`
+
+Provides thematic context for each giant variant (e.g., *Ancient Giant* implies long-lived, *Earth Shaker* implies destructive power).
+
+### `Monster Stats`
+
+Implicitly links to D&D’s monster manuals for CR, HP, and abilities (e.g., *Titan* has CR 20+).
+
+## Usage
+
+Referenced in:
+- **Monster Design**: Used to create or reference giant creatures in campaigns.
+- **Roleplaying**: Describes traits (e.g., *Cloud Giant*’s aerial mobility) for NPCs or enemies.
+- **Tabletop Games**: Cross-referenced with *D&D 5e Monster Manual* for stats and lore.
+
+## Related
+
+- [[Dungeons & Dragons 5e Monster Manual]]
+- [[Giant Lore in D&D]]
+- [[Elemental Giants in Fantasy]]
+- [[Legendary Creatures in D&D]]
+
+>[!INFO] **Elementalization Note
+> Each elemental giant (e.g., *Fire Giant*, *Frost Giant*) retains core giant traits but gains elemental-specific abilities (e.g., fire damage, frost resistance). Check *MM* for exact stats.
+
+>[!WARNING] **Legendary Variants
+> Creatures like *Titan* and *Colossus* are CR 20+ and require high-level play; avoid using them in early campaigns unless balanced with adjustments.

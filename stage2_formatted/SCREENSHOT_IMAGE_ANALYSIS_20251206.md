@@ -1,0 +1,63 @@
+**Tags:** #verification-report, #world-type-analysis, #screenshot-validation, #terrain-characteristics, #map-generation
+**Created:** 2026-01-13
+**Type:** documentation
+
+# SCREENSHOT_IMAGE_ANALYSIS_20251206
+
+## Summary
+
+```
+Analyzes screenshot images to verify alignment between file naming conventions, world types, and generated map descriptions.
+```
+
+## Details
+
+> This report evaluates whether screenshot filenames and descriptions accurately reflect the intended world types (e.g., planet, galaxy, cloud world) and generation stages (e.g., parameters vs. final map). It cross-verifies file naming patterns (e.g., `YYYY-MM-DDTHH-MM-SS-[stage]-[world-type].png`) against visual and textual descriptions, ensuring consistency between metadata and rendered outputs. The methodology includes checking elevation ranges, terrain features, and structural patterns (e.g., spiral arms, floating platforms) to confirm adherence to expected world-type characteristics.
+
+## Key Functions
+
+### `File Name Analysis`
+
+Extracts world type and generation stage from filenames.
+
+### `Description Comparison`
+
+Validates reported descriptions against expected characteristics.
+
+### `World Type Verification`
+
+Confirms visual alignment with predefined world-type traits (e.g., elevation distribution, terrain complexity).
+
+### `Cross-Reference Analysis`
+
+Cross-checks filenames, timestamps, and descriptions for consistency.
+
+## Usage
+
+1. **Input**: Screenshot filenames and descriptions (e.g., `map-generated-random-general-world.png`).
+2. **Process**:
+   - Parse filenames for world type and stage.
+   - Compare descriptions with expected traits (e.g., "varied terrain" for planets).
+   - Validate visual patterns (e.g., spiral arms for galaxies).
+3. **Output**: Verdict (✅ MATCHES/❌ MISMATCH) for each screenshot, cross-referenced by world type.
+
+## Dependencies
+
+> `Obsidian wikilinks (for related documents)`
+> `screenshot metadata tools (e.g.`
+> `file parsing for timestamps/world types)`
+> `and predefined world-type templates (e.g.`
+> `elevation ranges`
+> `expected patterns).`
+
+## Related
+
+- [[World Type Templates]]
+- [[Map Generation Protocols]]
+- [[Screenshot Metadata Standards]]
+
+>[!INFO] **File Naming Standard**
+> Filenames must follow the pattern `YYYY-MM-DDTHH-MM-SS-[stage]-[world-type].png` to ensure traceability. Missing or incorrect stages (e.g., `map-generated` vs. `map-parameters-generated`) may lead to misalignment.
+
+>[!WARNING] **Elevation Range Sensitivity**
+> Minor deviations in elevation averages (e.g., Planet: 0.631 vs. Cloud World: 0.823) do not invalidate a match but should be noted for consistency checks. Extreme outliers may indicate generation errors.

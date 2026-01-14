@@ -1,0 +1,48 @@
+**Tags:** #automation, #web-scraping, #puppeteer, #robotics, #deterministic-generation, #character-creation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# x-series-robots-creation
+
+## Summary
+
+```
+Automates creation of X-Series robots using Puppeteer for web automation, leveraging predefined seeds for deterministic character generation.
+```
+
+## Details
+
+> This script uses Puppeteer to automate the creation of X-Series robots via a web application. It defines a set of deterministic seeds (`X_SERIES_SEEDS`) for each robot variant (X1 to X11). The script launches a browser, navigates to the application, handles optional login, locates character creation elements, and iterates through each seed to generate robots. Screenshots are captured at key stages for debugging and verification. The process includes error handling for missing selectors and waits for dynamic content loading.
+
+## Key Functions
+
+### `createXSeriesRobots`
+
+Orchestrates the entire automation workflow, including browser setup, navigation, login, and robot creation.
+
+### `X_SERIES_SEEDS`
+
+Object mapping robot variants (e.g., 'X1') to deterministic generation strings (e.g., 'space-peral-robot-x1').
+
+## Usage
+
+1. Install dependencies (`npm install puppeteer path fs`).
+2. Run the script (`node x-series-robots-creation.js`).
+3. Ensure the web app is running at `http://localhost:5173`.
+4. Adjust `X_SERIES_SEEDS` or selectors if the target UI changes.
+
+## Dependencies
+
+> `puppeteer`
+> `path`
+> `fs`
+
+## Related
+
+- [[None]]
+
+>[!INFO] Important Note
+> The script assumes the target application has a character creation form with a seed input field. If the UI structure differs, update `formSelectors` and `generateSelectors` arrays accordingly.
+
+>[!WARNING] Caution
+> Running in headless mode (`headless: true`) may fail if the UI relies on visual interactions. Test with `headless: false` first. Avoid running in production without proper error handling for dynamic content.

@@ -1,0 +1,82 @@
+**Tags:** #UI-Design, #Card-Based-System, #Responsive-Web-Design, #Frontend-Architecture, #Data-Browsing, #Mobile-First
+**Created:** 2026-01-13
+**Type:** documentation
+
+# template-4-card-centric
+
+## Summary
+
+```
+A card-centric UI template optimizing content display with minimal distractions, ideal for browsing and viewing cards efficiently.
+```
+
+## Details
+
+> This template prioritizes a clean, immersive layout where cards dominate the screen, reducing visual clutter. It supports multiple layout modes (grid, masonry, list) and includes interactive components like sticky headers, floating action buttons, and filter drawers. The design emphasizes performance with virtual scrolling and lazy loading, ensuring smooth user interactions across devices.
+
+## Key Functions
+
+### `Header (HDR)`
+
+Manages world selection, search, filters, and view options with sticky/collapsible behavior.
+
+### `Card Grid (CG)`
+
+Displays cards in responsive layouts (grid/masonry/list) with infinite scroll and lazy-loaded images.
+
+### `Card Display (CD)`
+
+Shows card details (image, title, tags) with hover/click interactions for modals and quick actions.
+
+### `Floating Action Button (FAB)`
+
+Provides primary creation actions (e.g., "+ Create Card") with expandable secondary menu.
+
+### `Filter Drawer`
+
+Slide-in sidebar for advanced filtering (type, world, tags) with overlay and active indicators.
+
+### `Card Detail Modal`
+
+Full-screen overlay for deep card inspection with edit/delete options and related cards.
+
+### `Responsive Breakpoints`
+
+Adapts layout (mobile/tablet/desktop) with touch/keyboard optimizations.
+
+## Usage
+
+1. **Setup**: Integrate components (e.g., Header, Card Grid) into a React/HTML structure.
+2. **Customization**: Adjust layout modes (grid/masonry), filter logic, and card styling via CSS/JS.
+3. **State Management**: Use Redux/Context API to handle card data, filters, and user actions.
+4. **Testing**: Validate responsiveness across breakpoints (mobile/tablet/desktop) and performance (scrolling, animations).
+
+## Dependencies
+
+> `React (or similar UI framework)`
+> `CSS/JS libraries (e.g.`
+> `TailwindCSS`
+> `GSAP for animations)`
+> `virtual-scrolling libraries (e.g.`
+> `React Virtualized)`
+> `lazy-loading tools (e.g.`
+> `Intersection Observer).`
+
+## Related
+
+- [[Card-Centric UI Patterns]]
+- [[Responsive Web Design Cheat Sheet]]
+- [[React Virtualized Documentation]]
+- [[UX Best Practices for Data Browsing]]
+
+>[!INFO] **Card-Centric Focus**
+> Prioritize card visibility over toolbars; use modals for actions (e.g., editing) to keep the main area clean.
+
+>[!WARNING] **Performance Pitfalls**
+> Avoid overloading with static images; implement lazy loading and virtual scrolling to prevent lag during scrolling.
+
+>[!INFO] **Mobile Considerations**
+> Ensure touch targets (e.g., cards, FAB) are ≥48px; test swipe gestures and keyboard shortcuts (e.g., Ctrl+N).
+
+>[!WARNING] **Filter Overload**
+> Limit filter options to avoid cognitive overload; group related filters (e.g., "World" + "Type") for usability.

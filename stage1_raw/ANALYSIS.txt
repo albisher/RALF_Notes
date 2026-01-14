@@ -1,0 +1,41 @@
+### TAGS
+#visual-issues
+#css-problems
+#html-paths
+#ui-design
+#material-design-icons
+
+### TYPE
+documentation
+
+### SUMMARY
+Analyzes iteration-07 code for visual and structural issues in a timeline workflow UI, focusing on incorrect paths, styling inconsistencies, and unused components.
+
+### DETAILS
+This document examines the `timeline-story-workflow-v4.html` and associated CSS files (`common.css`) for visual and structural problems. It highlights incorrect CSS paths causing color scheme failures, height inconsistencies in the top timeline, margin misalignment between the workflow stages bar and timeline, and unused box component scripts. Additionally, it notes potential Material Design icon rendering issues due to improper icon font loading.
+
+### KEY_FUNCTIONS
+- **`switchStage(stage.id)`**: Handles user interaction to switch between workflow stages.
+- **`workflowStages`**: Vue `v-for` loop rendering the horizontal bar of workflow stages.
+- **`top-timeline-container`**: CSS container managing the timeline with year labels and gaps.
+- **`color-scheme.css`**: External stylesheet for color variables (currently mislinked).
+- **`materialdesignicons.min.css`**: CDN-hosted Material Design icon font.
+
+### DEPENDENCIES
+`@mdi/font`, `common.css`, `ui-explorations/shared/styles/color-scheme.css`, Vue.js framework.
+
+### USAGE
+To resolve these issues:
+1. **Fix paths**: Update the incorrect CSS link in `timeline-story-workflow-v4.html` to resolve the color-scheme file.
+2. **Adjust CSS heights**: Modify `.top-timeline` and `.top-timeline-container` to ensure proper spacing for year labels.
+3. **Remove unused scripts**: Remove or comment out unused box component scripts if they are not intended for immediate use.
+4. **Verify icon rendering**: Ensure the Material Design icon font loads properly by checking CDN availability and CSS overrides.
+
+### RELATED
+[[Visual Design Guidelines]], [[Iteration 07 Code Review Notes]]
+
+### CALLOUTS
+>[!INFO]- **Critical Path Correction**
+> The incorrect path `../../shared/styles/color-scheme.css` must be updated to `../../../shared/styles/color-scheme.css` to resolve undefined color variables, affecting the entire UI’s color scheme consistency.
+>[!WARNING]- **Icon Rendering Risk**
+> If Material Design icons fail to load, they may render as text or bullets, causing visual inconsistencies. Verify the CDN URL and CSS overrides are correct.

@@ -1,0 +1,72 @@
+**Tags:** #frontend, #authentication, #vuejs, #pinia, #webauthn, #api-integration, #state-management
+**Created:** 2026-01-13
+**Type:** documentation
+
+# task_007
+
+## Summary
+
+```
+Develops Vue.js frontend components for user authentication (registration/login) and WebAuthn integration, managing state via Pinia.
+```
+
+## Details
+
+> This task outlines the creation of Vue components (`Login.vue`, `Register.vue`) for user authentication, including email/password and WebAuthn flows. It involves integrating these components with backend APIs using `axios` and managing authentication state with Pinia. The solution also includes form validation, UI layout, and error handling. Testing ensures end-to-end functionality, including state updates and protected route access.
+
+## Key Functions
+
+### ``Login.vue``
+
+Handles email/password login form submission, sends credentials via `axios`, and updates Pinia store on success.
+
+### ``Register.vue``
+
+Manages user registration form (name, email, password), validates input, and submits data to the backend.
+
+### ``auth.js` (Pinia store)`
+
+Centralizes JWT token, user data, and authentication state (login/logout/registration updates).
+
+### `WebAuthn API Integration`
+
+Implements biometric/hardware authentication flows, syncs with backend, and updates Pinia on success.
+
+### `Axios Backend Calls`
+
+Handles HTTP requests for registration/login/WebAuthn to backend endpoints with error handling.
+
+## Usage
+
+1. **Setup**: Install dependencies (`axios`, `pinia`) and configure `axios` with base URL.
+2. **Component Development**:
+   - Build `Register.vue` and `Login.vue` with form validation.
+   - Connect forms to backend via `axios` (e.g., `axios.post('/api/auth/register', data)`).
+3. **Pinia Store**:
+   - Create `auth.js` with actions for `login()`, `logout()`, and `register()`.
+   - Store JWT and user data; update on API success.
+4. **WebAuthn**:
+   - Use `navigator.credentials.create()`/`navigator.credentials.get()` for client-side WebAuthn calls.
+   - Forward responses to backend for verification.
+5. **Testing**:
+   - Register a user → Log out → Test login (email/password/WebAuthn).
+   - Verify Pinia updates and protected routes (e.g., `router.push('/dashboard')`).
+
+## Dependencies
+
+> ``axios``
+> ``vue``
+> ``pinia``
+> ``vue-router` (for protected routes)`
+> `backend authentication APIs (custom endpoints).`
+
+## Related
+
+- [[Task 3: Backend Auth API Design]]
+- [[Task 4: Pinia Store Implementation Guide]]
+
+>[!INFO] Important Note
+> Ensure backend endpoints match frontend `axios` paths (e.g., `/api/auth/register`). Mismatches will cause CORS or 404 errors.
+
+>[!WARNING] Caution
+> WebAuthn requires HTTPS and secure contexts. Test in production-like environments to avoid browser security warnings.

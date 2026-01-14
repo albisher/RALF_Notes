@@ -1,0 +1,200 @@
+    - **Placeholder**: Show icon or gradient background
+    - **Hover Actions**: Show edit/delete/generate buttons
+    - **Type Indicators**: Color-coded borders or badges
+  </div>
+
+  <!-- Content Section -->
+  <div class="card-content">
+    <h3 class="card-title">{{ card.card_name }}</h3>
+    <div class="card-subtitle">{{ card.card_type }}</div>
+    <div class="card-description">{{ card.description }}</div>
+    <div class="card-chips">
+      <!-- Chips for tags -->
+    </div>
+  </div>
+
+  <!-- Actions Section -->
+  <v-card-actions v-if="showActions">
+    <v-btn icon="mdi-pencil" @click.stop="editCard"></v-btn>
+    <v-btn icon="mdi-trash-can" @click.stop="deleteCard"></v-btn>
+    <v-btn icon="mdi-image-plus" @click.stop="generateImage"></v-btn>
+  </v-card-actions>
+</template>
+```
+
+#### 1.2 Image Generation Integration
+```javascript
+methods: {
+  generateImage() {
+    this.$emit('generate-image', this.card);
+  }
+}
+```
+
+### Phase 2: In-Page Image Generation
+
+#### 2.1 Image Generation Modal
+```vue
+<template>
+  <v-dialog v-model="dialog" max-width="600px">
+    <template v-slot:activator="{ props }">
+      <v-btn icon="mdi-image-plus" v-bind="props"></v-btn>
+    </template>
+    <v-card>
+      <v-card-title>Generate Image</v-card-title>
+      <v-card-text>
+        <v-textarea
+          v-model="prompt"
+          label="Prompt"
+          placeholder="Describe the card in detail..."
+          rows="4"
+          auto-grow
+        ></v-textarea>
+        <div class="text-help">
+          Example: "A detailed illustration of {{ card.card_name }} from {{ card.world_name }}"
+        </div>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn text @click="dialog = false">Cancel</v-btn>
+        <v-btn color="primary" @click="generateImage">Generate</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</template>
+```
+
+#### 2.2 Backend Integration
+```javascript
+async generateImage(card) {
+  this.dialog = true;
+  this.prompt = `A detailed illustration of ${card.card_name} from ${card.world_name}`;
+
+  try {
+    const response = await this.$axios.post('/regenerate-image', {
+      card_id: card.id,
+      prompt: this.prompt
+    });
+    this.$emit('image-generated', response.data.image_url);
+  } catch (error) {
+    this.$emit('image-generation-error', error.message);
+  }
+}
+```
+
+### Phase 3: Progressive Enhancement
+
+#### 3.1 Image Preview System
+```javascript
+data() {
+  return {
+    cardImage: null,
+    isGenerating: false,
+    generationProgress: 0
+  };
+}
+```
+
+#### 3.2 Card Image Updater
+```javascript
+methods: {
+  updateCardImage(imageUrl) {
+    this.card.image_url = imageUrl;
+    this.$emit('card-updated', this.card);
+  }
+}
+```
+
+## Implementation Roadmap
+
+### Short-Term (1-2 Weeks)
+- [ ] Enhance TimelineViewPanel with image placeholders
+- [ ] Add hover actions to cards
+- [ ] Implement basic image generation modal
+- [ ] Connect modal to backend API
+
+### Mid-Term (2-4 Weeks)
+- [ ] Develop progressive loading for images
+- [ ] Add prompt suggestions and history
+- [ ] Implement error handling and feedback
+- [ ] Create comparison view for multiple options
+
+### Long-Term (4-6 Weeks)
+- [ ] Full image generation system with variations
+- [ ] Advanced prompt editing and templates
+- [ ] Performance optimization for large card sets
+- [ ] Comprehensive testing and user feedback collection
+
+### Key Metrics
+- **Card Display**: 90% of cards showing images (placeholder or actual)
+- **Image Generation**: 70% success rate with user satisfaction
+- **User Engagement**: 30% increase in card interactions post-implementation
+
+## Risks and Mitigation
+
+### Risks
+1. **Complexity**: Image generation system may become too complex
+   - **Mitigation**: Start with basic functionality, then add features incrementally
+
+2. **Performance**: Large number of cards with generated images may impact performance
+   - **Mitigation**: Implement lazy loading and caching strategies
+
+3. **User Resistance**: Users may not understand or use the new features
+   - **Mitigation**: Provide clear tutorials, tooltips, and feedback mechanisms
+
+4. **API Limitations**: Backend may not support all requested features
+   - **Mitigation**: Start with basic functionality and expand based on backend capabilities
+
+5. **Design Consistency**: Inconsistent visual presentation across components
+   - **Mitigation**: Establish a design system and enforce consistency
+
+## Conclusion
+
+This research provides a comprehensive roadmap for improving the card display UI/UX and implementing in-page image generation functionality. By following the recommended implementation phases and best practices, the system will become more engaging, functional, and user-friendly. The phased approach allows for gradual improvement while minimizing risk and ensuring user satisfaction.
+
+---
+
+### TAGS
+#ui-ux-design
+#card-display
+#image-generation
+#vuejs
+#frontend-development
+#user-experience
+#research
+#in-page-image-generation
+
+### TYPE
+documentation
+
+### SUMMARY
+Research document outlining UI/UX improvements for card display and in-page image generation in a Vue.js application.
+
+### DETAILS
+This document analyzes current card display components (e.g., `TimelineViewPanel.vue`, `CardBuilderPanel.vue`) and identifies gaps in visual hierarchy, interactivity, and image generation capabilities. It explores best practices for 2024-2025 card grids, in-page image generation patterns (inline, modal, side panel), and UX for prompt input/output. The research recommends a phased implementation: enhancing card display with placeholders and hover actions first, then adding a modal-based image generation system, and finally progressive enhancements like preview loading and prompt history.
+
+### KEY_FUNCTIONS
+- **TimelineViewPanel.vue**: Manages card grid layout with basic text display; needs enhancement for images and interactivity.
+- **CardBuilderPanel.vue**: Handles card creation via liked hashes; lacks preview/image generation integration.
+- **CardImageGeneratorBox**: Backend component for image generation (not fully frontend-integrated).
+- **Vue.js Card Component**: Enhanced template with image placeholders, hover actions, and action buttons.
+- **Image Generation Modal**: Dialog for prompting image generation with preview integration.
+- **Card Image Updater**: Updates card metadata with generated image URLs.
+
+### DEPENDENCIES
+`vue`, `Vuetify`, `axios`, `CardImageGeneratorBox` backend service, `/regenerate-image` API endpoint.
+
+### USAGE
+1. **For Developers**: Follow the implementation roadmap to enhance existing Vue components with image placeholders and generation functionality.
+2. **For UX Researchers**: Validate user interactions (e.g., hover effects, prompt suggestions) via A/B testing.
+3. **For Backend Teams**: Ensure `/regenerate-image` API supports prompt-based image generation.
+
+### RELATED
+[[UI/UX Design Guidelines 2024]], [[Vue.js Card Component Template]], [[Backend API Specifications]]
+
+### CALLOUTS
+>[!INFO]- **Phased Approach**
+> Implement features incrementally to balance complexity and user adoption. Start with placeholders/basic generation before adding advanced features like prompt history or variations.
+
+>[!WARNING]- **API Limitations**
+> Verify backend capabilities (e.g., `/regenerate-image`) before full implementation. Overpromise/underdeliver risks user frustration.

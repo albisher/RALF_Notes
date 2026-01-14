@@ -1,0 +1,82 @@
+**Tags:** #Bash-Script, #Infrastructure-As-Code, #DevOps, #Database-Backup, #Monitoring, #OpenProject, #CI/CD, #Security, #Documentation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# complete-remaining-tasks
+
+## Summary
+
+```
+Automates remaining tool-stack setup tasks for a development environment, including backups, monitoring, tool integrations, and documentation.
+```
+
+## Details
+
+> This script automates the creation of multiple configuration files and scripts for a tool-stack setup, covering tasks from backup and monitoring to CI/CD pipelines and documentation. It uses Bash to generate directories, shell scripts, and Markdown files for OpenProject, tool integrations, security, and project documentation. The workflow involves generating backup scripts (e.g., PostgreSQL dumps), monitoring configurations (e.g., Prometheus/Grafana setup), integration guides, webhook setups, GitHub workflows, IDE configurations, and comprehensive documentation.
+
+## Key Functions
+
+### `Backup Scripts`
+
+Creates PostgreSQL backup scripts using `pg_dumpall` in Docker containers.
+
+### `Monitoring Setup`
+
+Generates a placeholder for Prometheus/Grafana monitoring configuration.
+
+### `OpenProject Config`
+
+Produces a Markdown guide for OpenProject setup (URL, database, SSO).
+
+### `Tool Integration Docs`
+
+Documents integrations with Vue.js/Python and OpenProject (e.g., task management).
+
+### `Webhook Setup`
+
+Creates a script for configuring webhook connections between tools.
+
+### `GitHub CI/CD`
+
+Generates CI/CD workflows (test and deploy) for GitHub Actions.
+
+### `Cursor IDE Config`
+
+Sets up IDE configurations for Continue, Vue.js, and Python.
+
+### `Security Docs`
+
+Drafts security documentation (JWT, OAuth2, compliance).
+
+### `Project Documentation`
+
+Builds a comprehensive `README.md` for the tool stack.
+
+## Usage
+
+1. Run the script in a Bash environment to generate all configuration files.
+2. Manually execute generated scripts (e.g., `chmod +x` for scripts in `scripts/`).
+3. Integrate generated files (e.g., `docs/openproject-setup.md`) into the project structure.
+4. Deploy the CI/CD workflows (e.g., `.github/workflows/ci-cd.yml`) via GitHub Actions.
+
+## Dependencies
+
+> `Docker`
+> `Docker Compose`
+> `PostgreSQL`
+> `GitHub Actions`
+> `Bash`
+> `Markdown.`
+
+## Related
+
+- [[Space Pearl Tool Stack Architecture]]
+- [[DevOps Setup Guide]]
+- [[PostgreSQL Backup Best Practices]]
+
+>[!INFO] Important Note
+> The script generates **placeholder** monitoring and webhook configurations. Users must manually configure Docker containers (e.g., Prometheus/Grafana) and webhook endpoints (e.g., OpenProject/Continue APIs) in the generated files.
+>
+
+>[!WARNING] Caution
+> Backup scripts assume PostgreSQL is running in a Docker container named `space-pearl-db`. Verify container names and credentials (e.g., `-U postgres`) before execution. Incomplete configurations may fail during deployment.

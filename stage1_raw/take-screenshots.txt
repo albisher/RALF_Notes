@@ -1,0 +1,39 @@
+### TAGS
+#automation
+#web-scraping
+#puppeteer
+#screenshot
+#testing
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automates screenshot capture of a web application at multiple states (initial, post-login, and multiple pages).
+
+### DETAILS
+This script uses Puppeteer to automate browser actions, capturing full-page screenshots of a local web app (`http://localhost:3001`) at predefined stages. It first takes a screenshot of the initial page, then attempts to log in with hardcoded credentials (`test/testpass`), and finally captures screenshots of four additional pages (`dashboard`, `timeline`, `characters`, `elements`). Error handling is included for failed login attempts or navigation issues. The script ensures cleanup by closing the browser in a `finally` block.
+
+### KEY_FUNCTIONS
+- **takeScreenshots()**: Orchestrates the entire screenshot workflow, including browser launch, navigation, login, and screenshot capture.
+- **puppeteer.launch()**: Initializes a headless Chrome browser with security flags (`--no-sandbox`, `--disable-setuid-sandbox`).
+- **page.screenshot()**: Captures full-page screenshots at each stage with dynamic filenames.
+- **page.goto()**: Navigates to specified URLs with a `networkidle2` wait condition.
+
+### DEPENDENCIES
+puppeteer, fs
+
+### USAGE
+1. Install dependencies: `npm install puppeteer`.
+2. Run the script: `node take-screenshots.js`.
+3. Ensure the target app (`http://localhost:3001`) is running.
+4. Outputs screenshots in the current directory (e.g., `current-initial-state.png`).
+
+### RELATED
+[[Automation Scripts]], [[Web Testing Tools]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Hardcoded credentials (`test/testpass`) may break if the target app enforces stricter authentication. Consider using environment variables or a config file for credentials.
+>[!WARNING]- Caution
+> Running Puppeteer in headless mode with `--no-sandbox` bypasses security checks, which may expose the system to risks if misused. Use responsibly in controlled environments.

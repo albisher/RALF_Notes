@@ -1,0 +1,49 @@
+### TAGS
+#automated-testing
+#ui-testing
+#puppeteer
+#screenshot-capture
+#web-automation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automated UI testing framework using Puppeteer to validate web application functionality via screenshots and page loads.
+
+### DETAILS
+This script implements a `SimpleUISurf` class that leverages Puppeteer to automate UI validation across a web application. It captures screenshots of key pages, checks page titles for successful loading, and logs results. The class supports modular testing of user journeys, content pages, and dashboard states, with error handling and automated failure capture.
+
+The core workflow involves:
+1. Initializing a screenshot directory and logging setup.
+2. Generating timestamped filenames for screenshots.
+3. Navigating through predefined routes (e.g., `/dashboard`, `/elements`) and capturing visual states.
+4. Validating page titles and logging success/failure statuses.
+
+### KEY_FUNCTIONS
+- **`init()`**: Sets up directory structure and initializes logging.
+- **`getScreenshotName(feature, description)`**: Creates a standardized filename combining timestamp, counter, feature, and sanitized description.
+- **`takeScreenshot(page, feature, description)`**: Captures a full-page screenshot with error handling.
+- **`testPage(page, url, feature, description)`**: Validates a single page load by checking title and capturing screenshots on failure.
+- **`testUserJourney(page)`**: Sequentially tests a predefined user flow (landing → elements → world creation → dashboard).
+- **`testGeneratorContent(page)`**: Tests content pages related to generators (login → elements → generators).
+- **`testDashboardStates(page)`**: Validates dashboard and related state pages (dashboard → timeline → characters → elements).
+- **`testInteractiveElements(page)`**: (Incomplete) Tests interactive elements before/after user actions.
+
+### DEPENDENCIES
+puppeteer, fs, path
+
+### USAGE
+1. Initialize the class: `const surf = new SimpleUISurf()`.
+2. Call `surf.init()` to set up screenshots directory.
+3. Use test methods (e.g., `await surf.testUserJourney(page)`) to validate UI states.
+4. Ensure Puppeteer is running a local server (e.g., `localhost:8443`) with the target application.
+
+### RELATED
+[[Puppeteer Documentation]], [[Web UI Testing Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script assumes the target application runs on `localhost:8443`. Adjust `baseUrl` if needed.
+>[!WARNING]- Caution
+> Screenshots are saved to `./screenshots/ui-checks`. Ensure this directory exists or permissions allow creation.

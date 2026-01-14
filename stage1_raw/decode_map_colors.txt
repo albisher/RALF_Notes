@@ -1,0 +1,37 @@
+### TAGS
+#data-validation
+#json-processing
+#biome-color-analysis
+#map-visualization
+#error-handling
+
+### TYPE
+code-notes
+
+### SUMMARY
+Analyzes biome color mappings from a JSON file to verify consistency with map visualizations.
+
+### DETAILS
+This script reads a JSON file containing biome data, specifically validating that `biomesData` includes required keys (`name`, `color`, `i`), ensuring arrays are properly aligned, and printing formatted biome names and colors. It handles file and JSON parsing errors gracefully and provides guidance for debugging mismatches between script output and map visualization. The script supports command-line argument input for flexibility.
+
+### KEY_FUNCTIONS
+- **analyze_biome_colors(map_file_path)**: Validates and extracts biome data from a JSON file, printing structured output of biome names and colors with associated indices.
+- **__main__ block**: Manages script execution, defaults to a predefined path, and provides usage instructions via command-line arguments.
+
+### DEPENDENCIES
+`json`, `sys`, `os` (standard Python libraries)
+
+### USAGE
+1. Run the script with default path: `python3 decode_map_colors`
+2. Specify a custom path: `python3 decode_map_colors /path/to/map.json`
+3. Ensure the JSON file contains a `biomesData` object with `name`, `color`, and `i` arrays.
+
+### RELATED
+[[map_visualization.html]], [[map.json]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script checks for consistency between biome indices (`i`) and their corresponding names/colors. If the map visualization shows unexpected colors, verify the `getColor` function in `map_visualization.html` for fallback logic or warnings.
+
+>[!WARNING]- Caution
+> If the JSON file is malformed or missing required keys, the script exits with an error message. Ensure the input file is valid before execution.

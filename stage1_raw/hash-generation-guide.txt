@@ -1,0 +1,43 @@
+### **TAGS**
+#deterministic-algorithm
+#spatial-temporal-coordinates
+#story-generation
+#world-building
+#hash-functions
+#deterministic-hashing
+#space-time-linking
+#narrative-consistency
+
+### **TYPE**
+documentation
+
+### **SUMMARY**
+A guide explaining Space Pearl’s hash-based system for generating consistent, deterministic story elements across genres, integrating spatial and temporal coordinates for interconnected world-building.
+
+### **DETAILS**
+This guide outlines Space Pearl’s hash generation framework, which uses deterministic hashing to produce reproducible story elements (characters, locations, plots) from user-provided seeds. The system assigns 3D spatial coordinates and precise temporal data (year, month, day, time) to each generated element, enabling automatic relationship calculations (e.g., distance, time-based connections). This ensures narrative consistency while allowing infinite variations, making it ideal for serialized storytelling or expansive world-building.
+
+### **KEY_FUNCTIONS**
+- **Deterministic Hash Generation**: Converts seeds into identical outputs for reproducibility.
+- **Space-Time Coordinate Mapping**: Assigns 3D spatial and temporal attributes to elements.
+- **Relationship Analysis**: Computes connections (e.g., proximity, time gaps) between generated items.
+- **Genre-Specific Seed Support**: Predefined seeds for fantasy, sci-fi, mystery, romance, and historical fiction.
+- **World-Building Integration**: Links elements via hash-based coordinates for cohesive universes.
+
+### **DEPENDENCIES**
+None (pure logic; relies on user-provided seeds and basic math for coordinate mapping).
+
+### **USAGE**
+1. Access the **Writer Workspace** (http://localhost:5173) and navigate to "Hash-Based Generation."
+2. Input a seed (e.g., `"hero_quest_2024"` for a character).
+3. Select the element type (character, location, etc.).
+4. Observe deterministic traits (personality, coordinates) and auto-linked relationships in generated outputs.
+
+### **RELATED**
+[[Space Pearl Core Algorithm]], [[Deterministic Hashing in Narrative Systems]]
+
+### **CALLOUTS**
+>[!INFO]- **Consistency Key**
+> Same seed always produces identical results, critical for continuity in serialized works or shared universes.
+>[!WARNING]- **Seed Dependency**
+> Poorly chosen seeds may yield uninspired or inconsistent elements; test seeds across genres for balance.

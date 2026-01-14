@@ -1,0 +1,78 @@
+**Tags:** #Vue.js, #Composable, #State Management, #API Integration, #Filtering & Sorting, #Timeline Synchronization
+**Created:** 2026-01-13
+**Type:** documentation
+
+# useCardOperations
+
+## Summary
+
+```
+Manages card operations, state, and filtering for a card-based application using Vue.js composables.
+```
+
+## Details
+
+> This composable (`useCardOperations`) handles fetching, filtering, and state management of cards from an external API (`boxOrchestrator`). It synchronizes with shared timeline filters across multiple pages to ensure consistent filtering logic. The composable processes raw API responses, formats them for display, and applies dynamic filtering/sorting via configurable parameters (`cardFilters`, `sortBy`, `sortOrder`). It also manages loading states and error handling for robustness.
+> 
+> Key features include:
+> - **Dynamic world ID resolution** (supports both refs and functions).
+> - **Error handling** with user-friendly messages.
+> - **Computed filtered cards** based on current filters and sort criteria.
+> - **Coordinate formatting** for location display (latitude/longitude, grid coordinates).
+> - **Async loading** with visual feedback via `loadingCards` ref.
+
+## Key Functions
+
+### `loadCards()`
+
+Fetches and processes cards from the `boxOrchestrator` API, updates `cards` ref with formatted data.
+
+### `filteredCards`
+
+Computed property that applies `cardFilters`, `sortBy`, and `sortOrder` to `cards.value`.
+
+### `getWorldId()`
+
+Helper to resolve `currentWorldId` (supports both refs and functions).
+
+### `watch callbacks`
+
+Syncs `cardFilters` with shared timeline filters (e.g., `timelinePosition`, `timelineYearMarkers`).
+
+## Usage
+
+```javascript
+// Example usage in a Vue component:
+const { loadCards, filteredCards, cardFilters, sortBy, sortOrder } = useCardOperations(boxOrchestrator, currentWorldId);
+
+// Call loadCards() when needed (e.g., on component mount):
+loadCards();
+
+// Use filteredCards in a template (e.g., for rendering a card grid):
+<template>
+  <div v-for="card in filteredCards" :key="card.id">
+    {{ card.name }}
+  </div>
+</template>
+```
+
+## Dependencies
+
+> ``vue` (for `ref``
+> ``computed``
+> ``watch`)`
+> ``logger` (from `../utils/logger.js`)`
+> ``sharedTimelineFilters` (from `./sharedTimelineFilters.js`)`
+> ``boxOrchestrator` (external API client).`
+
+## Related
+
+- [[CardGrid Component]]
+- [[Timeline Filters Module]]
+
+>[!INFO] **Filter Synchronization**
+> `sharedTimelineFilters` must be defined elsewhere in the app to ensure filters (e.g., `timelinePosition`) are shared across components. Without it, `cardFilters` will not update dynamically.
+
+
+>[!WARNING] **Error Handling**
+> If `boxOrchestrator` fails, `cardError` updates with a generic message. Customize error messages or retry logic as needed for production use.

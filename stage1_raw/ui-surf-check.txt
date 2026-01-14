@@ -1,0 +1,46 @@
+### TAGS
+#automated-ui-testing
+#puppeteer
+#web-scraping
+#ui-validation
+#screenshot-capture
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automated UI validation tool using Puppeteer to test web application states, user journeys, and content generation with screenshot logging.
+
+### DETAILS
+This script implements a UI validation framework leveraging Puppeteer to automate browser testing. It captures screenshots of web pages during tests, records pass/fail results for UI features, and evaluates user journeys and content generation workflows. The tool uses a helper class to aggregate test results and relies on a configuration file for URL and timeout settings. Screenshots are organized by date, counter, and test feature for traceability.
+
+### KEY_FUNCTIONS
+- **UISurfCheck.init()**: Initializes directory structure and logging for screenshot operations.
+- **getScreenshotName(feature, description)**: Generates standardized filenames combining date, counter, feature name, and sanitized description.
+- **takeScreenshot(page, feature, description)**: Captures full-page screenshots with error handling and logging.
+- **testPage(page, url, feature, description)**: Validates individual page loads by checking title presence and taking screenshots.
+- **testUserJourney(page)**: Executes a predefined user journey (landing → elements → world creation → dashboard) with automated navigation and screenshot capture.
+- **testGeneratorContent(page)**: Tests content generation workflow (login → elements → generators) with screenshot verification.
+- **testDashboardStates(page)**: Evaluates dashboard functionality including current state and timeline view navigation.
+
+### DEPENDENCIES
+puppeteer, chalk, fs, path, config (local), check-helper (local)
+
+### USAGE
+1. Initialize with `new UISurfCheck()`
+2. Call `init()` to set up screenshot directory
+3. Execute test methods:
+   - `testPage()` for individual page validation
+   - `testUserJourney()` for complete user workflow testing
+   - `testGeneratorContent()` for content generation validation
+   - `testDashboardStates()` for dashboard functionality checks
+4. Results are logged via helper class and stored as screenshots in `./screenshots/ui-checks`
+
+### RELATED
+[[config]] (required configuration file), [[check-helper]] (result aggregation utility)
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script automatically creates a `screenshots/ui-checks` directory if it doesn't exist, using recursive mkdir. Screenshots are timestamped to prevent overwrites.
+>[!WARNING]- Caution
+> Network timeouts are configurable via `config.timeouts.pageLoad`. Exceeding this timeout may cause page navigation failures. Always verify base URL (`config.urls.base`) is correct before execution.

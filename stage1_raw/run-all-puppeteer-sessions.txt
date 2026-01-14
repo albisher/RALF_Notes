@@ -1,0 +1,45 @@
+### TAGS
+#Puppeteer
+#AutomatedTesting
+#NodeJS
+#ConcurrencyControl
+#ErrorHandling
+#Logging
+#ScriptExecution
+
+### TYPE
+code-notes
+
+### SUMMARY
+Executes multiple Puppeteer test sessions sequentially with error tracking and delay between runs.
+
+### DETAILS
+This script orchestrates the execution of four predefined Puppeteer test sessions (`puppeteer-session-*`). Each session runs as a separate Node.js process via `execSync`, capturing success/failure statuses. It includes:
+- **Progress logging** with session identifiers and visual indicators (✅/❌).
+- **Concurrency control** via a 5-second delay between sessions to prevent resource conflicts.
+- **Result aggregation** tracking success counts and listing screenshot directories.
+- **Directory validation** to confirm screenshots were generated in expected paths.
+
+The script uses `child_process.execSync` to run each session file from the current directory (`__dirname`), with `stdio: 'inherit'` for console output visibility.
+
+### KEY_FUNCTIONS
+- **`runAllSessions()`**: Orchestrates session execution, logging, and result aggregation.
+- **`execSync()`**: Executes each Puppeteer script synchronously with error handling.
+- **`fs.existsSync()`/`readdirSync()`**: Validates screenshot directories and counts saved files.
+
+### DEPENDENCIES
+`child_process`, `fs`, `path` (Node.js built-ins).
+
+### USAGE
+1. Place this script in the same directory as your Puppeteer session files.
+2. Run via `node run-all-puppeteer-sessions.js`.
+3. Monitor console output for session statuses and screenshot counts.
+
+### RELATED
+[[Puppeteer Session Documentation]], [[Node.js Child Process Guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **`execSync` is blocking**: This script pauses execution until each session completes. For async behavior, replace with `exec` or `Promise.all`.
+>[!WARNING]- Caution
+> **Error messages may truncate**: Long errors are logged but not stored. Consider logging to a file for debugging.

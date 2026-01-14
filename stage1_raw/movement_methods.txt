@@ -1,0 +1,44 @@
+### TAGS
+#movement_methods
+#mechanical_robotics
+#mobility_systems
+
+### TYPE
+code-notes
+
+### SUMMARY
+A categorized list of robotic movement techniques for different environments and applications.
+
+### DETAILS
+This file enumerates various movement methods for robots, categorized by their primary propulsion or locomotion mechanisms. Each method is designed for specific conditions, such as aerial, terrestrial, aquatic, or climbing environments. The methods include both passive and active systems, balancing efficiency, adaptability, and environmental constraints.
+
+### KEY_FUNCTIONS
+- **Flyer with wings**: Aerodynamic propulsion for short-distance flight or gliding.
+- **Flyer with jet propulsion**: High-speed aerial mobility using thrusters.
+- **Flyer with magnetic levitation**: Stabilized flight via magnetic fields (e.g., maglev).
+- **Walker**: Ground-based locomotion using legs (e.g., bipedal or multi-legged robots).
+- **Wheeler**: Wheeled robots for smooth, stable movement on flat surfaces.
+- **Crawler**: Omnidirectional movement via crawling mechanisms (e.g., caterpillar tracks).
+- **Sailor**: Hydrodynamic propulsion in water using sails or fins.
+- **Hovercraft with air cushion**: Buoyant movement over land via pressurized air.
+- **Submersible**: Fully aquatic movement for underwater exploration.
+- **Climber**: Vertical or inclined movement using grippers, suction, or adhesive systems.
+- **Drifter with anti-gravity**: Suspended or levitated movement in low-gravity or zero-gravity environments.
+- **Teleports short distances**: Instantaneous displacement via non-physical means (e.g., quantum entanglement or energy transfer).
+
+### DEPENDENCIES
+none (standalone conceptual list)
+
+### USAGE
+This list serves as a reference for designing robotic systems requiring specific mobility solutions. Engineers may select or combine methods based on environmental constraints, speed requirements, and power efficiency needs.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Methods like **Flyer with wings** or **Flyer with jet propulsion** require environmental conditions (e.g., wind, open space) and may be impractical for indoor or cluttered environments.
+> **Walker** and **Wheeler** are most efficient on flat, stable surfaces but struggle with rough terrain or uneven ground.
+>[!WARNING]- Caution
+> **Submersible** and **Sailor** systems demand specialized seals, corrosion resistance, and buoyancy control to prevent failure in harsh aquatic conditions.
+> **Teleports short distances** may involve energy-intensive or unregulated technologies (e.g., EM pulses), posing safety or ethical risks.

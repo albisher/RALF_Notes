@@ -1,0 +1,72 @@
+**Tags:** #programmatic-card-generation, #api-integration, #javascript, #world-building, #card-creation, #ui-programmatic-hybrid
+**Created:** 2026-01-13
+**Type:** tutorial
+
+# FINAL_CARD_CREATION_GUIDE
+
+## Summary
+
+```
+A step-by-step guide to programmatically and manually creating 100 unique cards in a digital world, combining automated script execution with manual UI inputs.
+```
+
+## Details
+
+> This guide provides instructions for generating 95 cards via a JavaScript script in the browser console and manually creating 5 additional cards through the UI. The script dynamically generates card names, descriptions, and metadata using predefined adjective/noun combinations, ensuring variety across 10 card types. The process leverages an API client to submit card data to a backend system, while the UI allows manual customization for a final set of cards. The workflow ensures consistency between automated and manual entries, verifying all cards are properly stored and accessible in the application.
+
+## Key Functions
+
+### ``create95CardsProgrammatic()``
+
+Executes a loop to generate 95 cards programmatically with randomized attributes and metadata.
+
+### ``CARD_TYPES` array`
+
+Defines the 10 predefined card categories (e.g., plants, robots) used in generation.
+
+### ``ADJECTIVES` and `NOUNS` arrays`
+
+Provides thematic descriptors for card names (e.g., "mystical," "ancient").
+
+### ``api.cards.create()``
+
+API endpoint invoked to submit card data to the backend.
+
+### `Manual UI generators`
+
+UI-based tools for creating 5 custom cards with specific hash requirements.
+
+## Usage
+
+1. **Programmatic Step**:
+   - Access the browser console (F12/Cmd+Option+I) on `http://localhost:5174`.
+   - Paste and run the script after logging in with `username: a`, `password: spq8`.
+   - Monitor progress via console logs (updates every 20 cards).
+
+2. **Manual Step**:
+   - Navigate to the "Generate" button in the UI.
+   - Select the world (e.g., Zephyros Prime) and manually create 5 cards using the provided hash templates.
+
+3. **Verification**:
+   - Check the "Cards" tab to confirm all 100 cards appear, with correct metadata and functionality.
+
+## Dependencies
+
+> ``window.app.apiClient``
+> ``window.app.currentWorldId``
+> `browser-based frontend framework (e.g.`
+> `React)`
+> `backend API for card storage.`
+
+## Related
+
+- [[`create_95_cards_browser]]
+- [[`FINAL_CARD_CREATION_INSTRUCTIONS]]
+- [[Backend API Documentation]]
+
+>[!INFO] Important Note
+> Ensure the `worldId` matches the selected world in the UI to avoid API mismatches. The script uses `window.app.currentWorldId`, so verify this value matches the frontend’s active world.
+
+
+>[!WARNING] Caution
+> If the script fails silently, check the browser’s **Network tab** for API errors (e.g., CORS issues, invalid responses). The `try-catch` block logs errors, but manual inspection may be needed for deeper debugging.

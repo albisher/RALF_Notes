@@ -1,0 +1,45 @@
+### TAGS
+#automated-testing
+#ui-validation
+#puppeteer
+#frontend-testing
+#react-components
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automated UI validation script using Puppeteer to test a web application's dashboard and navigation functionality.
+
+### DETAILS
+This script leverages Puppeteer to launch a browser instance and interact with a web application's UI. It performs a series of UI checks on the dashboard page, including verifying the presence of system status alerts, stats cards, worlds list sections, navigation links, and form elements. The script also tests navigation to the Elements page and subsequent interactions like dropdown selection, form input, and button clicks. It uses a helper class (`CheckHelper`) to log results with statuses (pass/fail/warning) for each check.
+
+The script dynamically adjusts the viewport for desktop and mobile testing, ensuring responsive design validation. It logs detailed results for each UI component, allowing for easy identification of missing or broken elements.
+
+### KEY_FUNCTIONS
+- **runUIChecks**: Orchestrates the entire UI validation process, including browser launch, page navigation, and UI checks.
+- **CheckHelper.addResult**: Records the status (pass/fail/warning) of each UI check with a descriptive message.
+- **puppeteer.launch**: Initializes a browser instance with Puppeteer.
+- **page.goto**: Navigates to the specified URL with configurable wait and timeout settings.
+- **page.setViewport**: Configures the viewport size for testing different screen resolutions.
+
+### DEPENDENCIES
+puppeteer, chalk, config (local), CheckHelper (local)
+
+### USAGE
+1. Install dependencies (`puppeteer`, `chalk`).
+2. Configure `config` file with Puppeteer launch options, URLs, timeouts, and test data.
+3. Run the script to execute UI checks against the target application.
+4. Review the logged results for pass/fail/warning statuses of each UI component.
+
+### RELATED
+[[UI Test Configuration]], [[Puppeteer Test Framework]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script uses `helper.elementExists` to check for UI elements dynamically. This method relies on the `CheckHelper` class, which should be implemented to handle element existence checks and logging.
+> Ensure `config.urls.dashboard` and other URLs are correctly defined in the config file to avoid navigation errors.
+
+>[!WARNING]- Caution
+> If the `Elements` page navigation fails, the script will mark it as a `fail` and skip subsequent checks on that page. Ensure the `/elements` route is accessible and valid.
+> Mobile viewport testing may fail if the target application does not properly render on smaller screens. Adjust viewport settings or add additional checks for mobile responsiveness.

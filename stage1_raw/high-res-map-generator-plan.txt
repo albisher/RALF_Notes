@@ -1,0 +1,52 @@
+### TAGS
+#algorithm
+#geospatial
+#containerization
+#high-resolution
+#map-generation
+#voronoi-diagram
+#d3-js
+#web-worker
+#performance-optimization
+#Docker
+#API-design
+
+### TYPE
+research-architecture
+
+### SUMMARY
+Plans for containerized high-resolution map generation using Voronoi-based algorithms, optimized for efficiency and modularity.
+
+### DETAILS
+This document outlines a research-backed implementation plan for a high-resolution map generator inspired by Azgaar’s Fantasy Map Generator. It leverages Voronoi diagrams for structural generation, avoiding Perlin noise for efficiency, and includes optimized algorithms for heightmaps, biomes, and city placement. The system is containerized for isolation, using Docker and Web Workers to balance performance and detail. Key optimizations include chunked processing, progressive rendering, and a multi-tiered architecture separating generation logic from API and UI layers.
+
+### KEY_FUNCTIONS
+- **Voronoi Diagram Generation**: Uses `d3-delaunay`/`d3-voronoi` to create polygonal map regions from random seed points.
+- **Heightmap Algorithm**: Assigns terrain heights via recursive neighbor adjustments, balancing naturalness with computational simplicity.
+- **Biome Calculator**: Computes temperature/precipitation from cell height/coastal data, mapping to biome matrices for environmental diversity.
+- **City Placement Engine**: Multi-stage algorithm assessing terrain suitability, capital distribution, and road networks for settlement optimization.
+- **Web Worker Pool**: Offloads heavy computations (e.g., map generation) to background threads for responsive UI.
+- **Progressive Rendering**: Dynamically renders map chunks as they complete, improving user experience during long generation times.
+- **Docker Container**: Isolates the generator service with configurable resources (CPU, memory) and dependencies (Redis cache).
+
+### DEPENDENCIES
+`d3-delaunay`, `d3-voronoi`, FastAPI/Flask, Web Workers, Docker, Redis (for caching), `curl` (healthcheck).
+
+### USAGE
+1. **Container Setup**: Deploy via `docker-compose.yml` with specified environment variables (e.g., `MAP_GEN_MAX_CELLS`).
+2. **API Integration**: Call `/generate` endpoint with seed/parameters; use `/health` for container status.
+3. **Frontend Interaction**: Stream results via Web Workers or chunked rendering for real-time updates.
+4. **Customization**: Adjust `RESOLUTION_PRESETS` or biome parameters in code to balance detail/performance.
+
+### RELATED
+[[Azgaar’s Fantasy Map Generator Research Notes]], [[High-Resolution Terrain Generation Tutorials]], [[Dockerized Web Services Architecture Guide]].
+
+### CALLOUTS
+>[!INFO]- **Voronoi Trade-off**
+> Voronoi diagrams excel at natural-looking polygons but require precise seed point distribution. Poor randomness can yield jagged or unnatural borders; ensure uniform sampling for optimal results.
+>[!WARNING]- **Performance Limits**
+> Exceeding 100,000 cells risks performance degradation due to memory/CPU constraints. Test with `medium` preset (30,000 cells) before scaling up.
+>[!INFO]- **Container Isolation**
+> The Docker setup separates generation logic from the main app, preventing conflicts. Monitor CPU usage (`--deploy.resources.limits.cpus`) to avoid throttling.
+>[!WARNING]- **Biome Edge Cases**
+> Extreme temperature/moisture values (e.g., >20°C or < -5°C) may produce unrealistic biomes. Clamp inputs to Azgaar’s documented ranges (0–20°C, 0–9 moisture).

@@ -1,0 +1,43 @@
+### TAGS
+#automated-testing
+#web-scraping
+#puppeteer
+#ui-testing
+#frontend-validation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automated UI format validation tool using Puppeteer to test and capture screenshots for user-friendly UI components.
+
+### DETAILS
+This script automates UI format checks for a web application using Puppeteer to launch a browser, interact with pages, and verify UI elements are presented in a user-friendly format (e.g., avoiding raw JSON). It captures screenshots for debugging and logs test results. The class includes methods for basic connection, login flow, and specific checks for the "World Assets" page, ensuring elements like asset cards, badges, and key features are correctly formatted.
+
+### KEY_FUNCTIONS
+- **UserFriendlyFormatCheck**: Main class initializing browser and test configurations.
+- **getScreenshotName(feature, description)**: Generates filenames for screenshots with date, counter, and feature details.
+- **takeScreenshot(page, feature, description)**: Captures a screenshot of a page and saves it to a directory.
+- **runTest()**: Orchestrates the entire test suite, including browser launch, test execution, and cleanup.
+- **testBasicConnection(page)**: Verifies the application’s basic connection and takes a screenshot.
+- **testLoginFlow(page)**: Simulates a login process, clears inputs, fills credentials, and checks post-login state.
+- **testWorldAssetsUserFriendlyFormat(page)**: Validates UI elements on the "World Assets" page (e.g., asset cards, badges, key features) and ensures no raw JSON is displayed.
+- **testAssetTypeFormats(page)**: (Not fully implemented in this snippet) Likely checks UI consistency across different asset types.
+
+### DEPENDENCIES
+puppeteer, fs, path
+
+### USAGE
+1. Initialize the `UserFriendlyFormatCheck` class.
+2. Call `runTest()` to execute the full test suite.
+3. Review screenshots in `./screenshots/ui-checks` for debugging.
+4. Monitor console logs for test results and warnings.
+
+### RELATED
+[[User-Friendly UI Design Guide]], [[Puppeteer Automation Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script uses Chrome as the browser executable path (`/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`). Adjust this path if running on a different OS or Chrome version.
+>[!WARNING]- Caution
+> The `disable-web-security` and `disable-ssl-errors` flags may expose the application to security risks in production. Use only in controlled environments for testing.

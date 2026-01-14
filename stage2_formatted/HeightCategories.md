@@ -1,0 +1,28 @@
+**Tags:** #data-classification, #enumeration, #static-values
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# HeightCategories
+
+## Summary
+
+```
+Defines static height category labels for classification purposes.
+```
+
+## Details
+
+> This file contains a simple enumeration of predefined height categories (`tiny`, `short`, `medium`, `tall`, `gigantic`), likely used for categorizing objects or entities based on relative size. The values are likely intended for use in applications requiring discrete height classification (e.g., game design, data analysis, or system categorization).
+
+## Usage
+
+These values can be referenced directly in code (e.g., as strings or enum keys) wherever height categorization is needed. Example:
+```python
+height_category = "medium"  # Assign or compare against these values
+```
+
+>[!INFO] Contextual Use
+> These labels may be part of a larger system where `tiny`/`gigantic` represent extreme bounds, while `medium`/`tall` serve as mid-range categories. Ensure consistency with other height-related logic in the application.
+
+>[!WARNING] Hardcoded Values
+> Since these are static strings, avoid dynamic generation unless explicitly designed for extensibility. Hardcoding may limit future adaptability.

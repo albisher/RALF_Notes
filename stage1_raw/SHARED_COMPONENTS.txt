@@ -1,0 +1,41 @@
+### TAGS
+#shared-components
+#consolidation
+#UI-components
+#styling
+#iteration-management
+
+### TYPE
+documentation
+
+### SUMMARY
+Document summarizing the consolidation of UI box components and styles into a unified `shared/` folder for improved maintainability and consistency across iterations.
+
+### DETAILS
+This document outlines the migration of all box components and styles from previous iterations (06 and 07) into a centralized `shared/` folder. The goal was to eliminate redundancy, enforce consistency, and ensure all iterations reference updated components based on user preferences. The consolidation includes 8 box files (e.g., `boxes.js`, `card-box.js`) and 2 style files (`color-scheme.css`, `color-schema.html`), with explicit updates reflecting user-defined design choices.
+
+### KEY_FUNCTIONS
+- **`shared/components/boxes.js`**: Manages base UI components (e.g., workflow stages, cards) with updated sizing and layout per user feedback.
+- **`shared/components/generate-box.js`**: Handles dynamic component generation (e.g., card selectors, timeline tools).
+- **`shared/styles/color-scheme.css`**: Defines CSS variables for color consistency across iterations.
+- **`shared/styles/color-schema.html`**: Provides visual documentation of color choices (e.g., gradient workflows, timeline colors).
+- **`shared/components/link-box.js`**: Manages link-based UI elements (e.g., card lists, filters).
+- **`shared/components/map-box.js`**: Visualizes map-based components (e.g., world selection).
+- **`shared/components/controls-box.js`**: Centralizes common UI controls (e.g., buttons, inputs).
+
+### DEPENDENCIES
+`shared/styles/color-scheme.css`, JavaScript libraries for UI rendering (e.g., vanilla JS or framework-specific wrappers like `UIBoxes`).
+
+### USAGE
+1. **Load Shared Components**: Include scripts from `shared/components/` in iteration mockups (e.g., `<script src="../../shared/components/boxes.js">`).
+2. **Apply Styles**: Link the CSS file (`<link rel="stylesheet" href="../../shared/styles/color-scheme.css">`).
+3. **Extend Components**: Use functions like `UIBoxes.workflowStage()` or `GenerateBox.generatorSelector()` for dynamic UI elements.
+
+### RELATED
+[[Shared Components Implementation Guide]], [[Iteration 06/07 Migration Notes]]
+
+### CALLOUTS
+>[!INFO]- **Single Source of Truth**
+> All box components and styles are now centralized in `shared/`, eliminating version conflicts across iterations. Updates to `boxes.js` or `color-schema.html` automatically reflect in every iteration.
+>[!WARNING]- **Deprecation Risk**
+> Remove or archive iteration-specific box files (e.g., `iteration-06/components/boxes.js`) to avoid shadowing shared components. Test all mockups post-consolidation to ensure compatibility.

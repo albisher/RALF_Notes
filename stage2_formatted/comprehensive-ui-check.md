@@ -1,0 +1,77 @@
+**Tags:** #automated-testing, #ui-testing, #puppeteer, #web-scraping, #frontend-validation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# comprehensive-ui-check
+
+## Summary
+
+```
+Automated UI validation tool using Puppeteer to test navigation, login, and lore setup functionality with screenshot capture.
+```
+
+## Details
+
+> This script automates UI checks for a web application using Puppeteer, focusing on login functionality, navigation through predefined menu items, and interaction with the lore setup page. It captures screenshots of each tested feature for debugging and validation, storing them in a dedicated directory. The tool logs success/failure for each test step and handles errors gracefully by saving error screenshots.
+
+## Key Functions
+
+### ``ComprehensiveUICheck``
+
+Main class encapsulating all UI test logic.
+
+### ``init()``
+
+Initializes directory structure and logs setup details.
+
+### ``getScreenshotName(feature, description)``
+
+Generates timestamped filenames for screenshots.
+
+### ``takeScreenshot(page, feature, description)``
+
+Captures page snapshots with error handling.
+
+### ``login(page)``
+
+Tests and verifies login credentials and session persistence.
+
+### ``testNavigationSidebar(page)``
+
+Validates navigation links across multiple menu items.
+
+### ``testLoreSetupPage(page)``
+
+Evaluates the lore setup page, including category management and add functionality.
+
+## Usage
+
+1. Initialize the class: `const uiChecker = new ComprehensiveUICheck();`
+2. Call `init()` to set up screenshots directory.
+3. Launch browser with `const browser = await puppeteer.launch();`
+4. Create a page instance and pass it to test methods:
+   ```javascript
+   const page = await browser.newPage();
+   await uiChecker.login(page);
+   await uiChecker.testNavigationSidebar(page);
+   await uiChecker.testLoreSetupPage(page);
+   ```
+5. Ensure `baseUrl` matches your application's endpoint.
+
+## Dependencies
+
+> `puppeteer`
+> `fs`
+> `path`
+
+## Related
+
+- [[puppeteer-testing-guide]]
+- [[ui-automation-best-practices]]
+
+>[!INFO] Important Note
+> The script uses a hardcoded `test` credentials (`username: 'test', password: 'testpass'`). In production, replace these with environment variables or a secure credential manager to avoid hardcoding sensitive data.
+
+
+>[!WARNING] Caution
+> Timeout settings (e.g., `30000` ms for login) may need adjustment based on application response times. Excessively long timeouts could cause false failures, while overly short ones might miss critical interactions. Monitor test stability during deployment.

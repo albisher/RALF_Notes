@@ -1,0 +1,76 @@
+**Tags:** #backend-validation, #frontend-migration, #schema-conversion, #time-system-correction, #api-authentication, #environment-configuration, #debugging-logging, #reactivity-issues, #async-error-handling
+**Created:** 2026-01-13
+**Type:** documentation
+
+# FINAL_COMPREHENSIVE_REPORT
+
+## Summary
+
+```
+Comprehensive report documenting 15 code fixes across 10 files for type validation, timeline system, API authentication, and path resolution, alongside unresolved runtime issues preventing full verification.
+```
+
+## Details
+
+> This report details a multi-phase debugging and code correction effort for a frontend application. The project addressed schema mismatches (e.g., `world_id` type conversion), fixed incorrect time system calculations (e.g., hardcoded year values), secured API endpoints, and resolved path resolution for map assets. Debugging revealed silent failures in world data loading due to authentication, reactivity, or async issues. The fixes were applied in production-ready style but require runtime validation to confirm functionality.
+
+## Key Functions
+
+### ``useCardOperations.js``
+
+Handles world_id type conversion for frontend-backend compatibility.
+
+### ``TopTimeline.vue``
+
+Dynamically adjusts year markers based on `worldTimeSystem.yearZero` (default: 2012).
+
+### ``api-client.js``
+
+Protects `/generation` endpoints with authentication tokens.
+
+### ``config.js``
+
+Dynamically sets `ASSETS_BASE_PATH` based on environment (dev/prod).
+
+### ``useWorldOperations.js``
+
+Debug logs for world loading (e.g., `logger.info('useWorldOperations: Loaded worlds'`).
+
+### ``WorldSelector.vue``
+
+Frontend component for world selection (blocked by missing data).
+
+## Usage
+
+To verify fixes:
+1. **Code**: Run `npm run build` and test fixes in `WorkflowPage.vue`.
+2. **Runtime**: Ensure:
+   - Authentication token is valid.
+   - `loadWorlds()` is called before rendering `WorldSelector`.
+   - Network tab confirms `/api/worlds` and `/generation` calls succeed.
+3. **Debugging**: Check console logs for `logger.info` entries in `useWorldOperations.js`.
+
+## Dependencies
+
+> ``vue``
+> ``axios``
+> ``vue-router``
+> ``vuex``
+> ``sql` (backend database)`
+> ``jsonb` (for world settings).`
+
+## Related
+
+- [[`Backend API Documentation`]]
+- [[`Vue]]
+- [[`SQL Time System Schema`]]
+- [[`Environment Configuration Cheat Sheet`.]]
+
+>[!INFO] Silent Failures
+> Debug logs in `useWorldOperations.js` were not appearing, suggesting `loadWorlds()` either failed silently or was not executed. Investigate `try/catch` blocks and component lifecycle hooks.
+
+>[!WARNING] Dependency Block
+> Timeline years remain incorrect because `worldTimeSystem` is not loaded due to unresolved world selection (Issue #1). Fix world loading first to validate time system fixes.
+
+>[!INFO] Cache Consideration
+> The map 404 error may resolve with a hard refresh to clear browser cache, as `config.js` dynamically adjusts paths. Test in incognito mode to rule out cached assets.

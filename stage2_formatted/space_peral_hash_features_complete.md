@@ -1,0 +1,88 @@
+**Tags:** #deterministic-generation, #hash-based-assets, #world-building, #ui-implementation, #backend-api, #seed-input, #asset-creation
+**Created:** 2026-01-14
+**Type:** code-notes
+
+# space_peral_hash_features_complete
+
+## Summary
+
+```
+Implements hash-based deterministic generation for all asset types (character, plant, building, robot) in a Space Peral world-building system, ensuring reproducible content via UI and backend integration.
+```
+
+## Details
+
+> This implementation enables users to generate consistent, seed-driven assets (characters, plants, buildings, robots) through a frontend UI (`WriterWorkspace.vue`) and backend API (`api.js`). The system supports three generation methods: **hash-based** (with SHA-256 determinism), **random**, and **manual**, with preview functionality before saving. Each asset type includes reactive UI controls (e.g., `plantGenerationMethod`, `buildingSeed`) and corresponding backend endpoints (`generateElementFromHash`, `generateRandomElement`). The backend already had pre-existing generators for characters, plants, buildings, and robots, all leveraging hash-based deterministic logic.
+
+## Key Functions
+
+### ``assetTypes``
+
+Configures UI dropdown for supported asset types with hash generation support.
+
+### ``generatePlantFromHash`/`generateRandomPlant``
+
+Frontend methods to trigger plant generation via seed or randomness.
+
+### ``generateBuildingFromHash`/`generateRandomBuilding``
+
+Frontend methods for building generation.
+
+### ``generateRobotFromHash`/`generateRandomRobot``
+
+Frontend methods for robot generation.
+
+### ``generateElementFromHash`/`generateRandomElement``
+
+Backend API endpoints for deterministic/random asset generation.
+
+### ``Generators/Characters/characters.py``
+
+Backend character generator (hash-based).
+
+### ``Generators/Plants/plants.py``
+
+Backend plant generator (hash-based).
+
+### ``Generators/Buildings/buildings.py``
+
+Backend building generator (hash-based).
+
+### ``Generators/Robots/robots.py``
+
+Backend robot generator (hash-based).
+
+## Usage
+
+1. **Frontend**:
+   - Select an asset type (e.g., "Character") with hash generation enabled.
+   - Choose a generation method (hash/random/manual).
+   - Enter a seed (for hash-based) or click "Generate Random."
+   - Preview the asset before saving.
+
+2. **Backend**:
+   - Call `generateElementFromHash` with `worldId`, `elementType`, and `seed` to produce deterministic assets.
+   - Call `generateRandomElement` with `worldId` and `elementType` for random generation.
+
+## Dependencies
+
+> `Vue.js (frontend)`
+> `Axios (API calls)`
+> `Node.js/Express backend`
+> `SHA-256 (hashing)`
+> `existing generator modules (`characters.py``
+> ``plants.py``
+> ``buildings.py``
+> ``robots.py`).`
+
+## Related
+
+- [[Space Peral UI Check]]
+- [[World Building System Architecture]]
+
+>[!INFO] Important Note
+> **Deterministic Seed Usage**: Users must input the same seed to reproduce identical assets (e.g., characters, plants). This ensures consistency for world-building narratives.
+>
+
+>[!WARNING] Caution
+> **Manual Overrides**: While hash-based generation is deterministic, manual overrides bypass this logic. Ensure users understand deterministic results apply only to generated assets, not manually edited ones.

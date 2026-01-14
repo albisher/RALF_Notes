@@ -1,0 +1,67 @@
+**Tags:** #automated-testing, #web-automation, #puppeteer, #dashboard-navigation, #ui-testing
+**Created:** 2026-01-13
+**Type:** test-reference
+
+# test-dashboard-navigation
+
+## Summary
+
+```
+Automated dashboard navigation test using Puppeteer to verify clickable card functionality and page transitions.
+```
+
+## Details
+
+> This script automates testing of a web dashboard navigation system by launching a headless browser, navigating to a local development server (localhost:5173), and verifying interactions with three stat cards (Characters, Worlds, Elements). It captures screenshots at key stages, checks URL transitions, and validates page content after each click. The test ensures smooth navigation between dashboard and target pages while handling potential failures gracefully.
+
+## Key Functions
+
+### `testDashboardNavigation`
+
+Orchestrates the entire test workflow, including browser launch, navigation, click testing, and screenshot capture.
+
+### `puppeteer.launch`
+
+Configures and starts a headless Chrome browser with security and performance optimizations.
+
+### `page.goto`
+
+Navigates to the dashboard URL with timeout and DOM content loading wait.
+
+### `page.$()`
+
+Selects elements by CSS selector (e.g., `.stat-card:nth-child(2)` for Characters card).
+
+### `page.screenshot`
+
+Captures full-page screenshots at multiple stages of the test.
+
+### `page.evaluate()`
+
+Extracts page content (innerText) for validation checks.
+
+## Usage
+
+1. Install Puppeteer: `npm install puppeteer`
+2. Run the script: `node test-dashboard-navigation.js`
+3. Ensure the target application (localhost:5173) is running before execution.
+4. Verify screenshots are saved to `checks/screenshots/` directory.
+
+## Dependencies
+
+> `puppeteer`
+> `Node.js runtime`
+
+## Related
+
+- [[Dashboard UI Design Document]]
+- [[Local Development Server Setup Guide]]
+
+>[!INFO] Important Note
+> The script uses a headless browser with aggressive security flags (`--disable-web-security`) for testing. This may bypass real-world security measures and is only suitable for development environments.
+> **Critical**: If running in production, remove these flags and use proper security headers.
+
+
+>[!WARNING] Caution
+> The test assumes the dashboard has exactly three stat cards (Characters, Worlds, Elements) in the order `.stat-card:nth-child(1)`, `.stat-card:nth-child(2)`, `.stat-card:nth-child(3)`. If the UI structure changes, selectors may break. Always verify selectors against the actual rendered HTML.
+> **Critical**: The script does not handle cases where cards are missing or selectors fail—it logs failures but continues execution. Add explicit error handling for production use.

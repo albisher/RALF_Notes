@@ -1,0 +1,38 @@
+**Tags:** #data-classification, #size-categories, #enumeration
+**Created:** 2026-01-13
+**Type:** data-notes
+
+# size_categories
+
+## Summary
+
+```
+Defines a set of predefined size categories for classification purposes.
+```
+
+## Details
+
+> This file enumerates a collection of size descriptors used for categorizing items based on their physical dimensions or attributes. The categories are designed to be broad and flexible, allowing for adaptability across different applications (e.g., product sizing, equipment classification, or design specifications). Each term represents a distinct range of sizes, intended to facilitate standardized comparisons or selection processes.
+
+## Key Functions
+
+### `Size Categorization`
+
+Assigns items to predefined size classes for organizational or analytical purposes.
+
+### `Flexible Application`
+
+Can be used in systems requiring dynamic or static size classification (e.g., e-commerce, manufacturing, or inventory management).
+
+## Usage
+
+To use these categories:
+1. Reference the terms directly in code, documentation, or workflows (e.g., `if item_size == "Medium"`).
+2. Integrate into systems requiring size-based decision-making (e.g., filtering products by category).
+3. Adapt for domain-specific needs (e.g., "Compact" may imply storage constraints in one context, while "Heavy-duty" suggests durability in another).
+
+>[!INFO] Contextual Adaptation
+> Terms like "Compact" or "Bulky" may require domain-specific definitions (e.g., "Compact" could mean <10cm vs. <20cm in a retail context). Always clarify usage in conjunction with application requirements.
+
+>[!WARNING] Ambiguity Risk
+> Some terms (e.g., "Gigantic" vs. "Heavy-duty") overlap in meaning. Avoid ambiguity by defining thresholds or examples when implementing these categories in code.

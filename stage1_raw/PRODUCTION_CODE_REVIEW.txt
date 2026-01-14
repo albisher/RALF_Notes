@@ -1,0 +1,42 @@
+### TAGS
+#production-readiness
+#database-only-data
+#box-method-compliance
+#space-peral-filtering
+#ui-beta-folder
+#static-data-violation
+#dependency-isolation
+
+### TYPE
+documentation
+
+### SUMMARY
+Review of `ui-beta` folder for production deployment, highlighting critical issues with external dependencies, Box method compliance, and incorrect database data handling while enforcing "Space Peral" world filtering.
+
+### DETAILS
+The review assesses the `ui-beta` folder for production readiness, focusing on architectural adherence (Box method) and data integrity. Key findings include violations of folder isolation (external references to `ui-explorations`), non-compliance with database-only data requirements, and missing "Space Peral" world filtering. The codebase follows Box method principles but lacks proper validation and error handling in some boxes. Static data files persist despite production requirements, posing risks for accidental overrides.
+
+### KEY_FUNCTIONS
+- **getMapViewerUrl()**: Constructs URL for external map viewer (needs relocation).
+- **loadCards()**: Loads cards from static `cards-data.js` (must switch to database).
+- **BoxOrchestrator**: Manages box lifecycle but lacks validation for "Space Peral" world.
+- **CardsAPIBox**: Handles API calls but lacks parameter validation (e.g., `world_id`).
+- **cards-data.js**: Contains 77+ hardcoded mock cards (must be removed).
+
+### DEPENDENCIES
+Vue.js, Material Design Icons, Google Fonts (CDN), `ui-explorations` (external, non-compliant), `api` backend (allowed).
+
+### USAGE
+To deploy, ensure:
+1. All external references (`ui-explorations`) are removed or replaced with absolute URLs.
+2. `cardview.html` fetches cards from the database via `CardsAPIBox` with "Space Peral" filtering.
+3. Static `cards-data.js` is deleted or archived.
+
+### RELATED
+[[Production Requirements Guide]], [[Box Method Implementation Notes]]
+
+### CALLOUTS
+>[!INFO]- Critical Dependency Fix
+> Replace all `ui-explorations` references with absolute URLs or move the map viewer into `ui-beta` to maintain containerization.
+>[!WARNING]- Data Source Risk
+> Removing `cards-data.js` and enforcing database-only data is mandatory to avoid hardcoded mock data in production. Test thoroughly after changes.

@@ -1,0 +1,38 @@
+### TAGS
+#geospatial-simulation
+#tectonic-plate
+#procedural-generation
+#physics-based
+
+### TYPE
+code-notes
+
+### SUMMARY
+Simulates tectonic plate interactions to modify terrain heights for mountain/rift valley generation in procedural planet modeling.
+
+### DETAILS
+This box implements a deterministic tectonic plate movement system that assigns Voronoi cells to plates, calculates boundary interactions, and modifies terrain heights based on convergence/divergence. It uses hash-based clustering to distribute plates across a map and applies physics-inspired height adjustments (mountains for collisions, rift valleys for separation).
+
+### KEY_FUNCTIONS
+- **`execute`**: Main workflow—validates input, assigns plates, computes vectors, finds boundaries, and applies terrain modifications.
+- **`_assign_plates`**: Uses SHA-256 hashing to deterministically cluster cells into `num_plates` regions via Euclidean distance to plate centers.
+- **`_calculate_plate_vectors`**: (Placeholder) Would define relative motion between plates (not implemented here).
+- **`_find_boundaries`**: Identifies shared Voronoi edges between adjacent plates.
+- **`_calculate_convergence`**: Computes vector difference between two plates to determine boundary type (convergent/divergent).
+
+### DEPENDENCIES
+numpy, hashlib, boxes.core.box_interface
+
+### USAGE
+1. Call with `operation="simulate_plates"` and required inputs (e.g., `world_hash`, `cells`, `heights`).
+2. Returns updated `heights`, plate assignments, and boundary data.
+3. Must be run on planet-type worlds only.
+
+### RELATED
+[[Tectonic Physics Theory]], [[Voronoi-Based Procedural Generation]]
+
+### CALLOUTS
+>[!INFO]- Deterministic Clustering
+> Plate assignments rely on `world_hash`, ensuring reproducibility across runs. Hashes are split into 16-character chunks for center coordinates.
+>[!WARNING]- Edge Cases
+> If `cells` is empty or `max_x`/`max_y` is zero, normalization defaults to 0, risking incorrect plate assignments. Validate input data pre-execution.

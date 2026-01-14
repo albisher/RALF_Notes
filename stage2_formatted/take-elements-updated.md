@@ -1,0 +1,58 @@
+**Tags:** #automation, #web-scraping, #puppeteer, #testing, #ui-interaction
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# take-elements-updated
+
+## Summary
+
+```
+Automates screenshot capture of interactive web pages (Elements, World Creation, Lore Setup) using Puppeteer.
+```
+
+## Details
+
+> This script uses Puppeteer to launch a headless browser, navigate to a local web application (`localhost:3001`), and capture full-page screenshots of three key pages: the updated Elements page, the World Creation flow, and the Lore Setup interface. It includes delays (`waitForTimeout`) to simulate user interaction and ensures screenshots are taken after navigation and button clicks. The browser is properly closed in a `finally` block to prevent resource leaks.
+
+## Key Functions
+
+### `takeElementsUpdated()`
+
+Orchestrates the entire workflow—browser launch, page navigation, screenshot capture, and cleanup.
+
+### `puppeteer.launch()`
+
+Configures a headless Chrome instance with security flags (`--no-sandbox`, `--disable-setuid-sandbox`).
+
+### `page.goto()`
+
+Navigates to specified URLs with `networkidle2` wait strategy.
+
+### `page.click()`
+
+Simulates user interaction with buttons (e.g., "Create World").
+
+### `page.screenshot()`
+
+Captures full-page images for debugging/testing.
+
+## Usage
+
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node take-elements-updated.js`.
+3. Ensure the target app (`localhost:3001`) is running before execution.
+
+## Dependencies
+
+> `puppeteer`
+> `Node.js runtime`
+
+## Related
+
+- [[none]]
+
+>[!INFO] Important Note
+> The script assumes the target app uses relative paths for buttons (e.g., `href="/world-creation"`). Adjust selectors if the app’s structure changes.
+
+>[!WARNING] Caution
+> Headless mode (`headless: true`) may not work in all environments. Test with `--headless=new` for debugging if needed. Avoid `--no-sandbox` in production due to security risks.

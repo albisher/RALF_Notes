@@ -1,0 +1,59 @@
+### TAGS
+#world-building
+#procedural-generation
+#ai-integration
+#web-application
+#creative-tools
+#storytelling
+#hash-based-algorithms
+#scalable-architecture
+#user-experience
+#collaborative-editing
+
+### TYPE
+documentation
+
+### SUMMARY
+A Professional Requirements Document (PRD) for a Space Peral-themed world-building web application, focusing on procedural content generation, AI-assisted creation, and interactive mapping for writers.
+
+### DETAILS
+This document outlines the **Space Peral World-Building Web Application**, a SaaS platform designed to enable writers to generate, manage, and visualize complex fictional universes. The app integrates **procedural generation** (via hash-based algorithms), **AI-assisted content creation**, and **interactive 2D/3D mapping**, with support for both local (Ollama) and cloud AI. The system prioritizes **offline capabilities**, **multi-language support**, and **collaborative editing**, targeting writers, educators, and creative professionals. The architecture centers on a **responsive single-page UI** with modular components for content creation, exploration, and timeline tracking.
+
+### KEY_FUNCTIONS
+- **Single-Page Web Application**: Responsive sidebar navigation with collapsible sections and cards for core UI.
+- **Hash-Based Procedural Generation**: Auto-generates characters, plants, buildings, and biomes deterministically via user-provided inputs.
+- **Map Interfaces**: Supports 2D/3D views with biome, political, and resource overlays, including zoom, coordinate input, and search.
+- **Timeline View**: Visualizes story progression with location markers and event evolution tracking.
+- **Generator Integration**: Connects with existing tools (e.g., robots, buildings, plants) with time/location constraints.
+- **Local AI (Ollama)**: Offline-first AI assistant for content generation, with cloud fallback.
+- **Image Generation**: AI-powered prompts for professional-quality visuals (e.g., photography specs, styles).
+- **Logging System**: Text editor with auto-save, version history, and configurable log rules.
+- **Exploration Paths**: Random hash-based suggestions for content discovery.
+- **Collaborative Editing**: Real-time collaboration with conflict resolution (lower priority).
+
+### DEPENDENCIES
+Frontend: React.js, CSS/JS libraries (e.g., Leaflet for maps, D3.js for visualizations).
+Backend: Node.js/Express (or similar) for procedural generation logic.
+AI: Ollama (local) + cloud APIs (e.g., Stable Diffusion, MidJourney).
+Database: SQLite/PostgreSQL for storing generated content and user data.
+Mapping: WebGL/Three.js for 3D rendering, or third-party libraries like Mapbox.
+
+### USAGE
+1. **Content Creation**: Users input descriptions (e.g., "a haunted castle") to auto-generate details via hash-based rules.
+2. **Procedural Generation**: Generate new elements (e.g., plants, biomes) with constraints (e.g., "must exist in the 12th century").
+3. **Mapping**: Drag/drop locations on 2D/3D maps to track relationships across time/space.
+4. **AI Assistance**: Use local AI (Ollama) for offline prompts or cloud AI for image generation.
+5. **Collaboration**: Share logs/timelines with others via real-time editing (if enabled).
+
+### RELATED
+[[Space Peral Universe Design Notes]], [[Procedural Generation Algorithms]], [[AI-Powered Creative Tools]], [[World-Building Best Practices]]
+
+### CALLOUTS
+>[!INFO]- **Hash-Based Consistency**
+> The app ensures deterministic generation by using cryptographic hashes (e.g., SHA-256) to link inputs (e.g., "a pirate ship") to outputs (e.g., "a 17th-century galleon with black sails"). This prevents inconsistencies across sessions.
+>[!WARNING]- **AI Privacy**
+> Local AI (Ollama) prioritizes user privacy but may require cloud fallback for complex prompts. Users must explicitly opt into cloud AI usage.
+>[!INFO]- **Offline-First Design**
+> Core features (e.g., logging, basic generation) work offline. AI/image generation depends on network availability.
+>[!WARNING]- **Version History Limits**
+> Logs default to 1-page history (configurable). Frequent edits may truncate older versions unless explicitly saved.

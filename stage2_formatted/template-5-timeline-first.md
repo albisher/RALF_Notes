@@ -1,0 +1,77 @@
+**Tags:** #timeline-visualization, #interactive-layout, #temporal-navigation, #spatial-relationships, #user-interface-design
+**Created:** 2026-01-13
+**Type:** architecture
+
+# template-5-timeline-first
+
+## Summary
+
+```
+Designs a timeline-first layout for organizing and navigating temporal/spatial data with interactive controls.
+```
+
+## Details
+
+> This template organizes content around a **horizontal/vertical timeline**, prioritizing time-based navigation while supporting spatial relationships. The layout includes a **header with world/time controls**, a **collapsible tools sidebar**, and a **card details section** below the timeline. The design emphasizes **time-driven interactions**, such as zooming, panning, and clustering, with optional **map view** for spatial context. Responsive breakpoints adapt the UI for mobile, tablet, and desktop, ensuring usability across devices.
+
+## Key Functions
+
+### `World Selector (WS)`
+
+Dropdown for world navigation with current world indicator and creation button.
+
+### `Time Controls`
+
+Current time display, navigation buttons, jump-to-date picker, range selector, and zoom controls.
+
+### `Timeline`
+
+Horizontal/vertical time axis with clickable markers, hover tooltips, and drag-to-pan/zoom interactions.
+
+### `Card Details Section`
+
+Displays selected card(s) with full metadata, images, and edit/delete options.
+
+### `Tools Sidebar`
+
+Collapsible panel with hash generation, card builder, and filters (time range, card type, location, tags).
+
+### `Map View`
+
+Optional spatial visualization of cards as markers with time slider overlay.
+
+### `Responsive Breakpoints`
+
+Adapts UI layout for mobile (<768px), tablet (768–1024px), and desktop (>1024px) screens.
+
+## Usage
+
+1. **Initialize**: Load world/time data into the header and timeline components.
+2. **Interact**:
+   - Use the timeline to select cards by time.
+   - Drag markers to adjust time or pan the timeline.
+   - Click cards to view details or edit them.
+   - Expand the sidebar for filters or tools.
+3. **Responsive Adjustments**: Switch between vertical/horizontal timelines based on screen size.
+4. **Map View**: Toggle between timeline and map for spatial context.
+
+## Dependencies
+
+> `React (for UI components)`
+> `CSS/JS libraries (e.g.`
+> `D3.js for timeline rendering`
+> `Bootstrap for responsive grid)`
+> `and a backend API for world/time data.`
+
+## Related
+
+- [[Timeline UI Patterns]]
+- [[Responsive Design Best Practices]]
+- [[Interactive Data Visualization]]
+
+>[!INFO] **Primary Focus**
+> This layout excels for **chronological storytelling** or **event tracking**, where time is the core dimension. Avoid if users need heavy creation tools (e.g., freeform content generation).
+
+
+>[!WARNING] **Complexity Warning**
+> Timeline interactions (e.g., drag-to-pan, pinch-to-zoom) may confuse users unfamiliar with time-based navigation. Provide clear tooltips or tutorials for critical features.

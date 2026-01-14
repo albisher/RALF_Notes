@@ -1,0 +1,65 @@
+**Tags:** #dependency-validation, #task-management, #circular-dependency-check, #project-management
+**Created:** 2026-01-13
+**Type:** documentation
+
+# validate-dependencies
+
+## Summary
+
+```
+Validates task dependencies in a project to detect issues like circular references, missing tasks, and logical inconsistencies.
+```
+
+## Details
+
+> This script (`validate-dependencies`) performs a comprehensive analysis of task dependencies within a project management system. It checks for circular dependencies (e.g., Task A → B → A), missing or invalid task references, and logical inconsistencies (e.g., completed tasks depending on pending ones). The tool generates a structured report with warnings, errors, and critical path analysis, including suggested optimizations and fixes.
+
+## Key Functions
+
+### ``validate-dependencies``
+
+Runs the full dependency validation across the project.
+
+### ``fix-dependencies``
+
+Automatically resolves detected issues (e.g., removes circular references).
+
+### `Dependency Graph Visualization`
+
+Generates a visual representation of task relationships.
+
+### `Critical Path Analysis`
+
+Identifies the longest sequence of dependent tasks.
+
+### `Impact Assessment`
+
+Evaluates the severity of each issue (warnings vs. errors).
+
+## Usage
+
+1. Execute via CLI:
+   ```bash
+   task-master validate-dependencies
+   ```
+2. Review the generated report for issues (warnings/errors).
+3. Use `/project:tm/fix-dependencies` to auto-resolve critical problems.
+4. Manually adjust dependencies if needed and rerun validation.
+
+## Dependencies
+
+> ``task-master` (core project management CLI tool)`
+> `Graphviz (for dependency graph visualization)`
+> `optional: `tm` (task management library).`
+
+## Related
+
+- [[`task-master` documentation]]
+- [[`project-management` workflows]]
+- [[`dependency-resolution` strategies]]
+
+>[!INFO] Critical Path Note
+> The "Critical Path" in the report determines the project’s minimum completion time. Any delays here cascade to other tasks.
+
+>[!WARNING] Auto-Fix Limitation
+> `/project:tm/fix-dependencies` only resolves simple cases (e.g., circular refs). Complex fixes may require manual review.

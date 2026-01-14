@@ -1,0 +1,61 @@
+**Tags:** #authentication, #api-client, #secure-storage, #environment-variables, #error-handling, #jwt-validation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# api-client
+
+## Summary
+
+```
+Centralized API client module for UI communication with backend, managing authentication, URL validation, and secure token handling.
+```
+
+## Details
+
+> This `APIClient` class centralizes API interactions for a UI application (ui-beta), handling authentication via JWT tokens, URL configuration from environment variables, and robust error handling. It initializes the base API URL from `VITE_API_BASE_URL`, validates it, and ensures proper URL formatting (appending `/api` if missing). The class also sanitizes and validates JWT tokens before storage, enforcing strict rules for JWT structure and character sets. The client dynamically revalidates the base URL if the environment variable changes, ensuring consistency.
+> 
+> Key features include:
+> - Secure storage of tokens (via `secureStorage` dependency).
+> - Comprehensive URL validation and sanitization.
+> - JWT token sanitization and format validation.
+> - Logging for debugging and error tracking.
+
+## Key Functions
+
+### ``_initializeBaseURL()``
+
+Validates and constructs the base API URL from `env.API_BASE_URL`, ensuring proper URL format (appending `/api` if needed).
+
+### ``getBaseURL()``
+
+Retrieves the base URL, reinitializing if the environment variable changes or if validation fails.
+
+### ``setToken(token)``
+
+Sanitizes and validates a JWT token before storing it, enforcing strict JWT format rules (3 parts separated by dots, valid base64url characters).
+
+## Usage
+
+1. Initialize the client in the constructor.
+2. Set the JWT token via `setToken(token)` after authentication.
+3. Use `getBaseURL()` to retrieve the validated API endpoint.
+4. Call the client methods (e.g., `fetch`, `post`, etc.) with the base URL and token for authenticated requests.
+
+## Dependencies
+
+> ``env.js``
+> ``logger.js``
+> ``secure-storage.js``
+> ``logger` (from `../utils/logger.js`)`
+> ``secureStorage` (from `../utils/secure-storage.js`).`
+
+## Related
+
+- [[api-endpoints]]
+- [[authentication-flow]]
+
+>[!INFO] Environment Variable Dependency
+> The client **requires** `VITE_API_BASE_URL` in the `.env` file. Missing or invalid values trigger errors and logging.
+
+>[!WARNING] JWT Sanitization
+> The `setToken()` method **sanitizes** tokens by removing whitespace, control characters, and invalid JWT components. Malformed tokens (e.g., missing dots, non-base64url chars) are rejected with warnings.

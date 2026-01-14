@@ -1,0 +1,42 @@
+**Tags:** #data-classification, #thickness-levels, #enumeration
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# trunk_thicknesses
+
+## Summary
+
+```
+A simple enumeration of trunk thickness categories for structural or design reference.
+```
+
+## Details
+
+> This file appears to define a discrete set of qualitative thickness descriptors—likely for use in a system categorizing wood, materials, or structural components. The values (`thin`, `medium`, `thick`, `massive`) represent ordinal levels of thickness, possibly for decision-making (e.g., engineering, construction, or inventory systems).
+
+## Key Functions
+
+### `Thickness Classification`
+
+Assigns a categorical label to physical thickness measurements.
+
+### `Contextual Reference`
+
+Used in workflows requiring qualitative comparisons (e.g., material selection, risk assessment).
+
+## Usage
+
+This could be embedded in a script or database as a lookup table for:
+- **APIs**: JSON/key-value pairs (e.g., `{"thickness": "thin"}`).
+- **Configuration**: Switches or flags in code (e.g., `if trunk_thickness == "thick"`).
+- **Human Input**: Dropdown menus or prompts in user interfaces.
+
+## Related
+
+- [[none]]
+
+>[!INFO] Ordinal Interpretation
+> While values are qualitative, their order (`thin < medium < thick < massive`) may imply a gradient for algorithms requiring ranking (e.g., priority queues or risk scoring).
+
+>[!WARNING] Ambiguity Risk
+> Ambiguous thresholds exist between categories (e.g., "medium" vs. "thick"). Ensure alignment with domain-specific definitions to avoid misclassification.

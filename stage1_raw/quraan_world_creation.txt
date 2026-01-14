@@ -1,0 +1,38 @@
+### TAGS
+#IslamicWorldCreation
+#QuranRevelation
+#GeospatialMapping
+#ProgrammaticWorldGeneration
+#HistoricalCardDatabase
+
+### TYPE
+documentation-research
+
+### SUMMARY
+Script generates an Islamic-themed world map with Quran revelation locations, integrating precise coordinates and verified Islamic sources.
+
+### DETAILS
+This script programmatically constructs a "Quraan" world in a digital environment, combining Earth-like map integration with Islamic historical data. It populates the world with 10 detailed cards—covering locations (e.g., Cave of Hira, Mecca), characters (e.g., Prophet Muhammad), and key events (e.g., Hijrah)—each enriched with coordinates, timestamps, and cross-references to authentic Islamic sources. The implementation ensures compatibility with existing map systems (e.g., Space Pearl) and leverages structured metadata for verification.
+
+### KEY_FUNCTIONS
+- **`WorldCreationBox`**: Creates a planet-themed "Quraan" world with Islamic history-focused settings.
+- **`CardWriteBox`**: Generates 10 Islamic-themed cards with coordinates, sources, and historical context.
+- **`QURAN_REVELATION_LOCATIONS`**: Data array storing predefined locations/events (e.g., Cave of Hira, Qibla change).
+- **`processed_map.json`**: Checks for existing Earth map data before integration.
+
+### DEPENDENCIES
+Flask, SQLAlchemy, Docker (for containerized execution), `app/process_map_data.py` (for Earth-specific map generation).
+
+### USAGE
+1. **Run in Docker**: Execute via `docker-compose exec backend python3 /app/scripts/create_quraan_world.py`.
+2. **Local Execution**: Install backend dependencies and run `python3 scripts/create_quraan_world.py`.
+3. **Verify Output**: Check UI endpoints (`/worlds/{world_id}`, `/cards`) for generated content.
+
+### RELATED
+[[`app/process_map_data.py`]], [[`QuranicSourcesDatabase.md`]], [[`SpacePearlArchitecture.md`]]
+
+### CALLOUTS
+>[!INFO]- **Coordinate Verification**
+>Coordinates for locations (e.g., Mecca, Medina) are cross-verified against Islamic geography sources (e.g., Islamic Finder, Wikipedia). Precision is critical for spatial integration.
+>[!WARNING]- **Docker Dependency**
+>Running without Docker may fail if backend dependencies (e.g., Flask, SQLAlchemy) are not installed locally. Docker ensures consistency.

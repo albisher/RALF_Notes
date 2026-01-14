@@ -1,0 +1,121 @@
+**Tags:** #biomechanical-inspiration, #wing-designs, #aesthetic-variations, #game-design, #art-inspiration
+**Created:** 2026-01-13
+**Type:** documentation
+
+# wing_types
+
+## Summary
+
+```
+A catalog of diverse wing types for creative inspiration, particularly useful in game design, fantasy art, or biomechanical concepts.
+```
+
+## Details
+
+> This file outlines a variety of wing types categorized by material, function, and aesthetic, offering conceptual and visual inspiration for characters, creatures, or mechanical designs. Each entry represents a distinct visual or functional variation, ranging from organic and ethereal to mechanical and hybrid forms. The list is structured to spark imagination for storytelling, character design, or environmental integration in creative projects.
+
+## Key Functions
+
+### `Massive Leathery Wings`
+
+Large, durable wings for flight in harsh environments or heavy lifting.
+
+### `Feathered Angelic Wings`
+
+Lightweight, ethereal wings for graceful, high-altitude flight or divine themes.
+
+### `Crystalline Transparent Wings`
+
+Reflective, semi-opaque wings for a futuristic or mystical aesthetic.
+
+### `Membrane Bat-like Wings`
+
+Thin, flexible membranes for agile, low-effort flight.
+
+### `Iridescent Butterfly Wings`
+
+Vibrant, iridescent patterns for aesthetic appeal or camouflage.
+
+### `Tattered Ancient Wings`
+
+Weathered, damaged wings for a historical or tragic narrative.
+
+### `Multiple Wing Sets`
+
+Redundant or modular wings for redundancy, adaptability, or hybrid flight.
+
+### `Retractable Wings`
+
+Foldable wings for stealth, energy conservation, or versatility.
+
+### `Energy-based Wings`
+
+Powered by internal energy (e.g., solar, kinetic) for sustained flight.
+
+### `No Wings (Serpentine)`
+
+Non-avian flight form, emphasizing mobility or aquatic traits.
+
+### `Vestigial Wing Stubs`
+
+Remnant wings for evolutionary or narrative themes.
+
+### `Gliding Wing Flaps`
+
+Passive gliding aids for energy efficiency or controlled descent.
+
+### `Armored Wing Shields`
+
+Protective plating for flight or combat integration.
+
+### `Webbed Swimming Wings`
+
+Hybrid wings for aquatic or amphibious creatures.
+
+### `Torn Battle-scarred Wings`
+
+Visually damaged wings for dramatic or conflict-driven storytelling.
+
+### `Gossamer Fairy Wings`
+
+Delicate, translucent wings for ethereal or magical themes.
+
+### `Bone-frame Wings`
+
+Structural skeleton-based wings for biomechanical or skeletal creatures.
+
+### `Scaled Wing Covers`
+
+Exoskeletal or armored scales over wings for durability.
+
+### `Translucent Ghost Wings`
+
+Semi-transparent, spectral wings for supernatural or ghostly entities.
+
+### `Solar Panel Wings`
+
+Photovoltaic wings for hybrid flight powered by renewable energy.
+
+## Usage
+
+This list can be used as:
+- A reference for character design in games, novels, or comics.
+- Inspiration for biomechanical or fantasy creatures.
+- A visual or thematic framework for environmental storytelling.
+- A creative prompt for artists, writers, or designers exploring unique flight mechanics.
+
+## Dependencies
+
+> `none (standalone conceptual list)`
+
+## Related
+
+- [[Wing Mechanics Design Notes]]
+- [[Fantasy Creature Concepts]]
+- [[Game Character Aesthetics]]
+
+>[!INFO] Inspirational Use
+> These wing types can be adapted for **biomechanical hybrids** (e.g., a dragon with solar-powered wings) or **narrative arcs** (e.g., a fallen angel with tattered wings).
+
+>[!WARNING] Avoid Overuse
+> While diverse wings add depth, ensure consistency in a project to maintain believability—e.g., pairing a **retractable wing** with a stealthy character rather than a fighter.

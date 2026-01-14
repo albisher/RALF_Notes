@@ -1,0 +1,71 @@
+**Tags:** #dependency-management, #task-automation, #workflow-dependencies, #bash-scripting
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# add-dependency
+
+## Summary
+
+```
+Manages task dependency relationships via natural language or IDs, enforcing validation checks and smart suggestions.
+```
+
+## Details
+
+> This script (`add-dependency`) establishes a directed dependency between tasks in a workflow system. It parses natural language inputs (e.g., "5 needs 3") or numeric IDs to define task order constraints. The system validates dependencies by checking task existence, detecting circular references, and ensuring logical consistency before applying changes. After execution, it dynamically updates the dependency graph, identifies blocked tasks, and suggests optimizations (e.g., task reordering or additional dependencies).
+
+## Key Functions
+
+### `Dependency Parsing`
+
+Converts natural language or numeric IDs into task relationships (e.g., "5 depends on 3").
+
+### `Validation Engine`
+
+Checks for circular dependencies, missing tasks, and logical inconsistencies.
+
+### `Smart Suggestion Engine`
+
+Proposes related dependencies or task reordering post-addition.
+
+### `Graph Visualization`
+
+Displays updated dependency chains and impacted workflows.
+
+### `Priority Update`
+
+Adjusts task priorities dynamically based on new dependencies.
+
+## Usage
+
+1. **Basic Usage**:
+   ```bash
+   task-master add-dependency --id=5 --depends-on=3
+   ```
+2. **Natural Language**:
+   ```bash
+   /project:tm/add-dependency "5 needs 3"
+   ```
+3. **Key Flags**:
+   - `--id`: Task ID to establish dependency for.
+   - `--depends-on`: Task ID that must complete first.
+   - `--force`: Skip validation checks (use cautiously).
+
+## Dependencies
+
+> ``task-master` CLI framework (core dependency)`
+> `optional: natural language processing libraries (e.g.`
+> `spaCy) for advanced parsing.`
+
+## Related
+
+- [[`task-master-core`]]
+- [[`dependency-validation`]]
+- [[`workflow-graph`]]
+
+>[!INFO] Circular Dependency Warning
+> If `5 depends on 3` and `3 depends on 5`, the script will abort with a circular dependency error and suggest breaking the chain manually.
+
+
+>[!WARNING] Force Flag Caution
+> Using `--force` bypasses all validations, risking logical errors or broken workflows. Always review changes manually.

@@ -1,0 +1,43 @@
+### TAGS
+#data-loading
+#box-architecture
+#json-processing
+#error-handling
+#async-io
+
+### TYPE
+code-notes
+
+### SUMMARY
+Handles loading static JSON data files via configurable paths with robust error handling.
+
+### DETAILS
+This `DataLoadingBox` class extends a base `Box` component to fetch and parse static data files (primarily JSON) from configurable paths. It validates inputs, checks response validity, and ensures proper JSON parsing before returning structured output. The box supports dynamic path resolution via a configuration service and includes comprehensive error handling for network issues, invalid responses, and JSON parsing failures.
+
+### KEY_FUNCTIONS
+- **`constructor()`**: Initializes the box with metadata (version, dependencies, input/output schemas).
+- **`_executeInternal(inputData)`**: Core async method that:
+  - Validates `dataPath` input.
+  - Resolves full path using config or falls back to raw path.
+  - Fetches data via `fetch`, checks HTTP status, and handles errors.
+  - Validates content type (must be JSON) and parses JSON with fallback preview.
+  - Returns structured `BoxOutput` (success/error) with parsed data or error details.
+
+### DEPENDENCIES
+`../core/box_interface.js` (Box class and utilities), `../../services/config.js` (path resolution), `fetch` (built-in browser/Node.js API).
+
+### USAGE
+1. Instantiate `DataLoadingBox` (inherits Box).
+2. Call `_executeInternal` with an input object containing:
+   - `dataPath`: Path to JSON file (string).
+   - Optional `operation`: (unused in this version).
+3. Handle output via `BoxOutput.success({ data })` (valid JSON) or `BoxOutput.error` (failures).
+
+### RELATED
+[[`Box` architecture documentation]], [[`config.js` service documentation]]
+
+### CALLOUTS
+>[!INFO]- Dynamic Path Resolution
+> Uses `config.getDataPath()` to resolve paths if provided; otherwise, falls back to raw `dataPath`.
+>[!WARNING]- Error Preview Limitation
+> For non-JSON responses, only shows first 200 chars of raw text to avoid flooding error messages.

@@ -1,0 +1,63 @@
+**Tags:** #testing, #backend, #generators, #unit-test, #world-generation
+**Created:** 2026-01-13
+**Type:** documentation
+
+# test_generators
+
+## Summary
+
+```
+Script validates backend generator functionality by testing plant, building, robot, and character generators with predefined test cases.
+```
+
+## Details
+
+> This script imports a `GeneratorService` from the backend and tests all available generator types (plant, building, robot, character) with multiple test cases per type. Each test case includes a seed value and optional additional metadata. The script validates generated elements by checking for required fields (name and data) and records pass/fail results. Results are saved as both a structured JSON file and a human-readable Markdown report in a `generated_stories/` directory.
+
+## Key Functions
+
+### `test_generators()`
+
+Orchestrates the entire testing workflow, imports the generator service, and runs all test cases.
+
+### `GeneratorService`
+
+Interface used to generate elements (plant, building, robot, character) with configurable parameters.
+
+### `test_cases`
+
+Dictionary mapping generator types to predefined test inputs (seeds and optional metadata).
+
+### `test_results`
+
+Structured data collection for pass/fail statistics and detailed test outcomes.
+
+## Usage
+
+1. Run the script directly (`python test_generators.py`).
+2. The script automatically:
+   - Checks generator service availability.
+   - Executes tests for each generator type with predefined inputs.
+   - Saves results in `generated_stories/` as:
+     - `generator_test_results_<timestamp>.json` (structured data)
+     - `generator_test_report_<timestamp>.md` (human-readable report).
+
+## Dependencies
+
+> `backend.generator_service`
+> `Generators module`
+> `datetime`
+> `json`
+> `sys`
+> `os`
+
+## Related
+
+- [[generator_service]]
+- [[__init__]]
+
+>[!INFO] Important Note
+> The script uses a hardcoded `world_id=999` for all tests. This should be replaced with a configurable or dynamic world ID for production use to avoid conflicts between test runs.
+
+>[!WARNING] Caution
+> If the `GeneratorService` fails to import or lacks generators, the script exits immediately with an error. Ensure the backend directory is correctly added to `sys.path` and the service is properly initialized.

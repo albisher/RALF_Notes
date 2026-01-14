@@ -1,0 +1,36 @@
+### TAGS
+#Space Exploration
+#Water Collection
+#Modular Robotics
+#Early Robotics Prototypes
+#Resource Scouting
+
+### TYPE
+code-notes
+
+### SUMMARY
+X8 is a prototype water-collecting robot designed for early space exploration, focusing on resource discovery and water recycling.
+
+### DETAILS
+X8 functions as a water collector and resource scout, particularly in the early stages of exploration in *Space Peral*. It detects water-generating sources, analyzes soil, and determines optimal rainwater collection areas. Its modular design allows for customization to enhance water harvesting efficiency. The robot’s primary function is to support initial exploration by identifying and processing water resources, which can later be recycled. It predates the standardized robot naming convention (X2 series) introduced later.
+
+### KEY_FUNCTIONS
+- **Water Collection**: Harvests water from soil, rain, and other sources.
+- **Resource Scouting**: Identifies water-generating areas for efficient exploration.
+- **Modular Adaptation**: Supports customizable hardware for optimized water processing.
+- **Soil Analysis**: Assesses soil composition to guide water extraction strategies.
+
+### DEPENDENCIES
+none (described as a standalone prototype)
+
+### USAGE
+Deployed in early space missions to scout and collect water, particularly in uncharted or resource-rich regions. Operates independently or as part of a preliminary exploration team before transitioning to more standardized robotics (e.g., X2 series).
+
+### RELATED
+none
+
+### CALLOUTS
+>[!INFO]- Early Exploration Focus
+> X8’s design prioritizes adaptability and resource discovery, making it critical for initial mapping of water sources in Space Peral before formalized robotics systems (X2+) were developed.
+>[!WARNING]- Limited Standardization
+> While modular, X8 lacks compatibility with later X-series robots, requiring manual integration or redesign for broader use.

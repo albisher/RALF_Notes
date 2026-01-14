@@ -1,0 +1,55 @@
+**Tags:** #map-generation, #hash-to-json, #asynchronous-processing, #data-structures, #algorithm-design
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# COMPLETE_MAP_GENERATION_FLOW
+
+## Summary
+
+```
+Generates a structured map from input hashes or text descriptions, splitting the process into an instant parameter generator and a time-consuming map renderer.
+```
+
+## Details
+
+> This system converts user-provided input (e.g., "galaxy map") into a complete map JSON file via two distinct phases:
+> 1. **Instant Parameter Generation** (`Generators/Maps/maps.py`) uses hash-based selection to produce lightweight map metadata (e.g., seed, resolution, biome parameters).
+> 2. **Time-Consuming Rendering** (`services/map-generator/engine/map_generator.py`) applies procedural generation algorithms (Voronoi cells, heightmaps, biome assignment) to produce a detailed map in Azgaar format.
+> 
+> The flow is decoupled: parameters are generated first, then passed to a background job for rendering, ensuring frontend responsiveness while avoiding blocking.
+
+## Key Functions
+
+### ``generate_map_description()``
+
+Converts input text/hash into JSON parameters (e.g., `seed`, `heightmap_params`).
+
+### ``MapGenerator.generate()``
+
+Orchestrates procedural generation (Voronoi partitioning, biome placement, city distribution) into a structured JSON output.
+
+## Usage
+
+1. **Instant Parameters**: Call `generate_map_description()` with input text to get a seed and parameters.
+2. **Asynchronous Rendering**: Submit parameters via API to a background service (e.g., FastAPI) for generation.
+3. **Output**: Retrieve the final JSON file (e.g., `quraan_map.json`) after completion, compatible with the map viewer.
+
+## Dependencies
+
+> ``Generators/Maps.maps``
+> ``services.map_generator.engine.map_generator``
+> `Flask/FastAPI (for API endpoints)`
+> `PyTorch/TensorFlow (for potential heightmap generation)`
+> `requests (for polling).`
+
+## Related
+
+- [[Azgaar Map Format Specification]]
+- [[Procedural Generation Best Practices]]
+- [[Distributed Job Queues]]
+
+>[!INFO] **Decoupling Advantage**
+> Separating parameter generation from rendering allows parallel processing: frontend can submit jobs without waiting for completion, while rendering happens in a separate container/thread.
+
+>[!WARNING] **Performance Tradeoff**
+> The time-consuming phase (15–120 seconds) requires careful API design to avoid overwhelming systems with rapid submissions. Polling for job status is recommended over synchronous blocking.

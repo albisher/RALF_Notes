@@ -1,0 +1,42 @@
+### TAGS
+#deterministic-generation
+#space-coordinates
+#hash-based-selection
+#astronomy-data
+#positional-accuracy
+
+### TYPE
+code-library
+
+### SUMMARY
+Generates deterministic space coordinates using hash-based selection and predefined lists for astronomical data.
+
+### DETAILS
+This script loads predefined lists of space-related data (e.g., coordinate systems, galactic regions) and uses cryptographic hashing to derive deterministic values for space coordinates. It supports multiple coordinate systems (Galactic, Equatorial, Ecliptic) and generates numeric values (e.g., longitude, latitude, velocity) with configurable precision. The system also assigns names, labels, and metadata (e.g., positional accuracy) based on input hashes and salts.
+
+### KEY_FUNCTIONS
+- **read_list_from_file**: Loads space-related lists from files in a subdirectory.
+- **hash_input**: Computes SHA-256 hashes for deterministic selection.
+- **derive_int_from_hash**: Maps hash values to indices in predefined lists.
+- **select_from_list**: Randomly selects an item from a list based on hash and salt.
+- **generate_name**: Creates abbreviated coordinate designations (e.g., `ORI-pos01`).
+- **assign_number/assign_float**: Generates numeric values within specified ranges.
+- **generate_coordinates**: Produces formatted coordinate strings (e.g., `l=123.45°, b=45.67°`).
+- **generate_space_coordinates_description**: Orchestrates full coordinate generation with metadata.
+
+### DEPENDENCIES
+`hashlib`, `os`, `random`, `json`, `math`, `typing.Dict`, `typing.Any`
+
+### USAGE
+1. Define lists of space data (e.g., `coordinate_systems.txt`) in `SpaceCoordinatesLists/`.
+2. Call `generate_space_coordinates_description(input_hash)` to produce deterministic coordinates.
+3. Customize ranges/precision via `assign_number`/`assign_float` or override defaults.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Input Hash Dependency
+> The script relies on deterministic hashing (`input_hash`) to ensure reproducibility. Changing the hash alters coordinate generation.
+>[!WARNING]- File Path Safety
+> If `SpaceCoordinatesLists/` is missing, default values (e.g., `"Unknown"`) are used, but critical data may be lost. Validate directory paths.

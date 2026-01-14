@@ -1,0 +1,44 @@
+### TAGS
+#screenshot-management
+#automated-testing
+#map-generation
+#verification-process
+
+### TYPE
+documentation
+
+### SUMMARY
+Tracks session setup for map generation UI testing with predefined screenshot naming conventions and automation workflows.
+
+### DETAILS
+This document outlines the current session directory for map generation UI testing, detailing how to manually or automatically save screenshots to a structured path. It specifies expected filenames for deterministic yet varied map outputs and provides verification commands to confirm screenshot placement. The workflow includes options for manual file transfer, script-based automation, and Python integration with Playwright.
+
+### KEY_FUNCTIONS
+- **Directory Creation**: Establishes a timestamped directory for screenshots (`screenshots/map_generation_ui_tests/YYYYMMDD/HHMM/`).
+- **Manual Screenshot Handling**: Instructions for moving screenshots from browser tools to the designated directory.
+- **Automation Scripts**: Bash and Python scripts to auto-move/re-name recent PNG files and trigger screenshot capture.
+- **Verification Commands**: Commands to check directory contents, count screenshots, and list filenames for validation.
+
+### DEPENDENCIES
+- Browser MCP tools (for screenshot capture),
+- Bash scripting environment,
+- Python 3 with `playwright` library,
+- `find`/`ls` utilities for directory operations.
+
+### USAGE
+1. **Create Directory**: Ensure the session directory exists (e.g., via script or manual creation).
+2. **Capture Screenshots**: Use browser tools or automated scripts to generate screenshots.
+3. **Save Screenshots**:
+   - **Manual**: Move files to the directory using `mv` or copy-paste.
+   - **Automated**: Run `move_screenshots_to_path.sh` or `take_map_verification_screenshots.py`.
+4. **Validate**: Use verification commands to confirm screenshots are in place with correct filenames.
+
+### RELATED
+[[CURRENT_SESSION_INFO_20251209]], [[MAP_GENERATION_TEST_PROTOCOL]], [[AUTOMATED_SCREENSHOT_GUIDE]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **Filenaming Rules**: Screenshots must follow exact naming conventions (e.g., `planet-map-generated-1.png`) to ensure deterministic verification. Deviations may break analysis.
+
+>[!WARNING]- Caution
+> **Manual Errors**: Incorrect file paths or naming during manual transfer can cause lost or mislabeled screenshots. Always verify filenames match expected patterns before proceeding.

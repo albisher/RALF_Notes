@@ -1,0 +1,63 @@
+**Tags:** #flask, #api, #crud, #procedural-generation, #deterministic-hashing, #backend-development
+**Created:** 2026-01-13
+**Type:** documentation-research
+
+# task_008
+
+## Summary
+
+```
+Develops a Flask-based backend API for managing Worlds and Elements with CRUD operations and deterministic procedural generation via hashing.
+```
+
+## Details
+
+> This task outlines the implementation of a Flask-based REST API using Blueprints for `/api/worlds` and `/api/elements`. It requires CRUD endpoints (POST, GET, PUT/PATCH, DELETE) for both entities, with procedural generation logic using SHA-256 hashing on seed strings (e.g., concatenated world/element names). Manual overrides must be supported, allowing users to override procedurally generated properties. Integration tests will verify deterministic generation and CRUD correctness.
+
+## Key Functions
+
+### `Flask Blueprints (`worlds.py`, `elements.py`)`
+
+Route organization for `/api/worlds` and `/api/elements`.
+
+### `CRUD Endpoints`
+
+RESTful methods for Worlds/Elements (e.g., `/api/worlds`, `/api/elements/{id}`).
+
+### `Hash-Based Generation`
+
+SHA-256 deterministic property generation from seed strings.
+
+### `Manual Override Handling`
+
+Persistent override logic for procedurally generated data.
+
+### `Integration Tests`
+
+Verify deterministic generation and API consistency.
+
+## Usage
+
+1. Define Flask Blueprints in `worlds.py`/`elements.py` with CRUD routes.
+2. Integrate procedural generation via hash-based logic in element creation.
+3. Override generated properties via manual input in API payloads.
+4. Test determinism by comparing outputs for identical seeds.
+
+## Dependencies
+
+> `Flask`
+> `Flask-SQLAlchemy (for database models)`
+> `SHA-256 (e.g.`
+> ``hashlib` in Python).`
+
+## Related
+
+- [[Flask API Blueprint Guide]]
+- [[SQLAlchemy CRUD Tutorial]]
+- [[Deterministic Hashing in Python]]
+
+>[!INFO] Important Note
+> Ensure database models support both generated and overridden properties (e.g., `element.properties` with `generated`/`manual` flags).
+
+>[!WARNING] Caution
+> Override conflicts must be handled gracefully (e.g., user-defined values take precedence). Avoid race conditions in deterministic generation.

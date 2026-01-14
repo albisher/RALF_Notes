@@ -1,0 +1,66 @@
+**Tags:** #frontend-replacement, #static-html, #Vue.js-deprecation, #CSP-compliance, #Docker-simplification, #development-workflow
+**Created:** 2026-01-13
+**Type:** documentation
+
+# frontend_removal_complete
+
+## Summary
+
+```
+Documentation outlining Vue.js frontend removal challenges and static HTML replacement solutions for improved simplicity and security.
+```
+
+## Details
+
+> This document details the challenges encountered while maintaining a Vue.js frontend, including **CSP conflicts, build complexity, and testing difficulties**, alongside the strategic replacement with a **static HTML application** using Nginx and a minimal Docker setup. The solution prioritizes **simplicity, performance, and security** by eliminating framework dependencies and reducing deployment complexity.
+
+## Key Functions
+
+### ``frontend/nginx.conf``
+
+Basic Nginx configuration for static file serving.
+
+### ``frontend/Dockerfile``
+
+Minimal Docker container for serving static HTML.
+
+### ``frontend/index.html``
+
+Base static HTML template for the application.
+
+### ``docker-compose.yml``
+
+Updated service configuration for the simplified frontend.
+
+### ``curl -k -I https`
+
+//localhost:8443/login`**: Verification command for HTTP response validation.
+
+### ``node checks/simple-browser-test.js``
+
+Basic test script for application functionality.
+
+## Usage
+
+1. Replace Vue.js source (`frontend/src/`) with static HTML (`frontend/index.html`).
+2. Update `docker-compose.yml` to reference the new frontend service.
+3. Deploy with a minimal Nginx container (`frontend/Dockerfile`).
+4. Test via HTTP (`curl`) or direct browser access.
+
+## Dependencies
+
+> `Nginx`
+> `Docker`
+> `basic HTML/CSS/JS (no Vue.js or Vite dependencies).`
+
+## Related
+
+- [[`Vue]]
+- [[`CSP Best Practices`]]
+- [[`Static Site Deployment`]]
+
+>[!INFO] **Key Tradeoff**
+> While static HTML eliminates Vue.js complexity, it requires manual JavaScript interactivity implementation for dynamic features (e.g., API calls, state management).
+
+>[!WARNING] **Security Note**
+> CSP headers must be configured carefully to avoid blocking critical static resources. Avoid `'unsafe-eval'` unless absolutely necessary.

@@ -1,0 +1,48 @@
+### TAGS
+#procedural-generation
+#api-integration
+#database-management
+#web-application
+#building-creation
+#world-building
+#json-data-structure
+#authentication
+
+### TYPE
+documentation
+
+### SUMMARY
+Explains methods for adding buildings to a Space Pearl web application, including web interface, API, Python scripts, and procedural generation logic.
+
+### DETAILS
+This document outlines four methods for users to add buildings to their virtual worlds within the Space Pearl web application. The system supports both manual and automated approaches, including a web-based interface, REST API calls, a Python script for database population, and a procedural generation engine. The procedural generation system uses hashed inputs to deterministically create buildings with configurable attributes like materials, styles, functions, and sizes. The backend validates user permissions and stores generated buildings in a JSONB database table (`world_elements`), while the frontend provides a user-friendly modal for asset creation.
+
+### KEY_FUNCTIONS
+- **generate_building_description()**: Core procedural generation logic that selects attributes based on input hashes.
+- **REST API Endpoint (`/api/worlds/{world_id}/generate`)**: Handles authenticated API calls for building generation.
+- **`world_elements` Table**: Stores building metadata (name, type, JSON data, world reference) in a relational database.
+- **`populate_space_peral.py`**: Python script for bulk database population with predefined building definitions.
+- **Web Interface Modal**: UI component for manual building creation via the web dashboard.
+
+### DEPENDENCIES
+- **Backend**: Node.js/Express or similar framework for API endpoints, JWT authentication, and database interactions.
+- **Database**: PostgreSQL (with JSONB support) for storing world elements.
+- **Python Scripts**: Requires Python 3.x with libraries like `requests` for API calls (if integrated).
+- **Frontend**: React/Vue.js or similar for the web interface (World Assets page).
+- **Procedural Generation Engine**: Custom algorithm for organic building shapes and attributes.
+
+### USAGE
+1. **Web Interface**: Navigate to the World Assets page, click "Create Asset," select "building," and fill details to generate procedurally.
+2. **API**: Authenticate via `/api/auth/login`, then call `/api/worlds/{world_id}/generate` with required fields (`element_type`, `seed`).
+3. **Python Script**: Run `populate_space_peral.py` in the scripts directory to pre-populate buildings into the database.
+4. **Procedural Generation**: Use the system’s deterministic logic to generate buildings with customizable attributes via the `generate_building_description()` function.
+
+### RELATED
+[[Space Pearl Architecture Design]], [[World Asset Database Schema]], [[API Documentation]], [[Procedural Generation Algorithms]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The web interface method is now fully functional, but API authentication requires a valid JWT token. Always validate the `world_id` matches the authenticated user’s world ownership to prevent unauthorized generation.
+>
+>[!WARNING]- Caution
+> The Python script (`populate_space_peral.py`) should be run in a controlled environment. Direct edits to the script may alter existing building definitions permanently, affecting world consistency. Backup the database before execution.

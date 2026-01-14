@@ -1,0 +1,92 @@
+**Tags:** #Optics, #Vision-Technology, #Infrared, #Sensors, #Imaging
+**Created:** 2026-01-13
+**Type:** documentation
+
+# eye_descriptions
+
+## Summary
+
+```
+Describes various advanced eye and lens technologies for enhanced vision capabilities.
+```
+
+## Details
+
+> This file outlines specialized optical and sensor-based eye descriptions, including lenses and vision systems designed for night vision, thermal imaging, wide-angle, zoom, infrared, and holographic applications. It covers both physical and simulated eye configurations, such as cyclopean (stereoscopic) eyes and multi-faceted designs, emphasizing modular and adaptive vision solutions.
+
+## Key Functions
+
+### `Night vision lens`
+
+Enhances visibility in low-light conditions.
+
+### `Thermal imaging lens`
+
+Detects heat signatures for night/thermal applications.
+
+### `Wide-angle lens`
+
+Expands field of view for panoramic coverage.
+
+### `Zoom lens`
+
+Adjusts focal length for magnification.
+
+### `Infrared lens`
+
+Captures infrared light for night vision or thermal imaging.
+
+### `Multi-faceted lens`
+
+Mimics insect-like compound eyes for broad, high-resolution vision.
+
+### `Holographic projector lens`
+
+Enables 3D spatial projection for immersive displays.
+
+### `Single cyclopean eye`
+
+Simulates binocular depth perception (stereopsis).
+
+### `Dual optical sensors`
+
+Combines two independent vision systems for redundancy or enhanced data.
+
+### `360-degree panoramic vision`
+
+Full-circular field of view for situational awareness.
+
+### `Infrared vision module`
+
+Dedicated IR detection system for thermal/night vision.
+
+### `Telescopic zoom eye`
+
+High-magnification adaptive vision system.
+
+### `Holographic projection eye`
+
+Active optics for dynamic 3D rendering.
+
+### `Thermal imaging sensor`
+
+Direct thermal data capture for heat-based imaging.
+
+## Usage
+
+This list serves as a reference for designing or selecting advanced vision systems, particularly in robotics, surveillance, military, or futuristic applications requiring specialized optical or sensor integration.
+
+## Dependencies
+
+> `None (standalone descriptive list)`
+
+## Related
+
+- [[Advanced Optical Systems]]
+- [[Infrared Sensor Technologies]]
+
+>[!INFO] **Redundancy Note**
+> Dual optical sensors or thermal imaging sensors may be used for fail-safe redundancy in critical applications.
+
+>[!WARNING] **Field-of-View Tradeoffs**
+> Wide-angle and 360-degree systems may reduce resolution or dynamic range compared to zoomed/narrow-field lenses.

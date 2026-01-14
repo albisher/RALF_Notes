@@ -1,0 +1,46 @@
+### TAGS
+#database_cleanup
+#quran_world
+#duplicate_removal
+#timestamp_fix
+#metadata_update
+
+### TYPE
+code-script
+
+### SUMMARY
+Script automates database cleanup for Quraan World, removing duplicates, fixing timestamps, and updating metadata with map file info.
+
+### DETAILS
+This script processes the Quraan World database by:
+1. Identifying and removing duplicate cards while preserving the newest complete version.
+2. Applying predefined timestamps to cards lacking them via a lookup table.
+3. Checking for and updating world metadata with map file information if available.
+
+The script is designed to run within a Dockerized backend environment, dynamically detecting paths for map files across multiple potential locations.
+
+### KEY_FUNCTIONS
+- **cleanup_duplicates(world_id)**: Removes duplicate cards for a given world, keeping the most recent version with complete data.
+- **fix_missing_timestamps(world_id)**: Applies predefined timestamps to cards missing them using a timestamp mapping dictionary.
+- **update_world_map_metadata(world_id)**: Updates world metadata with map file details if a map file is found in predefined paths.
+- **main()**: Orchestrates the cleanup workflow by calling the above functions sequentially.
+
+### DEPENDENCIES
+`app`, `db`, `World`, `Card` (SQLAlchemy models), `datetime`, `json`, `sys`, `os`
+
+### USAGE
+Run via Docker Compose:
+```bash
+docker-compose exec backend python3 /app/scripts/cleanup_quraan_world.py
+```
+The script expects the database connection to be managed by the Flask app (`app` and `db` imported from `models`).
+
+### RELATED
+[[Quraan World Database Schema]], [[Quraan World Map File Documentation]]
+
+### CALLOUTS
+>[!INFO]- Dynamic Path Handling
+> The script attempts to locate map files in multiple paths, including both local filesystem and Docker-specific paths, ensuring flexibility in deployment environments.
+
+>[!WARNING]- Data Loss Risk
+> Deleting duplicate cards is irreversible. Always back up the database before running this script in production.

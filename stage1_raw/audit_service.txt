@@ -1,0 +1,44 @@
+### TAGS
+#audit-logging
+#database-events
+#flask
+#sqlalchemy
+#transaction-management
+
+### TYPE
+documentation-research
+
+### SUMMARY
+Tracks and records database changes in a game/world management system via SQLAlchemy event listeners.
+
+### DETAILS
+This service implements automatic audit logging for database entities (`World`, `WorldElement`, `Timeline`) by attaching SQLAlchemy event listeners to `after_insert`, `after_update`, and `after_delete` triggers. When changes occur, it captures metadata (user, timestamp, IP, agent) and optional state changes (new/previous) in an `AuditLog` entry. The logging is resilient to failures, deferring commits to the main transaction.
+
+The `_log_element_change`, `_log_world_change`, and `_log_timeline_change` methods serialize affected objects, compare states for updates, and store results in the `AuditLog` table. Helper methods like `_get_client_ip()` and `_get_user_agent()` extract client metadata, while `_serialize_element()`/`_serialize_world()` convert objects to dictionaries.
+
+### KEY_FUNCTIONS
+- **`_setup_event_listeners()`**: Registers SQLAlchemy hooks for all tracked entities.
+- **`_log_element_change(element, action)`**: Logs changes to `WorldElement` instances.
+- **`_log_world_change(world, action)`**: Logs changes to `World` instances.
+- **`_log_timeline_change(timeline, action)`**: Logs changes to `Timeline` instances.
+- **`_serialize_element(element)`**: Converts a `WorldElement` to a dictionary for audit storage.
+- **`_get_element_changes(element)`**: Extracts diffs between current and previous states (simplified).
+- **`_get_world_changes(world)`**: Extracts diffs for `World` objects.
+
+### DEPENDENCIES
+`json`, `copy`, `datetime`, `flask`, `sqlalchemy`, `models.db`, `models.AuditLog`, `models.World`, `models.WorldElement`, `models.Timeline`, `models.TimelineEvent`
+
+### USAGE
+1. Initialize `AuditService` in your Flask app.
+2. Enable/disable logging via `self.enabled` (default: `True`).
+3. Let SQLAlchemy triggers automatically log changes when `WorldElement`, `World`, or `Timeline` objects are modified.
+4. Retrieve audit logs via `db.session.query(AuditLog).all()` or filters.
+
+### RELATED
+[[SQLAlchemy Event Listeners]], [[AuditLog Model]], [[World Management System]]
+
+### CALLOUTS
+>[!INFO]- Resilience Note
+> Audit logging silently fails if the main transaction commits first, printing errors instead of crashing. This ensures no audit data is lost during concurrent operations.
+>[!WARNING]- State Capture Limitation
+> For updates, `_get_element_changes()`/`_get_world_changes()` uses a simplified diffing approach. A production system might need SQLAlchemy’s versioning or custom history tracking for full accuracy.

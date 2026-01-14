@@ -1,0 +1,48 @@
+### TAGS
+#map-view-updates
+#coordinate-handling
+#user-interaction
+#coordinate-synchronization
+#view-restoration
+#zoom-and-pan
+
+### TYPE
+documentation
+
+### SUMMARY
+Documentation outlining all triggers for updating the main map view position in `WorldMap2D`, including both direct updates via `setMapViewCenter` and indirect viewBox adjustments during drag/zoom.
+
+### DETAILS
+This document maps all scenarios where the `WorldMap2D` view position is dynamically adjusted, distinguishing between explicit center updates (via `setMapViewCenter`) and direct viewBox modifications (during panning/zooming). It details user interactions (clicks, drags, coordinate inputs), system-driven updates (color mode changes, small-map sync), and initialization logic. The code ensures smooth transitions while preventing unintended updates during active user actions (e.g., drags) via guard conditions like `isPanning.value`.
+
+### KEY_FUNCTIONS
+- `setMapViewCenter(targetAbsoluteX, targetAbsoluteY)`: Explicitly centers the map at given coordinates, updating `viewBox` and syncing with small-map markers.
+- `handleMapClick(e)`: Converts user click coordinates to internal values and invokes `setMapViewCenter` if not a drag.
+- `goToCoordinates()`: Parses manual input (E/W/N/S coordinates) and centers the map at the specified absolute position.
+- `onColorModeChange()`: Restores the map’s view state (zoom/center) when color filters (e.g., biome elevation) are toggled.
+- `renderMap()`: Initializes the map by restoring saved view state or defaulting to map center coordinates.
+- `onMouseMove()`: Directly updates `viewBox` during map drags (no `setMapViewCenter`).
+- `onWheel()`/`applyZoom()`: Adjusts `viewBox` dimensions and position during zoom interactions.
+- Watch on `props.targetCoordinates`: Synchronizes small-map marker movements with `WorldMap2D` by calling `setMapViewCenter` if coordinates change and panning is inactive.
+
+### DEPENDENCIES
+`react`, `react-reusable-components`, `d3`, `vue`, `coordinatesEqual` utility (custom tolerance-based comparison), `isPanning` reactive flag (prevents conflicts during drags), `viewBox` reactive state (directly modified during panning/zooming).
+
+### USAGE
+To update the map view programmatically:
+1. **Center on a point**: Call `setMapViewCenter(x, y)` with absolute coordinates.
+2. **Trigger via user input**:
+   - Click: Use `handleMapClick` to convert local coordinates to internal.
+   - Manual input: Call `goToCoordinates` with formatted coordinates.
+3. **Sync with small-map**: Ensure `targetCoordinates` is updated and `isPanning` is `false` to avoid conflicts.
+4. **Restore state**: Use `onColorModeChange` or `renderMap` to revert to saved view settings.
+
+### RELATED
+[[WorldMap2D Component]], [[TopTimelineMap]], [[WorkflowPage]], [[ViewState Management]], [[Coordinate Conversion Utilities]]
+
+### CALLOUTS
+>[!INFO]- **Coordinate Comparison**
+> The `coordinatesEqual()` function (line 1079) uses strict tolerances (`0.00001` for lon/lat, `0.001` for internal) to avoid unnecessary updates when small-map markers move slightly. This prevents performance spikes during minor coordinate drifts.
+
+>[!WARNING]- **Drag Protection**
+> During active drags (`isPanning.value === true`), the `targetCoordinates` watch is skipped (line 1068), and `setMapViewCenter` is bypassed. This prevents external updates from interfering with user interactions, but may cause a brief visual gap while the drag continues.

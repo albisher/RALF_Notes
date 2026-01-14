@@ -1,0 +1,59 @@
+**Tags:** #database, #link-management, #update-operation, #security-check, #serialization
+**Created:** 2026-01-13
+**Type:** documentation
+
+# link_update_box
+
+## Summary
+
+```
+Handles updating existing Link records in a database with security validation and change tracking.
+```
+
+## Details
+
+> The `LinkUpdateBox` class implements a box interface for updating specific fields of an existing `Link` record in a database. It validates input (requires `link_id` and `user_id`), checks ownership, and tracks changes to updatable fields (`link_name`, `meta_data`). After updating, it commits the changes, logs the operation, and returns the updated link data along with a record of modified fields.
+
+## Key Functions
+
+### ``LinkUpdateBox``
+
+Core class extending `Box` for link updates.
+
+### ``execute()``
+
+Core logic to update a link record with input validation, ownership check, and change tracking.
+
+### ``updatable_fields``
+
+List of fields (`link_name`, `meta_data`) that can be modified (hardcoded in the class).
+
+## Usage
+
+1. Instantiate `LinkUpdateBox` with a name (default: `'link_update'`).
+2. Call `execute()` with an input dictionary containing:
+   - `link_id` (int): ID of the link to update.
+   - `updates` (dict): Key-value pairs for fields to modify (e.g., `{'link_name': 'new_name'}`).
+   - `user_id` (int): User ID for security validation.
+3. Returned output includes:
+   - `success`: Boolean indicating success.
+   - `data`: Updated link (serialized) and list of changed fields (`changes`).
+   - `error`: Error message if validation fails.
+
+## Dependencies
+
+> ``..core.box_interface``
+> ``models.db``
+> ``models.Link``
+> ``datetime``
+
+## Related
+
+- [[`Box` interface documentation]]
+- [[`Link` model documentation]]
+
+>[!INFO] Change Tracking
+> The class explicitly tracks which fields were modified (`changes` dictionary) and only updates `link_name` and `meta_data`. Other fields (e.g., `source_hash`, `target_hash`) are excluded from updates.
+
+>[!WARNING] Security Risk
+> If `user_id` validation fails, the code returns a generic error without exposing the actual link ID or user mismatch, but this does not prevent unauthorized access if the input is maliciously crafted. Always validate `user_id` in production.

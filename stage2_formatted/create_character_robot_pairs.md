@@ -1,0 +1,57 @@
+**Tags:** #character-creation, #robot-pairing, #spiritual-mindset, #api-integration, #world-building
+**Created:** 2026-01-13
+**Type:** code-script
+
+# create_character_robot_pairs
+
+## Summary
+
+```
+Creates missing spiritual/mindset characters to pair with existing robots in a virtual world API.
+```
+
+## Details
+
+> This script automates the generation of 8 missing spiritual characters (mindsets) that complement existing robot forms (X1-X11). It uses a REST API to interact with a backend system, requiring authentication via a token. The script defines predefined character profiles with names, descriptions, and metadata (e.g., personality traits, roles, paired robots) and submits them to the API to create entries in a specified world. The existing characters (Mr. Ha Bee, Mc. Liberian Taba, MagneDrill) are excluded, leaving 8 new entries to fulfill the pairing requirement.
+> 
+> The script follows a modular approach with helper functions:
+> - `login()`: Authenticates with the API using hardcoded credentials.
+> - `generate_element()`: Handles API requests to create elements (characters) with structured payloads.
+> - `create_character_robot_pairs()`: Orchestrates the creation of all missing characters by iterating over predefined lists.
+
+## Key Functions
+
+### `login()`
+
+Authenticates and retrieves an API access token.
+
+### `generate_element(token, world_id, element_type, name, description, additional_data)`
+
+Creates a new character/element in the specified world via the API.
+
+### `create_character_robot_pairs(token, world_id)`
+
+Orchestrates the creation of 8 predefined spiritual characters paired with existing robots.
+
+## Usage
+
+1. Run the script after ensuring the API endpoint (`BASE_URL`) and credentials are configured.
+2. Call `create_character_robot_pairs(token, world_id)` with a valid token and world ID to generate missing characters.
+3. The script assumes the API supports POST requests to `/worlds/{world_id}/generate` with JSON payloads.
+
+## Dependencies
+
+> `requests`
+> `json`
+> `datetime`
+
+## Related
+
+- [[login`]]
+- [[World Building System Design]]
+
+>[!INFO] Important Note
+> The script uses hardcoded credentials (`"test"` and `"passtest"`) for authentication. In production, replace these with secure credentials or environment variables.
+
+>[!WARNING] Caution
+> Disabling SSL verification (`VERIFY_SSL=False`) may expose the script to security risks if the API uses self-signed certificates. Use only in trusted environments.

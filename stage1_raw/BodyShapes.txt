@@ -1,0 +1,34 @@
+### TAGS
+#geometric-shapes
+#body-morphology
+#biological-models
+
+### TYPE
+code-notes
+
+### SUMMARY
+A list of body shape classifications used in modeling, biology, or design.
+
+### DETAILS
+This file enumerates various geometric and biological body shapes, likely intended for use in simulations, biomechanical studies, or design applications. The shapes represent simplified or idealized forms of objects or organisms, useful for categorizing or analyzing structural properties.
+
+### KEY_FUNCTIONS
+*(None—this appears to be a static list rather than executable code.)*
+
+### DEPENDENCIES
+none
+
+### USAGE
+This list can be referenced in:
+- **Programming**: Used as input for shape recognition algorithms or procedural generation.
+- **Biomechanics**: Applied in modeling animal or human body forms for research.
+- **Design**: Employed in architectural or product design for aesthetic or functional analysis.
+
+### RELATED
+[[BodyShapeDatabase]], [[ShapeClassificationGuide]]
+
+### CALLOUTS
+>[!INFO]- Common Applications
+> Often used in **procedural generation** (e.g., game assets, virtual organisms) or **finite element analysis** (FEA) for structural simulations.
+>[!WARNING]- Context Matters
+> Some shapes (e.g., *insectoid*, *serpentine*) may require additional metadata (e.g., curvature, asymmetry) for accurate modeling.

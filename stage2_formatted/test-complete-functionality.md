@@ -1,0 +1,61 @@
+**Tags:** #automated-testing, #web-scraping, #puppeteer, #frontend-testing, #ui-functionality
+**Created:** 2026-01-13
+**Type:** test-reference
+
+# test-complete-functionality
+
+## Summary
+
+```
+Automated UI testing script for verifying dashboard and core functionality using Puppeteer.
+```
+
+## Details
+
+> This script uses Puppeteer to automate browser interactions and validate UI elements across multiple pages (Dashboard, Worlds, Elements). It captures screenshots at key steps, checks for expected text/buttons, and verifies navigation flows. The test follows a structured sequence: dashboard → worlds navigation → world detail page → edit functionality → elements page, ensuring all critical UI interactions work as intended.
+
+## Key Functions
+
+### `testCompleteFunctionality`
+
+Orchestrates the full automated UI test suite.
+
+### `puppeteer.launch`
+
+Configures and launches a headless browser with security-disabling flags.
+
+### `page.goto()`
+
+Navigates to specified URLs with timeout and wait strategies.
+
+### `page.evaluate()`
+
+Extracts dynamic content (e.g., page title, text) for validation.
+
+### `page.screenshot()`
+
+Captures visual proof of UI states at critical junctures.
+
+## Usage
+
+1. Install dependencies: `npm install puppeteer`.
+2. Run script: `node test-complete-functionality.js`.
+3. Ensure target app is deployed at `localhost:5173` before execution.
+4. Verify screenshots (`checks/screenshots/`) are generated for debugging.
+
+## Dependencies
+
+> `puppeteer`
+> `local web application (running on `http://localhost:5173`)`
+> `Node.js runtime.`
+
+## Related
+
+- [[Web Application Architecture]]
+- [[Puppeteer Test Suite Design]]
+
+>[!INFO] Important Note
+> **Security Warning**: The script disables critical security features (`--disable-web-security`) for automated testing. Use only in controlled environments with trusted sources.
+
+>[!WARNING] Caution
+> **Headless Mode**: The browser runs in headless mode (`headless: true`). If debugging is needed, modify the launch config to `headless: false` temporarily.

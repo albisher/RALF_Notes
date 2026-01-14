@@ -1,0 +1,56 @@
+### TAGS
+#deterministic-generation
+#hash-based-architecture
+#character-generator
+#file-organization
+#reorganization
+
+### TYPE
+code-notes
+
+### SUMMARY
+Reorganized and enhanced a character generator to use a standardized directory structure with deterministic hash-based generation and improved error handling.
+
+### DETAILS
+This code reorganization consolidates character data into a structured directory (`CharactersLists/`) while rewriting `characters.py` to use hash-based generation instead of random seeds. The system now dynamically loads text files from a dedicated directory, implements deterministic character generation with salt-based attributes, and supports command-line constraints. It maintains compatibility with existing integrations while adding features like 13 data categories (e.g., conflict roles, planetary adaptations) and enhanced JSON output.
+
+### KEY_FUNCTIONS
+- **`generate_name()`**: Creates deterministic character names using hash input.
+- **`derive_int_from_hash()`**: Converts hash values into integers for selection.
+- **`select_from_list()`**: Randomly picks attributes from text files using hash-derived indices.
+- **`read_list_from_file()`**: Safely loads character lists with UTF-8 encoding and error handling.
+- **`generate_character_description()`**: Orchestrates full character generation with constraints.
+- **`hash_input()`**: Computes a hash for deterministic output generation.
+
+### DEPENDENCIES
+`os`, `json`, `@Generators/Characters/CharactersLists/` (internal directory), external libraries for file handling (e.g., `pathlib` for path management).
+
+### USAGE
+1. **Basic Generation**:
+   ```bash
+   python characters.py <hash_input>
+   ```
+   Example: `python characters.py "character_hash_1"` generates a character with deterministic attributes.
+
+2. **With Constraints**:
+   ```bash
+   python characters.py <hash_input> <constraint1> <constraint2>
+   ```
+   Example: `python characters.py "character_hash_2" curious explorer` enforces personality and role constraints.
+
+3. **Programmatic Use**:
+   ```python
+   from Characters.characters import generate_character_description
+   character = generate_character_description("hash_input")
+   ```
+   Returns a structured JSON object with generated attributes.
+
+### RELATED
+[[`@Generators/Cosmic/`]], [[`@Generators/Generators/Architecture.md`]]
+
+### CALLOUTS
+>[!INFO]- **Deterministic Output**
+> The system uses `hash_input()` to ensure identical outputs for the same input, replacing randomness with deterministic selection from character lists.
+
+>[!WARNING]- **File Path Safety**
+> Missing files trigger graceful fallbacks, but hardcoded paths in legacy code (e.g., `'Generators/Characters/PersonalityTraits.txt'`) must be updated to dynamic paths like `os.path.join(LISTS_DIR, 'PersonalityTraits.txt')`.

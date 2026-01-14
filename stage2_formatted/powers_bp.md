@@ -1,0 +1,76 @@
+**Tags:** #Flask, #API, #Database, #SQLAlchemy, #JWT, #CRUD, #Worldbuilding, #Authentication
+**Created:** 2026-01-13
+**Type:** documentation
+
+# powers_bp
+
+## Summary
+
+```
+Manages powers and skills for a role-playing game world via a Flask blueprint with CRUD endpoints.
+```
+
+## Details
+
+> This Flask blueprint (`PowersManagementAPIBox`) provides endpoints for listing, creating, updating, and retrieving powers and skills associated with a user's world. It uses SQLAlchemy for database operations and Flask-JWT-Extended for authentication. The system enforces access control by verifying the JWT token and ensuring the user owns the world before allowing operations.
+> 
+> The blueprint registers three main routes:
+> 1. **GET `/api/powers/`** – Lists all powers for a world (optionally filtered by `world_id` or `power_type`).
+> 2. **POST `/api/powers/create`** – Creates a new power/skill with validation for required fields (`name`, `world_id`).
+> 3. **PUT `/api/powers/<power_id>`** – Updates an existing power/skill by ID, with partial field updates supported.
+> 
+> Error handling includes logging exceptions and returning appropriate HTTP status codes (e.g., 404 for missing resources, 500 for server errors).
+
+## Key Functions
+
+### ``PowersManagementAPIBox()``
+
+Initializes the Flask blueprint and registers routes.
+
+### ``_register_routes()``
+
+Defines and binds all CRUD endpoints under `/api/powers`.
+
+### ``list_powers()``
+
+Fetches powers filtered by `world_id` and `power_type` (if provided).
+
+### ``create_power()``
+
+Validates input, checks world ownership, and persists a new power record.
+
+### ``update_power(power_id)``
+
+Updates a power by ID, ensuring the user owns it before modifying.
+
+## Usage
+
+1. **Initialize**: Create an instance of `PowersManagementAPIBox()`.
+2. **Register**: Add the blueprint to a Flask app using `app.register_blueprint()`.
+3. **Call Endpoints**:
+   - List powers: `GET /api/powers?world_id=123`
+   - Create power: `POST /api/powers/create` with JSON body `{ "name": "Power", "world_id": 123 }`
+   - Update power: `PUT /api/powers/456` with JSON body `{ "name": "Updated Power" }`
+
+## Dependencies
+
+> ``flask``
+> ``flask-jwt-extended``
+> ``sqlalchemy``
+> ``models` (contains `Power``
+> ``World``
+> ``Card` models)`
+> ``db` (SQLAlchemy session)`
+> ``BoxInput` (from `..core.box_interface`).`
+
+## Related
+
+- [[SQLAlchemy Model Definitions]]
+- [[JWT Authentication Guide]]
+
+>[!INFO] **Authentication Requirement**
+> All endpoints require a valid JWT token in the `Authorization` header. The token must decode to a valid user ID (converted from string to integer if needed).
+
+
+>[!WARNING] **World Ownership Check**
+> The `create_power` and `update_power` routes explicitly verify that the user owns the specified `world_id` before allowing modifications. Violating this rule returns a 404 error.

@@ -1,0 +1,66 @@
+**Tags:** #data-visualization, #quran-study, #historical-reconstruction, #islamic-research, #world-building, #geospatial-mapping
+**Created:** 2026-01-13
+**Type:** code-script
+
+# create_quraan_world
+
+## Summary
+
+```
+Generates a virtual "Quraan World" map with Islamic historical cards detailing Quran revelation events and figures.
+```
+
+## Details
+
+> This script creates an interactive, Earth-like digital map of the Quraan World, populated with Islamic historical cards—specifically Quran revelation locations and key events/characters. It integrates geospatial coordinates, historical timestamps, and Islamic sources to reconstruct significant pre-Islamic and early Islamic events (e.g., Year of the Elephant, Prophet Muhammad’s birth). The script uses a backend framework (via `app` and `db`) to store and process data, with modular components like `WorldCreationBox` and `CardWriteBox` for map generation and card management. Coordinates are standardized for spatial rendering, while `notes` fields include curated references from Islamic scholarship.
+
+## Key Functions
+
+### ``WorldCreationBox``
+
+Orchestrates map generation with Earth-like projections and Islamic-themed world design.
+
+### ``CardWriteBox``
+
+Handles creation of Quran revelation cards with metadata (coordinates, timestamps, sources, tags).
+
+### ``BoxInput``
+
+Facilitates input/output for dynamic world updates via the backend API.
+
+### ``QURAN_REVELATION_LOCATIONS``
+
+Hardcoded list of structured historical events/characters (e.g., Year of the Elephant, Prophet Muhammad’s birth) with embedded sources and tags.
+
+## Usage
+
+1. **Docker**: Run via `docker-compose exec backend python3 /app/scripts/create_quraan_world.py`.
+2. **Local**: Navigate to project root (`cd /Users/amac/Downloads/spq8`) and execute `python3 scripts/create_quraan_world.py`.
+   - Ensure backend dependencies are installed (e.g., `backend` directory exists).
+   - Prepend `backend_path` to `sys.path` if running locally outside Docker.
+
+## Dependencies
+
+> ``app``
+> ``db``
+> ``models.User``
+> ``models.World``
+> ``models.Card``
+> ``boxes.worlds.world_creation_box``
+> ``boxes.storage.card_write_box``
+> ``boxes.core.box_interface``
+> `Python libraries (`datetime``
+> ``json``
+> ``hashlib`).`
+
+## Related
+
+- [[Obsidian: Quraan World Architecture]]
+- [[Obsidian: Islamic Historical Cards Design]]
+- [[Obsidian: Backend Integration Guide.]]
+
+>[!INFO] Path Resolution
+> The script dynamically checks for backend paths in both local and Docker environments, falling back to `/app` if the local path fails. Critical for cross-platform compatibility.
+
+>[!WARNING] Hardcoded Data
+> `QURAN_REVELATION_LOCATIONS` is static; for dynamic updates, integrate with a database or external API to avoid redundancy.

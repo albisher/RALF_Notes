@@ -1,0 +1,63 @@
+### TAGS
+#transactional-data-saving
+#database-operations
+#world-management
+#upsert-operation
+#security-validation
+
+### TYPE
+documentation
+
+### SUMMARY
+Manages world data and related content (cards, elements, timelines) with transactional save operations for a game or simulation system.
+
+### DETAILS
+This `WorldSaveBox` class implements a transactional save mechanism for world data and its associated entities (cards, elements, timelines). It handles three operations: **create**, **update**, and **upsert** (update or insert if not found). The class validates security (user_id) and enforces rules like preventing duplicate world names. It processes nested data structures (e.g., `world_data`, `cards_data`) and tracks counts of created/updated/deleted records. The implementation uses SQLAlchemy’s ORM for database operations, ensuring atomicity via transactions.
+
+The `execute` method orchestrates the workflow:
+1. Validates input (e.g., checks for `user_id` and required fields like `world_data['name']`).
+2. For **create**, checks for existing worlds by name and sets defaults (e.g., `world_type` defaults to `'colony'`).
+3. For **update/upsert**, fetches the world by ID and updates fields conditionally.
+4. Processes optional lists (`cards_data`, `elements_data`, etc.) to create/update/delete records, incrementing counters (`saved_counts`).
+5. Returns a `BoxOutput` with success status, saved data, counts, and errors.
+
+### KEY_FUNCTIONS
+- **`execute(input_data: BoxInput) -> BoxOutput`**: Core method that orchestrates the save transaction.
+- **`WorldSaveBox.__init__(name='world_save')`**: Initializes the box with a default name and description.
+- **`World.query.filter_by(...)`**: Used internally to fetch world records by name/ID.
+- **`db.session.add()` / `db.session.flush()`**: Manages database session for new/updated records.
+- **`World.query.update()`**: Sets `is_default` flag for world updates.
+
+### DEPENDENCIES
+`..core.box_interface`, `models.db`, `models.World`, `models.Card`, `models.WorldElement`, `models.Timeline`, `models.TimelineEvent`, `datetime`, `logging`.
+
+### USAGE
+1. **Input Structure**:
+   ```python
+   input_data = {
+       'world_data': { 'name': 'New World', 'description': '...' },
+       'cards_data': [{'id': 1, 'name': 'Card1'}],  # Optional
+       'user_id': 123,
+       'operation': 'update'  # or 'create'/'upsert'
+   }
+   ```
+2. **Output**:
+   ```python
+   output = box.execute(input_data)
+   print(output.success, output.data, output.errors)
+   ```
+3. **Example Operations**:
+   - **Create**: `operation='create'` with a unique `world_data['name']`.
+   - **Update**: `operation='update'` with `world_data['world_id']`.
+   - **Upsert**: `operation='upsert'` (creates if world doesn’t exist).
+
+### RELATED
+[[Database Transaction Patterns]], [[SQLAlchemy ORM Usage]], [[Game World Management Systems]]
+
+### CALLOUTS
+>[!INFO]- Transaction Safety
+> The `db.session` is managed implicitly via SQLAlchemy’s ORM, ensuring atomicity for all database operations. If any step fails (e.g., duplicate world name), the entire transaction aborts.
+>[!WARNING]- Upsert Logic
+> The `upsert` logic creates a new world if the ID is missing but does **not** validate uniqueness of `name`—only the ID is checked. This may lead to duplicate names if not handled elsewhere.
+>[!INFO]- Default World Handling
+> Setting `is_default=True` automatically deactivates any existing default world via `World.query.update()`. This requires careful coordination with other systems to avoid unintended side effects.

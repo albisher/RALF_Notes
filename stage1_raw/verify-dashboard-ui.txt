@@ -1,0 +1,44 @@
+### TAGS
+#automated-testing
+#ui-verification
+#puppeteer
+#frontend-validation
+#dashboard-check
+
+### TYPE
+test-reference
+
+### SUMMARY
+Automated UI verification script for a dashboard application using Puppeteer to validate dashboard content, navigation, and error conditions.
+
+### DETAILS
+This script uses Puppeteer to launch a browser, navigate to a local web application (running on `http://localhost:5173`), and systematically verify the dashboard UI. It captures screenshots at key stages, checks for specific UI elements (e.g., statistics cards, character/world listings), and logs console/network activity. The workflow includes validation of dashboard content, character/world pages, and error handling.
+
+### KEY_FUNCTIONS
+- **verifyDashboardUI**: Orchestrates the entire UI verification process, including browser launch, navigation, UI checks, and screenshot capture.
+- **puppeteer.launch**: Configures and starts a browser instance with debugging enabled.
+- **page.goto**: Navigates to the application URL with network idle wait.
+- **page.waitForSelector**: Ensures dashboard content loads before proceeding.
+- **page.evaluate**: Extracts text content from dynamically rendered elements (e.g., stat cards).
+- **page.screenshot**: Captures full-page screenshots at critical points.
+- **page.click**: Simulates user navigation to characters/worlds pages.
+
+### DEPENDENCIES
+puppeteer, Node.js runtime
+
+### USAGE
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node verify-dashboard-ui.js`.
+3. Ensure the application is running locally at `http://localhost:5173`.
+4. Outputs:
+   - Console logs for verification steps.
+   - Screenshots saved to `checks/screenshots/`.
+
+### RELATED
+[[Dashboard UI Design Spec]], [[Application API Documentation]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script uses `--no-sandbox` and other flags for debugging, which may not be secure in production. Disable these in production environments.
+>[!WARNING]- Caution
+> Network requests and console logs are logged via `page.evaluate()`, which may expose sensitive data if not sanitized. Validate `networkRequests`/`consoleLogs` before use in production.

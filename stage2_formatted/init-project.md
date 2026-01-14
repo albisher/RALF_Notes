@@ -1,0 +1,70 @@
+**Tags:** #initialization, #project-setup, #task-management, #bash-scripting, #argument-parsing
+**Created:** 2026-01-13
+**Type:** configuration-script
+
+# init-project
+
+## Summary
+
+```
+Script initializes a Task Master project by parsing arguments, setting up project files, and configuring optional features like AI providers and Git hooks.
+```
+
+## Details
+
+> This script orchestrates the setup of a Task Master project by:
+> 1. Parsing command-line arguments to determine preferences (e.g., project name, auto-confirmation).
+> 2. Triggering a core `task-master init` command to create the project structure.
+> 3. Performing smart checks (e.g., detecting existing files, validating Git status, verifying AI provider config) to guide the user.
+> 4. Post-initialization steps include displaying the created structure, verifying AI configurations, and suggesting next actions (e.g., parsing a PRD file or setting up Git hooks).
+> 
+> The script dynamically adapts based on provided arguments, such as `--name` or `--description`, and integrates with the Task Master CLI to automate workflows like parsing a PRD file after initialization.
+
+## Key Functions
+
+### ``parse-arguments``
+
+Extracts and validates input flags (e.g., `-y`, `--name`, `--description`).
+
+### ``task-master init``
+
+Core CLI command to scaffold the project directory.
+
+### ``smart-initialization-checks``
+
+Detects existing files, Git status, and AI provider configurations.
+
+### ``post-init-suggestions``
+
+Displays project structure, verifies AI models, and recommends next steps (e.g., parsing PRD, configuring hooks).
+
+## Usage
+
+Run from the command line with arguments like:
+```bash
+./init-project --name "MyProject" --description "A task management system"
+```
+or with a PRD file:
+```bash
+./init-project my-prd.md
+```
+Auto-confirmation is enabled with `-y` or `quick`.
+
+## Dependencies
+
+> ``task-master` CLI tool (core dependency)`
+> `Git (for repository checks)`
+> `optional AI provider libraries (e.g.`
+> `OpenAI API).`
+
+## Related
+
+- [[Task Master CLI Documentation]]
+- [[Task Master Git Hooks Guide]]
+- [[Task Master AI Configuration]]
+
+>[!INFO] Auto-confirmation
+> When `-y` or `quick` is provided, the script skips interactive confirmations, speeding up initialization.
+
+>[!WARNING] PRD File Dependency
+> If a PRD file is provided, ensure it exists in the working directory before running the script. The script assumes the file is parsed automatically after initialization.

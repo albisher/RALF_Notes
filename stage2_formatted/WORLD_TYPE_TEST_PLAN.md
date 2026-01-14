@@ -1,0 +1,62 @@
+**Tags:** #test_plan, #world_generation, #procedural_generation, #procedural_worlds
+**Created:** 2026-01-13
+**Type:** test-reference
+
+# WORLD_TYPE_TEST_PLAN
+
+## Summary
+
+```
+Test plan for validating procedural world type map generation with predefined hash inputs and expected visual characteristics.
+```
+
+## Details
+
+> This test plan outlines the methodology for generating and validating procedural maps for seven distinct world types (Planet, Galaxy, Cloud World, Space Station, Space Ship, Asteroid, Moon) using a fixed hash input ("ew"). The procedure involves generating full maps, capturing screenshots, and analyzing visual fidelity against expected patterns, background colors, and structural characteristics. The goal is to ensure consistency and correctness in procedural world generation systems.
+
+## Key Functions
+
+### `World Type Map Generation`
+
+Generates full procedural maps for each world type.
+
+### `Screenshot Capture`
+
+Records visual outputs with standardized naming conventions.
+
+### `Visual Analysis`
+
+Evaluates map fidelity against predefined expectations.
+
+### `Background Color Validation`
+
+Checks for correct background colors per world type.
+
+### `Pattern Recognition Testing`
+
+Assesses if generated maps distinctly represent their world type.
+
+## Usage
+
+1. Execute the map generator with hash input "ew" for each world type.
+2. Generate full maps and capture screenshots following the naming convention.
+3. Compare screenshots against expected outputs in WORLD_EXPECTATIONS.
+4. Document any discrepancies or observations for validation.
+
+## Dependencies
+
+> `Map generator engine`
+> `screenshot capture tool`
+> `validation comparison logic (WORLD_EXPECTATIONS reference)`
+> `Obsidian/Markdown for documentation.`
+
+## Related
+
+- [[WORLD_EXPECTATIONS]]
+- [[MapValidationBox]]
+
+>[!INFO] Important Note
+> Ensure the hash input "ew" is consistent across all world type tests to avoid unintended variations in procedural generation.
+
+>[!WARNING] Caution
+> Validate background colors and structural patterns independently to avoid misinterpretation of visual fidelity. Cross-check with validation statistics to confirm accuracy.

@@ -1,0 +1,41 @@
+### TAGS
+#status-management
+#task-tracking
+#review-process
+#workflow-automation
+
+### TYPE
+tutorial
+
+### SUMMARY
+A script to automate setting a task’s status to "review," marking work as complete but requiring verification before finalization.
+
+### DETAILS
+This script configures a task’s status to "review," indicating the work is finished but awaiting peer review, testing, or approval. It is used when code, documentation, or design is complete but requires validation before finalization. The workflow includes generating a checklist, documenting review notes, and optionally automating reminders or expert-based reviewer assignments.
+
+### KEY_FUNCTIONS
+- **`task-master set-status`**: Sets task status to "review" with provided task ID.
+- **Review Checklist Generation**: Links to PR/MR, highlights key changes, and notes areas needing attention.
+- **Documentation Updates**: Adds review notes, links artifacts, and specifies reviewers.
+- **Smart Actions**: Tracks review duration, creates reminders, and suggests reviewers based on expertise.
+
+### DEPENDENCIES
+`task-master` CLI tool (assumed to be a custom or third-party tool for task management).
+
+### USAGE
+1. Run the command:
+   ```bash
+   task-master set-status --id=<TASK_ID> --status=review
+   ```
+2. Follow the checklist steps (generate, document, and automate reminders).
+3. Ensure reviewers are assigned and review duration is tracked.
+
+### RELATED
+[[Task Management Workflow]], [[Peer Review Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Ensure the task ID is valid and the `task-master` CLI is properly configured before executing the command.
+>
+>[!WARNING]- Caution
+> If the task involves sensitive data, validate review artifacts thoroughly to avoid unintended exposure.

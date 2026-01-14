@@ -1,0 +1,71 @@
+**Tags:** #3D-Shapes, #Geometry, #Pod-Shapes, #Base-Model
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# BaseOfPodsShapes
+
+## Summary
+
+```
+A list of predefined 3D pod shape types used for modeling or design purposes.
+```
+
+## Details
+
+> This file appears to enumerate basic 3D geometric shapes that could be used as foundational elements for pod designs, such as in architecture, robotics, or game development. The shapes listed (`sphere`, `cylinder`, `egg`, `semi-sphere`, `dome`) represent common volumetric forms that can be parameterized or combined to create more complex structures.
+> 
+> The list likely serves as input for procedural generation, collision detection, or visualization systems where these shapes are dynamically instantiated or modified.
+
+## Key Functions
+
+### ``sphere``
+
+Represents a perfectly symmetrical 3D circular shape, often used for rounded pods or spherical components.
+
+### ``cylinder``
+
+A tubular shape with two circular bases, useful for cylindrical storage or structural elements.
+
+### ``egg``
+
+A teardrop-like shape, resembling an elongated egg, often used for aerodynamic or stylistic design.
+
+### ``semi-sphere``
+
+Half of a sphere, useful for curved surfaces like domes or half-shells.
+
+### ``dome``
+
+A curved, upward-facing shape resembling a hemisphere, often used for architectural or decorative elements.
+
+## Usage
+
+This list is likely consumed by a system that:
+1. Takes these shapes as input for procedural generation (e.g., generating pod designs programmatically).
+2. Applies transformations (scaling, rotation) or composes them into larger structures.
+3. Uses collision detection or rendering libraries to visualize or interact with these shapes dynamically.
+
+Example hypothetical usage:
+```python
+shapes = ["sphere", "cylinder", "egg"]
+for shape in shapes:
+    generate_pod_component(shape)  # Pseudocode
+```
+
+## Dependencies
+
+> `none (standalone list`
+> `no external libraries or modules referenced)`
+
+## Related
+
+- [[BaseOfPodsParameters]]
+- [[PodShapeRenderer]]
+- [[3D-Geometry-Library]]
+
+>[!INFO] Contextual Role
+> These shapes are often used in **pod design systems** (e.g., for drones, vehicles, or modular structures) where modularity and customization are key. The list may be extended with additional shapes like `torus` or `prism` for broader applicability.
+
+
+>[!WARNING] Static Nature
+> This is a **static list**—no runtime logic is implied. For dynamic use, this data would typically be loaded from a configuration file, database, or API. Hardcoding here may limit flexibility in future iterations.

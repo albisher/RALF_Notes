@@ -1,0 +1,56 @@
+**Tags:** #astronomy, #space-resources, #mineralogy, #energy-sources, #rare-earth-elements
+**Created:** 2026-01-13
+**Type:** documentation
+
+# resource_abundance
+
+## Summary
+
+```
+A categorized list of space-based and extraterrestrial resource types, useful for resource management, mining, or exploration in sci-fi or scientific contexts.
+```
+
+## Details
+
+> This file outlines a structured classification of resources found in space, categorized by abundance, composition, and rarity. It serves as a reference for identifying and evaluating potential resources across different celestial bodies, asteroids, or exoplanets. The list includes natural materials (e.g., minerals, water, metals) and exotic or rare substances (e.g., radioactive materials, quantum materials), which may be critical for survival, energy, or technological advancement in off-world environments.
+> 
+> The categories reflect a balance between common, abundant resources (e.g., water, metallic asteroids) and highly specialized or scarce materials (e.g., temporal crystals, radioactive elements), which could be critical for long-term sustainability or high-value applications.
+
+## Key Functions
+
+### `Resource Classification`
+
+Organizes space-based materials into logical categories for prioritization in exploration or extraction.
+
+### `Scarcity & Abundance Mapping`
+
+Helps determine resource availability (e.g., "common" vs. "scarce") to guide mission planning or economic strategies.
+
+### `Exotic Material Identification`
+
+Flags rare or advanced materials (e.g., quantum materials, temporal crystals) for targeted research or resource exploitation.
+
+## Usage
+
+This list can be used in:
+- **Sci-fi storytelling** to define resource scarcity or availability in fictional space settings.
+- **Game design** (e.g., space exploration games) to model resource distribution and extraction mechanics.
+- **Scientific/engineering planning** to assess feasibility of mining or energy extraction from celestial bodies.
+- **Economic modeling** for off-world colonies or trade networks.
+
+## Dependencies
+
+> `none (standalone reference document)`
+
+## Related
+
+- [[Resource Extraction Strategies]]
+- [[Exoplanet Resource Assessment]]
+- [[Space Mining Economics]]
+- [[Rare Earth Elements Database]]
+
+>[!INFO] **Contextual Abundance**
+> Resource labels (e.g., "Common Materials," "Scarce Resources") are **conceptual**—actual abundance depends on location, composition, and extraction technology. For example, "Ice Bodies" may be abundant near polar ice caps but rare on desert planets.
+
+>[!WARNING] **Toxic/Unstable Materials**
+> Some entries (e.g., "Radioactive Materials," "Exotic Matter") may pose hazards. Always assess safety protocols before exploitation.

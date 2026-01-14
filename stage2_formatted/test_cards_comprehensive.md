@@ -1,0 +1,80 @@
+**Tags:** #testing, #card-management, #api-integration, #automated-testing, #backend-interface
+**Created:** 2026-01-13
+**Type:** documentation-research
+
+# test_cards_comprehensive
+
+## Summary
+
+```
+Comprehensive automated test script for validating card lifecycle operations in a backend API, including creation, editing, deletion, and world isolation.
+```
+
+## Details
+
+> This script automates testing of card-related operations within a backend API by:
+> 1. Logging into the system to obtain authentication tokens
+> 2. Retrieving world IDs for predefined test environments
+> 3. Creating multiple card instances with varied attributes across different card types
+> 4. Validating subsequent operations like updates and deletions
+> 5. Generating over 100 test cards to thoroughly exercise the system
+> 
+> The test script follows a structured approach to verify all major card lifecycle functions while maintaining isolation between test worlds.
+
+## Key Functions
+
+### `CardTester.login()`
+
+Authenticates user and retrieves authentication token.
+
+### `CardTester.get_world_id()`
+
+Fetches and caches world IDs by name.
+
+### `CardTester.create_card()`
+
+Creates new card instances with configurable parameters.
+
+### `CardTester.update_card()`
+
+Modifies existing card attributes.
+
+### `CardTester.delete_card()`
+
+Removes cards from the system.
+
+### `CardTester.get_cards()`
+
+Retrieves all cards for a specific world.
+
+### `CardTester.test_card_creation()`
+
+Orchestrates the comprehensive card creation test.
+
+## Usage
+
+1. Place script in directory containing backend module
+2. Configure BASE_URL to match backend server address
+3. Set TEST_USERNAME/PASSWORD to valid credentials
+4. Run script to execute all test procedures
+5. Verify output messages for test results and failures
+
+## Dependencies
+
+> `requests`
+> `json`
+> `random`
+> `datetime`
+> `sys`
+> `os`
+
+## Related
+
+- [[backend-api-documentation]]
+- [[card-management-system-specs]]
+
+>[!INFO] Important Note
+> The script uses random values for attributes (color, size, power) to ensure varied test cases. This helps identify edge cases in attribute validation.
+
+>[!WARNING] Caution
+> Ensure the backend server is running at localhost:5000 before executing. The script will fail if the API endpoints are unavailable. Test credentials must match backend authentication requirements exactly.

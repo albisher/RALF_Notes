@@ -1,0 +1,37 @@
+### TAGS
+#biome
+#ocean
+#water
+#ecosystem
+#environmental
+
+### TYPE
+documentation
+
+### SUMMARY
+Defines classification of water biomes, categorizing oceanic and coastal environments by depth, temperature, and location.
+
+### DETAILS
+This file enumerates distinct water biomes, categorizing them based on their ecological characteristics, such as depth, temperature, and geographic location. The biomes listed represent different zones of marine ecosystems, influencing biodiversity, habitat types, and ecological processes. Examples include shallow and deep ocean zones, as well as specialized regions like coral reefs and polar Arctic waters.
+
+### KEY_FUNCTIONS
+- **Biome Classification**: Defines structured categories for water environments (e.g., Shallow Ocean, Coral Reef).
+- **Ecological Context**: Provides foundational data for environmental studies, conservation, and marine biology research.
+
+### DEPENDENCIES
+none
+
+### USAGE
+This file serves as a reference for:
+- **Research**: Identifying and comparing marine ecosystems.
+- **Education**: Teaching about ocean zones and their ecological roles.
+- **Conservation**: Designating protected areas or studying habitat distribution.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Contextual Relevance
+> These biomes are foundational for understanding marine biodiversity patterns, which are critical for climate modeling, fisheries management, and biodiversity assessments.
+>[!WARNING]- Simplification Note
+> While this categorization is useful, real-world biomes may overlap or vary due to local conditions (e.g., tidal influences, currents). This list is a simplified model.

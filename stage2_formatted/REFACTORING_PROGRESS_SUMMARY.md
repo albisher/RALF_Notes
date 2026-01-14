@@ -1,0 +1,88 @@
+**Tags:** #refactoring, #vuejs, #composable, #state-management, #component-decomposition
+**Created:** 2026-01-13
+**Type:** documentation
+
+# REFACTORING_PROGRESS_SUMMARY
+
+## Summary
+
+```
+Documentation summarizing refactoring progress for Vue.js components, focusing on modularization via composables and component breakdown.
+```
+
+## Details
+
+> This document tracks the refactoring progress of a Vue.js application, where legacy monolithic components (`WorkflowPage.vue`, `CardViewPage.vue`) are being split into smaller, reusable composables and components. The goal is to improve maintainability, reduce file size, and enhance modularity by extracting business logic into dedicated composables (e.g., `useTimelineOperations.js`, `useCardOperations.js`) and reusable components (e.g., `CardViewSection.vue`, `CardMapViewer.vue`). The refactoring involves replacing inline logic with composable functions and component templates, ensuring proper state synchronization and lifecycle management.
+
+## Key Functions
+
+### `useTimelineOperations.js`
+
+Manages timeline-related operations like date parsing, position calculations, and drag-and-drop interactions.
+
+### `useCardOperations.js`
+
+Handles card filtering, type toggling, and data fetching via computed properties.
+
+### `useMapOperations.js`
+
+Renders map visualizations, including card markers and placeholders, using helper boxes (`MapRenderBox`, `MapCoordinateBox`).
+
+### `CardViewSection.vue`
+
+Displays a section of cards with a header component.
+
+### `CardViewHeader.vue`
+
+Manages header-specific UI logic (e.g., filtering).
+
+### `CardMapViewer.vue`
+
+Visualizes cards on a map with location markers.
+
+### `WorkflowPage.vue`
+
+Main page integrating composables for world, timeline, and card operations (target: <500 lines).
+
+### `CardViewPage.vue`
+
+Page for card management, integrating composables and new components (target: <500 lines).
+
+## Usage
+
+1. **Refactoring Workflow**:
+   - Replace monolithic methods in `WorkflowPage.vue`/`CardViewPage.vue` with composable calls in `mounted()` hooks.
+   - Integrate new components (`CardViewSection`, `CardMapViewer`) into templates.
+   - Ensure composables handle state updates via `ref`/`reactive` and sync with component data.
+
+2. **Testing**:
+   - Validate composable logic (e.g., date parsing, filtering) via unit tests.
+   - Check file sizes (target: <500 lines) and regressions post-refactoring.
+
+## Dependencies
+
+> `Vue.js (Composition API)`
+> `Vuex (optional for state management)`
+> ``DateParsingBox``
+> ``TimelinePositionBox``
+> ``CardFilteringBox``
+> ``MapCoordinateBox``
+> ``MapRenderBox` (custom utility components).`
+
+## Related
+
+- [[Vue]]
+- [[Composition API Migration]]
+- [[Custom Box Components (DateParsingBox]]
+- [[MapCoordinateBox)]]
+
+>[!INFO] **Composition API vs Options API**:
+> The refactoring assumes Composition API, but composables can be adapted for Options API via lifecycle hooks (e.g., `setup()` in `<script setup>` mode). For full compatibility, consider converting components to Composition API explicitly.
+
+
+>[!WARNING] **State Synchronization**:
+> Ensure composable `ref`/`reactive` state matches component state to avoid inconsistencies. Example: If `useTimelineOperations` updates `filteredTimelineNodes`, the component must recompute `filteredTimelineNodes` reactively.
+
+
+>[!WARNING] **Method Overlap**:
+> Some legacy methods may contain logic beyond what composables provide. Preserve or extract these into helper functions/composables to avoid breaking changes.

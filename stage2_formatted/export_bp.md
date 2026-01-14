@@ -1,0 +1,62 @@
+**Tags:** #flask, #api, #documentation, #export-service, #jwt-authentication, #world-data
+**Created:** 2026-01-13
+**Type:** documentation
+
+# export_bp
+
+## Summary
+
+```
+Handles world documentation export functionality via Flask Blueprint with JWT authentication.
+```
+
+## Details
+
+> This Flask Blueprint (`export_bp`) provides endpoints for exporting world documentation in JSON, Markdown, or PDF formats. It validates user access via JWT, checks world existence, and delegates export logic to `DocumentationExporter`. Temporary files are created for JSON/Markdown exports, while PDFs are streamed directly. The service also supports summary and preview endpoints to provide metadata or truncated samples of exported content.
+
+## Key Functions
+
+### ``export_world_documentation(world_id)``
+
+Endpoint to export world data in a specified format (JSON/MD/PDF) with authentication and access checks.
+
+### ``get_export_summary(world_id)``
+
+Returns a summary of available exportable content for the given world.
+
+### ``get_export_preview(world_id)``
+
+Provides a preview of exported data (e.g., truncated events/logs) without full download.
+
+## Usage
+
+1. Authenticate via JWT (e.g., `GET /api/token`).
+2. Call `/api/worlds/<world_id>/export` with `format=json/md/pdf` to export.
+3. Use `/api/worlds/<world_id>/export/summary` to fetch metadata.
+4. Use `/api/worlds/<world_id>/export/preview` to inspect truncated content.
+
+## Dependencies
+
+> `flask`
+> `flask-jwt-extended`
+> `models (db`
+> `World)`
+> `export_service (DocumentationExporter)`
+> `json`
+> `tempfile`
+> `os`
+
+## Related
+
+- [[export_service (DocumentationExporter implementation)]]
+- [[jwt-authentication (Flask-JWT Extended)]]
+- [[world-model (World model in `models]]
+
+>[!INFO] Temporary Files
+> JSON/Markdown exports create temporary files (`delete=False`), which must be manually cleaned up after download.
+
+>[!WARNING] Error Handling
+> Uncaught exceptions return generic `500` responses; custom error handling may be needed for production.
+
+>[!CAUTION] Format Validation
+> Only `json`, `md`, or `pdf` formats are accepted; invalid inputs return `400 Bad Request`.

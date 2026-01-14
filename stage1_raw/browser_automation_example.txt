@@ -1,0 +1,51 @@
+### TAGS
+#browser-automation
+#playwright
+#fantasy-map-generation
+#asyncio
+#web-scraping
+#data-processing
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automates Azgaar’s Fantasy Map Generator using Playwright to programmatically create and download maps with customizable parameters.
+
+### DETAILS
+This script leverages Playwright’s async API to automate interactions with Azgaar’s Fantasy Map Generator website. It constructs a URL with optional parameters (seed, dimensions, template) and navigates to the page. The script waits for the map to render, triggers an export (via button click or keyboard shortcut), captures the downloaded JSON file, and validates its structure. The generated map data is returned as a structured dictionary with metadata like cell and vertex counts.
+
+The logic includes error handling for timeouts, missing selectors, and invalid JSON, ensuring robustness. The script uses Playwright’s built-in download handling to save files to a specified directory.
+
+### KEY_FUNCTIONS
+- **`generate_map_via_azgaar`**: Core function that orchestrates the entire map generation workflow, including browser setup, navigation, export, and file handling.
+- **`async_playwright`**: Playwright’s async context manager for browser automation.
+- **`page.goto()`**: Navigates to the Azgaar map generator URL with custom parameters.
+- **`page.wait_for_selector()`**: Waits for the map canvas (SVG) to appear.
+- **`page.locator()`**: Finds and interacts with UI elements (e.g., export buttons).
+- **`page.expect_download()`**: Handles file downloads triggered by the export process.
+
+### DEPENDENCIES
+playwright, asyncio, json, os, pathlib
+
+### USAGE
+1. Install dependencies:
+   ```bash
+   pip install playwright
+   playwright install chromium
+   ```
+2. Run the script with optional parameters:
+   ```python
+   asyncio.run(generate_map_via_azgaar(seed="123", width=1024, height=768))
+   ```
+3. The script will generate a map, download it as a JSON file, and return metadata.
+
+### RELATED
+[[Azgaar Fantasy Map Generator Website]], [[Playwright Documentation]], [[Asyncio Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script assumes the Azgaar UI remains stable. If the website’s structure changes (e.g., export button selector), adjust selectors (e.g., `page.locator`) accordingly.
+
+>[!WARNING]- Caution
+> Headless mode (`headless=True`) may fail if the site requires JavaScript interactivity. Test in non-headless mode first to debug UI issues.

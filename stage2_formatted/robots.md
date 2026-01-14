@@ -1,0 +1,63 @@
+**Tags:** #deterministic_generation, #robot_design, #hash_based_selection, #text_to_robot
+**Created:** 2026-01-13
+**Type:** code-library
+
+# robots
+
+## Summary
+
+```
+Generates deterministic robot descriptions using text input and cryptographic hashing.
+```
+
+## Details
+
+> This script reads predefined lists of robot attributes (e.g., body shapes, colors) from text files and uses SHA-256 hashing to deterministically select attributes and features based on user input. It derives random-like values (e.g., arm/eye counts) from the hash, ensuring reproducibility with a salt parameter. The `generate_robot_description` function constructs a structured output dictionary with visual style, general attributes, key features, and faction context.
+
+## Key Functions
+
+### `read_list_from_file(filename)`
+
+Reads and returns non-empty lines from a text file in `RobotsLists/`.
+
+### `hash_input(input_str)`
+
+Computes SHA-256 hash of input text for deterministic selection.
+
+### `derive_int_from_hash(input_hash, salt, max_value)`
+
+Extracts an integer from the first 8 hex chars of a hashed salted input, modulo `max_value`.
+
+### `select_from_list(input_hash, salt, item_list)`
+
+Picks an item from a list by hashing the input and salt, then indexing.
+
+### `assign_number(input_hash, salt, min_value, max_value)`
+
+Generates a random-like integer in `[min_value, max_value]` using the hash.
+
+### `generate_robot_description(input_hash)`
+
+Orchestrates deterministic robot attribute selection and returns a structured description dict.
+
+## Usage
+
+1. Place text files (`BodyShapes.txt`, `MainColors.txt`, etc.) in `RobotsLists/` with one attribute per line.
+2. Run the script and input any text to generate a robot description.
+3. Output includes deterministic visual style, attributes, and features (e.g., "3 bipedal arms").
+
+## Dependencies
+
+> ``hashlib``
+> ``os``
+> ``re` (standard Python libraries)`
+
+## Related
+
+- [[None]]
+
+>[!INFO] Important Note
+> The script uses SHA-256 hashing to ensure reproducibility—same input yields the same output. Salt values (e.g., `"body_shape"`) control attribute selection.
+
+>[!WARNING] Caution
+> If `RobotsLists/` or attribute files are missing, the script returns `None` for missing attributes (e.g., "Unknown Shape"). Ensure files exist for full functionality.

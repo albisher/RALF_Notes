@@ -1,0 +1,51 @@
+### TAGS
+#world-management
+#time-system-configuration
+#biome-customization
+#solar-system-engineering
+#vuejs
+#api-integration
+#database-queries
+
+### TYPE
+documentation
+
+### SUMMARY
+A production-ready Vue.js implementation for a comprehensive world edit page, enabling full customization of world attributes, time systems, biomes, and solar systems via API integration.
+
+### DETAILS
+This implementation provides a **dedicated Vue.js component (`WorldEdit.vue`)** for editing world configurations in a space-themed application. The page dynamically handles complex configurations like time periods, biome properties, and orbital parameters through modular form sections. It integrates with existing APIs to persist changes, ensuring real-time updates and robust validation. The design emphasizes user experience with responsive layouts, dynamic form management, and clear feedback mechanisms.
+
+### KEY_FUNCTIONS
+- **WorldEdit.vue**: Main component rendering all configurable world attributes.
+- **Dynamic Time Periods**: Manages customizable time slots with color coding.
+- **Biome Configuration**: Allows setting temperature ranges, flora/fauna, and humidity.
+- **Solar System API Handler**: Updates star details, system age, and galactic positioning.
+- **Planets Management**: Configures orbital mechanics, atmospheric properties, and biome associations.
+- **Form Validation**: Ensures numeric inputs (e.g., hours, gravity) are valid and required fields are filled.
+- **Batch Saving**: Aggregates all changes via API calls for atomic updates.
+
+### DEPENDENCIES
+Vue 3, Vuetify 3, Pinia (state management), Axios (API client), Vue Router, existing world/time system APIs.
+
+### USAGE
+1. Navigate to `/worlds/:id/edit` via the "Advanced Edit" button on world detail pages.
+2. Use the form sections to configure:
+   - Basic info (name, type, status).
+   - Time system (e.g., days/hours per year).
+   - Biomes (temperature, flora/fauna).
+   - Solar system (star details, system age).
+   - Planets (orbital parameters, atmosphere).
+3. Add/remove items dynamically (e.g., time periods, biomes) via UI controls.
+4. Submit changes via the "Save" button, which triggers a batch API call.
+
+### RELATED
+[[World Management API Documentation]], [[Time System Configuration Guide]], [[Biome Database Schema]]
+
+### CALLOUTS
+>[!INFO]- Dynamic Form Handling
+> Time periods, biomes, and planets are added/removed via UI buttons. Each item retains its own configuration (e.g., temperature ranges, orbital radius) without hardcoding fixed counts.
+>[!WARNING]- API Batch Errors
+> If the batch save fails, the system displays a generic error message. Critical validation failures (e.g., negative orbital radius) trigger individual field errors instead of blocking the entire submission.
+>[!INFO]- State Management
+> Pinia stores cache loaded data (e.g., world type options) to avoid redundant API calls during editing. Changes are synced to the backend on save.

@@ -1,0 +1,42 @@
+### TAGS
+#NetworkSecurity
+#FirewallManagement
+#ContainerSecurity
+#SecurityConfiguration
+
+### TYPE
+documentation
+
+### SUMMARY
+A security report detailing port mappings, network isolation, and recommendations for hardening the Space Pearl Project infrastructure.
+
+### DETAILS
+This report validates exposed and blocked ports, confirms network isolation configurations, and audits Nginx security settings. It provides actionable recommendations for firewall rules, Docker security configurations, and log monitoring to mitigate risks.
+
+### KEY_FUNCTIONS
+- **Port Mapping Validation**: Ensures correct exposure/blocking of ports (e.g., frontend, databases).
+- **Network Isolation**: Configures internal network segmentation and proxy multi-network rules.
+- **Nginx Security Headers**: Applies security headers to mitigate common web vulnerabilities.
+- **Firewall Rules**: Scripts (`configure-firewall.sh`) enforce access control via `firewall-rules.conf`.
+- **Docker Security**: `docker-compose.security.yml` enforces container-level security policies.
+- **Systemd Service**: Manages firewall enforcement via `/etc/systemd/system/space-pearl-firewall.service`.
+
+### DEPENDENCIES
+`docker-compose`, `nginx`, PostgreSQL, Redis, OpenProject, n8n, Continue AI, systemd, `scripts/configure-firewall.sh`
+
+### USAGE
+1. Apply firewall rules via `scripts/configure-firewall.sh`.
+2. Deploy `docker-compose.security.yml` to restrict containerized services.
+3. Monitor `/var/log/nginx/access.log` and `/var/log/firewall/` for suspicious activity.
+4. Regularly update configurations (e.g., `docker-compose.yml`, Nginx rules).
+
+### RELATED
+[[Space Pearl Project Infrastructure Docs]], [[Security Playbook: Firewall Rules]], [[Nginx Security Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Critical Ports
+> Blocked ports (e.g., PostgreSQL 5432, Redis 6379) prevent unauthorized access to internal databases. Ensure these are never exposed externally.
+>[!WARNING]- Proxy Misconfiguration
+> Misconfigured proxy rules (e.g., `8080`/`8443`) could expose backend services. Validate upstream targets and TLS termination in Nginx.
+>[!INFO]- Log Monitoring
+> Suspicious activity (e.g., failed login attempts) may not appear in default logs. Audit `/var/log/auth.log` and `/var/log/secure` alongside Nginx logs.

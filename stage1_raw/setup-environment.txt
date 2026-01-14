@@ -1,0 +1,38 @@
+### TAGS
+#Bash-Script
+#Environment-Setup
+#API-Key-Management
+#Configuration
+
+### TYPE
+code-notes
+
+### SUMMARY
+Script automates environment setup for a Space Pearl project by generating and configuring a `.env` file with API keys.
+
+### DETAILS
+This script initializes a `.env` file from a predefined template (`env.template`), prompts the user for sensitive API keys (Perplexity, OpenAI, Anthropic), and secures file permissions. It handles user input with defaults, warns about existing `.env` files, and provides a summary of actions taken. The script also suggests next steps for deployment, including Docker secrets integration.
+
+### KEY_FUNCTIONS
+- **`print_status`**: Displays colored status messages (SUCCESS, ERROR, WARNING, INFO).
+- **`prompt_with_default`**: Interactively collects user input with optional default values.
+- **Template-based `.env` generation**: Copies and modifies `env.template` to populate API keys.
+- **Permission enforcement**: Sets `.env` file to restrictive `600` permissions.
+- **Backup cleanup**: Removes temporary `.env.bak` files after successful configuration.
+
+### DEPENDENCIES
+`bash`, `sed`, `chmod` (standard Unix utilities).
+
+### USAGE
+1. Run from the project root (must have `env.template` present).
+2. Follow prompts to enter API keys or confirm overwriting an existing `.env`.
+3. Review the generated `.env` and proceed with deployment (e.g., Docker).
+
+### RELATED
+[[`env.template`]], [[`docker-compose.secrets.yml`]] (if applicable to the project).
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **Backup caution**: The script creates a `.env.bak` backup during edits but deletes it afterward. Ensure critical keys are backed up manually if needed.
+>[!WARNING]- Security Warning
+> **Permissions**: `chmod 600` restricts `.env` access to owner only. Avoid hardcoding keys in non-secure contexts.

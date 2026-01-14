@@ -108,6 +108,25 @@ class Console:
             with self.console.status(message, spinner=spinner) as status:
                 yield status
 
+    @staticmethod
+    def format_speed(fps: float) -> str:
+        """Format speed into a human-readable string without confusing fractions."""
+        if fps <= 0:
+            return "0 files/s"
+        if fps >= 1000:
+            return f"{int(fps/1000)}K files/s"
+        if fps >= 1.0:
+            return f"{int(fps)} files/s"
+        
+        # Slow speed (< 1 file/sec)
+        fpm = fps * 60
+        if fpm >= 1.0:
+            return f"{int(fpm)} files/min"
+        
+        # Very slow speed (< 1 file/min)
+        spf = 1.0 / fps
+        return f"1 file / {int(spf)}s"
+
     def table_from_dict(self, data: Dict[str, Any], title: str = "", columns: List[str] = None):
         """Display key-value pairs as table."""
         if self.quiet:

@@ -1,0 +1,82 @@
+**Tags:** #optimization, #deterministic-algorithms, #hash-functions, #heightmap-generation, #algorithmic-performance
+**Created:** 2026-01-13
+**Type:** research
+
+# HEIGHTMAP_OPTIMIZATION_RESEARCH
+
+## Summary
+
+```
+Explores replacing slow random-based heightmap generation with deterministic hash-based methods for improved performance and consistency.
+```
+
+## Details
+
+> This document analyzes performance bottlenecks in existing heightmap generation algorithms, specifically focusing on queue-based propagation and random number generation. The research identifies inefficiencies in `random.uniform()`, `random.sample()`, and `random.choice()` calls across various world types, which introduce non-determinism and computational overhead. The current implementation uses a hybrid approach with some hash-based optimizations in `_generate_planet_heightmap`, while others rely entirely on random functions. The proposed strategy involves replacing random operations with deterministic hash-based alternatives, eliminating queue propagation, and implementing distance-based height calculations for parallelizable, efficient generation.
+
+## Key Functions
+
+### ``HeightmapGenerator.generate_heightmap``
+
+Queue-based BFS propagation with random neighbor height adjustments.
+
+### ``HashGeneratorMasterBox``
+
+Core hash-based utility class providing deterministic integer/float derivation from SHA-256 hashes.
+
+### ``assign_float()``
+
+Deterministic float assignment within a specified range using a hash.
+
+### ``derive_int_from_hash()``
+
+Deterministic integer selection from a hash and item list.
+
+### ``select_from_list()``
+
+Deterministic list selection based on a hash.
+
+### ``_generate_planet_heightmap``
+
+Example of existing hash-based optimization (peak selection via hash).
+
+### ``_generate_galaxy_heightmap``
+
+Current random-based spiral pattern generation.
+
+### ``generate_heightmap_hash_based()``
+
+Proposed hash-based heightmap generation with distance-based calculation.
+
+## Usage
+
+To implement the optimizations:
+1. Replace all `random.uniform()` calls with `assign_float(hash, salt, min, max)`.
+2. Replace `random.sample()` with hash-based index selection (e.g., using `derive_int_from_hash`).
+3. Replace queue-based propagation with direct distance-based height calculation for each cell.
+4. Use `HashGeneratorMasterBox` methods to derive deterministic values for peaks, craters, or platform positions.
+
+## Dependencies
+
+> ``hashlib` (SHA-256 hashing)`
+> ``random` (legacy random functions being replaced)`
+> `custom `HeightmapGenerator` class`
+> ``HashGeneratorMasterBox` utility.`
+
+## Related
+
+- [[HeightmapGenerator]]
+- [[HashFunctionOptimizationNotes]]
+- [[DeterministicWorldGeneration]]
+
+>[!INFO] **Hash-Based Consistency**
+> Replacing randomness with hashes ensures identical outputs for identical inputs, critical for procedural world generation where reproducibility is desired.
+
+>[!WARNING] **Performance Tradeoff**
+> While hash-based methods are deterministic and faster, extremely large heightmaps may still require caching to avoid redundant hash computations. Overuse of hashes could introduce computational overhead if not optimized (e.g., precomputing hashes for seeds).
+
+>[!INFO] **Distance-Based Parallelism**
+> The proposed distance-based calculation allows heightmap generation to be parallelized across CPU cores, significantly reducing wall-clock time for large grids.
+
+>[!WARNING] **Salt Consideration**
+> Using consistent salts (e.g., `"height"`) across methods ensures deterministic behavior, but mismatched salts could lead to unintended variations. Always document salt usage.

@@ -1,0 +1,74 @@
+**Tags:** #map-generation, #live-demo, #voronoi-diagrams, #terrain-generation, #biome-distribution, #city-placement, #api-integration, #backend-service, #frontend-ui
+**Created:** 2026-01-13
+**Type:** documentation-research
+
+# map_generator_live_demo
+
+## Summary
+
+```
+Explores a live demo of a procedural map generator system, detailing its stages, performance, and functional components for world-building.
+```
+
+## Details
+
+> This file documents a **procedural map generator** live demo, showcasing its workflow from Voronoi cell creation to city placement. The system dynamically generates maps with configurable settings, including resolution, biome distribution, and city counts. The demo includes a backend service (`http://localhost:5002`) handling generation jobs and a frontend UI (`http://localhost:5174/#maps`) for user interaction. Key stages—Voronoi, heightmap, biome assignment, city placement, and assembly—are tracked via progress bars, with results displayed in a preview. The system is optimized for efficiency, completing low-resolution maps (~10K cells) in ~5 seconds.
+
+## Key Functions
+
+### `Voronoi generation`
+
+Creates cell structures for terrain layout.
+
+### `Heightmap generation`
+
+Assigns terrain elevations using an optimized algorithm (O(n log n) neighbor finding).
+
+### `Biome distribution`
+
+Assigns biome types (e.g., grassland, ocean) based on cell properties.
+
+### `City placement`
+
+Strategically places cities (capitals, towns, villages) with predefined counts.
+
+### `Map assembly`
+
+Formats raw data into a displayable map with statistics.
+
+### `Job management`
+
+Handles asynchronous generation jobs via API endpoints (`/api/maps/generate`, `/api/maps/status/{job_id}`).
+
+### `Frontend integration`
+
+Vue.js components render progress, UI controls, and map previews.
+
+## Usage
+
+1. **Access the UI**: Open `http://localhost:5174/#maps` in a browser.
+2. **Configure settings**: Fill the form (e.g., resolution, seed) and click "Generate Map."
+3. **Monitor progress**: Observe stages (e.g., "Biomes" → 50%) and percentage completion.
+4. **View results**: After completion, preview the map with biome markers, cities, and stats.
+5. **API usage**: Call endpoints like `POST /api/maps/generate` to trigger jobs programmatically.
+
+## Dependencies
+
+> `- Backend: Node.js/Express (or similar) for API endpoints.
+- Frontend: Vue.js for UI components.
+- Libraries: D3.js or similar for Voronoi/biome visualization.
+- Database: Optional (for job tracking`
+> `e.g.`
+> `Redis or PostgreSQL).`
+
+## Related
+
+- [[Map Generator Service Code]]
+- [[Procedural Worldbuilding Documentation]]
+- [[Voronoi Algorithm Implementation]]
+
+>[!INFO] **Performance Note
+> The demo uses a low-resolution preset (~10K cells) for quick testing. For higher resolutions, generation time increases (e.g., Ultra mode may take 10+ seconds).
+
+>[!WARNING] **Job Management
+> Jobs are asynchronous; ensure the backend handles concurrent requests to avoid delays. For production, implement rate limiting or job queues (e.g., BullMQ).

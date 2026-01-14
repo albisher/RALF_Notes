@@ -1,0 +1,105 @@
+**Tags:** #AI-Assisted Task Management, #CLI-Tool, #Agent-Based Workflow, #Product Requirements Parsing, #Dependency Management
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# GEMINI
+
+## Summary
+
+```
+A CLI-based Task Master AI system automates task generation, expansion, and tracking from product requirements, with MCP integration for AI-assisted workflows.
+```
+
+## Details
+
+> This system integrates AI agents (via MCP) to parse product requirements, break them into actionable tasks, and manage task hierarchies. The CLI tool initializes a task database, processes `.taskmaster/docs/prd.txt`, and supports daily workflows like task selection, expansion, and status updates. Key features include AI-assisted task creation, dependency tracking, and complexity analysis. The `.mcp.json` configures API keys for multiple LLMs, enabling multi-agent workflows across terminals.
+
+## Key Functions
+
+### ``task-master init``
+
+Sets up the project directory with core files.
+
+### ``task-master parse-prd``
+
+Extracts tasks from a PRD document.
+
+### ``task-master models --setup``
+
+Configures AI model preferences interactively.
+
+### ``task-master list``
+
+Displays all tasks with status.
+
+### ``task-master next``
+
+Selects the next available task.
+
+### ``task-master add-task``
+
+Creates new tasks with AI-assisted prompts.
+
+### ``task-master expand --all``
+
+Breaks tasks into subtasks recursively.
+
+### ``task-master update-subtask``
+
+Adds implementation notes to subtasks.
+
+### ``task-master set-status``
+
+Marks tasks as complete.
+
+### ``initialize_project` (MCP)`
+
+Equivalent to `task-master init`.
+
+### ``parse_prd` (MCP)`
+
+Equivalent to `task-master parse-prd`.
+
+### ``get_tasks` (MCP)`
+
+Equivalent to `task-master list`.
+
+## Usage
+
+1. Initialize: `task-master init`.
+2. Parse PRD: `task-master parse-prd <path>`.
+3. Daily workflow:
+   - `task-master next` → `task-master show <id>` → implement → `task-master update-subtask`.
+   - `task-master set-status --id=<id> --status=done`.
+4. Multi-agent: Run `claude` in separate terminals with different worktrees.
+
+## Dependencies
+
+> ``task-master-ai``
+> ``claude``
+> ``npx``
+> ``dotenv``
+> ``json``
+> ``MCP server``
+> `API keys for:
+- Anthropic`
+> `Perplexity`
+> `OpenAI`
+> `Google`
+> `XAI`
+> `OpenRouter`
+> `Mistral`
+> `Azure OpenAI`
+> `Ollama.`
+
+## Related
+
+- [[Task Master Documentation]]
+- [[MCP Integration Guide]]
+- [[AI Agent Workflows]]
+
+>[!INFO] Project Initialization
+> Always run `task-master init` before parsing PRD to ensure `.taskmaster/` exists. The `parse-prd` command appends new tasks to `tasks.json` if `--append` is used.
+
+>[!WARNING] API Key Security
+> Store API keys in `.env` (not committed to Git). Use `.mcp.json` to manage environment variables securely. Avoid hardcoding keys in scripts.

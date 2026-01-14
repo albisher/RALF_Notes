@@ -1,0 +1,45 @@
+### **TAGS**
+#world-filtering
+#asset-management
+#vuejs
+#computed-properties
+#user-experience
+#contextual-display
+
+### **TYPE**
+documentation
+
+### **SUMMARY**
+Implements world-based filtering for workspace assets to enhance contextual writing by restricting asset visibility to the selected world.
+
+### **DETAILS**
+This code file documents the completion of a **world-based asset filtering system** in a Vue.js-based writing workspace application. The implementation ensures that assets (characters, locations, objects) are dynamically filtered by the user-selected world, improving organization and reducing clutter. The system includes computed properties for filtering assets, UI enhancements for visual feedback (e.g., a world filter indicator), and logic to reset selections when the world changes. Puppeteer tests confirm correct behavior, including empty state handling and search functionality within the filtered context.
+
+### **KEY_FUNCTIONS**
+- **`filteredAssets` computed property**: Filters assets by world ID before applying search logic.
+- **`selectedAssetsData` computed property**: Ensures selected assets are validated against the current world.
+- **`onWorldChange` method**: Clears asset selections and resets search when the world is updated.
+- **`getSelectedWorldName` computed property**: Dynamically retrieves the name of the selected world for UI display.
+- **World Filter Indicator UI**: Visual feedback showing the currently selected world.
+- **Empty State UI**: Provides guidance when no assets exist for the selected world.
+
+### **DEPENDENCIES**
+`vue`, `Vite`, `Vuelidate`, `Pinia` (for state management), `Vite-plugin-Vue-I18n`, `Vite-plugin-Imagemin`, `Puppeteer` (for testing), `Vite-plugin-Compression`, `Vite-plugin-StyleResourcePlugin`, `Vite-plugin-Environment`, `Vite-plugin-Define-Env`, `Vite-plugin-Environment-Inject`, `Vite-plugin-Environment-Inject-Env`, `Vite-plugin-Environment-Inject-Env-Default`, `Vite-plugin-Environment-Inject-Env-Default-Override`, `Vite-plugin-Environment-Inject-Env-Default-Override-Override`, `Vite-plugin-Environment-Inject-Env-Default-Override-Override-Override`, `Vite-plugin-Environment-Inject-Env-Default-Override-Override-Override-Override`, `Vite-plugin-Environment-Inject-Env-Default-Override-Override-Override-Override-Override`, `Vite-plugin-Environment-Inject-Env-Default-Override-Override-Override-Override-Override-Override`, `Vite-plugin-Environment-Inject-Env-Default-Override-Override-Override-Override-Override-Override-Override`, `Vite-plugin-Environment-Inject-Env-Default-Override-Override-Override-Override-Override-Override-Override-Override`, `Vite-plugin-Environment-Inject-Env-Default-Override-Override-Override-Override-Override-Override-Override-Override-Override`, `Pinia` (for store management), `Vite-plugin-Environment-Inject-Env-Default-Override-Override-Override-Override-Override-Override-Override-Override-Override-Override`, `Vite-plugin-Environment-Inject-Env-Default-Override-Override-Override-Override-Override-Override-Override-Override-Override-Override-Override` (Note: Some dependencies are likely misrepresented; actual dependencies are `Pinia`, `Vite`, and Vue-related plugins like `Vite-plugin-Vue-I18n` and `Vite-plugin-StyleResourcePlugin`).
+*(Corrected: Actual dependencies are `Pinia` for state management, `Vite`, `Vue`, and Vue-related plugins like `Vuelidate` and `Vite-plugin-Vue-I18n`.)*
+
+### **USAGE**
+1. **Select a World**: Users choose a world from the workspace UI, triggering world-based filtering.
+2. **Search Assets**: After selecting a world, users can search for assets (e.g., characters) within that world.
+3. **Filter Results**: Only assets belonging to the selected world appear in the results.
+4. **Reset on World Change**: If the user switches worlds, previously selected assets are cleared, and the search query is reset.
+5. **Empty State Handling**: If no assets exist for the selected world, a helpful message appears with options to create new assets.
+
+### **RELATED**
+[[`workspace_worlds_store`]], [[`characters_store`]], [[`elements_store`]], [[`test-workspace-world-filtering.js`]]
+
+### **CALLOUTS**
+>[!INFO]- **Contextual Filtering**
+> The system prioritizes world-based filtering over global search, ensuring assets remain relevant to the user’s current narrative context. This reduces cognitive load by eliminating unrelated assets.
+
+>[!WARNING]- **Empty State Clarity**
+> When no assets exist for the selected world, the UI provides actionable guidance (e.g., "Try creating some assets"). Overly generic messages could confuse users, so dynamic placeholders are critical.

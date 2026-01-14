@@ -1,0 +1,46 @@
+### TAGS
+#storytelling
+#memory-management
+#position-tracking
+#time-aware
+#context-aware
+#session-management
+
+### TYPE
+documentation-research
+
+### SUMMARY
+A modular storytelling memory system tracking location, time, characters, and narrative segments for dynamic world-building.
+
+### DETAILS
+This `PositionTimeMemoryBox` implements a time- and location-sensitive memory system for narrative applications. It integrates with a `MemoryStorageBox` to persist story context across sessions, using a `StoryContext` object to manage metadata (e.g., world_id, timeline events) alongside narrative text. The system supports loading/saving/clearing operations via a standardized `BoxInput`/`BoxOutput` interface, enabling modular composition with other storytelling components.
+
+Key workflows include:
+1. **Context Loading**: Retrieves saved story metadata (location, time, characters) from persistent storage.
+2. **Context Saving**: Updates the narrative state (e.g., adding story segments) and persists it to storage.
+3. **Session Management**: Generates unique session IDs (defaulting to timestamp-based) for isolated story contexts.
+
+### KEY_FUNCTIONS
+- **`execute()`**: Dispatches operations ("load_variables", "save_context", "clear") to subroutines.
+- **`_load_memory_variables()`**: Fetches and reconstructs the `StoryContext` from storage.
+- **`_save_context()`**: Updates the context (e.g., appends story text) and commits changes to storage.
+- **`_clear()`**: Resets the context to defaults and clears storage.
+
+### DEPENDENCIES
+`MemoryStorageBox`, `StoryContext`, `Box`, `BoxInput`, `BoxOutput` (parent `Box` class), `json`, `logging`.
+
+### USAGE
+1. **Initialization**: Create an instance with an optional `MemoryStorageBox` and generate a session ID.
+2. **Operations**:
+   - **Load**: Call `execute({"operation": "load_variables"})` to retrieve current context.
+   - **Save**: Pass a dictionary with keys like `location`, `story_text`, etc., to `execute({"operation": "save_context"})`.
+   - **Clear**: Use `execute({"operation": "clear"})` to reset the session.
+
+### RELATED
+[[`MemoryStorageBox`]], [[`StoryContext`]], [[`Box`]] (core components for persistence and context management).
+
+### CALLOUTS
+>[!INFO]- Session Isolation
+> Session IDs (e.g., `story_YYYYMMDD_HHMMSS`) ensure thread-safe story contexts. If `memory_storage` is absent, context persists only in memory.
+>[!WARNING]- Error Handling
+> Failed storage operations log warnings but do not halt execution. Critical errors (e.g., deserialization) log as errors but preserve partial state.

@@ -1,0 +1,102 @@
+**Tags:** #deployment-validation, #docker-compose, #container-management, #health-checks, #network-services
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# validate-deployment
+
+## Summary
+
+```
+Validates Docker Compose deployment by checking container syntax, health, and service accessibility.
+```
+
+## Details
+
+> This script performs a multi-step validation of a Docker Compose deployment for a microservices stack (e.g., Space Pearl Tool). It first validates the `docker-compose.yml` syntax, checks for the existence of a `.env` file, and starts services in detached mode. The script then verifies container status, health, and accessibility of exposed ports for services like frontend, databases, and caches. It provides colored output for success/error/warning messages and displays URLs for further inspection.
+
+## Key Functions
+
+### `print_status`
+
+Displays colored status messages (SUCCESS, ERROR, WARNING, INFO).
+
+### `check_port`
+
+Uses `curl` to test if a local port is accessible within a timeout.
+
+### `check_container_health`
+
+Checks Docker container health status via `docker inspect`.
+
+### `check_container_running`
+
+Verifies if a container is running using `docker ps`.
+
+### `Step 1`
+
+Validates `docker-compose.yml` syntax using `docker-compose config`.
+
+### `Step 2`
+
+Checks for `.env` file existence and warns if missing.
+
+### `Step 3`
+
+Starts all Docker Compose services in detached mode (`docker-compose up -d`).
+
+### `Step 4`
+
+Waits 30 seconds for services to initialize.
+
+### `Step 5`
+
+Checks if all containers are running.
+
+### `Step 6`
+
+Validates health status of critical containers (DB, cache, etc.).
+
+### `Step 7`
+
+Tests accessibility of exposed services (frontend, OpenProject, n8n, etc.).
+
+### `Step 8`
+
+Displays accessible service URLs.
+
+### `Step 9`
+
+Shows database connection details (host, port, credentials).
+
+### `Step 10`
+
+Provides a final validation summary.
+
+## Usage
+
+1. Run the script in the directory containing `docker-compose.yml` and `.env` (or `env.template`).
+2. It automatically:
+   - Validates Docker Compose syntax.
+   - Starts services and checks their status.
+   - Tests port accessibility and container health.
+3. Exit codes:
+   - `0` (success) if all checks pass.
+   - `1` (error) if any critical check fails.
+
+## Dependencies
+
+> `docker`
+> `docker-compose`
+> `curl`
+
+## Related
+
+- [[Space Pearl Tool Documentation]]
+- [[Docker Compose Best Practices]]
+
+>[!INFO] Important Note
+> The script assumes Docker and Docker Compose are installed and running. If not, it will fail at Step 1 or Step 3.
+>
+
+>[!WARNING] Caution
+> If `.env` is missing, the script will use default values from `env.template` but warns the user to configure it manually. Hardcoded credentials (e.g., `spacepearl/spacepearl123`) are used for databases—ensure these match production environments.

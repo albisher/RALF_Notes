@@ -1,0 +1,61 @@
+**Tags:** #timeline-position, #date-handling, #data-processing, #box-component, #parallel-processing
+**Created:** 2026-01-13
+**Type:** code-component
+
+# timeline_position_box
+
+## Summary
+
+```
+Calculates a normalized percentage position for a given date within a timeline of events.
+```
+
+## Details
+
+> This `TimelinePositionBox` class extends a generic `Box` component to compute a percentage position (5–95) of a target date relative to a set of timeline events. It uses a `DateParsingBox` helper to convert string dates into Date objects. The core logic involves:
+> 1. Parsing input dates (including the target date and event dates).
+> 2. Determining the date range between the earliest and latest events.
+> 3. Calculating the normalized position of the target date within this range, clamped to the 5–95 range.
+
+## Key Functions
+
+### ``constructor()``
+
+Initializes the box with metadata (version, dependencies) and creates a `DateParsingBox` instance.
+
+### ``_executeInternal(inputData)``
+
+Orchestrates the execution pipeline, calling `_calculatePosition` and handling errors via `BoxOutput`.
+
+### ``_calculatePosition(date, events)``
+
+Core logic:
+
+## Usage
+
+1. Instantiate `TimelinePositionBox` and pass it input data with:
+   - `operation`: (unused in this version)
+   - `date`: Target date (string or Date object).
+   - `events`: Array of events, each containing `event_date` or `date` (string).
+2. Call `execute()` to trigger position calculation.
+3. Retrieve the `position` output (0–100, clamped to 5–95).
+
+## Dependencies
+
+> ``../core/box_interface.js``
+> ``./date_parsing_box.js``
+> ``BoxOutput``
+> ``BoxErrorCode``
+> ``BoxErrorCategory``
+
+## Related
+
+- [[Space Peral Core Architecture]]
+- [[Box Component Design]]
+- [[Date Parsing Box]]
+
+>[!INFO] Default Fallback
+> If date parsing fails or no events exist, the box defaults to returning **50** (midpoint).
+
+>[!WARNING] Edge Case Handling
+> Division by zero (e.g., identical event dates) returns **50**. Ensure event dates are distinct for meaningful results.

@@ -1,0 +1,62 @@
+**Tags:** #security, #docker, #secrets-management, #bash-scripting, #password-generation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# create-docker-secrets
+
+## Summary
+
+```
+Generates secure Docker secrets for a multi-service application using OpenSSL and Bash scripting.
+```
+
+## Details
+
+> This script automates the creation of secure secrets (passwords and keys) for a Dockerized application environment, including database credentials, application secrets, and API keys. It ensures files are stored with restricted permissions (600) and excludes them from version control via `.gitignore`. The script also generates a validation script to verify the integrity of generated secrets.
+
+## Key Functions
+
+### `generate_password`
+
+Creates a 32-character alphanumeric password using OpenSSL’s `rand` with base64 encoding.
+
+### `generate_secret_key`
+
+Generates a 64-character hexadecimal secret key for cryptographic purposes.
+
+### `create_secret_file`
+
+Writes content to a file with secure permissions (600) and logs the operation.
+
+### `print_status`
+
+Displays colored output messages for success, errors, warnings, and info.
+
+### `Secrets Validation Script`
+
+Checks if required secret files exist and are readable.
+
+## Usage
+
+1. Run the script from the project root directory.
+2. It will:
+   - Generate secure secrets (passwords/keys) for databases, applications, and services.
+   - Create `.gitignore` to exclude the `secrets/` directory.
+   - Output a validation script (`scripts/validate-secrets.sh`) to verify secrets later.
+
+## Dependencies
+
+> ``openssl``
+> ``bash``
+> ``.gitignore` (if not pre-existing)`
+
+## Related
+
+- [[Space Pearl Project Documentation]]
+- [[Docker Secrets Best Practices]]
+
+>[!INFO] Important Note
+> Secrets are written to files in `secrets/` with **600 permissions**, ensuring only the script owner can read them. Users must manually replace placeholder API keys (e.g., `perplexity_api_key.txt`) with actual credentials.
+
+>[!WARNING] Caution
+> Never commit or share the generated secrets. The script does not encrypt files; it enforces restrictive permissions. Validate secrets before deployment to avoid misconfigurations.

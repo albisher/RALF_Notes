@@ -1,0 +1,63 @@
+**Tags:** #coordinate-precision, #accuracy-standard, #floating-point-math, #map-coordinates, #tolerance-settings
+**Created:** 2026-01-13
+**Type:** documentation
+
+# COORDINATE_PRECISION
+
+## Summary
+
+```
+Defines strict coordinate precision and accuracy standards for geographic and internal map calculations, ensuring high-fidelity synchronization across components.
+```
+
+## Details
+
+> This document establishes precision thresholds for storing, comparing, and emitting geographic and internal coordinates in a multi-map system. It enforces full JavaScript floating-point precision for calculations while applying standardized tolerances for meaningful coordinate changes. The system distinguishes between display formatting (which uses rounding for readability) and stored values (which retain full precision). Internal coordinate tolerances were improved from `0.01` to `0.001` for enhanced synchronization accuracy.
+
+## Key Functions
+
+### ``coordinatesEqual()``
+
+Determines if two coordinates differ within a tolerance threshold.
+
+### ``emitCenterCoordinates()``
+
+Emits high-precision coordinates from `WorldMap2D.vue`.
+
+### ``longitudeToInternalX()``
+
+Converts longitude to internal X-coordinate without rounding.
+
+### ``latitudeToInternalY()``
+
+Converts latitude to internal Y-coordinate without rounding.
+
+### ``svgToInternal(svgX, svgY)``
+
+Converts SVG coordinates to internal map coordinates with full precision.
+
+## Usage
+
+1. **For Developers**: Apply precision standards in `coordinatesEqual()` and `emitCenterCoordinates()` functions across Vue components.
+2. **For Testing**: Verify synchronization by comparing emitted coordinates with displayed values (accounting for display rounding).
+3. **For Display**: Use `toFixed(1)` for geographic coordinates and `Math.round()` for internal coordinates—never modify stored values.
+
+## Dependencies
+
+> `JavaScript core libraries (e.g.`
+> ``Math.round()``
+> ``toFixed()`)`
+> `Vue.js components (`WorldMap2D.vue``
+> ``TopTimelineMap.vue``
+> ``WorkflowPage.vue`).`
+
+## Related
+
+- [[CoordinateConversionFunctions]]
+- [[MapSynchronizationArchitecture]]
+
+>[!INFO] Precision Impact
+> Internal coordinate tolerance (`0.001`) enables ~10x higher accuracy than the previous `0.01` threshold, improving synchronization fidelity.
+
+>[!WARNING] Display vs. Storage Separation
+> Always ensure display formatting (e.g., `toFixed(1)`) does not conflict with stored full-precision values. Misalignment here could cause visual discrepancies.

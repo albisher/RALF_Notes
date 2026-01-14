@@ -1,0 +1,74 @@
+**Tags:** #authentication, #frontend-backend-integration, #401-unauthorized, #proxy-configuration, #cors-issues, #jwt-authentication
+**Created:** 2026-01-13
+**Type:** documentation
+
+# authentication_fix_final
+
+## Summary
+
+```
+Fixes persistent 401 UNAUTHORIZED errors in a frontend-backend authentication system by resolving proxy, timing, axios instance, and CORS configuration issues.
+```
+
+## Details
+
+> This document outlines a comprehensive fix for authentication failures in a Vue 3/Vite frontend application interacting with a Flask backend. The root cause was a combination of misconfigured proxy ports, timing race conditions in auto-login, axios instance conflicts, and improper CORS handling. The solution involved updating Vite proxy targets, improving auth state management, ensuring consistent axios instances, and explicitly allowing Authorization headers in backend CORS policies. The fix resolved all dashboard data loading issues and eliminated 401 errors.
+
+## Key Functions
+
+### ``vite.config.js``
+
+Updated proxy target port from `8443` to `443` for correct internal communication.
+
+### ``auth.js` (Pinia store)`
+
+Modified to use shared `api.js` instance instead of default Axios for consistent headers.
+
+### ``api.js` (API service)`
+
+Exported shared Axios instance for frontend use across components.
+
+### ``Dashboard.vue``
+
+Added `auth_ready` flag check to prevent race conditions in data fetching.
+
+### ``app.py` (Backend)`
+
+Explicitly configured CORS to allow `Authorization` headers and credentials.
+
+## Usage
+
+1. Apply fixes to `vite.config.js`, `auth.js`, `api.js`, `Dashboard.vue`, and `app.py`.
+2. Restart containers to ensure proxy and CORS configurations take effect.
+3. Verify with `curl` or frontend tests that:
+   - Proxy resolves internal port `443`.
+   - Auto-login completes before dashboard fetches data.
+   - CORS allows `Authorization` headers.
+   - All API calls succeed with proper headers.
+
+## Dependencies
+
+> ``frontend/vite.config.js``
+> ``frontend/src/services/api.js``
+> ``frontend/src/stores/auth.js``
+> ``frontend/src/views/Dashboard.vue``
+> ``backend/app.py``
+> ``Nginx``
+> ``PostgreSQL``
+> ``JWT``
+> ``Axios``
+> ``Vue 3``
+> ``Pinia`.`
+
+## Related
+
+- [[`authentication_race_conditions]]
+- [[`cors_configuration_guide]]
+- [[`frontend-backend_proxy.md`.]]
+
+>[!INFO] **Critical Fix**
+> The **CORS configuration** in `backend/app.py` was the final missing piece. Even after fixing proxy ports and timing, default CORS policies stripped `Authorization` headers, causing 401 errors. Explicitly allowing these headers resolved all authentication failures.
+
+
+>[!WARNING] **Development Note**
+> Self-signed SSL certificates (`proxy:8443`) may cause browser warnings. Ensure frontend trusts the proxy’s certificate during testing.

@@ -1,0 +1,60 @@
+### TAGS
+#D3.js
+#Vue3
+#Three.js
+#SVG
+#3D-globe
+#Real-time-updates
+#Biome-mapping
+#Location-plotting
+#Interactive-controls
+#Responsive-design
+#Performance-optimization
+
+### TYPE
+research-notes
+
+### SUMMARY
+Explores integration of D3.js/SVG for 2D maps, Three.js for 3D globes, and D3.js for timelines within Vue 3 components, emphasizing real-time updates, biome mapping, and interactive controls with performance and responsive design best practices.
+
+### DETAILS
+This research session outlines a structured approach to combining **2D map visualization** (D3.js/SVG), **3D globe rendering** (Three.js), and **timeline visualization** (D3.js) within a **Vue 3** framework. The focus is on seamless integration, real-time data synchronization via WebSockets, and dynamic biome/location plotting. Key techniques include reactive state management with Pinia, efficient DOM updates via D3’s data join pattern, and responsive scaling for both 2D and 3D visualizations. Performance is addressed through LOD techniques, texture optimization, and debounced resize events.
+
+### KEY_FUNCTIONS
+- **`MapView.vue`**: Renders 2D maps with D3.js, plots locations via SVG, and supports interactive tooltips.
+- **`GlobeView.vue`**: Initializes a Three.js 3D globe with biome/texture layers, 3D markers, and orbit controls.
+- **`TimelineView.vue`**: Displays timeline data with D3.js, handles zoom/pan, and integrates real-time updates via WebSockets.
+- **`OrbitControls` (Three.js)**: Provides interactive camera controls for the 3D globe.
+- **`socket.io-client`**: Manages real-time WebSocket connections for dynamic data updates.
+
+### DEPENDENCIES
+D3.js, Three.js, Vue 3 (Composition API), Vue Pinia, `socket.io-client`, `geoJSON` libraries (e.g., `d3-geo`), `vue-resize` (optional for responsive handling).
+
+### USAGE
+1. **Setup Vue Components**:
+   - Create `MapView.vue`, `GlobeView.vue`, and `TimelineView.vue` with D3/Three.js logic inside `onMounted`.
+   - Use Pinia stores to manage shared data (e.g., locations, timeline events).
+2. **Real-Time Sync**:
+   - Connect to a WebSocket server (e.g., Flask-SocketIO) to stream updates.
+   - Update Vue state on new data, triggering D3/Three.js re-renders.
+3. **Biome Mapping**:
+   - Load biome data as textures or geoJSON layers for the 3D globe.
+   - Overlay biome colors on SVG maps via D3’s projection.
+4. **Interactive Controls**:
+   - Add event listeners for zoom/pan in `TimelineView.vue` and orbit controls in `GlobeView.vue`.
+5. **Performance**:
+   - Optimize rendering with LOD (e.g., distant markers) and texture atlases.
+   - Debounce window resize events to avoid excessive updates.
+
+### RELATED
+[[Flask-SocketIO Documentation]], [[Vue 3 Composition API Guide]], [[D3.js Geospatial Projections]], [[Three.js Best Practices for Performance]].
+
+### CALLOUTS
+>[!INFO]- **Reactive Data Flow**
+> Ensure Vue state (Pinia) and D3/Three.js visualizations stay synchronized. Use `watch` or `onMounted` to trigger updates when data changes.
+>[!WARNING]- **Performance Pitfalls**
+> Avoid excessive DOM updates in D3.js by using `enter`, `update`, `exit` joins. For 3D globes, limit object count and use LOD to prevent GPU overload.
+>[!INFO]- **Responsive Design**
+> Use `viewBox` and `preserveAspectRatio` in SVG, and `renderer.setSize` in Three.js to maintain responsiveness across screen sizes.
+>[!WARNING]- **WebSocket Latency**
+> Buffer real-time updates if network delays occur. Implement fallback mechanisms (e.g., polling) for offline scenarios.

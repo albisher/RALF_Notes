@@ -1,0 +1,67 @@
+**Tags:** #hardcoded-configuration, #monolithic-architecture, #api-integration, #frontend-modularity, #localhost-deployment, #boxes-pattern-compliance
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# CODE_REVIEW_REPORT
+
+## Summary
+
+```
+Analyzes UI-Beta codebase for external references, hardcoded URLs, and adherence to Boxes method pattern, highlighting critical issues in modularity and configuration.
+```
+
+## Details
+
+> The `ui-beta/` folder contains a monolithic Vue.js application with critical issues:
+> - **Hardcoded `localhost` URLs** (e.g., `http://localhost:8888/api/...`) violate deployment flexibility, requiring environment variables/config files.
+> - **Cross-folder references** (e.g., `../../../../app/processed_map.json`) break portability; assets should reside within `ui-beta/`.
+> - **Unmodularized API client** (`api-client.js`) bundles all methods into a single class, violating the Boxes pattern’s separation of concerns.
+> - **Inline Vue methods** (e.g., `loadCards()`) lack modularization, making maintenance cumbersome.
+> - **No Box Interface Pattern**: Frontend lacks standardized input/output contracts (e.g., `execute(input)`) like the backend.
+
+## Key Functions
+
+### ``index.html``
+
+Monolithic entry point (2368 lines) with embedded logic.
+
+### ``api-client.js``
+
+Centralized API orchestrator (non-modular).
+
+### ``data/cards-data.js``
+
+Hardcoded image paths referencing external folders.
+
+### ``js/boxes/` (expected)`
+
+Should contain domain-specific boxes (e.g., `generate-box.js`, `cards-api-box.js`).
+
+## Usage
+
+To fix:
+1. Replace `localhost` URLs with environment variables (e.g., `process.env.API_BASE_URL`).
+2. Extract API logic into modular boxes (e.g., `cards-api-box.js`).
+3. Move assets (e.g., `processed_map.json`) into `ui-beta/data/`.
+4. Refactor Vue methods into standalone boxes (e.g., `generate-box.js`).
+
+## Dependencies
+
+> `- Vue.js (unpkg)`
+> `Material Icons (jsdelivr)`
+> `Google Fonts (CDN)`
+> ``processed_map.json` (local).`
+
+## Related
+
+- [[Boxes Method Documentation]]
+- [[Frontend Architecture Guide]]
+
+>[!INFO] Critical Hardcoding
+> Hardcoded `localhost` URLs (e.g., `http://localhost:8888`) will fail in production. Replace with config files or environment variables.
+
+>[!WARNING] Monolithic Risk
+> A 2368-line `index.html` risks technical debt. Split into smaller, modular components (e.g., `generate-box.js`).
+
+>[!INFO] Boxes Pattern Violation
+> Frontend lacks the `execute(input)` pattern seen in backend boxes. Implement standardized interfaces for modularity.

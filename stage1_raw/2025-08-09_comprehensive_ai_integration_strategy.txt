@@ -1,0 +1,46 @@
+### TAGS
+#AI-Integration
+#Procedural-Generation
+#Natural-Language-Processing
+#Computer-Graphics
+#Voice-Synthesis
+#Multi-Agent-Systems
+#User-Analytics
+
+### TYPE
+research-summary
+
+### SUMMARY
+Research document mapping AI tools across storytelling, image generation, voice synthesis, orchestration, and analytics for a procedural content platform.
+
+### DETAILS
+This document evaluates 2024–2025 state-of-the-art AI APIs and tools for integration into a storytelling/world simulation platform. It categorizes findings by domain (story generation, image generation, voice synthesis, orchestration, analytics) and provides technical integration strategies for a Flask backend and Vue frontend ecosystem, including Ollama hybrid model support.
+
+The research prioritizes **Jasper AI** for narrative generation, **ElevenLabs** for voice synthesis, and **CrewAI** for orchestration, while balancing cost, performance, and ethical considerations. Implementation plans include modular API endpoints, caching strategies, and real-time synchronization with frontend components.
+
+### KEY_FUNCTIONS
+- **ai_service.py**: Core abstraction layer for AI provider integration (Jasper, OpenAI, Ollama).
+- **`/api/ai/generate-image`**: Flask endpoint for image generation via DALL-E 3/Midjourney APIs.
+- **Voice synthesis layer**: Abstracts ElevenLabs/MiniMax APIs for dynamic audio streaming.
+- **CrewAI orchestration**: Manages multi-agent workflows for procedural content generation.
+- **Analytics pipeline**: Correlates user behavior (Google Analytics) with AI personalization decisions.
+
+### DEPENDENCIES
+Flask, Vue.js, Ollama, Google Analytics 4, CrewAI, LangChain, ElevenLabs, OpenAI API, Midjourney API, Stable Diffusion APIs.
+
+### USAGE
+1. **Backend Integration**: Extend `ai_service.py` with provider-specific wrappers (e.g., `JasperClient`, `OpenAIClient`).
+2. **Frontend Sync**: Stream generated assets (images/audio) via WebSocket or Polling.
+3. **Procedural Workflows**: Use CrewAI agents to coordinate story generation, image rendering, and voice synthesis.
+4. **Analytics**: Feed Vue events to Google Analytics 4 for personalization insights.
+
+### RELATED
+[[2025-08-09_flask_backend_architecture]], [[2025-08-09_vue_frontend_storytelling_prototype]], [[2024-12-15_ollama_model_training_logs]]
+
+### CALLOUTS
+>[!INFO]- Hybrid Model Warning
+> Ollama models should be pre-trained on domain-specific corpora (e.g., fantasy narratives) to improve coherence with cloud APIs.
+>[!WARNING]- Cost Management
+> Midjourney and ElevenLabs pricing scales with usage; implement caching and batching to mitigate expenses.
+>[!INFO]- Security Note
+> All API keys must be securely stored in environment variables (e.g., `.env`) and never hardcoded.

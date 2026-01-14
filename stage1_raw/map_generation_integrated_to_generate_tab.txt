@@ -1,0 +1,46 @@
+### TAGS
+#context_aware_generation
+#world_type_biomes
+#map_generation_integration
+#backend_frontend_coordination
+#biome_color_schemes
+
+### TYPE
+documentation
+
+### SUMMARY
+Integrates map generation into a dedicated Generate tab, enabling dynamic biome/color assignment based on world type and description.
+
+### DETAILS
+This code refactored map generation into a dedicated tab, allowing users to select map generation from a hash input similar to other generation types. The system dynamically assigns biomes and color schemes based on the world type (e.g., galaxy, space station, fantasy planet) and description, ensuring visual and thematic consistency. The implementation includes a modular backend-frontend architecture with specialized calculators, Python generators, and API endpoints.
+
+### KEY_FUNCTIONS
+- **`world_type_biome_calculator.py`**: Assigns biome/region and color schemes contextually to world types (e.g., galaxy, space station).
+- **`generate_map_description()` (in `maps.py`)**: Generates map parameters (name, coordinates, heightmap, biome) based on input hash and world context.
+- **`MapGeneratorBox` (backend)**: Bridges Python generator output to the frontend, fetching world context (type/description) and passing it to the generator.
+- **`/api/generation/maps` (backend API)**: Endpoint for map generation, accepting world_id, world_type, and description.
+- **`GenerateStage.vue` (frontend)**: UI component for the Generate tab, handling map selection, generation, and storage in `generatedMaps`.
+- **`generation.maps()` (API client)**: Frontend method to invoke map generation via the backend API.
+
+### DEPENDENCIES
+`services/map-generator/engine/map_generator.py`, `ui-beta/src/boxes/maps/map_generator_service_box.js`, `backend/boxes/generators/generator_bridge.py`, `backend/boxes/api/generation_bp.py`, `ui-beta/src/services/api-client.js`, Python libraries (e.g., for hash processing).
+
+### USAGE
+1. **Frontend**:
+   - Navigate to the Generate tab → select "Maps" from the Location category.
+   - Enter a hash or description, then click "Generate."
+   - View, export, or save generated maps from the `generatedMaps` array.
+
+2. **Backend**:
+   - Trigger `/api/generation/maps` with `world_id`, `world_type`, and `world_description`.
+   - The system returns map parameters (e.g., biome, heightmap) for further processing.
+
+### RELATED
+[[`map_generation_architecture`]], [[`world_context_management`]], [[`biome_color_schemes_guide`]], [[`generate_tab_ui_spec`]]
+
+### CALLOUTS
+>[!INFO]- **Dynamic Biome Assignment**
+> The `world_type_biome_calculator` ensures maps adapt visually to their world type (e.g., galaxies use cosmic colors, space stations use metallic grays). This requires no manual overrides—context is auto-applied.
+
+>[!WARNING]- **World Context Dependency**
+> If `world_id` is missing, the system defaults to generic fantasy planet biomes. Ensure `world_type` and `world_description` are provided for accurate results.

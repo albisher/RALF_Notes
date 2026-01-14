@@ -1,0 +1,90 @@
+**Tags:** #UI-Component, #Map-Visualization, #3D-2D-Conversion, #Timeline-Integration
+**Created:** 2026-01-13
+**Type:** code-library
+
+# map-box
+
+## Summary
+
+```
+A modular MapBox component library for integrating 2D/3D map visualizations with timeline markers and customizable controls.
+```
+
+## Details
+
+> This library provides utility functions to initialize and customize map viewers (2D/3D) and their associated timeline markers. It consolidates map visualization logic, primarily designed to work with existing map viewers in an app directory. The `MapBox` object includes:
+> - **Initialization methods** (`init3DMap`, `init2DMap`) for setting up map containers with configurable options like height scaling, zoom, and marker visibility.
+> - **Marker rendering** (`timelinePointMarker`) that extends a base UI marker with map-specific properties (coordinates, position) and integrates with `UIBoxes.timelineMarker()`.
+> - **Control and legend components** (`mapControls`, `mapLegend`) for interactive UI elements like mode toggling, zoom functions, and marker legends.
+> 
+> The code is structured to work with external map files (e.g., `processed_map.json`) and supports both raw and processed map data. It is exported for modular use via `module.exports`.
+
+## Key Functions
+
+### ``init3DMap(containerId, options)``
+
+Initializes a 3D map with customizable height scaling and display mode.
+
+### ``init2DMap(containerId, options)``
+
+Initializes a 2D map with configurable zoom, center coordinates, and marker visibility.
+
+### ``timelinePointMarker(point, isSelected, onClick)``
+
+Creates a timeline marker with map-specific properties (coordinates, position) and extends the base UI marker structure.
+
+### ``mapControls(onToggleMode, onZoomIn, onZoomOut, onReset, onToggleMarkers)``
+
+Returns a configuration object for map interaction controls.
+
+### ``mapLegend(markerTypes)``
+
+Returns a configuration object for a map legend displaying different marker types.
+
+## Usage
+
+1. Import `MapBox` in a module requiring map visualization:
+   ```javascript
+   const MapBox = require('./map-box');
+   ```
+2. Initialize a map (e.g., 3D or 2D) with a container ID and options:
+   ```javascript
+   const mapConfig = MapBox.init3DMap('map-container', { heightScale: 0.1 });
+   ```
+3. Use `timelinePointMarker` to render markers with map-specific properties:
+   ```javascript
+   const marker = MapBox.timelinePointMarker({
+       id: 'event1',
+       name: 'Historical Event',
+       coordinates: [40.7128, -74.0060], // [lat, lon]
+       position: 'on_map',
+       type: 'historical'
+   }, false, () => console.log('Clicked'));
+   ```
+4. Attach controls and legends to the map:
+   ```javascript
+   const controls = MapBox.mapControls(
+       () => console.log('Toggle mode'),
+       () => console.log('Zoom in'),
+       () => console.log('Zoom out')
+   );
+   ```
+
+## Dependencies
+
+> ``UIBoxes` (from `boxes.js`)`
+> `external map processing libraries (e.g.`
+> ``processed_map.json` or `map.json`)`
+> `and the app’s map viewer files (`map.html``
+> ``map_visualization.html`).`
+
+## Related
+
+- [[MAP_VIEWER_SETUP]]
+- [[boxes]]
+
+>[!INFO] External Dependencies
+> Ensure `UIBoxes.timelineMarker()` is available in the environment (e.g., loaded via `boxes.js`). If `UIBoxes` is undefined, `timelinePointMarker` returns `null`.
+
+>[!WARNING] Data Format
+> The `point` object in `timelinePointMarker` must include `coordinates` (lat/lon array) and `position` (e.g., `'on_map'`). Missing or invalid data may cause rendering errors.

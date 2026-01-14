@@ -1,0 +1,39 @@
+### TAGS
+#UITesting
+#FrontendValidation
+#ResponsiveDesign
+#TimelineUI
+#EventManagement
+
+### TYPE
+documentation
+
+### SUMMARY
+Manual UI testing guide for verifying timeline layout, event management, and responsive behavior improvements in a digital timeline application.
+
+### DETAILS
+This guide outlines a structured manual testing approach for verifying the **Timeline UI improvements**, focusing on layout consistency, event management, and responsive behavior across different screen sizes. The document details prerequisites, test session setup, and three test suites: **Layout Verification**, **Top Timeline Visualization**, and **Event Creation/Management**. Each test includes specific checks, steps, expected results, and pass/fail criteria, emphasizing visual and functional validation of the UI components.
+
+### KEY_FUNCTIONS
+- **Timeline UI Layout Verification**: Ensures proper column spacing, proportions, and responsive behavior across devices.
+- **Top Timeline Visualization**: Validates year markers, scrolling, and time scale selector functionality.
+- **Event Creation and Management**: Tests event addition, selection, editing, and marking as key years with schema validation checks.
+
+### DEPENDENCIES
+- Frontend server (http://localhost:5174), Backend API (http://localhost:8000), Chrome/Firefox/Safari browsers, User account with login credentials, "Timeline Test World" environment.
+
+### USAGE
+1. **Prerequisites Check**: Ensure all dependencies (server, API, credentials) are running.
+2. **Setup**: Follow the test session setup steps to log in and navigate to the timeline stage.
+3. **Execute Tests**: Run each test suite sequentially, checking pass/fail criteria and notes for issues.
+4. **Document Results**: Record pass/fail statuses and any observed errors or notes for debugging.
+
+### RELATED
+[[Manual UI Testing Framework]], [[Backend API Documentation]], [[Responsive Design Cheat Sheet]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **Responsive Testing**: Always test layout adjustments at multiple screen widths (desktop, tablet, mobile) to ensure consistent UI behavior. Browser DevTools (F12) is critical for inspecting element spacing and console errors during event operations.
+
+>[!WARNING]- Caution
+> **Schema Validation Errors**: If event creation fails, check the backend API logs (http://localhost:8000/api/logs) for validation errors. Common issues include missing fields or invalid data types in the event form. Ensure the "Timeline Test World" has sufficient permissions to create events.

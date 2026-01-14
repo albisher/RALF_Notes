@@ -1,0 +1,73 @@
+**Tags:** #Playwright, #AutomatedTesting, #UITesting, #BrowserTesting, #GameTesting, #WorldSelection, #BuildingGeneration, #CardStage, #TimelineStage
+**Created:** 2026-01-13
+**Type:** code-test
+
+# test-complete-ui
+
+## Summary
+
+```
+Automated UI test suite for a game application using Playwright to verify login, world selection, building generation, and stage transitions.
+```
+
+## Details
+
+> This script performs a comprehensive UI test for a game application (likely a sandbox or simulation game) using Playwright’s Chromium browser. It automates interactions such as login, world selection, building generation via a specific input ("gg"), and validation of subsequent UI stages (Card and Timeline). The test captures screenshots at key steps and logs console output for verification. It includes error handling for missing elements and checks if generated content matches expected outputs.
+> 
+> The test follows a structured sequence:
+> 1. **Login** – Simulates entering credentials and authenticating.
+> 2. **World Selection** – Selects "Zephyros Prime" from a dropdown.
+> 3. **Building Generation** – Triggers a generator with input "gg" and verifies output.
+> 4. **Card Stage** – Checks if cards load and displays their count.
+> 5. **Timeline Stage** – Validates the presence of timeline markers and year labels.
+
+## Key Functions
+
+### ``comprehensiveTest()``
+
+Orchestrates the full test workflow.
+
+### ``page.goto()``
+
+Navigates to the game application URL.
+
+### ``page.$()`/`page.$$()``
+
+Locates UI elements dynamically.
+
+### ``page.fill()`/`page.click()``
+
+Simulates user interactions.
+
+### ``page.screenshot()``
+
+Captures UI state for debugging.
+
+### ``page.evaluate()``
+
+Executes JavaScript in the browser context for text extraction.
+
+## Usage
+
+1. Install dependencies: `npm install playwright`.
+2. Run the script: `node test-complete-ui.js`.
+3. Ensure the game runs locally on `http://localhost:5174` and credentials (`a`, `spq8`) are correct.
+4. Verify screenshots (`test-*.png`) and console logs for test results.
+
+## Dependencies
+
+> ``playwright``
+> ``fs` (Node.js built-in module)`
+
+## Related
+
+- [[Playwright Documentation]]
+- [[Game UI Design Spec]]
+- [[Test Automation Framework]]
+
+>[!INFO] Important Note
+> The test assumes the game UI has specific selectors (e.g., `button:has-text("Login")`, `.generated-content-display-box`). If selectors change, update the script accordingly.
+>
+
+>[!WARNING] Caution
+> The `waitForTimeout` delays are arbitrary and may need adjustment based on game performance. Overly long waits could cause flaky tests. Consider adding explicit waits for dynamic content (e.g., `page.waitForSelector()`).

@@ -1,0 +1,44 @@
+### TAGS
+#map-update
+#user-interaction
+#coordinate-synchronization
+#drag-protection
+#zoom-handling
+#coordinate-validation
+
+### TYPE
+documentation
+
+### SUMMARY
+Document outlines all stages and mechanisms for updating the main map position in `WorldMap2D`, covering user interactions, automated updates, and safeguards.
+
+### DETAILS
+This document details the structured stages where `WorldMap2D` dynamically adjusts its view center based on user actions, automated triggers, or external inputs. It covers mechanisms like manual clicks, drag operations, marker movement, coordinate input, and zoom adjustments while emphasizing safeguards to prevent unintended updates or conflicts.
+
+### KEY_FUNCTIONS
+- **`setMapViewCenter(targetAbsoluteX, targetAbsoluteY)`**: Centers the map view on specified coordinates.
+- **`handleMapClick(e)`**: Converts click coordinates to internal map coordinates and centers the map.
+- **`stopPan(e)`**: Emits final coordinates after drag completion (without calling `setMapViewCenter`).
+- **`goToCoordinates()`**: Processes manually entered coordinates and updates the map center.
+- **`applyZoom()`, `onWheel()`, `onZoomSliderChange()`**: Adjusts viewBox for zooming without changing center coordinates.
+- **`coordinatesEqual()`**: Compares coordinates with tolerances to avoid unnecessary updates.
+- **`isPanning.value` watch**: Prevents updates during drag operations by checking user interaction state.
+
+### DEPENDENCIES
+`Vue.js`, `TopTimelineMap`, `WorkflowPage`, `WorkflowPage.handleCoordinateChanged()`, `WorkflowPage.lastCoordinateSource`, `WorldMap2D.vue` (imported components/modules).
+
+### USAGE
+1. **User Interaction**: Click, drag, or manually input coordinates to update the map center.
+2. **Automated Updates**: Small map marker movement triggers updates if not during drag.
+3. **Zoom Handling**: Zoom operations adjust visibility without altering the map center.
+4. **Safeguards**: `isPanning.value` and `coordinatesEqual()` prevent conflicts or redundant updates.
+
+### RELATED
+[[WorldMap2D.vue]], [[TopTimelineMap]], [[WorkflowPage]], [[Coordinate Synchronization Logic]]
+
+### CALLOUTS
+>[!INFO]- **Drag Protection**
+> The `isPanning.value` flag ensures updates to `targetCoordinates` are ignored during manual drags, preventing interference with user actions.
+
+>[!WARNING]- **Coordinate Comparison Sensitivity**
+> The `coordinatesEqual()` function uses strict tolerances (e.g., 0.00001 for lat/lon). Overly sensitive thresholds may cause unintended updates during minor coordinate changes. Adjust tolerances if needed.

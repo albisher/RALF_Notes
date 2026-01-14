@@ -1,0 +1,46 @@
+### TAGS
+#minimalist-ui
+#vue-components
+#webapp-dashboard
+#2024-design-patterns
+#3d-visualization
+#accessibility
+#user-experience
+
+### TYPE
+research-notes
+
+### SUMMARY
+Explores modern minimalist UI design principles for 2024 web app dashboards, emphasizing simplicity, clarity, and user-centric controls to optimize clean interfaces for complex visualizations like 3D globes and 2D maps.
+
+### DETAILS
+This research session analyzes best practices for minimalist UI design in 2024, particularly for web applications featuring dashboards with embedded visualizations (e.g., 3D globes in `GlobeView.vue` and 2D maps in `MapView.vue`). The focus is on reducing cognitive load through thoughtful element removal, maintaining visual hierarchy, and ensuring consistency and accessibility. The principles are tailored to Vue.js components, requiring lightweight UI wrappers around heavy visualizations while optimizing performance and responsiveness.
+
+### KEY_FUNCTIONS
+- **Simplification**: Removing non-essential UI elements to enhance usability and reduce clutter.
+- **Visual Hierarchy**: Using size, color, and spacing to guide user attention to critical dashboard elements.
+- **Progressive Disclosure**: Implementing collapsible menus or "More" buttons for secondary controls.
+- **Accessibility Compliance**: Ensuring keyboard navigability, screen reader support, and sufficient contrast (WCAG 2.1 AA).
+- **Responsive Design**: Adapting layouts for mobile/tablet users and optimizing rendering for smooth interactions.
+- **Feedback Mechanisms**: Providing immediate visual feedback for user actions (e.g., loading indicators, error handling).
+
+### DEPENDENCIES
+Vue.js framework, Three.js (for 3D globe), D3.js (for 2D maps), ARIA libraries (for accessibility), CSS/HTML5 (for responsive design).
+
+### USAGE
+To apply these principles:
+1. **Minimize UI**: Reduce controls around visualizations (e.g., globe/map) to a bare minimum, using collapsible panels or floating buttons.
+2. **Prioritize Metrics**: Display key metrics in clean card layouts with ample spacing.
+3. **Consistent Styling**: Maintain uniform typography, colors, and interaction patterns (e.g., buttons, icons).
+4. **Accessibility Checks**: Use tools like WebAIM Contrast Checker to validate color contrast and ARIA labels.
+5. **Performance Optimization**: Lazy-load visualizations and optimize rendering (e.g., Three.js/D3.js) to avoid lag.
+
+### RELATED
+[[Modern UI Design Patterns 2024]], [[Vue.js Dashboard Best Practices]], [[Accessibility Guidelines for Web Apps]]
+
+### CALLOUTS
+>[!INFO]- **Progressive Disclosure**
+> Implement collapsible sections or "More" buttons for secondary controls (e.g., advanced filters) to avoid overwhelming users with excessive options upfront. This aligns with minimalist principles by deferring non-critical interactions until needed.
+
+>[!WARNING]- **Performance Risks**
+> Heavy visualizations (e.g., 3D globes) can degrade UI responsiveness if not optimized. Test rendering performance under load and fall back to simplified placeholders if necessary. Overlooking this may lead to poor user experience on slower devices.

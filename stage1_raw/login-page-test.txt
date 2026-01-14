@@ -1,0 +1,46 @@
+### TAGS
+#cybersecurity-testing
+#frontend-testing
+#vuejs
+#vite
+#axios
+#login-page-validation
+
+### TYPE
+test-reference
+
+### SUMMARY
+Validates login page accessibility, Vue.js/Vite integration, and manual login hint visibility for a test user.
+
+### DETAILS
+This script uses Axios to fetch the login page (`https://localhost:8443/login`) and performs basic checks:
+1. Verifies the page loads successfully.
+2. Detects Vue.js/Vite integration via HTML fragments (`id="app"` or `@vite/client`).
+3. Logs expected test user credentials (`test/passtest`) and manual login instructions.
+The test bypasses SSL certificate validation (via `rejectUnauthorized: false`) for local development.
+
+### KEY_FUNCTIONS
+- **testLoginPage()**: Orchestrates HTTP request, checks page content, and logs test outcomes.
+- **Axios GET request**: Fetches the login page with custom HTTPS agent for local testing.
+
+### DEPENDENCIES
+axios, https (Node.js built-in), require (Node.js module loader)
+
+### USAGE
+Run via Node.js:
+```bash
+node login-page-test.js
+```
+Expected output confirms:
+- Page accessibility.
+- Vue/Vite presence.
+- Test user hint visibility.
+
+### RELATED
+[[Node.js Axios Test Framework]], [[Vue.js/Vite Local Dev Server]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **Local HTTPS Agent**: Disables SSL verification (`rejectUnauthorized: false`) for localhost testing only. Use cautiously in production.
+>[!WARNING]- Caution
+> **Credentials Hardcoded**: Test credentials (`test/passtest`) are exposed in logs. Avoid in production environments.

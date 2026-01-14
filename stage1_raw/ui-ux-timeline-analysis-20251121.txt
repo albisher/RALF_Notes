@@ -1,0 +1,50 @@
+### TAGS
+#UI/UX
+#Timeline
+#Layout
+#Visualization
+#Interaction
+#CSS
+#JavaScript
+#Docker
+#DesignSystem
+
+### TYPE
+documentation
+
+### SUMMARY
+Analyzes UI/UX issues in the Space Pearl application’s Timeline stage, focusing on layout, visualization, and feature completeness for the Space Pearl app.
+
+### DETAILS
+This report evaluates the **Timeline stage** of the Space Pearl application, identifying layout misalignments, visualization gaps, and missing functionality. The analysis covers three-column layout compression, a non-functional top timeline component, missing test events, and partial 2D map integration. Recommendations include CSS adjustments for column spacing, debugging timeline initialization, and ensuring proper event distribution for testing.
+
+### KEY_FUNCTIONS
+- **TimelineStage.vue**: Manages the main timeline UI with three columns (events list, controls, map).
+- **workflow.css**: Contains CSS rules for the timeline layout, including grid and positioning styles.
+- **Top Timeline Component**: Handles horizontal scrolling, drag interactions, and year markers.
+- **2D Map Integration**: Uses an iframe to load a map viewer from a Docker environment (`mapviewer-iteration-overlay`).
+- **Timeline Events List**: Displays events in the left column, requiring comprehensive test events for validation.
+
+### DEPENDENCIES
+- **CSS Modules**: For styling the grid layout and column spacing.
+- **JavaScript Libraries**: Likely includes drag-and-drop or scrollable timeline libraries (e.g., `react-scroll`, `timeline.js`).
+- **Docker Containers**: `mapviewer-iteration-overlay` for the 2D map service.
+- **Space Pearl Backend API**: Provides timeline data (`timelineNodes` prop).
+
+### USAGE
+To use this component:
+1. **Initialize Timeline**: Ensure `timelineNodes` data is passed to the component.
+2. **Configure Map**: Set `MAP_VIEWER_URL` in environment variables and verify Docker container is running.
+3. **Test Events**: Add 5–10 events spanning years for validation.
+4. **Debug Layout**: Inspect CSS/JS for issues like `!important` conflicts or missing interactions.
+
+### RELATED
+[[Space Pearl UI/UX Design System]], [[Timeline Component Implementation Notes]], [[Docker Configuration for MapViewer]]
+
+### CALLOUTS
+>[!INFO]- **Critical Layout Issue**
+> The current `grid-template-columns: repeat(3, minmax(0, 1fr))` forces equal-width columns, causing cramped readability. Adjust to `1.2fr 1.5fr 1.3fr` for better distribution.
+>[!WARNING]- **Timeline Initialization Risk**
+> If `timelineNodes` is not passed or misconfigured, the top timeline may render blank or break interactions. Log `this.timelineNodes` on mount to debug.
+>[!INFO]- **Map Dependency Warning**
+> The 2D map relies on a Docker container (`mapviewer-iteration-overlay`). If the container fails to start, the right column will show a fallback message. Test the iframe URL independently first.

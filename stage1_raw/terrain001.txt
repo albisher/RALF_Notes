@@ -1,0 +1,40 @@
+### TAGS
+#geography
+#exploration
+#terrain-survey
+#coastal-region
+#mission-planning
+
+### TYPE
+documentation
+
+### SUMMARY
+Describes the detailed terrain and geographical features of the mission landing target, Blue City, including its location, surrounding landforms, and navigational insights.
+
+### DETAILS
+This document provides a mission-specific survey of Blue City’s location, detailing its approximate coordinates (latitude ~31°N, longitude ~34°E) and its coastal setting near a vast body of water. The immediate terrain around Blue City consists of open grasslands or plains, with a nearby river mouth forming a delta or estuary. Surrounding features include:
+- **North:** Dense forest and rugged snow-capped mountains, likely the river’s source.
+- **East:** Continuation of grasslands and forest leading to the river and mountains.
+- **South:** A distant landmass with grasslands and a transition to arid deserts (~5°N–0°N latitude).
+- **West:** Grasslands with scattered savanna or woodland regions.
+
+The document emphasizes key navigational landmarks (e.g., river, mountains) and opportunities/dangers (e.g., forests, deserts) for exploration.
+
+### KEY_FUNCTIONS
+- **Mission Coordinate Analysis**: Maps Blue City’s latitude/longitude and surrounding terrain for strategic planning.
+- **Terrain Classification**: Identifies grasslands, forests, mountains, river, sea, and deserts with visual indicators.
+- **Navigational Guidance**: Highlights critical landmarks (river, mountains) and risks (forests, arid zones) for safe exploration.
+
+### DEPENDENCIES
+none (standalone descriptive text)
+
+### USAGE
+This document serves as a reference for mission planners, explorers, or adventurers to understand Blue City’s geography, plan routes, and assess resources/dangers in the region.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Key Resource: The river east of Blue City is vital for trade, fresh water, and fishing, forming a potential trade route or delta ecosystem.
+> The northern mountains could provide timber, minerals, or hidden settlements, but their rugged terrain may pose travel challenges.
+>[!WARNING]- Danger Zones: Dense forests and arid deserts may harbor wildlife, hidden dangers, or hostile communities. Avoid uncharted areas without local guides.

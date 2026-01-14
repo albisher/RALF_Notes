@@ -1,0 +1,67 @@
+**Tags:** #automation, #web-scraping, #puppeteer, #interactive-element-testing, #session-scripting
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# user-session-2-workspace-creation
+
+## Summary
+
+```
+Automates user session for workspace creation, testing input fields and buttons in a web application.
+```
+
+## Details
+
+> This script uses Puppeteer to automate interactions with a local web application (running on `localhost:5173/workspace`). It follows a structured workflow:
+> 1. **Initialization**: Launches a headless browser with Puppeteer, creates a screenshots directory, and captures the initial workspace page.
+> 2. **Content Analysis**: Extracts and logs the visible text of the workspace.
+> 3. **Input Field Detection**: Identifies all input fields (text inputs, textareas) and logs their attributes (type, placeholder, name).
+> 4. **Automated Input Filling**: Dynamically fills input fields based on placeholders/attribute names (e.g., "name," "description," "story") with predefined text.
+> 5. **Button Interaction**: Detects buttons and attempts to trigger actions (e.g., "Save," "Create") to simulate user workflows.
+> 6. **Screenshots**: Captures visual snapshots at key steps for debugging/validation.
+> 
+> The script prioritizes error handling to log failures gracefully while iterating through elements sequentially.
+
+## Key Functions
+
+### `workspaceCreationSession`
+
+Orchestrates the full session workflow.
+
+### `takeScreenshot`
+
+Captures a page screenshot with timestamped filename.
+
+### `page.goto`
+
+Navigates to the workspace URL with timeout handling.
+
+### `page.evaluate`
+
+Extracts DOM properties (e.g., `textContent`, `placeholder`) for analysis.
+
+## Usage
+
+1. Install dependencies: `npm install puppeteer`.
+2. Run script: `node user-session-2-workspace-creation.js`.
+3. Ensure the target app (`localhost:5173/workspace`) is running before execution.
+
+## Dependencies
+
+> `puppeteer`
+> `fs`
+> `path`
+
+## Related
+
+- [[Automation Framework Docs]]
+- [[Puppeteer Best Practices]]
+
+>[!INFO] Important Note
+> The script assumes the target app is a React/Vue frontend. Adjust selectors (e.g., `input, textarea`) if the UI differs.
+
+>[!WARNING] Caution
+> Headless mode (`--headless`) may block interactive elements. Test in non-headless mode first for debugging.
+
+>[!WARNING] Caution
+> Disable `--disable-web-security` only for local development; it exposes XSS vulnerabilities in production.

@@ -1,0 +1,38 @@
+### TAGS
+#CSS
+#BrowserCompatibility
+#Testing
+#Axios
+#PostCSS
+#FrontendFixes
+
+### TYPE
+code-test
+
+### SUMMARY
+Validates browser compatibility fixes for CSS issues in a local application.
+
+### DETAILS
+This script uses Axios to verify that a local web application loads successfully after applying CSS fixes. It logs applied fixes (e.g., `-webkit-text-size-adjust`, `gap` property, pseudo-elements) and confirms compatibility improvements via browser console checks. The test includes manual steps for debugging remaining issues (e.g., Vuetify errors) and validates dark mode transitions and font loading.
+
+### KEY_FUNCTIONS
+- **testCSSFixes()**: Runs automated checks for CSS compatibility fixes via Axios.
+- **Axios GET request**: Fetches the local app with a bypass for HTTPS validation.
+- **Console logging**: Tracks applied fixes, manual test steps, and expected improvements.
+
+### DEPENDENCIES
+`axios`, `https` (Node.js built-in), `PostCSS` (for autoprefixer).
+
+### USAGE
+1. Run via Node.js: `node css-fixes-test.js`.
+2. Verify fixes by visiting `https://localhost:8443` and checking the browser console for reduced errors.
+3. Test dark mode and font loading manually.
+
+### RELATED
+[[CSS Browser Compatibility Guide]], [[PostCSS Configuration]], [[Vuetify CSS Documentation]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script skips HTTPS certificate validation (`rejectUnauthorized: false`) for local testing. Use cautiously in production.
+>[!WARNING]- Caution
+> Some CSS errors (e.g., from Vuetify) may persist but are typically non-functional. Focus on the logged fixes.

@@ -1,0 +1,37 @@
+### TAGS
+#SSL
+#Certbot
+#Nginx
+#Docker
+#Automation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Renews SSL certificates via Certbot and triggers Nginx reload in a Dockerized environment.
+
+### DETAILS
+This script automates the renewal of SSL certificates using Certbot, specifically designed to be executed by a Certbot container. It first runs the renewal command with a `--webroot` flag pointing to `/var/www/certbot`, then checks the exit status. On success, it reloads Nginx via Docker Compose to apply updated SSL configurations. The script exits with status `1` if renewal fails.
+
+### KEY_FUNCTIONS
+- **certbot renew --webroot -w /var/www/certbot**: Renews SSL certificates using Certbot with a webroot path for automatic file generation.
+- **docker-compose exec proxy nginx -s reload**: Reloads Nginx configuration to apply updated SSL certificates without downtime.
+
+### DEPENDENCIES
+certbot, Docker, Docker Compose, Nginx
+
+### USAGE
+1. Place this script in the same directory as your `docker-compose.yml` or ensure it is accessible in the Certbot container.
+2. Run the script manually or integrate it into a cron job for automated renewal.
+3. Ensure Certbot has write permissions to `/var/www/certbot` and Docker has permissions to execute Nginx reload commands.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> This script assumes Certbot is already configured to use the `--webroot` plugin and that `/var/www/certbot` exists with the correct structure for automatic file generation.
+>
+>[!WARNING]- Caution
+> If Nginx reload fails, manual intervention may be required to restore service. Ensure Docker Compose has proper permissions to execute the `nginx -s reload` command.

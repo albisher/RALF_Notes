@@ -1,0 +1,38 @@
+**Tags:** #data-classification, #size-categories, #architecture
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# BuildingSizes
+
+## Summary
+
+```
+Defines a set of size categories for building or structure classification.
+```
+
+## Details
+
+> This file enumerates descriptive terms representing different scales of building sizes, likely used for categorization in architectural, spatial, or simulation contexts. The terms are grouped into standalone sizes (e.g., `tiny`, `large`) and combined categories (e.g., `sprawling, village-like`), suggesting a hierarchical or hybrid classification system.
+
+## Key Functions
+
+### `Size Classification`
+
+Assigns descriptive labels to building dimensions or spatial configurations.
+
+### `Hierarchical Grouping`
+
+Combines related terms (e.g., `sprawling` and `village-like`) for broader categorization.
+
+## Usage
+
+This list is likely used as input for algorithms, databases, or systems requiring structured size categorization. Example applications include:
+- **Game Development**: Assigning building types in procedural generation.
+- **Urban Planning**: Defining spatial zones or architectural constraints.
+- **Simulation Tools**: Classifying structures for dynamic modeling.
+
+>[!INFO] Contextual Use
+> These terms may be paired with numerical thresholds (e.g., square footage, height) to refine classification logic.
+
+>[!WARNING] Ambiguity Risk
+> Terms like `sprawling, village-like` could overlap; ensure distinct criteria for differentiation in implementation.

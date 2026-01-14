@@ -1,0 +1,41 @@
+### TAGS
+#database
+#timeline
+#deletion
+#security
+#box_interface
+#orm
+
+### TYPE
+documentation
+
+### SUMMARY
+Handles secure deletion of Timeline records with validation and logging.
+
+### DETAILS
+This module implements a `TimelineDeleteBox` class that inherits from `Box`, designed to securely delete a user’s Timeline record from the database. It validates input (`timeline_id` and `user_id`), checks ownership via SQL query, and performs the deletion while cascading related `Event` records. The operation includes transaction management (commit/rollback) and detailed logging for debugging.
+
+### KEY_FUNCTIONS
+- **`__init__(self, name='timeline_delete')`**: Initializes the box with a default name and description.
+- **`execute(self, input_data: BoxInput) -> BoxOutput`**:
+  - Validates required fields (`timeline_id`, `user_id`).
+  - Queries the database to verify ownership of the timeline.
+  - Deletes the timeline record and commits the transaction.
+  - Returns success/failure status with metadata (e.g., `deleted_id`, `message`).
+
+### DEPENDENCIES
+`..core.box_interface`, `models.db`, `models.Timeline`, `logging`
+
+### USAGE
+1. Instantiate `TimelineDeleteBox`.
+2. Call `execute()` with a `BoxInput` containing `timeline_id` and `user_id`.
+3. Handle the returned `BoxOutput` (success/error status + data).
+
+### RELATED
+[[`box_interface.py`]], [[`models.py`]], [[`core` directory]]
+
+### CALLOUTS
+>[!INFO]- Ownership Check
+> The query `Timeline.query.filter_by(id=timeline_id, user_id=user_id)` ensures only the authenticated user can delete their own timeline, preventing unauthorized access.
+>[!WARNING]- Transaction Rollback
+> If an exception occurs, `db.session.rollback()` ensures no partial changes are committed, maintaining data integrity.

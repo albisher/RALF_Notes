@@ -1,0 +1,36 @@
+### TAGS
+#UI_Design
+#User_Preferences
+#Interactive_Interface
+#Web_Application
+
+### TYPE
+documentation
+
+### SUMMARY
+This document captures user interface design preferences for a web-based application, focusing on layout, navigation, and interaction elements.
+
+### DETAILS
+This document outlines detailed user preferences for interface design, including layout (single-page vs. multi-page, responsive cards, role-based views), element selection (lore-based browsing, search/filter, visual/text hybrid, auto-preview), map functionality (2D/3D hybrid, zoom levels, multi-view support), and writing/logging features (simple text editor, auto-save, collaboration, templates). Preferences emphasize visual interfaces, multi-information display, and minimalist navigation.
+
+### KEY_FUNCTIONS
+- **User Role-Based Views**: Dynamic interface adjustments for different user roles/experience levels.
+- **Responsive Card System**: Customizable sidebar navigation with draggable/collapsible cards.
+- **Multi-Map View Integration**: Hybrid 2D/3D maps with configurable zoom and location selection methods.
+- **Collaborative Logging**: Real-time editing with auto-save and version history.
+- **Template/Prompt System**: Predefined writing templates for structured content creation.
+
+### DEPENDENCIES
+None (purely conceptual/preference-based document).
+
+### USAGE
+This document serves as a **Product Requirements Document (PRD)** for UI/UX design, guiding developers to implement user-centric features. It should be reviewed alongside technical specifications to ensure alignment with user needs.
+
+### RELATED
+[[PRD_Web_App_Architecture]], [[User_Interaction_Prototypes]]
+
+### CALLOUTS
+>[!INFO]- **Visual Over Text Preference**
+> Prioritize visual elements (icons, thumbnails) over text-heavy layouts to enhance usability and engagement.
+>[!WARNING]- **Avoid Overcomplication**
+> Minimize complexity in navigation and interactions—simplicity reduces frustration and improves adoption.

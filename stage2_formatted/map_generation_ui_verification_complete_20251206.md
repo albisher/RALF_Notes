@@ -1,0 +1,65 @@
+**Tags:** #ui-testing, #csp-content-security-policy, #map-generation, #automated-verification, #frontend-development, #puppeteer, #schema-validation, #web-development
+**Created:** 2026-01-13
+**Type:** documentation
+
+# map_generation_ui_verification_complete_20251206
+
+## Summary
+
+```
+Verifies and documents the completion of map generation UI functionality with fixes for CSP and schema validation issues.
+```
+
+## Details
+
+> This document details the automated UI verification of a map generation system using Puppeteer. The system successfully handles world creation (Clouds, Galaxy, Random) and map parameter generation, but required fixes for CSP blocking and schema validation errors (e.g., converting string width/height to numbers). The verification includes UI components, API calls, and progress tracking, with minor display issues noted but not blocking functionality.
+
+## Key Functions
+
+### `GenerateStage.vue`
+
+Handles map parameter conversion and validation logic.
+
+### `map_generator_service_box.js`
+
+Manages API requests for map generation with CSP compliance.
+
+### `World Creation Script`
+
+Checks for existing worlds and skips creation to avoid redundancy.
+
+### `MapGeneratorControls`
+
+UI component for triggering map generation jobs.
+
+### `Content Security Policy (CSP) Update`
+
+Adds `http://localhost:5002` to `connect-src` in `index.html`.
+
+## Usage
+
+1. Run automated UI tests with Puppeteer to verify map generation workflow.
+2. Apply CSP fixes by updating `index.html` and reloading the page.
+3. Ensure schema validation fixes (e.g., type conversion in `GenerateStage.vue`) are applied.
+4. Re-test after changes to confirm CSP and schema issues are resolved.
+
+## Dependencies
+
+> `Puppeteer (for automated UI testing)`
+> `Node.js runtime`
+> `backend APIs (`http://localhost:5001``
+> ``http://localhost:5002`)`
+> `Vue.js (for UI components).`
+
+## Related
+
+- [[Map Generation Backend API Docs]]
+- [[Frontend UI Component Documentation]]
+- [[Content Security Policy Best Practices]]
+
+>[!INFO] Important Note
+> The CSP fix requires a page reload to take effect. After applying the `connect-src` update in `index.html`, reload the application to allow direct access to `http://localhost:5002`.
+
+
+>[!WARNING] Caution
+> The schema validation fix for width/height conversion is critical. Ensure all numeric inputs are properly converted to `Number` type to avoid API errors. Inconsistent types may cause partial failures in map generation.

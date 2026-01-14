@@ -1,0 +1,48 @@
+### TAGS
+#hash-based
+#map-generation
+#object-oriented
+#deterministic
+#box-architecture
+#world-types
+#performance-optimization
+
+### TYPE
+documentation
+
+### SUMMARY
+Implements a hash-based heightmap generation system for world types using object-oriented box architecture, ensuring deterministic, world-type-specific map generation with verified performance improvements.
+
+### DETAILS
+This implementation replaces traditional procedural generation with a **hash-based deterministic system**, where each cell’s height is derived from a consistent hash value. The system follows an **Object-Oriented Box Architecture**, modularizing generation logic into reusable boxes (e.g., `HashBasedHeightmapUtilsBox`). Core components include Python/JavaScript boxes for heightmap calculations, terrain generators, and a Vue composable for UI integration. The system supports **7 world types** (planet, galaxy, cloud world, etc.) with verified success rates, ensuring reproducibility and world-specific patterns (e.g., mountains/valleys for planets, energy distribution for galaxies).
+
+### KEY_FUNCTIONS
+- **`hash_for_cell`**: Computes a deterministic hash for each grid cell using coordinates.
+- **`assign_height_from_hash`**: Maps hash values to height ranges based on world type.
+- **`select_peaks_from_hash`**: Identifies local maxima/minima for terrain features.
+- **`WorldTypeTerrainGeneratorBox`**: Generates low-resolution terrain (64–256px) for all world types.
+- **`WorldTypeHeightmapGeneratorBox`**: Produces high-resolution heightmaps for Voronoi cells.
+- **`useMapGeneration.js`**: Vue composable for UI-driven map generation workflows.
+- **`box-orchestrator.js`**: Registers JavaScript boxes in the frontend system.
+
+### DEPENDENCIES
+`backend/boxes/generators/`, `ui-beta/src/boxes/generators/`, `ui-beta/src/composables/`, `ui-beta/src/utils/box-orchestrator.js`, `backend/services/map-generator/engine/`, Python libraries (e.g., `hashlib` for hashing).
+
+### USAGE
+1. **Backend Integration**: Replace legacy terrain generators with box-based `WorldTypeTerrainGeneratorBox`/`WorldTypeHeightmapGeneratorBox`.
+2. **Frontend**: Use `useMapGeneration.js` composable in Vue components to trigger map generation via `mapGenerator.generate()`.
+3. **Testing**: Run `test_map_generation_all_types.py` for deterministic validation or UI tests for interactive verification.
+4. **Fallback**: Old methods remain available for backward compatibility.
+
+### RELATED
+[[`map_generation_ui_tests/SCREENSHOT_PATHS_20251206.md`]], [[`MAP_GENERATION_ANALYTICAL_REPORT_20251206.md`]], [[`backend/boxes/generators/`]], [[`ui-beta/src/utils/box-orchestrator.js`]].
+
+### CALLOUTS
+>[!INFO]- **Deterministic Guarantee**
+> Hash-based generation ensures identical outputs for identical inputs, enabling reproducible world designs (e.g., same seed → same planet terrain). This is critical for modding and consistency checks.
+>[!WARNING]- **Restart Requirement**
+> Service integration may require a restart to fully adopt the new box-based system. Test thoroughly after deployment to avoid compatibility issues with cached data.
+>[!INFO]- **Performance Tradeoff**
+> While the system is **50–100x faster**, hash computation introduces a slight overhead (~0.1s per box). Optimize seed selection or parallelize hashing if latency is critical.
+>[!WARNING]- **World-Type Specificity**
+> Incorrect hash functions or ranges may produce unrealistic patterns (e.g., a galaxy with uniform heights). Validate ranges (e.g., `0.200–1.000`) against expected distributions for each world type.

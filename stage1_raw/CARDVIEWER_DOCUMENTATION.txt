@@ -1,0 +1,48 @@
+### TAGS
+#documentation
+#card-viewer
+#ui-design
+#data-structure
+#responsive-web
+
+### TYPE
+documentation
+
+### SUMMARY
+Detailed documentation for a dynamic card viewer system integrating Space Peral documentation with card details, search, and image support.
+
+### DETAILS
+This documentation outlines the **Card Viewer**, a modular system designed to dynamically load and display cards from Space Peral documentation sources. It emphasizes compatibility with the `iteration-09/timeline-story-workflow-v6.html` design, ensuring seamless integration into the main workflow. The system supports multiple card types (robots, characters, events, etc.) with visual and interactive features like image display, search, filtering, and sorting. The core logic revolves around auto-generating structured card data from documentation files and ensuring consistent styling across the workflow.
+
+### KEY_FUNCTIONS
+- **Dynamic Card Loading**: Automatically fetches and organizes cards from multiple sources.
+- **Image Detection & Display**: Detects and renders images (e.g., robot/character avatars) with placeholders for missing assets.
+- **Card Details View**: Modal-style display matching `timeline-story-workflow-v6.html` for full card context.
+- **Search & Filter**: Enables filtering by type, name, or description via UI controls.
+- **Sorting**: Supports sorting by name, type, source, or date.
+- **Responsive Design**: Adapts to desktop/mobile layouts.
+- **Data Generation Script (`generate_cards_data.py`)**: Reconstructs `cards-data.js` after updates to documentation files.
+- **Map Integration**: Displays 2D maps for location-based cards (e.g., coordinates from StoryLogs).
+- **Card Combination**: Programmatic page/HistoryBook creation via selection logic (UI buttons removed for simplicity).
+
+### DEPENDENCIES
+`cards-data.js`, `timeline-story-workflow-v6.html`, `app/processed_map.json`, `KnownRobots/`, `WorldInformation/`, `StoryLogs/`, `HistoryBook/`, `ConventionsBook/`, Python (`python3`), Obsidian-compatible workflow context.
+
+### USAGE
+1. **Integration**: Embed `cardview.html` into the main workflow UI.
+2. **Data Refresh**: Run `python3 generate_cards_data.py` after updating documentation files.
+3. **Card Display**: Cards load dynamically; use the modal for full details.
+4. **Search/Filter**: Apply filters via UI (e.g., "Type: Robot").
+5. **Map View**: Cards with coordinates render interactive maps (e.g., `X1` shows a map with its location).
+6. **Export**: History books can be exported as JSON programmatically (see `CARD_COMBINATION_USAGE.md`).
+
+### RELATED
+[[CARD_COMBINATION_USAGE.md]], [[iteration-09/timeline-story-workflow-v6.html]], [[README.md]].
+
+### CALLOUTS
+>[!INFO]- **Data Generation**
+> The script `generate_cards_data.py` scans folders (e.g., `KnownRobots/`) for `.txt` files and checks for matching `.png`/`.jpg` images. Example: `X1001.txt` → `X1001.png` is detected.
+>
+>[!WARNING]- **Image Limitations**
+> Only 7 robot images (`X1-X7.png`) and 2 world images (`20485.png`, `20486.png`) are currently available. Add/update files to regenerate `cards-data.js`.
+>

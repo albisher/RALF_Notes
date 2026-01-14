@@ -1,0 +1,62 @@
+**Tags:** #automated-testing, #web-scraping, #puppeteer, #hash-generation, #ui-testing, #deterministic-generation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# space-peral-final-demo
+
+## Summary
+
+```
+Automated demo script for testing Space Peral’s hash-based asset generation system using Puppeteer.
+```
+
+## Details
+
+> This script automates interactions with a Space Peral application to verify hash-based generation features (character, plant, building, robot) by:
+> 1. Launching a headless browser to navigate to the demo URL.
+> 2. Handling potential login via automated form submission.
+> 3. Navigating to the Writing Workspace and capturing screenshots.
+> 4. Logging UI confirmation of implemented hash features (e.g., seed inputs, preview sections).
+> 5. Tracking network/API calls and console errors for debugging.
+> 
+> The script validates frontend/backend integration for deterministic asset generation via hash inputs.
+
+## Key Functions
+
+### ``createSpacePeralWorldDemo()``
+
+Orchestrates browser launch, navigation, and screenshot capture.
+
+### ``page.on('request', ...)``
+
+Logs API calls (e.g., `/api/` endpoints) for debugging.
+
+### ``page.evaluateHandle()``
+
+Dynamically locates UI elements (e.g., login buttons, workspace links).
+
+### ``page.screenshot()``
+
+Captures UI states (initial page, workspace) for verification.
+
+## Usage
+
+1. Install dependencies: `npm install puppeteer`.
+2. Run script: `node space-peral-final-demo.js`.
+3. Ensure the target URL (`https://localhost:8443`) matches the deployed Space Peral demo.
+
+## Dependencies
+
+> `puppeteer`
+> `Node.js runtime.`
+
+## Related
+
+- [[Space Peral API Docs]]
+- [[WriterWorkspace]]
+
+>[!INFO] Important Note
+> The script assumes the target URL is `https://localhost:8443` and uses hardcoded credentials (`test`/`passtest`). Adjust paths and credentials for production testing.
+
+>[!WARNING] Caution
+> Headless browser flags (`--no-sandbox`, `--disable-web-security`) may break security checks in production environments. Use cautiously in non-dev contexts.

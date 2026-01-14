@@ -1,0 +1,59 @@
+**Tags:** #hashing, #spatial-temporal, #location-tracking, #deterministic-coordinates, #fallback-logic
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# location_time_hash
+
+## Summary
+
+```
+Generates deterministic hashes for combining location and time data to create unique spatial-temporal coordinates.
+```
+
+## Details
+
+> This `LocationTimeHashBox` class integrates a hash generation system to produce deterministic coordinates by combining location and time inputs. It uses `SpacePearlHashGenerator` to create unique hashes for each location and time period, then derives coordinates from the location hash. If `coordinate.py` is unavailable, it falls back to a simplified random-based coordinate generation method. The class validates required inputs (`location_seed` and `time_period`) and returns structured output including the combined hash, individual hashes, and spatial coordinates.
+
+## Key Functions
+
+### ``__init__``
+
+Initializes the box with a hash generator and sets up metadata.
+
+### ``execute``
+
+Core method that processes input data, validates requirements, generates hashes, and converts location hashes to coordinates (with fallback logic).
+
+### ``_hash_to_coordinates``
+
+Fallback method for coordinate generation when `coordinate.py` is unavailable, using a simplified deterministic approach based on hash prefixes.
+
+## Usage
+
+1. Pass a dictionary with `location_seed` and `time_period` (required) and optionally `item_data` (e.g., `{"location_seed": "123", "time_period": "2023-01-01", "item_data": {"hash": "abc123"}}`).
+2. The box returns a `BoxOutput` with:
+   - `location_time_hash`: Combined hash of location + time.
+   - `location_hash`/`time_hash`: Individual hashes.
+   - `coordinates`: Latitude, longitude, and Cartesian (x,y,z) values.
+   - `item_tracking`: If `item_data` was provided, includes item metadata linked to the coordinates.
+
+## Dependencies
+
+> ``..core.box_interface``
+> ``hash_generation_api``
+> ``Positioning.coordinate``
+> ``random``
+> ``math``
+
+## Related
+
+- [[`core]]
+- [[`hash_generation_api`]]
+- [[`Positioning]]
+
+>[!INFO] Dynamic Path Resolution
+> The code dynamically adjusts Python path resolution for imports (e.g., `Positioning.coordinate`) by modifying `sys.path` based on file hierarchy. This ensures cross-module compatibility but may break if the parent directory structure changes.
+
+
+>[!WARNING] Fallback Coordinate Logic
+> The `_hash_to_coordinates` method uses randomness (via `random.seed`) for coordinate generation, which introduces non-determinism. This is a workaround for missing `coordinate.py` but may produce inconsistent results across runs. Prefer `coordinate.py` for deterministic results.

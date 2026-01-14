@@ -1,0 +1,49 @@
+### TAGS
+#API-Demo
+#Database-Management
+#Cyberpunk-Simulation
+#Async-Await
+#Axios
+
+### TYPE
+code-notes
+
+### SUMMARY
+A demo script for interacting with a backend API to create and populate a cyberpunk-themed world database with worlds, characters, and elements.
+
+### DETAILS
+This script uses Axios to interact with a local API (`https://localhost:8443/api`) for authentication, world management, and generating narrative elements. It handles login, retrieves existing worlds, creates a new cyberpunk world, generates a protagonist character with cybernetic appearance, and dynamically generates world elements (locations, buildings, plants) with predefined descriptions. Error handling includes fallback logic for duplicate world checks and logging for debugging.
+
+The script dynamically constructs story content for a cyberpunk protagonist (Cyber-Samurai Kaito) tied to the generated world, though it cuts off mid-story. It also bypasses SSL certificate validation for testing self-signed certificates.
+
+### KEY_FUNCTIONS
+- **login**: Authenticates with the API using hardcoded credentials (`test`/`passtest`).
+- **getWorlds**: Fetches all worlds from the API with an auth token.
+- **createWorld**: Creates a new world (or retrieves an existing demo world if one exists).
+- **generateCharacterWithAppearance**: Creates a cyberpunk-themed character with a specified role and appearance type.
+- **generateElement**: Dynamically generates world elements (locations, buildings, plants) with customizable names and descriptions.
+- **createStoryElement**: (Incomplete) Attempts to generate a narrative story tied to the world (abruptly cut off).
+
+### DEPENDENCIES
+axios, fs, path, https
+
+### USAGE
+1. Run the script after ensuring the backend API (`localhost:8443`) is running.
+2. Execute functions sequentially:
+   - `login()` to authenticate.
+   - `getWorlds()` to list existing worlds.
+   - `createWorld()` to create a new cyberpunk world.
+   - `generateCharacterWithAppearance(worldId)` to create a protagonist.
+   - `generateElement(worldId, elementType)` to generate locations/buildings/plants.
+   - `createStoryElement(worldId)` to populate narrative content (abandoned mid-execution).
+
+### RELATED
+[[API-Documentation-for-Complete-Database-Demo]], [[Backend-Code-for-Cyberpunk-World-Engine]]
+
+### CALLOUTS
+>[!INFO]- Hardcoded Credentials
+> **Security Risk**: The script uses hardcoded credentials (`test`/`passtest`) for login. In production, replace with environment variables or secure authentication.
+>[!WARNING]- SSL Bypass
+> **Testing Limitation**: SSL certificate verification is disabled (`rejectUnauthorized: false`) for self-signed certificates. Use only in trusted development environments; disable in production.
+>[!WARNING]- Incomplete Story Generation
+> **Partial Execution**: The `createStoryElement` function cuts off abruptly after generating partial story content. The script may need extension to complete narrative logic.

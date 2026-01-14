@@ -1,0 +1,36 @@
+**Tags:** #API-Key, #Security, #Authentication, #LLM-API
+**Created:** 2026-01-13
+**Type:** configuration
+
+# anthropic_api_key
+
+## Summary
+
+```
+Stores an Anthropic API key for authentication with the Anthropic API service.
+```
+
+## Details
+
+> This file holds a sensitive API key required to interact with the Anthropic API, a service used for accessing large language models (LLMs). The key is typically used in application configurations to authenticate requests to the Anthropic API endpoint. The file appears to be a placeholder for the actual API key, which should be securely managed in production environments.
+
+## Key Functions
+
+### ``anthropic_api_key``
+
+Stores the API key for authentication with Anthropic’s API service.
+
+## Usage
+
+1. Replace `your-anthropic-api-key-here` with the actual Anthropic API key.
+2. Securely store this file in a restricted directory (e.g., `.env` or a secrets manager) to prevent unauthorized access.
+3. Integrate the key into application code (e.g., environment variables) when making API requests.
+
+## Dependencies
+
+> `none (plaintext file`
+> `no external dependencies)`
+
+>[!WARNING] Caution
+> **Never commit this file to version control** (e.g., Git) or expose it publicly. Use environment variables or a secrets manager for production deployments.
+> **Example of secure usage**: Load the key via `os.getenv('ANTHROPIC_API_KEY')` in Python or `process.env.ANTHROPIC_API_KEY` in Node.js.

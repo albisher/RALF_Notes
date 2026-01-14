@@ -1,0 +1,48 @@
+**Tags:** #database-migration, #SQLAlchemy, #Alembic, #custom-model, #metadata-storage
+**Created:** 2026-01-13
+**Type:** documentation
+
+# add_custom_generator_model
+
+## Summary
+
+```
+Creates a database table for storing custom generator models with user associations and metadata.
+```
+
+## Details
+
+> This script defines an Alembic migration to add a `custom_generators` table for tracking customizable code generators. It includes columns for user association, generator metadata (e.g., name, description, code content), and timestamps. The table enforces a unique constraint on `user_id` and `generator_id` to prevent duplicates per user. The `meta_data` column uses PostgreSQL’s `JSONB` for flexible schema storage.
+
+## Key Functions
+
+### `upgrade()`
+
+Creates the `custom_generators` table with all specified columns, constraints, and foreign keys.
+
+### `downgrade()`
+
+Drops the `custom_generators` table to revert changes.
+
+## Usage
+
+1. Run `alembic upgrade head` to apply the migration.
+2. Use the table to store custom generator configurations (e.g., user-defined code snippets or LLM prompts) with metadata.
+3. Ensure PostgreSQL is configured to support `JSONB` for `meta_data`.
+
+## Dependencies
+
+> ``alembic``
+> ``sqlalchemy``
+> ``sqlalchemy.dialects.postgresql``
+
+## Related
+
+- [[SQLAlchemy Alembic Documentation]]
+- [[PostgreSQL JSONB Guide]]
+
+>[!INFO] Foreign Key Constraint
+> The `user_id` column references `users.id`, linking generators to authenticated users. Ensure `users` table exists before migration.
+
+>[!WARNING] JSONB Compatibility
+> If downgrading, ensure `meta_data` is not stored as raw text (e.g., JSON string) to avoid schema mismatches. Use `JSONB` consistently.

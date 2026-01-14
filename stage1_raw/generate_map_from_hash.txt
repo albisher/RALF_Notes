@@ -1,0 +1,41 @@
+### TAGS
+#hash-based generation
+#map parameter generation
+#world description processing
+#seed generation
+#API integration
+
+### TYPE
+code-notes
+
+### SUMMARY
+Generates map parameters from a hash input or descriptive string, producing seed values and metadata for map creation.
+
+### DETAILS
+This script processes either a raw hash string or a descriptive input (e.g., "galaxy map, star systems") to produce structured map parameters. It uses a hash-based algorithm (`hash_input`) to derive a seed value, then passes it to `generate_map_description` to produce a JSON output of map metadata (e.g., resolution, biome settings). The script validates input format (64-character hex hash) and outputs a formatted request body for an external map generator API.
+
+### KEY_FUNCTIONS
+- **`generate_map_description`**: Generates map metadata (e.g., `seed`, `resolution`, `map_name`) from input hash and optional world type/description.
+- **`hash_input`**: Converts input (hash or string) into a standardized 64-character hex hash for seeding.
+- **`main()`**: Parses CLI arguments, validates input, calls map generation logic, and formats output for API submission.
+
+### DEPENDENCIES
+`sys`, `json`, `pathlib`, `Generators.Maps.maps` (custom module for hash processing and map generation).
+
+### USAGE
+Run via CLI:
+```bash
+python generate_map_from_hash.py <input> [world_type] [world_description]
+```
+- `<input>`: Either a 64-char hex hash or a descriptive string (e.g., `"galaxy map"`).
+- Optional args: `world_type` (default: `"Planet"`), `world_description` (empty by default).
+Outputs JSON map parameters and a formatted API request body.
+
+### RELATED
+[[`Generators.Maps.maps`]], [[`map_generator_service` API documentation]]
+
+### CALLOUTS
+>[!INFO]- Input Validation
+> Requires a 64-character hex string for proper hashing. Non-hex inputs trigger regeneration via `hash_input`.
+>[!WARNING]- Seed Dependency
+> Output `seed` must match the hash input exactly for deterministic map generation. Inconsistencies may produce mismatched results.

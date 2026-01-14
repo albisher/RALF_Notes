@@ -1,0 +1,40 @@
+### TAGS
+#conflict_themes
+#story_arc
+#character_dynamics
+#drama_genre
+#narrative_issues
+
+### TYPE
+story_analysis
+
+### SUMMARY
+Explores core character-driven conflicts in narratives, focusing on emotional and relational tensions.
+
+### DETAILS
+This file outlines a comprehensive list of **internal and external conflicts** that can drive dramatic tension in storytelling. It categorizes common narrative struggles, such as **identity crises, power dynamics, and moral dilemmas**, to help writers craft compelling character arcs. The themes emphasize psychological depth, ethical challenges, and systemic obstacles that characters face, often intersecting with broader plot conflicts.
+
+The list spans **personal struggles (e.g., fear of failure, isolation)** to **relationship-based conflicts (e.g., betrayal, conflicting loyalties)** and **environmental/societal pressures (e.g., loss of purpose, environmental challenges)**. These themes are foundational for creating relatable, conflict-rich narratives.
+
+### KEY_FUNCTIONS
+- **Conflict Mapping**: Identifies core narrative tensions for plot development.
+- **Character Depth**: Provides prompts for internal/external character struggles.
+- **Genre Application**: Useful for dramatic, psychological, or dystopian storytelling.
+
+### DEPENDENCIES
+none
+
+### USAGE
+1. **Story Planning**: Assign conflicts to characters to create dynamic arcs.
+2. **Worldbuilding**: Integrate themes into setting (e.g., a dystopia with power struggles).
+3. **Dialogue/Plot**: Use conflicts as catalysts for dialogue or escalating stakes.
+4. **Character Motivation**: Tie conflicts to goals (e.g., overcoming isolation to reclaim purpose).
+
+### RELATED
+[[Character_Development_Guide]], [[Narrative_Conflict_Types]], [[Emotional_Storytelling]]
+
+### CALLOUTS
+>[!INFO]- **Core Insight**
+> These themes are universal across genres—leveraging them ensures depth in even generic plots. Prioritize **one primary conflict per character** to avoid overwhelm.
+>[!WARNING]- **Avoid Overuse**
+> While rich, excessive conflicts can dilute character focus. Balance internal/external struggles to maintain narrative cohesion.

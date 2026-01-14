@@ -1,0 +1,61 @@
+**Tags:** #UI/UX Testing, #Web Development, #Frontend, #Database Persistence, #Navigation Issues, #WebSocket Errors
+**Created:** 2026-01-14
+**Type:** test-reference
+
+# timeline-world-db-ui-ux-testing-20251121
+
+## Summary
+
+```
+Comprehensive UI/UX and backend persistence testing for a timeline and world management system, identifying critical navigation and WebSocket timeout issues.
+```
+
+## Details
+
+> This test document records UI/UX and backend validation for a web application focused on timeline event management and world creation. The testing identified major accessibility issues in the Timeline stage navigation and a WebSocket timeout in the World Type dropdown, preventing full functionality verification. While the Create World modal functioned well, critical components like timeline persistence and WebSocket interactions were blocked by unresolved bugs.
+
+## Key Functions
+
+### `TimelineStage`
+
+Event creation and editing UI component, inaccessible due to routing failure.
+
+### `Create World Modal`
+
+World creation interface with form validation, partially functional with dropdown timeout.
+
+### `World Type Dropdown`
+
+WebSocket-dependent selection field causing 30-second timeouts.
+
+### `DB Persistence Verification`
+
+Backend data validation suite blocked by Timeline navigation issue.
+
+### `Router Configuration`
+
+Route management system handling URL-to-component mapping.
+
+## Usage
+
+This document serves as a test report for developers to identify and resolve UI/UX and backend integration issues in the timeline and world management system. The test was conducted via manual browser navigation and form interaction, capturing critical failures in navigation and WebSocket handling.
+
+## Dependencies
+
+> `Vue.js (for UI components)`
+> `WebSocket library (for real-time dropdown interactions)`
+> `Vue Router (for navigation)`
+> `browser automation tools (browsermcp MCP).`
+
+## Related
+
+- [[Timeline Stage Routing Documentation]]
+- [[WebSocket Integration Guide]]
+- [[Frontend Backend API Specifications]]
+
+>[!INFO] Critical Navigation Issue
+> The Timeline stage cannot be accessed via URL navigation (`#/timeline`), causing a complete breakdown in event management functionality. Developers must prioritize fixing the router or stage navigation system immediately to restore accessibility.
+
+
+>[!WARNING] WebSocket Timeout Risk
+> The World Type dropdown's WebSocket dependency causes a 30-second timeout when selecting options, leading to unreliable world creation and poor user experience. Implementing a loading indicator or alternative selection mechanism is critical to maintain usability.

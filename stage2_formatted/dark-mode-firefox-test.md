@@ -1,0 +1,77 @@
+**Tags:** #automation-testing, #web-testing, #puppeteer, #dark-mode, #vuejs
+**Created:** 2026-01-13
+**Type:** code-test
+
+# dark-mode-firefox-test
+
+## Summary
+
+```
+Automated test script to verify dark mode functionality in a Vue.js application using Firefox via Puppeteer.
+```
+
+## Details
+
+> This script uses Puppeteer to launch Firefox, navigate to a Vue.js application running locally, and test dark mode toggling. It detects the dark mode toggle button through multiple selectors, verifies theme changes, and captures screenshots of the initial, toggled, and final states. The test also checks for the presence of a login page and dashboard to ensure proper navigation.
+
+## Key Functions
+
+### ``testDarkModeFirefox()``
+
+Main function that orchestrates the entire test workflow.
+
+### ``puppeteer.launch()``
+
+Launches Firefox with customizable options.
+
+### ``page.goto()``
+
+Navigates to the application URL with specified wait conditions.
+
+### ``page.waitForSelector()``
+
+Waits for Vue.js app root element (`#app`) to load.
+
+### ``page.$eval()``
+
+Checks for text content (e.g., test user hint).
+
+### ``page.$()``
+
+Attempts to locate the dark mode toggle via multiple selectors.
+
+### ``page.evaluate()``
+
+Checks the current theme state (`document.documentElement.classList.contains('dark')`).
+
+### ``page.screenshot()``
+
+Captures full-page screenshots at different states.
+
+## Usage
+
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node dark-mode-firefox-test.js`.
+3. Ensure Firefox is installed and the local Vue.js app is running on `https://localhost:8443`.
+4. The script will:
+   - Launch Firefox.
+   - Navigate to the app.
+   - Detect and test dark mode toggle functionality.
+   - Save screenshots to `screenshots/` folder.
+
+## Dependencies
+
+> `puppeteer`
+> `Node.js runtime`
+
+## Related
+
+- [[Vue]]
+- [[Puppeteer dark mode testing guide]]
+
+>[!INFO] Important Note
+> The script assumes the Vue.js app uses `document.documentElement.classList.contains('dark')` to detect the theme state. If the app uses a different method (e.g., `prefers-color-scheme`), adjust the `page.evaluate()` logic accordingly.
+
+
+>[!WARNING] Caution
+> Running Firefox in non-headless mode (`--no-sandbox` disabled) may expose the system to security risks. Use this only in controlled environments. The script also disables security features (`--disable-web-security`), which may not be safe for production testing.

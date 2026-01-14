@@ -1,0 +1,67 @@
+**Tags:** #UI_verification, #reactivity, #timeline_visualization, #frontend_development, #vuejs, #data_extraction, #performance_optimization
+**Created:** 2026-01-13
+**Type:** documentation
+
+# TIMELINE_UI_VERIFICATION_REPORT
+
+## Summary
+
+```
+Verifies the functionality and performance of a Vue.js timeline component (`TopTimeline.vue`) for a Quraan world application, ensuring correct year scale generation, marker positioning, and reactive updates.
+```
+
+## Details
+
+> This report documents the verification of `TopTimeline.vue`, a Vue.js component designed to display a chronological timeline of historical events from Quraan world cards. The verification ensures that the component correctly extracts years from populated cards, dynamically generates a year scale, and positions markers accurately without delays. Key fixes included removing `setTimeout` hacks and optimizing reactive watchers to prevent flickering and race conditions. The component now renders efficiently with smooth updates, adhering to the expected behavior of extracting years post-card population and maintaining real-time reactivity.
+
+## Key Functions
+
+### `extractYearsFromCards()`
+
+Extracts and organizes years from timeline card data for year scale generation.
+
+### `reactive watchers`
+
+Monitors card data changes to update the year scale and markers dynamically.
+
+### `pure computed property (yearMarkers)`
+
+Computes and caches year markers based on extracted years, ensuring no side effects.
+
+### `isLoadingYears`
+
+Prevents race conditions by controlling concurrent data extraction during updates.
+
+### `TopTimeline.vue`
+
+Main component rendering the timeline with years, markers, and current time labels.
+
+## Usage
+
+To use this component:
+1. Ensure the component receives an array of timeline cards with date properties (e.g., `year` and `week`).
+2. Trigger world selection events to populate the card data.
+3. The component will automatically:
+   - Extract years from cards.
+   - Generate a year scale dynamically.
+   - Position markers based on card dates.
+   - Update reactively when new data is loaded.
+
+## Dependencies
+
+> `Vue.js (3.x)`
+> `Vuex (for state management)`
+> `possibly related Vue components for card rendering and event handling.`
+
+## Related
+
+- [[TIMELINE_DATA_STRUCTURE]]
+- [[REACTIVE_STATE_MANAGEMENT_DOCS]]
+- [[QURAAN_WORLD_EVENTS_CARD_FORMAT]]
+
+>[!INFO] Critical Fixes Implemented
+> The removal of `setTimeout` hacks and the adoption of reactive watchers (`deep: true`) significantly improved performance and responsiveness, eliminating flickering and delays during updates.
+>
+
+>[!WARNING] Future Considerations
+> While the current implementation is robust, consider adding a loading indicator during year extraction to enhance user experience during transitions. This would prevent visual gaps during dynamic updates.

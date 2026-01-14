@@ -1,0 +1,43 @@
+### TAGS
+#duplicate_files
+#css_audit
+#file_migration
+#deprecated_directory
+#import_verification
+
+### TYPE
+documentation
+
+### SUMMARY
+Audit report identifying and resolving duplicate CSS files across two directories, ensuring consistent styling and removing deprecated paths.
+
+### DETAILS
+This document identifies duplicate CSS files between `/ui-beta/src/styles/` (primary) and `/ui-beta/styles/` (deprecated). The audit compares file contents, highlights discrepancies, and documents incorrect import patterns. The goal is to standardize imports to `/ui-beta/src/styles/` while removing redundant files and deprecated paths. The report includes verification steps, migration status, and next actions to ensure all components reference the correct stylesheets.
+
+### KEY_FUNCTIONS
+- **Duplicate File Detection**: Identifies identical or functionally redundant CSS files across directories.
+- **Import Pattern Validation**: Ensures all imports use correct relative paths (e.g., `./styles/` instead of deprecated `/styles/`).
+- **Deprecated Directory Removal**: Guides removal of `/ui-beta/styles/` after verification.
+- **Migration Status Tracking**: Tracks progress of file updates and cleanup tasks.
+
+### DEPENDENCIES
+- CSS files in `/ui-beta/src/styles/` and `/ui-beta/styles/`
+- JavaScript imports (e.g., `main.js`, Vue components) referencing CSS paths
+- Application build tools (e.g., Webpack/Vite) for dependency resolution
+
+### USAGE
+1. **Review**: Confirm all CSS files listed are either active or deprecated.
+2. **Fix Imports**: Update `main.js` and Vue components to use `./styles/` (relative to `src/`).
+3. **Verify**: Run the app to check for broken imports or styling issues.
+4. **Cleanup**: Delete `/ui-beta/styles/` after confirming no remaining references exist.
+5. **Document**: Update project documentation to reference only `/ui-beta/src/styles/`.
+
+### RELATED
+[[Duplicate_File_Management_Guidelines]], [[CSS_Import_Patterns_Checklist]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **Primary Directory**: `/ui-beta/src/styles/` is the active directory. All new imports must reference files here (e.g., `import './styles/color-scheme.css'`). Avoid hardcoding `/styles/` at the root level.
+>
+>[!WARNING]- Caution
+> **Broken Imports Risk**: Incorrect paths (e.g., `../../styles/components.css`) may cause styling errors. Always verify imports after migration. If errors persist, recheck relative paths in `main.js` and component files.

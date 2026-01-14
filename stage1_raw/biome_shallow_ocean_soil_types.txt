@@ -1,0 +1,39 @@
+### TAGS
+#biome
+#ecology
+#soil_types
+#shallow_ocean
+#organic_soil
+#mineral_rich
+
+### TYPE
+documentation
+
+### SUMMARY
+Describes soil type classifications for shallow ocean biomes, emphasizing organic and silicate-rich compositions.
+
+### DETAILS
+This file categorizes soil types found in shallow ocean environments, focusing on two primary compositions: **Organic-rich** (derived from decomposed marine organisms) and **Silicate-rich** (mineral-based, sourced from volcanic or sedimentary deposits). The term *Hydroponic* is likely a placeholder or misnomer here, potentially referencing nutrient-rich, water-based conditions rather than a distinct soil type.
+
+### KEY_FUNCTIONS
+- **Organic-rich**: Represents soil enriched with decomposed organic matter (e.g., plankton, coral, or algae), critical for microbial activity and nutrient cycling in shallow marine ecosystems.
+- **Silicate-rich**: Indicates mineral-dominated soil, often formed from weathered volcanic rock or sediment, providing essential minerals like calcium, magnesium, and phosphorus.
+- **Hydroponic**: Describes a non-soil condition where nutrients are dissolved in water (e.g., nutrient films or recirculating aquaculture systems), though its relevance here may be context-dependent.
+
+### DEPENDENCIES
+none (standalone classification system)
+
+### USAGE
+This classification is typically used in:
+- **Ecological modeling** of shallow marine biomes (e.g., coral reefs, mangroves).
+- **Biofilm or sediment analysis** in oceanographic research.
+- **Game/environment design** for biome-specific soil properties (e.g., game engines like Unity/Unreal).
+
+### RELATED
+[[Ocean Soil Composition Guide]], [[Shallow Marine Ecosystem Types]], [[Biogeochemical Cycles in Aquatic Systems]]
+
+### CALLOUTS
+>[!INFO]- Contextual Note
+> In shallow ocean settings, **organic-rich** soils often correlate with high primary productivity (e.g., phytoplankton blooms), while **silicate-rich** soils may limit plant growth due to nutrient scarcity unless supplemented by upwelling.
+>[!WARNING]- Terminology Clarification
+> "Hydroponic" here is ambiguous—if referring to nutrient solutions, it’s not a soil type but a growth medium. Verify its intended meaning in the broader project context.

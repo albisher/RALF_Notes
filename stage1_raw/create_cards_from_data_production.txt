@@ -1,0 +1,46 @@
+### TAGS
+#API-integration
+#data-processing
+#authentication
+#database-creation
+#scripting
+
+### TYPE
+code-production
+
+### SUMMARY
+Script automates creation of game cards from a JSON array in `cards-data.js`, using authenticated API calls to a backend system.
+
+### DETAILS
+This script reads a JavaScript file (`cards-data.js`) containing a `CARDS_DATA` array, parses it into structured JSON, and sends each card to a backend API to create database entries. It handles authentication via JWT tokens, validates world existence, and processes card metadata (type, description, image, coordinates, etc.) before submission. The script follows a box-based architecture, relying on a production API for world and card management.
+
+### KEY_FUNCTIONS
+- **`authenticate()`**: Generates a JWT token using test credentials for API access.
+- **`get_world_by_name(token, world_name)`**: Retrieves the world ID from the API by matching the provided world name.
+- **`create_world(token, world_name, description, world_type)`**: Creates a new world in the API if it doesn’t exist.
+- **`parse_cards_data()`**: Extracts and parses the `CARDS_DATA` array from `cards-data.js` into a Python list of dictionaries.
+- **`convert_card_to_api_format(card, world_id)`**: Transforms card data from the JS file format into the expected API structure, including world association and metadata.
+- **`create_card(token, card_data)`**: Submits a card to the API, handling duplicates and errors gracefully.
+
+### DEPENDENCIES
+requests, json, sys, os, pathlib, backend (local module path)
+
+### USAGE
+1. Run the script after ensuring:
+   - `cards-data.js` exists in the specified path (`ui-beta/data/`).
+   - The backend API (`http://localhost:8888/api`) is running.
+   - Authentication credentials (`TEST_USERNAME`, `TEST_PASSWORD`) are valid.
+2. The script will:
+   - Authenticate and fetch world IDs.
+   - Create missing worlds (if needed).
+   - Process each card in `CARDS_DATA`, converting it to API format and submitting it.
+   - Log success/errors for each operation.
+
+### RELATED
+[[backend-api-docs]], [[cards-data-js-format]]
+
+### CALLOUTS
+>[!INFO]- Authentication Note
+> Uses hardcoded test credentials (`TEST_USERNAME`, `TEST_PASSWORD`). In production, replace with environment variables or secure credentials.
+>[!WARNING]- Error Handling
+> Silent duplicates are allowed (skipped via `allow_duplicate` check). Critical failures (e.g., API downtime) raise exceptions—ensure retry logic is implemented externally.

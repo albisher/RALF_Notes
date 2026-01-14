@@ -1,0 +1,53 @@
+**Tags:** #biome, #volcanic, #light_levels, #geothermal, #infrared, #environmental_data
+**Created:** 2026-01-13
+**Type:** data-configuration
+
+# biome_volcanic_light_levels
+
+## Summary
+
+```
+Defines light-level configurations for volcanic biomes, including sunlight and geothermal/IR influences.
+```
+
+## Details
+
+> This file appears to define environmental light-level parameters for volcanic biomes, likely used in a game or simulation to model how volcanic activity affects lighting. The data includes:
+> - **Bright Sunlight**: Likely a baseline or primary light source.
+> - **Geothermal**: Represents heat and light emitted from volcanic activity, contributing to ambient lighting.
+> - **Infrared Spectrum**: Describes how volcanic heat influences infrared radiation, affecting visibility or perception in the environment.
+> 
+> The values may be used to dynamically adjust lighting effects (e.g., glow, glowmaps, or visibility thresholds) in a game or procedural generation system.
+
+## Key Functions
+
+### `Lighting Override`
+
+Applies volcanic-specific light adjustments (e.g., glow intensity, spectral shifts).
+
+### `Environmental Simulation`
+
+Modifies lighting based on geothermal/IR emissions for volcanic terrain.
+
+## Usage
+
+This file would typically be loaded as a data table or JSON/YAML configuration in a game engine or simulation framework. Example usage:
+```plaintext
+// In a game's lighting system:
+load_light_config("biome_volcanic_light_levels");
+apply_volcanic_light_effects();
+```
+
+## Dependencies
+
+> `none (standalone data configuration)`
+
+## Related
+
+- [[none]]
+
+>[!INFO] Contextual Use
+> This file is likely part of a larger biome system where volcanic terrain requires dynamic lighting adjustments (e.g., lava glow, thermal radiation effects). Ensure compatibility with the game’s lighting API.
+
+>[!WARNING] Data Interpretation
+> Values for "Geothermal" and "Infrared Spectrum" may require calibration—excessive values could cause visual artifacts (e.g., overbrightness or unrealistic heat effects). Test in-game with realistic volcanic scenarios.

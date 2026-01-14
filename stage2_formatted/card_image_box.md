@@ -1,0 +1,62 @@
+**Tags:** #AI_integration, #card_generation, #user_upload, #box_interface, #async_processing
+**Created:** 2026-01-13
+**Type:** documentation
+
+# card_image_box
+
+## Summary
+
+```
+Handles AI-driven or manual card image generation via structured input/output.
+```
+
+## Details
+
+> This `CardImageGeneratorBox` class implements a modular component for generating or processing card images. It supports two operations: AI-assisted generation (using a prompt from a card description) or direct upload of an image via URL. The class delegates AI generation logic to an external `AIServiceOrchestratorBox` and validates input requirements. For now, it returns a placeholder response with a "pending" status, indicating async processing.
+
+## Key Functions
+
+### ``__init__()``
+
+Initializes the box with a name, description, and AI orchestrator dependency.
+
+### ``execute(input_data`
+
+BoxInput) -> BoxOutput`**: Orchestrates image generation/processing based on input operation type ("generate" or "upload").
+
+### `For "generate"`
+
+Validates `card_description`, constructs a prompt, and returns a placeholder response.
+
+### `For "upload"`
+
+Validates `image_url` and returns the provided URL with a "uploaded" status.
+
+### ``AIServiceOrchestratorBox``
+
+External dependency for AI-based image generation (placeholder logic).
+
+## Usage
+
+1. **Initialize**: Create an instance of `CardImageGeneratorBox`.
+2. **Execute**:
+   - For **generation**: Pass `{"operation": "generate", "card_description": "description", "provider": "gemini"}`.
+   - For **upload**: Pass `{"operation": "upload", "image_url": "URL"}`.
+3. **Output**: Returns `BoxOutput` with `image_url`, `image_prompt`, and `status` (e.g., "pending" or "uploaded").
+
+## Dependencies
+
+> ``..core.box_interface``
+> ``..ai_services.ai_service_orchestrator``
+> ``logging``
+
+## Related
+
+- [[`Box` class in `core]]
+- [[`AIServiceOrchestratorBox`]]
+
+>[!INFO] Placeholder Logic
+> The `execute()` method currently returns a placeholder response for AI generation. Actual image generation is delegated to `AIServiceOrchestratorBox` but not fully implemented here.
+
+>[!WARNING] Input Validation
+> Missing required fields (e.g., `card_description` for "generate") will trigger a `success=False` response with an error message. Always validate inputs before calling this box.

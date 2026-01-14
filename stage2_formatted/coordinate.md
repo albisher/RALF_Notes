@@ -1,0 +1,63 @@
+**Tags:** #deterministic-coordinates, #cryptographic-hashing, #geospatial, #spherical-to-cartesian
+**Created:** 2026-01-13
+**Type:** code-library
+
+# coordinate
+
+## Summary
+
+```
+Generates deterministic geographic coordinates (latitude/longitude) from hashed input, including conversion to Cartesian coordinates.
+```
+
+## Details
+
+> This script uses SHA-256 hashing to derive deterministic geographic coordinates from user input. It first computes a hash of the input string, then derives floating-point values between 0.0–1.0 for latitude and longitude scaling, mapping them to Earth’s ±90°/±180° ranges. The `derive_float_from_hash()` function splits the hash into a pseudo-random integer, normalizing it to a float. The script also converts these spherical coordinates (latitude/longitude) into Cartesian (x,y,z) using Earth’s radius (6371 km) and trigonometric functions.
+
+## Key Functions
+
+### `hash_input(input_str)`
+
+Generates SHA-256 hash of input text.
+
+### `derive_int_from_hash(input_hash, salt, max_value)`
+
+Extracts a deterministic integer from a hash and salt, constrained to `[0, max_value)`.
+
+### `derive_float_from_hash(input_hash, salt)`
+
+Derives a float in [0.0, 1.0) using a 64-bit hash segment.
+
+### `generate_coordinates(input_hash)`
+
+Maps a hash-derived float to latitude/longitude ranges [-90, 90] and [-180, 180].
+
+### `Main execution`
+
+Handles user input, computes coordinates, formats output, and calculates Cartesian coordinates.
+
+## Usage
+
+1. Run the script and input any text (e.g., `"my_location"`).
+2. The script outputs:
+   - Raw latitude/longitude (e.g., `40.712834, -74.006015`).
+   - Formatted cardinal directions (e.g., `N40.712834, W74.006015`).
+   - Cartesian coordinates (x,y,z) in km from Earth’s center.
+
+## Dependencies
+
+> ``hashlib``
+> ``sys``
+> ``os``
+> ``math``
+
+## Related
+
+- [[Obsidian:Geospatial Hashing]]
+- [[Obsidian:Deterministic Coordinate Systems]]
+
+>[!INFO] Salt Usage
+> Salt (`"latitude_salt"`/`"longitude_salt"`) ensures deterministic reproducibility across different hash segments. Without salt, identical inputs would produce identical coordinates.
+
+>[!WARNING] Edge Cases
+> If `max_value` in `derive_int_from_hash()` is zero, the function returns `0` (no distribution). For floats, ensure `max_int_val` (e.g., `2**64`) is large enough to avoid bias.

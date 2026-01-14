@@ -1,0 +1,36 @@
+### TAGS
+#SSL
+#Certificates
+#Development
+#Self-Signed
+#Bash-Script
+
+### TYPE
+code-notes
+
+### SUMMARY
+Generates self-signed SSL certificates for local development environments.
+
+### DETAILS
+This script automates the creation of a self-signed SSL certificate and private key using OpenSSL, configured for local development (e.g., `localhost` and `127.0.0.1`). It ensures the directory `nginx/ssl` exists before generating the files, which are stored in `cert.pem` (certificate) and `key.pem` (private key). The certificate is valid for 365 days and includes an extended key usage (EKU) for TLS/SSL.
+
+### KEY_FUNCTIONS
+- **`openssl req`**: Generates a self-signed certificate with specified parameters.
+- **`mkdir -p nginx/ssl`**: Creates the directory structure for storing SSL files if it doesn’t exist.
+
+### DEPENDENCIES
+OpenSSL, Bash shell.
+
+### USAGE
+1. Save the script as `generate-dev-certs.sh`.
+2. Run it with `./generate-dev-certs.sh` in the directory containing the `nginx/ssl` folder.
+3. Use the generated files (`cert.pem`, `key.pem`) in an Nginx or other web server configuration for HTTPS testing.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Ensure the script is executed in a directory where `nginx/ssl` already exists or the script will fail. The generated files are only valid for local testing (e.g., `localhost` or `127.0.0.1`).
+>[!WARNING]- Caution
+> Self-signed certificates are not trusted by default in browsers. Test locally or configure your system to trust the certificate (e.g., via browser exceptions or OS CA store).

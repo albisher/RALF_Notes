@@ -1,0 +1,49 @@
+### TAGS
+#frontend-backend-integration
+#api-validation
+#data-type-mismatch
+#user-interface-issues
+#real-browser-automation
+
+### TYPE
+documentation
+
+### SUMMARY
+Analyzes critical UI testing report for BrowserMCP, highlighting frontend-backend integration failures due to data type mismatches and API errors.
+
+### DETAILS
+This report documents critical issues in the BrowserMCP UI testing for the Zephyros Prime world, primarily caused by frontend-backend integration failures. The primary problems stem from incorrect data type handling (e.g., `world_id` sent as a number instead of a string) and malformed API requests, blocking core functionality like world selection, content generation, and map loading. The report traces these issues to schema validation errors, fetch failures, and HTTP 404 responses, with backend APIs confirmed to work independently. The timeline and map features remain unusable due to these blockers, reducing overall functionality to 25%.
+
+### KEY_FUNCTIONS
+- **WorldSelector**: Fails to populate dropdown due to `world_id` type mismatch.
+- **CardsAPI.list**: Throws schema validation error for non-string `world_id`.
+- **TimelinesAPI.list**: Same validation error as CardsAPI.
+- **GenerationAPI**: Returns fetch errors due to malformed request to `/generation/physical-form`.
+- **MapRender.loadData**: Fails to load `/ui-beta/data/processed_map.json` (404 HTML response instead of JSON).
+- **Backend APIs**: Confirmed working (e.g., Playwright tests verified worlds exist in the database).
+
+### DEPENDENCIES
+- Browser Automation Tools (Playwright, Selenium)
+- Frontend libraries (likely React/Angular for UI components)
+- Backend APIs (Node.js/Express or similar for `/generation/physical-form` and `/ui-beta/data/processed_map.json` endpoints)
+- Database (PostgreSQL/MySQL for world data)
+
+### USAGE
+To resolve these issues, developers should:
+1. **Fix `world_id` conversion** in the frontend to ensure string type before API calls.
+2. **Debug the generation API** by inspecting the fetch request (e.g., check URL parameters or headers).
+3. **Update timeline logic** to dynamically adjust year ranges based on selected world settings.
+4. **Verify map data endpoint** (e.g., check if `/ui-beta/data/processed_map.json` exists and returns JSON).
+
+### RELATED
+[[BrowserMCP Backend API Documentation]], [[World Selection UI Component]], [[Data Validation Schema]], [[Zephyros Prime Database Schema]]
+
+### CALLOUTS
+>[!INFO]- **Critical Data Type Issue**
+> The `world_id` validation error (`Field 'world_id' must be of type string`) is a frontend-backend mismatch. The backend expects a string, but the frontend sends a number (e.g., `42` for Zephyros Prime). This must be fixed in the frontend conversion logic before any API calls are made.
+>
+>[!WARNING]- **API Fetch Errors**
+> The generation API (`/generation/physical-form`) returns a fetch error (`Invalid value`), likely due to malformed URL parameters or headers. Debugging should start with the frontend fetch request to identify the exact cause (e.g., missing query parameters, incorrect CORS headers, or server-side validation).
+>
+>[!WARNING]- **404 on Map Data**
+> The map loading fails with a 404 HTML response instead of JSON, indicating the endpoint `/ui-beta/data/processed_map.json` either does not exist or returns an error. Verify the backend endpoint and ensure the frontend is correctly resolving the path. This could also be a caching issue if the file is dynamically generated.

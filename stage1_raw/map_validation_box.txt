@@ -1,0 +1,52 @@
+### TAGS
+#statistical-validation
+#world-generation
+#map-validation
+#three-pillars-analysis
+#spatial-data
+
+### TYPE
+documentation-research
+
+### SUMMARY
+Validates generated maps using statistical analysis of height distributions and spatial patterns.
+
+### DETAILS
+This `MapValidationBox` class implements a **Three-Pillars validation system** for map data, checking:
+1. **Mass Check** (histogram-based ratio of "stuff" vs empty space),
+2. **Clustering Check** (topological distribution of elements),
+3. **Geometry Check** (specific spatial shapes like spirals/ring formations).
+
+The system dynamically adapts to world types (e.g., "Planet," "Desert") via predefined expectations, defaulting to generic checks if no type-specific rules exist. Height values are extracted from either provided `cells` or `heights` dictionaries, then analyzed across all three pillars. Results are scored (0.0–1.0) and aggregated into a final `signature_score`, with detailed `issues` logged for failures.
+
+### KEY_FUNCTIONS
+- **`execute()`**: Orchestrates map validation based on input operation (e.g., `'validate_map'`).
+- **`_validate_map()`**: Core logic—validates input against world-type expectations, computes scores, and returns `BoxOutput`.
+- **`_pillar_a_mass_check()`**: Evaluates height distribution via histogram thresholds (e.g., `height_threshold=0.2`).
+- **`_pillar_b_clustering_check()`**: Assesses spatial clustering (e.g., cell adjacency patterns).
+- **`_pillar_c_geometry_check()`**: Detects predefined geometric shapes (e.g., spirals) in the map.
+- **`_build_expectations()`**: (Inferred) Populates `WORLD_EXPECTATIONS` with world-type-specific rules (not fully shown in snippet).
+
+### DEPENDENCIES
+`numpy`, `collections.deque`, `logging`, `Box` (from `..core.box_interface`), custom `BoxInput/BoxOutput` types.
+
+### USAGE
+1. **Initialize**: Call `MapValidationBox()` to create an instance.
+2. **Validate**: Pass a `BoxInput` with:
+   - `operation='validate_map'`
+   - `world_type` (e.g., `"Planet"`)
+   - `cells` (list of dictionaries with `i`/`h` keys) or `heights` (dictionary mapping cell IDs to heights).
+3. **Output**: Returns a `BoxOutput` with:
+   - `valid`: Boolean (all pillars passed).
+   - `pillar_results`: Dict of pillar-specific scores/reasons.
+   - `signature_score`: Combined metric (0.0–1.0).
+   - `issues`: List of validation failures.
+
+### RELATED
+[[Map Generation Pipeline]], [[Statistical World Design]], [[Three-Pillars Validation Framework]]
+
+### CALLOUTS
+>[!INFO]- Dynamic World Type Handling
+> If `world_type` is unknown, the system defaults to `'planet'` expectations, logging a warning. Customize `WORLD_EXPECTATIONS` to add type-specific rules (e.g., `'desert'` thresholds).
+>[!WARNING]- Empty Inputs
+> Missing `cells` or `heights` triggers a failure with a descriptive error. Always validate input data before passing to this box.

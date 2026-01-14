@@ -1,0 +1,37 @@
+### TAGS
+#verification
+#backend-check
+#frontend-check
+#api-testing
+#authentication
+#world-edit-route
+
+### TYPE
+code-test
+
+### SUMMARY
+Checks accessibility of frontend/backend and validates the WorldEdit route structure and authentication requirements.
+
+### DETAILS
+This script performs a multi-step verification of a web application's WorldEdit route functionality. It first checks if the frontend (running on port 5173) and backend (running on port 5000) are accessible, then tests the `/api/worlds` endpoint to confirm world data retrieval. If authentication is required, it logs this expectation. The script validates the route structure for editing a world (`/worlds/:id/edit`) and provides a summary of next steps for manual verification, including login and navigation.
+
+### KEY_FUNCTIONS
+- **verifyWorldEditRoute**: Orchestrates the entire verification process, logging each step and handling errors.
+- **axios.get**: Used internally to make HTTP requests to test endpoints (frontend/backend/Worlds API).
+
+### DEPENDENCIES
+axios, Node.js runtime
+
+### USAGE
+1. Install dependencies (`npm install axios`).
+2. Run the script (`node verify-world-edit-route.js`).
+3. Follow the next-steps summary to manually verify functionality.
+
+### RELATED
+[[WorldEdit.vue]], [[router configuration]], [[backend API endpoints]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script intentionally skips authentication checks for `/api/worlds` to avoid requiring manual login during automated testing. If authentication is required, the API will throw an error, and the script will log this as expected.
+>[!WARNING]- Caution
+> Ensure ports 5173 and 5000 are not already in use by another application to avoid connection errors. The script will fail if these endpoints are unavailable.

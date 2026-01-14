@@ -1,0 +1,69 @@
+**Tags:** #SVG, #MapRendering, #DataProcessing, #DOMManipulation, #BoxPattern, #AsynchronousProcessing
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# map_render_box
+
+## Summary
+
+```
+Centralized SVG-based map rendering logic with error handling and data validation for a modular architecture.
+```
+
+## Details
+
+> The `MapRenderBox` class extends a base `Box` component to handle map rendering operations, including loading and rendering map data (e.g., terrain, coordinates) into an SVG container. It supports both legacy and modern map data formats, dynamically adjusts SVG dimensions, and validates input before execution. The class internally uses a `MapColorBox` for color assignment and a `DataLoadingBox` for fetching external data.
+> 
+> Key workflows include:
+> 1. **Operation Validation**: Checks if required fields (e.g., `containerId`, `dataPath`) are provided for `loadData` or `render` operations.
+> 2. **DOM Manipulation**: Dynamically queries and modifies SVG layers (e.g., `.map-layer`, `.markers-layer`) to render coordinates or map features.
+> 3. **Error Handling**: Returns structured `BoxOutput` errors (e.g., missing fields, invalid container IDs) with appropriate `BoxErrorCode` and `BoxErrorCategory`.
+
+## Key Functions
+
+### ``constructor()``
+
+Initializes the box with dependencies (`MapColorBox`, `DataLoadingBox`) and configures input/output schemas.
+
+### ``_executeInternal(inputData)``
+
+Orchestrates the rendering logic based on the `operation` (e.g., `loadData`, `render`). Delegates to helper methods like `_loadMapData` or `_renderCoordinates`.
+
+### ``_renderMapData(mapLayer, mapData, width, height)``
+
+Clears and repaints the map layer using sanitized data, supporting both legacy and Voronoi-structured formats.
+
+### ``_renderCoordinates(markersLayer, coordinates, width, height)``
+
+Plots coordinates as markers on the map layer.
+
+### ``_renderPlaceholder(mapLayer, null, width, height)``
+
+Conditionally renders a placeholder if no map data is provided.
+
+## Usage
+
+1. **Initialize**: Create an instance of `MapRenderBox`.
+2. **Trigger Operations**:
+   - **`loadData`**: Pass a `dataPath` to fetch external map data (e.g., JSON/GeoJSON).
+   - **`render`**: Provide `containerId`, `coordinates`, and optional `mapData` to render the map.
+3. **Output**: Returns a success/error object with `rendered: true` on success or an error code on failure.
+
+## Dependencies
+
+> ``../core/box_interface.js``
+> ``../../utils/sanitize.js``
+> ``../../services/config.js``
+> ``./data_loading_box.js``
+> ``../maps/map_color_box.js``
+
+## Related
+
+- [[SpacePeralMapRenderingArchitecture]]
+- [[BoxPatternImplementationGuide]]
+
+>[!INFO] Dynamic Layer Selection
+> The code dynamically queries SVG layers (e.g., `.map-layer`, `.markers-layer`) using `querySelector`, supporting both old and new DOM structures. If a layer is missing, it falls back to the parent SVG container.
+
+>[!WARNING] Sequential Execution
+> `supportsParallel: false` enforces sequential DOM operations to avoid rendering conflicts. Excessive parallelism could break layout or cause visual artifacts.

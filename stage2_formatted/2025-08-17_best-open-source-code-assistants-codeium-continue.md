@@ -1,0 +1,101 @@
+**Tags:** #open-source-tools, #ai-integration, #code-assistants, #project-management, #vuejs, #python, #docker, #perplexity-api, #n8n-integration, #make-com-orchestration
+**Created:** 2026-01-13
+**Type:** research-comparison
+
+# 2025-08-17_best-open-source-code-assistants-codeium-continue
+
+## Summary
+
+```
+Compares open-source code assistants (Codeium, Continue, Void, Aider) and project management tools (OpenProject, Redmine, Focalboard) for a Vue.js + Python + Docker project with AI-driven world-building, emphasizing custom LLM API support, no subscription limits, and workflow orchestration with n8n/Make.com.
+```
+
+## Details
+
+> The analysis evaluates four open-source code assistants (Codeium, Continue, Void, Aider) and three project management tools (OpenProject, Redmine, Focalboard) based on their compatibility with a **Vue.js + Python + Docker** stack, support for **custom LLM APIs (e.g., Perplexity)**, absence of subscription limits, and integration with **n8n/Make.com workflows**. Each tool’s features—such as IDE support, context awareness, and privacy—are weighed for a **world-building AI story generation** use case.
+> 
+> **Key focus areas** include:
+> - **LLM flexibility** (e.g., Perplexity API, local models).
+> - **Self-hosting/privacy** (avoiding vendor lock-in).
+> - **Workflow automation** (e.g., n8n/Make.com orchestration).
+> - **Context-aware code generation** for complex projects.
+
+## Key Functions
+
+### `Codeium`
+
+Context-aware code completion, multi-language support, custom LLM API key integration, and IDE plugin compatibility.
+
+### `Continue`
+
+Flexible AI model integration, API-first design for workflow automation, and self-hostable options.
+
+### `Void`
+
+Fully open-source, privacy-focused, customizable IDE, and local model support.
+
+### `Aider`
+
+Multi-LLM support (e.g., GPT-4o), real-time debugging, and debugging-focused code suggestions.
+
+### `OpenProject`
+
+Agile/Scrum/Kanban boards, customizable workflows, and self-hostable with no subscription limits.
+
+### `Redmine`
+
+Feature-rich project management with Gantt charts, wiki support, and open-source compliance.
+
+### `Focalboard`
+
+Lightweight, modern UI, and cloud/self-hostable with minimal subscription restrictions.
+
+## Usage
+
+1. **For Code Assistants**:
+   - Install the IDE plugin (e.g., Codeium for VS Code).
+   - Configure custom LLM API keys (e.g., Perplexity) via tool settings.
+   - Use context-aware suggestions for Vue.js/Python code.
+   - Integrate with n8n/Make.com via API endpoints for workflow automation.
+
+2. **For Project Management**:
+   - Deploy OpenProject/Redmine/Focalboard via Docker (e.g., `docker-compose`).
+   - Connect to Perplexity API or other LLMs via custom plugins/workflows.
+   - Use Kanban/Gantt boards for task management and link to code repos (GitHub/GitLab).
+
+## Dependencies
+
+> `- **Code Assistants**: VS Code`
+> `JetBrains`
+> `Vim/Neovim plugins; Python/Python libraries (e.g.`
+> ``llm-api-client` for custom LLM integration).
+- **Project Management**: Docker (for self-hosting)`
+> `Node.js (for n8n/Make.com workflows)`
+> `PostgreSQL/MySQL (for OpenProject/Redmine databases).
+- **AI Integration**: Perplexity API`
+> `Hugging Face API`
+> `or custom LLM backends.`
+
+## Related
+
+- [[OpenProject Documentation]]
+- [[Redmine Wiki]]
+- [[Focalboard Self-Hosting Guide]]
+- [[Codeium GitHub Repo]]
+- [[Continue GitHub Repo]]
+- [[Void GitHub Repo]]
+- [[Aider GitHub Repo]]
+- [[Perplexity API Docs]]
+- [[n8n Workflow Examples]]
+
+>[!INFO] **Perplexity API Priority**
+> Prioritize tools supporting **Perplexity API** (e.g., Continue, Codeium) for AI story generation in world-building, as it excels in long-context queries and creative outputs.
+
+>[!WARNING] **Self-Hosting Trade-offs**
+> Void/Aider/Continue offer self-hosting, but Void’s ecosystem is less mature. Ensure sufficient resources (CPU/RAM) for local LLM inference if using Void/Aider.
+
+>[!INFO] **Workflow Orchestration**
+> Use n8n/Make.com to bridge code assistants (e.g., Codeium) and project tools (e.g., OpenProject) for automated task routing (e.g., pull requests → AI-generated docs).
+
+>[!WARNING] **Privacy vs. Features**
+> Void prioritizes privacy but may lack advanced features (e.g., debugging). Balance privacy needs with tool maturity for your project’s scale.

@@ -1,0 +1,46 @@
+### TAGS
+#database-ops
+#authentication
+#timeline-management
+#event-handling
+#orm-validation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Handles creation of new timeline events with validation and security checks.
+
+### DETAILS
+This box validates required fields (e.g., `timeline_id`, `world_id`) and ensures the user owns the referenced timeline/world before persisting a new `TimelineEvent` record. It inherits optional fields like `time_period_classification` from the timeline if not provided. The system logs success/failure and returns serialized event data or an error message.
+
+### KEY_FUNCTIONS
+- **`execute()`**: Core logic—validates input, checks permissions, creates event, and commits to DB.
+- **`TimelineEventWriteBox`**: Wrapper class inheriting from `Box` for structured event creation.
+
+### DEPENDENCIES
+`..core.box_interface`, `models.db`, `models.Timeline`, `models.World`, `models.TimelineEvent`
+
+### USAGE
+```python
+input_data = {
+    'event_data': {
+        'timeline_id': 1,
+        'world_id': 1,
+        'title': 'Battle of Waterloo',
+        'event_date': '1815-07-19',
+        'time_period_classification': '19th Century'
+    },
+    'user_id': 10
+}
+output = box.execute(input_data)  # Returns BoxOutput with success/error
+```
+
+### RELATED
+[[`core.box_interface`]], [[`models.Timeline`]], [[`models.World`]], [[`models.TimelineEvent`]]
+
+### CALLOUTS
+>[!INFO]- Required Fields
+> Mandatory fields (`timeline_id`, `world_id`, `title`, `event_date`) must be provided in `event_data`.
+>[!WARNING]- Permission Denied
+> If `user_id` doesn’t match the owner of `timeline_id`/`world_id`, access is denied.

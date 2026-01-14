@@ -1,0 +1,80 @@
+**Tags:** #UI/UX_Testing, #Accessibility_Audit, #User_Experience_Analysis, #Browser_Tools_Limitation, #Heuristic_Evaluation
+**Created:** 2026-01-13
+**Type:** documentation-research
+
+# UI_UX_AGENT
+
+## Summary
+
+```
+A specialized UI/UX testing agent designed to conduct comprehensive user experience validation using restricted browser tools, emphasizing usability, accessibility, and workflow analysis.
+```
+
+## Details
+
+> The `UI_UX_AGENT` is a specialized AI tool constrained to 26 browser tools, focusing on UI/UX testing beyond basic automation. It evaluates user journeys, identifies friction points, and applies expert-level heuristics (Nielsen’s 10 heuristics, WCAG 2.1 POUR principles) to assess usability, accessibility, and design consistency. The agent prioritizes contextual analysis—such as form validation, error states, and micro-interactions—while adhering to strict tool restrictions (e.g., no file system or terminal access).
+
+## Key Functions
+
+### `User Journey Analysis`
+
+Tests complete workflows, not isolated interactions, to uncover systemic UX issues.
+
+### `Accessibility Auditing`
+
+Validates compliance with WCAG 2.1 (e.g., keyboard navigation, ARIA labels, color contrast).
+
+### `Performance & SEO Audits`
+
+Runs audits for best practices (e.g., `mcp_browser-tools_runPerformanceAudit`).
+
+### `Micro-Interaction Testing`
+
+Evaluates animations, feedback loops, and error recovery mechanisms.
+
+### `Responsive Design Validation`
+
+Checks behavior across viewport sizes and device types.
+
+### `Error State Analysis`
+
+Assesses form validation, empty states, and loading indicators.
+
+### `Heuristic Evaluation`
+
+Applies Nielsen’s usability heuristics to identify usability gaps.
+
+## Usage
+
+1. **Define Expert Role**: Frame prompts as a senior UI/UX specialist (e.g., "Act as a WCAG auditor").
+2. **Provide Context**: Include design systems, user personas, and constraints (e.g., "Target WCAG 2.1 AA").
+3. **Decompose Tasks**: Break evaluations into phases (e.g., navigation → forms → accessibility).
+4. **Use Frameworks**: Explicitly reference heuristics (Nielsen/WCAG) or best practices (e.g., "Aesthetic Minimalism").
+5. **Iterate**: Refine prompts based on agent feedback (e.g., "Identify friction points in this workflow").
+
+## Dependencies
+
+> ``mcp_browsermcp_*` (12 tools): Browser navigation`
+> `clicks`
+> `typing`
+> `waits`
+> `and snapshots.
+`mcp_browser-tools_*` (14 tools): Console logs`
+> `screenshots`
+> `accessibility/performance audits`
+> `and debug modes.`
+
+## Related
+
+- [[UI_Testing_Guidelines]]
+- [[WCAG_2]]
+- [[Nielsen_Usability_Heuristics]]
+
+>[!INFO] Critical Tool Restriction
+> The agent **cannot** use any tools outside the 26-browser-tool limit, including extensions, file I/O, or code execution. Always verify tool usage explicitly in prompts.
+
+>[!WARNING] Context Dependency
+> Without detailed context (e.g., design system, user personas), the agent may produce generic or incomplete UX insights. Provide exhaustive background data to maximize accuracy.
+
+>[!INFO] Heuristic Bias
+> The agent’s expertise is tied to structured frameworks (Nielsen/WCAG). Prompts must explicitly reference these to avoid superficial analysis. Example: "Evaluate against WCAG 2.1 POUR principles."

@@ -1,0 +1,75 @@
+**Tags:** #Flask, #API, #Database, #Linking, #JWT, #CRUD
+**Created:** 2026-01-13
+**Type:** documentation
+
+# linking_bp
+
+## Summary
+
+```
+Flask blueprint for managing and linking hash-based entities with JWT authentication, supporting CRUD operations.
+```
+
+## Details
+
+> This code defines a Flask blueprint (`LinkingAPIBox`) for handling linking operations between entities (e.g., physical/personality, location/time). It uses a layered architecture with separate database communication boxes (`LinkReadBox`, `LinkWriteBox`, etc.) to abstract DB operations. The blueprint registers three main routes:
+> - **POST `/link`**: Creates a new link with validation for required fields (`source_hash`, `target_hash`, `link_type`).
+> - **GET `/links`**: Lists user-specific links, optionally filtered by `link_type`.
+> - **GET/PUT/DELETE `/link/<link_id>`**: Manages individual links via read/update/delete operations.
+> 
+> JWT authentication ensures only authenticated users can interact with endpoints. Error handling includes logging, rollback on failures, and appropriate HTTP status codes.
+
+## Key Functions
+
+### ``LinkingAPIBox``
+
+Core class initializing blueprint and route registrations.
+
+### ``create_link``
+
+Handles POST `/link`—validates input and delegates to `LinkWriteBox`.
+
+### ``list_links``
+
+Handles GET `/links`—filters and orders links via `LinkReadBox`.
+
+### ``manage_link``
+
+Handles CRUD operations on a specific link via `LinkReadBox`/`LinkUpdateBox`.
+
+### ``_register_routes``
+
+Internal method registering all API endpoints on the blueprint.
+
+## Usage
+
+1. Initialize `LinkingAPIBox()` to create the blueprint.
+2. Register the blueprint in your Flask app (e.g., `app.register_blueprint(box.blueprint)`).
+3. Use endpoints:
+   - **Create**: `POST /api/linking/link` with JSON body `{source_hash, target_hash, link_type, link_name, metadata}`.
+   - **List**: `GET /api/linking/links?link_type=<value>`.
+   - **Update/Delete**: `PUT/DELETE /api/linking/link/<id>`.
+
+## Dependencies
+
+> ``flask``
+> ``flask-jwt-extended``
+> ``models.db``
+> ``Link``
+> ``BoxInput``
+> ``LinkReadBox``
+> ``LinkWriteBox``
+> ``LinkUpdateBox``
+> ``LinkDeleteBox`.`
+
+## Related
+
+- [[Flask Blueprint Documentation]]
+- [[JWT Authentication Guide]]
+- [[Database Models for Links]]
+
+>[!INFO] **JWT Dependency**
+> Requires `flask-jwt-extended` for authentication. Ensure `get_jwt_identity()` is available in your app context.
+
+>[!WARNING] **Error Handling**
+> Database rollback occurs on exceptions, but missing error details may obscure issues. Validate `LinkWriteBox`/`LinkUpdateBox` responses for consistency.

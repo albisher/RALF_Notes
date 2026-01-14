@@ -1,0 +1,52 @@
+### TAGS
+#Vue.js
+#Reactivity System
+#Dependency Injection
+#Module Preloading
+#Webpack/Vite Asset Handling
+
+### TYPE
+code-notes
+
+### SUMMARY
+This snippet is a core part of Vue.js 3’s reactivity system and asset dependency management, handling effect scopes, dependency tracking, and module preloading.
+
+### DETAILS
+This code defines:
+1. **`__vite__mapDeps`** – A utility for mapping Vite/Vue asset dependencies (e.g., JS/CSS files) to resolve module references.
+2. **Module Preloading** – A function to preload modules via `<link rel="modulepreload">` tags, ensuring assets load early.
+3. **Reactivity Core (`Eh` class)** – Manages effect scopes, pausing/resuming reactivity, and cleanup logic for Vue’s reactivity system.
+4. **Dependency Tracking (`Ih` class)** – Tracks reactive dependencies (`deps`) and triggers updates when dependencies change.
+5. **Utility Helpers** – Includes string manipulation (`$t`, `NS`), ref handling (`Ch`, `rt`), and type checks (`Sh`, `bh`).
+
+The code also initializes a **global reactivity context (`Yt`)** and defines helper functions like `cr` (effect creation), `zt` (cleanup registration), and `Ph` (scope access).
+
+### KEY_FUNCTIONS
+- `__vite__mapDeps`: Maps asset dependencies for Vite/Vue.
+- `module preloading logic`: Preloads modules via `<link>` tags for faster rendering.
+- `Eh` (Reactivity Scope): Manages effect execution, pausing, and cleanup.
+- `Ih` (Effect): Tracks dependencies and triggers updates.
+- `cr`: Creates a new effect scope.
+- `Ph`: Returns the current reactivity scope.
+- `zt`: Registers cleanup functions.
+- `NS`: Parses strings into key-value pairs (e.g., imports like `import { X } from "Y"`).
+- `rt`: Serializes values (e.g., refs, objects) for logging/debugging.
+
+### DEPENDENCIES
+`Vue.js 3.5.18`, `Webpack/Vite`, `ES6+`, `Modern Browsers` (for reactivity system).
+
+### USAGE
+This code is part of Vue’s core reactivity system and asset loading. It:
+1. **Preloads modules** for faster rendering.
+2. **Tracks dependencies** to optimize reactivity updates.
+3. **Manages effect scopes** for performance isolation.
+
+### RELATED
+[[Vue 3 Reactivity Core]], [[Vite Asset Handling]], [[Webpack Module Preloading]]
+
+### CALLOUTS
+>[!INFO]- **Reactivity Scope Management**
+> The `Eh` class (`Yt`) controls effect execution, pausing, and cleanup. Detached scopes (`detached: true`) avoid parent scope cleanup.
+>
+>[!WARNING]- **Dependency Tracking**
+> `Ih` uses a `WeakSet` (`Mi`) to track effects, but manual cleanup (`stop()`) is required to avoid memory leaks.

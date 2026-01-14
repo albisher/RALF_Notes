@@ -1,0 +1,40 @@
+### TAGS
+#map-viewing
+#optimization
+#2D-viewer
+#coordinate-centering
+#box-pattern
+#world-map
+#single-source-truth
+
+### TYPE
+code-notes
+
+### SUMMARY
+Optimizes map rendering by centralizing maps at (0,0) and reducing empty space via a dedicated box system for consistent 2D map positioning.
+
+### DETAILS
+This implementation introduces a `MapViewOptimizationBox` to standardize map rendering across multiple world types. The box calculates optimal zoom levels and view offsets based on actual map vertex data, ensuring minimal empty space and centering at (0,0) coordinates. It replaces previous ad-hoc positioning logic, enforcing a single source of truth for all map viewers, including `WorldMap2D.vue` and `TopTimelineMap.vue`. The solution dynamically adjusts view bounds, padding, and scaling to fit content efficiently while supporting fallback mechanisms for robustness.
+
+### KEY_FUNCTIONS
+- **`MapViewOptimizationBox.optimize()`**: Computes optimal scale, offset, and viewBox settings from map vertex data.
+- **`WorldMap2D.vue.renderMap()`**: Integrates the box to apply optimized view settings, removing legacy positioning logic.
+- **`TopTimelineMap.vue.renderMap()`**: Uses the box for consistent centering on content (not (0,0)) for smaller maps.
+
+### DEPENDENCIES
+`ui-beta/src/boxes/maps/map_view_optimization_box.js`, `ui-beta/src/components/common/WorldMap2D.vue`, `ui-beta/src/components/common/TopTimelineMap.vue`, Box interface pattern (internal).
+
+### USAGE
+1. **Initialize the Box**: Create an instance of `MapViewOptimizationBox` with required inputs (`mapData`, `viewerWidth`, `viewerHeight`).
+2. **Execute Optimization**: Call `optimize()` to compute settings.
+3. **Apply Settings**: Use results (`initialScaleFactor`, `initialOffsetX/Y`, `viewBox`) in `renderMap()` to center maps at (0,0) or content bounds.
+4. **Fallback Handling**: Retry logic ensures robustness if optimization fails.
+
+### RELATED
+[[`Map View Optimization Box Implementation`]], [[`WorldMap2D.vue`]], [[`TopTimelineMap.vue`]]
+
+### CALLOUTS
+>[!INFO]- Critical Dependency
+> The `MapViewOptimizationBox` must be used exclusively for map positioning—no other logic should override its outputs.
+>[!WARNING]- Coordinate Assumption
+> If `centerOnZero` is `false`, the box centers on content bounds, which may not align with (0,0) for all world types. Verify manual testing for edge cases.

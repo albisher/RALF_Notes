@@ -1,0 +1,55 @@
+**Tags:** #database, #world-generation, #direct-integration, #testing, #SQL, #backend
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# create_world_direct
+
+## Summary
+
+```
+Creates a preconfigured world directly in a database for testing purposes, bypassing API authentication.
+```
+
+## Details
+
+> This script directly interacts with a SQL database to create a test world (`Space Peral`) linked to a predefined `testuser`. It first checks for or creates the `testuser` account, then verifies if the world already exists. If not, it inserts a new `World` record with metadata like `name`, `description`, `world_type`, and `status`. The script ensures the world is tied to the user via `user_id` and commits the transaction to persist the data.
+
+## Key Functions
+
+### ``create_world_direct()``
+
+Core function that orchestrates user/user creation, world existence check, and database insertion.
+
+### ``User.query.filter_by()``
+
+Retrieves or creates the `testuser` account.
+
+### ``World.query.filter_by()``
+
+Checks if the world (`Space Peral`) already exists before insertion.
+
+## Usage
+
+1. Run the script directly (`python3 create_world_direct.py`).
+2. It outputs the generated `world_id` and suggests executing another script (`convert_mock_cards_to_real.py`) with the `WORLD_ID` environment variable set.
+
+## Dependencies
+
+> ``app``
+> ``db``
+> ``World``
+> ``User` (SQLAlchemy models and Flask app context)`
+> ``sys``
+> ``os` (Python standard libraries).`
+
+## Related
+
+- [[convert_mock_cards_to_real]]
+- [[models]]
+- [[app]]
+
+>[!INFO] Test User Creation
+> If the `testuser` does not exist, the script automatically creates it with `username='testuser'`, `email='test@example.com'`, and password `testpass123`. This ensures a consistent test environment.
+
+>[!WARNING] Hardcoded Values
+> The world name (`Space Peral`) and user credentials are hardcoded. Avoid modifying these unless explicitly required for testing variations.

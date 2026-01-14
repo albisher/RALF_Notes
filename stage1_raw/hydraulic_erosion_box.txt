@@ -1,0 +1,38 @@
+### TAGS
+#physics-simulation
+#geomorphology
+#hydraulic-erosion
+#procedural-generation
+#box-system
+
+### TYPE
+code-implementation
+
+### SUMMARY
+Simulates water-driven erosion to carve natural river systems from heightmaps for procedural planet generation.
+
+### DETAILS
+This `HydraulicErosionBox` class implements a deterministic erosion simulation where water droplets flow downhill across a terrain represented by Voronoi cells. It processes input height data, applies erosion/deposition rules, and tracks river paths by simulating droplet movement. The system uses a neighbor map to identify downhill slopes, applies erosion proportional to height differences, and deposits sediment when droplets reach lower elevations. The simulation is seeded via a world hash for reproducibility.
+
+### KEY_FUNCTIONS
+- **`__init__()`**: Initializes the box with supported world types and metadata.
+- **`execute(input_data)`**: Core logic: validates input, checks world compatibility, builds neighbor relationships, and runs erosion simulation.
+- **`_build_neighbor_map(cells)`**: Constructs adjacency data for each cell to identify downhill neighbors.
+- **`simulate_droplet_flow()`**: (Implicitly handled in `execute`): Deterministically places droplets, tracks erosion/deposition, and records river paths.
+
+### DEPENDENCIES
+numpy, hashlib, boxes.core.box_interface
+
+### USAGE
+1. Call with `operation="apply_erosion"` and required parameters (`world_hash`, `heights`, `cells`).
+2. Provide optional parameters (`num_droplets`, `erosion_rate`, `deposition_rate`).
+3. Output includes updated heights and river paths for further processing.
+
+### RELATED
+[[Procedural Terrain Generation Guide]], [[Box System Documentation]]
+
+### CALLOUTS
+>[!INFO]- Deterministic Seeding
+> Droplet positions are generated using SHA-256 hashes of `world_hash` and droplet index, ensuring identical results across runs for the same input.
+>[!WARNING]- Edge Cases
+> If all cells are below 0.2 height threshold, the simulation skips processing entirely, returning unchanged heights.

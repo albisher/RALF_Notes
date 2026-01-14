@@ -1,0 +1,58 @@
+**Tags:** #input-validation, #rule-based-validation, #data-validation, #box-pattern, #async-processing
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# validation_box
+
+## Summary
+
+```
+Handles input validation for structured data with configurable rules and error handling.
+```
+
+## Details
+
+> This `ValidationBox` class extends a base `Box` component to perform input validation for various data types. It processes validation requests via an `_executeInternal` method, routing between a generic `_validate` function and a specialized `_validateSpacePeral` function. The core logic applies field-specific rules (e.g., required fields, type checks, regex patterns) and aggregates errors into a structured output. The system supports parallel execution and integrates with a configuration service for domain-specific rules (e.g., world name validation).
+
+## Key Functions
+
+### ``_executeInternal(inputData)``
+
+Orchestrates validation logic based on the `operation` parameter, delegating to `_validate` or `_validateSpacePeral`.
+
+### ``_validate(data, rules)``
+
+Applies a set of rules to input data, collecting errors for invalid fields and returning a success/error response.
+
+### ``_validateField(field, value, rule)``
+
+Validates a single field against its rule (e.g., type, length, regex) and returns validation results.
+
+### ``_validateSpacePeral(worldName)``
+
+Enforces domain-specific validation (e.g., whitelisting allowed world names from config).
+
+## Usage
+
+1. Instantiate `ValidationBox` and call `_executeInternal` with an input object containing `operation`, `data`, `rules`, and `worldName`.
+2. For generic validation, pass `operation: 'validate'` and a `rules` object defining field constraints.
+3. For domain-specific validation (e.g., world name), use `operation: 'validateSpacePeral'` and provide a `worldName`.
+
+## Dependencies
+
+> ``../core/box_interface.js` (Box class and utilities)`
+> ``../../services/config.js` (business rules/configuration).`
+
+## Related
+
+- [[Space Peral Business Rules]]
+- [[Box Pattern Architecture]]
+
+>[!INFO] Required Field Handling
+> The `_validateField` method distinguishes between required fields (must be non-empty) and optional fields (ignores empty values). This prevents redundant checks for non-critical fields.
+
+>[!WARNING] Error Aggregation
+> Errors are aggregated into an array, but the system does not enforce a limit on error messages. Overly verbose error messages may clutter output; consider sanitizing messages for production use.
+
+>[!INFO] Config Dependency
+> `_validateSpacePeral` relies on `config.BUSINESS_RULES.ALLOWED_WORLD_NAME`. If this config is missing, the validation will fail with `INVALID_INPUT` unless a fallback is implemented.

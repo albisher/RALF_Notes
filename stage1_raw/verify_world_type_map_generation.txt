@@ -1,0 +1,40 @@
+### TAGS
+#automated-testing
+#puppeteer
+#ui-verification
+#world-generation
+#game-dev
+
+### TYPE
+code-test
+
+### SUMMARY
+Verifies UI interaction for world type map generation by testing login, world selection, and map generation workflows.
+
+### DETAILS
+This script uses Puppeteer to automate UI interactions for a game application, specifically testing how world type selection influences map generation. It handles login, world selection via dropdowns, and captures screenshots to validate UI behavior. The script dynamically checks for world type display elements and defaults to "Planet" if detection fails. It logs progress and errors while ensuring the screenshot directory exists for test artifacts.
+
+### KEY_FUNCTIONS
+- **login**: Authenticates the user with test credentials or checks if already logged in.
+- **selectWorld**: Attempts to find and select a world from available options via multiple selector patterns.
+- **getWorldType**: Extracts the current world type from UI elements or page text using regex and fallback methods.
+- **generateMapForWorldType**: Orchestrates map generation for a specified world type, takes initial screenshots, and handles hash input.
+- **sleep**: Utility async function for controlled delays.
+- **timestamp**: Generates a timestamp string for filenames.
+
+### DEPENDENCIES
+puppeteer, fs, path
+
+### USAGE
+1. Run the script after setting up a local server at `http://localhost:5174`.
+2. Ensure the UI has a world selection dropdown and map generation functionality.
+3. Execute to verify that selecting different world types produces distinct map outputs.
+
+### RELATED
+[[Game UI Architecture]], [[Puppeteer Test Framework]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script defaults to "Planet" if world type detection fails, which may not reflect actual test conditions. Consider adding validation logic to ensure meaningful world types are detected.
+>[!WARNING]- Caution
+> Network delays during page navigation (`waitUntil: 'networkidle2'`) may introduce variability in test timing. Adjust delays (`sleep`) or add retry logic for flaky selectors.

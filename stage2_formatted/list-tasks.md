@@ -1,0 +1,66 @@
+**Tags:** #argument-parsing, #task-management, #filtering, #intelligent-query
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# list-tasks
+
+## Summary
+
+```
+A task-list parser that intelligently processes user input to filter, prioritize, and display tasks with structured logic for complex queries.
+```
+
+## Details
+
+> This script implements a logic engine for parsing task filters dynamically. It evaluates multi-word arguments (e.g., `"pending high"`) by breaking them into logical conditions (AND/OR) and applies them to task metadata. The system prioritizes status/priority filters over special features like subtasks or IDs, ensuring hierarchical filtering. For numeric ranges (e.g., `"1-5"`), it validates input and fetches tasks sequentially. Visual grouping and priority indicators enhance readability, while contextual suggestions (e.g., "resolving dependencies") adapt to query outcomes.
+
+## Key Functions
+
+### `parse_arguments`
+
+Splits input into logical conditions (status, priority, special flags) and validates combinations (e.g., `"pending high"` → AND).
+
+### `resolve_numeric_ranges`
+
+Handles IDs like `"1-5"` or `"3,7"` by converting to task IDs.
+
+### `generate_query`
+
+Constructs a task-master command based on parsed filters (e.g., `"status:pending priority:high"`).
+
+### `enhance_display`
+
+Formats results with priority indicators, grouping, and metrics (e.g., subtask counts).
+
+### `suggest_actions`
+
+Dynamically recommends next steps (e.g., "Prioritize blocked tasks").
+
+## Usage
+
+1. **Input**: Provide arguments like `"pending high subtasks"` or `"blocked 1-5"`.
+2. **Output**: Returns filtered tasks with enhanced formatting (e.g., priority badges, subtask trees).
+3. **Example**:
+   ```bash
+   list-tasks "done today"
+   ```
+   → Displays tasks completed yesterday with "✅" indicators.
+
+## Dependencies
+
+> `task-master (core library)`
+> `regex (for numeric parsing)`
+> `collections (for grouping)`
+> `optional: visualizers (for UI enhancements)`
+
+## Related
+
+- [[Task-Master Documentation]]
+- [[Advanced Query Cheat Sheet]]
+- [[Filtering Best Practices]]
+
+>[!INFO] Logical AND vs. OR
+> Arguments like `"pending high"` imply **AND** (both conditions must match). Use commas for OR (e.g., `"pending,in-progress"`).
+
+>[!WARNING] Numeric Edge Cases
+> Invalid ranges (e.g., `"10-5"`) trigger validation errors. Always test with valid inputs first.

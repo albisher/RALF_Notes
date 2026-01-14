@@ -1,0 +1,38 @@
+### TAGS
+#automated-testing
+#user-experience
+#puppeteer
+#frontend-validation
+#screenshot-capture
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automated user journey validation script using Puppeteer to test UI elements across key application stages.
+
+### DETAILS
+This script simulates a user journey through a web application, validating UI elements at critical stages (landing page, world creation, elements page) using Puppeteer for browser automation. It captures screenshots, checks for navigation elements, and logs results via a helper class. The workflow follows a structured sequence: launch browser → navigate pages → verify UI components → record visual data.
+
+### KEY_FUNCTIONS
+- **runUserJourneyChecks**: Orchestrates the entire user journey simulation.
+- **takeNumberedScreenshot**: Captures screenshots with timestamped filenames (e.g., `202305100001-landing-page`).
+- **CheckHelper**: Manages result logging (pass/fail/warning) and screenshot storage.
+- **page.evaluate()**: Extracts dynamic UI elements (e.g., navigation menus, form inputs) via JavaScript injection.
+
+### DEPENDENCIES
+puppeteer, chalk, config (local), utils/check-helper (local)
+
+### USAGE
+1. Configure `config` (e.g., `urls.frontend`, `puppeteer`, `timeouts`).
+2. Run script: `node user-journey-check`.
+3. Results log UI validation and screenshots in `helper` object.
+
+### RELATED
+[[UI Test Automation Framework]], [[Puppeteer Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **Screenshots**: Screenshot filenames include a timestamp (`YYYYMMDD`) and sequential number (e.g., `0001`). Store these in `helper`’s `folder` path for debugging.
+>[!WARNING]- Caution
+> **Error Handling**: Critical UI checks (e.g., landing page) wrap in `try-catch` to avoid silent failures. Log errors explicitly via `helper.addResult()`.

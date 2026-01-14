@@ -1,0 +1,40 @@
+### TAGS
+#testing
+#story-cards
+#backend-api
+#database-verification
+#ui-verification
+
+### TYPE
+test-reference
+
+### SUMMARY
+Comprehensive test plan for validating 100+ story cards across backend, UI, and database systems.
+
+### DETAILS
+This test plan systematically verifies the creation, display, and integrity of 100+ story cards using a randomized script, visual UI checks, and database queries. Phase 1 automates card generation via browser console, while Phases 2–4 validate UI rendering, type consistency, visual styling, and database correctness. The script ensures proper backend authentication and structured data submission, followed by manual UI and database cross-verification.
+
+### KEY_FUNCTIONS
+- **`create100StoryCards()`**: Automates creation of 105 story cards with randomized types, names, and metadata.
+- **Browser Console Script**: Executes API calls to generate cards with dynamic attributes (e.g., adjectives, nouns, coordinates).
+- **SQL Queries**: Validates database integrity by counting cards per type, checking data structure, and ensuring no missing fields.
+- **Visual Verification Checklist**: Manually verifies UI elements (grid layout, icons, hover effects, modal functionality).
+
+### DEPENDENCIES
+`window.app?.apiClient`, `window.app?.currentWorldId`, Node.js (for SQL queries), backend API (e.g., `/cards/create`), database (e.g., PostgreSQL/MySQL).
+
+### USAGE
+1. **Run Script**: Execute `create100StoryCards()` in browser console after logging into the app (localhost:5174).
+2. **Refresh UI**: After creation, manually check the Cards tab for visual consistency.
+3. **Database Inspection**: Replace `<world_id>` in SQL queries to validate backend storage.
+4. **Cross-Check**: Compare UI and database counts to ensure data consistency.
+
+### RELATED
+[[Story_Card_API_Documentation]], [[Cards_Tab_UI_Design]], [[Database_Schema_for_Cards]], [[Authentication_Flow_Guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script generates 105 cards (100 valid + 5 buffer) to account for API rate limits or failures. Refresh the UI after execution to verify all cards appear in the Cards tab.
+
+>[!WARNING]- Caution
+> Ensure the backend API supports the `coordinates` field (set to `null` if unused). If `world_id` is invalid, the script will fail silently; verify it matches the logged-in session.

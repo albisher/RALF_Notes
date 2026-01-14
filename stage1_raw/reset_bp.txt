@@ -1,0 +1,41 @@
+### TAGS
+#flask
+#api-blueprint
+#database-management
+#backup-and-restore
+#security-jwt
+
+### TYPE
+documentation
+
+### SUMMARY
+Manages irreversible backend data reset functionality with JWT authentication and safety checks.
+
+### DETAILS
+This Flask Blueprint (`reset_bp`) provides endpoints for securely resetting backend data, including database tables, files, and cache. It integrates with a service layer (`reset_service`) and includes JWT authentication to ensure only authorized users can perform these operations. Each endpoint validates user identity, enforces confirmation requirements, and returns structured responses with success/error statuses. The design prioritizes safety by requiring explicit confirmation for destructive operations and provides backup capabilities before resets.
+
+### KEY_FUNCTIONS
+- **get_reset_options**: Lists available reset options and current data counts.
+- **create_backup**: Creates a named backup of data before reset operations.
+- **reset_database**: Deletes specified database tables (with optional safeguard for test users).
+- **reset_files**: Clears generated files/directories (e.g., reports, stories).
+- **reset_cache**: Clears Redis cache entries.
+- **complete_reset**: Placeholder for full system reset (needs body validation).
+
+### DEPENDENCIES
+flask, flask-jwt-extended, reset_service, models (User), logging
+
+### USAGE
+1. Authenticate via JWT (e.g., `GET /api/reset/options`).
+2. For destructive actions (e.g., `/database`), include a `confirm: true` flag in the request body.
+3. Use `/backup` to create a named backup before resetting.
+4. Validate responses for success/error statuses.
+
+### RELATED
+[[Flask-JWT-Extended Documentation]], [[Reset Service Implementation]], [[Database Schema]]
+
+### CALLOUTS
+>[!INFO]- Confirmation Mandatory
+> All destructive operations (`/database`, `/files`, `/cache`) require `confirm: true` in the request body to prevent accidental resets.
+>[!WARNING]- Irreversible Action
+> Resets (e.g., `/database`) permanently delete data unless `preserve_test_user: true` is set. Always test with a backup first.

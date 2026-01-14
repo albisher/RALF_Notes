@@ -1,0 +1,41 @@
+### TAGS
+#automated-testing
+#web-testing
+#puppeteer
+#login-page-validation
+#ui-verification
+
+### TYPE
+code-test
+
+### SUMMARY
+Automated login page validation and UI verification using Puppeteer to ensure correct form elements and content.
+
+### DETAILS
+This script uses Puppeteer to automate testing of a login page, verifying its structure, content, and functional form elements. It captures screenshots, checks for required labels (e.g., "Space Pearl," "Username"), form inputs, and JavaScript errors. The test includes three phases: verifying the login page content, confirming form elements, and simulating user interaction (typing into inputs).
+
+### KEY_FUNCTIONS
+- **LoginPageFixTest.runTest()**: Orchestrates the entire test workflow, including browser launch, page navigation, UI checks, and screenshot capture.
+- **page.goto()**: Navigates to the login page endpoint (`/login`).
+- **page.evaluate()**: Extracts text content from DOM elements for validation.
+- **page.$()**: Locates form inputs (e.g., `input[type="text"]`, `button[type="submit"]`).
+- **page.type()**: Simulates user typing in form fields.
+- **page.screenshot()**: Captures visual snapshots of the page state (e.g., empty/login form, filled form, error state).
+
+### DEPENDENCIES
+puppeteer, fs, path
+
+### USAGE
+1. Install dependencies (`npm install puppeteer fs path`).
+2. Run the script (`node login-page-fix-test.js`).
+3. Verify screenshots in `./screenshots/ui-checks` for visual validation.
+4. Check console logs for test results (e.g., missing elements, errors).
+
+### RELATED
+[[UI Regression Test Suite]], [[Puppeteer Best Practices Guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script uses Chrome’s non-headless mode (`--no-sandbox`) for compatibility with restricted environments (e.g., Docker). Avoid production use without proper sandboxing.
+>[!WARNING]- Caution
+> Hardcoded paths (`/Applications/Google Chrome.app`) may break on non-MacOS systems. Use environment variables or dynamic paths for cross-platform support.

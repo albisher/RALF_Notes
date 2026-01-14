@@ -1,0 +1,60 @@
+**Tags:** #automation, #web-testing, #puppeteer, #dark-mode, #vuejs
+**Created:** 2026-01-13
+**Type:** test-reference
+
+# dark-mode-puppeteer-test
+
+## Summary
+
+```
+Automated dark mode functionality test for a Vue.js application using Puppeteer.
+```
+
+## Details
+
+> This script automates testing of dark mode functionality in a Vue.js application running on localhost. It launches a browser, navigates to the application, verifies login, and checks for a dark mode toggle button. The test toggles between dark and light themes, verifies changes, and captures screenshots at each state. If the toggle isn’t found, it inspects available buttons in the app bar for debugging.
+
+## Key Functions
+
+### `testDarkMode`
+
+Orchestrates the entire dark mode testing workflow, including browser setup, navigation, theme toggling, and verification.
+
+### `page.goto`
+
+Navigates to the application URL with network idle wait.
+
+### `page.waitForSelector`
+
+Waits for Vue’s root component (`#app`) to load.
+
+### `page.evaluate`
+
+Checks the current theme state (dark/light) via `document.documentElement.classList`.
+
+### `page.screenshot`
+
+Captures full-page screenshots at initial, toggled, and final states.
+
+## Usage
+
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node dark-mode-puppeteer-test`.
+3. Ensure the Vue.js app is running on `localhost:8443` with a login page containing a "Demo Login" button and a dark mode toggle.
+
+## Dependencies
+
+> `puppeteer`
+> `Node.js runtime`
+
+## Related
+
+- [[Vue]]
+- [[Puppeteer testing best practices]]
+
+>[!INFO] Important Note
+> The script assumes the app uses `document.documentElement.classList` to toggle dark mode. If the theme is managed differently (e.g., CSS variables), adjust the `page.evaluate` logic accordingly.
+
+
+>[!WARNING] Caution
+> Running Puppeteer in headless mode (`--headless: false`) may expose the browser to potential security risks. Use `--no-sandbox` only in trusted environments. Avoid running this in production without proper sandboxing.

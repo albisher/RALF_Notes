@@ -1,0 +1,41 @@
+### TAGS
+#verification
+#screenshot_guide
+#map_generation
+#deterministic_variation
+#world_types
+
+### TYPE
+documentation
+
+### SUMMARY
+A structured guide for verifying map generation systems by ensuring maps align with world types and adhere to hash-based deterministic but varied logic.
+
+### DETAILS
+This guide outlines a method for verifying map generation screenshots, ensuring they correctly represent different world types (planet, galaxy, cloud world) while maintaining deterministic consistency for identical inputs and variability for different inputs. The process involves capturing screenshots in a timestamped folder structure to track test sessions and verify both visual fidelity and reproducibility.
+
+### KEY_FUNCTIONS
+- **World Type Verification**: Ensures generated maps match expected visual characteristics (e.g., continents for planets, spiral arms for galaxies).
+- **Hash-Based Consistency Check**: Validates that identical hash inputs produce identical maps (determinism) and different inputs produce distinct maps (variation).
+- **Screenshot Naming Convention**: Standardizes filenames (e.g., `planet-map-generated-1.png`) for easy organization and comparison.
+
+### DEPENDENCIES
+browser automation tools (e.g., Puppeteer, Selenium), file system access for saving screenshots, and the map generation application UI.
+
+### USAGE
+1. **Organize Screenshots**: Place screenshots in `YYYYMMDD/HHMM/` folders (e.g., `20251209/0756/`).
+2. **Capture Screenshots**: Use tools to save screenshots with predefined filenames (e.g., `planet-map-generated-1.png`).
+3. **Verify Requirements**:
+   - Check for correct world-type representation (e.g., terrain for planets, spiral arms for galaxies).
+   - Confirm deterministic behavior (same input → same output) and variability (different inputs → different outputs).
+4. **Repeat for All World Types**: Test planet, galaxy, and cloud world types with varied inputs.
+
+### RELATED
+[[Map Generation System Documentation]], [[Deterministic Algorithm Validation Guide]], [[World Type Visualization Standards]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> **Timestamping**: The folder structure (`YYYYMMDD/HHMM/`) ensures timestamps are handled externally, avoiding clutter in filenames while preserving test session separation.
+
+>[!WARNING]- Caution
+> **Hash Collisions**: While deterministic, ensure no unintended hash collisions produce identical maps for unrelated inputs, risking false consistency claims. Validate with edge cases.

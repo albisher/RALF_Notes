@@ -1,0 +1,66 @@
+**Tags:** # procedural-generation, # fractal-algorithms, # noise-based-terrain, # 2d-top-view-maps, # world-building
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# TERRAIN_FORMATION_RESEARCH
+
+## Summary
+
+```
+Fast procedural terrain generation for low-resolution 2D top-view maps, focusing on mountains, continents, and ocean basins.
+```
+
+## Details
+
+> This file outlines research into fast procedural algorithms for generating terrain, particularly for low-resolution 2D top-view maps. It employs two primary techniques: the **Diamond-Square algorithm** (a fractal-based method) and **Perlin noise** (smooth gradient noise). The Diamond-Square algorithm recursively subdivides a grid to create height variations, while Perlin noise adds smooth, natural-looking elevation changes. The code includes optimized implementations for deterministic, hash-based terrain generation, ensuring reproducibility. The `generate_continents_fast` function further refines this by combining noise layers to form natural continental landmasses with coastlines.
+
+## Key Functions
+
+### ``diamond_square_fast``
+
+Generates fractal-based terrain using recursive subdivision and hash-driven displacement.
+
+### ``perlin_terrain_fast``
+
+Simplified Perlin noise implementation for smooth, natural-looking elevation gradients.
+
+### ``generate_continents_fast``
+
+Creates continental landmasses by combining Perlin noise and Gaussian-based continent shapes.
+
+## Usage
+
+1. **For Diamond-Square Terrain**:
+   ```python
+   terrain = diamond_square_fast("base_seed", size=129, roughness=0.5)
+   ```
+   - `base_seed`: Deterministic hash for reproducibility.
+   - `size`: Grid size (must be a power of 2 + 1).
+   - `roughness`: Controls terrain smoothness (0.0–1.0).
+
+2. **For Perlin Noise Terrain**:
+   ```python
+   terrain = perlin_terrain_fast("base_seed", width=129, height=129, octaves=4)
+   ```
+   - Adjust `scale` and `octaves` for finer/coarser detail.
+
+3. **For Continents**:
+   ```python
+   continent_map = generate_continents_fast("base_seed", width=129, height=129)
+   ```
+   - Uses Perlin noise and Gaussian shapes to define landmasses.
+
+## Dependencies
+
+> `numpy`
+> `hashlib`
+
+## Related
+
+- [[Fantasy Planet]]
+
+>[!INFO] **Deterministic Hashing**
+> The `base_hash` parameter ensures consistent terrain generation across runs. Use a fixed seed (e.g., `"my_fantasy_planet"`) for reproducible results.
+
+>[!WARNING] **Resolution Limits**
+> Diamond-Square scales as **O(size²)**—for very large grids, consider hybrid approaches (e.g., multi-resolution noise). Perlin noise may struggle with extreme octaves due to memory constraints.

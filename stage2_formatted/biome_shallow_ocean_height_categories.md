@@ -1,0 +1,55 @@
+**Tags:** #biome, #ocean, #height_categories, #environmental_data, #procedural_generation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# biome_shallow_ocean_height_categories
+
+## Summary
+
+```
+Defines height category labels for shallow ocean biome procedural generation.
+```
+
+## Details
+
+> This appears to be a list of predefined height categories (`short`, `medium`, `tall`) used to classify underwater terrain or ocean floor elevation in a procedural generation system. These categories likely influence visual or structural variations (e.g., sandbars, coral formations, or depth-based lighting) within a shallow ocean biome.
+> 
+> The values (`short`, `medium`, `tall`) may map to numerical ranges or relative scales (e.g., depth, elevation, or complexity) to guide algorithmic placement or rendering logic.
+
+## Key Functions
+
+### ``short``
+
+Represents the lowest elevation/depth category in shallow ocean terrain.
+
+### ``medium``
+
+Intermediate category for moderately deep or moderately complex ocean features.
+
+### ``tall``
+
+Represents the highest elevation/depth category (e.g., underwater cliffs, tall coral formations).
+
+## Usage
+
+This list is typically consumed by:
+1. A procedural generation system to assign terrain properties (e.g., `short` → shallow sand, `tall` → deep trenches).
+2. A biome renderer to apply visual effects (e.g., lighting, texture blending) based on height category.
+3. A noise-based algorithm to determine feature placement (e.g., coral growth, rock formations).
+
+## Dependencies
+
+> `none (standalone list`
+> `likely used internally by a procedural generation engine)`
+
+## Related
+
+- [[Biome Generation Algorithm]]
+- [[Procedural Terrain Data Structures]]
+
+>[!INFO] Contextual Role
+> These categories are part of a larger system defining ocean biome properties. Ensure alignment with other height/biome definitions (e.g., `land`, `deep_ocean`) to avoid inconsistencies in procedural logic.
+
+
+>[!WARNING] Hardcoded Values
+> If this list is static, consider making it configurable (e.g., via JSON/YAML) for customization in different game worlds or environments. Hardcoded values may limit flexibility.

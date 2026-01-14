@@ -1,0 +1,65 @@
+**Tags:** #randomized_generation, #orks, #hash_based, #procedural_content
+**Created:** 2026-01-13
+**Type:** code-library
+
+# orks
+
+## Summary
+
+```
+Generates randomized ork descriptions using hash-based selection from predefined lists.
+```
+
+## Details
+
+> This script reads predefined lists of ork attributes (e.g., `ork_types.txt`) and uses cryptographic hashing to derive randomized selections for visual traits, appearance, and context. It processes user input (or a provided hash) to generate a structured JSON output describing an ork’s type, build, skin color, weapon, and contextual traits like temperament. The system relies on salting and modular hashing to ensure deterministic yet varied results.
+
+## Key Functions
+
+### `read_list_from_file(filename)`
+
+Loads a text file containing comma-separated or space-separated items into a list.
+
+### `hash_input(input_str)`
+
+Computes SHA-256 hash of input text for deterministic selection.
+
+### `derive_int_from_hash(input_hash, salt, max_value)`
+
+Extracts an integer from a hash segment, scaled to fit within a range.
+
+### `select_from_list(input_hash, salt, item_list)`
+
+Randomly selects an item from a list using the derived integer.
+
+### `generate_ork_description(input_hash)`
+
+Orchestrates the full description generation by combining selected attributes into a structured JSON output.
+
+## Usage
+
+1. Run the script with an optional input hash:
+   ```bash
+   python orks.py <hash>
+   ```
+2. If no hash is provided, enter text to hash interactively:
+   ```bash
+   python orks.py
+   ```
+   Enter text when prompted, then view the generated JSON output.
+
+## Dependencies
+
+> ``hashlib``
+> ``os``
+> ``json``
+
+## Related
+
+- [[None]]
+
+>[!INFO] Input Handling
+> User input is hashed via SHA-256, ensuring consistent but randomized results across runs. The script defaults to `"Ork"` if no input is provided.
+
+>[!WARNING] Error Handling
+> If a file (e.g., `ork_types.txt`) is missing or malformed, the script gracefully defaults to `"Unknown"` for missing attributes. Always validate file paths before use.

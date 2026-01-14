@@ -1,0 +1,43 @@
+### TAGS
+#authentication
+#frontend-backend-integration
+#vuejs
+#pinia
+#jwt
+#ui-components
+#conditional-rendering
+#test-user-management
+
+### TYPE
+documentation
+
+### SUMMARY
+A fully functional login system with real API integration, conditional UI rendering, and test user credentials for development.
+
+### DETAILS
+This implementation resolves a login system with three core requirements: a full-screen login page, test user credentials (`test/passtest`), and conditional sidebar visibility post-login. The system uses Vue.js with Pinia for state management, integrates a real backend API for authentication via JWT tokens, and dynamically adjusts UI elements based on authentication status. The backend includes a test user setup script, while the frontend modifies `App.vue` to conditionally render navigation components and ensures seamless API communication.
+
+### KEY_FUNCTIONS
+- **`App.vue`**: Conditional rendering of UI elements (sidebar/app bar) based on authentication state and route.
+- **`Auth Store`**: Manages JWT token handling, user state, and API authentication logic with error/loading states.
+- **`create_test_user()`**: Backend function to ensure test credentials (`test/passtest`) exist for testing.
+- **`login()`**: Auth store method calling `/api/auth/login` to generate tokens and update user state.
+- **`Login.vue`**: Displays the full-screen login form with embedded test credentials hint.
+
+### DEPENDENCIES
+`axios`, `vue-router`, `vuex`, `pinia`, `vue-virtual-scroller`, `v-slick`, `v-slick-slider`, `v-simple-datalist`, `v-datepicker`, `v-select`, `v-input`, `v-card`, `v-btn`, `v-dialog`, `v-alert`, `v-tooltip`, `v-toast`, `v-progress-circular`, `v-progress-linear`, `v-text-field`, `v-textarea`, `v-checkbox`, `v-radio-group`, `v-menu`, `v-autocomplete`, `v-dialog`, `v-snackbar`, `v-footer`, `v-app-bar`, `v-navigation-drawer`, `v-main`, `v-container`, `v-card`, `python-dotenv`, `flask`, `flask-sqlalchemy`, `flask-jwt-extended`, `bcrypt`, `python-dotenv`.
+
+### USAGE
+1. **Access Login Page**: Navigate to `/login` (e.g., `https://localhost:8443/login`).
+2. **Use Test Credentials**: Enter `test` as username and `passtest` as password for quick testing.
+3. **Post-Login**: Redirects to dashboard with a sidebar (hidden during login).
+4. **API Endpoints**: Use `/api/auth/login`, `/api/worlds`, `/api/dashboard`, etc., with JWT headers for authenticated requests.
+
+### RELATED
+[[Backend API Documentation]], [[Vue.js Pinia Guide]], [[Flask JWT Authentication]], [[Test User Management Script]]
+
+### CALLOUTS
+>[!INFO]- **Test User Note**
+> The test user (`test/passtest`) is pre-created in the database. Ensure the backend script (`update_test_user.py`) runs to avoid credential conflicts.
+>[!WARNING]- **Security Warning**
+> In production, **never expose test credentials** publicly. Use environment variables for sensitive data like passwords and tokens.

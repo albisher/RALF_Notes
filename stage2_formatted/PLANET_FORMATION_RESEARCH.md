@@ -1,0 +1,66 @@
+**Tags:** #procedural-generation, #2d-top-view, #planet-simulation, #fast-algorithms, #numpy-based, #hash-driven
+**Created:** 2026-01-13
+**Type:** documentation
+
+# PLANET_FORMATION_RESEARCH
+
+## Summary
+
+```
+Fast procedural planet surface generation for low-resolution 2D top-view maps using hash-driven algorithms.
+```
+
+## Details
+
+> This code implements a fast, low-resolution procedural system for generating planetary surface features in a 2D top-view format. It combines base terrain, impact craters, volcanic activity, tectonic patterns, and optional atmospheric effects using a deterministic hash-based approach. The system leverages NumPy for efficient array operations and modular functions for each feature type, allowing for quick iteration and customization via input hashes.
+> 
+> The algorithm prioritizes performance by minimizing per-iteration computations while maintaining visual diversity through randomized parameters derived from the input hash. Features are layered multiplicatively, with normalization ensuring output values remain within a 0-1 range.
+
+## Key Functions
+
+### `generate_planet_surface_fast`
+
+Orchestrates the entire surface generation pipeline by combining base terrain, craters, volcanoes, and tectonics.
+
+### `generate_impact_craters`
+
+Creates circular depressions with raised rims using hash-derived parameters for center, radius, and depth.
+
+### `apply_craters`
+
+Applies crater modifications by subtracting depths and adding rim elevations to the terrain array.
+
+### `generate_volcanic_regions`
+
+Produces cone-shaped volcanic peaks with optional lava flows, using hash values to determine position, height, and flow probability.
+
+### `generate_tectonic_patterns`
+
+Generates linear features (mountain ranges/fault lines) with varying lengths and positions based on hash input.
+
+## Usage
+
+1. Call `generate_planet_surface_fast(base_hash, width=200, height=200)` with a seed hash string.
+2. The function returns a NumPy array representing normalized terrain values (0-1) with all features combined.
+3. For customization, modify the hash string to influence feature distribution and intensity.
+4. Features are additive/subtractive with normalization to maintain consistent output ranges.
+
+## Dependencies
+
+> `numpy`
+> `hashlib`
+> `math`
+
+## Related
+
+- [[Map Generation Path - World Type: Planet]]
+- [[Procedural Terrain Generation Best Practices]]
+
+>[!INFO] Feature Layering
+> Features are combined multiplicatively (e.g., volcanoes add 0.2× their height to base terrain) to create interactive visual effects where higher terrain blocks crater visibility and volcanic activity.
+
+>[!WARNING] Hash Dependency
+> Changing the base_hash will produce entirely new surface configurations. For reproducibility, always use the same hash across multiple runs.
+
+>[!INFO] Performance Note
+> The algorithm uses precomputed hash values for all parameters, minimizing runtime calculations. For very large grids, consider downsampling or parallelizing crater/volcano generation.

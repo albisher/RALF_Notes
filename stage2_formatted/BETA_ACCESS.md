@@ -1,0 +1,64 @@
+**Tags:** #beta-access, #logging-configuration, #docker-compose, #debugging, #api-endpoints, #production-ui
+**Created:** 2026-01-13
+**Type:** documentation
+
+# BETA_ACCESS
+
+## Summary
+
+```
+Provides beta access URLs, detailed logging configuration, and debugging instructions for a development environment using Docker Compose.
+```
+
+## Details
+
+> This document outlines the beta access setup for a production UI and backend API, including primary and alternative URLs for accessing different components. It details comprehensive logging at the **DEBUG** level, covering HTTP requests/responses, database queries, application errors, and box operations. Logs are managed via Docker Compose, with real-time console output and file-based logging in `/app/logs/backend.log`, which rotates automatically to prevent disk overflow. The document also includes commands for starting, stopping, and debugging services, along with health checks and API testing instructions.
+
+## Key Functions
+
+### `Primary UI-Beta`
+
+Main production UI with all features (generate, link, card, timeline, story stages).
+
+### `Backend API Direct/Proxy`
+
+Endpoints for API interactions (`/api`).
+
+### `Frontend (Vue Dev)`
+
+Development frontend at `http://localhost:5173`.
+
+### `Health Check`
+
+Endpoint to verify backend health (`/health`).
+
+### `Log Rotation`
+
+Automated log management with max file size of 10MB and 5 backups.
+
+## Usage
+
+1. Run `docker-compose up -d` to start all services.
+2. Access the UI at `http://localhost:8888/ui-beta/` or `https://localhost:8443/ui-beta/`.
+3. Monitor logs with `docker-compose logs -f backend` or view files via `docker-compose cp backend:/app/logs/backend.log ./backend-logs/`.
+4. Debug issues using provided commands (e.g., `docker-compose ps`, `curl` for API testing).
+
+## Dependencies
+
+> `Docker Compose`
+> `backend container`
+> `proxy container`
+> `static files container.`
+
+## Related
+
+- [[BETA_ACCESS_URLS]]
+- [[DOCKER_COMPOSE_CONFIG]]
+- [[API_DOCUMENTATION]]
+
+>[!INFO] Important Note
+> Debug logging is enabled by default, which logs all HTTP requests/responses and application events. Ensure sensitive data is masked in logs to avoid exposure.
+
+
+>[!WARNING] Caution
+> Logs are stored persistently in `/app/logs/backend.log` inside the container. Regularly back up logs to avoid data loss during container restarts or crashes.

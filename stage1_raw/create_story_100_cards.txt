@@ -1,0 +1,46 @@
+### TAGS
+#story-generation
+#card-creation
+#backend-integration
+#randomization
+#data-structures
+
+### TYPE
+code-script
+
+### SUMMARY
+Generates 100+ themed story cards with randomized attributes for testing narrative systems.
+
+### DETAILS
+This script automates the creation of 100+ story-related cards (e.g., characters, locations, items) using predefined categories (e.g., `plants`, `buildings`, `dragons`) and combines them with adjectives/nouns. It integrates with a backend API to authenticate, fetch/create a world, and post cards. The script handles authentication, random selection from predefined lists, and error handling for API calls.
+
+The `generateStoryCards()` function iterates through a loop, selecting random card types/subtypes, generating names with adjectives/nouns, and constructing descriptions. It tracks success/failure counts and logs progress.
+
+### KEY_FUNCTIONS
+- **login()**: Authenticates with the backend API using provided credentials.
+- **getOrCreateWorld()**: Checks for an existing world or creates a new one named "Story World - 100 Cards Test."
+- **generateRandomHash(prefix)**: Generates a cryptographic hash for unique identifiers.
+- **getRandomElement(array)**: Randomly selects an element from an array.
+- **createCard(cardData)**: Posts a card to the backend API with the provided data.
+- **generateStoryCards(count)**: Orchestrates the creation of `count` story cards by:
+  - Selecting random card types/subtypes.
+  - Combining adjectives/nouns to form card names.
+  - Constructing descriptions with chapter references.
+  - Logging progress and tracking success/failure.
+
+### DEPENDENCIES
+axios, crypto
+
+### USAGE
+1. Set environment variables (`BACKEND_URL`, `USERNAME`, `PASSWORD`) or use defaults.
+2. Run the script to authenticate, create a world, and generate 100+ story cards.
+3. Cards are stored in the backend API under the created world.
+
+### RELATED
+[[backend-api-documentation]], [[story-card-template]]
+
+### CALLOUTS
+>[!INFO]- Authentication Fallback
+> If `process.env` credentials fail, the script defaults to `USERNAME = 'a'` and `PASSWORD = 'spq8'`. Ensure these are secure or adjust environment variables.
+>[!WARNING]- API Rate Limits
+> Frequent API calls may trigger rate limits. Monitor backend logs for errors during execution.

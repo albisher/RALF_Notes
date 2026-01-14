@@ -1,0 +1,73 @@
+**Tags:** #deterministic-generation, #hash-based-algorithms, #world-generation, #procedural-terrain, #box-pattern
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# world_type_heightmap_generator_box
+
+## Summary
+
+```
+Generates deterministic heightmaps for world types using hash-based methods, replacing random generation for efficiency.
+```
+
+## Details
+
+> This module implements a **Box** pattern for generating heightmaps for various world types (e.g., planets, galaxies) using deterministic hash-based techniques. It replaces random-based generation with a fast, reproducible method by leveraging:
+> - A **low-resolution terrain map** (128×128) generated via a terrain generator box.
+> - **Voronoi cell coordinates** mapped to terrain heights using spatial interpolation.
+> - **World-type-specific adjustments** (e.g., galaxies use energy/density as height).
+> - Fallback mechanisms for terrain generation failures.
+> 
+> The system dynamically adjusts map bounds based on input cell coordinates, ensuring accurate height assignment while clamping coordinates to the terrain grid.
+
+## Key Functions
+
+### ``WorldTypeHeightmapGeneratorBox``
+
+Core class handling heightmap generation via `execute()`.
+
+### ``generate_heightmap()``
+
+Core logic mapping Voronoi cells to terrain heights.
+
+### ``_generate_heightmap_fallback()``
+
+Emergency method if terrain generation fails.
+
+### ``HashBasedHeightmapUtilsBox``
+
+Provides utility functions for hash-based operations.
+
+### ``WorldTypeTerrainGeneratorBox``
+
+Generates low-res terrain maps.
+
+### ``HashGeneratorMasterBox``
+
+Manages hash-based generation logic.
+
+## Usage
+
+1. **Input**: Pass `operation="generate_heightmap"` with `world_hash`, `world_type`, `cells`, and `sea_level`.
+2. **Output**: Returns a dictionary mapping cell indices to height values.
+3. **Error Handling**: Logs failures and returns `success=False` with an error message.
+
+## Dependencies
+
+> ``numpy``
+> ``Box``
+> ``HashBasedHeightmapUtilsBox``
+> ``WorldTypeTerrainGeneratorBox``
+> ``HashGeneratorMasterBox``
+
+## Related
+
+- [[WorldTypeTerrainGeneratorBox]]
+- [[HashBasedHeightmapUtilsBox]]
+- [[HashGeneratorMasterBox]]
+
+>[!INFO] Spatial Clamping
+>Coordinates are clamped to the 128×128 terrain grid to avoid out-of-bounds errors, even if input cells exceed map bounds.
+
+>[!WARNING] Fallback Risk
+>If terrain generation fails, the system defaults to `_generate_heightmap_fallback()`, which may produce inconsistent results. Ensure `terrain_generator` is robust.

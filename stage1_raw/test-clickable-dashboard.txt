@@ -1,0 +1,44 @@
+### TAGS
+#automated-testing
+#web-testing
+#puppeteer
+#ui-testing
+#dashboard-interaction
+
+### TYPE
+test-reference
+
+### SUMMARY
+Automated UI testing script for verifying clickable dashboard elements using Puppeteer.
+
+### DETAILS
+This script uses Puppeteer to automate testing of a clickable dashboard application, verifying navigation functionality and hover interactions. It launches a browser, navigates to a local web application (running on `localhost:5173`), and systematically tests clicking on three stat cards (Worlds, Characters, Elements) to confirm successful navigation to respective pages. It also tests hover effects on the first card. The script captures screenshots at key stages for visual verification and logs test outcomes.
+
+### KEY_FUNCTIONS
+- **testClickableDashboard**: Orchestrates the entire testing workflow, including browser launch, page navigation, element interaction, and result reporting.
+- **puppeteer.launch**: Initializes a browser instance with debugging enabled.
+- **page.goto**: Navigates to the target URL with timeout and DOM content loading checks.
+- **page.waitForSelector**: Waits for the dashboard container (`.dashboard`) to load.
+- **page.$$('.stat-card')**: Finds all stat cards dynamically using CSS selectors.
+- **page.click()**: Simulates clicking on stat cards to test navigation.
+- **page.hover()**: Tests hover effects on interactive elements.
+- **page.screenshot()**: Captures visual snapshots at critical points.
+
+### DEPENDENCIES
+puppeteer, fs (implicitly used for file operations in screenshot paths)
+
+### USAGE
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node test-clickable-dashboard.js`.
+3. Ensure the target application (running on `localhost:5173`) is accessible.
+4. Verify screenshots are saved to `checks/screenshots/` directory.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script assumes the dashboard has stat cards with the class `.stat-card` and that clicking them redirects to pages containing `/worlds`, `/characters`, or `/elements` in the URL. Adjust selectors or URL checks if the application structure differs.
+
+>[!WARNING]- Caution
+> Running in headless mode (`--headless: false`) enables visual debugging but may expose the browser to potential security risks. Disable `--disable-web-security` only if the target application is trusted and properly secured. Always validate the target environment before execution.

@@ -1,0 +1,53 @@
+### TAGS
+#biome-visualization
+#map-generation
+#Pillow-Python
+#geospatial-data-processing
+
+### TYPE
+code-notes
+
+### SUMMARY
+Generates biome maps using polygon coordinates and predefined color schemes for visualizing land/water biomes.
+
+### DETAILS
+This script processes biome data from text files containing polygon coordinates and biome IDs, then renders them into an image using Pillow (PIL). It loads biome names from separate text files, assigns RGB colors to each biome, and constructs a visual representation by overlaying colored polygons based on provided coordinates. The script handles error cases (e.g., missing files, invalid formats) and logs warnings for skipped entries.
+
+The workflow involves:
+1. Loading biome names from two text files (land/water lists).
+2. Parsing a polygon file containing biome IDs and their coordinates (stored as JSON).
+3. Mapping biome IDs to predefined colors.
+4. Drawing polygons on an image canvas with specified center coordinates and zoom level.
+
+### KEY_FUNCTIONS
+- **load_biome_lists(land_file, water_file)**: Extracts biome names from two input files.
+- **load_biome_polygons(filepath)**: Parses a text file with biome IDs and their polygon coordinates (JSON-encoded).
+- **generate_biome_image(center_coords, zoom_factor, biome_color_map, biome_list_combined)**: Renders a visual map by drawing colored polygons over a blank image.
+- **save_image(image, filepath)**: Saves the generated image to disk with error handling for directory creation.
+
+### DEPENDENCIES
+Pillow (`PIL`), `json`, `argparse`, `random`, `re`, `math`, `os`, `sys`.
+
+### USAGE
+1. Configure paths in `PROJECT_ROOT`, `MAP_DATA_DIR`, etc., to match your project structure.
+2. Ensure input files (`extracted_biomes_with_coords.txt`, biome list files) exist in the specified directories.
+3. Call `generate_biome_image()` with:
+   - Center coordinates (e.g., `(x, y)`).
+   - Zoom factor (e.g., `1.0` for full resolution).
+   - Predefined color map (`predefined_colors`).
+   - Combined biome list (e.g., `biome_list_combined` from `load_biome_lists()`).
+4. Save the result using `save_image()`.
+
+### RELATED
+[[Biome Data Processing Guide]], [[Map Generation Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Input File Format
+> The polygon file (`extracted_biomes_with_coords.txt`) should follow this structure:
+> ```
+> BiomeID: 1, Coordinates: [ [x1,y1], [x2,y2], ..., [x1,y1] ] (closed polygon)
+> ```
+> Example: `BiomeID: 2, Coordinates: [[10,20], [30,20], [30,30], [10,30], [10,20]]`.
+
+>[!WARNING]- Coordinate Order
+> Ensure coordinates are provided in a **closed polygon** (last point connects back to the first). Invalid formats will trigger warnings and skip entries.

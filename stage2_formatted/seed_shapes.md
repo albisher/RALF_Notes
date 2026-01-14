@@ -1,0 +1,52 @@
+**Tags:** #biological-seed-morphology, #botanical-inspiration, #alien-lifeforms, #dispersal-mechanisms
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# seed_shapes
+
+## Summary
+
+```
+A catalog of seed shape variations for conceptual design, alien biology, or botanical study.
+```
+
+## Details
+
+> This file enumerates diverse seed shapes categorized by natural dispersal methods, alien-inspired forms, and functional adaptations. Each entry describes a unique physical trait, such as aerodynamic features for wind dispersal or adhesive properties for animal attachment. The list includes both organic and geometric designs, emphasizing adaptability to ecological or fictional contexts.
+
+## Key Functions
+
+### `Dispersal Mechanisms`
+
+Shapes optimized for wind, animal, or water transport (e.g., winged, barbed, porous).
+
+### `Adhesion/Encapsulation`
+
+Coated or membrane-bound forms (e.g., sticky, liquid globule).
+
+### `Structural Alien Adaptations`
+
+Geometric or crystalline designs (e.g., icosahedral, crystalline shard).
+
+### `Energy Storage`
+
+Glowing or pulsating forms (e.g., energy packet).
+
+## Usage
+
+This list can be referenced for:
+- Alien biology design (e.g., extraterrestrial flora).
+- Botanical studies on seed evolution.
+- Concept art or game assets requiring organic shapes.
+- Environmental or survival-themed writing.
+
+## Related
+
+- [[seed_dispersal_mechanisms]]
+- [[alien_plant_archaeology]]
+
+>[!INFO] **Dual-Purpose Designs**
+> Some shapes (e.g., winged, porous) serve both ecological and fictional roles—e.g., a "plumed" seed could mimic wind dispersal in nature or a decorative element in a sci-fi setting.
+
+>[!WARNING] **Functional Trade-offs**
+> Overly sticky or barbed seeds may reduce viability if not adapted to specific dispersal agents (e.g., animals). Test designs for real-world plausibility if used in biological contexts.

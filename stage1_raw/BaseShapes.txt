@@ -1,0 +1,43 @@
+### TAGS
+#3D-Shapes
+#Geometry
+#Base-Shapes
+#Mathematical-Models
+
+### TYPE
+code-notes
+
+### SUMMARY
+A collection of fundamental 3D geometric shapes used for modeling and visualization.
+
+### DETAILS
+This file appears to list basic 3D shapes with names that imply standard mathematical or computational representations. The shapes (`sphere`, `cylinder`, `egg`, `semi-sphere`, `dome`) are likely candidates for parametric modeling, rendering, or collision detection in applications like game engines, simulations, or CAD systems. The "egg" shape suggests an irregular or non-geometric approximation, while "semi-sphere" and "dome" imply truncated or partial forms of a sphere.
+
+### KEY_FUNCTIONS
+- **sphere**: Represents a perfect 3D circular shape, often used as a reference or base model.
+- **cylinder**: A 3D shape with two circular bases connected by a curved surface, common in engineering and physics simulations.
+- **egg**: Likely a custom or approximated shape (e.g., ellipsoid or Bézier curve-based) for non-spherical objects.
+- **semi-sphere**: Half of a sphere, often used in architectural or design contexts.
+- **dome**: A curved, dome-like shape (could be a hemisphere or a truncated version).
+
+### DEPENDENCIES
+None explicitly listed, but these shapes may rely on:
+- Parametric modeling libraries (e.g., Blender’s `bpy` API, Unity’s `Mesh` generation).
+- Mathematical functions (e.g., `math.sqrt`, `math.pi` for calculations).
+- Optional: Collision detection libraries (e.g., `Bullet Physics` for physics simulations).
+
+### USAGE
+This file is likely a **reference or configuration** for:
+1. **3D modeling tools** (e.g., importing these shapes into Blender or Maya).
+2. **Procedural generation** (e.g., dynamically creating shapes in code).
+3. **Visualization libraries** (e.g., plotting 3D shapes in Python with `matplotlib` or `pygame`).
+4. **Game development** (e.g., defining static objects or collision shapes).
+
+### RELATED
+[[BaseGeometryPrimitives]], [[3D-Shapes-Library]], [[ParametricModeling-Guide]]
+
+### CALLOUTS
+>[!INFO]- Common Use Case
+> These shapes are foundational in **procedural generation** (e.g., procedural terrain, NPC placements) and **collision detection** (e.g., avoiding obstacles in games).
+>[!WARNING]- Irregularity Warning
+> The "egg" shape is non-standard and may require custom geometry handling (e.g., splines or subdivision surfaces). Avoid assuming it’s a perfect ellipsoid unless documented.

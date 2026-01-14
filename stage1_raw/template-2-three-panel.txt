@@ -1,0 +1,48 @@
+### TAGS
+#UI-Design
+#Multipanel-Interface
+#Responsive-Web-Design
+#Workstation-Tool
+#Card-Based-System
+
+### TYPE
+architecture
+
+### SUMMARY
+A modular three-panel layout for a power-user-focused digital workspace, optimizing simultaneous access to tools via dynamic content switching.
+
+### DETAILS
+This template organizes a workspace into three vertically stacked panels (left, center, right) with configurable widths, enabling real-time synchronization across tools. The **left panel** manages metadata (worlds, filters, assets), the **center panel** displays content in one of four modes (grid, timeline, hash generation, or builder), and the **right panel** provides detailed views or tools. Responsive breakpoints adjust panel visibility, and drag-and-drop interactions allow cross-panel content transfer. The design prioritizes state preservation and minimizes navigation overhead.
+
+### KEY_FUNCTIONS
+- **World List**: Displays and manages all worlds with a create button.
+- **Card Grid Mode**: Renders cards in a responsive 2–4 column layout with infinite scroll/pagination.
+- **Timeline View Mode**: Shows cards chronologically with zoom/navigation controls.
+- **Hash Generation Mode**: Inputs prompts to generate hashes with preview tabs.
+- **Card Builder Mode**: Edits cards via a form and preview section.
+- **Card Detail Panel**: Displays full card metadata, images, and edit/delete buttons.
+- **Image Generator (IGD)**: Handles AI-generated image prompts and previews.
+- **Filters (CF)**: Applies card type/time/tag filters dynamically.
+- **Asset Library**: Manages liked hashes and recent cards.
+- **Mode Switcher**: Toggles between center panel modes via tabs or dropdown.
+
+### DEPENDENCIES
+Obsidian core (for card-based workflows), custom UI libraries (e.g., CSS Grid/Flexbox), and optional plugins for drag-and-drop (e.g., Obsidian’s native drag-and-drop).
+
+### USAGE
+1. **Initial Setup**: Configure panel widths (e.g., 280px left, 400px center, 320px right).
+2. **Mode Switching**: Use tabs/dropdowns to change center panel content (e.g., switch from grid to timeline).
+3. **Filtering**: Apply filters in the left panel to update the center panel dynamically.
+4. **Resizing**: Drag handles between panels to adjust sizes (respecting min/max constraints).
+5. **Cross-Panel Actions**: Select a card in the grid to auto-populate the right panel’s detail view.
+
+### RELATED
+[[Obsidian-Plugin-Architecture]], [[Responsive-UI-Design-Guide]], [[Multitasking-Workstation-Tools]]
+
+### CALLOUTS
+>[!INFO]- **State Synchronization**
+> All panels update in real-time when filters/worlds are modified, ensuring context consistency across tools.
+>[!WARNING]- **Beginner Overload**
+> The dense layout may overwhelm users unfamiliar with multi-panel workflows; consider adding a "simplified mode" for new users.
+>[!INFO]- **Responsive Prioritization**
+> Mobile breakpoints collapse panels into modals/drawers, but critical actions (e.g., card selection) remain accessible via swipe gestures.

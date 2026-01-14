@@ -1,0 +1,57 @@
+**Tags:** #API-Integration, #Natural-Language-Processing, #Rate-Limiting, #Asynchronous-Processing
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# openai_service
+
+## Summary
+
+```
+Handles OpenAI API interactions for text generation with rate limiting and error handling.
+```
+
+## Details
+
+> This service class (`OpenAIServiceBox`) extends `Box` to interact with the OpenAI API, specifically for text generation via GPT models. It initializes with an optional API key, enforces rate limits via `RateLimiterBox`, and manages HTTP requests using `requests.Session`. The `execute` method routes requests to `_generate_text`, which constructs and sends API calls with configurable parameters (e.g., prompt, model, temperature). Rate limits and API key validation are enforced before execution.
+
+## Key Functions
+
+### ``execute``
+
+Orchestrates OpenAI API calls by dispatching requests to `_generate_text` and handling unknown operations.
+
+### ``_generate_text``
+
+Core logic—validates rate limits, constructs API payload, and processes the response, returning either generated text or an error.
+
+### ``__init__``
+
+Initializes the box with API key, rate limiter, and session, setting defaults for model (`gpt-3.5-turbo`) and temperature (`0.7`).
+
+## Usage
+
+1. Instantiate with an optional `api_key`.
+2. Call `execute` with a `BoxInput` containing:
+   - `operation`: `"generate_text"` (default).
+   - `prompt`: Text input.
+   - Optional: `model`, `temperature`, `max_tokens`, or `api_key` (overrides instance key).
+3. Returns `BoxOutput` with `generated_text` on success or an error message.
+
+## Dependencies
+
+> ``requests``
+> ``logging``
+> ``..core.box_interface``
+> ``.rate_limiter``
+
+## Related
+
+- [[OpenAI API Documentation]]
+- [[RateLimiterBox]]
+- [[BoxOutput]]
+
+>[!INFO] Rate Limiting
+> The `RateLimiterBox` enforces a 20-call limit per 60-second window. Exceeding this triggers a `BoxOutput` with a rate-limit error.
+
+>[!WARNING] API Key Security
+> Hardcoded keys are unsafe. Always validate `api_key` in `data`/`context` or pass it securely during initialization.

@@ -1,0 +1,50 @@
+### TAGS
+#data-generation
+#hashing
+#physical-appearance
+#dataclasses
+#extensible-system
+
+### TYPE
+code-library
+
+### SUMMARY
+Generates and manages deterministic physical appearance hashes for diverse character types (robots, humans, dragons, etc.) using SHA-256 and compatibility analysis.
+
+### DETAILS
+This module defines a system for generating and linking physical appearances for various creature types (e.g., robots, dragons, monsters) via a centralized registry (`APPEARANCE_GENERATORS`). It uses `dataclasses` to store appearance metadata (e.g., `PhysicalAppearanceData`) and provides deterministic hashing functions (`hash_input`, `derive_int_from_hash`, `derive_float_from_hash`) to ensure reproducibility. The `generate_appearance_hash` function combines `character_id`, `appearance_type`, and optional `world_id` to produce a SHA-256 hash for linking appearances. The `determine_appearance_compatibility` function evaluates trait alignment between a character and an appearance type, returning a compatibility score and recommendations.
+
+The module dynamically imports appearance generators from submodules (e.g., `robots`, `dragons`) and includes placeholder entries for future extensibility (e.g., `android`, `hologram`). Error handling for missing imports is managed gracefully.
+
+### KEY_FUNCTIONS
+- **`hash_input(input_str: str) -> str`**: Generates a SHA-256 hash from a string input.
+- **`derive_int_from_hash(input_hash: str, salt: str, max_value: int) -> int`**: Derives a deterministic integer from a hash and salt, constrained by `max_value`.
+- **`derive_float_from_hash(input_hash: str, salt: str) -> float`**: Derives a deterministic float (0.0–1.0) from a hash and salt.
+- **`generate_appearance_hash(character_id: str, appearance_type: str, world_id: Optional[str] = None) -> str`**: Combines inputs to produce a unique appearance hash for linking.
+- **`determine_appearance_compatibility(character_data: Dict[str, Any], appearance_type: str) -> Dict[str, Any]`**: Evaluates trait compatibility between a character and an appearance type.
+- **`PhysicalAppearanceData`**: Dataclass storing metadata for linking character appearances (e.g., `character_id`, `appearance_hash`, `appearance_data`).
+
+### DEPENDENCIES
+`hashlib`, `sys`, `os`, `typing`, `dataclasses` (Python standard library)
+External modules: `characters`, `robots`, `humans`, `dragons`, `animals`, `monsters`, `orks`, `giants` (submodules under `Creatures`).
+
+### USAGE
+1. **Initialize**: Import the module and register appearance types via `APPEARANCE_GENERATORS`.
+2. **Generate Hashes**: Use `generate_appearance_hash` to create deterministic hashes for linking appearances.
+3. **Compatibility Check**: Call `determine_appearance_compatibility` to analyze trait alignment.
+4. **Store Data**: Use `PhysicalAppearanceData` to store appearance metadata (e.g., `character_id`, `appearance_hash`).
+
+Example:
+```python
+hash = generate_appearance_hash("character_123", "robot")
+compat = determine_appearance_compatibility(character_data, "robot")
+```
+
+### RELATED
+[[`character_generation_system`]], [[`appearance_registration`]]
+
+### CALLOUTS
+>[!INFO]- Extensibility Note
+> The `APPEARANCE_GENERATORS` dictionary is designed to be extended with new appearance types (e.g., `android`, `hologram`) by adding entries under the `dict` key. Placeholder `generator_function` values (e.g., `None`) indicate unimplemented generators.
+>[!WARNING]- Hashing Caution
+> The `derive_int_from_hash` and `derive_float_from_hash` functions assume `max_value > 0` for integer derivation. If `max_value` is zero or negative, the function defaults to `0`. Ensure correct salt and hash inputs to avoid collisions.

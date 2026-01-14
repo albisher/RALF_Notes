@@ -1,0 +1,38 @@
+### TAGS
+#fantasy_mapping
+#arabian_peninsula
+#heightmap_generation
+#quran_world
+#map_guide
+
+### TYPE
+documentation
+
+### SUMMARY
+A guide to generating an Arabian Peninsula-inspired fantasy map using the Azgaar Fantasy Map Generator and processing it for a Quraan-themed world.
+
+### DETAILS
+This document outlines the process of using Azgaar’s precreated "Arabia" heightmap to generate a geographically accurate and fantasy-styled map of the Arabian Peninsula. The workflow involves selecting the Arabia heightmap from the generator’s options, configuring map settings, exporting the result, and processing it with a custom Python script. The guide ensures compatibility with existing Quraan world card coordinates.
+
+### KEY_FUNCTIONS
+- **`process_map_data.py`**: Converts exported `.json` map data into a processed format for integration with the Quraan world system.
+- **Azgaar Fantasy Map Generator**: Provides precreated heightmaps, including "Arabia" and "Middle East," for customizable fantasy maps.
+
+### DEPENDENCIES
+Azgaar Fantasy Map Generator (web-based), Python 3 (for `app/process_map_data.py`), `json` library (standard library).
+
+### USAGE
+1. Access the Azgaar site, navigate to the "Options" menu, and select the "Arabia" heightmap.
+2. Configure map settings (e.g., name, cultures) and generate the map.
+3. Export the map as `.json` or `.map`.
+4. Run `python3 app/process_map_data.py <input.json> <output.json>` to process coordinates.
+5. Replace or backup `processed_map.json` in the Quraan system.
+
+### RELATED
+[[Azgaar Fantasy Map Generator Documentation]], [[Quraan World Map Integration Guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The "Arabia" heightmap is optimized for the Arabian Peninsula, ensuring accurate placement of Quraan world cards like Mecca and Medina. Avoid using generic "Continents" heightmaps for precision.
+>[!WARNING]- Caution
+> Manual steps may require browser automation adjustments if tab connection issues persist. Test the workflow before full integration to avoid data loss.

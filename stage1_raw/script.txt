@@ -1,0 +1,44 @@
+### TAGS
+#interactive-map
+#javascript
+#data-visualization
+#zoom-and-pan
+#svg-rendering
+
+### TYPE
+code-notes
+
+### SUMMARY
+Handles dynamic SVG map rendering with zoom, pan, and grid functionality using JSON data.
+
+### DETAILS
+This script loads a map from `map.json`, processes cell and vertex data, and renders it in an SVG container. It manages zoom and pan interactions via a slider, updates UI displays for zoom level and map center coordinates, and dynamically calculates grid steps based on current view. The script initializes map dimensions (native width/height) from either metadata or vertex coordinates, applies color mapping to cells, and renders the map layer with optional grid overlays.
+
+### KEY_FUNCTIONS
+- **sliderValueToActualZoom**: Converts slider input to logarithmic zoom factor.
+- **actualZoomToSliderValue**: Converts actual zoom factor back to slider value.
+- **getColor**: Maps cell values to predefined colors (handles numeric/string inputs).
+- **renderMap**: Core rendering function (not fully shown in snippet).
+- **updateZoomUIDisplay**: Syncs slider/zoom display UI elements.
+- **updateMapCenterDisplay**: Updates center coordinate display based on current view.
+- **determineGridStep**: (Incomplete) Logic for calculating grid spacing relative to current view range.
+
+### DEPENDENCIES
+`fetch`, `document`, `Math`, SVG DOM APIs (e.g., `getElementById`, `createElementNS`), `console.log`, custom UI elements (`map`, `map-layer`, `zoomLevelSlider`, etc.).
+
+### USAGE
+1. Load `map.json` containing `pack.cells` and optional `pack.vertices`.
+2. Initialize SVG container (`map-container`) with SVG elements (`map`, `map-layer`, `grid-layer`).
+3. Call `renderMap()` after data loads or UI changes (e.g., color mode toggle).
+4. Interact with slider/pan controls to adjust zoom/position.
+
+### RELATED
+[[Map Data Structure]], [[SVG Map Rendering Guide]]
+
+### CALLOUTS
+>[!INFO]- Default Dims Handling
+> If `map.json` lacks explicit dimensions, the script defaults to `1000x1000` and calculates bounds from vertices if available.
+>[!WARNING]- Vertex Parsing Fallback
+> If `map.pack.vertices` is malformed, the script falls back to `map.pack.vertices.p` (array of coordinates). Missing vertices trigger an error.
+>[!INFO]- Grid Step Logic
+> `determineGridStep` is incomplete; the snippet cuts off mid-implementation. Grid rendering would depend on this function’s output.

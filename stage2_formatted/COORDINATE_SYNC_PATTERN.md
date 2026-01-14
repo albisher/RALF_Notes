@@ -1,0 +1,57 @@
+**Tags:** #bidirectional-sync, #coordinate-management, #react-vue, #debouncing, #circular-reference-prevention
+**Created:** 2026-01-13
+**Type:** architecture-patterns
+
+# COORDINATE_SYNC_PATTERN
+
+## Summary
+
+```
+Analyzes a coordinate synchronization pattern between Vue components, identifying issues in circular update prevention, coordinate comparison, and debouncing, then proposes improved tracking, comparison, and queueing solutions.
+```
+
+## Details
+
+> The `COORDINATE_SYNC_PATTERN` file examines a Vue.js-based coordinate synchronization system between a parent component (`WorkflowPage.vue`) and two child components (`TopTimelineMap.vue` and `WorldMap2D.vue`). The current implementation relies on a fixed 100ms `setTimeout` flag for preventing circular updates, which is unreliable, and lacks source tracking or coordinate comparison logic. Rapid updates (e.g., during panning) trigger unnecessary re-renders due to deep watches on every property change. The analysis highlights the need for source-aware updates, coordinate comparison, debouncing, and a queue system to handle overlapping updates.
+
+## Key Functions
+
+### ``handleCoordinateChanged``
+
+Updates `mapTargetCoordinates` while tracking the source of updates to prevent circular dependencies.
+
+### ``coordinatesEqual``
+
+Compares coordinates with a tolerance threshold to avoid unnecessary updates.
+
+### ``debounce``
+
+Reduces rapid updates (e.g., during dragging) by delaying emission until 150ms after the last event.
+
+### ``queueUpdate`/`processUpdateQueue``
+
+Manages a queue of pending updates to prevent overlapping DOM changes.
+
+## Usage
+
+1. **Track Source**: Parent component (`WorkflowPage`) logs the update source (`small-map`/`main-map`) to detect circular updates.
+2. **Compare Coordinates**: Child components emit coordinates with a tolerance-based comparison to skip redundant updates.
+3. **Debounce Rapid Events**: Rapid events (e.g., panning) use `debounce` to throttle updates.
+4. **Queue Updates**: A queue system (`queueUpdate`/`processUpdateQueue`) ensures updates are processed sequentially.
+
+## Dependencies
+
+> ``lodash-es` (for debouncing)`
+> `Vue.js reactivity system (for `watch`/`$nextTick`).`
+
+## Related
+
+- [[Coordinate-Synchronization-Guide]]
+- [[Vue-Reactivity-Patterns]]
+
+>[!INFO] **Source Tracking**
+> Without tracking the update source, the system cannot distinguish between user-initiated and programmatic updates, risking infinite loops or stale data.
+>
+
+>[!WARNING] **Debouncing Pitfalls**
+> Over-debouncing (e.g., >200ms) may delay responsiveness during interactive events like dragging. Balance speed and stability.

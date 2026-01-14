@@ -1,0 +1,43 @@
+### TAGS
+#box-orchestration
+#procedural-generation
+#hash-based-algorithms
+#voronoi-diagrams
+#terrain-heightmaps
+#api-integration
+#frontend-backend
+
+### TYPE
+documentation
+
+### SUMMARY
+Detailed procedural world generation sequence using hash-based inputs, terrain generation, Voronoi cell partitioning, and heightmap integration across frontend/backend systems.
+
+### DETAILS
+This file documents a multi-step box orchestration workflow for generating a map preview. The process begins with user-provided input (e.g., text hash and world type) to produce a SHA-256 hash, which seeds subsequent procedural generation. The workflow splits between frontend (e.g., `MapGeneratorPage.vue`) and backend (e.g., Python boxes) components, where terrain, Voronoi cells, and heightmaps are generated algorithmically. Terrain is derived from a 128x128 hash-based grid, while Voronoi cells are computed using the hash as a seed for spatial partitioning. Heightmaps are mapped to cell elevations based on terrain data and normalized sea levels. The final output is a structured map preview with coordinates, cells, and derived metadata (e.g., biome assignments).
+
+### KEY_FUNCTIONS
+- **`generateQuickPreview()`**: Frontend function in `MapGeneratorPage.vue` that processes user input into a hash and triggers terrain generation.
+- **`WorldTypeTerrainGeneratorBox.execute()`**: Backend box in Python that generates a 128x128 terrain array from a hash and world type.
+- **`WorldTypeVoronoiGenerator.generate_points()`**: Backend service that seeds Voronoi cell generation using the hash, producing clustered/uniform points for planet/world types.
+- **`WorldTypeHeightmapGenerator.generate_heightmap()`**: Backend box that maps Voronoi cells to terrain heights, applying world-specific logic (e.g., planet-specific heightmap conversion).
+- **`createPreviewMap()`**: Frontend function in `MapGeneratorPage.vue` that assembles the final map structure from terrain, cells, and height data, including color/biome assignments.
+
+### DEPENDENCIES
+`crypto.subtle` (Web Crypto API), `scipy.spatial.Voronoi`, `boxOrchestrator` (frontend), `WorldTypeTerrainGeneratorBox` (backend), `WorldTypeVoronoiGenerator` (backend), `WorldTypeHeightmapGeneratorBox` (backend), `Azgaar format` (custom data structure).
+
+### USAGE
+1. **Input**: User provides text (e.g., `"ew"`) and selects a world type (e.g., `"Planet"`).
+2. **Frontend**: `generateQuickPreview()` computes a SHA-256 hash and normalizes the world type.
+3. **Backend**: Terrain generation (`WorldTypeTerrainGenerator`) and Voronoi cell generation (`WorldTypeVoronoiGenerator`) are triggered via API calls.
+4. **Heightmap**: Cells are assigned heights using terrain data and sea-level thresholds.
+5. **Output**: A structured map preview is rendered in the frontend with coordinates, cells, and derived metadata (e.g., biome colors).
+
+### RELATED
+[[`BOX_ORCHESTRATOR`]], [[`PROCEDURAL_GENERATION_ARCHITECTURE`]], [[`AZGAAR_FORMAT_SPECIFICATION`]], [[`BACKEND_API_DESIGN`]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The hash-based seeding ensures reproducibility across runs. For example, `"ew"` + `"Planet"` always produces the same terrain/Voronoi layout, enabling deterministic world generation.
+>[!WARNING]- Caution
+> The Voronoi cell generation assumes uniform point distribution. For clustered points (e.g., planet biomes), the `num_points` parameter must balance detail and performance. Excessive points may slow rendering or cause memory issues.

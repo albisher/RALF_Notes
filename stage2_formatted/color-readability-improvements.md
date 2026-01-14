@@ -1,0 +1,58 @@
+**Tags:** #accessibility, #ui-design, #wcag-compliance, #color-theory, #user-experience
+**Created:** 2026-01-13
+**Type:** documentation
+
+# color-readability-improvements
+
+## Summary
+
+```
+Optimized color contrast and readability enhancements for UI components to meet WCAG AA standards across three sidebar stages.
+```
+
+## Details
+
+> This document outlines improvements to color opacity, background transparency, and line height for three UI stages (World, Chapter, Maps) to enhance readability and compliance with Web Content Accessibility Guidelines (WCAG AA). The changes include adjustments to text opacity (e.g., secondary text increased from 0.7 to 0.85) and background opacity (e.g., section backgrounds raised from 0.05 to 0.08) to improve contrast ratios. Line-height values were standardized (e.g., descriptions at 1.5, body text at 1.6–1.7) to reduce visual clutter. The goal is to ensure all text meets WCAG contrast requirements (4.5:1 for normal text, 3:1 for UI components) while improving visual hierarchy and reducing eye strain.
+
+## Key Functions
+
+### `WCAG Compliance Checker`
+
+Validates contrast ratios for text and UI components.
+
+### `Color Opacity Updater`
+
+Adjusts RGBA opacity values for text/backgrounds (e.g., `rgba(255, 255, 255, 0.85)`).
+
+### `Line Height Standardizer`
+
+Applies consistent spacing (e.g., `line-height: 1.6-1.7`) for readability.
+
+### `Stage-Specific Optimizer`
+
+Applies targeted improvements to WorldStage, ChapterStage, and MapsStage components.
+
+## Usage
+
+1. Apply opacity adjustments in `WorldStage.vue`, `ChapterStage.vue`, and `MapsStage.vue` via CSS/JS.
+2. Test contrast ratios using WCAG-compliant tools (e.g., Axe Core).
+3. Validate readability in low-light conditions and with visual impairments.
+
+## Dependencies
+
+> `Vue.js (for UI components)`
+> `WCAG contrast ratio tools (e.g.`
+> `Axe Core`
+> `WebAIM Contrast Checker).`
+
+## Related
+
+- [[WCAG_AA_Standards_Guide]]
+- [[User_Experience_Design_Patterns]]
+- [[Color_Contrast_Tools]]
+
+>[!INFO] **Contrast Ratio Validation**
+> Ensure all text meets WCAG AA standards (4.5:1 for normal text, 3:1 for UI elements). Dark backgrounds (e.g., `rgba(0,0,0,0.9)`) yield higher ratios for light text (e.g., `rgba(255,255,255,0.85)`).
+
+>[!WARNING] **Opacity Trade-offs**
+> Over-increasing opacity (e.g., `rgba(255,255,255,0.9)`) may reduce contrast further. Test incremental changes (e.g., +5% opacity at a time).

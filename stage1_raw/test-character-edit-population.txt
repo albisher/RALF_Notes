@@ -1,0 +1,40 @@
+### TAGS
+#automated-testing
+#puppeteer
+#web-scraping
+#ui-testing
+#character-edit-form
+#frontend-validation
+
+### TYPE
+code-test
+
+### SUMMARY
+Automated test to verify character edit form field population on a character detail page using Puppeteer.
+
+### DETAILS
+This script uses Puppeteer to launch a browser, navigate to a character detail page (`/characters/289`), and verify that the edit form fields (name, description, and others) are pre-populated with existing data. It captures screenshots at key stages (initial page, edit mode, and error scenarios) and logs detailed validation results. The test checks for the presence of an edit button, evaluates form field values, and logs button details if the edit button is absent.
+
+### KEY_FUNCTIONS
+- **testCharacterEditPopulation**: Orchestrates the entire test workflow, including browser setup, navigation, form validation, and cleanup.
+- **page.goto**: Navigates to the character detail page.
+- **page.$eval**: Extracts text content (e.g., character name) from DOM elements.
+- **page.$/page.$$**: Locates and iterates over buttons, inputs, and textareas for validation.
+- **page.evaluate**: Executes JavaScript in the context of DOM elements to fetch values (e.g., `value`, `placeholder`, `textContent`).
+
+### DEPENDENCIES
+puppeteer, Node.js runtime
+
+### USAGE
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node test-character-edit-population.js`.
+3. Ensure the target URL (`http://localhost:5173/characters/289`) is accessible and the edit form is functional.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script logs detailed field values (e.g., `Name field value: "John Doe"`) for debugging. Empty fields trigger a warning, but the test continues to inspect other fields.
+>[!WARNING]- Caution
+> Avoid running this in production without proper sandboxing (e.g., `--disable-setuid-sandbox` is unsafe for untrusted environments). Use `headless: true` in production for security.

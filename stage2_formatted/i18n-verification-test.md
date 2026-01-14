@@ -1,0 +1,73 @@
+**Tags:** #i18n-testing, #puppeteer, #web-automation, #localhost-testing, #localization-verification
+**Created:** 2026-01-13
+**Type:** test-reference
+
+# i18n-verification-test
+
+## Summary
+
+```
+Automated i18n verification test suite using Puppeteer to validate internationalization features on a local web application.
+```
+
+## Details
+
+> This script automates verification of i18n (internationalization) functionality by checking for translated text elements, language switchers, and i18n variables in HTML content. It uses Puppeteer to launch a browser, interact with the application, and capture screenshots for validation. The test specifically checks the English login page, World Assets page, and presence of language switchers or i18n markers in the HTML source.
+> 
+> The script logs findings for key i18n elements (e.g., app name, login button, translation keys) and captures screenshots to visually confirm UI elements. It also verifies the absence or presence of language switchers and checks for i18n variable syntax in the page source.
+
+## Key Functions
+
+### `I18nVerificationTest`
+
+Main class encapsulating test logic, including screenshot naming, browser setup, and test execution.
+
+### ``getScreenshotName(feature, description)``
+
+Generates filenames for screenshots with timestamp, counter, and feature/description.
+
+### ``takeScreenshot(page, feature, description)``
+
+Captures a full-page screenshot and saves it to a directory.
+
+### ``runTest()``
+
+Orchestrates the entire test workflow (browser launch, UI interactions, and i18n checks).
+
+### ``page.evaluate()``
+
+Executes JavaScript in the context of the rendered page to extract text content dynamically.
+
+### ``page.goto()``
+
+Navigates to a URL with configurable wait times.
+
+### ``page.type()`/`page.click()``
+
+Simulates user input and interactions.
+
+## Usage
+
+1. Initialize the test by instantiating `I18nVerificationTest`.
+2. Call `runTest()` to execute the full suite of i18n verification steps.
+3. Review console logs for pass/fail indicators and screenshots in the `./screenshots/ui-checks` directory.
+4. Modify `baseUrl`, `testCredentials`, or `launchOptions` as needed for different environments.
+
+## Dependencies
+
+> `puppeteer`
+> `fs`
+> `path`
+
+## Related
+
+- [[i18n-translation-guidelines]]
+- [[puppeteer-automation-guide]]
+
+>[!INFO] Important Note
+> The script assumes the target application is running on `https://localhost:8443`. Adjust `baseUrl` if the app uses a different endpoint.
+> The test credentials (`username: 'test', password: 'testpass'`) are hardcoded. For security, consider using environment variables or a config file.
+
+>[!WARNING] Caution
+> Running Puppeteer in headless mode (`--headless: false`) may expose the browser to potential security risks if not properly sandboxed. The current launch options disable security features (`--disable-web-security`), which could expose the app to XSS or other attacks. Use cautiously in production environments.
+> The script captures screenshots for debugging but does not validate translations beyond text presence. For full i18n correctness, additional linguistic analysis may be required.

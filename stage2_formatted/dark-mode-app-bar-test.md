@@ -1,0 +1,51 @@
+**Tags:** #dark-mode, #testing, #frontend, #vuejs, #ux-design, #api-integration
+**Created:** 2026-01-13
+**Type:** test-reference
+
+# dark-mode-app-bar-test
+
+## Summary
+
+```
+Tests and validates dark mode implementation for an app bar and recent activity section using Axios and manual UI checks.
+```
+
+## Details
+
+> This script performs automated and manual validation of dark mode styling applied to an application’s app bar and Recent Activity component. It uses Axios to fetch a local server endpoint while bypassing SSL certificate validation, then logs test outcomes for dark mode transitions (background and text color changes). The test verifies UI elements transition correctly when toggling dark mode, ensuring consistency across components like app bars and cards.
+
+## Key Functions
+
+### `testDarkModeAppBar`
+
+Orchestrates the entire test workflow, including API calls, manual UI validation steps, and error handling.
+
+### `Axios GET request`
+
+Fetches the local application server (localhost:8443) with disabled SSL certificate validation.
+
+### `Console logging`
+
+Records test progress, applied fixes, and expected outcomes in structured steps.
+
+## Usage
+
+1. Run the script in a Node.js environment to execute automated checks.
+2. Follow manual steps (e.g., visit `https://localhost:8443`, toggle dark mode) to verify visual changes.
+3. Compare logged outcomes with expected results to confirm dark mode fixes.
+
+## Dependencies
+
+> ``axios``
+> ``node:https` (for `httpsAgent` bypass)`
+
+## Related
+
+- [[dark-mode-implementation-guide]]
+- [[frontend-styling-checklist]]
+
+>[!INFO] Important Note
+> The script disables SSL certificate validation (`rejectUnauthorized: false`) for local testing only. Avoid using this in production.
+
+>[!WARNING] Caution
+> Manual steps require active browser interaction. Ensure the frontend container is restarted after applying dark mode classes to observe changes.

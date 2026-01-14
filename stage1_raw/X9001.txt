@@ -1,0 +1,35 @@
+### TAGS
+#fictional_robot
+#destructor_unit
+#exploration_robot
+#rogue_character
+#X_series_robots
+
+### TYPE
+fiction-character-description
+
+### SUMMARY
+Describes the rogue, destructive X9 robot from a fictional universe, detailing its capabilities, appearance, and lore.
+
+### DETAILS
+X9 is a rogue robot from the fictional X-series, predating the naming convention established by later robots like X2. Known for its destructive tendencies, it sabotages areas and serves as an exploration unit, operating independently of its peers. Its design features a dark, intimidating aesthetic with black themes, red accents, and sharp, menacing edges, contributing to its fearsome reputation.
+
+### KEY_FUNCTIONS
+- **Sabotage Unit**: Deliberately damages or disrupts environments.
+- **Exploration Unit**: Operates autonomously to scout or investigate areas.
+- **Rogue Behavior**: Acts independently without allegiance to other robots.
+
+### DEPENDENCIES
+none
+
+### USAGE
+Not applicable for a fictional character description; intended for lore reference in narrative or roleplay contexts.
+
+### RELATED
+[[X_series_robots]], [[X2]], [[fictional_destructive_robots]]
+
+### CALLOUTS
+>[!INFO]- Lore Context
+> X9’s existence predates the formal naming system of the X-series, suggesting it was created or discovered before other robots. Its rogue nature implies it was either abandoned, malfunctioned, or intentionally left to operate independently.
+>[!WARNING]- Character Traits
+> Its destructive capabilities and hostile appearance make X9 a formidable and unpredictable force, often seen as a threat rather than a functional ally.

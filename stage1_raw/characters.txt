@@ -1,0 +1,46 @@
+### TAGS
+#character-generation
+#deterministic-selection
+#hash-based
+#narrative-attributes
+#module-import
+
+### TYPE
+code-library
+
+### SUMMARY
+Generates deterministic character attributes and physical forms using hash-based selection from predefined lists.
+
+### DETAILS
+This script defines a modular system for generating character traits (e.g., personalities, motivations) and physical forms (e.g., robots, monsters) deterministically. It reads predefined lists from files in a `Lists` directory and uses cryptographic hashing to select attributes deterministically. The script dynamically imports physical form generators (e.g., `robots.py`, `monsters.py`) based on selected form types, allowing for customizable physical descriptions. It also includes helper functions for name generation, trait selection, and error handling.
+
+### KEY_FUNCTIONS
+- **read_list_from_file(filename)**: Reads and parses a text file into a list of strings.
+- **hash_input(input_str)**: Generates a SHA-256 hash for deterministic selection.
+- **derive_int_from_hash(input_hash, salt, max_value)**: Converts a hash segment into a pseudo-random integer within a specified range.
+- **select_from_list(input_hash, salt, item_list)**: Randomly selects an item from a list based on the hash and salt.
+- **assign_number(input_hash, salt, min_value, max_value)**: Assigns a deterministic number within a range.
+- **clean_for_name(text)**: Cleans and capitalizes text for name generation.
+- **generate_character_name(input_hash, salt, personality, number)**: Combines personality and a number to generate a name.
+- **determine_physical_form(input_hash, salt)**: Selects a physical form type (e.g., "Robots", "Monsters").
+- **get_physical_form_generator_path(physical_form)**: Maps form names to corresponding generator files.
+- **generate_physical_form(input_hash, physical_form)**: Dynamically imports and calls a physical form generator.
+- **generate_character_description(input_hash)**: Orchestrates the full character description generation, including traits and physical form.
+
+### DEPENDENCIES
+`hashlib`, `os`, `re`, `sys`, `importlib` (via `importlib.util`), external text files in `Lists/` directory (e.g., `character_personalities.txt`).
+
+### USAGE
+1. Place text files (e.g., `character_personalities.txt`) in the `Lists` subdirectory.
+2. Call `generate_character_description(input_hash)` to produce a deterministic character description.
+3. Use `generate_physical_form(input_hash, physical_form)` to generate physical forms (e.g., robots/monsters) dynamically.
+4. Customize `PHYSICAL_FORM_TYPES` and `name_prefixes/suffixes` as needed.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Deterministic Selection
+> This script relies on cryptographic hashing (`hashlib.sha256`) to ensure consistent character generation across runs with the same `input_hash` and `salt`. Adjusting these inputs will produce different characters.
+>[!WARNING]- File Dependency
+> Ensure all required text files (e.g., `character_personalities.txt`) exist in the `Lists` directory. Missing files will trigger error messages.

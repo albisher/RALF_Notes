@@ -1,0 +1,62 @@
+**Tags:** #Cross-Site-Policy, #WebSecurity, #Puppeteer, #AutomatedTesting, #CSPValidation
+**Created:** 2026-01-13
+**Type:** code-test
+
+# verify-csp-fix
+
+## Summary
+
+```
+Automated verification script to check if a Content Security Policy (CSP) fix resolves CSP-related errors in a Vue.js application.
+```
+
+## Details
+
+> This script uses Puppeteer to launch a browser, navigate to a local application (running on `localhost:8443`), and checks for CSP violations. It logs console errors, verifies the presence of a Vue.js app container (`#app`), and confirms the page title matches expected criteria (`Space Pearl`). If CSP-related errors are detected, it fails the verification; otherwise, it confirms the CSP fix is working.
+
+## Key Functions
+
+### `verifyCSPFix()`
+
+Main async function that orchestrates browser launch, page navigation, CSP error checking, and validation logic.
+
+### `Puppeteer Launch`
+
+Configures a headless browser with security-disabling flags (for testing purposes).
+
+### `Console Error Filtering`
+
+Captures and filters CSP-related errors from the page's console output.
+
+### `Vue App Detection`
+
+Checks for the Vue.js app container element (`#app`) via Puppeteer's `$` selector.
+
+### `Page Title Validation`
+
+Ensures the page title includes the expected substring (`Space Pearl`).
+
+## Usage
+
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node verify-csp-fix.js`.
+3. The script will:
+   - Launch a browser and navigate to `https://localhost:8443/login`.
+   - Log CSP errors if detected.
+   - Return `true` if CSP errors are absent and Vue app/title conditions are met.
+   - Return `false` otherwise.
+
+## Dependencies
+
+> `puppeteer`
+
+## Related
+
+- [[Security Testing Framework]]
+- [[Puppeteer Documentation]]
+
+>[!INFO] Important Note
+> This script intentionally disables security features (`--no-sandbox`, `--ignore-certificate-errors`) for testing purposes. Use with caution in production environments.
+
+>[!WARNING] Caution
+> The `--ignore-ssl-errors` flag may expose the system to SSL certificate validation bypass risks. Only run this in controlled, trusted environments.

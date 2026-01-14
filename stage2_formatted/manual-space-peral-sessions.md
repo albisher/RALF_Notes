@@ -1,0 +1,78 @@
+**Tags:** #manual-guide, #world-creation, #ui-procedure, #asset-generation, #biome-creation, #robot-simulation, #environmental-design
+**Created:** 2026-01-13
+**Type:** documentation
+
+# manual-space-peral-sessions
+
+## Summary
+
+```
+A step-by-step manual for creating a complete *Space Peral* world in a UI-based application via browser, covering world setup, X-Series robots, flora, fauna, and infrastructure.
+```
+
+## Details
+
+> This guide provides a hands-on approach to manually crafting the *Space Peral* world in a web-based application (running locally at `http://localhost:5173`) without relying on automated Puppeteer scripts. Users must interact directly with the UI to define the world’s ecosystem, including its unique biomes, robotic inhabitants, and built structures. The process is broken into sessions, each focusing on distinct components (e.g., world creation, character generation, or plant/building design). The guide emphasizes precision in naming, descriptions, and seed values for reproducibility.
+> 
+> The workflow follows a logical progression: starting with foundational elements (world and workspace), then layering in specialized assets (robots, plants, animals, and buildings) with predefined attributes tailored to the fictional environment’s environmental challenges (e.g., UV radiation filtering, resource scarcity). Each step includes prompts for manual input, ensuring customization aligns with the world’s narrative and technical constraints.
+
+## Key Functions
+
+### `Create Space Peral World`
+
+Defines the core environment with name, description, and biome attributes.
+
+### `Generate X-Series Robots`
+
+Uses seed-based character generation for each robot (X1–X11) with predefined roles (e.g., survey drone, orchestrator).
+
+### `Manual Plant Creation`
+
+Defines flora (e.g., *Purplish Slender Tree*, *Reddish Rock Lichen*) with adaptive traits for the fictional setting.
+
+### `Animal Asset Creation`
+
+Designs symbiotic creatures (e.g., *Atmospheric Filter Moth*, *Water Purifier Fish*) to support robot ecosystems.
+
+### `Building Construction`
+
+Implements infrastructure (e.g., *Blue City Command Center*, *Solar Collection Site*) with geographic coordinates and functional descriptions.
+
+### `Workspace Navigation`
+
+Links between dashboard and asset creation interfaces for modular world-building.
+
+## Usage
+
+1. **Prerequisites Check**: Ensure the app is running and a browser is open.
+2. **Session Flow**:
+   - **Session 1**: Create the world and navigate to the workspace.
+   - **Session 2**: Generate all X-Series robots using provided seeds.
+   - **Session 3**: Add flora (plants) manually with descriptions.
+   - **Session 4**: Introduce fauna (animals) to support robot interactions.
+   - **Session 5**: Build buildings/infrastructure with geographic placements.
+3. **Validation**: Review all created assets for consistency with the *Space Peral* lore before proceeding.
+
+## Dependencies
+
+> `- Local web application (Vite/React-based) running at `http://localhost:5173`.
+- Modern browser (Chrome/Firefox/Safari) with JavaScript/HTML5 support.
+- No external libraries; relies on UI interactions and manual input.`
+
+## Related
+
+- [[Space Peral World Design Notes]]
+- [[X-Series Robot Specifications]]
+- [[Biome Ecology Guide]]
+- [[Manual vs]]
+
+>[!INFO] Important Note
+> **Seed Consistency**: All X-Series robots must use the exact seeds (`x1_drone_seed`, `x2_orchestrator_seed`, etc.) to ensure identical character generation. Deviations may produce non-matching assets.
+>
+
+>[!WARNING] Caution
+> **Environmental Constraints**: Descriptions for flora/fauna must reflect the world’s unique conditions (e.g., "adapted to blue sun radiation"). Incorrect details may render assets visually or functionally incompatible with the ecosystem.
+>
+
+>[!WARNING] Caution
+> **Geographic Coordinates**: Buildings must include precise coordinates (e.g., `31.0° N, 34.0° E`) to avoid placement errors in the final world map. Rounding errors can disrupt spatial relationships between assets.

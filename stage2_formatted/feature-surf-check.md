@@ -1,0 +1,63 @@
+**Tags:** #automated-testing, #web-scraping, #puppeteer, #ui-testing, #screenshot-generation, #error-handling
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# feature-surf-check
+
+## Summary
+
+```
+Automated UI feature verification tool using Puppeteer to test webpage functionality and capture screenshots.
+```
+
+## Details
+
+> This script automates UI testing by visiting predefined feature URLs, checking page titles, and capturing screenshots. It uses Puppeteer to launch a browser, navigate to each URL, and record visual results. The `CheckHelper` class logs pass/fail outcomes and generates a report. Screenshots are saved in a timestamped directory for debugging.
+
+## Key Functions
+
+### `FeatureSurfCheck.init()`
+
+Creates a timestamped screenshot directory and logs initialization.
+
+### `getScreenshotName(feature, description)`
+
+Generates a unique filename combining date, counter, feature name, and sanitized description.
+
+### `takeScreenshot(page, feature, description)`
+
+Captures a full-page screenshot with error handling.
+
+### `testPage(page, url, feature, description)`
+
+Tests URL loading, captures screenshot, and records result via helper.
+
+### `runAllTests()`
+
+Orchestrates browser launch, test execution, and report generation for all predefined features.
+
+## Usage
+
+1. Configure `./config` with base URL and Puppeteer settings.
+2. Run script to execute all predefined tests.
+3. Review screenshots in `./feature-screenshots/<date>` and report in `CheckHelper` output.
+
+## Dependencies
+
+> `puppeteer`
+> `chalk`
+> `fs`
+> `path`
+> `config (local)`
+> `check-helper (local)`
+
+## Related
+
+- [[config]]
+- [[check-helper]]
+
+>[!INFO] Important Note
+> The script handles browser cleanup in `finally` block, ensuring resources are released even if tests fail.
+
+>[!WARNING] Caution
+> Non-existent URLs (e.g., `/nonexistent-page`) will trigger error screenshots and fail results. Validate all test URLs in advance.

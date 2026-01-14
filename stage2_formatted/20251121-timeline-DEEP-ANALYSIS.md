@@ -1,0 +1,63 @@
+**Tags:** #UI/UX_Issues, #CSS_Styling, #Frontend_Design, #Responsive_Layout, #Visual_Analysis
+**Created:** 2026-01-13
+**Type:** documentation
+
+# 20251121-timeline-DEEP-ANALYSIS
+
+## Summary
+
+```
+Comprehensive UI/UX analysis report identifying critical layout, styling, and functional issues in a timeline page, including improper column sizing, excessive button width, and misaligned year markers.
+```
+
+## Details
+
+> This report documents a **November 21, 2025** UI/UX deep analysis of a timeline page (`http://localhost:5174/#timeline`) with multiple critical issues. The analysis combines visual inspection and code investigation, revealing problems in column layout, time-scale selector styling, and year distribution. Key findings include improper CSS inheritance causing squeezed columns, an unconstrained dropdown button, and overly wide year markers due to a fixed `min-width` of 2000px. The report also highlights missed opportunities in debugging CSS, testing draggability, and validating design choices.
+
+## Key Functions
+
+### `TimelineStage`
+
+Container for three-column layout; misaligned grid columns cause squeezing.
+
+### `TopTimeline`
+
+Hosts a time-scale-selector dropdown with no CSS constraints, making it excessively wide.
+
+### ``top-timeline` CSS`
+
+Enforces a `min-width: 2000px`, forcing year markers to spread excessively.
+
+### ``time-scale-selector``
+
+Unstyled dropdown in `TopTimeline.vue`, relying on default browser styling.
+
+### ``workflow.css``
+
+Contains critical CSS fixes for column layout and button sizing.
+
+## Usage
+
+To address these issues:
+1. **Fix column layout** by updating CSS to span parent columns (`grid-column: 1 / -1`).
+2. **Constrain the time-scale-selector** with explicit width/positioning rules.
+3. **Adjust `top-timeline` width** dynamically or to viewport constraints.
+4. **Verify API operations** (e.g., event creation) and settings functionality.
+
+## Dependencies
+
+> `Vue.js (for component structure)`
+> `CSS (for styling)`
+> `local development environment (for testing).`
+
+## Related
+
+- [[UX Testing Framework]]
+- [[Frontend Styling Guide]]
+- [[Timeline Component Documentation]]
+
+>[!INFO] Critical CSS Fix
+> The `three-column-layout` parent grid should enforce `grid-column: 1 / -1` on child stages to prevent column squeezing. This requires browser verification of rendered styles.
+
+>[!WARNING] Design Preference
+> The time-scale-selector button’s width may need user approval before finalizing CSS constraints, as it could conflict with design intent.

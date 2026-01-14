@@ -1,0 +1,54 @@
+**Tags:** #automated-testing, #web-scraping, #puppeteer, #vuejs, #debugging, #frontend-analysis
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# detailed-dashboard-debug
+
+## Summary
+
+```
+Automated debugging tool for detailed frontend dashboard analysis using Puppeteer.
+```
+
+## Details
+
+> This script automates browser debugging and analysis of a dashboard application, specifically targeting Vue.js-based components. It launches Chrome in a headless mode with custom options, logs user credentials, and performs a series of checks to validate dashboard rendering. The tool captures screenshots, evaluates DOM structure, and logs detailed metrics about Vue components, CSS classes, and text content.
+> 
+> The workflow begins with browser launch, followed by login automation. After successful authentication, it triggers a page evaluation via `page.evaluate()` to extract structured data about the rendered dashboard. The script then logs this data in a human-readable format, including checks for Vue-specific elements, DOM hierarchy, and error conditions.
+
+## Key Functions
+
+### `runDebug()`
+
+Orchestrates the full debugging workflow, from browser launch to dashboard analysis.
+
+### `pageAnalysis`
+
+Evaluates DOM structure and extracts metrics about the rendered dashboard (e.g., main content, Vue components, CSS classes).
+
+### `componentCheck`
+
+(Incomplete snippet) Attempts to identify Vue component markers via `data-v-*` attributes (truncated in provided code).
+
+## Usage
+
+1. Initialize the class: `const debugTool = new DetailedDashboardDebug();`
+2. Call `debugTool.runDebug()` to execute the full analysis workflow.
+3. Review console logs for detailed metrics and screenshots in `./screenshots/ui-checks/`.
+
+## Dependencies
+
+> `puppeteer`
+> `Node.js runtime`
+
+## Related
+
+- [[Vue]]
+- [[Puppeteer Automation Best Practices]]
+
+>[!INFO] Important Note
+> The script uses Chrome’s custom executable path (`/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`) and disables security features (`--ignore-certificate-errors`, `--disable-web-security`) for local testing. Avoid running this on production environments without proper security hardening.
+
+
+>[!WARNING] Caution
+> The `page.evaluate()` call for `componentCheck` is incomplete (truncated in the snippet). Ensure the full implementation correctly identifies Vue components via `data-v-*` attributes or other markers. Incomplete checks may yield false positives/negatives.

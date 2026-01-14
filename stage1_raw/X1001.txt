@@ -1,0 +1,36 @@
+### TAGS
+#drone
+#aerial-surveillance
+#space-exploration
+#X-Series
+#autonomous-robot
+
+### TYPE
+documentation
+
+### SUMMARY
+Documentation for X1, a drone unit for Space Peral’s aerial surveying missions.
+
+### DETAILS
+X1 is a foundational drone unit from the X-Series, designed for high-resolution aerial mapping and data collection. It operates autonomously, transmitting visual and sensor data to X11 (and potentially other systems) to support critical decisions, such as selecting landing sites (e.g., Blue City) and identifying resources. Preceding the formal X-Series naming convention, X1’s observations were pivotal in early planetary analysis.
+
+### KEY_FUNCTIONS
+- **Aerial Surveying**: Uses high-res cameras and atmospheric sensors to capture surface data.
+- **Autonomous Flight**: Operates independently, transmitting scans to central systems.
+- **Long-Range Communication**: Relays data to X11 and other units.
+- **Nighttime Navigation**: Rotor blade lights assist low-light operations.
+
+### DEPENDENCIES
+none (standalone hardware/software system)
+
+### USAGE
+Deployed from landing craft via its compact, foldable design. Operates in autonomous mode, transmitting data to coordinate systems for further analysis.
+
+### RELATED
+[[X-Series Documentation]], [[Space Peral Mission Logs]]
+
+### CALLOUTS
+>[!INFO]- Key Contribution
+> X1’s observations directly influenced Blue City’s selection, demonstrating its role in planetary resource mapping.
+>[!WARNING]- Operational Limitation
+> Sensor accuracy may vary in extreme atmospheric conditions (e.g., dense clouds).

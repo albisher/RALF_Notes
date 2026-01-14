@@ -1,0 +1,70 @@
+**Tags:** #UI-Demo, #Map-Generation, #Real-Time-Progress, #SVG-Rendering, #World-Builder
+**Created:** 2026-01-13
+**Type:** documentation
+
+# map_generator_ui_demo_complete
+
+## Summary
+
+```
+A complete UI demo verifies a map generator system, showcasing successful map creation, real-time progress tracking, and interactive map display with Voronoi cells, biome visualization, and controls.
+```
+
+## Details
+
+> This file documents a functional **Map Generator UI Demo**, where a user interface (UI) successfully generates, tracks, and displays procedurally created maps. The demo includes a form for inputting parameters (e.g., map name, seed, resolution), a real-time progress bar showing generation stages (Voronoi, heightmap, biomes, cities), and a 2D world map preview with interactive controls (zoom, color mode, navigation). The system integrates an API for asynchronous generation, polling job statuses, and rendering the final map via SVG. Key components include a `MapGeneratorServiceBox` for backend interaction, a `MapPreview` component for rendering, and a `MapRenderBox` for SVG output.
+
+## Key Functions
+
+### `MapGeneratorServiceBox`
+
+Handles API calls for map generation, job status polling, and result retrieval.
+
+### `Progress Display`
+
+Tracks and updates the generation stages (e.g., Voronoi at 10%, biomes at 50%) via a progress bar.
+
+### `MapPreview Component`
+
+Renders the generated map in a 2D world view with biome colors, Voronoi polygons, and coordinate grids.
+
+### `MapRenderBox`
+
+Converts the generated map data into SVG for display.
+
+### `World Map 2D View`
+
+Interactive canvas showing the rendered map with zoom/navigation controls.
+
+### `Map Controls`
+
+Includes zoom, color mode toggle, and export functionality.
+
+## Usage
+
+1. **Input Parameters**: Fill the form with desired map settings (e.g., name, seed, resolution).
+2. **Generate**: Click "Generate Map" to trigger asynchronous generation via the API.
+3. **Monitor Progress**: Observe the progress bar and stage updates in real-time.
+4. **View Results**: Once complete, the map renders in the 2D world view with interactive controls.
+5. **Export**: Use the export button to save the SVG map.
+
+## Dependencies
+
+> ``WebSocket API` (for real-time job status updates)`
+> ``SVG.js` (for SVG rendering)`
+> ``D3.js` (for Voronoi and biome visualization)`
+> ``React`/`Vue`/`Svelte` (frontend framework)`
+> ``/api/maps/generate` (backend endpoint)`
+> ``/api/maps/status/{job_id}` (status polling endpoint).`
+
+## Related
+
+- [[Map Generator API Reference]]
+- [[World Map 2D Component Design]]
+- [[Procedural Generation Algorithm Notes]]
+
+>[!INFO] Important Note
+> The demo uses auto-generated seeds (e.g., "Show Me Map") for reproducibility. Users can manually override seeds for custom maps.
+
+>[!WARNING] Caution
+> High-resolution maps (e.g., "Large" resolution) may take longer to generate (up to 30+ seconds) and consume more resources. Always validate inputs to avoid API errors.

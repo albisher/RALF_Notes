@@ -1,0 +1,37 @@
+### TAGS
+#script
+#automation
+#nodejs
+#world-building
+#session-management
+
+### TYPE
+code-script
+
+### SUMMARY
+Automates execution of multiple JavaScript session files for a fictional "Space Peral" world creation project.
+
+### DETAILS
+This script orchestrates running five predefined JavaScript files (world creation, robots, plants/animals, buildings, and story) in sequence. It uses Node.js's `child_process.execSync` to execute each file, tracks execution time, logs progress, and records results. After completion, it generates a structured JSON summary file detailing success/failure statuses and durations of each session.
+
+### KEY_FUNCTIONS
+- **runSpacePeralSessions()**: Orchestrates execution of all session files with progress logging and timing.
+- **File existence check**: Verifies all required session files exist before execution.
+- **Summary generation**: Creates a detailed JSON report of execution results.
+
+### DEPENDENCIES
+`child_process`, `fs`, `path` (Node.js core modules)
+
+### USAGE
+1. Place all session files (e.g., `space-peral-session-1-world.js`) in the same directory as this script.
+2. Run the script with `node run-space-peral-sessions.js`.
+3. Review the console output and generated `space-peral-sessions-summary.json`.
+
+### RELATED
+[[World Creation Documentation]], [[Space Peral Project Overview]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> This script assumes all session files are JavaScript modules in the same directory. Missing files will cause the script to exit with an error.
+>[!WARNING]- Caution
+> Running in parallel could cause race conditions. The script intentionally waits 5 seconds between sessions to prevent concurrent execution.

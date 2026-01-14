@@ -1,0 +1,74 @@
+**Tags:** #task-management, #tool-integration, #devops, #workflow-automation
+**Created:** 2026-01-14
+**Type:** task-planning
+
+# tool_stack_task_summary
+
+## Summary
+
+```
+Document outlines a structured task breakdown for setting up a tool stack (Continue, OpenProject, n8n) as a development workflow for Space Pearl and future projects.
+```
+
+## Details
+
+> This document defines a **40-task** plan (15 main + 25 subtasks) for configuring Dockerized tool containers, databases, environment variables, and workflow automation. Tasks are organized into phases: infrastructure setup, tool configuration, integration, workflow templates, and security/documentation. Subtasks are detailed for Docker Compose, Continue, n8n, and GitHub/Cursor integration. The workflow prioritizes dependencies (e.g., PostgreSQL before Continue) and uses a command-line tool (`task-master`) for tracking progress via status updates and subtask expansion.
+
+## Key Functions
+
+### `task-master use-tag tool-stack-setup`
+
+Switch to the task tag.
+
+### `task-master list --with-subtasks`
+
+View all tasks and subtasks.
+
+### `task-master next`
+
+Retrieve the next task to prioritize.
+
+### `task-master show <ID>`
+
+Display task/subtask details.
+
+### `task-master set-status --id=<ID> --status=<status>`
+
+Update task status (e.g., `in-progress`, `done`).
+
+### `task-master expand --id=<ID> --research`
+
+Add/regenerate subtasks dynamically.
+
+### `task-master update-task/subtask`
+
+Add notes to tasks/subtasks.
+
+## Usage
+
+1. **Initialize**: Run `task-master use-tag tool-stack-setup`.
+2. **Plan**: Follow the weekly implementation order (e.g., Week 1: Docker/Database; Week 2: Continue/OpenProject).
+3. **Execute**: Use `task-master set-status` to mark tasks as `in-progress`/`done`.
+4. **Expand**: Dynamically add subtasks with `task-master expand --research`.
+
+## Dependencies
+
+> ``task-master` CLI tool (for task management)`
+> `Docker`
+> `PostgreSQL`
+> `n8n`
+> `OpenProject`
+> `Continue`
+> `GitHub`
+> `Cursor IDE.`
+
+## Related
+
+- [[tool-recommendations-2025]]
+- [[tool-implementation-guide]]
+
+>[!INFO] Critical Dependency
+> Tasks 1 (Docker/PostgreSQL) must complete before Tasks 2–5 (networking, security, backups) or Task 6 (Continue), as they rely on stable containerized environments.
+
+>[!WARNING] Risk of Scope Creep
+> Prioritize high-priority tasks (9/40) to avoid delays in core tool integrations (e.g., n8n workflows). Subtasks should not exceed 5 per task to maintain clarity.

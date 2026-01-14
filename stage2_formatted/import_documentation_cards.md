@@ -1,0 +1,66 @@
+**Tags:** #data-parsing, #card-generation, #documentation-processing, #regex-patterns, #entity-extraction
+**Created:** 2026-01-13
+**Type:** documentation
+
+# import_documentation_cards
+
+## Summary
+
+```
+Processes documentation files to extract entities (robots, characters, events) and generates structured cards using predefined boxes.
+```
+
+## Details
+
+> This script imports and processes files from a documentation folder, extracting structured metadata (e.g., descriptions, capabilities, locations) for entities like robots, characters, and story logs. It uses regex to parse text sections (e.g., "Description," "Capabilities") and applies a series of "box" generators (e.g., `HashGeneratorMasterBox`, `PhysicalFormBox`) to generate unique identifiers, physical traits, personality traits, and contextual metadata. The parsed data is then used to create database entries in a `Card` model, linking them to a `World` and `User` context.
+
+## Key Functions
+
+### `parse_robot_file(file_path)`
+
+Extracts metadata (name, description, capabilities, appearance) from robot documentation files using regex to identify sections.
+
+### `parse_character_file(file_path)`
+
+Identifies character mentions (e.g., "X123," "MagneDrill") and captures surrounding context for descriptions.
+
+### `parse_story_log(file_path)`
+
+Extracts temporal (date) and spatial (coordinates) data from story logs, including robot references.
+
+### `create_card_from_entity(user_id, world_id, entity_type, entity_data, location_hash=None, time_hash=None)`
+
+Orchestrates the generation of a card by:
+
+## Usage
+
+1. Place documentation files (e.g., `.txt` files with sections like "Description") in a designated folder.
+2. Run the script to parse files, extract entities, and generate cards in a database.
+3. Link generated cards to a `World` and `User` instance via `user_id` and `world_id`.
+
+## Dependencies
+
+> ``app``
+> ``models.db``
+> ``User``
+> ``World``
+> ``Card``
+> ``BoxInput``
+> ``HashGeneratorMasterBox``
+> ``PhysicalFormBox``
+> ``PersonalityBox``
+> ``LocationBox``
+> ``TimeBox``
+> ``CardBuilderBox``
+> ``CardUniquenessBox` (from `boxes` package).`
+
+## Related
+
+- [[Documentation_Folder_Structure]]
+- [[Card_Model_Schema]]
+
+>[!INFO] Context Extraction
+> Regex patterns (e.g., `r'Description\s*\n(.*?)(?=\n\n|\nCapabilities|$)`) dynamically capture text between section headers, but may fail if formatting is inconsistent (e.g., missing newlines).
+
+>[!WARNING] Entity Ambiguity
+> `parse_character_file` uses hardcoded patterns (e.g., `X\d+`) for characters like "X123," which could conflict with other entities (e.g., coordinates). Validate extracted names against a known list of characters.

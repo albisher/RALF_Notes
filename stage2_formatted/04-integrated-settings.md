@@ -1,0 +1,75 @@
+**Tags:** #UI/UX-Design, #Timeline-Interface, #Settings-Integration, #Contextual-Access, #VueJS-Component
+**Created:** 2026-01-13
+**Type:** documentation
+
+# 04-integrated-settings
+
+## Summary
+
+```
+Design iteration for integrating timeline settings directly into the timeline interface for improved contextual accessibility and user experience.
+```
+
+## Details
+
+> This document outlines a design for embedding timeline settings within the timeline header, ensuring they are contextually relevant and easily accessible. The design emphasizes a two-column layout with a left panel for event management and a right panel for quick actions, while settings are dynamically opened via a gear icon in the header. The implementation uses a Vue.js-based `SettingsPanel` component that allows users to adjust settings like time period classification and era metadata (JSON) with inline help and validation.
+
+## Key Functions
+
+### `TopTimeline`
+
+Displays the main timeline with interactive elements like a slider.
+
+### `SettingsPanel`
+
+Vue component rendering settings options (radio buttons, JSON input, help links) and handling save/reset actions.
+
+### `SettingsDropdown`
+
+Toggle button (`⚙️ Settings`) that opens/closes the settings panel via `@click` event.
+
+### `TimelineControls`
+
+Contains buttons for `View Options` (`📊`) and `Filters` (`🔍`) alongside the settings toggle.
+
+### `EraMetadata`
+
+JSON input field for customizable timeline era metadata (e.g., `technology_level`, `society_type`).
+
+### `RadioGroup`
+
+Dynamic radio buttons for `Time Period Classification` (e.g., Historical, Futuristic, Imaginary).
+
+### `HelpLink`
+
+Button triggering a tooltip/guide for unclear settings (e.g., "What is era metadata?").
+
+## Usage
+
+1. **Initialize**: Load the `SettingsPanel` component in a parent template with `v-if="settingsOpen"` and bind `timelineSettings` state.
+2. **Trigger**: Use `@click="toggleSettings"` on the gear icon to open/close the panel.
+3. **Interact**:
+   - Select radio buttons for `Time Period Classification`.
+   - Edit `eraMetadata` (JSON) via a textarea.
+   - Click `Save Settings` or `Reset to Defaults`.
+4. **State Management**: Use Vuex/Pinia to persist settings across UI sessions.
+
+## Dependencies
+
+> `Vue.js (for component rendering)`
+> `Vuex/Pinia (for state management of `timelineSettings` and `settingsOpen`)`
+> `Tailwind CSS (for styling)`
+> `and potentially a JSON parser for validating `eraMetadata`.`
+
+## Related
+
+- [[Design Iteration 3: Timeline Event Editor]]
+- [[UX Guidelines for Timeline UIs]]
+- [[Vue]]
+
+>[!INFO] Contextual Help
+> Include a `help-link` button in each setting group (e.g., `Era Metadata`) to display tooltips or a dedicated help modal. Example: `<button class="help-link" @click="showHelp">What is this?</button>` opens a tooltip explaining JSON structure or metadata use cases.
+
+
+>[!WARNING] Panel Overlap
+> Ensure the settings panel has a fixed height and z-index to prevent content overlap. Use CSS like `position: fixed` or `position: absolute` with `transform: translateY(-100%)` when closed to avoid visual clutter.

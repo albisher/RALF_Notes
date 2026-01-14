@@ -1,0 +1,46 @@
+### TAGS
+#map-generation
+#world-map
+#2D-rendering
+#progressive-generation
+#box-architecture
+#api-integration
+#frontend-backend
+
+### TYPE
+documentation
+
+### SUMMARY
+Documentation for a completed map generation system integrating frontend components with backend APIs, focusing on 2D map rendering and modular generation workflows.
+
+### DETAILS
+This file documents the implementation of a **map generation system** that processes user inputs (hashes and world types) through a **box-based architecture** to produce 2D maps. The system includes frontend components (`WorldMap2D`, `MapGeneratorPage`) and backend APIs (`/api/generation/terrain`, `/api/generation/heightmap`) for terrain and heightmap generation. Key features include real-time prop updates, preview map rendering, and full map generation with biomes and statistics. The system relies on authentication via JWT tokens and backend services running on port `5001`.
+
+### KEY_FUNCTIONS
+- **`createPreviewMap()`**: Constructs an Azgaar-format map structure (derivedInfo, vertices, cells, biomes) from raw terrain/heightmap data.
+- **`loadMapData()`**: Fetches and caches map data from API responses, triggering re-renders in `WorldMap2D` when updated.
+- **`WorldMap2D`**: Renders 2D maps using SVG, accepting `mapData` and `showControls` props for dynamic updates.
+- **`WorldTypeTerrainGeneratorBox`**: Handles terrain generation via API call (`POST /api/generation/terrain`).
+- **`WorldTypeHeightmapGeneratorBox`**: Processes heightmap data, using terrain data from the previous box.
+- **`MapGeneratorPage`**: Frontend UI component managing user inputs (hash, world type, map type) and triggering generation workflows.
+
+### DEPENDENCIES
+`WorldMap2D` (frontend component), `localStorage`/`secureStorage` (for JWT token storage), `box-architecture` (modular generation system), backend APIs (`/api/generation/terrain`, `/api/generation/heightmap`), `@jwt_required` (backend auth middleware).
+
+### USAGE
+1. **Access**: Navigate to `http://localhost:5174/#map-generator` or open the sidebar.
+2. **Input**: Enter a hash (e.g., "rocky planet with mountains") and select a world type (Planet/Galaxy/Cloud World).
+3. **Generate**:
+   - **Quick Preview**: Displays a low-resolution map (<0.1s).
+   - **Full Map**: Generates a detailed map with biomes, cities, and statistics (<5s).
+4. **Authentication**: Ensure a valid JWT token exists in `localStorage` or `secureStorage` to avoid API errors.
+
+### RELATED
+[[MapGeneratorPage Implementation]], [[WorldMap2D Component]], [[Backend API Specifications]], [[Box Architecture Design]], [[Authentication Flow]]
+
+### CALLOUTS
+>[!INFO]- **Caching Mechanism**
+> Terrain generation is cached by `(world_hash, world_type, width, height)` to avoid redundant API calls, improving performance for repeated inputs.
+>
+>[!WARNING]- **Backend Dependency**
+> The system requires the backend to be running on `http://localhost:5001`; failure to start the backend will result in API connection errors (e.g., 401 Unauthorized or network timeouts). Always verify the backend is active before testing.

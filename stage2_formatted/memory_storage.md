@@ -1,0 +1,69 @@
+**Tags:** #memory_storage, #Redis, #database, #session_management, #story_context, #persistent_storage, #box_interface, #data_retrieval
+**Created:** 2026-01-13
+**Type:** code-implementation
+
+# memory_storage
+
+## Summary
+
+```
+Handles persistent storage and retrieval of session-specific story memory using Redis or a database.
+```
+
+## Details
+
+> This `MemoryStorageBox` class abstracts storage for story memory across sessions, supporting dual storage backends: Redis (in-memory cache) and a database (SQL-based). It implements three core operations—**save**, **load**, and **clear**—to manage session-specific context data. The class prioritizes Redis for fast reads/writes but falls back to the database if Redis is unavailable or empty. Error handling ensures graceful failure with detailed logging.
+
+## Key Functions
+
+### ``execute(input_data)``
+
+Orchestrates the storage/retrieval logic based on the operation type (`save`, `load`, `clear`).
+
+### ``_save_memory(session_id, context_data, memory_key)``
+
+Persists context data to Redis or the database with a 24-hour expiry for Redis.
+
+### ``_load_memory(session_id, memory_key)``
+
+Retrieves context data from Redis first, then falls back to the database if Redis is empty.
+
+### ``_clear_memory(session_id, memory_key)``
+
+Removes session-specific memory from both storage backends.
+
+## Usage
+
+1. Initialize with a Redis client (`redis_client`) and/or a database session (`db_session`).
+2. Call `execute()` with an `BoxInput` containing:
+   - `operation`: `"save"`, `"load"`, or `"clear"`.
+   - `session_id`: Unique identifier for the session.
+   - `context_data`: Dictionary of data to store (for `save`).
+   - `memory_key`: Optional key (defaults to `"story_context"`).
+3. Returns a `BoxOutput` with `success`, `data`, and optional `error`/`metadata`.
+
+## Dependencies
+
+> ``redis-py``
+> ``SQLAlchemy` (for database operations)`
+> ``json``
+> ``logging``
+> ``typing``
+> ``datetime``
+> ``..core.box_interface``
+> ``.story_context``
+
+## Related
+
+- [[`core]]
+- [[`story_context`]]
+- [[`models]]
+
+>[!INFO] Prioritization Logic
+> Redis is checked first for faster operations, while the database acts as a fallback. This ensures minimal latency for read-heavy workflows.
+
+>[!WARNING] Session Validation
+> If `session_id` is missing, the operation fails immediately. Ensure `session_id` is always provided to avoid runtime errors.
+
+>[!INFO] Expiry Handling
+> Redis keys expire after 24 hours (`timedelta(hours=24)`), requiring periodic refreshes for long-running sessions.

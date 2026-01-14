@@ -1,0 +1,41 @@
+### TAGS
+#dark-mode-testing
+#frontend-validation
+#axios-integration
+#local-storage-persistence
+
+### TYPE
+test-reference
+
+### SUMMARY
+Validates dark mode functionality in a web application using manual checks and automated HTTP requests.
+
+### DETAILS
+This script tests a dark mode implementation by:
+1. Making an HTTP GET request to a local server (`localhost:8443`) to verify the application loads.
+2. Logging expected dark mode behaviors (toggle visibility, persistence, UI state changes).
+3. Outlining manual testing steps (e.g., toggling themes via a weather icon, verifying visual transitions).
+4. Confirming technical prerequisites (Tailwind CSS dark mode, UI Store state management, and `localStorage` persistence).
+
+The test relies on browser UI inspection and manual interaction to validate visual and functional correctness.
+
+### KEY_FUNCTIONS
+- **testDarkModeSimple()**: Orchestrates the test by logging statuses, handling errors, and executing manual checks.
+- **axios.get()**: Fetches the application’s root endpoint to confirm server accessibility.
+
+### DEPENDENCIES
+`axios`, `node:https` (for HTTPS agent bypassing certificate validation).
+
+### USAGE
+1. Run the script in a Node.js environment.
+2. Ensure the target app (`localhost:8443`) is accessible and dark mode is implemented as described.
+3. Manually verify UI changes (e.g., via browser DevTools) after executing the script.
+
+### RELATED
+[[dark-mode-implementation-docs]], [[manual-ui-testing-guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> This script assumes the app uses Tailwind CSS with `class` strategy for dark mode. If the implementation differs (e.g., `prefers-color-scheme`), adjust expected visuals accordingly.
+>[!WARNING]- Caution
+> The `httpsAgent` bypasses SSL certificate validation (`rejectUnauthorized: false`). Use only in development with trusted local servers.

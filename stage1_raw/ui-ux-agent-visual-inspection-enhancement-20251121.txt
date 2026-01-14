@@ -1,0 +1,52 @@
+### TAGS
+#visual-inspection
+#ui-ux-enhancement
+#screenshot-analysis
+#quality-assurance
+#user-experience
+#testing-methodology
+
+### TYPE
+documentation-research
+
+### SUMMARY
+Enhances UI/UX agent to detect visual correctness issues beyond code validation, improving user experience through systematic visual analysis.
+
+### DETAILS
+This document outlines a November 2025 enhancement to a UI/UX agent, addressing gaps in visual correctness detection. Previously, the agent relied on functional testing and code validation but missed critical visual issues like repeated placeholders, improper input widths, text truncation, and dummy data exposure. The solution introduces a **5-step visual inspection methodology** (90+ seconds per screenshot), a **comprehensive checklist** (text/content, input fields, layout, visual styling, content display), and a **dedicated report section** for visual correctness issues. The enhancement ensures visual problems are flagged even if code passes, improving UI quality and user experience.
+
+### KEY_FUNCTIONS
+- **Visual Inspection Methodology**: Systematic 5-step process for analyzing screenshots (90+ seconds per screenshot).
+- **Visual Correctness Checklist**: Categorized issues (text, input fields, layout, styling, content display) with specific flags (e.g., >5 placeholder occurrences).
+- **Enhanced Report Structure**: Dedicated section for visual correctness issues, prioritizing them alongside functional issues.
+- **Updated Testing Workflow**: Mandatory "thorough visual inspection" step in screenshot-driven testing, including "after" screenshot analysis.
+- **Critical Rule**: "If it looks wrong visually, it is wrong—report it even if code passes."
+
+### DEPENDENCIES
+- UI/UX Agent core logic (modified `/UI_UX_AGENT.md` and `/UI_UX_AGENT_PROMPTING_GUIDE.md`).
+- Screenshot capture tools (assumed integrated).
+- Prompting framework for enhanced visual analysis guidance.
+
+### USAGE
+1. **Implementation**:
+   - Integrate the 5-step inspection process into the agent’s workflow.
+   - Update the agent’s prompting guide to include the new "Visual Correctness Inspection" section.
+   - Ensure screenshots are captured systematically and analyzed for ≥90 seconds per image.
+
+2. **Testing**:
+   - Test the enhanced agent on target UIs (e.g., `http://localhost:5174`).
+   - Verify detection of predefined issues (e.g., repeated "element" text, truncated headers).
+   - Review reports for visual issues and refine the checklist based on findings.
+
+3. **Maintenance**:
+   - Monitor for new visual patterns and update the checklist accordingly.
+   - Document edge cases and refine inspection criteria iteratively.
+
+### RELATED
+[[UI_UX_AGENT.md]], [[UI_UX_AGENT_PROMPTING_GUIDE.md]], [[Testing Methodology Documentation]]
+
+### CALLOUTS
+>[!INFO]- Critical Rule Enforcement
+> The agent must flag visual issues regardless of code validation results, emphasizing user-centric correctness over functional compliance.
+>[!WARNING]- Overlap Risk
+> Ensure the visual inspection process does not conflict with existing automated tests (e.g., avoid redundant checks for the same elements). Prioritize specificity in inspection criteria.

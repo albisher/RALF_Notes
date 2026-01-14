@@ -1,0 +1,55 @@
+**Tags:** #automated-testing, #puppeteer, #web-testing, #dashboard-validation, #e2e-test
+**Created:** 2026-01-13
+**Type:** code-test
+
+# dashboard-test
+
+## Summary
+
+```
+Automated dashboard UI validation using Puppeteer to verify login and UI structure.
+```
+
+## Details
+
+> This script uses Puppeteer to automate a dashboard login and validate UI elements. It launches a browser with custom Chrome options, logs in with predefined credentials, captures a screenshot, and checks for key dashboard components (title, sidebar, navigation, cards) via JavaScript evaluation. It also verifies the current URL and text content for expected keywords like "Dashboard" and "Welcome."
+
+## Key Functions
+
+### `DashboardTest`
+
+Main class initializing browser launch, credentials, and test execution.
+
+### `runTest()`
+
+Core method handling browser setup, login, UI validation, and cleanup.
+
+### `page.evaluate()`
+
+Executes JavaScript on the rendered page to inspect DOM elements.
+
+### `page.screenshot()`
+
+Captures the dashboard UI as a static image.
+
+## Usage
+
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node dashboard-test.js`.
+3. Ensure the dashboard runs on `https://localhost:8443` with test credentials (`test/testpass`).
+
+## Dependencies
+
+> `puppeteer`
+> `Google Chrome (hardcoded path).`
+
+## Related
+
+- [[dashboard-ui-specs]]
+- [[puppeteer-testing-guide]]
+
+>[!INFO] Important Note
+> The script uses hardcoded Chrome path (`/Applications/Google Chrome.app`), which may fail on non-Mac systems. Replace with a system-specific path or use `puppeteer.launch()` with a default executable.
+
+>[!WARNING] Caution
+> Disabling security features (`--disable-web-security`) may expose the app to XSS risks. Use only in controlled environments.

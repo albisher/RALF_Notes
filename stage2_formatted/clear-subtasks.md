@@ -1,0 +1,63 @@
+**Tags:** #task-management, #subtask-handling, #data-deletion, #confirmation-process, #backup-preservation
+**Created:** 2026-01-13
+**Type:** documentation
+
+# clear-subtasks
+
+## Summary
+
+```
+A script to remove all subtasks from a specified task with confirmation and smart features for data preservation.
+```
+
+## Details
+
+> This script (`clear-subtasks`) is designed to delete all subtasks associated with a given task ID, ensuring thorough pre-clear analysis and user confirmation. It evaluates subtask statuses (completed, in-progress, pending), assesses data loss, and handles dependencies before deletion. Features include optional conversion to standalone tasks, backup capabilities, and automatic updates to the parent task’s metadata (e.g., time estimates, complexity).
+
+## Key Functions
+
+### ``clear-subtasks` CLI command`
+
+Executes bulk subtask removal with confirmation prompts.
+
+### `Pre-clear analysis`
+
+Lists subtasks, checks completion status, and warns of in-progress work.
+
+### `Smart conversion`
+
+Optionally converts subtasks to standalone tasks post-deletion.
+
+### `Backup task data`
+
+Preserves completion history before deletion.
+
+### `Post-clear updates`
+
+Adjusts parent task estimates, complexity, and suggests next steps.
+
+## Usage
+
+1. Run via CLI:
+   ```bash
+   task-master clear-subtasks --id=<task-id>
+   ```
+2. Confirm deletion after reviewing subtask list and statuses.
+3. Use `--convert` flag to convert subtasks to standalone tasks (if desired).
+4. Script automatically updates parent task metadata post-clear.
+
+## Dependencies
+
+> ``task-master` CLI tool (assumed to be a parent module handling task management operations).`
+
+## Related
+
+- [[`task-master` documentation]]
+- [[`task-management workflows`]]
+- [[`subtask-conversion guide`]]
+
+>[!INFO] Important Note
+> **Backup Critical**: The script does *not* auto-backup subtask data unless explicitly configured in `task-master`. Always export critical subtask details before running.
+
+>[!WARNING] Caution
+> **Permanent Deletion**: All subtask data (e.g., notes, dependencies) is irretrievably lost. Confirmation is mandatory for safety.

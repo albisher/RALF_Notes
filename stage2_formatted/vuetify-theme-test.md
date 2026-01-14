@@ -1,0 +1,47 @@
+**Tags:** #theme-synchronization, #vuetify, #dark-mode, #frontend-testing, #axios, #web-development
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# vuetify-theme-test
+
+## Summary
+
+```
+Tests and validates Vuetify theme synchronization with dark mode toggling in a Vue.js application.
+```
+
+## Details
+
+> This script performs an automated test to verify that Vuetify’s theme dynamically updates when the dark mode toggle is activated. It fetches a local application endpoint, logs test outcomes, and provides manual verification steps. The test confirms that the app bar and Vuetify components transition smoothly between light/dark themes, ensuring consistency with Tailwind’s dark mode.
+> 
+> The script logs technical changes made (e.g., `useTheme()` composable, `watch` for `uiStore.isDarkMode`) and expected visual results (e.g., app bar background change, component theme updates).
+
+## Key Functions
+
+### ``testVuetifyThemeSync()``
+
+Orchestrates the test by fetching the app, logging fixes, and handling errors.
+
+### ``axios.get()``
+
+Simulates HTTP request to the local backend (with HTTPS agent bypass for testing).
+
+## Usage
+
+1. Run via Node.js: `node vuetify-theme-test.js`.
+2. Manually follow steps in the script to verify dark mode toggling in the frontend app.
+
+## Dependencies
+
+> ``axios``
+> ``node:https` (for HTTPS agent bypass).`
+
+## Related
+
+- [[none]]
+
+>[!INFO] Important Note
+> The test bypasses SSL certificate validation (`rejectUnauthorized: false`) for local testing only. Avoid in production.
+
+>[!WARNING] Caution
+> Ensure the backend (`localhost:8443`) is running before executing this script. Failing to do so will result in a connection error.

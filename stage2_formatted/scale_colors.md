@@ -1,0 +1,46 @@
+**Tags:** #color-palette, #design, #visual-styles
+**Created:** 2026-01-13
+**Type:** color-reference
+
+# scale_colors
+
+## Summary
+
+```
+A curated list of high-contrast, visually distinct color names for UI/UX design, branding, and aesthetic applications.
+```
+
+## Details
+
+> This file provides a collection of named colors categorized by hue, saturation, and perceived brightness, ideal for designers needing a palette of bold, muted, or metallic tones. The list includes deep, bright, and neutral shades, useful for creating cohesive or striking visual systems. Colors are formatted for direct use in design tools, code (e.g., CSS), or documentation.
+
+## Key Functions
+
+### `Color Selection`
+
+Provides named color options for UI/hex codes or design systems.
+
+### `Contrast Analysis`
+
+Supports accessibility by offering high-contrast pairs (e.g., Crimson Red + Jet Black).
+
+### `Thematic Application`
+
+Enables thematic branding (e.g., Bronze Brown for earthy tones, Ruby Red for luxury).
+
+## Usage
+
+1. Copy color names directly into design tools (e.g., Figma, Adobe XD) or CSS for web projects.
+2. Use hex codes (e.g., `#8B0000` for Crimson Red) if needed.
+3. Pair complementary colors (e.g., Emerald Green + Platinum) for visual harmony.
+
+## Related
+
+- [[color-theory-guide]]
+- [[accessibility-palette]]
+
+>[!INFO] **Design Integration**
+> Replace placeholder values in design systems with these colors for consistency. Example: `#800026` (Ruby Red) as a primary accent.
+
+>[!WARNING] **Hex Conversion**
+> Verify hex codes match exact color expectations (e.g., "Obsidian Black" may vary slightly from `#1A1A1A`). Use tools like [ColorHexa](https://www.colorhexa.com) for validation.

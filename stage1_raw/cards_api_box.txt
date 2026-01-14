@@ -1,0 +1,43 @@
+### TAGS
+#API
+#Validation
+#Card Management
+#Sequential Processing
+#Modular Design
+
+### TYPE
+code-notes
+
+### SUMMARY
+Manages card-related API operations with input validation and error handling for a modular system.
+
+### DETAILS
+The `CardsAPIBox` class extends `Box` to handle CRUD (Create, Read, Update, Delete) operations for cards via an external API client. It validates input parameters based on the operation type (e.g., `list`, `get`, `create`) using a `ValidationBox` instance. The class processes requests sequentially, ensuring proper parameter validation before delegating to the API client. Error handling wraps external API failures under a standardized `BoxOutput.error` format.
+
+### KEY_FUNCTIONS
+- **`constructor(apiClient)`**: Initializes the box with an API client and validation logic.
+- **`_executeInternal(inputData)`**: Orchestrates operation execution, validates inputs, and routes requests to the API client.
+- **`list()`**: Retrieves cards from a specified world with optional filters.
+- **`get()`**: Fetches a single card by ID.
+- **`create()`**: Adds a new card with provided data.
+- **`update()`**: Modifies an existing card using its ID and update payload.
+- **`delete()`**: Removes a card by ID.
+
+### DEPENDENCIES
+`../core/box_interface.js`, `../common/validation_box.js`, `Box`, `BoxInput`, `BoxOutput`, `BoxErrorCode`, `BoxErrorCategory`
+
+### USAGE
+1. Instantiate `CardsAPIBox` with an `apiClient` (e.g., `new CardsAPIBox(apiClient)`).
+2. Call `_executeInternal` with an input object containing:
+   - `operation` (e.g., `'list'`, `'get'`).
+   - Required parameters (e.g., `world_id` for `list`, `card_id` for `get`).
+3. Handle responses via `BoxOutput.success` or `BoxOutput.error`.
+
+### RELATED
+[[`../core/box_interface.js`]], [[`../common/validation_box.js`]]
+
+### CALLOUTS
+>[!INFO]- Input Validation
+> Validation rules dynamically adjust based on the operation (e.g., `world_id` is required for `list`, `card_id` for `get`/`update`/`delete`). Missing required fields trigger a validation error.
+>[!WARNING]- Sequential Processing
+> Parallel execution is disabled (`supportsParallel: false`), so concurrent API calls will block. Ensure thread-safe API clients.

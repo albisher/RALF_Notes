@@ -1,0 +1,34 @@
+### TAGS
+#API-Key
+#Security
+#Configuration
+
+### TYPE
+configuration
+
+### SUMMARY
+Stores and manages a Perplexity AI API key for authentication and API access.
+
+### DETAILS
+This file appears to hold a sensitive API key required for accessing the Perplexity AI service. The key is likely used to authenticate requests to the Perplexity API, enabling functionality such as querying AI models, retrieving search results, or interacting with AI-driven features. The key is hardcoded in plaintext, which is a security risk if exposed.
+
+### KEY_FUNCTIONS
+- **API Authentication**: Validates user access to Perplexity services.
+- **Rate Limiting & Quota Management**: May be used internally to enforce usage limits.
+
+### DEPENDENCIES
+none (standalone configuration file)
+
+### USAGE
+1. Replace `your-perplexity-api-key-here` with an actual valid Perplexity API key.
+2. Securely store this file in a restricted directory (e.g., `.env` or a secrets manager).
+3. Ensure the file is not committed to version control (add to `.gitignore`).
+
+### RELATED
+[[Perplexity API Documentation]], [[API Key Security Best Practices]]
+
+### CALLOUTS
+>[!WARNING]- Security Risk
+> Exposing this key in plaintext is a critical security vulnerability. Use environment variables or a secrets manager (e.g., AWS Secrets Manager, HashiCorp Vault) instead.
+>[!INFO]- Best Practice
+> Never commit API keys to public repositories or shared storage. Restrict file permissions to `400` (read-only for owner only).

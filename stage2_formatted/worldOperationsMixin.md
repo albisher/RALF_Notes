@@ -1,0 +1,69 @@
+**Tags:** #world-management, #mixin, #vuejs, #asynchronous-operations, #api-integration
+**Created:** 2026-01-13
+**Type:** code-library
+
+# worldOperationsMixin
+
+## Summary
+
+```
+Manages world-related state and operations for a multi-world application, including fetching, creating, and updating world data via API.
+```
+
+## Details
+
+> This mixin provides Vue.js-compatible functionality for handling world data, including:
+> - **State Management**: Tracks current world, list of worlds, and configurable world properties (time systems, descriptions, rules).
+> - **API Interaction**: Uses `BoxOrchestrator` to delegate API calls to a centralized `WorldsAPI` service.
+> - **Error Handling**: Implements retry logic and validation for API responses, logging errors via a logger utility.
+> - **Asynchronous Operations**: All methods are async, ensuring non-blocking execution for UI responsiveness.
+> 
+> The `worldTimeSystem` and `worldInfo` objects define default configurations for a planet named "Space Peral," which can be overridden via API updates.
+
+## Key Functions
+
+### ``loadWorlds()``
+
+Fetches and caches a list of available worlds from the API, initializing `currentWorldId` if none exists.
+
+### ``createWorld(worldData)``
+
+Creates a new world entry with provided metadata (name, description, type) and updates the local world list.
+
+### ``saveTimeSystem()``
+
+Updates the time system settings (e.g., hours/day, days/month) for the selected world.
+
+### ``saveWorldInfo()``
+
+Updates metadata (description, type, status) for the selected world.
+
+### ``saveRules()``
+
+Updates world-specific rules via API.
+
+## Usage
+
+1. **Initialization**: Attach the mixin to a Vue component (e.g., `<MyComponent v-mixin="worldOperationsMixin">`).
+2. **Data Access**: Retrieve world data via `this.worlds`, `this.currentWorldId`, or `this.worldInfo`.
+3. **API Calls**:
+   - Call `loadWorlds()` to fetch worlds.
+   - Call `createWorld()` with `{ name, description, world_type }` to create a new world.
+   - Call `saveTimeSystem()`, `saveWorldInfo()`, or `saveRules()` after setting the `currentWorldId`.
+
+## Dependencies
+
+> ``../utils/logger.js``
+> ``../utils/box-orchestrator.js``
+> ``../services/api-client.js``
+
+## Related
+
+- [[Vue]]
+- [[BoxOrchestrator API Reference]]
+
+>[!INFO] Initialization Check
+> The mixin initializes `boxOrchestrator` lazily (only when first needed) to avoid unnecessary instantiation.
+
+>[!WARNING] Error Handling
+> Always handle errors gracefully: `this.error` is set on failure, and `logger.error` logs detailed issues for debugging.

@@ -1,0 +1,44 @@
+### TAGS
+#Vue
+#CompositionAPI
+#UI-Library
+#Theming
+#Vuetify
+
+### TYPE
+code-notes
+
+### SUMMARY
+Manages Vuetify theme switching via Composition API in a Vue.js application.
+
+### DETAILS
+This utility function injects the `vuetify` dependency from the Vue context and provides a method to dynamically toggle between light and dark themes. It leverages Vue’s Composition API with `inject` to access the Vuetify instance, then updates the global theme mode (`dark`/`light`) via `vuetify.theme.global.name.value`. The function returns a single method (`setVuetifyTheme`) to programmatically switch themes.
+
+### KEY_FUNCTIONS
+- **useVuetifyTheme**: Initializes and exposes theme-switching logic via Composition API.
+- **setVuetifyTheme**: Internal helper that updates the Vuetify theme mode (`isDark` flag determines theme).
+
+### DEPENDENCIES
+`vue`, `vuetify`
+
+### USAGE
+```javascript
+import { useVuetifyTheme } from './useVuetifyTheme'
+import { inject } from 'vue'
+
+const vuetify = inject('vuetify')
+const themeUtils = useVuetifyTheme()
+
+// Toggle theme dynamically
+themeUtils.setVuetifyTheme(true) // Dark mode
+themeUtils.setVuetifyTheme(false) // Light mode
+```
+
+### RELATED
+[[Vue Composition API Guide]], [[Vuetify Theme Documentation]]
+
+### CALLOUTS
+>[!INFO]- Dependency Check
+> Ensure `vuetify` is properly injected into the component (e.g., via `<script setup>` or `provide/inject`). Without it, `setVuetifyTheme` will silently ignore calls.
+>[!WARNING]- Scope Limitation
+> This function only affects the **global theme** (`vuetify.theme.global`). For per-component theming, use Vuetify’s `provide`/`inject` for scoped styles.

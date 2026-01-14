@@ -1,0 +1,48 @@
+### TAGS
+#task-management
+#bulk-updates
+#context-aware
+#smart-ai-integration
+#dependency-handling
+
+### TYPE
+tutorial
+
+### SUMMARY
+A script to update multiple tasks in a workflow system starting from a specified ID, applying context-driven changes intelligently.
+
+### DETAILS
+This script automates bulk updates to tasks within a task management system, starting from a given task ID. It intelligently selects tasks (including dependencies and related subtasks) and applies context-specific modifications (e.g., descriptions, test strategies, time estimates) while preserving consistency across related tasks. The process includes previewing changes, user confirmation, and safety features like rollback and validation checks.
+
+### KEY_FUNCTIONS
+- **`update-tasks-from-id`**: Parses and executes bulk updates from a specified task ID with a given context.
+- **`scope-detection`**: Identifies related tasks, subtasks, and logical boundaries to limit unnecessary updates.
+- **`context-application`**: Applies AI-driven changes (e.g., descriptions, test strategies) while maintaining consistency.
+- **`preview-and-confirm`**: Displays a summary of changes before execution for user validation.
+- **`safety-features`**: Implements rollback, change logging, and validation checks to mitigate errors.
+
+### DEPENDENCIES
+`task-master` CLI tool (assumed to be a task management framework), `bash` scripting environment.
+
+### USAGE
+1. Run the script via CLI:
+   ```bash
+   /project:tm/update/from-id <starting_id> "<update_context>"
+   ```
+   Example:
+   ```bash
+   /project:tm/update/from-id 5 "change database to PostgreSQL"
+   ```
+2. Follow prompts to preview changes and confirm execution.
+3. Review the summary of applied updates and consistency checks post-update.
+
+### RELATED
+[[`task-master-cli-docs`]], [[`smart-task-updates`]], [[`dependency-resolution`]]
+
+### CALLOUTS
+>[!INFO]- **Scope Detection**
+> The script uses smart boundary detection to avoid over-updating unrelated tasks, grouping logically connected tasks for efficiency.
+>[!WARNING]- **Context Sensitivity**
+> Incorrect context may lead to unintended changes; always review the preview before confirming updates.
+>[!INFO]- **Safety First**
+> Changes are logged, and a rollback is available if issues arise during execution.

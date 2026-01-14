@@ -1,0 +1,45 @@
+### TAGS
+#automation
+#puppeteer
+#web-scraping
+#devops
+#building-creation
+#space-colonization
+#manual-testing
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automates creation of predefined buildings in a space-themed application using Puppeteer for browser automation.
+
+### DETAILS
+This script automates the process of creating multiple buildings in a virtual space application (likely a simulation or game) by:
+1. Launching a browser (Chrome/Chromium) in non-headless mode.
+2. Navigating through the application’s workspace interface.
+3. Dynamically identifying and interacting with UI elements (create buttons, dropdowns, text inputs) to populate building details.
+4. Capturing screenshots at key steps for debugging and verification.
+The script defines a list of buildings with names, descriptions, and coordinates (though coordinates are not directly used in the UI interaction logic).
+
+### KEY_FUNCTIONS
+- **createBuildings()**: Orchestrates the entire workflow, including browser setup, UI navigation, and building creation.
+- **takeScreenshot()**: Helper function to save screenshots with timestamps to a `screenshots` directory.
+- **Manual UI interaction loops**: Dynamically finds and clicks buttons, selects dropdown options, and fills text fields based on placeholder text.
+
+### DEPENDENCIES
+puppeteer, fs, path
+
+### USAGE
+1. Save the script as `space-peral-session-4-buildings.js`.
+2. Ensure the application is running locally at `http://localhost:5173`.
+3. Run the script: `node space-peral-session-4-buildings.js`.
+4. Verify the output directory (`screenshots`) contains screenshots and logs.
+
+### RELATED
+[[Space Peral Session 4 UI Documentation]], [[Puppeteer Automation Guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script assumes the UI structure remains consistent (e.g., button/textarea placeholders). If the application updates its UI, selectors may break.
+>[!WARNING]- Caution
+> Running in non-headless mode (`--no-sandbox`) may expose the system to security risks if the browser is compromised. Use with caution in production environments.

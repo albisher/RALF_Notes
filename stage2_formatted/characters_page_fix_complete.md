@@ -1,0 +1,58 @@
+**Tags:** #bug-fix, #vuejs, #computed-properties, #data-validation, #defensive-programming, #ui-fix
+**Created:** 2026-01-13
+**Type:** code-fix
+
+# characters_page_fix_complete
+
+## Summary
+
+```
+Fixes TypeError in Vue.js Characters page due to undefined/null role values in character data, ensuring proper rendering and user experience.
+```
+
+## Details
+
+> The fix addresses a TypeError (`can't access property "charAt"` on undefined roles) by implementing defensive data handling in both the Vuex store and component. The original issue occurred because characters with `undefined` or `null` roles caused Vue's computed properties to fail during template rendering. The solution involves:
+> 1. Filtering out invalid roles in the `characterRoles` computed property in the store.
+> 2. Adding robust null/array checks in the `roleOptions` computed property of `Characters.vue` to prevent `charAt()` calls on undefined values.
+> 3. Ensuring graceful degradation by providing fallback options (e.g., `{ title: 'All Roles', value: null }`) when roles are missing.
+
+## Key Functions
+
+### ``characterRoles` (store)`
+
+Computed property filtering out undefined/null roles from character data.
+
+### ``roleOptions` (Characters.vue)`
+
+Computed property with defensive checks for role values, mapping valid roles into formatted UI options.
+
+### ``test-characters-page-fix.js` (Puppeteer test)`
+
+Automated verification script confirming the fix resolves console errors and renders the page correctly.
+
+## Usage
+
+After applying the fix, users can now:
+1. Navigate to the Characters page without encountering errors.
+2. View character cards and UI elements (search, filters) without rendering failures.
+3. Access the page seamlessly, as it no longer appears "empty" due to undefined data.
+
+## Dependencies
+
+> `Vuex`
+> `Vue.js (computed properties)`
+> `Puppeteer (for automated testing)`
+> `Jest (if applicable for unit tests).`
+
+## Related
+
+- [[Vue]]
+- [[Defensive Programming in Vue]]
+- [[Handling Undefined Data in Vuex Stores]]
+
+>[!INFO] Defensive Filtering
+> The fix filters out `undefined`/`null` roles at both the store and component levels, preventing `charAt()` errors during UI rendering. This ensures the `roleOptions` computed property only processes valid string values.
+
+>[!WARNING] Edge Case Consideration
+> While the fix resolves the immediate issue, ensure all future character data includes valid roles to avoid similar problems. Consider adding schema validation in the database layer.

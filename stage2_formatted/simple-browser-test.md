@@ -1,0 +1,58 @@
+**Tags:** #automated-testing, #web-scraping, #puppeteer, #browser-automation, #vue-app-validation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# simple-browser-test
+
+## Summary
+
+```
+Automated browser test using Puppeteer to validate a Vue.js application on a local server.
+```
+
+## Details
+
+> This script initializes a headless Chrome browser via Puppeteer, navigates to a local application running on `localhost:8443`, and verifies the presence of a Vue.js application by checking for the `#app` container element. It logs success/failure states for each step, including browser launch, page navigation, and title retrieval. The test includes error handling and ensures cleanup by closing the browser in a `finally` block.
+
+## Key Functions
+
+### ``simpleTest()``
+
+Orchestrates the entire test workflow, including browser launch, navigation, and validation checks.
+
+### ``puppeteer.launch()``
+
+Configures and starts a headless Chrome browser with security/performance overrides.
+
+### ``page.goto()``
+
+Navigates to the target URL with configurable wait and timeout settings.
+
+### ``page.title()``
+
+Retrieves the page title for validation.
+
+### ``page.$('#app')``
+
+Checks for the Vue.js root container element via XPath selector.
+
+## Usage
+
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node simple-browser-test.js`.
+3. Ensure the target application (`localhost:8443`) is running before execution.
+
+## Dependencies
+
+> `puppeteer`
+> `Node.js runtime`
+
+## Related
+
+- [[none]]
+
+>[!INFO] Important Note
+> The script uses `--no-sandbox` and `--ignore-certificate-errors` for compatibility with local development environments. Avoid these in production.
+
+>[!WARNING] Caution
+> Localhost (`localhost`) may not resolve correctly on all systems (e.g., Docker containers). Test on the actual server IP instead.

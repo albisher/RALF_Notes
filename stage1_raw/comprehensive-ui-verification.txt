@@ -1,0 +1,51 @@
+### TAGS
+#automated-testing
+#ui-verification
+#puppeteer
+#web-automation
+#frontend-testing
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automated UI verification script using Puppeteer to test multiple web components of a web application.
+
+### DETAILS
+This script automates comprehensive UI verification for a web application by launching a headless browser, navigating through key pages, and systematically testing multiple UI components (e.g., dashboard, worlds, characters). It captures screenshots at critical stages, handles login flows, and logs errors. The script is designed to validate UI consistency, functionality, and responsiveness across different components.
+
+The workflow includes:
+1. Launching a browser with security and performance optimizations.
+2. Navigating to the application and taking initial screenshots.
+3. Conditional login handling (if login buttons are detected).
+4. Testing predefined UI components (e.g., dashboard, sidebar) via helper functions.
+5. Capturing final screenshots and error snapshots if failures occur.
+
+### KEY_FUNCTIONS
+- **testDashboard(page)**: Validates dashboard component functionality and UI elements.
+- **testWorlds(page)**: Tests the worlds component (e.g., navigation, content rendering).
+- **testCharacters(page)**: Checks character-related UI components and interactions.
+- **testElements(page)**: Validates elements component (e.g., UI widgets, forms).
+- **testWorkspace(page)**: Ensures writer workspace functionality and UI correctness.
+- **testWorldDetail(page)**: Tests detailed world view components.
+- **testSidebar(page)**: Verifies sidebar navigation and UI behavior.
+- **testAssetCreator(page)**: Checks asset creation workflow and UI feedback.
+
+### DEPENDENCIES
+puppeteer, Node.js runtime
+
+### USAGE
+1. Install Puppeteer (`npm install puppeteer`).
+2. Run the script (`node comprehensiveUIVerification.js`).
+3. Ensure the target application is accessible at `https://localhost:8443/`.
+4. Verify credentials (`test`/`passtest`) if login is required.
+5. Check `checks/screenshots/` for saved screenshots and results.
+
+### RELATED
+[[comprehensive-ui-testing-guidelines]], [[puppeteer-best-practices]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script uses a headless browser with aggressive security flags (`--disable-web-security`, `--ignore-ssl-errors`). **Do not use this in production environments without proper sandboxing and security hardening.**
+>[!WARNING]- Caution
+> Hardcoded credentials (`test`/`passtest`) may expose the application to unauthorized access. **Use environment variables or a secure config file for production use.**

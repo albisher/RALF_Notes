@@ -1,0 +1,42 @@
+### TAGS
+#integration
+#map-generation
+#world-system
+#ui-components
+#box-system
+#api-integration
+
+### TYPE
+documentation
+
+### SUMMARY
+Complete integration of map generation with world storage and visualization in a 2D world map system.
+
+### DETAILS
+This code implements a seamless workflow where generated maps are processed, saved to worlds, and displayed in the `WorldMap2D` viewer. The system converts raw map data into a format compatible with existing components like `MapRenderBox` and `WorldMap2D`, ensuring generated maps can be stored as worlds and viewed through the UI. Key steps include processing metadata (e.g., `derivedInfo`), uploading via an API endpoint, and updating world metadata to reference the saved map file.
+
+### KEY_FUNCTIONS
+- **`MapProcessBox`**: Converts generated map format to a processed format with derived metadata (e.g., `mapOriginX`, `mapNativeWidth`).
+- **`MapSaveToWorldBox`**: Handles the upload of processed maps to `/api/maps/upload`, updates world metadata, and triggers display in `WorldMap2D`.
+- **`handleSave` (in `MapsStage`)**: Orchestrates the save workflow—processing, uploading, and clearing the generated map to reflect the saved version.
+- **`MapStoryIntegrationBox`**: Links map-generated cities to location cards and timeline events via coordinate synchronization.
+
+### DEPENDENCIES
+`ui-beta/src/boxes/maps/map_process_box.js`, `ui-beta/src/boxes/maps/map_save_to_world_box.js`, `ui-beta/src/components/stages/MapsStage.vue`, `ui-beta/src/boxes/maps/map_story_integration_box.js`, `/api/maps/upload`, `WorldMap2D` (existing viewer component), `MapRenderBox`, `DataLoadingBox`, `MapCoordinateBox`.
+
+### USAGE
+1. Generate a map in the Maps stage.
+2. Use `MapPreview` to review the generated map.
+3. Click "Save to World" to trigger processing and upload.
+4. The map is saved to a world, and `WorldMap2D` updates to display it.
+5. Cities can be converted to location cards, and events linked to map coordinates via `MapStoryIntegrationBox`.
+
+### RELATED
+[[`WorldMap2D Documentation`]], [[`Map Generation Guide`]], [[`API Reference: /api/maps/upload`]], [[`MapsStage Component`]]
+
+### CALLOUTS
+>[!INFO]- **Derived Metadata Requirement**
+> The `MapProcessBox` must add `derivedInfo` (e.g., `mapOriginX`, `mapNativeHeight`) to ensure compatibility with `WorldMap2D`. Missing metadata will cause rendering errors.
+
+>[!WARNING]- **API Upload Validation**
+> Ensure `/api/maps/upload` handles malformed map data gracefully. Failed uploads may corrupt world metadata or prevent map display. Test with edge cases (e.g., empty maps, invalid JSON).

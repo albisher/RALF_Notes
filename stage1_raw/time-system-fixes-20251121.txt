@@ -1,0 +1,36 @@
+### TAGS
+#http-methods
+#api-integration
+#backend-frontend-mismatch
+#data-formatting
+#time-system-management
+
+### TYPE
+code-fix
+
+### SUMMARY
+Fixes time system save errors by correcting HTTP method, request body structure, and key naming conventions between frontend and backend APIs.
+
+### DETAILS
+This file documents fixes for time system save failures caused by mismatched HTTP methods, incorrect request body formatting, and inconsistent key naming conventions (camelCase vs snake_case) between the frontend (`ui-beta`) and backend APIs. The fixes ensure proper data flow from frontend modifications to backend persistence, resolving HTTP 405 errors and enabling correct time system calculations.
+
+### KEY_FUNCTIONS
+- **`updateTimeSystem` (worlds_api_box.js)**: Handles HTTP POST request with corrected body structure and key conversion.
+- **`handleWorldChanged` (WorkflowPage.vue)**: Loads and converts backend snake_case time system data to frontend camelCase for display.
+- **Backend `/api/worlds/<int:world_id>/time-system` (app.py)**: Processes POST requests for time system updates, validating and storing data in snake_case format.
+
+### DEPENDENCIES
+`axios` (or similar HTTP client), `json` parsing libraries, backend Flask route handler (`app.py`), `World` model class.
+
+### USAGE
+1. **Save Time System**: Modify settings in the Time System tab, then click "Save." The frontend now sends a properly formatted POST request with the correct method and data structure.
+2. **Load Time System**: After refreshing, the frontend converts backend snake_case data to camelCase for user-friendly display.
+
+### RELATED
+[[backend-api-documentation]], [[time-system-specification]]
+
+### CALLOUTS
+>[!INFO]- Critical Fix
+> The HTTP method change from PUT to POST resolves the 405 error by aligning with the backend’s expected method. This prevents silent failures during saves.
+>[!WARNING]- Backward Compatibility Risk
+> The key naming conversion (snake_case ↔ camelCase) ensures backward compatibility but requires careful testing if existing frontend state relies on either format. Default values should handle missing keys gracefully.

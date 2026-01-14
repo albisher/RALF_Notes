@@ -1,0 +1,53 @@
+**Tags:** #database, #security, #CRUD, #logging, #authentication
+**Created:** 2026-01-13
+**Type:** documentation
+
+# custom_generator_delete_box
+
+## Summary
+
+```
+Handles secure deletion of CustomGenerator records with input validation and ownership checks.
+```
+
+## Details
+
+> This box implements a secure deletion workflow for `CustomGenerator` records. It validates required inputs (`generator_id` and `user_id`), checks database ownership via SQL query, and performs atomic deletion with transaction rollback on failure. Logging tracks successful deletions and errors, while the `BoxOutput` structure provides feedback on success/failure.
+
+## Key Functions
+
+### ``execute(self, input_data`
+
+BoxInput) -> BoxOutput`**: Core logic—validates inputs, verifies ownership, deletes record, and returns status.
+
+### ``__init__(self, name='custom_generator_delete')``
+
+Initializes the box with a default name and description.
+
+## Usage
+
+1. Call with `generator_id` and `user_id` in `input_data.data`.
+2. Returns `BoxOutput` with `deleted_id` (if successful) or an error message.
+3. Example:
+   ```python
+   input_data = BoxInput(data={'generator_id': 123, 'user_id': 456})
+   result = box.execute(input_data)
+   ```
+
+## Dependencies
+
+> ``..core.box_interface``
+> ``models.db``
+> ``models.CustomGenerator``
+> ``logging``
+
+## Related
+
+- [[`core]]
+- [[`models]]
+
+>[!INFO] Input Validation
+> Mandatory fields (`generator_id`, `user_id`) must exist; missing values trigger immediate failure.
+
+>[!WARNING] Ownership Check
+> The `user_id` must match the generator’s owner; otherwise, access is denied.

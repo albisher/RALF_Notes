@@ -1,0 +1,46 @@
+### TAGS
+#authentication-test
+#puppeteer
+#web-scraping
+#api-interaction
+#cyberpunk-demo
+
+### TYPE
+test-reference
+
+### SUMMARY
+Tests the authentication flow of a frontend application by logging API interactions, console logs, and manual login attempts to verify authentication success.
+
+### DETAILS
+This script uses Puppeteer to automate a web application (likely a Cyberpunk demo) by:
+1. Launching a headless browser to load the frontend.
+2. Capturing all API requests/responses to analyze authentication behavior.
+3. Monitoring console logs for keywords like "Auto-login," "auth," or "token."
+4. Evaluating page content for expected UI elements (e.g., world statistics).
+5. Attempting manual authentication via `/api/auth/login` and checking `/api/worlds` for token validation.
+
+The test logs API calls, console messages, and UI state to diagnose authentication failures or successes.
+
+### KEY_FUNCTIONS
+- **testAuthFlow**: Orchestrates the entire authentication flow, including frontend loading, API monitoring, and manual login testing.
+- **puppeteer.launch**: Configures and starts a headless browser with security-disabling flags (for testing only).
+- **page.on('request')/**page.on('response')**: Intercepts and logs API calls/responses for analysis.
+- **page.evaluate()**: Executes JavaScript in the browser context to simulate manual login and fetch tokenized data.
+
+### DEPENDENCIES
+puppeteer, Node.js runtime
+
+### USAGE
+1. Run `node test-auth-flow.js` to execute the test.
+2. Replace `http://localhost:5173/` with the target application URL if needed.
+3. Adjust credentials (`username`, `password`) in the manual login step for testing.
+
+### RELATED
+[[Cyberpunk Demo API Docs]], [[Puppeteer Test Suite]]
+
+### CALLOUTS
+>[!WARNING]- Caution
+> **Security Note**: The script disables security features (`--disable-web-security`) for testing. Use only in controlled environments with trusted sources.
+> **Manual Login**: Hardcoded credentials (`test`, `passtest`) are used for testing. Replace with valid credentials for production-like testing.
+>[!INFO]- Important Note
+> **Headless Mode**: The browser runs in headless mode (`headless: true`). If debugging UI issues, set `headless: false` temporarily.

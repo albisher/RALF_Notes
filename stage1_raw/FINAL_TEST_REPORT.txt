@@ -1,0 +1,43 @@
+### TAGS
+#world-generation
+#test-report
+#data-visualization
+#algorithm-performance
+#rendering-issues
+#statistics-mismatch
+
+### TYPE
+test-reference
+
+### SUMMARY
+Evaluates the performance and correctness of a world type map generation system, highlighting discrepancies between statistical data and visual outputs.
+
+### DETAILS
+This report documents a test suite for generating various world types (Planet, Galaxy, Cloud World, etc.) using a procedural generation system. The tests assess land/water distribution, visual rendering accuracy, and generation efficiency. Key findings reveal that most maps report 100% land statistically but visually appear as blue backgrounds, indicating a rendering or data classification error. The system also fails to produce expected geometric patterns (e.g., spirals in Galaxy maps) and background colors (e.g., black for space types). Generation times vary significantly, with the Planet map taking 52 seconds compared to 2-3 seconds for others, suggesting inefficiencies.
+
+### KEY_FUNCTIONS
+- **map_generator.py**: Core module calculating land/water statistics and generating world data.
+- **WorldMap2D component**: Renders visual output of generated maps, responsible for background colors and structure display.
+- **enhancement_boxes**: Dynamic features (e.g., cities, clusters) that may not execute correctly.
+- **authentication timeout handler**: Intermittent errors during map generation.
+
+### DEPENDENCIES
+`map_generator.py`, `WorldMap2D` (React-based rendering component), procedural generation libraries, UI framework (React/Vue), authentication service.
+
+### USAGE
+To reproduce tests, use provided URLs with parameters:
+- `hash=ew` (input hash)
+- `worldType=<type>` (e.g., `Space Station`)
+- `mapType=full` (generation mode)
+- `generate=true` (trigger generation).
+
+### RELATED
+[[WORLD_EXPECTATIONS]], [[MAP_GENERATION_ALGORITHMS]], [[RENDERING_COMPONENT_DOCS]]
+
+### CALLOUTS
+>[!INFO]- Critical Rendering Bug
+> The system incorrectly classifies all maps as 100% land statistically, yet visuals show uniform blue backgrounds. This suggests a mismatch between height-based classification and visual rendering thresholds (e.g., ocean vs. empty space).
+>[!WARNING]- Space Type Failures
+> Galaxy, Asteroid, and Solar System maps appear empty despite successful generation. Verify the rendering pipeline for space-themed components, as they should display black backgrounds with geometric structures.
+>[!INFO]- Background Color Inconsistency
+> Planet maps render ocean blue (#1e88e5) but others show sky blue (#87CEEB) or incorrect black (#000000). Confirm backgroundColor prop propagation in `WorldMap2D` matches worldType expectations.

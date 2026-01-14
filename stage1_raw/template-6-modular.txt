@@ -1,0 +1,48 @@
+### TAGS
+#modular-dashboard
+#drag-and-drop-ui
+#customizable-widgets
+#responsive-design
+#layout-management
+
+### TYPE
+documentation
+
+### SUMMARY
+A modular, drag-and-drop dashboard template enabling users to customize module arrangement, sizing, and visibility for workflow optimization.
+
+### DETAILS
+This template implements a **12-column grid-based modular system** where users can dynamically arrange pre-defined UI modules (e.g., World List, Card Grid, Hash Generator) via drag-and-drop interactions. The design prioritizes **responsive behavior** across breakpoints (mobile, tablet, desktop) while enforcing constraints like minimum/maximum sizes and aspect ratios. Key features include **drag-and-drop repositioning**, **resizable modules**, and **layout presets** (e.g., creation-focused, viewing-focused). Modules support **minimize/maximize**, **settings integration**, and **visibility toggling**, with global dashboard preferences (e.g., color scheme, auto-save layouts). The system leverages a **JSON-based layout export/import** for persistence.
+
+### KEY_FUNCTIONS
+- **Drag-and-Drop Module Placement**: Visual feedback for drop zones and snapping to grid.
+- **Responsive Grid System**: Adapts columns/rows based on screen size (mobile: 1 column; desktop: 4 columns).
+- **Layout Presets**: Predefined configurations (e.g., "Balanced," "Compact") for quick setup.
+- **Module Visibility Control**: Toggle individual modules or entire groups.
+- **Customization API**: Allows dynamic title/color adjustments per module.
+- **Minimize/Maximize**: Collapse/expand modules with smooth animations.
+- **Settings Panel**: Global dashboard preferences (e.g., gutter spacing, accent colors).
+- **Auto-Save Layouts**: Persists user arrangements via named layouts or JSON export.
+
+### DEPENDENCIES
+CSS frameworks (e.g., Bootstrap, Tailwind), JavaScript libraries (e.g., jQuery for drag-and-drop, GSAP for animations), and a backend for layout persistence (e.g., localStorage, Firebase).
+
+### USAGE
+1. **Initial Setup**: Load the dashboard and select a preset layout (e.g., "Creation Focus").
+2. **Customization**:
+   - Drag modules to rearrange.
+   - Resize via corner handles (constrained by aspect ratio).
+   - Toggle visibility or minimize modules.
+3. **Saving Layouts**:
+   - Use the "Save Layout" button to name a custom arrangement.
+   - Export as JSON for sharing.
+4. **Advanced**: Access the settings panel to adjust global themes or module defaults.
+
+### RELATED
+[[Modular UI Patterns]], [[Responsive Design Cheat Sheet]], [[Drag-and-Drop Protocols]]
+
+### CALLOUTS
+>[!INFO]- **Grid Snap Behavior**
+> Modules automatically snap to the 12-column grid, ensuring consistent spacing and alignment. Minimum/maximum size constraints prevent distortion.
+>[!WARNING]- **Touch Optimization**
+> Mobile breakpoints (<768px) prioritize touch-friendly interactions (e.g., swipe gestures for navigation). Overuse of drag-and-drop may reduce usability on small screens.

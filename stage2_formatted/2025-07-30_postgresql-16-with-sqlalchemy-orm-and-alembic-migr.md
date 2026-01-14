@@ -1,0 +1,68 @@
+**Tags:** #PostgreSQL, #SQLAlchemy, #Alembic, #ORM, #JSONB, #Flask, #Database-Migrations, #Relationships, #Model-Design
+**Created:** 2026-01-13
+**Type:** documentation-research
+
+# 2025-07-30_postgresql-16-with-sqlalchemy-orm-and-alembic-migr
+
+## Summary
+
+```
+Explores PostgreSQL 16 integration with SQLAlchemy ORM and Alembic for Flask-based applications, focusing on models with JSONB fields, relationships, and migration setup.
+```
+
+## Details
+
+> This research document outlines the setup for PostgreSQL 16 with SQLAlchemy ORM and Alembic migrations in a Flask application. It emphasizes defining models (`User`, `World`, `WorldElement`) with JSONB fields for flexible data storage, establishing bidirectional relationships, and automating database schema changes via Alembic. Best practices include secure configuration via environment variables, proper migration handling, and integration with Flask’s ORM layer.
+
+## Key Functions
+
+### ``declarative_base()``
+
+Base class for SQLAlchemy models.
+
+### ``relationship()``
+
+Manages bidirectional relationships between models.
+
+### ``JSONB``
+
+PostgreSQL data type for storing JSON-like data.
+
+### ``alembic revision --autogenerate``
+
+Generates initial migration scripts.
+
+### ``Flask-SQLAlchemy``
+
+Integrates SQLAlchemy with Flask for ORM support.
+
+## Usage
+
+1. Initialize Alembic in the project root.
+2. Define models with `JSONB` fields and relationships using SQLAlchemy.
+3. Configure Flask with `SQLALCHEMY_DATABASE_URI` from environment variables.
+4. Run `alembic revision --autogenerate -m "Initial migration"` and `alembic upgrade head`.
+5. Use Flask-SQLAlchemy for ORM operations and Alembic for migrations.
+
+## Dependencies
+
+> ``sqlalchemy``
+> ``sqlalchemy-dialects-postgresql``
+> ``alembic``
+> ``flask-sqlalchemy``
+> ``passlib``
+> ``PyJWT``
+> ``python-dotenv``
+
+## Related
+
+- [[PostgreSQL 16 Documentation]]
+- [[SQLAlchemy ORM Guide]]
+- [[Alembic Migration Cheat Sheet]]
+- [[Flask-SQLAlchemy Best Practices]]
+
+>[!INFO] JSONB Best Practices
+> Use `default=dict` for mutable defaults in JSONB fields to avoid issues with mutable objects. Ensure proper indexing on frequently queried columns (e.g., `email` in `User`) for performance.
+
+>[!WARNING] Security Warning
+> Never hardcode database credentials or JWT secrets. Always use environment variables or a secure secrets manager. Validate and hash passwords using `passlib` before storing them in the database.

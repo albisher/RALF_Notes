@@ -1,0 +1,38 @@
+### TAGS
+#color-scheme
+#astronomy
+#cosmic
+#nomenclature
+
+### TYPE
+color-reference
+
+### SUMMARY
+A curated list of celestial and futuristic-inspired color names for thematic or aesthetic applications.
+
+### DETAILS
+This file contains a collection of evocative color names inspired by cosmic elements, rare materials, and futuristic concepts. Each name is designed to evoke a distinct visual or emotional impression, often used in sci-fi, art, or design projects to represent celestial phenomena, rare minerals, or advanced technologies. The list includes both natural and synthetic-inspired hues, such as celestial colors (e.g., "Plasma Pink," "Hydrogen Blue") and metallic/rare-material tones (e.g., "Copper Bronze," "Carbon Black").
+
+### KEY_FUNCTIONS
+- **Color Palette**: Provides a set of visually distinct, thematic colors for creative projects.
+- **Aesthetic Reference**: Serves as inspiration for designers, writers, or artists working in sci-fi, fantasy, or futuristic contexts.
+- **Naming System**: Acts as a standardized nomenclature for non-standard colors (e.g., "Xenon Purple" instead of generic "Purple").
+
+### DEPENDENCIES
+none
+
+### USAGE
+This list can be used directly in:
+- **Design Systems**: As part of a color palette for UI/UX, branding, or visual art.
+- **Writing/Storytelling**: To describe environments, characters, or objects in sci-fi/fantasy narratives.
+- **Game Development**: For world-building, item design, or atmospheric effects.
+- **Art & Illustration**: As a reference for painting, digital art, or concept art.
+
+### RELATED
+[[Cosmic Color Themes]], [[Sci-Fi Material Palettes]], [[Rare Element Colors]]
+
+### CALLOUTS
+>[!INFO]- Inspiration Source
+> Many names draw from real celestial phenomena (e.g., "Plasma" from ionized gas, "Hydrogen Blue" from hydrogen emission spectra) or rare materials (e.g., "Krypton Green" inspired by Krypton gas or rare minerals).
+>[!WARNING]- Context Matters
+> Some names (e.g., "Radon Dark") may evoke caution or danger—use appropriately in narratives or design to avoid unintended associations.

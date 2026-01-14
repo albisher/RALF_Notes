@@ -1,0 +1,44 @@
+### TAGS
+#ui-improvement
+#vue-component
+#user-experience
+#notification-system
+
+### TYPE
+documentation
+
+### SUMMARY
+Refactored popup alerts in `ui-beta` to a modern toast notification system for improved UX, reducing UI blocking and enhancing visual clarity.
+
+### DETAILS
+This refactoring replaced legacy `Alert()`, `Confirm()`, and `Prompt()` popups with a centralized `ToastNotification` system. The new system uses a Vue component (`ToastNotification.vue`) and a service (`toast-service.js`) to display non-blocking, animated notifications in the top-right corner. The implementation supports four types (success, error, warning, info) with auto-dismissal and manual controls, replacing intrusive modal alerts.
+
+### KEY_FUNCTIONS
+- **`ToastNotification.vue`**: Displays toast messages with animations and icons.
+- **`toast-service.js`**: Centralized singleton service for toast management with a simple API (`success()`, `error()`, `warning()`, `info()`).
+- **`WorkflowPage.vue`**: Modified to replace 12 `Alert()` calls with toast notifications.
+- **`GenerateStage.vue`**: Replaced one `Alert()` call with a toast notification.
+
+### DEPENDENCIES
+Vue.js, Material Design Icons (for icons), Vuex (if used for state management), possibly `@vueuse/core` for utility functions.
+
+### USAGE
+1. Import the toast service:
+   ```javascript
+   import { toastService } from '../services/toast-service.js';
+   ```
+2. Call toast methods in components:
+   ```javascript
+   toastService.success('Operation completed!');
+   toastService.error('Error occurred: ' + error);
+   ```
+3. Ensure `ToastNotification.vue` is globally mounted in `App.vue`.
+
+### RELATED
+[[Vue.js Component Guide]], [[Modern UI Notification Patterns]], [[UI-Beta Refactoring Notes]]
+
+### CALLOUTS
+>[!INFO]- **Non-blocking UX**
+> Toasts allow users to continue interacting with the UI without interruption, improving workflow efficiency compared to modal alerts.
+>[!WARNING]- **Stacking Behavior**
+> Multiple toasts stack vertically; ensure components handle overlapping notifications gracefully to avoid visual clutter.

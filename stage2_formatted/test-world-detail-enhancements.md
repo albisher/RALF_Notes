@@ -1,0 +1,57 @@
+**Tags:** #automation-testing, #puppeteer, #web-scraping, #ui-testing, #login-flow, #dialog-interaction, #asset-creation
+**Created:** 2026-01-13
+**Type:** code-test
+
+# test-world-detail-enhancements
+
+## Summary
+
+```
+Automated UI test for enhancing world detail page functionality using Puppeteer.
+```
+
+## Details
+
+> This script automates testing of a world detail page enhancement feature in a web application. It launches a headless browser, handles potential login, navigates to a specific world detail page, and verifies the "Quick Actions" functionality, particularly the "Add Character" feature. The test captures screenshots at key stages and validates the asset creation dialog behavior, including hash-based generation selection.
+> 
+> The test follows a structured flow: browser launch, login handling, navigation to the target page, screenshot capture, and interaction testing with the "Add Character" button. It uses `page.evaluateHandle` to locate UI elements dynamically and checks for the presence of expected components like dialogs and form inputs.
+
+## Key Functions
+
+### `testWorldDetailEnhancements`
+
+Orchestrates the entire test suite for world detail enhancements.
+
+### `login flow`
+
+Automates user login if required, filling credentials and submitting the form.
+
+### `Quick Actions testing`
+
+Verifies the "Add Character" button and subsequent dialog interactions.
+
+### `Hash-based generation validation`
+
+Ensures the character creation dialog allows hash-based asset generation.
+
+## Usage
+
+1. Install Puppeteer: `npm install puppeteer`
+2. Run the script: `node test-world-detail-enhancements.js`
+3. Ensure the application is running at `https://localhost:8443` and the user has access to the world detail page.
+
+## Dependencies
+
+> `puppeteer`
+> `Node.js runtime environment`
+
+## Related
+
+- [[None]]
+
+>[!INFO] Important Note
+> The script uses a hardcoded username/password ('test'/'passtest') for login. Ensure this matches your application's requirements and adjust if needed.
+>
+
+>[!WARNING] Caution
+> Running in headless mode with `--disable-web-security` and `--ignore-ssl-errors` flags may expose the application to security risks if not used in a controlled environment. Test in a sandboxed or trusted network.

@@ -1,0 +1,49 @@
+### TAGS
+#deterministic_content_generation
+#procedural_worldbuilding
+#flask_web_framework
+#blender_3d_integration
+#modular_architecture
+#sci-fi_universe
+#hash_based_algorithm
+#text_config_files
+#product_requirements_documentation
+
+### TYPE
+documentation-research
+
+### SUMMARY
+Analyzes certainty in understanding a sci-fi procedural content generation system’s architecture, dependencies, and design choices.
+
+### DETAILS
+This file presents a structured **certainty analysis** of a procedural content generation system for the sci-fi universe *Space Peral*, focusing on its technical architecture, content types, and integration points. The document uses a table-based format to rate confidence levels (0–100%) in various claims about the system’s design, including its use of **deterministic hash-based algorithms** (SHA-256), **modular generators** for robots/plants/buildings/characters, and **Flask/Blender integration**. Unmarked points indicate areas of uncertainty, while marked points reflect high confidence (e.g., procedural generation via text-based configs, modular architecture). The analysis also highlights gaps in understanding (e.g., Blender API usage, real-time web feedback).
+
+The system’s core logic revolves around **input hashing** to produce consistent outputs, with attributes defined via text files. Dependencies include **Flask** (web backend), **Blender** (3D modeling), and **Python libraries** (e.g., `numpy`, `pandas`). The design prioritizes **extensibility** through modular generators, though performance and integration specifics (e.g., Blender export formats) remain unclear.
+
+### KEY_FUNCTIONS
+- **Procedural Content Generation**: Uses deterministic hashing to create consistent, repeatable content (robots, plants, buildings, characters).
+- **Modular Generators**: Separate generators for each content type, configured via text files.
+- **Flask Web Interface**: User interaction layer for generating and visualizing content.
+- **Blender Integration**: Handles 3D model rendering and export.
+- **Text-Based Configuration**: Attribute lists stored in plain-text files for easy editing.
+
+### DEPENDENCIES
+Python, Flask, Blender, Blender Python API (`bpy`), `numpy`, `pandas`, `requests`, JSON/text files.
+
+### USAGE
+To validate or extend the system:
+1. **Review Text Configs**: Verify attribute lists in `.txt` files (e.g., `robots_config.txt`).
+2. **Test Determinism**: Confirm identical inputs produce identical outputs (e.g., same hash → same robot).
+3. **Integrate Flask**: Deploy the web app to interact with the system via a browser.
+4. **Blender Export**: Use Blender to render and export generated 3D models.
+
+### RELATED
+[[Space Peral Procedural Generator Code]], [[Flask Integration Guide]], [[Blender API Documentation]], [[Modular Content System Design]]
+
+### CALLOUTS
+>[!INFO]- Key Uncertainty
+> **Blender Integration**: While Blender is confirmed for 3D modeling, specifics like export formats (e.g., `.fbx`) or real-time feedback during generation are unconfirmed. Clarify Blender API usage (e.g., `bpy.ops` commands) to resolve this.
+>[!WARNING]- Deterministic Risks
+> **Hash Collisions**: SHA-256 collisions are astronomically rare but theoretically possible. Audit hash-based generation for edge cases (e.g., identical inputs producing slightly different outputs due to rounding or system quirks).
+>[!INFO]- Text Config Best Practices
+> **Modularity**: Text files should follow a standardized format (e.g., `category/attribute_list.txt`). Inconsistent naming (e.g., `X-Series` vs. `Warrior` in robot configs) may break deterministic generation. Standardize attribute keys across all content types.

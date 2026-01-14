@@ -1,0 +1,39 @@
+### TAGS
+#automation
+#web-scraping
+#api-integration
+#puppeteer
+#space-simulation
+#robotics
+
+### TYPE
+code-notes
+
+### SUMMARY
+Creates a fictional space-themed world and X-Series robots via Puppeteer and API interactions for a simulation environment.
+
+### DETAILS
+This script automates the creation of a custom space world named "Space Peral" using Puppeteer to interact with a web application (likely a game or simulation platform) and its backend API. It launches a browser, navigates to a workspace, captures screenshots, and programmatically creates a planet and a series of specialized robots (X1–X11) with predefined attributes. The workflow includes API calls to POST data for the world and robot elements, leveraging authentication via a stored token. The script also logs progress and saves screenshots for verification.
+
+### KEY_FUNCTIONS
+- **createSpacePeralWorldSimple**: Orchestrates the entire workflow: browser launch, navigation, API calls, and screenshot capture.
+- **page.evaluate()**: Executes JavaScript in the browser context to interact with the API via `fetch`.
+- **robot creation loop**: Dynamically generates and submits robot data to the API for each entry in the `robots` array.
+
+### DEPENDENCIES
+puppeteer, fetch (built-in browser API), localStorage (browser API)
+
+### USAGE
+1. Install Puppeteer (`npm install puppeteer`).
+2. Ensure `auth_token` exists in `localStorage` (e.g., via a login script).
+3. Run the script in a Node.js environment.
+4. Verify the workspace URL (`http://localhost:5173/workspace`) matches the target application.
+
+### RELATED
+[[Space Simulation API Documentation]], [[Puppeteer Puppeteer Guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script assumes the API endpoints (`/api/worlds` and `/api/worlds/{worldId}/elements`) are accessible and the workspace URL is correct. Adjust paths if the target application uses a different structure.
+>[!WARNING]- Caution
+> Running Puppeteer in non-headless mode (`--no-sandbox`) may expose security risks on non-trusted systems. Use with caution in production environments.

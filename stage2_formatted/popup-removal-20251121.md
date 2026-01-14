@@ -1,0 +1,63 @@
+**Tags:** #modern-ui, #vuejs, #notification-system, #ui-improvement, #accessibility, #event-driven, #singleton-pattern, #subscriber-pattern
+**Created:** 2026-01-13
+**Type:** documentation
+
+# popup-removal-20251121
+
+## Summary
+
+```
+Implements a toast notification system to replace deprecated `alert()` popups in a Vue.js application, enhancing user experience with non-blocking, visually appealing notifications.
+```
+
+## Details
+
+> This implementation replaces legacy `alert()` calls with a centralized toast notification system, improving user experience by eliminating blocking popups and adding structured, animated toasts. The system uses a Vue 3 component (`ToastNotification.vue`) and a singleton service (`toast-service.js`) to manage notifications globally. Components subscribe to the service on mount, displaying toasts in the top-right corner with configurable durations and types (success, error, warning, info). The architecture decouples notification logic from rendering, enabling reusable components and efficient scaling.
+
+## Key Functions
+
+### `ToastNotification.vue`
+
+Renders toast notifications with animations, auto-dismissal, and type-specific styling.
+
+### `toast-service.js`
+
+Singleton service providing a unified API (`success()`, `error()`, `warning()`, `info()`) for toast management, using a subscriber pattern to decouple display logic from triggering components.
+
+### `App.vue`
+
+Globally integrates the `ToastNotification` component to ensure notifications work across the entire application.
+
+## Usage
+
+1. Import the toast service:
+   ```javascript
+   import toastService from '@/services/toast-service';
+   ```
+2. Replace `alert()` calls with service methods:
+   ```javascript
+   toastService.success('Operation completed!');
+   toastService.error('Failed to save: ' + error);
+   ```
+3. Ensure components subscribe to the service on mount (handled automatically in `ToastNotification.vue`).
+
+## Dependencies
+
+> `Vue 3`
+> `Vuex (optional for state management)`
+> `Composition API`
+> `CSS animations (e.g.`
+> `GSAP or native CSS transitions).`
+
+## Related
+
+- [[Vue]]
+- [[Modern UI Design Best Practices]]
+- [[Event-Driven Architecture in Vue]]
+
+>[!INFO] **Subscriber Pattern Benefit**
+> The subscriber pattern ensures components can trigger toasts without prop drilling, improving modularity and maintainability. Components only need to emit an event (e.g., `showToast`) to the service, which dispatches the toast globally.
+
+
+>[!WARNING] **Manual Dismiss Override Risk**
+> If a component manually dismisses a toast before the auto-dismiss timeout, ensure the service’s `dismiss` method is called explicitly to avoid unexpected behavior. This is rare but critical for edge cases.

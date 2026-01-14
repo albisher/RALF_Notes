@@ -1,0 +1,64 @@
+**Tags:** #card-linking, #relationship-management, #api-integration, #database-operations, #async-io
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# link_box
+
+## Summary
+
+```
+Manages inter-card linking operations via an API client.
+```
+
+## Details
+
+> The `LinkBox` class extends `Box` to implement a modular linking stage for a card-based system. It handles three core operations: linking two cards (`link`), removing a link (`unlink`), and retrieving relationships for a card (`getRelationships`). The class uses an injected `apiClient` to interact with a linking API, validating inputs via a defined schema and returning structured outputs. Error handling wraps external API failures under `BoxErrorCode.API_ERROR`.
+
+## Key Functions
+
+### ``constructor(apiClient)``
+
+Initializes the box with metadata (version, dependencies) and configures input/output schemas for supported operations.
+
+### ``_executeInternal(inputData)``
+
+Dispatches the requested operation (`link`, `unlink`, or `getRelationships`) to private methods, validating inputs and managing errors.
+
+### ``_createLink(params)``
+
+Delegates to `apiClient.linking.create` to establish a bidirectional link between `sourceCardId` and `targetCardId` with a specified `relationshipType`.
+
+### ``_removeLink(params)``
+
+Calls `apiClient.linking.delete` to remove a link identified by `linkId`.
+
+### ``_getRelationships(params)``
+
+Queries `apiClient.linking.list` for all relationships associated with a given `cardId`.
+
+## Usage
+
+1. Instantiate `LinkBox(apiClient)` with an API client.
+2. Call `_executeInternal` with an input object containing:
+   - `operation`: One of `link`, `unlink`, or `getRelationships`.
+   - Optional params: `sourceCardId`, `targetCardId`, `relationshipType`, `linkId`, or `cardId`.
+3. Returned outputs include:
+   - `link`: Created/updated link data.
+   - `relationships`: List of linked cards for `getRelationships`.
+   - `removed`: Boolean flag for `unlink` success.
+
+## Dependencies
+
+> ``../core/box_interface.js` (Box class and utilities)`
+> ``apiClient.linking` (external linking API methods).`
+
+## Related
+
+- [[box_interface]]
+- [[api-client documentation]]
+
+>[!INFO] Input Validation
+> Inputs are validated via the `inputSchema` (e.g., `operation` must be in `['link', 'unlink', 'getRelationships']`). Missing required fields (e.g., `sourceCardId` for `link`) will trigger `BoxErrorCategory.VALIDATION`.
+
+>[!WARNING] Parallelism Limitation
+> `supportsParallel: false` prevents concurrent operations, ensuring atomicity for critical link state changes. Override this if multi-threaded execution is required.

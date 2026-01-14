@@ -1,0 +1,66 @@
+**Tags:** #UI-Design, #Hybrid-Architecture, #VueJS, #Timeline-Visualization, #Contextual-UI, #Event-Driven
+**Created:** 2026-01-13
+**Type:** architecture
+
+# 08-hybrid
+
+## Summary
+
+```
+Designs a hybrid timeline interface combining navigation, contextual panels, and settings for optimized user experience.
+```
+
+## Details
+
+> This design merges multiple UI/UX iterations into a cohesive system. The hybrid approach integrates a **slider-centric navigation** with a **contextual information panel** and **integrated settings**, enhancing interactivity and data visualization. The structure dynamically updates based on user interactions, such as slider movement or event selection, ensuring real-time relevance. The implementation uses Vue.js components to modularize functionality, improving maintainability and scalability.
+
+## Key Functions
+
+### `Enhanced TopTimeline`
+
+Displays navigation controls (slider, previous/next buttons, jump input) with visual feedback for slider position.
+
+### `EventList Component`
+
+Renders all events with filtering/sorting capabilities, highlighting events near the slider position.
+
+### `ContextualPanel Component`
+
+Dynamically shows filtered events, cards, and an editable event form when an event is selected.
+
+### `SettingsModal Component`
+
+Provides full settings configuration with validation and help text for customization options.
+
+### `Hybrid-Timeline-Interface`
+
+Orchestrates the entire UI flow, linking components via Vue’s event bus for state synchronization.
+
+## Usage
+
+1. **Initialize**: Load all events and timeline settings in the parent component.
+2. **Render**: Mount the `hybrid-timeline-interface` component with preloaded data.
+3. **Interact**:
+   - Move slider to update the contextual panel.
+   - Select events to edit details in the panel.
+   - Access settings via the modal for global adjustments.
+4. **State Management**: Use Vuex to handle global state (e.g., `sliderPosition`, `eventsAtPosition`).
+
+## Dependencies
+
+> `Vue.js (3.x)`
+> `Vuex (for state management)`
+> `Tailwind CSS (for styling)`
+> `Axios (for potential API calls to event/card data).`
+
+## Related
+
+- [[01-iteration1]]
+- [[05-iteration5]]
+- [[04-iteration4]]
+
+>[!INFO] Dynamic Updates
+> The contextual panel updates in real-time when the slider position changes, ensuring users always see relevant data without manual refreshes.
+
+>[!WARNING] State Management
+> Ensure Vuex is properly set up to avoid race conditions when multiple users interact simultaneously, as event selection and slider updates are asynchronous.

@@ -1,0 +1,57 @@
+**Tags:** #CSS-Specificity, #Puppeteer, #Web-Testing, #TailwindCSS, #Automated-Testing
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# css-specificity-test
+
+## Summary
+
+```
+Automated test script to evaluate CSS specificity using Puppeteer, focusing on Tailwind CSS classes.
+```
+
+## Details
+
+> This script uses Puppeteer to launch a browser, log in to a local server (likely a Tailwind CSS demo), and evaluate CSS specificity by inspecting styles applied to a `<main>` element. It collects all stylesheets, filters for Tailwind rules (e.g., `p-6`), and checks computed styles (e.g., padding) to determine which styles dominate. The test logs padding values, loaded classes, and Tailwind rule counts, helping verify how Tailwind’s utility classes interact with other styles.
+
+## Key Functions
+
+### ``CSSSpecificityTest.runTest()``
+
+Orchestrates browser launch, login, and CSS inspection via `page.evaluate()`.
+
+### ``page.evaluate()` callback`
+
+Extracts Tailwind rules (`p-6`), computes computed styles, and checks stylesheet metadata.
+
+### ``page.goto()``
+
+Navigates to the login page at `baseUrl`.
+
+### ``page.type()`/`page.click()``
+
+Simulates user login with hardcoded credentials.
+
+## Usage
+
+1. Install dependencies (`npm install puppeteer`).
+2. Run the script (`node css-specificity-test.js`).
+3. Ensure the server (`localhost:8443`) hosts a Tailwind CSS-enabled page with a `<main>` element.
+4. Verify the script logs CSS specificity results (e.g., padding values, Tailwind rule counts).
+
+## Dependencies
+
+> ``puppeteer``
+> ``node``
+> `Chrome browser (hardcoded path `/Applications/Google Chrome.app`).`
+
+## Related
+
+- [[CSS-Specificity-Guide]]
+- [[Puppeteer-Testing-Examples]]
+
+>[!INFO] Important Note
+> The script assumes the server uses Tailwind’s `p-6` utility class (e.g., `padding-6`). Adjust `selectorText.includes('p-6')` if testing different classes.
+
+>[!WARNING] Caution
+> Hardcoded credentials (`test/testpass`) may expose security risks. Use environment variables or a config file for production.

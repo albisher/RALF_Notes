@@ -1,0 +1,43 @@
+### TAGS
+#database
+#data-structure
+#validation
+#authentication
+#transaction
+#ORM
+#logging
+
+### TYPE
+documentation
+
+### SUMMARY
+Handles creation of new `WorldElement` records with input validation and security checks.
+
+### DETAILS
+This `WorldElementWriteBox` class implements a box interface for creating new `WorldElement` records in a database. It validates required fields (e.g., `world_id`, `name`, `user_id`), verifies user ownership of the world, and ensures atomic database operations via transactions. The class logs success/failure events and sanitizes output for client consumption.
+
+### KEY_FUNCTIONS
+- **`execute(input_data: BoxInput) -> BoxOutput`**: Orchestrates the entire workflow—validation, database insertion, and result serialization.
+- **`__init__(name='world_element_write')`**: Initializes the box with a default name and description.
+- **`WorldElement` model**: Database model for storing element metadata (e.g., `name`, `element_type`, `data`).
+
+### DEPENDENCIES
+`..core.box_interface`, `models.db`, `models.World`, `models.WorldElement`, `logging`
+
+### USAGE
+1. Call `execute()` with `BoxInput` containing:
+   - `element_data`: Dict with required fields (`world_id`, `name`, `element_type`, etc.).
+   - `user_id`: User identifier for security checks.
+2. Returns `BoxOutput` with:
+   - `success`: Boolean flag.
+   - `data`: Serialized element (e.g., `{id: 123, name: "Xenon", ...}`).
+   - `error`: Human-readable message if validation fails.
+
+### RELATED
+[[`core.box_interface`]], [[`models.World`]], [[`models.WorldElement`]]
+
+### CALLOUTS
+>[!INFO]- Required Fields
+> All fields in `element_data` must include `world_id`, `name`, `element_type`, `generation_hash`, and `data`. Missing any triggers a `success=False` response.
+>[!WARNING]- Transaction Rollback
+> If an exception occurs during execution, the database session is rolled back to maintain consistency. Always handle exceptions gracefully to avoid partial writes.

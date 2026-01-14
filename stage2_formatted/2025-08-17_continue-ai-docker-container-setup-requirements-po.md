@@ -1,0 +1,76 @@
+**Tags:** #docker, #ai-integration, #vuejs, #environment-variables, #port-mapping, #containerization, #mcp-server, #perplexity-api, #security-config, #devops
+**Created:** 2026-01-13
+**Type:** research-notes
+
+# 2025-08-17_continue-ai-docker-container-setup-requirements-po
+
+## Summary
+
+```
+Explores Docker container setup for Continue AI, focusing on ports, environment variables, and Vue.js frontend integration.
+```
+
+## Details
+
+> This document outlines the requirements for deploying the **Continue AI** service as a Docker container, emphasizing secure integration with a **Vue.js** frontend and Python backend. Key aspects include configuring HTTP server ports, allocating sufficient resources, managing environment variables (e.g., API keys, database credentials), and ensuring seamless networking between containers. The setup also addresses health checks, CORS, and persistence for development workflows.
+
+## Key Functions
+
+### `HTTP Server in Docker`
+
+Runs indefinitely on `0.0.0.0` with configurable ports for API requests and liveness probes.
+
+### `Perplexity API Key Injection`
+
+Securely embeds API credentials via environment variables.
+
+### `Database Connection Management`
+
+Configures PostgreSQL-like credentials dynamically.
+
+### `MCP Server Configuration`
+
+Sets up Model Context Protocol endpoints with authentication.
+
+### `Vue.js Frontend Proxy`
+
+Maps API endpoints to frontend requests via CORS or reverse proxy.
+
+### `Docker Compose Orchestration`
+
+Defines service dependencies, ports, volumes, and networking for multi-container deployment.
+
+## Usage
+
+1. **Dockerfile**: Define the Continue container with `ENTRYPOINT`/`CMD` for the HTTP server.
+2. **`docker-compose.yml`**: Map ports (e.g., `8080`), inject env vars (e.g., `CONTINUE_PORT=8080`), and mount volumes for persistence.
+3. **Frontend Config**: Update Vue.js `VITE_API_URL` or proxy settings to point to the Continue container’s exposed port.
+4. **Security**: Use Docker secrets or `.env` files for sensitive data (e.g., API keys).
+
+## Dependencies
+
+> `Python 3.10+`
+> `Node.js 16+`
+> `Docker Compose`
+> `Vue.js CLI`
+> `PostgreSQL (optional)`
+> `Docker secrets manager.`
+
+## Related
+
+- [[Docker Best Practices for AI Services]]
+- [[Vue]]
+- [[Docker Secrets Management]]
+- [[MCP Protocol Documentation]]
+
+>[!INFO] **Resource Allocation**
+> Ensure 4GB+ RAM is allocated to avoid performance bottlenecks during AI inference. Monitor memory usage with `docker stats` during testing.
+
+>[!WARNING] **Environment Variable Security**
+> Avoid hardcoding API keys in `docker-compose.yml`. Use Docker secrets or a `.env` file with restricted permissions (e.g., `chmod 600 .env`).
+
+>[!INFO] **Network Isolation**
+> Use Docker networks to separate Continue from other containers but ensure Vue.js/Python services can resolve container names (e.g., `continue-service`). Test connectivity with `curl http://continue-service:8080`.
+
+>[!WARNING] **Health Checks**
+> Configure Docker health checks (e.g., `HEALTHCHECK --interval=30s --timeout=3s CMD curl -f http://localhost:8080/health`) to fail fast if the Continue service fails.

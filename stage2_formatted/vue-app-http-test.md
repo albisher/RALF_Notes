@@ -1,0 +1,48 @@
+**Tags:** #HTTP Testing, #Vue.js, #Backend Validation, #Frontend Analysis, #Node.js
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# vue-app-http-test
+
+## Summary
+
+```
+Validates a Vue.js application's HTTP endpoints, checks for Vue-specific components, and saves HTML responses for inspection.
+```
+
+## Details
+
+> This script performs automated HTTP tests on a Vue.js application running on `localhost:8443`. It verifies the main application page, Vite client, `main.ts` entry point, and an API health endpoint. The script also analyzes the HTML response for Vue-specific markers (e.g., `id="app"`, `Vite App` title) and saves the raw HTML response to a timestamped file for debugging. The `makeHTTPRequest` function handles HTTPS requests with a timeout to avoid hanging.
+
+## Key Functions
+
+### ``vueAppHTTPTest()``
+
+Orchestrates the entire test suite, logging results for each endpoint and analysis.
+
+### ``makeHTTPRequest(path)``
+
+Asynchronous function that sends HTTP GET requests to `localhost:8443` and resolves with a structured response object (status code, headers, body).
+
+## Usage
+
+1. Run the script directly in a Node.js environment (e.g., `node vue-app-http-test.js`).
+2. Ensure the Vue.js app is running on `localhost:8443` with HTTPS enabled.
+3. The script logs test results and saves the main HTML response to `screenshots/vue-app-html-{timestamp}.html`.
+
+## Dependencies
+
+> ``https``
+> ``fs` (Node.js built-ins)`
+> `no external libraries.`
+
+## Related
+
+- [[Vue]]
+- [[Node]]
+
+>[!INFO] Important Note
+> The script uses `rejectUnauthorized: false` in `https.request()` to bypass SSL certificate validation for local testing. Use this cautiously in production.
+
+>[!WARNING] Caution
+> The `main.ts` endpoint may not exist if the app uses a different entry file (e.g., `main.js`). Adjust the path if needed.

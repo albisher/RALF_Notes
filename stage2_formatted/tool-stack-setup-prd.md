@@ -1,0 +1,68 @@
+**Tags:** #AI_automation, #DevOps_tools, #Docker, #Workflow_orchestration, #Project_management, #Code_assistance, #OpenProject, #n8n, #Continue
+**Created:** 2026-01-13
+**Type:** architecture
+
+# tool-stack-setup-prd
+
+## Summary
+
+```
+Defines a Docker-based tool stack integrating AI-assisted workflows, project management, and workflow orchestration for the Space Pearl project.
+```
+
+## Details
+
+> This document outlines the setup of a **tool stack** for the Space Pearl project, combining **Continue** (AI code assistant), **OpenProject** (project management), and **n8n** (workflow orchestration) within a Dockerized environment. The setup integrates with an existing **Vue.js + Python + Docker** stack while enabling AI-driven automation for story generation, code assistance, and workflow orchestration. Key components include containerized deployments, database configurations, API integrations, and security measures, with a focus on scalability and compliance.
+
+## Key Functions
+
+### `Docker Compose Integration`
+
+Adds Continue, OpenProject, and n8n containers to `docker-compose.yml` with PostgreSQL dependencies.
+
+### `AI Workflow Orchestration`
+
+Configures n8n workflows for story generation and code assistance using Perplexity API.
+
+### `GitHub Template Creation`
+
+Generates reusable GitHub repository templates with tool configurations.
+
+### `Cursor IDE Setup`
+
+Configures Cursor IDE for seamless Continue integration.
+
+### `Security & Monitoring`
+
+Implements API key management, authentication, SSL, and audit logging.
+
+### `CI/CD Orchestration`
+
+Integrates n8n-driven CI/CD pipelines for automated testing and deployment.
+
+## Usage
+
+1. **Deploy**: Update `docker-compose.yml` with new containers, run `docker-compose up`.
+2. **Configure**: Set up API keys, environment variables, and workflows in n8n/Continue/OpenProject.
+3. **Integrate**: Connect tools via webhooks and ensure compatibility with existing Vue.js/Python stack.
+4. **Document**: Follow provided guides for GitHub templates, training, and troubleshooting.
+
+## Dependencies
+
+> `Docker infrastructure`
+> `PostgreSQL`
+> `Perplexity API`
+> `GitHub repository access`
+> `Cursor IDE`
+> `existing Flask backend APIs.`
+
+## Related
+
+- [[Space_Pearl_Docker_Stack_Notes]]
+- [[AI_Integration_Guide_Space_Pearl]]
+
+>[!INFO] Critical Integration Point
+> Ensure **Perplexity API keys** are securely stored in environment variables (e.g., `.env`) and not hardcoded in Docker configs to avoid exposure.
+
+>[!WARNING] Compatibility Risk
+> Verify **n8n workflows** are compatible with the existing Flask backend APIs; test with dry runs before full deployment.

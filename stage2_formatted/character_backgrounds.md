@@ -1,0 +1,53 @@
+**Tags:** #backgrounds, #role-based, #character-creation, #storytelling, #narrative
+**Created:** 2026-01-13
+**Type:** documentation
+
+# character_backgrounds
+
+## Summary
+
+```
+A curated list of thematic character backgrounds for roleplaying or narrative-driven storytelling.
+```
+
+## Details
+
+> This file provides a collection of **role-based background concepts** designed to inspire character development in games like Dungeons & Dragons, tabletop RPGs, or creative writing. Each entry represents a distinct **legacy, journey, or identity** that can shape a character’s motivations, skills, and personality. The list is structured to encourage depth by offering archetypal themes rather than rigid traits, allowing flexibility for customization.
+> 
+> The backgrounds are categorized loosely by **heritage (warrior, scholar), role (protector, explorer), or thematic arc (survivor, seeker)**. They serve as prompts for backstory, cultural context, or thematic alignment in storytelling.
+
+## Key Functions
+
+### `Background Selection`
+
+Provides a foundation for character archetypes (e.g., "Warrior heritage" vs. "Creator’s journey").
+
+### `Storytelling Inspiration`
+
+Offers thematic hooks for plot development, dialogue, or roleplay dynamics.
+
+### `Roleplay Depth`
+
+Encourages players to explore internal conflicts, cultural influences, or personal growth tied to each background.
+
+## Usage
+
+1. **For RPGs**: Assign a background to a character during creation, then expand on its implications (e.g., "Explorer background" might imply skills in navigation or survival, while "Teacher’s calling" could hint at mentorship or moral dilemmas).
+2. **For Writing**: Use as a narrative device to define character motivations (e.g., a "Lone survivor" might drive a story of redemption or isolation).
+3. **For Roleplay**: Use to spark discussions about cultural influences, personal struggles, or thematic alignment in group settings.
+
+## Dependencies
+
+> `none (standalone thematic list)`
+
+## Related
+
+- [[Character Archetypes Guide]]
+- [[D&D 5e Backgrounds]]
+- [[Narrative Roleplay Framework]]
+
+>[!INFO] **Flexibility Over Rigidity**
+> These are **thematic prompts**, not prescriptive rules. A "Warrior heritage" character could be a pacifist, while a "Creator’s journey" might manifest as a hacker or artisan—adapt to fit the character’s unique voice.
+
+>[!WARNING] **Avoid Overuse**
+> While diverse backgrounds enrich storytelling, **over-reliance on tropes** (e.g., "Leader’s burden" as a cliché) can weaken originality. Pair with dynamic traits or contradictions (e.g., a "Scholar lineage" with a rebellious streak).

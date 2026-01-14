@@ -1,0 +1,48 @@
+### TAGS
+#automation-testing
+#puppeteer
+#web-scraping
+#robotics-specs
+#ui-testing
+
+### TYPE
+test-reference
+
+### SUMMARY
+Tests robot specification editing functionality in a web application using Puppeteer.
+
+### DETAILS
+This script automates testing of a web interface for editing robot specifications. It launches a browser, navigates to a character detail page, verifies the presence of edit functionality, and checks for robot-specific form fields (e.g., faction, arms, eyes) and modifications fields (e.g., color adjustments, feature modifications). It captures screenshots at key stages and logs interactions with the UI.
+
+The test follows these steps:
+1. Launches Puppeteer with a browser, sets viewport, and navigates to a character detail page.
+2. Takes an initial screenshot and retrieves the character name.
+3. Locates and clicks the edit button, then takes another screenshot.
+4. Validates the presence of robot specifications and modifications sections.
+5. Checks for specific input fields (e.g., faction, arms, color adjustments) and logs their values.
+6. Optionally fills in sample values in selected fields to simulate editing.
+
+### KEY_FUNCTIONS
+- **testRobotSpecsEditing**: Orchestrates the entire test workflow, including browser setup, UI interactions, and screenshot capture.
+- **puppeteer.launch**: Initializes a browser instance with customizable settings (headless mode, sandbox bypass).
+- **page.goto**: Navigates to the target URL (`http://localhost:5173/characters/289`).
+- **page.$eval**/**page.$**: Selects and extracts text/content from DOM elements.
+- **page.screenshot**: Captures visual snapshots of the page at critical points.
+- **page.type**: Simulates typing into input fields (e.g., faction, arms).
+
+### DEPENDENCIES
+puppeteer, Node.js runtime
+
+### USAGE
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node test-robot-specs-editing.js`.
+3. Ensure the target URL (`http://localhost:5173/characters/289`) is accessible and the UI matches expected selectors.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> This script assumes the UI structure matches the selectors used (e.g., `button[icon="mdi-pencil"]`, `input[placeholder*="Knowledge Keepers"]`). If the actual UI differs, adjust selectors accordingly.
+>[!WARNING]- Caution
+> Avoid running in headless mode (`--headless: true`) if debugging UI interactions, as visual feedback may be limited. The script includes delays (`waitForTimeout`) to account for dynamic content loading.

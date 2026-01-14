@@ -1,0 +1,78 @@
+### TAGS
+#AI-Agent
+#Task-Management
+#CLI-Tool
+#Workflow-Automation
+#Product-Requirements-Documentation
+#Dependency-Management
+#MCP-Integration
+#Claude-Code
+
+### TYPE
+code-notes
+
+### SUMMARY
+Agent integration guide for Task Master AI, detailing CLI commands, project structure, and workflows for AI-assisted task management.
+
+### DETAILS
+This file outlines the architecture and usage of **Task Master AI**, a CLI-based agent system designed to automate task creation, expansion, and management from a Product Requirements Document (PRD). It integrates with **Claude Code** via MCP (Multi-Client Protocol) for AI-assisted workflows, enabling dynamic task breakdown, dependency tracking, and complexity analysis. The system organizes tasks into a structured JSON database and auto-generates markdown files for implementation. Key features include interactive AI model configuration, dependency validation, and daily workflow automation for developers.
+
+### KEY_FUNCTIONS
+- **`task-master init`**: Initializes the Task Master project in the current directory.
+- **`task-master parse-prd`**: Extracts tasks from a PRD document using AI-assisted parsing.
+- **`task-master models --setup`**: Configures AI models interactively for task generation.
+- **`task-master list`**: Displays all tasks with their statuses.
+- **`task-master next`**: Selects the next available task for prioritization.
+- **`task-master add-task`**: Creates new tasks with optional AI research assistance.
+- **`task-master expand --all`**: Breaks down all eligible tasks into subtasks.
+- **`task-master analyze-complexity`**: Evaluates task difficulty using AI.
+- **`task-master set-status`**: Marks tasks as complete or revisited.
+- **`initialize_project` (MCP)**: Equivalent to `task-master init` via MCP.
+- **`parse_prd` (MCP)**: Equivalent to `task-master parse-prd`.
+- **`get_tasks` (MCP)**: Equivalent to `task-master list`.
+- **`next_task` (MCP)**: Equivalent to `task-master next`.
+- **`add_task` (MCP)**: Equivalent to `task-master add-task`.
+
+### DEPENDENCIES
+- **Task Master CLI** (`task-master-ai` npm package)
+- **Claude Code** (MCP client)
+- **MCP Server** (via `.mcp.json` configuration)
+- **Environment variables** (API keys for AI models: Anthropic, Perplexity, OpenAI, etc.)
+- **Node.js** (for CLI execution)
+
+### USAGE
+1. **Initialize the project**:
+   ```bash
+   task-master init
+   ```
+2. **Parse tasks from PRD**:
+   ```bash
+   task-master parse-prd .taskmaster/docs/prd.txt
+   ```
+3. **Daily workflow**:
+   ```bash
+   task-master next          # Start with next task
+   task-master show <id>     # Review task details
+   task-master update-subtask --id=<id> --prompt="notes"  # Add implementation notes
+   task-master set-status --id=<id> --status=done       # Mark as complete
+   ```
+4. **Expand tasks**:
+   ```bash
+   task-master expand --all --research
+   ```
+5. **Run via MCP (Claude Code)**:
+   - Configure `.mcp.json` with API keys.
+   - Use CLI commands like `initialize_project` in a Claude Code session.
+
+### RELATED
+[[Task Master CLI Documentation]], [[Claude Code MCP Guide]], [[MCP Server Configuration]]
+
+### CALLOUTS
+>[!INFO]- Project Initialization
+> Ensure `.env` contains all required API keys (e.g., `ANTHROPIC_API_KEY`). Run `task-master init` to set up the `.taskmaster` directory structure.
+>[!WARNING]- Dependency Conflicts
+> If tasks are updated via `parse-prd --append`, avoid overwriting existing tasks. Use `--force` cautiously to override subtasks.
+>[!INFO]- MCP Integration
+> The `.mcp.json` file must match the exact structure shown. Errors here will prevent CLI commands from working in Claude Code.
+>[!WARNING]- Task Overlap
+> Avoid duplicate tasks when parsing new PRD updates. Use `task-master validate-dependencies` to check for conflicts before expanding tasks.

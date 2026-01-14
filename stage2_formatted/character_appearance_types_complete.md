@@ -1,0 +1,74 @@
+**Tags:** #character_generation, #physical_appearance, #procedural_content, #procedural_narrative, #extensible_system
+**Created:** 2026-01-13
+**Type:** documentation
+
+# character_appearance_types_complete
+
+## Summary
+
+```
+Creates a modular folder structure for generating character physical appearances across multiple types (humans, dragons, animals, etc.) with Python generators.
+```
+
+## Details
+
+> This file outlines the implementation of a **modular character appearance generation system**, structured under `@Generators/` to support multiple creature types. The system uses deterministic Python generators to produce structured JSON outputs for visual descriptions, distinguishing features, and contextual traits. Each creature type (e.g., humans, dragons) has its own folder with text lists (e.g., `body_types.txt`) and a generator script (e.g., `humans.py`). The core logic ensures consistency via hash-based selection, error handling, and command-line integration. The updated `physical_appearance.py` acts as a registry, dynamically importing generators for each supported type.
+
+## Key Functions
+
+### ``humans.py``
+
+Generates human descriptions with body types, hair/eye colors, and clothing styles.
+
+### ``dragons.py``
+
+Produces dragon-specific attributes (scales, wings, breath weapons) with age-based wisdom.
+
+### ``animals.py``
+
+Creates animal profiles (fur colors, types) with behavioral traits.
+
+### ``monsters.py``
+
+Defines monster traits (threat levels, special features) for narrative roles.
+
+### ``orks.py``
+
+Handles Ork-specific attributes (skin colors, weapons, tribal traits).
+
+### ``giants.py``
+
+Manages giant traits (height, temperament, origins).
+
+### ``physical_appearance.py``
+
+Updated registry linking generator functions to appearance types.
+
+## Usage
+
+1. **Setup**: Place the folder structure under `@Generators/` and ensure `YearsHistory.txt` exists for context.
+2. **Generate Appearances**: Call generator functions (e.g., `generate_human_description()`) via CLI or programmatically.
+3. **Extend**: Add new folders (e.g., `Elves/`) with lists and scripts for future creature types.
+4. **Output**: JSON results include standardized sections like `Primary Visual Description` and `Key Distinguishing Features`.
+
+## Dependencies
+
+> ``hashlib``
+> ``json``
+> ``@Generators/robots.py` (template)`
+> ``YearsHistory.txt` (contextual data)`
+> `external libraries for procedural generation (e.g.`
+> ``random``
+> ``argparse`).`
+
+## Related
+
+- [[`robots]]
+- [[`physical_appearance]]
+- [[`YearsHistory]]
+
+>[!INFO] **Extensibility**
+> New appearance types can be added by creating a folder (e.g., `Elves/`) with lists and a generator script, then updating `physical_appearance.py` to include the new type in `APPEARANCE_GENERATORS`.
+
+>[!WARNING] **Data Integrity**
+> Ensure `YearsHistory.txt` is correctly formatted for context-sensitive generation (e.g., age-based traits). Missing data defaults to fallback values.

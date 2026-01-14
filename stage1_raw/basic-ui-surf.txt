@@ -1,0 +1,42 @@
+### TAGS
+#automated-ui-testing
+#puppeteer
+#web-scraping
+#screenshot-capture
+#frontend-validation
+
+### TYPE
+code-library
+
+### SUMMARY
+Automated UI validation tool using Puppeteer to test and capture screenshots of web pages.
+
+### DETAILS
+This script automates UI checks by launching a browser instance via Puppeteer, navigating to predefined URLs, and capturing screenshots of each page. It logs test results (pass/fail) and saves screenshots to a directory for debugging. The tool validates page titles and captures visual data when errors occur. The `runAllTests()` method executes a predefined list of routes, recording success/failure metrics.
+
+### KEY_FUNCTIONS
+- **BasicUISurf constructor**: Initializes base URL, screenshot counter, and directory.
+- **init()**: Creates a directory for screenshots if it doesn’t exist.
+- **getScreenshotName(feature, description)**: Generates filenames with timestamp, counter, and sanitized feature/description.
+- **takeScreenshot(page, feature, description)**: Captures a full-page screenshot and logs success/failure.
+- **testPage(page, url, feature, description)**: Navigates to a URL, takes a screenshot, and checks if the page title exists.
+- **runAllTests()**: Orchestrates browser launch, test execution, and cleanup across a predefined list of routes.
+- **main()**: Entry point to instantiate and run the tester.
+
+### DEPENDENCIES
+puppeteer, fs, path
+
+### USAGE
+1. Install dependencies: `npm install puppeteer`.
+2. Configure `baseUrl` to point to your target API/server (default: `localhost:8443`).
+3. Run the script: `node basic-ui-surf.js`.
+4. Review screenshots in `./screenshots/ui-checks` and console logs for test results.
+
+### RELATED
+[[UI Automation Playbook]], [[Puppeteer Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script uses `headless: 'new'` to avoid Puppeteer’s default headless mode, which may not capture UI elements correctly. Ensure your server is running on the specified `baseUrl` before execution.
+>[!WARNING]- Caution
+> If the server crashes during testing, screenshots may not be saved. Always check the `screenshotDir` manually for incomplete captures.

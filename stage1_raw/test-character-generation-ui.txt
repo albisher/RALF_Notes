@@ -1,0 +1,43 @@
+### TAGS
+#automated-testing
+#puppeteer
+#ui-testing
+#character-generation
+#web-automation
+
+### TYPE
+code-test
+
+### SUMMARY
+Automated UI test suite for character generation workflow using Puppeteer to validate hash, random, and manual character creation.
+
+### DETAILS
+This script automates testing of a character generation UI by:
+1. Launching a browser, navigating to the application, and capturing screenshots at each step.
+2. Testing three generation methods: hash-based (with seed input), random, and manual (name/description fields).
+3. Validating UI elements like buttons, radio inputs, and form fields interactively.
+4. Recording browser console/network activity and saving screenshots to a directory.
+
+The workflow follows a structured sequence: load app → navigate to workspace → open asset creator → test each generation method sequentially.
+
+### KEY_FUNCTIONS
+- **testCharacterGenerationUI**: Orchestrates the full test suite with steps for each character generation method.
+- **takeScreenshot**: Captures full-page screenshots with timestamped filenames.
+- **create screenshots directory**: Initializes a directory for saving screenshots programmatically.
+
+### DEPENDENCIES
+puppeteer, fs, path
+
+### USAGE
+1. Run as a Node.js script (`node test-character-generation-ui.js`).
+2. Ensure the target application is running at `http://localhost:5173`.
+3. The script creates a `screenshots` folder in the same directory for visual logs.
+
+### RELATED
+[[Character Generation UI Documentation]], [[Puppeteer Test Framework Guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script uses `waitForTimeout` for delays, which may not be ideal for flaky tests. Consider replacing with explicit waits (e.g., `page.waitForSelector`) where possible.
+>[!WARNING]- Caution
+> Headless mode is disabled (`--no-sandbox` is used instead). Ensure the target environment allows this configuration to avoid security warnings.

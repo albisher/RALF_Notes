@@ -1,0 +1,40 @@
+### TAGS
+#nginx
+#ssl
+#certbot
+#docker-compose
+#tls
+#security
+#reverse-proxy
+
+### TYPE
+documentation
+
+### SUMMARY
+Configures Nginx with SSL/TLS using Certbot for secure HTTPS deployment via Docker Compose.
+
+### DETAILS
+This task involves setting up an SSL/TLS termination layer for an Nginx reverse proxy by integrating Certbot into a Docker Compose environment. The process includes adding a Certbot container to generate and renew certificates automatically, configuring Nginx to enforce HTTPS, and redirecting HTTP traffic to HTTPS. The solution ensures secure domain access and automated certificate management.
+
+### KEY_FUNCTIONS
+- **Certbot Container**: Manages SSL certificate generation and renewal via Docker Compose.
+- **Nginx SSL Configuration**: Listens on port 443 with TLS certificates and enforces HTTPS redirection.
+- **HTTP-to-HTTPS Redirect**: Forces all HTTP traffic to HTTPS via Nginx server blocks.
+
+### DEPENDENCIES
+certbot, docker, docker-compose, nginx
+
+### USAGE
+1. Edit `docker-compose.yml` to include a Certbot service with volumes for certificate storage.
+2. Configure Nginx to use Certbot’s webroot or standalone mode for certificate validation.
+3. Deploy the stack (`docker-compose up`) and verify HTTPS access and automatic renewal.
+
+### RELATED
+[[Docker Compose SSL Guide]], [[Nginx Reverse Proxy Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Certbot must be run with `--webroot` mode if using Nginx’s webroot plugin, or `--standalone` if no web server is running. Ensure the Certbot container’s volume mounts `/etc/letsencrypt` to persist certificates.
+
+>[!WARNING]- Caution
+> Avoid hardcoding certificates in Nginx config; use Certbot’s dynamic reload or restart mechanism to apply changes without downtime. Test renewal before production deployment to confirm automatic updates.

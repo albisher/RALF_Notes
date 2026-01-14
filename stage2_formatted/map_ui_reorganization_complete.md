@@ -1,0 +1,72 @@
+**Tags:** #UI_Reorganization, #Map_Generation, #Workflow_Redesign, #Frontend_Development, #Component_Refactoring
+**Created:** 2026-01-13
+**Type:** documentation
+
+# map_ui_reorganization_complete
+
+## Summary
+
+```
+Redesigned the map generation UI to streamline workflows by consolidating map operations into the World tab while simplifying the Maps tab to focus on viewing and future assignments.
+```
+
+## Details
+
+> The reorganization consolidates map generation logic into the **World tab**, merging world information and map creation into a single cohesive section. The **Maps tab** is streamlined to display only map viewers and a placeholder for future city/event assignments. Key changes include:
+> - **WorldStage.vue** now includes a dedicated **Map Generation** section within the Map tab, integrating procedural map generation controls alongside world data.
+> - **MapsStage.vue** is stripped of generation logic, retaining only a map viewer (`WorldMap2D`) and a placeholder for location assignments.
+> The redesign improves logical workflow by reducing navigation steps and ensuring map generation aligns with world management.
+
+## Key Functions
+
+### `WorldStage.vue`
+
+Manages world data and integrated map generation UI with controls (`MapGeneratorForm`, `MapGeneratorControls`).
+
+### `MapGeneratorForm`
+
+Handles procedural map generation inputs and submission logic.
+
+### `MapGeneratorControls`
+
+Manages polling, progress tracking, and export functionality for generated maps.
+
+### `WorldMap2D`
+
+Displays the rendered map in the Maps tab.
+
+### `MapGeneratorSection`
+
+New UI container for procedural map generation in the World tab.
+
+## Usage
+
+1. **World Tab**:
+   - Navigate to the **Map** sub-tab within the World tab.
+   - Use the **Map Generation** section to create procedural maps (e.g., via `MapGeneratorForm`).
+   - View existing maps via **Current Map Info** or upload custom maps via the **Map Upload Section**.
+   - Save generated maps directly to the world state.
+
+2. **Maps Tab**:
+   - View saved maps via the `WorldMap2D` component.
+   - Use the placeholder section to assign cities/events to locations (future feature).
+
+## Dependencies
+
+> `Vue 3.x`
+> `Vuetify 3.x (for UI components)`
+> `Axios (for API calls to map generation backend)`
+> ``ui-beta` internal components (`MapGeneratorForm``
+> ``MapGeneratorControls`).`
+
+## Related
+
+- [[Map_Generation_API_Reference]]
+- [[World_Stage_Component_Docs]]
+- [[Maps_Tab_Refactor_Notes]]
+
+>[!INFO] **Critical Integration**
+> Ensure `MapGeneratorForm` and `MapGeneratorControls` are properly linked to the backend API endpoints for `handleGenerate`, `fetchResult`, and `startStatusPolling` to avoid broken workflows during testing.
+
+>[!WARNING] **Future-Proofing**
+> The placeholder for city/event assignment in `MapsStage.vue` is a temporary UI. Implement dynamic linking between generated maps and location cards *before* finalizing the Maps tab.

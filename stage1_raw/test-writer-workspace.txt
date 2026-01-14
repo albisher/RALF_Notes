@@ -1,0 +1,46 @@
+### TAGS
+#automation-testing
+#puppeteer
+#web-ui-validation
+#writer-workspace
+#context-section
+#asset-library
+#writing-editor
+#ai-tools
+
+### TYPE
+code-test
+
+### SUMMARY
+Automated UI validation for a Writer Workspace application using Puppeteer to verify workspace layout, components, and functionality.
+
+### DETAILS
+This script uses Puppeteer to launch a browser, navigate to a local web application (likely a writing workspace), and systematically check for the presence and functionality of key UI elements. It verifies navigation links, panel layouts, selectors (world/time period), asset management, writing editor inputs, formatting tools, AI tool availability, and selected assets. The test logs each check with success/failure indicators and performs basic interaction (e.g., typing in the editor).
+
+### KEY_FUNCTIONS
+- **testWriterWorkspace**: Orchestrates the entire test workflow, including browser launch, navigation, and UI validation.
+- **workspaceLink check**: Validates the presence of the workspace navigation link in the sidebar.
+- **Three-panel layout validation**: Confirms the existence of left, center, and right panels using CSS selectors.
+- **Context section checks**: Validates the `.context-card` and its sub-elements (world/time period selectors).
+- **Asset library validation**: Checks for `.assets-card`, asset tabs, and the create asset button.
+- **Writing area validation**: Tests the `.writing-card`, textarea editor, and formatting buttons.
+- **AI tools validation**: Verifies the `.ai-card` and checks for specific AI functionality buttons (Image Prompt, Story Ideas, Analyze).
+- **Selected assets section**: Validates the `.selected-assets-card` presence.
+
+### DEPENDENCIES
+puppeteer, Node.js runtime
+
+### USAGE
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node test-writer-workspace.js`.
+3. The script logs each validation step and interacts with the UI (e.g., typing in the editor).
+4. Expected to run against a local Vite/Next.js app (port `5173`) for a writing workspace UI.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> This script assumes the target application is hosted on `http://localhost:5173` and uses a Vite/Next.js-like structure. Adjust selectors if the UI differs (e.g., class names or element paths).
+>[!WARNING]- Caution
+> The script uses `headless: true` and disables sandbox for security. Ensure the target environment allows these settings or adjust accordingly. Timeout values (e.g., `30000ms`) may need tuning for slow networks or large pages.

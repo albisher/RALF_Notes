@@ -1,0 +1,44 @@
+### TAGS
+#Vue.js
+#InteractiveMap
+#SVG
+#Geospatial
+#CoordinateNavigation
+#ZoomPan
+#AzgaarFormat
+#WebComponent
+
+### TYPE
+documentation
+
+### SUMMARY
+Detailed documentation for a Vue 3 component that renders interactive 2D Azgaar-format maps with zoom, pan, and coordinate navigation capabilities.
+
+### DETAILS
+The `WorldMap2D.vue` component is a Vue 3 interactive map viewer that displays Azgaar-format maps via SVG. It supports dynamic loading of map data from a world ID, automatic centering on target coordinates, and customizable UI controls. The component processes Voronoi cells and vertex coordinates to render the map, applying transformations for scaling, panning, and grid visualization. It includes state management for map origins, dimensions, zoom levels, and user interactions like mouse wheel zooming and panning.
+
+### KEY_FUNCTIONS
+- **loadMapData(forceReload = false)**: Loads map data from props or API, processes cells/vertices, and calculates transform parameters.
+- **renderMap()**: Clears existing map layer, computes scale/offsets, renders cells as SVG polygons, and updates the viewBox.
+- **onWheel(e)**: Handles mouse wheel zoom by preventing default behavior, calculating zoom factor, and applying zoom with pan limits.
+- **applyZoom(targetZoom, centerX, centerY)**: Applies zoom transformation by adjusting viewBox dimensions and centering the zoom around a specified mouse position.
+- **startPan(e)**: Initiates panning by tracking mouse position and enabling panning operations.
+- **onZoomSliderChange()**: Updates zoom level based on slider input and applies zoom centered on the SVG’s center.
+
+### DEPENDENCIES
+Vue 3, SVG.js (for SVG manipulation), Axios (for API calls if `worldId` is used), Azgaar-format parser libraries (for map data processing).
+
+### USAGE
+1. **Initialize**: Import and use the component in a Vue 3 application with required props (`worldId`, `targetCoordinates`, `mapData`).
+2. **Customize**: Set `showControls` to `false` for embedded maps and override `backgroundColor` if needed.
+3. **Interact**: Use default controls (zoom slider, pan tools) or implement custom event handlers for advanced interactions.
+4. **Render**: The component automatically renders the map with zoom/pan functionality based on provided data.
+
+### RELATED
+[[AzgaarFormatDocumentation]], [[Vue3InteractiveMapTutorials]], [[SVGMapRenderingGuide]]
+
+### CALLOUTS
+>[!INFO]- **Coordinate Handling**
+> Target coordinates (`targetCoordinates`) must be in `{ latitude: number, longitude: number }` format. The component automatically centers the map on these values when provided.
+>[!WARNING]- **Zoom Limits**
+> The zoom slider enforces a range of 0.5x to 10.0x. Exceeding these limits will clamp the zoom to the nearest valid value, potentially losing detail or context.

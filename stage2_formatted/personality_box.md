@@ -1,0 +1,53 @@
+**Tags:** #AI-Generated-Personality, #Hash-Based-Generation, #Entity-Specific-Personality, #Behavioral-Modelling, #Natural-Language-Processing
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# personality_box
+
+## Summary
+
+```
+Generates entity-specific personality traits, motivations, and behaviors using hash-based selection with optional custom constraints.
+```
+
+## Details
+
+> The `PersonalityBox` class extends `Box` to create a modular system for personality generation. It leverages a hash input to dynamically select traits from predefined lists (e.g., "character" vs. "robot" archetypes) and optionally includes motivations or conflicts. The system uses `HashGeneratorMasterBox` to sample traits from a list based on the input hash, while `GeneratorBridgeBox` abstracts underlying generator logic. Default traits apply if `entity_type` is unspecified.
+
+## Key Functions
+
+### ``__init__()``
+
+Initializes the box with dependencies (`HashGeneratorMasterBox`, `GeneratorBridgeBox`) and sets default parameters.
+
+### ``execute(input_data)``
+
+Orchestrates personality generation by:
+
+## Usage
+
+1. Pass a `BoxInput` with:
+   - `input_hash` (required): A string hash to seed trait selection.
+   - Optional: `entity_type` (e.g., `"character"`), `personality_type`, `include_motivation`, `include_conflict`.
+2. Call `box.execute(input_data)` to return a `BoxOutput` containing:
+   - `personality`: Selected trait (or list if `personality_type` is provided).
+   - `motivation`: Optional motivation string (if `include_motivation=True`).
+   - `hash`: Original input hash.
+
+## Dependencies
+
+> ``..core.box_interface``
+> ``..generators.hash_generator_master_box``
+> ``..generators.generator_bridge``
+
+## Related
+
+- [[`core]]
+- [[`hash_generator_master_box`]]
+- [[`generator_bridge`]]
+
+>[!INFO] Dynamic Entity-Specific Traits
+> The system defaults to broad traits (e.g., "Calm and steady") if `entity_type` is unspecified, but overrides with type-specific lists (e.g., robot traits emphasize logic/autonomy).
+
+>[!WARNING] Hash Collisions
+> If multiple inputs hash to the same value, identical traits/motivations may result. Use `personality_type` to enforce custom constraints.

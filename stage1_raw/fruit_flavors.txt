@@ -1,0 +1,35 @@
+### TAGS
+#flavor-profile
+#taste-classification
+#food-science
+#alien-scavenger-attractants
+
+### TYPE
+documentation
+
+### SUMMARY
+A categorized list of human and alien-associated flavor descriptors, including both natural and synthetic taste attributes.
+
+### DETAILS
+This file enumerates a comprehensive taxonomy of flavor profiles, ranging from basic human taste categories (sweet, sour, bitter) to more complex or alien-specific descriptors (rotten, gaseous, numbing). The list includes both common food-related flavors (e.g., umami, fruity) and niche or sensory-specific terms (e.g., chalky, numbing sensation). The "rotten" descriptor is noted for its role in attracting alien scavengers, suggesting a specialized biological or ecological function beyond typical human taste perception.
+
+### KEY_FUNCTIONS
+- **Flavor Taxonomy**: Organizes and categorizes taste attributes for culinary, scientific, or speculative (e.g., alien biology) applications.
+- **Alien Scavenger Stimuli**: Identifies attractants for hypothetical extraterrestrial scavengers (e.g., "Rotten" as a key sensory cue).
+
+### DEPENDENCIES
+none (standalone list)
+
+### USAGE
+- **Culinary/Research**: Used to describe ingredients, flavor blends, or sensory analysis in food science.
+- **Speculative Biology**: Applied in fictional or theoretical studies of alien taste preferences or sensory ecology.
+- **Gaming/Design**: Employed in flavor systems for tabletop RPGs, video games, or immersive storytelling (e.g., alien food descriptions).
+
+### RELATED
+[[Flavor Chemistry Notes]], [[Alien Biology Hypotheses]], [[Human Taste Perception Studies]]
+
+### CALLOUTS
+>[!INFO]- **Alien-Specific Context**
+> The "Rotten" descriptor is highlighted for its potential role in attracting scavengers, implying a biological adaptation beyond Earth-based organisms. This may require additional context (e.g., pheromones, chemical signatures) in speculative settings.
+>[!WARNING]- **Overlap Risk**
+> Some terms (e.g., "Earthy," "Metallic") overlap between human and alien classifications. Clarify whether these are universal or context-dependent in applications.

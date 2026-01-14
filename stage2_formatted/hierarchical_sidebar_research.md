@@ -1,0 +1,59 @@
+**Tags:** #UI/UX, #HierarchicalNavigation, #VueJS, #Sidebars, #ExpandableMenus
+**Created:** 2026-01-13
+**Type:** documentation
+
+# hierarchical_sidebar_research
+
+## Summary
+
+```
+Explores redesigning a sidebar navigation system to implement a hierarchical menu structure for better asset categorization and user interaction.
+```
+
+## Details
+
+> This document outlines a research and implementation plan for transitioning from a flat "World Assets" menu to a hierarchical sidebar with expandable submenus. The new structure organizes assets into categories like World, Plant, Building, Character, and Robot, with each submenu item linking to specific asset types. The implementation prioritizes expandable/collapsible menus for mobile accessibility, visual feedback, and ease of maintenance. Character and robot assets are distinguished by their focus areas: characters emphasize mental/behavioral traits, while robots focus on physical specifications, with plans to extend to additional character types like dragon or human.
+
+## Key Functions
+
+### `toggleAssetsMenu`
+
+Toggles visibility of the submenu under the "Assets" header.
+
+### `AssetsLayout.vue`
+
+A Vue component that serves as a container for asset sub-pages, routing child components based on the selected submenu.
+
+### `characterTypes`
+
+A configuration object defining different character types and their descriptions (e.g., robot, dragon, human).
+
+### `Router Structure`
+
+Defines nested routes for asset categories (e.g., `/assets/world`, `/assets/character`) under a parent `Assets` route.
+
+## Usage
+
+1. **Update Sidebar**: Replace the existing "World Assets" menu in `App.vue` with the expandable "Assets" menu using the provided Vue template.
+2. **Configure Router**: Set up nested routes in the Vue Router configuration to handle submenu navigation (e.g., `/assets/character`).
+3. **Organize Components**: Implement child components (e.g., `CharacterAssets.vue`) for each asset type under `AssetsLayout.vue`.
+4. **Extend Character Types**: Dynamically add new character types to the `characterTypes` object as needed.
+
+## Dependencies
+
+> `Vue.js (for component rendering and reactivity)`
+> `Vuetify (for UI icons and components like `v-icon`)`
+> `Vue Router (for navigation and route management).`
+
+## Related
+
+- [[Hierarchical_Navigation_Design_Guide]]
+- [[Vue_Router_Implementation_Notes]]
+- [[UI_Component_Library_Reference]]
+
+>[!INFO] Important Note
+> The expandable menu pattern ensures a balance between usability and visual clarity, making it ideal for touch devices. Ensure consistent icon usage (e.g., `mdi-chevron-down`) for visual coherence across all submenus.
+
+
+>[!WARNING] Caution
+> Avoid overloading the sidebar with too many submenu items, which could lead to clutter. Test responsiveness on mobile devices to ensure the expandable behavior works smoothly without excessive touch targets.

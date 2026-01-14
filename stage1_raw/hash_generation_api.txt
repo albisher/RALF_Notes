@@ -1,0 +1,54 @@
+### TAGS
+#flask-api
+#hash-generation
+#storytelling
+#deterministic-hashing
+#space-time-coordinates
+
+### TYPE
+documentation
+
+### SUMMARY
+Generates deterministic hashes for space-time linked storytelling elements using Flask API endpoints.
+
+### DETAILS
+This module implements a Flask-based API for generating deterministic hashes for narrative elements (characters, locations, stories) in a space-time framework. It uses SHA-256 to create unique identifiers and converts them into 3D space coordinates and temporal dimensions (years, months, etc.). The system supports linking characters and locations across both space and time, enabling complex narrative structures.
+
+The `SpacePearlHashGenerator` class handles core logic, including:
+- Hashing seeds with optional dimension specification
+- Converting hashes to spatial (x,y,z) and temporal coordinates
+- Generating complete characters/locations/stories from seeds
+- Calculating inter-element relationships (distance/time differences)
+
+### KEY_FUNCTIONS
+- **SpacePearlHashGenerator**: Core class managing all hash generation logic.
+  - `generate_hash(seed, dimension)`: Creates deterministic hashes
+  - `hash_to_coordinates(hash_value)`: Converts hex hash to 3D coordinates
+  - `hash_to_time_coordinates(hash_value)`: Extracts temporal components from hash
+  - `generate_character_from_hash(seed)`: Creates complete character profiles
+  - `generate_location_from_hash(seed)`: Creates complete location profiles
+  - `generate_story_from_hash(seed)`: Creates complete story structures
+  - `link_space_time(story_data)`: Establishes connections between elements
+
+- **Blueprint**: Flask route container for API endpoints
+- **Dimension mapping**: Predefined story dimensions for different narrative components
+
+### DEPENDENCIES
+flask, hashlib, json, datetime, typing
+
+### USAGE
+1. Initialize the generator: `generator = SpacePearlHashGenerator()`
+2. Generate hashes: `hash_value = generator.generate_hash("seed")`
+3. Create complete elements: `character = generator.generate_character_from_hash("seed")`
+4. Link elements: `linked_story = generator.link_space_time(story_data)`
+
+### RELATED
+[[SpacePearl_Narrative_Structure]], [[Deterministic_Hashing_Algorithms]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The `_hash_to_motivation` method is incomplete (cut off in provided code) and would need to be expanded with all possible motivations before full functionality.
+>[!WARNING]- Caution
+> Hardcoded trait selection (3 traits max) may limit diversity - consider expanding the traits list for richer character generation.
+>[!WARNING]- Caution
+> Time coordinate generation uses fixed ranges (1000-3000 years, 1-28 days) which may not align with all narrative needs - adjust ranges as needed.

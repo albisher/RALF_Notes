@@ -1,0 +1,45 @@
+### TAGS
+#database-migration
+#world-hierarchy
+#json-storage
+#foreign-key
+
+### TYPE
+documentation
+
+### SUMMARY
+Adds flexible fields to the `worlds` table for hierarchical parent-child relationships, metadata storage, and celestial object tracking.
+
+### DETAILS
+This migration script extends the `worlds` table by introducing three new columns:
+1. **`parent_world_id`** – Establishes a hierarchical relationship (e.g., universe → solar system → planet) via a foreign key.
+2. **`world_metadata`** – Stores JSONB-formatted world-specific configurations (e.g., custom settings, flags).
+3. **`celestial_objects`** – Captures JSONB data for celestial bodies (e.g., stars, moons) influencing weather/environment.
+
+The `world_type` column (already present) remains for validation at the application layer, not the database.
+
+### KEY_FUNCTIONS
+- **`upgrade()`**: Executes Alembic’s `add_column` and `create_foreign_key` to add/modify columns.
+- **`downgrade()`**: Reverts changes by dropping constraints and columns in reverse order.
+
+### DEPENDENCIES
+`alembic`, `sqlalchemy`, `sqlalchemy.dialects.postgresql`
+
+### USAGE
+Apply via Alembic:
+```bash
+alembic upgrade head
+```
+For downgrading:
+```bash
+alembic downgrade head
+```
+
+### RELATED
+[[`cecdde0e47cd`]], [[`worlds_table_schema`]]
+
+### CALLOUTS
+>[!INFO]- Hierarchy Note
+> `parent_world_id` enforces a tree structure (e.g., `universe` → `solar_system` → `planet`). Nullable values allow root nodes (e.g., universes) without parents.
+>[!WARNING]- JSONB Caution
+> Ensure application logic validates `world_metadata`/`celestial_objects` to prevent malformed JSON or unintended behavior. Defaults (`{}`) are safe but may not reflect real-world data.

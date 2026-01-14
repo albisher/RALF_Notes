@@ -1,0 +1,37 @@
+### TAGS
+#automated-testing
+#web-scraping
+#ui-verification
+#puppeteer
+#frontend-validation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Verifies and logs padding properties of a main UI element in a dashboard using Puppeteer.
+
+### DETAILS
+This script launches a headless browser (non-headless due to `--no-sandbox` for debugging), navigates to a local dashboard (`localhost:8443/dashboard`), and inspects the `main` element’s computed padding properties (top, right, bottom, left, and overall). It logs the results, captures a screenshot, and confirms whether padding is correctly applied. The script includes error handling and cleanup of the browser instance.
+
+### KEY_FUNCTIONS
+- **verifyPadding()**: Orchestrates the entire verification workflow (browser launch, navigation, padding check, screenshot, and cleanup).
+- **page.evaluate()**: Extracts computed styles (e.g., `padding`, `paddingTop`) from the `main` element.
+- **page.screenshot()**: Captures a full-page screenshot for visual validation.
+
+### DEPENDENCIES
+puppeteer, Node.js runtime
+
+### USAGE
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node final-padding-verification.js`.
+3. Ensure the dashboard is accessible at `https://localhost:8443/dashboard`.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script uses `--no-sandbox` and `--disable-dev-shm-usage` for debugging but may not work in production environments due to security restrictions. Use with caution in restricted environments.
+>[!WARNING]- Caution
+> If the `main` element is dynamically loaded after the initial render, `page.waitForTimeout(3000)` may not suffice. Consider adding explicit waits (e.g., `page.waitForSelector`) for critical elements.

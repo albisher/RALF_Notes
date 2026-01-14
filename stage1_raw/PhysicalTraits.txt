@@ -1,0 +1,37 @@
+### TAGS
+#adjectives
+#descriptive-terms
+#physical-and-personality-traits
+
+### TYPE
+code-notes
+
+### SUMMARY
+A list of descriptive adjectives and traits used to categorize physical and personality attributes.
+
+### DETAILS
+This file contains a curated list of adjectives and descriptive terms that can be used to classify or characterize individuals based on physical appearance, personality, and behavioral traits. The terms range from positive (e.g., *handsome, joyful, successful*) to negative (e.g., *ugly, frail, sickly*) and neutral/descriptive (e.g., *tall, gentle, neat*). The list is likely intended for use in roleplay, storytelling, or systems requiring trait-based categorization.
+
+### KEY_FUNCTIONS
+- **Trait Assignment**: Used to assign descriptive attributes to entities (e.g., characters, NPCs, or game avatars).
+- **Character Development**: Helps in creating diverse and nuanced profiles for narrative or simulation purposes.
+- **Filtering/Classification**: May be used in algorithms or systems requiring trait-based filtering (e.g., AI-driven character generation).
+
+### DEPENDENCIES
+none
+
+### USAGE
+This list can be directly referenced in:
+- **Roleplay/Storytelling**: Assigning traits to characters to enrich their backstories.
+- **Game Development**: Populating character attributes for dynamic gameplay or quests.
+- **AI/Simulation**: Training models or generating diverse profiles programmatically.
+- **Surveys/Research**: Categorizing responses or observations based on descriptive traits.
+
+### RELATED
+none
+
+### CALLOUTS
+>[!INFO]- Contextual Use
+> These terms are meant for broad categorization and may require contextual adaptation (e.g., cultural biases, subjective interpretations). Avoid over-reliance on negative traits without nuance.
+>[!WARNING]- Bias Mitigation
+> Ensure balanced use to avoid reinforcing stereotypes. Pair traits with context (e.g., "frail but tireless" vs. "frail and weak").

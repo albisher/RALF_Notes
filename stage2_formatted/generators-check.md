@@ -1,0 +1,67 @@
+**Tags:** #UI-Testing, #Puppeteer, #Automated-QA, #Generators-Validation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# generators-check
+
+## Summary
+
+```
+Automated UI validation for a Generators UI section using Puppeteer and helper functions.
+```
+
+## Details
+
+> This script performs automated UI checks for a Generators section in a web application. It uses Puppeteer to launch a browser, navigate to specified pages, and verify the presence of key UI elements (e.g., dashboard generators section, generate buttons, input fields). The script captures screenshots and logs results via a `CheckHelper` utility, categorizing findings as pass, warning, or fail based on element detection.
+> 
+> The workflow involves:
+> 1. Launching a browser instance with Puppeteer.
+> 2. Navigating to the frontend dashboard and elements page.
+> 3. Evaluating DOM content for text/element matches (e.g., "generator," "generate").
+> 4. Capturing screenshots and logging results with status codes.
+> 5. Handling errors gracefully with detailed failure messages.
+
+## Key Functions
+
+### `runGeneratorsChecks`
+
+Orchestrates the entire UI validation process.
+
+### `CheckHelper`
+
+Manages result logging, screenshot capture, and status tracking.
+
+### `page.goto`
+
+Navigates to frontend URLs with configurable wait times.
+
+### `page.evaluate`
+
+Executes JavaScript in the browser context to check DOM elements.
+
+## Usage
+
+1. Install dependencies (`puppeteer`, `chalk`).
+2. Configure `config` file with Puppeteer launch settings, URLs, and timeouts.
+3. Run script: `node generators-check.js`.
+4. Results are logged via `CheckHelper` (pass/warning/fail) and stored as screenshots.
+
+## Dependencies
+
+> `puppeteer`
+> `chalk`
+> `config (local)`
+> `utils/check-helper (local)`
+
+## Related
+
+- [[UI-Automation-Guide]]
+- [[Puppeteer-Configuration]]
+- [[Dashboard-UI-Spec]]
+
+>[!INFO] Important Note
+> The script uses `page.evaluate()` for DOM checks, which may fail if the frontend dynamically loads content after initial render. Consider adding explicit waits (e.g., `page.waitForSelector()`) for dynamic elements.
+
+
+>[!WARNING] Caution
+> Screenshot paths (`relativePath`) are derived from `helper.takeScreenshot()`, but the script does not validate if screenshots were saved successfully. Add a post-check to verify file existence if critical.

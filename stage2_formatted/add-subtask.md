@@ -1,0 +1,80 @@
+**Tags:** #task-management, #subtask-creation, #natural-language-processing, #task-parsing
+**Created:** 2026-01-13
+**Type:** documentation
+
+# add-subtask
+
+## Summary
+
+```
+Documentation for a subtask creation tool that intelligently breaks down parent tasks via natural language parsing.
+```
+
+## Details
+
+> This tool dynamically generates subtasks from parent tasks using flexible natural language arguments. It supports both creating new subtasks with custom titles/descriptions and converting existing tasks into subtasks of a parent. The system includes smart features like automatic subtask generation (e.g., splitting titles with commas/and) and intelligent defaults (e.g., priority, time estimates, and dependencies) based on the parent task context.
+
+## Key Functions
+
+### ``add-subtask --parent=<id> --title="<title>" --description="<desc>"``
+
+Creates a new subtask linked to a specified parent task with customizable details.
+
+### ``add-subtask --parent=<id> --task-id=<existing-id>``
+
+Converts an existing task into a subtask of the parent task.
+
+### `Automatic Subtask Splitting`
+
+Parses titles containing commas/and to generate multiple subtasks.
+
+### `Contextual Suggestions`
+
+Proposes logical next subtasks and refines parent task complexity estimates.
+
+### `Validation Logic`
+
+Ensures subtasks logically relate to the parent and warns against overly complex hierarchies.
+
+## Usage
+
+1. **Create a New Subtask**:
+   ```bash
+   task-master add-subtask --parent=<parent_task_id> --title="<subtask_title>" --description="<subtask_desc>"
+   ```
+   Example:
+   ```bash
+   task-master add-subtask --parent=5 --title="implement user authentication" --description="Develop login form and API endpoints"
+   ```
+
+2. **Convert an Existing Task**:
+   ```bash
+   task-master add-subtask --parent=<parent_task_id> --task-id=<existing_task_id>
+   ```
+   Example:
+   ```bash
+   task-master add-subtask --parent=5 --task-id=10
+   ```
+
+3. **Smart Parsing (Natural Language)**:
+   ```bash
+   task-master add-subtask "5: setup, implement, test"
+   ```
+   Outputs multiple subtasks (e.g., `5.1: setup`, `5.2: implement`, `5.3: test`).
+
+## Dependencies
+
+> ``task-master` CLI tool (assumed to include libraries for natural language parsing`
+> `task hierarchy management`
+> `and argument validation).`
+
+## Related
+
+- [[Task Master CLI Documentation]]
+- [[Natural Language Task Parsing Guide]]
+
+>[!INFO] **Context Inheritance**
+> Subtasks inherit the parent task’s priority, complexity, and dependencies by default, ensuring alignment with broader project goals.
+
+>[!WARNING] **Over-Splitting Risk**
+> If a parent task title contains excessive commas/phrases, the tool may generate redundant or ambiguous subtasks. Validate outputs manually.

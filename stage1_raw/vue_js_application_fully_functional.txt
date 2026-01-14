@@ -1,0 +1,54 @@
+### TAGS
+#Vue.js
+#WebSocket
+#Internationalization
+#TypeScript
+#Vuex/Pinia
+#Nginx
+#CSP
+#Docker
+#Hot Module Replacement
+#Configuration-Management
+
+### TYPE
+documentation
+
+### SUMMARY
+A fully functional Vue.js application with resolved issues, including plugin setup, WebSocket integration, and security configurations.
+
+### DETAILS
+This file documents a complete Vue.js application that addresses critical issues such as missing plugin imports, WebSocket connection problems, and Content Security Policy (CSP) restrictions. The solution involves updating core files (`main.ts`, `vite.config.js`, `nginx.conf`), ensuring proper plugin integration (Vuetify, i18n), and configuring development environments (Docker, Nginx). The application is verified to load correctly, with all Vue components, routing, and state management (Pinia) operational. The setup includes backend integration, database connectivity, and security headers.
+
+### KEY_FUNCTIONS
+- **`main.ts`**: Core Vue app initialization with Pinia, Vuetify, and i18n plugins.
+- **`vite.config.js`**: Vite configuration for HMR, aliasing, and server settings.
+- **`nginx.conf`**: WebSocket and CSP headers for secure proxying.
+- **`App.vue`**: Main Vue component rendering the app structure.
+- **`AppSidebar.vue`**: Sidebar layout component for navigation.
+- **`Dashboard.vue`**: Primary dashboard view.
+- **`api.js`**: API service layer for backend communication.
+- **`auth.js`**: Authentication state management (Pinia store).
+- **`worlds.js`**: Data store for application worlds.
+- **`ui.js`**: UI state management (e.g., theme, notifications).
+
+### DEPENDENCIES
+Vue 3, Vuetify 3, Vue Router, Pinia, i18n, Vite, Nginx, PostgreSQL, Redis, Docker, Tailwind CSS.
+
+### USAGE
+1. **Development Setup**:
+   - Run `docker-compose.yml` for frontend services.
+   - Use `vite dev` to start the dev server.
+   - Configure Nginx as a reverse proxy with WebSocket support.
+2. **Build & Deploy**:
+   - Use the production `Dockerfile` for optimized builds.
+   - Serve static files via Nginx with CSP headers.
+
+### RELATED
+[[Vue.js Best Practices]], [[Vue 3 WebSocket Guide]], [[Nginx Configuration for Vue.js]], [[Pinia State Management]]
+
+### CALLOUTS
+>[!INFO]- **Plugin Import Fix**
+> Missing `app.use()` calls in `main.ts` caused i18n and Vuetify errors. Explicitly importing and registering plugins resolved syntax errors.
+
+>[!WARNING]- **CSP Headers**
+> Restrictive CSP headers initially blocked WebSocket connections. Updated headers to allow `ws://localhost:5173` and `wss://localhost:5173` explicitly. Always validate CSP rules in production.

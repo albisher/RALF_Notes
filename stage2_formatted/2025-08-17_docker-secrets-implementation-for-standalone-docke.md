@@ -1,0 +1,65 @@
+**Tags:** #docker-secrets, #standalone-docker-compose, #secure-environment-management, #sensitive-data-storage, #docker-best-practices
+**Created:** 2026-01-13
+**Type:** research-notes
+
+# 2025-08-17_docker-secrets-implementation-for-standalone-docke
+
+## Summary
+
+```
+Explores Docker secrets implementation in standalone Docker Compose for secure environment file management and best practices for storing sensitive data.
+```
+
+## Details
+
+> This document outlines how Docker secrets can be implemented in standalone Docker Compose environments to securely manage sensitive data like passwords and API keys. The approach involves defining secrets in a `docker-compose.yml` file under a `secrets` section, referencing them in service definitions, and mounting them as files inside containers. Secrets are read from these files using environment variables with `_FILE` suffixes, ensuring they are not exposed in logs or version control. The document emphasizes avoiding plaintext secrets in `.env` files or environment variables and recommends using external secret management tools like HashiCorp Vault for advanced use cases. Best practices include regular rotation of secrets, restricting container permissions, and auditing access.
+
+## Key Functions
+
+### `Docker secrets definition`
+
+Store sensitive data in a `docker-compose.yml` file under the `secrets` section.
+
+### `Secret file mounting`
+
+Reference secrets in services using the `secrets` attribute and mount them as files inside containers.
+
+### `Environment variable usage`
+
+Use `_FILE` suffixes (e.g., `MYSQL_ROOT_PASSWORD_FILE`) to read secrets from mounted files.
+
+### `Secure file management`
+
+Exclude secret files from version control and restrict permissions on the host.
+
+### `Best practice implementation`
+
+Combine Docker secrets with network isolation, SSL, and regular audits for comprehensive security.
+
+## Usage
+
+1. Define secrets in `docker-compose.yml` with a `file` attribute pointing to local secret files.
+2. Reference secrets in service definitions using the `secrets` attribute.
+3. Use environment variables with `_FILE` suffixes in your application to read secrets from mounted files.
+4. Exclude secret files from version control and set restrictive permissions on the host.
+5. Rotate secrets regularly and audit access to ensure security compliance.
+
+## Dependencies
+
+> `docker-compose`
+> `Docker SDK (for CLI operations)`
+> `external secret management tools (e.g.`
+> `HashiCorp Vault`
+> `AWS Secrets Manager)`
+
+## Related
+
+- [[Docker Compose Documentation]]
+- [[Docker Secrets Best Practices Guide]]
+- [[HashiCorp Vault Documentation]]
+
+>[!INFO] Secure File Management
+> Always exclude secret files from version control (e.g., via `.gitignore`) and restrict file permissions to prevent unauthorized access.
+
+>[!WARNING] Avoid Plaintext Secrets
+> Never commit secret files or plaintext secrets to version control or log files. Use Docker secrets or external secret managers instead.

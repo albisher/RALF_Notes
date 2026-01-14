@@ -1,0 +1,64 @@
+**Tags:** #frontend-development, #vuejs, #ui-design, #state-management, #backend-integration
+**Created:** 2026-01-13
+**Type:** documentation
+
+# task_010
+
+## Summary
+
+```
+Develops Vue.js frontend components for managing worlds and elements (characters/locations) with manual/procedural input support.
+```
+
+## Details
+
+> This task outlines the creation of Vue components for a world management system, including a dashboard listing worlds, a detailed `WorldView.vue` component, and an `ElementEditor.vue` for manual data entry. The UI leverages Vuetify for styling and Pinia for state management, interfacing with backend APIs for persistence. Subtasks focus on modular component development, state integration, and end-to-end testing of user workflows.
+
+## Key Functions
+
+### `Dashboard Listing Worlds`
+
+Displays a Vuetify-card-based list of worlds fetched from the backend/Pinia store.
+
+### `WorldView.vue`
+
+Shows world details and its elements (characters/locations) via cards/forms.
+
+### `ElementEditor.vue`
+
+Provides form fields for manual editing/creation of elements, syncing with backend via API calls.
+
+### `world.js (Pinia Store)`
+
+Manages reactive state for worlds/elements across components.
+
+## Usage
+
+1. **Setup**: Install dependencies and configure backend API endpoints.
+2. **Component Integration**: Import `WorldView.vue`/`ElementEditor.vue` into parent components (e.g., `Dashboard.vue`).
+3. **State Management**: Use `world.js` to store/retrieve world data across components.
+4. **Testing**: Execute end-to-end tests (login → create/edit elements) to verify backend persistence and UI updates.
+
+## Dependencies
+
+> `Vue 3`
+> `Vuetify 3`
+> `Pinia 2`
+> `Axios`
+> `backend API endpoints (e.g.`
+> ``/worlds``
+> ``/elements`).`
+
+## Related
+
+- [[Task 7]]
+- [[Task 8]]
+- [[Backend API Documentation]]
+- [[Pinia Store Guide]]
+
+>[!INFO] Important Note
+> Ensure backend endpoints return JSON with `id`, `name`, and nested element data (e.g., `characters/locations`) for seamless UI rendering.
+>
+
+>[!WARNING] Caution
+> Validate API responses in `ElementEditor.vue` to prevent silent failures (e.g., missing fields) during manual edits. Use error boundaries for graceful degradation.

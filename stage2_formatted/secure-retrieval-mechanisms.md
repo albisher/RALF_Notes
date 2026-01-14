@@ -1,0 +1,90 @@
+**Tags:** #secure-configuration, #docker-secrets, #environment-variables, #api-key-management, #flask-integration, #error-handling, #caching, #validation
+**Created:** 2026-01-13
+**Type:** documentation
+
+# secure-retrieval-mechanisms
+
+## Summary
+
+```
+This document outlines secure mechanisms for retrieving and managing sensitive application secrets, focusing on Docker secrets, environment variables, and API key services in a Flask-based backend.
+```
+
+## Details
+
+> The document describes a **Space Pearl Backend** system that implements secure retrieval mechanisms for sensitive data like API keys, database credentials, and secrets. The architecture includes a **core `SecureConfig` module** that prioritizes retrieval from Docker secrets, environment variables, and fallback defaults, with caching and validation. The **API Key Service** manages external API keys (e.g., Perplexity, OpenAI) with caching and validation. The **Flask integration** ensures secure configuration loading and validation endpoints (`/api/config/validate`, `/api/config/api-keys`) for runtime checks.
+
+## Key Functions
+
+### ``SecureConfig` class`
+
+Manages secure credential retrieval with Docker secrets, environment variables, and fallbacks.
+
+### ``get_secret(key, fallback_env_var, fallback_file)``
+
+Retrieves secrets with priority-based fallback.
+
+### ``validate_configuration()``
+
+Validates all configuration components.
+
+### ``APIKeyService` class`
+
+Handles AI service API keys (e.g., `get_perplexity_api_key()`).
+
+### `Flask integration`
+
+Automatically loads and validates config on startup with fallback mechanisms.
+
+### ``/api/config/validate``
+
+Returns health status of all configurations.
+
+### ``/api/config/api-keys``
+
+Validates API key availability.
+
+## Usage
+
+1. **Initialize `SecureConfig`**:
+   ```python
+   config = SecureConfig()
+   ```
+2. **Retrieve secrets**:
+   ```python
+   db_url = config.get_database_url()
+   ```
+3. **Validate config**:
+   ```python
+   results = config.validate_configuration()
+   ```
+4. **Use API keys** (via `APIKeyService`):
+   ```python
+   key = get_perplexity_api_key()
+   ```
+5. **Integrate into Flask**:
+   ```python
+   app.config['SECRET_KEY'] = get_flask_secret()
+   ```
+
+## Dependencies
+
+> ``os``
+> ``pathlib``
+> ``flask``
+> ``docker` (for Docker secrets)`
+> ``logging``
+> ``caching` (e.g.`
+> `Redis).`
+
+## Related
+
+- [[Space Pearl Backend Architecture]]
+- [[Secure Credential Management Guide]]
+
+>[!INFO] **Docker Secrets Priority**
+> Docker secrets (`/run/secrets/`) take highest priority. If missing, the system falls back to environment variables or defaults. **Critical**: Ensure `/run/secrets/` is mounted securely in Docker containers.
+
+
+>[!WARNING] **Fallbacks in Production**
+> Fallback mechanisms (e.g., environment variables) are **not recommended for production**. Use Docker secrets or encrypted files instead. Misconfigured fallbacks may expose secrets in logs or environment.

@@ -1,0 +1,66 @@
+**Tags:** #dark-mode, #manual-test, #debugging, #ui-store, #localstorage, #tailwind-css, #javascript
+**Created:** 2026-01-13
+**Type:** documentation
+
+# dark-mode-manual-test
+
+## Summary
+
+```
+A guide for manually testing and debugging dark mode functionality in a web application, including console checks, UI validation, and persistence verification.
+```
+
+## Details
+
+> This manual test guide verifies dark mode functionality by validating console logs, UI state changes, and persistence via `localStorage`. It follows a structured debugging workflow to ensure the dark mode toggle works correctly, applies CSS classes dynamically, and retains user preference across page refreshes. The process involves inspecting JavaScript interactions with a UI state management system (likely a store) and verifying visual and functional changes in the application.
+
+## Key Functions
+
+### ``uiStore.initDarkMode()``
+
+Initializes dark mode state by reading from `localStorage` and setting the initial UI state.
+
+### ``uiStore.toggleDarkMode()``
+
+Toggles the dark mode state, updates the UI, and persists the change to `localStorage`.
+
+### ``uiStore.isDarkMode``
+
+Provides a read-only check for the current dark mode state.
+
+### ``toggleDarkModeDebug()`** (in `App.vue`)`
+
+Debug helper function to log UI state changes during manual testing.
+
+### `Dark mode toggle button (weather icon)`
+
+Visual UI component that triggers the toggle logic.
+
+## Usage
+
+1. Open the application at `https://localhost:8443` with test credentials.
+2. Enable developer tools (F12) and monitor the console for debug messages.
+3. Follow the step-by-step debugging guide to verify dark mode behavior.
+4. Check console logs for `initDarkMode`, `toggleDarkMode`, and `localStorage` updates.
+5. Validate visual changes (background, text, sidebar, cards) and persistence after refresh.
+
+## Dependencies
+
+> ``localStorage``
+> ``Tailwind CSS``
+> ``JavaScript` (for UI store and event handling)`
+> ``UI Store` (state management library).`
+
+## Related
+
+- [[Dark Mode Implementation Code]]
+- [[UI Store Documentation]]
+- [[Tailwind CSS Configuration]]
+
+>[!INFO] **Debugging Console**
+> Ensure JavaScript errors are absent before proceeding. Missing or malformed console logs indicate missing dependencies (e.g., `localStorage`, UI store initialization).
+>
+
+>[!WARNING] **LocalStorage Limitations**
+> If `localStorage` fails, the app may default to a hardcoded state (e.g., `false`). Test in an environment where `localStorage` is enabled (e.g., Chrome/Edge with no extensions blocking storage).
+>

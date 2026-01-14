@@ -1,0 +1,42 @@
+### TAGS
+#i18n
+#localization
+#multilingual
+#rtl-support
+#vue3
+#arabic
+#translation-management
+
+### TYPE
+documentation
+
+### SUMMARY
+Comprehensive i18n implementation for a Vue.js application supporting English and Arabic with RTL support.
+
+### DETAILS
+This implementation centralizes all application text in JSON translation files (`en.json`, `ar.json`), enabling dynamic language switching and RTL rendering for Arabic. The system replaces hardcoded strings with a `$t()` function, improving maintainability and localization. Key components like `Login.vue` and `WorldAssets.vue` are updated to use i18n variables, while a `LanguageSwitcher` component handles user language selection with persistent storage. The configuration in `i18n.js` ensures fallback behavior, Vue 3 compatibility, and clean error handling.
+
+### KEY_FUNCTIONS
+- **`frontend/src/plugins/i18n.js`**: Configures multi-language support, fallback logic, and global `$t` function injection.
+- **`frontend/src/locales/en.json` & `ar.json`**: Stores all translatable strings with hierarchical key structures.
+- **`frontend/src/components/LanguageSwitcher.vue`**: Manages language selection with RTL direction switching and localStorage persistence.
+- **`frontend/src/views/Login.vue` & `WorldAssets.vue`**: Updated components using `$t()` for dynamic text rendering.
+
+### DEPENDENCIES
+`vue-i18n`, `vue`, `vuex` (for locale management), `localStorage` (for user preference persistence).
+
+### USAGE
+1. **Install Dependencies**: Ensure `vue-i18n` is installed (`npm install vue-i18n`).
+2. **Configure `i18n.js`**: Set up supported locales and fallback behavior.
+3. **Create Translation Files**: Populate `en.json` and `ar.json` with all translatable strings.
+4. **Update Components**: Replace hardcoded text with `{{ $t('key') }}` in Vue templates.
+5. **Use LanguageSwitcher**: Embed the component to toggle languages dynamically.
+
+### RELATED
+[[Vue i18n Documentation]], [[RTL CSS Best Practices]], [[Localization Patterns in Vue.js]]
+
+### CALLOUTS
+>[!INFO]- **Key Structure**: Translation keys follow a nested structure (e.g., `app.name`) for modularity.
+> Translation files must mirror the exact key hierarchy defined in the codebase.
+>[!WARNING]- **Fallback Priority**: Arabic (`ar`) takes precedence over English (`en`). Override locale values carefully to avoid unintended behavior.
+> Always test RTL rendering in browsers that support RTL (e.g., Chrome, Firefox).

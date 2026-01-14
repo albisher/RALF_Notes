@@ -1,0 +1,68 @@
+**Tags:** #automation, #monitoring, #checks, #system-validation, #reporting
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# run-all-checks
+
+## Summary
+
+```
+Executes modular application checks (health, API, UI, auth) and aggregates results into a consolidated report.
+```
+
+## Details
+
+> This script orchestrates a multi-phase validation process for an application by sequentially running specialized checks (health, API, UI, and authentication) via imported modules. Each check is logged with progress indicators, and results are stored in JSON files within a configured reports directory. The script then aggregates these individual reports into a master summary, including pass/fail counts, duration, and categorized recommendations for critical issues.
+
+## Key Functions
+
+### `runAllChecks()`
+
+Orchestrates the execution of all check modules in sequence, records start time, and delegates report generation.
+
+### `generateMasterReport(startTime)`
+
+Aggregates the last 4 individual reports, computes aggregated metrics (passed/failed/warnings), and saves a consolidated JSON report with human-readable console output.
+
+### `generateMasterSummary(reports)`
+
+Derives a high-level summary (PASS/FAIL) for each check type (health, API, UI) from individual report results.
+
+### `generateRecommendations(reports)`
+
+Extracts actionable recommendations from failed/warning checks, categorizing them by check type (e.g., "Fix infrastructure issues").
+
+## Usage
+
+1. Import and call `runAllChecks()` to execute all checks.
+2. Configure `config.reports.directory` to specify where individual reports should be stored.
+3. The script automatically:
+   - Runs checks in order (health → API → auth → UI).
+   - Generates a master report with aggregated metrics.
+   - Logs detailed progress and recommendations to console.
+
+## Dependencies
+
+> ``./health-check``
+> ``./ui-check``
+> ``./api-check``
+> ``./auth-check``
+> ``./config``
+> ``./utils/check-helper``
+> ``fs-extra``
+> ``moment``
+> ``chalk``
+
+## Related
+
+- [[health-check`]]
+- [[ui-check`]]
+- [[api-check`]]
+- [[auth-check`]]
+- [[config`]]
+
+>[!INFO] Important Note
+> The script relies on individual check modules to return structured JSON results (e.g., `totalChecks`, `passed`, `failed`). Ensure these modules adhere to a consistent format for accurate aggregation.
+
+>[!WARNING] Caution
+> If any check module fails, the entire process halts at the error point. Test error handling in isolated environments before deployment.

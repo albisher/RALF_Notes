@@ -1,0 +1,69 @@
+**Tags:** #flask, #api, #transportation-management, #database, #jwt-authentication, #blueprint, #world-management
+**Created:** 2026-01-13
+**Type:** documentation
+
+# transportation_bp
+
+## Summary
+
+```
+Manages transportation entities via Flask blueprint with JWT authentication for secure CRUD operations.
+```
+
+## Details
+
+> This Flask blueprint (`transportation_bp`) implements a **Transportation Management API Box**, handling CRUD operations for transportation records within a game/world context. It uses Flask-JWT-Extended for authentication and integrates with SQLAlchemy models (`Transportation`, `World`) for database operations. The API supports filtering by `world_id` and `time_period_classification`, enforcing user ownership of worlds before creation/updates.
+> 
+> Key logic:
+> 1. **Authentication**: JWT validation via `@jwt_required()` ensures only authorized users access endpoints.
+> 2. **Query Filtering**: Endpoints (`/`) allow listing transportations by optional `world_id` and `time_period_classification`.
+> 3. **Validation**: Required fields (`name`, `world_id`) are checked during creation; world ownership is verified.
+> 4. **Error Handling**: Comprehensive logging and rollback on failures (e.g., `db.session.rollback()`).
+
+## Key Functions
+
+### ``TransportationManagementAPIBox``
+
+Initializes the Flask blueprint with routes and URL prefix `/api/transportations`.
+
+### ``list_transportations``
+
+Lists all transportations for a user, optionally filtered by `world_id` or `time_period_classification`.
+
+### ``create_transportation``
+
+Creates a new transportation record after validating user permissions and input data.
+
+### ``update_transportation``
+
+Updates an existing transportation record (e.g., via `/<transportation_id>`) with PUT.
+
+## Usage
+
+1. **Initialize**: Instantiate `TransportationManagementAPIBox()` and register the blueprint in Flask.
+2. **Access Endpoints**:
+   - **GET `/api/transportations/`**: List transportations (e.g., `?world_id=1&time_period_classification=historical`).
+   - **POST `/api/transportations/create`**: Add a new transportation (e.g., JSON payload with `name`, `world_id`, etc.).
+   - **PUT `/api/transportations/<id>`**: Update an existing transportation.
+3. **Authentication**: Include a valid JWT token in the `Authorization` header.
+
+## Dependencies
+
+> ``flask``
+> ``flask-jwt-extended``
+> ``sqlalchemy``
+> ``models` (local `Transportation``
+> ``World` models)`
+> ``..core.box_interface` (BoxInput).`
+
+## Related
+
+- [[`models]]
+- [[`core.box_interface]]
+
+>[!INFO] Authentication Note
+> All endpoints require a JWT token. The `user_id` is extracted from the token and used to validate record ownership (e.g., `world_id` must belong to the authenticated user).
+>
+
+>[!WARNING] Database Rollback
+> If an error occurs during creation/update, the database session is rolled back to maintain consistency. Ensure transactions are idempotent to avoid unintended side effects.

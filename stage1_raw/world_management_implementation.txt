@@ -1,0 +1,58 @@
+### TAGS
+#world-management
+#database-operations
+#CRUD-operations
+#frontend-backend-integration
+#user-isolation
+#cascade-deletion
+#api-endpoints
+#responsive-design
+#modal-ui
+#confirmation-dialogs
+#robotic-simulation
+#space-simulation
+
+### TYPE
+documentation
+
+### SUMMARY
+Implements a production-ready world management system with full CRUD operations for database-driven world creation, editing, and deletion, including user-specific isolation and cascading element removal.
+
+### DETAILS
+This implementation provides a comprehensive world management system that handles all CRUD operations for worlds, including enhanced metadata fields (`world_type`, `status`, `is_default`) and ensures data integrity through cascade deletion of associated elements. The system is designed with user isolation, preventing cross-user conflicts. The frontend includes a responsive grid-based UI for world listing, modals for creation/editing, and confirmations for destructive operations. The backend integrates with a database schema that supports these operations while maintaining transactional consistency.
+
+### KEY_FUNCTIONS
+- **WorldManagement.vue**: Displays a responsive grid of world cards with CRUD actions (View, Edit, Delete).
+- **World API Endpoints**: Handles GET/PUT/POST/DELETE requests for world management with JWT authentication.
+- **World Model (Database)**: Stores world metadata with fields like `name`, `description`, `world_type`, `status`, and `is_default`, plus foreign key to users.
+- **Space Peral Population Script**: Automatically creates and populates a fictional world with characters, robots, buildings, and flora based on documentation.
+- **API Service Methods**: Abstracts backend API calls for worlds (e.g., `getWorlds()`, `createWorld()`).
+- **Error Handling**: Validates inputs (e.g., required fields, duplicate names) and enforces cascade deletion warnings.
+
+### DEPENDENCIES
+SQLAlchemy (Python), Flask (Python backend), Vue.js (frontend), Axios (frontend API client), JWT (authentication), React/Vue UI libraries (e.g., Tailwind CSS for responsive design).
+
+### USAGE
+1. **Frontend**:
+   - Navigate to the WorldManagement component to view/edit/delete worlds.
+   - Use modals to create/edit worlds with validation (e.g., required name).
+   - Confirm deletions via modal with cascade warnings.
+
+2. **Backend**:
+   - Deploy the Flask API with routes `/api/worlds` and associated endpoints.
+   - Ensure database schema matches the `World` model (e.g., `worlds` table).
+   - Use the `apiService` methods in frontend code to interact with the backend.
+
+3. **Database**:
+   - Populate the `worlds` table with user-specific entries.
+   - Run the `create_space_peral_world.py` script to populate the Space Peral world with predefined elements.
+
+### RELATED
+[[World Model Documentation]], [[Database Schema Design]], [[Space Peral Documentation]], [[Robotic Simulation Guide]]
+
+### CALLOUTS
+>[!INFO]- **Cascade Deletion**
+> Deleting a world automatically removes all associated elements (e.g., characters, robots, buildings). This is enforced via database constraints and frontend warnings to prevent accidental data loss.
+
+>[!WARNING]- **User Isolation**
+> Worlds are scoped to individual users via `user_id` in the database. Ensure no cross-user conflicts occur during operations, as this system does not support shared worlds.

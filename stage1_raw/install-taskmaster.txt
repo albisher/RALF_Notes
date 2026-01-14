@@ -1,0 +1,43 @@
+### TAGS
+#install-script
+#task-master
+#npm
+#nodejs
+#cli-tool
+
+### TYPE
+code-notes
+
+### SUMMARY
+Script to detect, install, and verify Task Master globally on a system.
+
+### DETAILS
+This script automates the installation process of Task Master, a CLI tool for managing product requirements (PRDs). It first checks if Task Master is already installed by verifying the `task-master` command and npm global packages. It then validates system requirements (Node.js ≥16, npm) before proceeding with installation via `npm install -g task-master-ai`. The script includes verification steps to confirm installation, initial setup (e.g., `task-master init`), and guidance for configuring AI provider API keys. It also provides troubleshooting steps for common issues like permission errors, network issues, or outdated Node.js versions.
+
+### KEY_FUNCTIONS
+- **`which task-master || echo "Task Master not found"`**: Detects if `task-master` is installed globally.
+- **`npm list -g task-master-ai`**: Checks if the npm global package is installed.
+- **`node --version`**: Validates Node.js installation.
+- **`npm --version`**: Validates npm installation.
+- **`npm install -g task-master-ai`**: Installs Task Master globally.
+- **`task-master --version`**: Verifies installed version.
+- **`task-master init`**: Initializes Task Master in the current directory.
+- **`task-master models --status`**: Checks AI provider configuration.
+- **`task-master parse-prd test-prd.txt -n 3`**: Tests parsing a PRD file.
+
+### DEPENDENCIES
+npm, Node.js (≥16), Task Master CLI package (`task-master-ai`).
+
+### USAGE
+1. Run the script in a terminal to check and install Task Master.
+2. Follow prompts to configure AI provider keys (e.g., `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`).
+3. Use Task Master commands like `task-master init` or `task-master parse-prd` after setup.
+
+### RELATED
+[[Task Master Documentation]], [[Node.js Installation Guide]], [[npm Global Installation Guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Ensure Node.js ≥16 is installed before running the script. Use `nvm` to manage Node.js versions if needed.
+>[!WARNING]- Caution
+> Avoid using `sudo` for npm global installs unless necessary, as it may break permissions. Prefer `npm config set prefix ~/.npm-global` for safer installation.

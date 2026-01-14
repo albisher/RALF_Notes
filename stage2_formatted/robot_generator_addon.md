@@ -1,0 +1,74 @@
+**Tags:** #Blender, #3D-Modelling, #Robotics, #Addon, #Boolean-Operations
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# robot_generator_addon
+
+## Summary
+
+```
+Generates a modular robot body with segmented shells, snap features, screw holes, and articulated legs using Blender’s Python API.
+```
+
+## Details
+
+> This script creates a hollow spherical robot body by first defining an outer and inner sphere, then subtracting the inner sphere to form a cylindrical shell. It divides the body into **8 evenly spaced segments (shells)** using Boolean intersection operations with rotated cubes. Each shell is then enhanced with **snap features** (cylindrical protrusions) and **screw holes** (cylindrical cutouts) at predefined angular positions. The script also adds a **shrunken black shell**, a **faceplate**, and **two symmetrical eyes** (as line segments) for facial features. Finally, it constructs **4 identical 3-joint legs** (upper cylinder, joint sphere, lower cylinder, foot shell, and shell connector) with snap attachments and screw holes.
+
+## Key Functions
+
+### ``body_diameter`/`body_radius``
+
+Defines the robot’s outer dimensions.
+
+### `Boolean operations (`DIFFERENCE`, `INTERSECT`, `UNION`)`
+
+Modifies mesh geometry via subtraction, intersection, and union.
+
+### `Shell segmentation loop`
+
+Creates and positions 8 rotational cutters to split the body into segments.
+
+### `Snap feature generation`
+
+Adds cylindrical protrusions for modular assembly.
+
+### `Screw hole placement`
+
+Creates cylindrical cutouts for fastening.
+
+### `Leg assembly`
+
+Constructs 4 identical articulated legs with joint spheres and cylindrical components.
+
+### `Faceplate & eyes`
+
+Adds a top plate and two line-based eyes for facial aesthetics.
+
+## Usage
+
+1. Run in Blender’s **Scripting** workspace.
+2. Adjust `body_diameter`, `wall_thickness`, or `num_shells` to modify robot size/structure.
+3. Modify `screw_radius`, `snap_depth`, or leg dimensions for customization.
+
+## Dependencies
+
+> `Blender Python API (`bpy``
+> ``bmesh``
+> ``mathutils`)`
+> `custom variables (`unit_scale``
+> ``body_diameter``
+> `etc.).`
+
+## Related
+
+- [[Blender Boolean Operations Guide]]
+- [[Blender Python API Reference]]
+- [[Robotics Modular Assembly Patterns]]
+
+>[!INFO] Important Note
+> The script uses **Boolean modifiers** (`DIFFERENCE`, `INTERSECT`) to create hollow shells and modular joints. Ensure Blender’s **Boolean operations are enabled** in the modifier settings.
+>
+
+>[!WARNING] Caution
+> Deleting objects (`bpy.data.objects.remove`) permanently removes them from the scene. Backup objects before execution if needed.
+> Leg components are **parented** to the faceplate; ensure the faceplate exists before running leg assembly.

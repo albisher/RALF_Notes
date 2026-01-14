@@ -1,0 +1,49 @@
+### TAGS
+#Ork_Types
+#Warfare_System
+#Game_Design
+
+### TYPE
+documentation
+
+### SUMMARY
+Defines and categorizes Ork character types for a tactical or tabletop game.
+
+### DETAILS
+This file enumerates distinct Ork units, each with unique roles in combat, leadership, or specialization. The types reflect thematic archetypes (e.g., warriors, shamanic casters, raiders) and hierarchical or functional groupings (e.g., "Warrior Ork" vs. "Ancient Ork"). These classifications likely serve as foundational data for balancing, unit stats, or narrative roles in gameplay.
+
+### KEY_FUNCTIONS
+- **Warrior Ork**: Combat-focused, high durability, melee/rifle versatility.
+- **Berserker Ork**: Aggressive, high damage output, frenzy-based abilities.
+- **Shaman Ork**: Healer/buff caster, spell-based support.
+- **Chief Ork**: Leadership unit, buffs/defensive control.
+- **Scout Ork**: Mobility-focused, stealth/range-based tactics.
+- **Hunter Ork**: Archery specialist, ranged damage.
+- **Blacksmith Ork**: Crafting/upgrading support.
+- **Brute Ork**: Tanky, heavy armor, melee dominance.
+- **Savage Ork**: Hybrid (ranged + melee), versatile.
+- **War Chief**: Elite leader, high-tier buffs/defensive control.
+- **Grunt Ork**: Basic, low-tier, filler unit.
+- **Elite Ork**: Mid-tier, improved stats over Grunt.
+- **Ancient Ork**: Legendary, high-tier, unique abilities.
+- **Mystic Ork**: Spellcaster variant, magic-based.
+- **Raider Ork**: Raiding-focused, high mobility/stealth.
+
+### DEPENDENCIES
+none (standalone enumerations)
+
+### USAGE
+This list is likely used in:
+1. **Unit Selection**: Players choose Ork types for gameplay.
+2. **Balancing**: Stats/abilities are assigned per type.
+3. **Narrative**: Roleplay or lore integration (e.g., "Ancient Ork" as a mythic figure).
+4. **Gameplay Mechanics**: Abilities or modifiers tied to specific types (e.g., Berserker’s rage).
+
+### RELATED
+[[Ork_Character_Stats]], [[Ork_Combat_System]], [[Ork_Lore_Archetypes]]
+
+### CALLOUTS
+>[!INFO]- Role Clarification
+> Each type represents a distinct playstyle—e.g., **Hunter Ork** excels in ranged combat, while **Ancient Ork** offers unique legendary abilities. Designers should align abilities with archetypes to avoid redundancy.
+>[!WARNING]- Overlap Risk
+> Some types (e.g., **Savage Ork**, **Hunter Ork**) share traits. Ensure distinct mechanics to prevent confusion in gameplay or balancing.

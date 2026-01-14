@@ -1,0 +1,57 @@
+**Tags:** #complexity-analysis, #task-management, #sprint-planning, #risk-assessment, #process-improvement
+**Created:** 2026-01-13
+**Type:** documentation
+
+# complexity-report
+
+## Summary
+
+```
+Generates a structured complexity analysis report for task management, highlighting risk, dependencies, and actionable insights.
+```
+
+## Details
+
+> This script (`complexity-report`) analyzes task complexity using data from the `analyze-complexity` command, producing a detailed report with executive summaries, risk matrices, and recommendations. It categorizes tasks into high/medium/low complexity and flags critical risks, dependencies, and potential bottlenecks. The report includes interactive features like filtering, quick actions, and export options for further use in sprint planning and risk management.
+
+## Key Functions
+
+### ``task-master complexity-report``
+
+Displays the full complexity analysis report.
+
+### ``--file=<path>``
+
+Specifies a custom report file location (default: `.taskmaster/reports/complexity-analysis.md`).
+
+### `Interactive shortcuts`
+
+Supports 'e' (expand), 'd' (details), and 'r' (refresh) during report viewing.
+
+### `Export formats`
+
+Generates Markdown, CSV, or JSON for integration with other tools.
+
+## Usage
+
+1. Run `task-master complexity-report` to view the latest report.
+2. Use `--file` to load a historical report (e.g., `--file=archived/2024-01-01.md`).
+3. Navigate interactively via keyboard shortcuts (e.g., 'e' to expand a task).
+4. Export the report in Markdown/CSV/JSON for further analysis.
+
+## Dependencies
+
+> ``analyze-complexity` (internal command)`
+> ``task-master` CLI framework.`
+
+## Related
+
+- [[`task-master` documentation]]
+- [[`analyze-complexity` command]]
+- [[`sprint-planning` workflows]]
+
+>[!INFO] Default Report Location
+> The report defaults to `.taskmaster/reports/complexity-analysis.md`. Override with `--file` for custom paths.
+
+>[!WARNING] Historical Data Dependency
+> Requires prior execution of `analyze-complexity` to generate meaningful historical comparisons. Ensure data exists before filtering by trends.

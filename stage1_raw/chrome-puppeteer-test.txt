@@ -1,0 +1,40 @@
+### TAGS
+#automated-testing
+#web-scraping
+#puppeteer
+#ui-testing
+#e2e-testing
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automated UI testing framework using Puppeteer to validate web application functionality with screenshot verification.
+
+### DETAILS
+This script implements a Chrome Puppeteer test suite for validating web application interactions. It initializes a Puppeteer instance, handles screenshot generation for UI verification, and performs automated tests for basic connection and login flow validation. The class dynamically searches for form elements using multiple CSS selectors to ensure robustness against UI changes. Screenshots are timestamped and saved to a directory for visual verification of test outcomes.
+
+### KEY_FUNCTIONS
+- **`init()`**: Sets up directory structure and initializes logging for the test suite.
+- **`getScreenshotName(feature, description)`**: Generates a unique filename for screenshots combining timestamp, counter, feature name, and sanitized description.
+- **`takeScreenshot(page, feature, description)`**: Captures a full-page screenshot of a Puppeteer page and saves it to disk with error handling.
+- **`testBasicConnection(page)`**: Verifies the application's basic connectivity by checking HTTP response status and page title.
+- **`testLoginFlow(page)`**: Automates the login process, dynamically locates form elements, submits credentials, and checks for successful navigation to protected pages.
+
+### DEPENDENCIES
+puppeteer, fs, path
+
+### USAGE
+1. Initialize the test suite: `const testSuite = new ChromePuppeteerTest();`
+2. Launch a browser instance and pass it to test methods: `await testSuite.testBasicConnection(browserPage);`
+3. Run the full test suite by calling `await testSuite.init()` before executing tests.
+
+### RELATED
+[[Puppeteer Documentation]], [[End-to-End Testing Patterns]]
+
+### CALLOUTS
+>[!INFO]- Dynamic Selector Strategy
+> The script employs multiple fallback selectors for username, password, and submit buttons to handle variations in UI layouts. This approach improves test reliability when the application's frontend structure changes.
+
+>[!WARNING]- Credential Hardcoding
+> The test credentials (`username: 'test', password: 'testpass'`) are hardcoded. In production, these should be loaded from environment variables or a secure configuration system to avoid credential exposure.

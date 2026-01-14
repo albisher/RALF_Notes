@@ -1,0 +1,54 @@
+### TAGS
+#timeline-interaction
+#user-interface-design
+#vuejs-component
+#event-based-navigation
+#slider-controls
+
+### TYPE
+documentation
+
+### SUMMARY
+Design iteration for a slider-centric timeline UI that prioritizes interactive navigation through a red slider to display relevant historical events dynamically.
+
+### DETAILS
+This design focuses on making the red slider the primary interaction point for navigating through a chronological timeline of events. The slider’s position determines which events are visible, creating an intuitive time-based navigation experience. The system dynamically filters events within a configurable ±5-year range around the slider’s position, ensuring only relevant content is displayed. The design includes an integrated event editor, collapsible settings panel, and enhanced visual feedback (e.g., highlighted zones, snap-to-event functionality).
+
+### KEY_FUNCTIONS
+- **`getEventsAtPosition(position, year)`**: Filters events within ±5 years of the slider’s current year.
+- **`snapToEvent(eventId)`**: Aligns the slider to the nearest event for smoother navigation.
+- **`previousEvent()`/`nextEvent()`**: Navigates through events chronologically using the slider.
+- **`TopTimeline` component**: Hosts the slider and enhanced controls (jump-to-year input, navigation buttons).
+- **`EventListAtPosition`**: Displays events dynamically based on slider position.
+- **`EventEditorInline`**: Opens an inline editor when an event is selected.
+- **`TimelineSettingsCollapsible`**: Manages settings (e.g., time period, era metadata) in a collapsible panel.
+
+### DEPENDENCIES
+Vue.js (3.x), Vuex (for state management), Axios (for potential API calls to fetch events), Tailwind CSS (for styling).
+
+### USAGE
+1. **Initialize the component** in a Vue.js app with:
+   ```javascript
+   <slider-centric-timeline
+     :events="allHistoricalEvents"
+     :sliderPosition="initialPosition"
+   />
+   ```
+2. **Interact with the slider**:
+   - Drag to navigate chronologically.
+   - Use the "Jump to Year" input to manually set the slider position.
+   - Select an event to edit it inline.
+3. **Configure settings** via the collapsible panel (e.g., adjust the ±5-year range).
+
+### RELATED
+[[Design Iteration 2: Timeline Overviews]], [[User Testing Report - Timeline Navigation]], [[Vue.js Component Library Guide]]
+
+### CALLOUTS
+>[!INFO]- **Dynamic Filtering**
+> Events are auto-filtered to ±5 years of the slider’s position, reducing cognitive load by showing only relevant content. Adjust the range via settings if needed.
+>[!WARNING]- **Limited Overview**
+> Users may struggle to see the full timeline at once. Consider adding a "Quick Overview" mode (e.g., a collapsible summary) for complex timelines.
+>[!INFO]- **Mobile Optimization**
+> The single-column layout works well on mobile but may require touch-friendly adjustments (e.g., larger slider handles). Test responsiveness thoroughly.
+>[!WARNING]- **Slider Learning Curve**
+> New users may need guidance. Implement a tutorial overlay or tooltip hints (e.g., "Drag to navigate") to reduce friction.

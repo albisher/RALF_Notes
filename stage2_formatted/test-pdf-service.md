@@ -1,0 +1,52 @@
+**Tags:** #test-script, #pdf-service, #backend-integration, #unit-testing
+**Created:** 2026-01-13
+**Type:** test-reference
+
+# test-pdf-service
+
+## Summary
+
+```
+Test script validates PDF export functionality for documentation exporter.
+```
+
+## Details
+
+> This script tests the `DocumentationExporter` class from the backend module, specifically verifying that it successfully exports documentation to PDF format for a given world ID (9 in this case). It validates the output by checking the PDF header, size, and saving the result to a file for manual inspection. The test uses a `DocumentationExporter` instance to generate a PDF buffer, then performs basic validation checks before returning success/failure.
+
+## Key Functions
+
+### `test_pdf_export()`
+
+Orchestrates the entire test workflow, including initialization, export, validation, and error handling.
+
+### `DocumentationExporter.export_to_pdf(world_id)`
+
+Core method that generates a PDF buffer for the specified world ID.
+
+## Usage
+
+1. Run the script directly (`python test-pdf-service.py`).
+2. It will:
+   - Initialize the exporter.
+   - Export documentation for world ID 9.
+   - Validate the PDF output (header, size).
+   - Save the result to `checks/test-pdf-output.pdf`.
+3. Outputs success/failure status and logs errors if any occur.
+
+## Dependencies
+
+> ``sys``
+> ``os``
+> ``backend/export_service` (specifically `DocumentationExporter` class).`
+
+## Related
+
+- [[export_service]]
+- [[documentation-system-testing]]
+
+>[!INFO] Important Note
+> This script assumes the `backend` directory is in the parent folder of the test script. Adjust `sys.path` if the path differs.
+
+>[!WARNING] Caution
+> If the PDF output is malformed (e.g., no `%PDF` header), the test will flag it as invalid. Ensure the backend exporter correctly processes world data before testing.

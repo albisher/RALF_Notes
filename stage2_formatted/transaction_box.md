@@ -1,0 +1,61 @@
+**Tags:** #transaction-management, #database-operations, #nested-transactions, #error-handling, #logging
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# transaction_box
+
+## Summary
+
+```
+Manages database transactions with support for begin, commit, rollback, and nested transaction execution.
+```
+
+## Details
+
+> This `TransactionBox` class extends `Box` to handle database transactions, tracking active transactions via `_active_transactions`. It processes four primary operations: `begin`, `commit`, `rollback`, and `execute_in_transaction`. For `execute_in_transaction`, it batches multiple operations under a single transaction. The class uses SQLAlchemy's session management for nested transactions and includes robust error handling with logging.
+
+## Key Functions
+
+### ``execute(input_data)``
+
+Routes operations (`begin`, `commit`, `rollback`, `execute_in_transaction`) and validates inputs.
+
+### ``_begin_transaction(data)``
+
+Initiates a new transaction (or nested savepoint) and logs the transaction ID.
+
+### ``_commit_transaction(data)``
+
+Commits the transaction (or current session) and cleans up `_active_transactions`.
+
+### ``_rollback_transaction(data)``
+
+Reverts changes if the transaction fails, handling both explicit and implicit rollbacks.
+
+### ``_execute_in_transaction(data)``
+
+Executes a list of operations atomically within a transaction.
+
+## Usage
+
+1. **Initialize**: `TransactionBox(name='transaction')`.
+2. **Begin**: Pass `{'operation': 'begin', 'transaction_id': 'txn_123'}` to start a transaction.
+3. **Execute in Transaction**: Pass `{'operation': 'execute_in_transaction', 'operations': [...]}` to bundle operations under a transaction.
+4. **Commit/Rollback**: Use `{'operation': 'commit'}` or `{'operation': 'rollback'}` with an optional `transaction_id`.
+
+## Dependencies
+
+> ``..core.box_interface``
+> ``models.db` (SQLAlchemy session)`
+> ``logging` (Python standard library).`
+
+## Related
+
+- [[SQLAlchemy Session Management]]
+- [[Box Interface Design]]
+
+>[!INFO] Nested Transactions
+> When `savepoint_name` is provided, it creates a nested transaction using `db.session.begin_nested()`, allowing partial rollbacks within a larger transaction.
+
+>[!WARNING] Transaction ID Handling
+> If `transaction_id` is omitted, it defaults to `txn_{object_id}`, which may cause collisions. Explicit IDs are recommended for clarity.

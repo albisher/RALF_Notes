@@ -1,0 +1,31 @@
+**Tags:** #data-classification, #enumeration, #trunk-size
+**Created:** 2026-01-13
+**Type:** data-notes
+
+# TrunkThicknesses
+
+## Summary
+
+```
+Defines a categorical classification system for trunk thickness levels.
+```
+
+## Details
+
+> This file enumerates four discrete levels of trunk thickness: **thin**, **medium**, **thick**, and **massive**. These terms likely represent qualitative descriptors for physical measurements, possibly used in botanical, engineering, or environmental studies to categorize trunk sizes without numerical precision.
+
+## Key Functions
+
+### `TrunkSizeClassification`
+
+Assigns a categorical label to a given trunk thickness (e.g., "thin" for small, "massive" for large).
+
+## Usage
+
+Used as a reference for qualitative comparisons or decision-making in contexts requiring non-numeric trunk size classification (e.g., tree growth studies, structural analysis).
+
+>[!INFO] Contextual Use
+> These terms may correlate with specific thresholds or empirical observations in a domain-specific study (e.g., forestry, arboriculture). Ensure alignment with domain definitions if reused externally.
+
+>[!WARNING] Ambiguity Risk
+> Terms like "massive" or "thick" are subjective; avoid relying on this classification for quantitative analysis without additional metadata or validation.

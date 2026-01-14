@@ -1,0 +1,42 @@
+### TAGS
+#map-generation
+#voronoi-clustering
+#ui-dimensions
+#planet-visualization
+#data-distribution
+
+### TYPE
+documentation
+
+### SUMMARY
+Fixes issues with tiny/incomplete planet maps generated using hash "ew" by adjusting map dimensions, point distribution, and origin positioning.
+
+### DETAILS
+The fix addresses two primary problems: incorrect map dimensions calculated from cell clustering and insufficient coverage from uneven point distribution. The solution standardizes map dimensions to 1000x600, ensures full coverage via adjusted point distribution (60% uniform, 40% clustered), and guarantees proper origin positioning (0,0) for consistent display.
+
+### KEY_FUNCTIONS
+- `createPreviewMap()`: Recalculates map dimensions to fixed intended values (1000x600) instead of derived from cell positions.
+- `_generate_planet_points()`: Modifies point distribution to prioritize uniform coverage (60%) while maintaining clustered continents (40%).
+- `mapInfoWidth`/`mapInfoHeight`: Ensures rendered dimensions match viewer expectations.
+- `mapOriginX/Y`: Forces origin to (0,0) for accurate spatial rendering.
+
+### DEPENDENCIES
+`ui-beta/src/pages/MapGeneratorPage.vue`, `services/map-generator/engine/world_type_voronoi_generator.py`, Vue.js, Python libraries (e.g., `numpy`/`scipy` for Voronoi operations).
+
+### USAGE
+1. Navigate to `MapGeneratorPage` in the UI.
+2. Enter hash "ew" and select "Planet" world type.
+3. Trigger "Quick Preview" to verify the fix:
+   - Map fills the full viewer (1000x600).
+   - Cells cover the entire area without gaps.
+   - Continents and oceans are balanced.
+
+### RELATED
+[[Planet Map Generation Issues]], [[Voronoi Clustering Algorithm]], [[Map Viewer Rendering Bugs]]
+
+### CALLOUTS
+>[!INFO]- **Dimension Hardcoding**
+> Fixed `createPreviewMap()` to use predefined dimensions (1000x600) instead of dynamically calculated values, ensuring consistent sizing regardless of clustering density.
+
+>[!WARNING]- **Testing Dependency**
+> Restart the backend after applying changes to ensure updated Voronoi generator loads. Test multiple hashes to confirm consistency across different planet configurations.

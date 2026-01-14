@@ -1,0 +1,40 @@
+### TAGS
+#authentication
+#api
+#box-architecture
+#validation
+#asynchronous-operations
+
+### TYPE
+code-notes
+
+### SUMMARY
+Handles authentication operations via a modular box architecture, validating inputs and delegating to an external API client.
+
+### DETAILS
+The `AuthAPIBox` class extends `Box` to encapsulate authentication logic (login, register, logout, refresh). It uses a `ValidationBox` to enforce rules (e.g., username/password length) for `login`/`register` operations. Inputs are parsed into an operation (e.g., `login`) and parameters (e.g., `username`, `password`). The internal `_executeInternal` method routes requests to the `apiClient`, returning either a success response (e.g., JWT token) or an error (e.g., validation failure). The `refresh` operation is stubbed out as unimplemented.
+
+### KEY_FUNCTIONS
+- **`constructor(apiClient)`**: Initializes the box with an API client and validation dependency.
+- **`_executeInternal(inputData)`**: Orchestrates authentication workflows, validates inputs, and delegates to `apiClient` for execution.
+- **`login()`**: Authenticates users via `apiClient.authenticate()` and returns a token/user object.
+- **`register()`**: Sends POST request to `/auth/register` with username/email/password, sets token on success.
+- **`logout()`**: Clears the token via `apiClient.setToken(null)`.
+- **`refresh()`**: Placeholder for token refresh logic (not implemented).
+
+### DEPENDENCIES
+`../core/box_interface.js` (Box, BoxInput, BoxOutput, BoxErrorCode, BoxErrorCategory), `../common/validation_box.js` (ValidationBox), `apiClient` (external HTTP client).
+
+### USAGE
+1. Instantiate `AuthAPIBox(apiClient)` with an HTTP client.
+2. Call `_executeInternal` with an input object containing `operation` (e.g., `login`) and parameters (e.g., `username`, `password`).
+3. Handle responses: success (BoxOutput.success) or error (BoxOutput.error).
+
+### RELATED
+[[Space Peral Team Architecture Docs]], [[Box Interface Specification]]
+
+### CALLOUTS
+>[!INFO]- Validation Logic
+> Validation rules differ between `login`/`register`—`register` allows optional `email` but enforces stricter password rules.
+>[!WARNING]- Error Handling
+> External API errors (e.g., network failures) are caught globally, masking granular issues (e.g., invalid email format). Consider layered error handling.

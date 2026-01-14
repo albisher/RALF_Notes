@@ -1,0 +1,41 @@
+### TAGS
+#story-generation
+#world-building
+#ollama-integration
+#backend-api
+#python-requests
+
+### TYPE
+code-script
+
+### SUMMARY
+Generates a complete narrative using Ollama’s AI backend, populates a virtual world with assets, and saves the output to a structured folder.
+
+### DETAILS
+This script automates the creation of a space-themed story colony by:
+1. Authenticating with a backend API to create a world and its assets (characters, buildings, robots).
+2. Using Ollama’s API to generate a cohesive narrative based on the populated world data.
+3. Saving the generated story to `/app/generated_stories` with a timestamped filename.
+The workflow leverages REST endpoints to fetch/create world elements and constructs a dynamic prompt combining characters, locations, and AI-generated content.
+
+### KEY_FUNCTIONS
+- **create_test_user()**: Logs in with default credentials to obtain an authentication token.
+- **create_world_with_assets(token)**: Builds a virtual world with predefined characters, buildings, and robots using the token.
+- **generate_ollama_story(world_id, headers)**: Queries world details, constructs a prompt from elements, and delegates story generation to Ollama’s API.
+
+### DEPENDENCIES
+requests, urllib3, datetime, pathlib, json
+
+### USAGE
+1. Run the script to authenticate, create a world, and generate a story.
+2. Outputs are saved in `/app/generated_stories` with filenames like `Story_Colony_ABC123.txt`.
+3. Requires a running backend (`http://backend:5000`) and Ollama service.
+
+### RELATED
+[[Ollama API Documentation]], [[Backend World Creation Endpoint]]
+
+### CALLOUTS
+>[!INFO]- Authentication Note
+> Uses hardcoded credentials (`test/passtest`) for simplicity; replace with production credentials in production.
+>[!WARNING]- Security Warning
+> SSL verification is disabled (`session.verify = False`) for simplicity; enforce HTTPS in production.

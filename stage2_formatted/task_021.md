@@ -1,0 +1,64 @@
+**Tags:** #StrategyPattern, #RateLimiting, #Redis, #AIService, #Abstraction, #CloudLocalHybrid, #ConcurrencyControl
+**Created:** 2026-01-13
+**Type:** code-architecture
+
+# task_021
+
+## Summary
+
+```
+Refactors AI service layer to support hybrid AI providers (Ollama/cloud) with dynamic strategy selection and Redis-based rate limiting.
+```
+
+## Details
+
+> This task abstracts the AI service into a strategy pattern framework, enabling dynamic selection between local (Ollama) and cloud AI engines. The `AIEngine` base class defines a common `generate_text` interface, while concrete implementations (`OllamaEngine`, `CloudAIEngine`) handle provider-specific logic. A context class manages strategy switching via configuration (e.g., env vars). Redis implements a sliding-window rate limiter to enforce per-user request quotas, returning HTTP 429 errors when limits are exceeded. Tests verify engine selection and rate enforcement under load.
+
+## Key Functions
+
+### ``AIEngine``
+
+Abstract base class with `generate_text()` method.
+
+### ``OllamaEngine``
+
+Concrete implementation for local AI service.
+
+### ``CloudAIEngine``
+
+Concrete implementation for cloud AI provider.
+
+### ``AIServiceContext``
+
+Manages strategy selection via configuration.
+
+### `RedisRateLimiter`
+
+Sliding-window rate limiter using Redis timestamps.
+
+## Usage
+
+1. Configure engine selection (e.g., `AI_ENGINE=ollama`).
+2. Initialize `AIServiceContext` with Redis-backed rate limiter.
+3. Call `context.generate_text()`—switches engine dynamically and enforces rate limits.
+
+## Dependencies
+
+> ``redis-py``
+> ``python-dotenv` (for config)`
+> ``pytest` (testing)`
+> ``requests` (cloud API calls).`
+
+## Related
+
+- [[Task 17: AI Service Layer Design]]
+- [[Rate Limiting Patterns Guide]]
+- [[Redis Sliding Window Algorithm]]
+
+>[!INFO] Important Note
+> **Redis Connection**: Ensure Redis is running and accessible; failover handling must be implemented for production.
+> **Sliding Window**: The window size and quota must align with API rate limits (e.g., 100 requests/minute).
+
+>[!WARNING] Caution
+> **Cold Starts**: Cloud engines may incur latency; pre-warm connections if latency is critical.
+> **Concurrency**: Redis rate limiter must handle concurrent requests (e.g., via Redis pub/sub for distributed systems).

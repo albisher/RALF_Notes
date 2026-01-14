@@ -1,0 +1,60 @@
+### TAGS
+#world-building
+#procedural-generation
+#ai-integration
+#web-application
+#data-management
+#user-experience
+#storytelling
+#procedural-content
+#collaborative-tools
+#responsive-design
+
+### TYPE
+documentation-research
+
+### SUMMARY
+Defines a structured requirements document for a space-themed world-building web application, prioritizing core features like procedural content generation, AI-assisted writing, and multi-dimensional map interfaces.
+
+### DETAILS
+This document outlines a comprehensive **Product Requirements Document (PRD)** for a **Space Peral World-Building Web Application**, emphasizing **procedural generation, AI integration, and narrative-driven worldcrafting**. It categorizes requirements into **technical, functional, and business domains**, assigning priority ratings (1–10) to guide development focus. Key areas include **hash-based procedural generation** for characters, environments, and relationships, **multi-view map interfaces** (2D/3D), and **collaborative editing** with offline capabilities. The document also addresses **AI-assisted content creation** (e.g., image generation, log writing) and **data consistency checks** to ensure lore coherence. Business models (SaaS, free/paid tiers) and technical constraints (offline support, privacy) are included to balance functionality with scalability.
+
+### KEY_FUNCTIONS
+- **Procedural Generation Engine**: Hash-based algorithms for dynamic content (characters, biomes, buildings).
+- **Multi-Dimensional Map Interface**: 2D/3D views with zoom levels and location tracking.
+- **Timeline View**: Story progression visualization tied to element interactions.
+- **AI-Assisted Writing**: Local (Ollama) and cloud AI for prompts, image generation, and log creation.
+- **Relationship Tracking**: Faction, ally/enemy, and temporal constraints for elements.
+- **Collaborative Editing**: Real-time multi-user editing with version history.
+- **Export/Import**: Story and world data compatibility across platforms.
+- **Responsive UI**: Tablet/desktop support with sidebar navigation and auto-previews.
+
+### DEPENDENCIES
+- **Procedural Generation Libraries**: Hash-based algorithms (e.g., C++/Python libraries).
+- **AI APIs**: Ollama (local), cloud-based (e.g., MidJourney, DALL·E) for image/text generation.
+- **Web Frameworks**: React.js/Next.js for frontend, Node.js for backend.
+- **3D/2D Rendering**: Three.js/Phaser for map interfaces, custom shaders for visual styles.
+- **Database**: SQLite/PostgreSQL for temporal relationships and lore consistency.
+- **Authentication**: Firebase Auth or custom OAuth for user management.
+
+### USAGE
+1. **Prioritize MVP**: Focus on **critical features** (e.g., hash-based generation, timeline view, AI prompts) first.
+2. **Modular Development**: Build components incrementally (e.g., core generation system → UI → AI integration).
+3. **Test Consistency**: Validate procedural content against lore rules before exporting.
+4. **Collaborate**: Use collaborative editing for shared worldbuilding sessions.
+5. **Export/Import**: Save/load stories across devices for offline use.
+
+### RELATED
+[[Space Worldbuilding Framework]], [[Procedural Generation Best Practices]], [[AI-Powered Writing Tools]], [[Offline Web Apps]], [[Responsive UI Design]]
+
+### CALLOUTS
+>[!INFO]- **Procedural Generation Trade-offs**
+> Hash-based algorithms ensure reproducibility but may require manual tweaks for uniqueness. Balance automation with user input (e.g., descriptive text overrides).
+>[!WARNING]- **AI Cost Management**
+> Rate limiting for cloud AI is critical to avoid budget spikes. Prefer local AI (Ollama) for cost efficiency during early development.
+>[!INFO]- **Offline Capabilities**
+> SQLite or IndexedDB must handle temporal constraints efficiently. Test edge cases (e.g., concurrent edits) to avoid data corruption.
+>[!WARNING]- **Lore Consistency Risks**
+> Consistency checks must be dynamic—e.g., flag conflicts in real-time. Overly rigid rules may stifle creativity; allow exceptions for narrative flexibility.
+>[!INFO]- **Collaborative Editing Pitfalls**
+> Version history and conflict resolution are non-negotiable. Use Git-like systems (e.g., GitHub for Web) to manage shared edits.

@@ -1,0 +1,63 @@
+**Tags:** #UI_Testing, #Map_Generation, #Automation_Tools, #Browser_Screenshots, #Test_Documentation
+**Created:** 2026-01-13
+**Type:** test-reference
+
+# SCREENSHOT_PATHS_20251206
+
+## Summary
+
+```
+Documentation of UI test screenshots for verifying a hash-based map generation system in a browser environment.
+```
+
+## Details
+
+> This file records screenshots from a UI test session verifying the functionality of a map generation system. The test session, conducted on **2025-12-06**, validates the implementation of a hash-based map generation process, including input handling, progress tracking, and final map preview. The screenshots capture the initial state, progress, completion, and post-generation map display, ensuring all steps align with expected behavior. The test confirms the system’s ability to generate, preview, and list maps with correct dimensions and metadata.
+
+## Key Functions
+
+### `Map Generation UI`
+
+Displays input fields, progress bars, and preview sections for planet map creation.
+
+### `Progress Tracking`
+
+Shows real-time generation status (e.g., "heightmap 30%").
+
+### `Map Preview`
+
+Renders completed maps with dimensions (2000 × 1200) and metadata (e.g., 5 cities).
+
+### `Maps Tab View`
+
+Provides a 2D world map interface with controls and coordinate display.
+
+### `Browser Automation Tool`
+
+Captures screenshots programmatically via browser tools.
+
+## Usage
+
+To access the stored screenshots:
+1. Use the browser automation tool’s screenshot storage location (e.g., `/path/to/screenshot_folder`).
+2. Verify the captured screenshots match the test session’s expected states (initial, progress, completion).
+3. Cross-check UI elements (e.g., progress bars, map dimensions) against documented functionality.
+
+## Dependencies
+
+> `Browser automation libraries (e.g.`
+> `Puppeteer`
+> `Selenium)`
+> `screenshot storage tools`
+> `and the target application’s UI framework.`
+
+## Related
+
+- [[Test_Report_Hash-Based_Map_Generation_20251206]]
+- [[UI_Specification_Document_Map_Generation_System]]
+
+>[!INFO] Important Note
+> Screenshots were generated via browser automation and stored in the tool’s default directory. Ensure the tool’s path is accessible for retrieval.
+
+>[!WARNING] Caution
+> Manual inspection of screenshots may not fully validate dynamic UI elements (e.g., real-time progress updates). Always cross-reference with automated test logs.

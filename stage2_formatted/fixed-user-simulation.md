@@ -1,0 +1,63 @@
+**Tags:** #automated-testing, #puppeteer, #web-scraping, #user-simulation, #database-testing, #frontend-testing, #world-building-game
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# fixed-user-simulation
+
+## Summary
+
+```
+Automated simulation testing for a fixed user workflow in a web-based world-building application, capturing screenshots at each step.
+```
+
+## Details
+
+> This script automates a predefined user journey in a web application (likely a game or creative platform) to verify fixed functionality. It uses Puppeteer to simulate a user creating a world, filling metadata, and interacting with the workspace. The workflow includes:
+> 1. Loading the dashboard,
+> 2. Creating a world with a fixed name/description,
+> 3. Verifying the world appears on the dashboard,
+> 4. Filling a story and location in the workspace,
+> 5. Capturing screenshots at each step for debugging/logging.
+> 
+> The script handles missing elements gracefully and logs success/failure at each stage.
+
+## Key Functions
+
+### `fixedUserSimulation`
+
+Orchestrates the full automated workflow.
+
+### `takeScreenshot`
+
+Captures page snapshots with timestamps.
+
+### `puppeteer.launch`
+
+Configures a headless browser with security-disabling flags.
+
+### `page.goto`
+
+Navigates to specified URLs with timeout handling.
+
+## Usage
+
+1. Run as a Node.js script to execute the automated simulation.
+2. Replace `http://localhost:5173/` with the target application URL if needed.
+3. Customize form inputs (e.g., "Test World - Fixed Demo") for testing variations.
+
+## Dependencies
+
+> `puppeteer`
+> `fs`
+> `path`
+
+## Related
+
+- [[puppeteer-testing-framework]]
+- [[web-app-automation-guidelines]]
+
+>[!INFO] Important Note
+> The script disables security features (`--disable-web-security`) for testing; use only in controlled environments.
+
+>[!WARNING] Caution
+> Avoid running this on production systems—it may break security or violate terms of service. Always test in sandboxed environments.

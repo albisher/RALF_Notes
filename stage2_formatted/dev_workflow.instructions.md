@@ -1,0 +1,78 @@
+**Tags:** #AgileDevelopment, #TaskManagement, #WorkflowAutomation, #AI-AssistedCollaboration, #SoftwareDevelopment
+**Created:** 2026-01-13
+**Type:** documentation
+
+# dev_workflow.instructions
+
+## Summary
+
+```
+A structured guide for using Taskmaster to streamline task-driven development workflows, emphasizing AI-driven context management and advanced features like tagged task lists.
+```
+
+## Details
+
+> This document outlines a **Taskmaster-based development workflow**, designed to automate and enhance task management for software projects. It begins with a **default `master` context** for simplicity but introduces **Tagged Task Lists** as a value-add when multi-context work is detected. The workflow follows a cyclical loop of listing, selecting, expanding, and updating tasks, with AI suggesting advanced features like branching or collaboration tags only when contextually appropriate.
+> 
+> The guide emphasizes **user autonomy**—suggesting tags rather than enforcing them—while providing clear triggers (e.g., Git branching, team collaboration) to introduce specialized workflows. It details both **basic** (e.g., task listing, status updates) and **advanced** (e.g., tag creation, subtask expansion) operations, ensuring scalability for complex projects.
+
+## Key Functions
+
+### ``initialize_project``
+
+Sets up a new project with tagged task structure.
+
+### ``task-master list``
+
+Displays current tasks in the active context.
+
+### ``task-master next``
+
+Helps users select the next task based on dependencies/priority.
+
+### ``task-master show <id>``
+
+Provides detailed task information.
+
+### ``task-master expand --id=<id>``
+
+Breaks down complex tasks into subtasks.
+
+### ``task-master add-tag --from-branch``
+
+Creates a new tag for branching workflows.
+
+### ``task-master set-status --id=<id> --status=done``
+
+Marks tasks as completed.
+
+### ``task-master update-task``
+
+Adjusts task details based on implementation changes.
+
+## Usage
+
+1. **Start with `master` context** (default).
+2. Use `task-master list` to review tasks.
+3. For complex tasks, expand them with `task-master expand`.
+4. Introduce **tags** (e.g., `feature/user-auth`) when branching or collaborating.
+5. Update tasks dynamically via `task-master update` or `set-status`.
+
+## Dependencies
+
+> ``taskmaster` CLI tool`
+> `Git (for branching)`
+> ``tasks.json` (Taskmaster’s task storage format)`
+> `and optional libraries like `taskmaster-rules` for rule-based workflows.`
+
+## Related
+
+- [[`taskmaster.instructions]]
+- [[`taskmaster-cli-docs]]
+- [[`taskmaster-rules]]
+
+>[!INFO] **Context Awareness**
+> AI should **only suggest tags** when clear indicators (e.g., Git branches, teamwork) justify them. Forcing tags risks user resistance.
+
+>[!WARNING] **Tag Overuse**
+> Excessive tags can clutter `tasks.json` and reduce readability. Use sparingly for high-value contexts (e.g., experiments, branches).

@@ -1,0 +1,53 @@
+**Tags:** #map-generation, #geospatial-data, #voronoi-distribution, #planet-mapping, #coordinate-coverage
+**Created:** 2026-01-13
+**Type:** documentation
+
+# COMPLETE_PLANET_MAP_RESEARCH
+
+## Summary
+
+```
+Defines criteria for a complete planet map, including geographic coverage, cell distribution, and structural requirements, while addressing issues in existing generation algorithms.
+```
+
+## Details
+
+> This document outlines the requirements for a **complete planet map**, emphasizing full geographic coverage from -90° to +90° latitude and -180° to +180° longitude, ensuring pixel distribution spans the entire map area (0 to width/height). It details critical needs like balanced Voronoi point distribution, absence of large empty clusters, and proper biome/continent visibility. The document also highlights current problems—such as incomplete cell distribution, incorrect dimension calculations, and missing edge coverage—along with proposed solutions, including explicit edge point generation and uniform clustering adjustments.
+
+## Key Functions
+
+### ``_generate_planet_points``
+
+Generates Voronoi points ensuring full map coverage via corner, edge, uniform, and clustered distributions.
+
+### ``createPreviewMap()``
+
+(Hypothetical) Function to calculate map dimensions based on intended size rather than cell positions.
+
+### ``verify_full_coverage``
+
+Validation logic to check if Voronoi cells span the entire map area (95%+ coverage).
+
+## Usage
+
+1. **Generate Points**: Use `_generate_planet_points(width, height)` to create a complete set of Voronoi points.
+2. **Validate Coverage**: Run checks to ensure min/max coordinates align with map boundaries (0 to width/height).
+3. **Structure Map Data**: Use the provided JSON template, ensuring `width`/`height` reflect intended dimensions, not calculated ones.
+4. **Test Edge Cases**: Use hash "ew" to verify full coverage during testing.
+
+## Dependencies
+
+> `numpy (for point array generation)`
+> `hashlib (for pseudo-random coordinate derivation)`
+> `and JSON libraries (for map data structure).`
+
+## Related
+
+- [[Planet Mapping Algorithm Design]]
+- [[Voronoi Cell Distribution Guide]]
+
+>[!INFO] Critical Edge Handling
+> Explicitly adding corner and edge points (e.g., `[0,0]`, `[width,height]`) ensures Voronoi cells extend to map boundaries, preventing gaps.
+
+>[!WARNING] Dimension Confusion
+> Avoid calculating map dimensions from cell positions—always use predefined `width`/`height` (e.g., 1000x600) to maintain consistency.

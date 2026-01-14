@@ -1,0 +1,51 @@
+**Tags:** #atmospheric_scattering, #optical_phenomena, #planetary_astronomy, #moon_appearance, #sunset_effects
+**Created:** 2026-01-13
+**Type:** documentation
+
+# planets003
+
+## Summary
+
+```
+Explains why a moon near a blue sun can appear orange due to atmospheric scattering effects on the planet.
+```
+
+## Details
+
+> This phenomenon occurs when light from the sun reflects off a moon and passes through a planet’s atmosphere before reaching an observer. The atmosphere scatters shorter blue wavelengths more intensely, allowing longer wavelengths like orange and red to dominate, altering the moon’s perceived color. This effect is analogous to Earth’s sunsets and sunrises, where atmospheric conditions enhance color shifts. The moon’s intrinsic color remains unchanged; only the atmospheric filtering alters its appearance.
+
+## Key Functions
+
+### `Atmospheric scattering`
+
+Reduces blue light, enhancing red/orange hues.
+
+### `Horizon effect`
+
+Greater atmospheric path length near the horizon intensifies scattering.
+
+### `Dust/smoke influence`
+
+Enhances red/orange dominance under specific conditions.
+
+## Usage
+
+To observe this effect, one must:
+1. Identify a moon orbiting a planet with a blue sun.
+2. Note its position near the horizon.
+3. Observe how atmospheric scattering alters its color perception.
+
+## Dependencies
+
+> `none (theoretical explanation of optical physics)`
+
+## Related
+
+- [[why-is-the-moon-orange]]
+- [[what-makes-the-moon-look-orange]]
+
+>[!INFO] Key Mechanism
+> Light scattering by the planet’s atmosphere preferentially removes blue wavelengths, making longer wavelengths (orange/red) more visible.
+
+>[!WARNING] Observational Note
+> Conditions like dust or smoke can exaggerate the effect, but it is not exclusive to Earth-like atmospheres.

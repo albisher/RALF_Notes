@@ -1,0 +1,49 @@
+**Tags:** #color-palette, #material-design, #ui-design, #visual-design
+**Created:** 2026-01-13
+**Type:** color-reference
+
+# planet_colors
+
+## Summary
+
+```
+A curated list of 20 high-quality color names for aesthetic, thematic, or design applications.
+```
+
+## Details
+
+> This file provides a collection of visually distinct and industry-standard color names, categorized by hue, saturation, and tone. Each entry represents a unique shade, often used in UI/UX design, material aesthetics, or thematic branding. The palette includes metallic, earthy, and vibrant tones, making it versatile for creative projects requiring depth and contrast.
+
+## Key Functions
+
+### `Color Selection`
+
+Provides named colors for consistent design systems.
+
+### `Thematic Cohesion`
+
+Supports thematic branding with cohesive color schemes.
+
+### `Visual Hierarchy`
+
+Offers saturated and muted shades for emphasis or balance.
+
+## Usage
+
+Use these colors directly in design tools (e.g., Figma, Adobe Photoshop), CSS, or branding materials. For example:
+```css
+body { background-color: CrimsonRed; }
+button { color: SapphireAzure; }
+```
+Pair with complementary shades for balanced compositions.
+
+## Related
+
+- [[Material Design Color Palette Guide]]
+- [[Color Theory for Designers]]
+
+>[!INFO] **Design Flexibility**
+> These names map to exact RGB/HSL values (e.g., CrimsonRed ≈ #C01A3C), ensuring precise implementation in digital or print media.
+
+>[!WARNING] **Ambiguity Risk**
+> Some names (e.g., "Pearl Iridescent") may lack standardized RGB definitions—verify values in tools like Adobe Color or Coolors.

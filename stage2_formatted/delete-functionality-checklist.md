@@ -1,0 +1,63 @@
+**Tags:** #manual_verification, #delete_functionality, #lore_management, #world_builder, #data_loss_prevention, #ui_testing, #confirmation_dialogs, #trash_can_icons
+**Created:** 2026-01-13
+**Type:** documentation
+
+# delete-functionality-checklist
+
+## Summary
+
+```
+A checklist for manual verification of all delete operations in the Space Pearl World Builder application to prevent accidental data loss.
+```
+
+## Details
+
+> This checklist is designed to ensure thorough manual testing of delete functionality across multiple modules in the Space Pearl World Builder. While automated tests handle add/edit operations, delete operations require human oversight to confirm correct behavior, confirmation prompts, and data integrity. The document outlines specific pages (`/lore-setup`, `/elements`, `/characters`, etc.) and their respective delete operations, including UI patterns for delete buttons, confirmation dialogs, and disabled/enabled states. Each task involves navigating to a section, identifying a deletable item, triggering the delete action, and verifying the item’s removal.
+
+## Key Functions
+
+### `Manual Delete Verification`
+
+Ensures all delete operations are tested manually for correctness and safety.
+
+### `UI Pattern Validation`
+
+Checks consistency in delete button locations (e.g., trash can icon, X button) and confirmation dialogs.
+
+### `Data Integrity Confirmation`
+
+Verifies items are removed from lists after deletion.
+
+### `Error State Handling`
+
+Tests disabled/enabled/delete buttons and loading states.
+
+## Usage
+
+1. **Assign to Testers**: Distribute this checklist to users responsible for manual testing.
+2. **Prioritize High-Risk Items**: Focus on critical sections (e.g., `/worlds`, `/characters`) first.
+3. **Document Issues**: Note any failures (e.g., missing confirmation dialogs) and report them.
+4. **Re-test After Fixes**: Verify fixes for reported issues before marking tasks complete.
+
+## Dependencies
+
+> `- Space Pearl World Builder application UI components (e.g.`
+> ``/lore-setup``
+> ``/elements`).
+- Manual testing tools (e.g.`
+> `screenshots`
+> `logging).
+- No external libraries—primarily a documentation checklist.`
+
+## Related
+
+- [[Space Pearl World Builder API Reference]]
+- [[Edit Operations]]
+- [[Data Backup Procedures]]
+
+>[!INFO] Important Note
+> **Safety First**: Always confirm manual deletions via a visible dialog (e.g., "Are you sure?"). Avoid direct deletions without confirmation to prevent accidental data loss.
+>
+
+>[!WARNING] Caution
+> **Backup Critical Data**: Before testing deletions in `/worlds` or `/characters`, ensure backups exist. Some deletions may be irreversible.

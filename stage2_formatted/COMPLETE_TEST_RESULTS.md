@@ -1,0 +1,71 @@
+**Tags:** #generation-test, #world-map, #statistics-mismatch, #visual-rendering, #algorithm-failure
+**Created:** 2026-01-13
+**Type:** research
+
+# COMPLETE_TEST_RESULTS
+
+## Summary
+
+```
+Analyzes incomplete world type map generation tests, highlighting critical mismatches between statistical data and visual output.
+```
+
+## Details
+
+> The test suite evaluates world map generation across multiple types (Planet, Galaxy, Cloud World, Space Station) using predefined expectations. Despite successful generation statuses, all maps exhibit **statistical anomalies** (100% land/water percentages) and **visual failures** (empty blue/green backgrounds), failing to match expected clustering, geometry, or land/water distributions. The discrepancy arises from misaligned thresholds between statistical calculations and visual rendering, alongside incorrect background color application and missing enhancement effects. The Planet test, though slow (~52s), still fails due to persistent mismatches, while pending tests (Space Ship, Asteroid, Moon, Solar System) lack defined expectations.
+
+## Key Functions
+
+### `WorldMap Generation Engine`
+
+Produces maps but fails to align statistical and visual data.
+
+### `Statistics Calculator`
+
+Incorrectly classifies land/water based on flawed height thresholds.
+
+### `Visual Renderer`
+
+Displays default backgrounds (blue/green) instead of type-specific colors.
+
+### `Enhancement System`
+
+Missing fractal edges, erosion, or tectonic patterns.
+
+### `Coordinate System`
+
+Fixed ranges (28.8°W–E, 18°N–S) across all tests.
+
+## Usage
+
+To resolve, adjust:
+1. **Threshold Logic**: Ensure land/water classification matches visual rendering.
+2. **Background Colors**: Pass dynamic `backgroundColor` props per world type.
+3. **Enhancement Boxes**: Integrate missing visual effects (e.g., hillshading).
+4. **Statistics Validation**: Cross-check with visual data post-generation.
+
+## Dependencies
+
+> ``WORLD_EXPECTATIONS` (reference standards)`
+> ``WorldMap2D` (visual rendering library)`
+> `height threshold algorithms`
+> `background color CSS overrides.`
+
+## Related
+
+- [[WORLD_EXPECTATIONS]]
+- [[WorldMap2D Documentation]]
+- [[Algorithm Thresholds]]
+- [[Visual Rendering Debug Logs]]
+
+>[!INFO] Critical Threshold Issue
+> The height threshold for land/water classification is likely set too low, causing all maps to report 100% land. Adjusting this (e.g., raising the threshold for "land" classification) may resolve the mismatch.
+
+>[!WARNING] Visual Rendering Override
+> Background colors (e.g., blue/green) are overriding world-specific visuals. Ensure `WorldMap2D` receives dynamic props like `backgroundColor` based on the map type.
+
+>[!INFO] Generation Speed Anomaly
+> Planet generation (~52s) is significantly slower than others (~2-3s). Investigate if it uses a different algorithm or resource-intensive steps.
+
+>[!WARNING] Missing Enhancements
+> No visible fractal edges, erosion, or tectonic patterns indicate enhancement boxes are either not called or data is missing from map generation. Debug the enhancement pipeline.

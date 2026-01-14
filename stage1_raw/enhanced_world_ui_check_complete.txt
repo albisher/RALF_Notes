@@ -1,0 +1,44 @@
+### TAGS
+#UI_Testing
+#World_Game_Data
+#Automation_Script
+#Browser_Automation
+#Documentation
+
+### TYPE
+test-reference
+
+### SUMMARY
+A complete UI testing framework for a world-based game system, integrating comprehensive lore, character, and environmental data for automated and manual validation.
+
+### DETAILS
+This script implements a **world context-aware UI testing system**, designed to validate all interactive features within a game environment using structured `WorldInformation` data. The system integrates 15+ data files covering historical events, character lore, technology, and environmental factors (e.g., UV radiation, robotic adaptations). It employs a **non-headless browser** (System Chrome) for debugging and generates screenshots with standardized naming conventions (`YYYYMMDD-####-feature-description.png`). The implementation includes **API authentication**, form handling, and manual testing checklists for critical operations like deletion.
+
+### KEY_FUNCTIONS
+- **`enhanced-world-ui-check.js`**: Core automation script for UI validation with world context.
+- **WorldInformation data integration**: Parses and validates all `WorldInformation` files (e.g., `history001.txt`, `characters001.txt`).
+- **Screenshot system**: Organizes test outputs in `ui-checks` folder with timestamps and feature descriptions.
+- **Manual testing checklist**: Provides structured verification for frontend/login issues (e.g., 401 errors).
+
+### DEPENDENCIES
+Puppeteer (for browser automation), Node.js runtime, backend API (for authentication), and System Chrome (for debugging).
+
+### USAGE
+1. **Run Automated Tests**:
+   ```bash
+   node checks/enhanced-world-ui-check.js
+   ```
+   - Integrates all `WorldInformation` files and executes UI checks in a non-headless browser.
+2. **Manual Testing**:
+   - Use the provided checklist (`delete-functionality-checklist.md`) to verify frontend/login issues manually.
+3. **Documentation**:
+   - Generate reports via `enhanced-world-ui-report.md` for feature coverage and recommendations.
+
+### RELATED
+[[Documentation/WorldInformation/]], [[checks/delete-functionality-checklist.md]], [[checks/enhanced-world-ui-report.md]]
+
+### CALLOUTS
+>[!INFO]- **World Data Dependency**
+> All test logic relies on pre-populated `WorldInformation` files. Ensure these files are correctly formatted (e.g., `YYYYMMDD-####-feature-description.txt`) with consistent structure (e.g., historical events, character traits).
+>[!WARNING]- **Frontend Limitations**
+> The script identifies a **401 error** during Puppeteer login, suggesting backend authentication may not align with frontend expectations. Test credentials (`test/testpass`) must match backend API requirements.

@@ -1,0 +1,66 @@
+**Tags:** #data-science, #game-design, #procedural-generation, #terrain-evaluation, #scoring-system
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# habitability_scoring_box
+
+## Summary
+
+```
+Evaluates cell habitability for city placement in planets, space stations, or ships using terrain, climate, and biome factors.
+```
+
+## Details
+
+> This module implements a **Habitability Scoring Box** as a plugin for a spatial data processing system (likely a game or simulation engine). It assigns scores (0.0–1.0) to each Voronoi cell based on five weighted factors:
+> 1. **Flat terrain** (low height gradients),
+> 2. **Water access** (proximity to rivers),
+> 3. **Temperature suitability** (optimal range 10–25°C),
+> 4. **Biome compatibility** (predefined suitability thresholds),
+> 5. **Cell area** (larger cells receive higher scores).
+> 
+> The system supports three world types: planets, space stations, and ships. It returns both raw scores and factor breakdowns for debugging.
+
+## Key Functions
+
+### ``execute()``
+
+Orchestrates the scoring pipeline, validates inputs, and computes results.
+
+### ``_build_neighbor_map()``
+
+(Inferred) Constructs adjacency relationships between cells for terrain analysis.
+
+### ``_calculate_flat_score()``
+
+Computes flatness by comparing height differences to neighboring cells.
+
+### ``_calculate_water_score()``
+
+Evaluates proximity to rivers or water bodies.
+
+### ``_calculate_biome_score()``
+
+Assigns suitability based on biome type and world-specific thresholds.
+
+## Usage
+
+1. Call with `operation="calculate_habitability"` and required inputs (e.g., `cells`, `heights`, `biomes`).
+2. Returns `habitability` (scores) and `factors` (detailed breakdowns).
+3. Optional: Include `temperature`/`moisture` for climate-based adjustments.
+
+## Dependencies
+
+> ``numpy``
+> ``boxes.core.box_interface` (custom engine component).`
+
+## Related
+
+- [[Game Procedural Generation Engine]]
+- [[Terrain Evaluation Algorithms]]
+
+>[!INFO] Weighted Scoring
+> Weights (e.g., `flat_terrain=0.25`) can be adjusted in the `execute()` method for custom balance.
+
+>[!WARNING] Edge Cases
+> Missing optional fields (e.g., `temperature`) default to neutral scores (0.5). Ensure all required inputs are provided.

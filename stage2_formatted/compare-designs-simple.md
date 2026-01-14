@@ -1,0 +1,63 @@
+**Tags:** #web-scraping, #ui-design-visualization, #puppeteer, #html-css, #static-html-generation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# compare-designs-simple
+
+## Summary
+
+```
+Generates and compares visual designs by capturing a screenshot of an HTML sample and creating a static HTML version of a Vue app for visual comparison.
+```
+
+## Details
+
+> This script uses Puppeteer to launch a browser, navigate to a local HTML file (`sample01.html`), and capture its screenshot. It then constructs a minimal static HTML representation of a Vue-based application UI (Space Pearl dashboard) with identical styling and structure to visually compare against the original rendered page. The script captures the rendered UI and saves it as a static image, allowing for side-by-side visual analysis of design elements.
+
+## Key Functions
+
+### `compareDesigns`
+
+Orchestrates the entire workflow: browser launch, screenshot capture, and static HTML generation.
+
+### `puppeteer.launch`
+
+Initializes a browser instance in non-headless mode for visual inspection.
+
+### `page.goto()`
+
+Navigates to the local HTML file for screenshot capture.
+
+### `page.screenshot()`
+
+Saves the rendered page as a static image.
+
+### `staticHtml string`
+
+Contains the pre-defined static HTML template for the Vue app UI.
+
+## Usage
+
+1. Run the script in a Node.js environment.
+2. Ensure `sample01.html` exists in the `./preparation` directory.
+3. The script will:
+   - Capture a screenshot of `sample01.html` and save it as `comparison-html-sample.png`.
+   - Generate and save the static HTML version of the Space Pearl Vue app UI.
+4. Compare the two files visually to analyze design differences.
+
+## Dependencies
+
+> `puppeteer`
+> `fs`
+> `path`
+
+## Related
+
+- [[None]]
+
+>[!INFO] Important Note
+> The script assumes the `preparation` directory exists and contains `sample01.html`. If not, the script will fail during screenshot capture.
+>
+
+>[!WARNING] Caution
+> The browser is launched in non-headless mode (`headless: false`), which may cause performance issues or display issues if the environment is not optimized for Puppeteer. Consider using headless mode (`headless: true`) for production environments.

@@ -1,0 +1,40 @@
+### TAGS
+#screenshot-analysis
+#world-generation
+#enhancement-failure
+#ui-testing
+#map-visualization
+
+### TYPE
+documentation
+
+### SUMMARY
+Analyzes missing enhancement features in a planet map generation system, identifying bypassed workflows in Quick Preview mode.
+
+### DETAILS
+This report documents a UI browser test where a planet map was generated using basic Voronoi-based terrain but lacked advanced geological and visual enhancements (e.g., hillshading, tectonic features). The analysis reveals that Quick Preview skips enhancement boxes by directly calling Python generators (`/generation/terrain`, `/generation/cells`, `/generation/heightmap`) instead of the full pipeline in `map_generator.py`. While core functionality (e.g., Voronoi cell generation) works, missing enhancements like fractal edges, rivers, and biome diversity degrade visual fidelity.
+
+### KEY_FUNCTIONS
+- **WorldTypeTerrainGenerator.generate_terrain**: Core terrain generation (basic Voronoi).
+- **WorldTypeHeightmapGenerator.generate_heightmap**: Heightmap creation (flat output).
+- **WorldTypeBoxSelector.get_boxes**: Expected enhancement trigger (not called in Quick Preview).
+- **LloydsRelaxation/TectonicPlateSimulation/HydraulicErosion**: Missing enhancement steps.
+- **Quick Preview API Endpoints**: `/generation/terrain`, `/generation/cells`, `/generation/heightmap` (bypasses enhancements).
+
+### DEPENDENCIES
+`map_generator.py` (enhancement pipeline), backend Python generators, UI browser automation tools.
+
+### USAGE
+To reproduce:
+1. Trigger Quick Preview for `test-planet-001`.
+2. Compare screenshots with full map generation (enhancements enabled).
+3. Check backend logs for missing enhancement box calls.
+
+### RELATED
+[[20251209-HONEST_ANALYSIS_REPORT.md]], [[20251209-FINAL_VERIFICATION_REPORT.md]]
+
+### CALLOUTS
+>[!INFO]- Root Cause
+> Quick Preview endpoints bypass `map_generator.py` by directly invoking Python generators, omitting enhancement boxes like LloydsRelaxation or TectonicPlateSimulation.
+>[!WARNING]- Immediate Risk
+> Missing enhancements degrade visual quality, making the map appear as a basic Voronoi diagram instead of a high-fidelity world. This could mislead users into assuming incomplete functionality.

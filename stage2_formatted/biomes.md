@@ -1,0 +1,54 @@
+**Tags:** #biome-generation, #game-dev, #procedural-world, #text-file-processing
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# biomes
+
+## Summary
+
+```
+Processes biome definitions stored in text files to populate a biome list for procedural world generation.
+```
+
+## Details
+
+> This script appears to be a procedural generation utility that scans a directory (`/Users/amac/Downloads/spq8/Generators/Maps/Biomes/Lists`) for `.txt` files containing biome definitions. Each file likely represents a biome type (e.g., "forest," "desert") with metadata or parameters. The files are read to populate a structured biome list, which would later be used to generate terrain, climate, or environmental conditions in a game world.
+> 
+> The logic involves:
+> 1. **Directory traversal** to locate all `.txt` files in the specified folder.
+> 2. **File parsing** to extract biome names/attributes from each file.
+> 3. **Data aggregation** into a unified biome list for procedural generation systems.
+
+## Key Functions
+
+### `BiomeListLoader`
+
+Loads and compiles biome definitions from `.txt` files into a structured dataset.
+
+### `FileScanner`
+
+Identifies and enumerates `.txt` files in a given directory path.
+
+## Usage
+
+1. Navigate to the directory containing biome `.txt` files.
+2. Run the script to populate a biome list in memory or a data structure.
+3. Integrate the biome list into procedural generation workflows (e.g., map creation, climate systems).
+
+## Dependencies
+
+> ``os` (Python standard library)`
+> ``pathlib` (Python standard library)`
+> ``json` (optional`
+> `if parsing structured biome data).`
+
+## Related
+
+- [[Procedural Generation Workflow]]
+- [[Biome Data Structures]]
+
+>[!INFO] Directory Path Note
+> Ensure the path `/Users/amac/Downloads/spq8/Generators/Maps/Biomes/Lists` is accessible and contains only `.txt` files with biome definitions. Hardcoded paths may need adjustment for cross-platform use.
+
+>[!WARNING] File Format Assumption
+> Assumes each `.txt` file contains biome metadata in a consistent format (e.g., plain text or JSON). Inconsistent formats may cause parsing errors. Validate file contents before execution.

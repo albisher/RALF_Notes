@@ -1,0 +1,58 @@
+### TAGS
+#map-generation
+#world-creation
+#visual-verification
+#galaxy-simulation
+#cloud-worlds
+#ui-testing
+
+### TYPE
+documentation
+
+### SUMMARY
+Documentation guide for verifying and analyzing map generation screenshots across different world types (planet, galaxy, cloud) with step-by-step verification and usage instructions.
+
+### DETAILS
+This guide documents the verification process of map generation screenshots for various world types, including planet, galaxy, and cloud worlds. It details the successful completion of map generation, parameter setup, and UI interaction, with timestamps and file paths for each screenshot. The document includes analysis of UI functionality, generation progress, and world-specific visual outputs, ensuring comprehensive validation of map creation systems.
+
+### KEY_FUNCTIONS
+- **Map Generation Verification**: Confirms successful map creation for planet, galaxy, and cloud worlds.
+- **Parameter Generation Check**: Validates parameter setup before map generation.
+- **UI Interaction Testing**: Ensures dropdowns, input fields, and buttons function correctly.
+- **Screenshot Indexing**: Organizes and lists all recent screenshots by type and date.
+- **File Access Methods**: Provides commands for viewing and listing screenshots via terminal or Finder.
+
+### DEPENDENCIES
+- File system access (for directory navigation and file listing)
+- Basic command-line tools (e.g., `ls`, `open`, `find` on macOS)
+- Image viewer software (e.g., Preview, external tools like ImageMagick)
+
+### USAGE
+1. **Navigate to Screenshots Directory**:
+   ```bash
+   cd screenshots/map-generation-verification/
+   ```
+2. **List All Screenshots**:
+   ```bash
+   ls -lh 2025-12-06*.png
+   ```
+3. **Open Specific Screenshot**:
+   ```bash
+   open <file_path>
+   ```
+4. **Analyze World Types**:
+   - Verify planet maps (e.g., `map-generated-random-general-world.png`).
+   - Confirm galaxy maps (e.g., `map-generated-galaxy-world.png`).
+   - Check cloud world maps (e.g., `map-generated-clouds-world.png`).
+5. **Refer to Reports**:
+   - Cross-check findings with detailed reports (`MAP_GENERATION_ANALYTICAL_REPORT_20251206.md`, etc.).
+
+### RELATED
+[[MAP_GENERATION_ANALYTICAL_REPORT_20251206.md]], [[FINAL_ANALYSIS_REPORT_20251206.md]], [[SCREENSHOT_PATHS_20251206.md]], [[SCREENSHOT_INDEX_20251206.md]]
+
+### CALLOUTS
+>[!INFO]- **Verification Confirmation**
+> Each screenshot includes a ✅ mark to confirm successful map generation or parameter setup. Verify these marks for consistency across all world types.
+
+>[!WARNING]- **File Naming Convention**
+> Ensure filenames follow the pattern `YYYY-MM-DDTHH-MM-SS-map-generated-[world_type].png` to maintain accurate indexing and retrieval. Deviations may cause misalignment in analysis.

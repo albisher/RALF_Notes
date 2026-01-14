@@ -1,0 +1,64 @@
+**Tags:** #testing, #api-integration, #authentication, #dashboard-data-fetching, #async-await
+**Created:** 2026-01-13
+**Type:** code-test
+
+# test-dashboard-display
+
+## Summary
+
+```
+Tests dashboard data fetching and authentication workflow for a local API.
+```
+
+## Details
+
+> This script performs an automated test of a dashboard display system by:
+> 1. Authenticating with a hardcoded test user (`test/passtest`)
+> 2. Fetching and logging dashboard statistics, world lists, and nested element details
+> 3. Specifically examining the "Space Peral" world and its character elements
+> 4. Validating the response structure and data integrity through console logging
+> 
+> The flow follows a sequential authentication → data fetching pattern with error handling at each step.
+
+## Key Functions
+
+### `authenticate()`
+
+Handles API authentication using hardcoded credentials.
+
+### `configureAxios()`
+
+Sets up Axios with the authenticated token for subsequent requests.
+
+### `testDashboardData()`
+
+Orchestrates the complete data fetching and validation workflow.
+
+### `main()`
+
+Orchestrates the script execution sequence and error handling.
+
+## Usage
+
+1. Save as `test-dashboard-display.js`
+2. Run with `node test-dashboard-display.js`
+3. Expects API to be running at `http://localhost:5173/api`
+4. Logs detailed console output of all responses
+
+## Dependencies
+
+> `axios`
+> `node.js (for console logging and process.exit)`
+
+## Related
+
+- [[API Documentation]]
+- [[Authentication Guide]]
+
+>[!INFO] Important Note
+> Uses hardcoded credentials (`test/passtest`) for testing - not suitable for production.
+> The script exits with code 1 on any error, preventing further execution.
+
+>[!WARNING] Caution
+> Does not implement retry logic for failed requests.
+> All console output is visible in terminal - sensitive data may be logged.

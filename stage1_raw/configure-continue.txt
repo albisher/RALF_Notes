@@ -1,0 +1,43 @@
+### TYPE
+code-script
+
+### SUMMARY
+Automates setup for **Continue**, an AI-assisted development environment with specialized configurations for Vue.js, Python, and Dockerized workflows.
+
+### DETAILS
+This script initializes a **Continue** configuration directory, defining AI models (e.g., Perplexity, Ollama), context providers (file/GitHub), and domain-specific prompts (Vue.js, Python, Docker). It also creates tailored configurations for Vue.js (Composition API, TypeScript) and Python (Flask, async programming) with linting/testing recommendations. The script generates a workspace structure for a Vue.js frontend + Python backend setup, including dependency management. Additionally, it includes a validation script to check container status, JSON validity, and API accessibility.
+
+### KEY_FUNCTIONS
+- **`configure-continue`**: Orchestrates directory/file creation for Continue setup.
+- **`.continue/config.json`**: Core AI model and role definitions.
+- **`.continue/vue-config.json`**: Vue.js-specific dev tooling (Composition API, TypeScript, linting).
+- **`.continue/python-config.json`**: Python (Flask) dev tooling (async support, linting, testing).
+- **`.continue/workspace.json`**: Project structure (frontend/backend generators).
+- **`scripts/validate-continue.sh`**: Validates container status, JSON files, and API endpoints.
+- **`docs/continue-setup.md`**: Documentation for Continue integration.
+
+### DEPENDENCIES
+`docker`, `jq`, `curl`, `bash`, `ollama` (for Ollama-based models), `continue` CLI tool.
+
+### USAGE
+1. Run the script in a project root:
+   ```bash
+   chmod +x configure-continue && ./configure-continue
+   ```
+2. Start the Continue container:
+   ```bash
+   docker-compose up continue
+   ```
+3. Validate setup:
+   ```bash
+   ./scripts/validate-continue.sh
+   ```
+
+### RELATED
+[[`continue-docker-compose.yml`]], [[`continue-ollama.md`]]
+
+### CALLOUTS
+>[!INFO]- Model Dependencies
+> Ensure Ollama (`ollama/codellama`) and Perplexity models are pre-downloaded locally or accessible via `baseUrl` in `experimental/ollama`.
+>[!WARNING]- JSON Validation
+> If `jq` fails, manually verify `.continue/config.json` for syntax errors before proceeding.

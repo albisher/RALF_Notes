@@ -1,0 +1,54 @@
+**Tags:** #database-migration, #alembic, #sqlalchemy, #postgresql, #jsonb-column
+**Created:** 2026-01-13
+**Type:** database-migration
+
+# cecdde0e47cd_add_time_system_column_to_worlds_table
+
+## Summary
+
+```
+Adds a `time_system` JSONB column to the `worlds` table for storing flexible time-related metadata.
+```
+
+## Details
+
+> This migration script uses Alembic to dynamically add a `time_system` column of type `postgresql.JSONB` to the `worlds` table. The column is nullable, allowing it to store arbitrary time-related data (e.g., settings, rules, or configurations) in JSON format. The `upgrade()` function adds the column, while `downgrade()` removes it, ensuring rollback functionality.
+> 
+> The column is designed for extensibility, enabling future modifications without altering the table schema directly.
+
+## Key Functions
+
+### `upgrade()`
+
+Adds a `time_system` JSONB column to the `worlds` table.
+
+### `downgrade()`
+
+Removes the `time_system` column from the `worlds` table.
+
+## Usage
+
+Run this migration via Alembic’s command-line tool:
+```bash
+alembic upgrade head
+```
+To revert, use:
+```bash
+alembic downgrade head
+```
+
+## Dependencies
+
+> `sqlalchemy`
+> `alembic`
+> `postgresql-dialect (for JSONB support)`
+
+## Related
+
+- [[None]]
+
+>[!INFO] Important Note
+> This migration assumes the `worlds` table already exists. If it does not, the column addition will fail unless the table is created first.
+
+>[!WARNING] Caution
+> Ensure no existing data in `worlds` conflicts with the new column. JSONB values may require manual handling during upgrades/downgrades.

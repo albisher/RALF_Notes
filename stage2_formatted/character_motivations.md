@@ -1,0 +1,60 @@
+**Tags:** #motivational_goals, #character_development, #identity_crisis, #exploration, #growth_oriented
+**Created:** 2026-01-13
+**Type:** research-notes
+
+# character_motivations
+
+## Summary
+
+```
+Explores core human motivations driving character development, identity, and purpose-driven actions.
+```
+
+## Details
+
+> This file lists a curated set of intrinsic and extrinsic motivations—ranging from existential (e.g., *seeking truth*, *finding purpose*) to practical (e.g., *resource optimization*, *survival*)—that underpin human behavior, storytelling, and decision-making. The list appears structured to analyze how these motivations manifest in narratives, psychology, or systems design (e.g., AI agents, game characters). It may serve as a foundation for frameworks like **motivational theory** (e.g., Maslow’s hierarchy) or **character arcs** in fiction.
+> 
+> The entries are likely categorized by thematic clusters (e.g., survival vs. growth) to facilitate analysis of their interplay. For example, *exploration* and *innovation* could correlate with curiosity-driven actions, while *community protection* and *overcoming challenges* reflect social or adversarial contexts.
+
+## Key Functions
+
+### `Motivational Framework`
+
+Acts as a reference for categorizing character goals in storytelling or behavioral modeling.
+
+### `Identity Exploration`
+
+Maps how individuals seek self-definition (e.g., *search for identity*, *finding peace*).
+
+### `Systemic Analysis`
+
+Useful for designing adaptive systems (e.g., AI agents) where motivations drive decision-making.
+
+### `Thematic Study`
+
+Provides a taxonomy for psychological or narrative research on purpose-driven actions.
+
+## Usage
+
+1. **Storytelling**: Assign motivations to characters to enrich depth (e.g., a protagonist’s *mission success* could stem from *personal growth*).
+2. **AI/Behavioral Modeling**: Use as input for reinforcement learning or narrative generation systems to simulate human-like decision-making.
+3. **Research**: Analyze patterns across entries (e.g., how *exploration* often precedes *innovation*).
+4. **Education**: Teach motivational psychology or creative writing by contrasting motivations (e.g., *survival* vs. *achieving greatness*).
+
+## Dependencies
+
+> `none (standalone list; may integrate with external frameworks like **game design theory** or **behavioral economics**).`
+
+## Related
+
+- [[Character Development Theories]]
+- [[Maslow’s Hierarchy of Needs]]
+- [[Behavioral Economics]]
+- [[Game Design Motivation Systems]]
+- [[Existential Psychology]]
+
+>[!INFO] **Contextual Nuance**
+>Motivations like *preservation of knowledge* or *protecting others* may overlap with ethical dilemmas (e.g., prioritizing survival vs. morality). This list assumes motivations are **independent** unless explicitly linked in a larger framework.
+
+>[!WARNING] **Overlap Risk**
+>Some entries (e.g., *finding peace* and *seeking truth*) could be mutually exclusive in specific contexts. Clarify scope for interdisciplinary use (e.g., psychology vs. fiction).

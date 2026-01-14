@@ -1,0 +1,67 @@
+**Tags:** #hash-generation, #deterministic-selection, #system-design, #backend-integration, #salt-based-hashing
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# complete-hash-entity-generation-plan
+
+## Summary
+
+```
+A modular system for generating entities (characters, creatures, cosmic objects) via hash-based derivation with chainable component boxes for attributes like Physical Form, Personality, and Time.
+```
+
+## Details
+
+> This system centralizes hash utilities across multiple generators, enabling consistent, chainable entity creation. The `HashGeneratorMasterBox` provides core functions (`hash_input`, `derive_int_from_hash`, `select_from_list`, etc.) that derive values deterministically from input strings using SHA-256 and salts. Precision modes (standard, high, cosmic) allow flexible value ranges, with defaults based on observed usage patterns in existing generators. The design eliminates redundancy across 20+ generator files while maintaining backward compatibility.
+
+## Key Functions
+
+### ``hash_input(input_str`
+
+str) -> str`**: Generates SHA-256 hashes for input strings.
+
+### ``derive_int_from_hash(input_hash`
+
+str, salt: str, max_value: int, precision: str = "standard")`**: Derives integers from hashes using 8/16/64-bit segments based on precision mode.
+
+### ``derive_float_from_hash(input_hash`
+
+str, salt: str) -> float`**: Normalizes integers to floats in [0.0, 1.0] using high precision mode.
+
+### ``select_from_list(input_hash`
+
+str, salt: str, item_list: List, default: str = None) -> Any`**: Randomly selects items from a list deterministically.
+
+### ``assign_number(input_hash`
+
+str, salt: str, min_value: int, max_value: int) -> int`**: Assigns integers within a specified range.
+
+### ``assign_float(input_hash`
+
+str, salt: str, min_value: float, max_value: float, precision: int = 2) -> float`**: Assigns floats within a range with configurable precision.
+
+## Usage
+
+1. Import `HashGeneratorMasterBox` in generator files.
+2. Use `hash_input()` to generate hashes for inputs.
+3. Derive values via `derive_int_from_hash()` with appropriate precision mode.
+4. Select items from lists using `select_from_list()`.
+5. Assign numeric/float ranges with `assign_number()`/`assign_float()`.
+
+## Dependencies
+
+> ``hashlib``
+> ``typing.List``
+> ``typing.Any` (Python standard libraries)`
+
+## Related
+
+- [[coordinate]]
+- [[physical_appearance]]
+- [[characters]]
+
+>[!INFO] Precision Mode Selection
+> Precision modes (standard/high/cosmic) are auto-detected based on generator needs. Cosmic mode uses the full 64-char hash, while standard mode defaults to 8 hex chars (32-bit precision).
+
+>[!WARNING] Integer Overflow Risk
+> Cosmic mode may overflow for very large `max_value` due to integer conversion of the full hash. Use caution with high-precision cosmic generators.

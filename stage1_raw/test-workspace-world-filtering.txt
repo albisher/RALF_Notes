@@ -1,0 +1,46 @@
+### TAGS
+#automated-testing
+#puppeteer
+#web-scraping
+#ui-testing
+#frontend-validation
+
+### TYPE
+test-reference
+
+### SUMMARY
+Validates workspace world filtering UI and functionality in a local web application using Puppeteer.
+
+### DETAILS
+This script automates testing of a **workspace world filtering** feature in a local web application (likely a digital writing or asset management tool). It verifies:
+1. **Page elements** (workspace container, world selector dropdown, search input).
+2. **Text content** (titles, empty states, and filter indicators).
+3. **Interactive behavior** (dropdown expansion, world selection, and search input).
+The test captures screenshots at key stages (initial state, dropdown open, post-selection, and post-search) for debugging.
+
+### KEY_FUNCTIONS
+- `testWorkspaceWorldFiltering()`: Orchestrates the entire test workflow.
+- `puppeteer.launch()`: Configures and starts a headless browser with security-disabled settings.
+- `page.goto()`: Navigates to the workspace URL with timeout handling.
+- `page.$()`: Checks for DOM elements (e.g., `.writer-workspace`, `select`).
+- `page.evaluate()`: Extracts text/content dynamically (e.g., `document.body.innerText`).
+- `page.select()`: Interacts with dropdown menus to test world selection.
+- `page.type()`: Simulates typing in search inputs.
+
+### DEPENDENCIES
+puppeteer, Node.js runtime.
+
+### USAGE
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node test-workspace-world-filtering.js`.
+3. Ensure the app runs locally at `http://localhost:5173/workspace`.
+4. Outputs logs and screenshots to `checks/screenshots/`.
+
+### RELATED
+[[Test Workspace UI End-to-End]], [[Puppeteer Best Practices Guide]]
+
+### CALLOUTS
+>[!INFO]- Security Note
+> Disables critical security features (`--disable-web-security`) for testing; **only use in controlled environments**.
+>[!WARNING]- Headless Mode
+> Runs in headless mode (`headless: true`) to avoid visual clutter; verify screenshots match expected UI.

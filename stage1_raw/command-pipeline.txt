@@ -1,0 +1,43 @@
+### TAGS
+#pipeline-execution
+#command-automation
+#workflow-orchestration
+#conditional-logic
+#iterative-processes
+
+### TYPE
+code-notes
+
+### SUMMARY
+Defines a flexible command pipeline system for executing sequential, conditional, or parallel workflows based on input arguments.
+
+### DETAILS
+The `command-pipeline` system processes structured command specifications into executable workflows. It supports simple linear sequences, conditional branches (`if-else`), iterative loops (`for`), and parallel execution (`[parallel branches]`). The pipeline parses arguments into a directed graph of commands, validates their order, and executes them with state passing (e.g., variables like `$count`). Features include error handling (e.g., `try/catch`, `optional`, `retry`), variable storage, and result aggregation (e.g., `join:report`). The system enables dynamic workflows like filtering, branching, and conditional branching based on task states or metrics.
+
+### KEY_FUNCTIONS
+- **`parse-pipeline`**: Converts input arguments into a structured command graph.
+- **`execute-sequence`**: Runs commands sequentially with state persistence.
+- **`handle-conditions`**: Evaluates `if`/`else` clauses dynamically during execution.
+- **`manage-loops`**: Implements `for` loops and iterative tasks (e.g., `for:pending-tasks`).
+- **`parallel-execution`**: Splits workflows into concurrent branches (e.g., `[analyze | test]`).
+- **`error-handling`**: Supports `try/catch`, `optional`, and retry logic (e.g., `retry:3:commit`).
+- **`variable-passing`**: Stores intermediate results (e.g., `$count=pending-count`) for reuse.
+
+### DEPENDENCIES
+`argparse`, `json`, `multiprocessing` (for parallel execution), custom state management library (for variables/conditions).
+
+### USAGE
+1. Define a pipeline specification (e.g., `init → expand-all → sprint-plan`).
+2. Pass arguments to `command-pipeline` (e.g., `$ARGUMENTS="init → expand-all"`).
+3. The system validates and executes commands in order, handling conditions/loops/errors dynamically.
+4. Outputs aggregated results (e.g., `join:report` or `show-blockers`).
+
+### RELATED
+[[Workflow Orchestration Patterns]], [[Error Handling in Scripting]], [[Parallel Task Execution]]
+
+### CALLOUTS
+>[!INFO]- **State Passing**
+> Variables like `$count` or `$high-priority-tasks` must be explicitly defined in commands (e.g., `status → $count=pending-count`). Uninitialized variables default to `null`.
+
+>[!WARNING]- **Parallel Safety**
+> Parallel branches (`[analyze | test]`) assume commands are stateless or thread-safe. Shared state may cause race conditions; use `join:report` to synchronize results.

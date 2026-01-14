@@ -1,0 +1,63 @@
+**Tags:** #visual-database-verification, #puppeteer-automation, #web-scraping, #frontend-validation, #database-proofing
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# visual-database-proof-final
+
+## Summary
+
+```
+Automated visual verification script for a web application’s database content, checking dashboard, worlds, and characters pages for expected data.
+```
+
+## Details
+
+> This script uses Puppeteer to interact with a local web application (running on `localhost:5173`) and performs automated visual and textual validation of database-related content. It captures screenshots at key steps, checks for specific text patterns (e.g., world counts, demo world names), and logs findings. The workflow includes:
+> 1. Launching a browser in non-headless mode for visual inspection.
+> 2. Capturing screenshots of the dashboard, worlds page, and characters page.
+> 3. Analyzing page content for expected database metrics (e.g., world counts, demo world references).
+> 4. Handling navigation failures gracefully by falling back to direct URL access.
+> 
+> The script is designed to validate whether the application correctly displays or references database data, particularly for a demo environment (e.g., "Cyberpunk Neo-Tokyo 2087").
+
+## Key Functions
+
+### `visualDatabaseProofFinal`
+
+Orchestrates the full automation workflow, including browser launch, page navigation, screenshot capture, and content validation.
+
+### `takeScreenshot`
+
+Captures a screenshot of the current page with a timestamped filename and logs success/failure.
+
+### `page.goto()`
+
+Navigates to specified URLs with configurable wait times and error handling.
+
+### `page.evaluate()`
+
+Extracts and analyzes page content (e.g., `document.body.innerText`) for keyword matching.
+
+## Usage
+
+1. Install dependencies: `npm install puppeteer fs path`.
+2. Run the script: `node visual-database-proof-final.js`.
+3. Ensure the target application (`http://localhost:5173`) is running.
+4. The script logs findings and saves screenshots to a `screenshots/final-proof` directory.
+
+## Dependencies
+
+> `puppeteer`
+> `fs`
+> `path`
+
+## Related
+
+- [[Visual Database Proof Guide]]
+- [[Puppeteer Automation Cheat Sheet]]
+
+>[!INFO] Important Note
+> The script uses `--disable-web-security` and `--disable-setuid-sandbox`, which may expose the application to security risks in production. Use only in controlled environments (e.g., local development).
+
+>[!WARNING] Caution
+> Direct URL navigation (`/worlds`, `/characters`) is a fallback if links are not found. Ensure these endpoints exist in the application’s routing. Overuse of direct navigation may mask underlying UI issues.

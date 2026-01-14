@@ -1,0 +1,58 @@
+**Tags:** #automation, #web-scraping, #puppeteer, #devops, #data-entry, #simulation
+**Created:** 2026-01-13
+**Type:** code-script
+
+# space-peral-session-3-plants-animals
+
+## Summary
+
+```
+Automates creation of fictional plants and animals in a web-based space-themed application using Puppeteer.
+```
+
+## Details
+
+> This script uses Puppeteer to interact with a web application (likely a frontend running on `localhost:5173`) to programmatically create predefined plant and animal entries. It follows a structured workflow:
+> 1. Launches a browser, navigates to the application, and takes screenshots at each step.
+> 2. Identifies and clicks the "Create" button to open a manual entry form.
+> 3. Dynamically fills form fields (name, description) based on predefined data.
+> 4. Submits entries for each predefined plant/animal pair, logging success/failure.
+> 
+> The script handles multi-step interactions (e.g., selecting dropdowns, clicking radio buttons) and includes error handling for robustness.
+
+## Key Functions
+
+### `createPlantsAndAnimals`
+
+Orchestrates the full workflow of loading the app, navigating to workspace, and creating entries.
+
+### `takeScreenshot`
+
+Captures page snapshots with timestamps for debugging/validation.
+
+### `elements array`
+
+Predefined list of plants/animals with metadata (name, type, description).
+
+## Usage
+
+1. Install dependencies: `npm install puppeteer fs path`.
+2. Run script: `node space-peral-session-3-plants-animals.js`.
+3. Ensure the target app (`localhost:5173`) is running before execution.
+
+## Dependencies
+
+> `puppeteer`
+> `fs`
+> `path`
+
+## Related
+
+- [[Space Peral Application Architecture]]
+- [[Puppeteer Automation Guide]]
+
+>[!INFO] Important Note
+> The script assumes the target app has consistent UI patterns (e.g., "Create" button text, form field placeholders). UI selectors may break if the app’s frontend changes.
+
+>[!WARNING] Caution
+> Running Puppeteer in non-headless mode (`--no-sandbox`) may expose security risks if the environment lacks proper sandboxing. Use with caution in production environments.

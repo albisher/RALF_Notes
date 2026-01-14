@@ -1,0 +1,120 @@
+**Tags:** #Vue.js, #React-like Composition API, #UI Component, #Vuex-like Emits, #Dynamic Rendering
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# GenerationModal-C6WjlCIZ
+
+## Summary
+
+```
+A Vue.js-inspired modal component for generating content with dynamic title and close functionality.
+```
+
+## Details
+
+> This code defines a `GenerationModal` component using a Vue-like Composition API (via `setup()`). It renders a card with a title (defaulting to "Generation"), a placeholder text ("Generation modal coming soon..."), and a close button. The component uses a virtual DOM (`v-card`) with slots (`v-card-title`, `v-card-text`, `v-card-actions`) and emits an event (`close`) when the button is clicked. The `emits` prop declares the `close` event, and the `props` define a `title` prop with a default value. The `setup` function returns a render function that conditionally renders the title and placeholder text, with the close button dynamically linked to the `close` event emitter.
+> 
+> The component leverages Vue’s template syntax (`v-card`, `v-btn`) and composes UI elements with slots and dynamic slots (`t[1]`/`t[2]` for conditional rendering). The `n` (likely a no-op or placeholder) and `a` (likely an alias for `a()` or a Vue component) functions appear to be Vue-specific utilities for rendering slots or components.
+
+## Key Functions
+
+### ``C` (default export)`
+
+Main component definition with `setup` logic.
+
+### ``setup(s)``
+
+Initializes the component’s render function, handling props (`title`) and emits (`close`).
+
+### ``e` (likely `defineComponent` or `createVNode` alias)`
+
+Creates virtual nodes for rendering.
+
+### ``m` (likely `mergeProps` or `mergeSlots`)`
+
+Merges props/slots into the card.
+
+### ``v` (likely `createApp` or `createVNode` alias)`
+
+Initializes the app context (unused here but implied).
+
+### ``n` (likely `null` or a no-op placeholder)`
+
+Placeholder for dynamic slot rendering.
+
+### ``o` (likely `openSlot` or `createSlot` alias)`
+
+Manages dynamic slots (e.g., `t[1]` for placeholder text).
+
+### ``a` (likely `createApp` or `createElement` alias)`
+
+Renders components/slots (e.g., `a(u(s.title))` for the title).
+
+### ``f` (likely `createElement` alias)`
+
+Renders text nodes (e.g., `" Generation modal coming soon..."`).
+
+### ``x` (likely `x => l.$emit("close")` alias)`
+
+Closure for the `close` event emitter.
+
+## Usage
+
+To use this component:
+1. Import it in a Vue-like environment:
+   ```js
+   import { C } from "./GenerationModal-C6WjlCIZ";
+   ```
+2. Register it in a parent component or use it directly in a template:
+   ```html
+   <C title="Custom Title" @close="handleClose" />
+   ```
+3. Handle the `close` event in the parent:
+   ```js
+   methods: {
+     handleClose() { this.$emit("close"); }
+   }
+   ```
+4. The component renders a card with the provided `title` and a placeholder text. The close button emits a `close` event.
+
+## Dependencies
+
+> ``./index-CrDxv0Ll.js` (imported as `r as e`
+> `c as m`
+> `o as v`
+> `w as n`
+> `a as o`
+> `b as a`
+> `t as u`
+> `d as f`)`
+> `likely contains:
+- Vue-like utilities (`e``
+> ``m``
+> ``v``
+> ``n``
+> ``o``
+> ``a``
+> ``b``
+> ``t``
+> ``d`).
+- Vue’s core components (`v-card``
+> ``v-card-title``
+> ``v-card-text``
+> ``v-card-actions``
+> ``v-btn`).
+- Vue’s event system (`$emit`).
+- Dynamic slot handling (`t[1]``
+> ``t[2]`).`
+
+## Related
+
+- [[Vue]]
+- [[Vue Composition API]]
+- [[Vue Slots and Props]]
+- [[Vue Emits System]]
+
+>[!INFO] Dynamic Slot Handling
+> The component uses `t[1]` and `t[2]` to conditionally render slots (e.g., placeholder text or close button). If `t[1]`/`t[2]` is falsy, it falls back to a default value (e.g., `" Generation modal coming soon..."`).
+
+>[!WARNING] Closure Dependency
+> The `close` button’s `onClick` uses a closure (`x => l.$emit("close")`), where `l` is the component’s `setup` return object. Ensure the parent component properly emits the `close` event to avoid errors.

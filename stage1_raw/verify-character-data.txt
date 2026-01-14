@@ -1,0 +1,48 @@
+### TAGS
+#verification
+#backend-frontend-integration
+#character-data-validation
+#axios
+#health-check
+
+### TYPE
+code-test
+
+### SUMMARY
+Validates character data consistency between frontend and backend APIs for a development environment.
+
+### DETAILS
+This script performs a multi-step verification of character data availability across frontend and backend systems. It checks:
+1. Frontend accessibility via a basic HTTP request
+2. Character detail page content presence
+3. Backend health status
+4. Character data availability in the main API endpoint
+5. Character-specific data in the elements API (with element_type='character')
+
+The verification specifically looks for character ID 289 across both data sources, logging detailed information about found data or errors encountered.
+
+### KEY_FUNCTIONS
+- **verifyCharacterData()**: Orchestrates the complete verification workflow with nested error handling.
+- **characterResponse.data.includes()**: Checks for basic character content in frontend response.
+- **characterApiResponse.data.characters.find()**: Locates character 289 in the main characters endpoint.
+- **elementsApiResponse.data.elements.find()**: Locates character 289 in the elements API with type filtering.
+
+### DEPENDENCIES
+axios, local backend servers at ports 5000 and 5173
+
+### USAGE
+1. Requires Node.js environment with axios installed
+2. Runs against localhost endpoints (5000 for backend, 5173 for frontend)
+3. Verifies character data consistency by checking both frontend display and backend storage
+4. Outputs detailed verification results including success/failure statuses
+
+### RELATED
+[[Character Data API Documentation]], [[Backend Frontend Integration Guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> Character ID 289 is hardcoded for verification - adjust if testing different characters.
+> The script intentionally logs 401 errors as expected for protected endpoints.
+>[!WARNING]- Caution
+> Running this on production systems may expose sensitive endpoints during testing.
+> Verify all endpoints match expected URLs before execution in production environments.

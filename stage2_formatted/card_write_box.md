@@ -1,0 +1,72 @@
+**Tags:** #database, #card-management, #authentication, #validation, #logging
+**Created:** 2026-01-13
+**Type:** documentation
+
+# card_write_box
+
+## Summary
+
+```
+Handles creation of new card records with validation and security checks in a database system.
+```
+
+## Details
+
+> The `CardWriteBox` class implements a box interface for creating new card records in a database. It validates required fields (e.g., `world_id`, `user_id`, `card_type`, `card_name`), checks user-world ownership, and processes optional fields like timestamps and metadata. The class uses SQLAlchemy for database operations and includes comprehensive error handling with logging.
+
+## Key Functions
+
+### ``execute(input_data`
+
+BoxInput) -> BoxOutput`**: Core function that processes input data, validates it, creates a new card, and returns the result or error.
+
+### ``_parse_timestamp(timestamp_str)``
+
+Helper method to parse timestamp strings in various formats (ISO, YYYY-MM-DD, or historical formats like 610).
+
+## Usage
+
+1. **Input Requirements**:
+   - `card_data`: Dictionary containing card fields (e.g., `world_id`, `card_name`, `card_type`).
+   - `user_id`: User identifier for security checks.
+
+2. **Execution**:
+   - Call `execute()` with a `BoxInput` object containing validated data.
+   - Returns a `BoxOutput` with success status, serialized card data, or error messages.
+
+3. **Example Input**:
+   ```python
+   input_data = BoxInput(
+       data={
+           'card_data': {
+               'world_id': 1,
+               'card_name': 'Example Card',
+               'card_type': 'artifact',
+               'timestamp': '2023-01-01',
+               ...
+           },
+           'user_id': 10
+       }
+   )
+   ```
+
+## Dependencies
+
+> ``..core.box_interface``
+> ``models.db``
+> ``models.Card``
+> ``models.World``
+> ``logging``
+> ``datetime``
+
+## Related
+
+- [[Card Model Documentation]]
+- [[Box Interface Specification]]
+- [[World Model Documentation]]
+
+>[!INFO] Required Fields
+> Mandatory fields (`world_id`, `user_id`, `card_type`, `card_name`) must be provided in `card_data`. Missing any will trigger validation errors.
+
+>[!WARNING] Database Rollback
+> If an error occurs during card creation, the database session is rolled back to maintain consistency. Ensure transactions are handled carefully in larger workflows.

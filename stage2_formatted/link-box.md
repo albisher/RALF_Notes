@@ -1,0 +1,68 @@
+**Tags:** #UI Component, #Link Management, #Card Display, #Relationship Handling
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# link-box
+
+## Summary
+
+```
+A utility module for creating interactive link boxes in a UI framework, handling card selection, preview, and relationship management.
+```
+
+## Details
+
+> This module (`LinkBox`) consolidates components for managing links between entities (likely cards or nodes in a knowledge graph or database). It uses helper functions (`UIBoxes.card()` and `UIBoxes.entityItem()`) to render interactive UI elements. The `availableCardsList` function dynamically generates a list of cards with toggle functionality, while `linkPreview` and `linkControls` manage relationship selection and creation workflows. The module exports as a CommonJS module for external use.
+
+## Key Functions
+
+### ``availableCardsList(cards, selectedCards, onToggle, filters)``
+
+Renders a list of cards with toggleable selection, using `UIBoxes.card()` for rendering and `UIBoxes.entityItem()` for entity interactions.
+
+### ``linkPreview(selectedItems, relationshipType, onRelationshipTypeChange)``
+
+Displays a preview of selected items and allows users to choose a relationship type (e.g., "related," "parent").
+
+### ``linkControls(onCreateLink, onMakeCard, relationshipType, onRelationshipTypeChange)``
+
+Provides UI controls for creating or modifying links between entities, including relationship type selection.
+
+## Usage
+
+To use `LinkBox`, import it and call its functions:
+```javascript
+import LinkBox from './link-box.js';
+
+// Example: Render a list of available cards
+const cards = [{ id: 1, title: "Card 1" }];
+const selectedCards = [];
+const onToggle = (card) => { /* handle toggle */ };
+const filters = { /* optional filters */ };
+
+const { cards: renderedCards, ...rest } = LinkBox.availableCardsList(cards, selectedCards, onToggle, filters);
+
+// Example: Use link preview
+const selectedItems = [{ id: 1 }];
+const relationshipType = "related";
+const onRelationshipTypeChange = (type) => { /* handle change */ };
+
+const preview = LinkBox.linkPreview(selectedItems, relationshipType, onRelationshipTypeChange);
+```
+
+## Dependencies
+
+> ``UIBoxes` (internal utility for rendering cards and entity items)`
+> `no external dependencies listed.`
+
+## Related
+
+- [[boxes]]
+- [[UI design patterns for interactive lists]]
+
+>[!INFO] **Dynamic Rendering**
+> The `availableCardsList` function dynamically renders cards using `UIBoxes.card()`, which may require `UIBoxes` to be available before calling this function. If `UIBoxes` is undefined, it returns the raw `cards` array unchanged.
+
+
+>[!WARNING] **Dependency Risk**
+> If `UIBoxes` is not properly loaded, the `createCardBoxes` helper will return the original `cards` array, potentially breaking interactive functionality. Ensure `UIBoxes` is initialized before calling `LinkBox.availableCardsList`.

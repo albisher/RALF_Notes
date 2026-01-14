@@ -1,0 +1,39 @@
+### TAGS
+#CSS-Debugging
+#Puppeteer
+#Frontend-Testing
+#Tailwind-CSS
+#Automated-Testing
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automated CSS inspection tool using Puppeteer to debug Tailwind CSS styling and layout issues in a web application.
+
+### DETAILS
+This script automates the login and navigation to a web application running on `localhost:8443`, then evaluates the rendered DOM to inspect the `main` and `#dashboard-page` elements. It checks for Tailwind CSS presence, class names (e.g., `p-6`), computed styles (padding), and CSS rule overrides affecting the `main` element. The debug output logs Tailwind detection, padding values, and affected CSS rules for troubleshooting layout inconsistencies.
+
+### KEY_FUNCTIONS
+- **CSSDebugTest.runTest()**: Orchestrates browser launch, navigation, login, and DOM inspection via `page.evaluate()`.
+- **page.evaluate() callback**: Extracts Tailwind CSS status, class lists, computed styles, and CSS rule details for `main` and `#dashboard-page`.
+- **CSS rule filtering**: Scans `document.styleSheets` for padding rules targeting `main` elements.
+
+### DEPENDENCIES
+puppeteer, Google Chrome (hardcoded path `/Applications/Google Chrome.app`).
+
+### USAGE
+1. Install dependencies (`npm install puppeteer`).
+2. Run the script (`node css-debug-test.js`).
+3. Configure `baseUrl` and `testCredentials` in the constructor if needed.
+4. Output logs CSS issues (e.g., missing padding, conflicting rules) for debugging.
+
+### RELATED
+[[CSS-Inspection-Guide]], [[Puppeteer-Testing-Examples]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script assumes the target app uses Tailwind CSS via either `<style>` tags or `<link>` elements. If Tailwind is dynamically loaded via JavaScript, `tailwindLoaded` may return `false` prematurely.
+
+>[!WARNING]- Caution
+> Running Puppeteer with `--disable-web-security` bypasses same-origin policies, which could expose the app to security risks if misconfigured. Use only in controlled environments.

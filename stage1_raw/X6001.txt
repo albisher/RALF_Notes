@@ -1,0 +1,36 @@
+### TAGS
+#air_purification
+#space_robot
+#atmospheric_regulation
+#non-terrestrial_technology
+#X-series_robot
+
+### TYPE
+documentation
+
+### SUMMARY
+Documentation for **X6001 (X6)**, a non-terrestrial air purification robot designed for Space Peral’s robotic population.
+
+### DETAILS
+X6001 is an advanced air purification unit developed for maintaining breathable atmospheric conditions in a non-terrestrial environment. It features multi-stage filtration and chemical analysis to remove pollutants, regulate oxygen levels, and manage radiation exposure. The system includes a central white cylindrical base with embedded atmospheric processors and detachable, mobile cyan drones that enhance purification and emergency support capabilities.
+
+### KEY_FUNCTIONS
+- **Atmospheric Filtration**: Removes pollutants and maintains optimal gas levels.
+- **Radiation Management**: Safeguards against harmful radiation in Space Peral’s environment.
+- **Multi-Stage Processing**: Layered filtration for enhanced air quality.
+- **Detachable Drones**: Mobile purification units for emergency support.
+
+### DEPENDENCIES
+None explicitly listed (internal atmospheric processing components).
+
+### USAGE
+Deployed as a base unit in Space Peral’s robotic habitats, X6001 operates autonomously to sustain breathable conditions. The detachable drones can be detached and reassembled for mobility or emergency repairs.
+
+### RELATED
+[[X-series_robot_architecture]], [[Space_Peral_atmospheric_standards]]
+
+### CALLOUTS
+>[!INFO]- Non-Terrestrial Design
+> X6001’s components differ significantly from Earth-based standards, optimized for Space Peral’s unique environmental challenges.
+>[!WARNING]- Radiation Sensitivity
+> Continuous monitoring of radiation levels is critical due to Space Peral’s high radiation exposure, requiring active management protocols.

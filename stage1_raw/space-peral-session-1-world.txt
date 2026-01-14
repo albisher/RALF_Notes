@@ -1,0 +1,44 @@
+### TAGS
+#automation
+#web-scraping
+#puppeteer
+#interactive-web
+#world-building
+#ui-testing
+
+### TYPE
+code-notes
+
+### SUMMARY
+Automates the creation of a custom world in a space-themed web application using Puppeteer.
+
+### DETAILS
+This script automates the process of navigating to a web application (likely a space-themed platform), identifying and interacting with UI elements to create a new world. It uses Puppeteer to launch a browser, simulate user interactions (e.g., clicking buttons, typing text), and captures screenshots at key steps. The script handles error cases and ensures cleanup by closing the browser. The world creation involves filling a form with a predefined name and description before submitting.
+
+### KEY_FUNCTIONS
+- **createSpacePeralWorld**: Orchestrates the entire workflow: browser launch, UI navigation, form interaction, and screenshot capture.
+- **takeScreenshot**: Captures a screenshot of the current page at a specified step, saving it to a `screenshots` directory with a timestamped filename.
+- **button/element selection logic**: Dynamically searches for UI elements (buttons, inputs, textareas) by checking text/placeholder content to identify relevant fields (e.g., "Create World," "name," "description").
+
+### DEPENDENCIES
+puppeteer, fs, path
+
+### USAGE
+1. Install dependencies: `npm install puppeteer fs path`.
+2. Save the script as `space-peral-session-1-world.js` in a directory with a `screenshots` subfolder.
+3. Run the script: `node space-peral-session-1-world.js`.
+4. The script will:
+   - Launch a browser, navigate to `http://localhost:5173`,
+   - Automatically fill a world creation form with predefined text,
+   - Capture screenshots at each step,
+   - Log progress/errors to the console.
+
+### RELATED
+[[Space Peral Application Documentation]], [[Puppeteer Automation Guide]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script assumes the target application is running locally at `http://localhost:5173`. If the URL changes, update the `page.goto()` call accordingly. The placeholder/text checks (`includes('name')`, `includes('description')`) may need adjustment if UI elements change (e.g., Arabic/English text variations).
+
+>[!WARNING]- Caution
+> Running Puppeteer in non-headless mode (`--no-sandbox`) may expose the system to security risks if not used in a controlled environment. Ensure the target application is secure before execution. The script does not handle dynamic UI changes beyond basic text/placeholder checks—manual inspection may be needed for complex interactions.

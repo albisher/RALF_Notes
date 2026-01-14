@@ -1,0 +1,43 @@
+### TAGS
+#visual-concepts
+#architectural-styles
+#urban-design
+#landscaping
+#environmental-conditions
+
+### TYPE
+visual-concepts-reference
+
+### SUMMARY
+Describes conceptual arrangements and states of physical structures or natural elements, useful for creative planning, design, or environmental analysis.
+
+### DETAILS
+This file outlines various conceptual configurations and degradation states of objects, spaces, or landscapes. The terms describe how elements can be arranged physically—such as stacked, glued side by side, or clustered—and how they may deteriorate or evolve over time, like abandoned and overgrown or partially demolished. These concepts are often applied in architecture, urban planning, or environmental design to conceptualize spatial relationships, aesthetics, or functional decay.
+
+### KEY_FUNCTIONS
+- **Stacked**: Vertical arrangement of elements, often layered or nested.
+- **Glued side by side**: Horizontal alignment with adhesive or structural bonds between units.
+- **Clustered**: Grouped together in a dense, compact formation.
+- **Clustered and stacked, overlapping**: Combination of both vertical and horizontal grouping with partial superimposition.
+- **Deformed and twisted**: Irregular, non-linear distortions of form.
+- **Abandoned and overgrown**: Natural or human-induced deterioration with vegetation or decay.
+- **Partially demolished**: Incomplete destruction, retaining some structural integrity.
+
+### DEPENDENCIES
+none (pure conceptual/descriptive terms)
+
+### USAGE
+This list serves as a reference for:
+- **Designers** to conceptualize spatial arrangements or degradation effects.
+- **Urban planners** to visualize land use, maintenance, or regeneration scenarios.
+- **Artists or filmmakers** to inspire visual narratives or environmental themes.
+- **Environmentalists** to analyze ecological or human-induced changes in landscapes.
+
+### RELATED
+[[landscaping-theories]], [[urban-degradation-studies]], [[architectural-forms]], [[environmental-ecology]]
+
+### CALLOUTS
+>[!INFO]- Conceptual Flexibility
+> These terms are abstract and can be adapted to any medium (physical, digital, or conceptual) to describe spatial relationships, decay, or arrangement. Context (e.g., architecture vs. nature) may influence interpretation.
+>[!WARNING]- Ambiguity in Application
+> Terms like "overlapping" or "deformed" may require additional context to avoid misinterpretation. Clarify intended meaning for precise use in design or analysis.

@@ -1,0 +1,71 @@
+**Tags:** #Blender, #3D-Modelling, #Mechanical-Design, #Spherical-Shells, #Boolean-Operations
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# bish
+
+## Summary
+
+```
+Creates a stylized, hollow spherical robot body with detailed mechanical features like a visor, vents, eyes, headphones, antenna, and legs.
+```
+
+## Details
+
+> This script generates a **hollow spherical robot** using Blender’s Python API. It constructs the main body by creating an outer and inner sphere, applying a boolean difference to form a hollow structure. The script then adds specialized features:
+> - **Black lower shell** (truncated sphere) for a segmented appearance.
+> - **Faceplate (visor)** with a curved black inset screen and glowing eyes (line-based).
+> - **Vents (mouth grille)** with cylindrical holes for airflow.
+> - **Headphones and headband** (cylindrical and toroidal components).
+> - **Antenna** (two stacked cylinders).
+> - **Legs** (stylized, multi-part cylindrical shells) positioned at four angles.
+> 
+> The script uses **boolean operations** (e.g., `DIFFERENCE`) and **mesh editing** (e.g., `bmesh`) to refine shapes dynamically. Units are scaled via `unit = 0.001` to ensure consistency with Blender’s default scale.
+
+## Key Functions
+
+### `Boolean Difference`
+
+Applies to hollow body creation and vent hole carving.
+
+### `Mesh Primitive Addition`
+
+Generates spheres, cylinders, cubes, and toruses.
+
+### `Vertex Selection/Deletion`
+
+Trims unwanted parts of the visor and shell.
+
+### `Parenting`
+
+Attaches eyes and vents to the visor/inset.
+
+### `Leg Assembly`
+
+Creates multi-segment cylindrical legs at predefined angles.
+
+## Usage
+
+1. Run in Blender’s **Scripting** workspace.
+2. Clear existing objects with `bpy.ops.object.select_all(action='SELECT')` + `delete`.
+3. Adjust `body_diameter`/`unit` for scaling.
+4. Modify proportions (e.g., `visor_w`, `eye_len`) via multipliers.
+
+## Dependencies
+
+> ``bpy``
+> ``bmesh``
+> ``mathutils.Vector``
+> ``mathutils` (Blender Python API).`
+
+## Related
+
+- [[Blender Python API Docs]]
+- [[Boolean Operations in Blender]]
+- [[3D Robot Design Patterns]]
+
+>[!INFO] **Boolean Modifiers**
+> Use `mod.operation = 'DIFFERENCE'` to subtract inner/outer meshes (e.g., hollow body, vent holes). Apply modifiers with `bpy.ops.object.modifier_apply()`.
+
+>[!WARNING] **Vertex Selection Logic**
+> The script uses **Z-coordinate checks** (`v.co.z > 0`) for the black shell and **axis-based checks** (`visor_w`, `visor_h`) for the visor. Inconsistent thresholds may cause unintended deletions. Test edge cases (e.g., near-axis vertices).

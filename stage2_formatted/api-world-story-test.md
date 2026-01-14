@@ -1,0 +1,58 @@
+**Tags:** #testing, #api-integration, #world-building, #sci-fi, #interdimensional
+**Created:** 2026-01-13
+**Type:** code-test-reference
+
+# api-world-story-test
+
+## Summary
+
+```
+Tests API interaction for creating and managing a sci-fi world with assets, events, and story chapters.
+```
+
+## Details
+
+> This script uses Axios to interact with a local API (`https://localhost:8443/api`) to simulate the creation and testing of a sci-fi world named *Nexus Prime*. It defines test data including a world description, assets (buildings, characters, plants, animals), timeline events, and story chapters. The script ensures directories (`reports` and `generated-stories`) exist before proceeding. It appears designed for automated API validation, likely part of a larger system for world generation or narrative development.
+> 
+> The code bypasses SSL certificate validation for testing self-signed certificates, which is common in local development environments. The test data is structured to reflect a cohesive sci-fi universe with interconnected elements (e.g., assets like the *Quantum Nexus Core* and *Stellar Guardian Alpha* tie into the world’s lore).
+
+## Key Functions
+
+### ``axios` setup`
+
+Ignores SSL certificate errors for local API testing.
+
+### `Directory creation`
+
+Ensures `reports` and `generated-stories` exist with `fs.mkdirSync`.
+
+### `Test data initialization`
+
+Defines `testWorld`, `testAssets`, `timelineEvents`, and `storyChapters` for API payloads.
+
+### `Story chapter content`
+
+Provides narrative details for each chapter (e.g., *Chapter 1: The Convergence*).
+
+## Usage
+
+1. Run the script to validate API endpoints for world creation/asset management.
+2. Replace `BASE_URL` with a production API endpoint if needed.
+3. Extend test data (`testWorld`, `testAssets`, etc.) for additional scenarios.
+
+## Dependencies
+
+> ``axios``
+> ``fs``
+> ``path``
+> ``https` (Node.js core modules).`
+
+## Related
+
+- [[none]]
+
+>[!INFO] Test Data Structure
+> The `testAssets` and `timelineEvents` arrays include placeholders like `world_id: null`—these should be populated after API interaction to link assets to the created world.
+
+>[!WARNING] SSL Security
+> Disabling SSL verification (`rejectUnauthorized: false`) is for testing only. In production, enforce proper certificate validation to avoid security risks.

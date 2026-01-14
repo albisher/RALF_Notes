@@ -1,0 +1,51 @@
+**Tags:** #test-urls, #map-generation, #quick-test, #space-worlds
+**Created:** 2026-01-13
+**Type:** documentation
+
+# TEST_URLS
+
+## Summary
+
+```
+A collection of pre-defined URLs for testing map generation tools across various space-related world types.
+```
+
+## Details
+
+> This document provides a curated list of URLs for testing a map generation application. Users can input these URLs directly into a browser to generate visual maps of predefined space-themed environments, such as planets, galaxies, or space stations. The URLs include query parameters like `hash` (a description for the map), `worldType` (e.g., Planet, Galaxy), and `mapType` (quick/full). The `generate` parameter allows toggling between form population and immediate map rendering.
+
+## Key Functions
+
+### `Map Generation URL`
+
+Constructs and validates URLs for generating space-themed maps with customizable parameters.
+
+### `Quick vs. Full Map Toggle`
+
+Differentiates between rapid preview (`mapType=quick`) and detailed full maps (`mapType=full`).
+
+### `World Type Selection`
+
+Supports predefined world types (Planet, Galaxy, Cloud World, etc.) for consistent testing.
+
+## Usage
+
+1. Copy a URL from the list.
+2. Paste it into a browser’s address bar.
+3. Observe the auto-generated map based on the provided parameters.
+4. Adjust `hash`, `worldType`, or `mapType` to test variations (e.g., `mapType=custom`).
+
+## Dependencies
+
+> `none (standalone documentation)`
+
+## Related
+
+- [[Map Generation Tool Documentation]]
+- [[Space World Design Cheat Sheet]]
+
+>[!INFO] Parameter Notes
+> The `hash` parameter must describe the map’s content (e.g., "rocky planet with mountains"). Omitting optional parameters (like `worldType`) defaults to generic behavior.
+
+>[!WARNING] Localhost Note
+> URLs target `localhost:5174`, so ensure the application is running before testing. Test URLs may not reflect all customization options.

@@ -1,0 +1,38 @@
+### TAGS
+#growth-patterns
+#biological-models
+#plant-simulation
+#spatial-growth
+
+### TYPE
+code-notes
+
+### SUMMARY
+Describes potential trunk growth methods for plant simulation models.
+
+### DETAILS
+This file outlines various simulated growth patterns for a plant’s trunk, including directional, angular, and structural variations. The listed methods represent abstract growth behaviors that could be implemented in computational models to mimic real or idealized plant growth dynamics. These patterns may be used in bio-inspired simulations, game development, or scientific visualization of plant development.
+
+### KEY_FUNCTIONS
+- **90-degree branching**: Trunk splits at 90° angles, resembling rigid branching.
+- **45-degree branching**: Trunk branches at 45° angles, creating a more organic, angled structure.
+- **Normal plant growth**: Linear or controlled growth without abrupt changes.
+- **Spiral pattern**: Trunk curves in a helical trajectory, mimicking natural spiral growth.
+- **Horizontal growth**: Trunk extends strictly left-right without vertical movement.
+- **Vertical growth with no branches**: Straight upward expansion without lateral splits.
+- **Zigzag pattern**: Alternating up/down or side-to-side movement, creating a wavy path.
+
+### DEPENDENCIES
+none
+
+### USAGE
+This list can be referenced in code for procedural generation of plant structures, where developers select or combine growth methods based on desired realism or artistic intent. For implementation, these patterns would typically be parameterized in a growth algorithm or procedural generation system.
+
+### RELATED
+none
+
+### CALLOUTS
+>[!INFO]- Important Note
+> These patterns are conceptual and may require additional constraints (e.g., growth speed, environmental factors) to avoid unrealistic or unstable simulations.
+>[!WARNING]- Caution
+> Overly rigid patterns (e.g., 90° branching) may not reflect natural variability; hybrid approaches (e.g., probabilistic branching) are often more accurate.

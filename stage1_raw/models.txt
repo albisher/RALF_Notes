@@ -1,0 +1,45 @@
+### TAGS
+#database-model
+#flask-sqlalchemy
+#world-building
+#jsonb-storage
+#time-tracking
+
+### TYPE
+code-notes
+
+### SUMMARY
+Database models for a virtual-world creation and timeline management system using SQLAlchemy.
+
+### DETAILS
+This file defines SQLAlchemy models for a **multi-dimensional virtual-world** system, supporting user accounts, world hierarchies, elements, and timelines. The models leverage PostgreSQL’s `JSONB` for flexible metadata storage and include relationships for hierarchical data (e.g., parent-child worlds). Passwords are hashed with `bcrypt`, and timestamps track creation/updates. The `World` model enables nested structures (e.g., universes → planets), while `Timeline` and `TimelineEvent` facilitate event-driven storytelling across worlds.
+
+Key features include:
+- **User-centric worlds** with customizable metadata (e.g., `world_metadata`, `celestial_objects`).
+- **Time systems** with flexible date formats (e.g., "Year 20485") and era-specific configurations.
+- **Cascading deletes** for orphaned relationships (e.g., deleting a user removes their worlds).
+
+### KEY_FUNCTIONS
+- **User**: Manages user accounts with WebAuthn credentials and links to their worlds/preferences.
+- **World**: Core entity representing a virtual space (e.g., planet, colony) with hierarchical parent-child relationships.
+- **WorldElement**: Stores generated content (e.g., characters, buildings) tied to a world and user.
+- **Timeline**: Tracks historical/story events across worlds, with flexible date formats and metadata.
+- **TimelineEvent**: Individual events within a timeline, linked to specific worlds and dates.
+
+### DEPENDENCIES
+`flask_sqlalchemy`, `sqlalchemy.dialects.postgresql.JSONB`, `bcrypt`, `datetime`
+
+### USAGE
+1. Initialize the database with `db.create_all()`.
+2. Create users and worlds via ORM queries (e.g., `User(username="test", password_hash=bcrypt.hashpw(...))`).
+3. Insert `WorldElement` or `TimelineEvent` objects with JSON data for metadata.
+4. Query relationships (e.g., `user.worlds` for all worlds owned by a user).
+
+### RELATED
+[[SQLAlchemy Model Design Guide]], [[PostgreSQL JSONB Usage]], [[Flask-SQLAlchemy Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Time Format Flexibility
+> Events/timelines use flexible date strings (e.g., "Year 20485") for non-linear storytelling. Ensure consistency when querying with `event_date` or `start_date` columns.
+>[!WARNING]- JSONB Security
+> Validate all JSONB data (e.g., `world_metadata`, `celestial_objects`) to prevent SQL injection or malformed inputs. Use schema validation if possible.

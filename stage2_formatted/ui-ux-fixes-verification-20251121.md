@@ -1,0 +1,63 @@
+**Tags:** #CSS, #UI/UX, #Layout, #Grid, #Accessibility, #ResponsiveDesign
+**Created:** 2026-01-13
+**Type:** documentation
+
+# ui-ux-fixes-verification-20251121
+
+## Summary
+
+```
+Fixes UI/UX layout issues in a three-column workflow system by adjusting CSS Grid column distribution for Link, Timeline, and Story stages.
+```
+
+## Details
+
+> This report documents CSS modifications to resolve unequal column width distribution in a three-column layout across Link, Timeline, and Story stages. The original constraints (`minmax(300px, 1fr)` and `min-width: 300px`) prevented equal distribution, forcing uneven widths. The solution replaced these with `repeat(3, minmax(0, 1fr))` and removed arbitrary `min-width` constraints, enabling fluid, equal-width columns. Additional improvements included responsive adjustments for smaller viewports, accessibility compliance, and removal of animations.
+
+## Key Functions
+
+### ``grid-template-columns`
+
+repeat(3, minmax(0, 1fr))`**: Forces equal distribution of three columns by allowing them to shrink to zero width.
+
+### ``min-width`
+
+0`**: Removes the fixed minimum width constraint on columns.
+
+### ``max-width`
+
+100%`**: Ensures columns respect container boundaries.
+
+### ``column` class removal of `min-width`
+
+250px`**: Prevents global constraints on column sizing.
+
+### `Top Timeline adjustments`
+
+Increased height to 150px and switched to flex layout for better visibility.
+
+## Usage
+
+To apply these fixes:
+1. Edit `/Users/amac/Downloads/spq8/ui-beta/src/styles/workflow.css` and update the CSS rules for `.link-stage`, `.timeline-stage`, `.story-stage`, and `.column` classes as shown.
+2. Verify visually using screenshots or browser dev tools to confirm equal column widths (~33% each).
+3. Test responsiveness by resizing the browser window to ensure columns stack correctly on narrower screens.
+
+## Dependencies
+
+> ``/Users/amac/Downloads/spq8/ui-beta/src/styles/workflow.css` (local CSS file)`
+> `external UI/UX testing tools (e.g.`
+> `browser dev tools for visual verification).`
+
+## Related
+
+- [[UX Design Specifications]]
+- [[Responsive Design Guidelines]]
+- [[CSS Grid Best Practices]]
+
+>[!INFO] Root Cause Analysis
+> The original constraints (`minmax(300px, 1fr)` and `min-width: 300px`) enforced rigid column widths, breaking equal distribution when content or container size varied. The fix dynamically adjusts columns to fill available space equally.
+
+
+>[!WARNING] Future-Proofing
+> While the current solution works for typical widths, consider adding media queries (e.g., `<900px`) to stack columns vertically on very narrow screens to avoid usability issues. Monitor content overflow in narrower columns during user testing.

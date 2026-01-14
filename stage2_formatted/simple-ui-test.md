@@ -1,0 +1,73 @@
+**Tags:** #automated-testing, #web-ui-testing, #puppeteer, #frontend-testing, #ui-interaction
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# simple-ui-test
+
+## Summary
+
+```
+Automated UI test script for a web application using Puppeteer to interact with and validate user interface elements.
+```
+
+## Details
+
+> This script automates a simple UI workflow for a web application, leveraging Puppeteer to launch a browser, navigate to a local web app, and interact with UI elements. It captures screenshots at key stages, logs interactions, and handles errors gracefully. The test sequence includes loading the app, locating and clicking a "Create World" button, filling a form with world details, submitting the form, and navigating to the workspace.
+
+## Key Functions
+
+### ``simpleUITest()``
+
+Orchestrates the entire UI test workflow, including browser launch, navigation, UI interactions, and screenshot capture.
+
+### ``puppeteer.launch()``
+
+Configures and starts a browser instance with customizable options (e.g., headless mode, security flags).
+
+### ``page.goto()``
+
+Navigates to the target URL (`http://localhost:5173`) with timeout and DOM content loading wait.
+
+### ``page.$$()``
+
+Selects multiple matching elements (e.g., buttons, inputs) using CSS selectors.
+
+### ``page.evaluate()``
+
+Executes JavaScript in the context of a selected element to extract text/content.
+
+### ``page.screenshot()``
+
+Captures the page state as a screenshot at specified paths.
+
+### ``page.keyboard.type()``
+
+Simulates typing into form inputs.
+
+### ``browser.close()``
+
+Ensures cleanup of the browser process after testing.
+
+## Usage
+
+1. Install Puppeteer (`npm install puppeteer`).
+2. Ensure the target web app is running locally at `http://localhost:5173`.
+3. Run the script (`node simple-ui-test.js`).
+4. Screenshots will be saved in a `screenshots/` directory.
+
+## Dependencies
+
+> `puppeteer`
+> `fs`
+> `path`
+
+## Related
+
+- [[Error Handling in UI Automation]]
+- [[Puppeteer Best Practices]]
+
+>[!INFO] Important Note
+> The script uses `--disable-web-security` and `--disable-setuid-sandbox`, which may violate security best practices for production environments. Use only in controlled test environments.
+
+>[!WARNING] Caution
+> The test assumes the UI structure matches expected selectors (e.g., button/textarea IDs). If the app changes, selectors may break, requiring updates to the script.

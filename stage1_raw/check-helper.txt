@@ -1,0 +1,71 @@
+### TAGS
+#utility-library
+#testing-framework
+#web-scraping
+#screenshot-tools
+#api-testing
+#reporting
+
+### TYPE
+code-library
+
+### SUMMARY
+A reusable helper class for automated testing, logging, and reporting in Node.js applications, including checks, screenshots, and API validation.
+
+### DETAILS
+`CheckHelper` is a utility class designed to streamline automated testing workflows by providing modular methods for tracking check results, capturing screenshots, verifying elements, and generating detailed reports. It integrates with Node.js core modules (`fs`, `path`) and third-party libraries (`fs-extra`, `chalk`, `moment`) for enhanced functionality. The class maintains a history of test results, logs statuses with colored console output, and supports asynchronous operations for browser automation (via Puppeteer-like APIs) and API testing.
+
+Key features include:
+- **Result tracking** with timestamps, durations, and statuses (pass/fail/warning).
+- **Screenshot capture** with configurable folder structures.
+- **Element verification** (existence, text content, page title).
+- **Console error monitoring**.
+- **API endpoint validation** with SSL handling.
+- **Comprehensive reporting** in JSON format with summary statistics.
+
+### KEY_FUNCTIONS
+- **`addResult(checkName, status, details)`**: Records a test check with metadata and logs status via colored console output.
+- **`takeScreenshot(page, name, config, folderType)`**: Captures a screenshot from a browser page and organizes it into a structured directory.
+- **`waitForElement(page, selector, timeout)`**: Asynchronously waits for an element to appear within a timeout period.
+- **`elementExists(page, selector)`**: Checks if an element selector resolves to a valid DOM element.
+- **`getElementText(page, selector)`**: Extracts text content from an element using `$eval`.
+- **`checkPageTitle(page, expectedTitle)`**: Verifies if the page title contains the expected substring.
+- **`getConsoleErrors(page)`**: Collects all error messages logged to the browser console.
+- **`generateReport(config)`**: Compiles a structured JSON report with aggregated results, saves it to disk, and prints a summary to the console.
+- **`generateSummary()`**: Creates a high-level summary of test outcomes (pass/fail/warnings) and recommendations.
+- **`checkApiEndpoint(url, method, data, headers)`**: Validates an API endpoint with configurable HTTP method, data, and headers, handling SSL validation errors gracefully.
+
+### DEPENDENCIES
+`fs-extra`, `path`, `chalk`, `moment`, `axios`, `https` (inlined for API checks).
+
+### USAGE
+1. **Initialize**: Create an instance of `CheckHelper`:
+   ```javascript
+   const helper = new CheckHelper();
+   ```
+2. **Track Checks**: Call `addResult()` for each test:
+   ```javascript
+   helper.addResult('Login Check', 'pass', { message: 'User logged in successfully' });
+   ```
+3. **Capture Screenshots**: Use `takeScreenshot()` with a browser page:
+   ```javascript
+   const screenshot = await helper.takeScreenshot(page, 'homepage', config);
+   ```
+4. **Generate Reports**: After all checks, call `generateReport()`:
+   ```javascript
+   await helper.generateReport(config);
+   ```
+5. **API Testing**: Use `checkApiEndpoint()`:
+   ```javascript
+   const apiResult = await helper.checkApiEndpoint('https://api.example.com/data', 'POST', { key: 'value' });
+   ```
+
+### RELATED
+[[Node.js Testing Utilities]], [[Puppeteer/Playwright Helper Modules]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> This class assumes a Node.js environment with Puppeteer-like browser automation capabilities. For standalone API checks, inline `axios` and `https` are required, which may introduce temporary dependencies.
+
+>[!WARNING]- Caution
+> SSL validation in `checkApiEndpoint()` is intentionally relaxed for testing; production use should enforce stricter validation. Screenshot paths are resolved dynamically; ensure `config.screenshots.directory` exists before execution.

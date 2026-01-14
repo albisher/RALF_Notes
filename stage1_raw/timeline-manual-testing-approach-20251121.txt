@@ -1,0 +1,45 @@
+### TAGS
+#manual-testing
+#ui-testing
+#developer-guidelines
+#project-workflow
+#documentation
+
+### TYPE
+documentation
+
+### SUMMARY
+Manual testing approach for timeline UI updates, replacing automated browser testing with structured user-led verification.
+
+### DETAILS
+This document outlines a shift from automated browser testing to manual testing for a timeline UI project. It details updated project rules, code changes, and a comprehensive testing guide covering 18 tests across six suites. The workflow emphasizes user-led verification, feedback iteration, and structured documentation to ensure quality before production deployment.
+
+### KEY_FUNCTIONS
+- **`ui-beta/src/styles/workflow.css`**: Manages column grid layout (`1.2fr 1.5fr 1.3fr`) and spacing (`24px gap`, `24px 32px padding`).
+- **`ui-beta/src/components/stages/TimelineStage.vue`**: Handles event management (add/edit/delete), `worldId` string conversion, and key year logic.
+- **`docs/manual-testing/timeline-ui-testing-guide.md`**: Provides step-by-step test suites (e.g., layout verification, event operations) with pass/fail criteria.
+- **`.cursor/rules/browser-testing.mdc`**: Enforces manual testing by prohibiting automated browser tools unless explicitly requested.
+- **`.cursor/rules/project_ui_check.mdc`**: Updated to exclude Puppeteer automation, prioritizing manual workflows.
+
+### DEPENDENCIES
+`Vue.js`, `CSS`, manual browser testing tools (e.g., browser dev tools), Obsidian/Markdown for documentation.
+
+### USAGE
+**Developers:**
+1. Review code changes in `ui-beta` (CSS/Vue).
+2. Document modifications and expected behavior.
+3. Provide the manual testing guide (`docs/manual-testing/timeline-ui-testing-guide.md`) to users.
+
+**Testers/Users:**
+1. Open the guide, follow test suites (30–45 mins).
+2. Document pass/fail results and issues.
+3. Submit feedback for iterative fixes.
+
+### RELATED
+[[`project_ui_check.mdc`]], [[`browser-testing.mdc`]], [[`manual-testing-guide.md`]]
+
+### CALLOUTS
+>[!INFO]- **Key Transition**
+> The shift from automated to manual testing ensures user-centric validation, reducing reliance on browser automation tools while maintaining thorough coverage.
+>[!WARNING]- **Critical Compliance**
+> Users must adhere to the manual testing guide—skipping steps risks incomplete verification, potentially introducing UX/functional bugs.

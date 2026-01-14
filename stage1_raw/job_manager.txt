@@ -1,0 +1,44 @@
+### TAGS
+#threading
+#job-management
+#state-tracking
+#concurrency-control
+#time-based-cleanup
+
+### TYPE
+documentation
+
+### SUMMARY
+Manages job lifecycle, state, and cleanup for map generation tasks with thread-safe operations.
+
+### DETAILS
+The `JobManager` class handles job creation, retrieval, updates, cancellation, and automatic cleanup of stale jobs. It uses a dictionary (`self.jobs`) to store job metadata, protected by a threading lock to ensure thread safety. Jobs are marked as "queued" or "processing" initially, and their status can be updated dynamically. The class enforces a **1-hour max age** (`max_job_age`) for completed/failed jobs to prevent memory leaks while ensuring UI components can still fetch recent jobs. The `cleanup_old_jobs()` method removes expired jobs periodically.
+
+### KEY_FUNCTIONS
+- **`create_job(job_id: str, request_data: Dict)`**: Initializes a new job with default status (`"queued"`) and metadata.
+- **`get_job(job_id: str) -> Optional[Dict]`**: Retrieves a job by ID (thread-safe).
+- **`update_job(job_id: str, updates: Dict)`**: Updates job fields (e.g., progress, error) and timestamps.
+- **`cancel_job(job_id: str) -> bool`**: Sets job status to `"cancelled"` if it’s queued/processing.
+- **`cleanup_old_jobs()`**: Removes jobs older than `max_job_age` (e.g., `"completed"` or `"failed"`).
+- **`get_all_jobs() -> Dict[str, Dict]`**: Returns a copy of all jobs (for monitoring).
+
+### DEPENDENCIES
+`threading`, `time`, `typing.Dict`, `typing.Optional`
+
+### USAGE
+1. **Initialize**: Create an instance of `JobManager`.
+2. **Track Jobs**:
+   - Call `create_job()` to start a new job.
+   - Use `update_job()` to modify progress/error status.
+   - Call `cancel_job()` to halt a job.
+3. **Monitor Jobs**: Fetch jobs via `get_job()` or `get_all_jobs()`.
+4. **Cleanup**: Call `cleanup_old_jobs()` manually or let it run in a background thread (e.g., every hour).
+
+### RELATED
+[[Job State Transitions]], [[Thread-Safe Data Structures]]
+
+### CALLOUTS
+>[!INFO]- Thread Safety
+> All methods use `threading.Lock()` to prevent race conditions when modifying `self.jobs`. Always call methods sequentially or with proper synchronization.
+>[!WARNING]- Max Age Limitation
+> Reducing `max_job_age` from 24h to 1h ensures jobs persist long enough for UI updates but risks losing older jobs. Adjust based on system requirements.

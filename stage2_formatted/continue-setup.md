@@ -1,0 +1,59 @@
+**Tags:** #AI-Assistant, #DevOps, #Vue.js, #Python, #Flask, #Docker, #OpenAI, #Perplexity, #Local-Cloud-Hybrid
+**Created:** 2026-01-13
+**Type:** documentation
+
+# continue-setup
+
+## Summary
+
+```
+Configures and documents an AI-powered development assistant for Space Pearl, integrating Vue.js and Python Flask with local/online model support.
+```
+
+## Details
+
+> This file outlines the setup for **Continue**, an AI assistant for the Space Pearl project, combining Vue.js frontend and Python Flask backend development. It defines supported models (local/online), context providers, and slash commands for domain-specific assistance. The configuration includes Docker-based deployment, API endpoints, and environment variables for authentication.
+
+## Key Functions
+
+### ``docker-compose up continue``
+
+Starts the Continue container for local access.
+
+### ``http`
+
+//localhost:8443/continue/`**: Accesses the Continue web interface via proxy.
+
+### ``http`
+
+//continue:8080`**: Exposes the Continue API for programmatic interactions.
+
+### ``./scripts/validate-continue.sh``
+
+Validates configuration compliance.
+
+## Usage
+
+1. **Deploy**: Run `docker-compose up continue` to start the container.
+2. **Access**: Use the proxy at `http://localhost:8443/continue/` or interact via the API.
+3. **Configure**: Set environment variables (`PERPLEXITY_API_KEY`, `OPENAI_API_KEY`) for authentication.
+4. **Validate**: Execute `./scripts/validate-continue.sh` to check setup validity.
+
+## Dependencies
+
+> `Docker`
+> `Docker Compose`
+> `Perplexity API`
+> `OpenAI API (optional)`
+> `Ollama (for local CodeLlama).`
+
+## Related
+
+- [[Space Pearl Project Documentation]]
+- [[AI-Assistant Deployment Guide]]
+
+>[!INFO] **Model Selection**
+> Choose between local (`CodeLlama`) or online (`Perplexity Sonar`) models based on availability and performance needs.
+
+>[!WARNING] **API Key Security**
+> Store `PERPLEXITY_API_KEY` securely (e.g., in `.env` or secrets manager) to avoid unauthorized access.

@@ -1,0 +1,41 @@
+### TAGS
+#API-Integration
+#Map-Generation
+#Service-Box
+#Asynchronous-Processing
+#Error-Handling
+
+### TYPE
+code-notes
+
+### SUMMARY
+Handles map generation via isolated service, supporting generate, status, result, and cancel operations with configurable parameters.
+
+### DETAILS
+This `MapGeneratorServiceBox` class extends a base `Box` class to interact with an external map generation service. It processes four primary operations: `generate`, `status`, `result`, and `cancel`. The `_executeInternal` method routes requests to corresponding private methods, while `_generateMap` handles the core logic of sending map generation parameters to the service. Default values are provided for optional parameters like `seed` and `resolution`. The service URL is dynamically fetched from environment variables or defaults to `localhost:5002`. Error handling is robust, categorizing issues into validation, execution, or external API failures.
+
+### KEY_FUNCTIONS
+- **`_executeInternal(inputData)`**: Orchestrates operation routing and error handling for all supported commands.
+- **`_generateMap(params)`**: Initiates map generation with validated parameters and returns success/error responses.
+- **`_getStatus(jobId)`**: Checks the progress of a pending map generation job by its ID.
+- **`_getResult(jobId)`**: Retrieves the final generated map data upon completion.
+- **`_cancelJob(jobId)`**: Aborts an ongoing map generation job.
+
+### DEPENDENCIES
+`../core/box_interface.js` (Box class and utilities), `BoxOutput`, `BoxErrorCode`, `BoxErrorCategory` (from the same module).
+
+### USAGE
+1. Initialize the box with `new MapGeneratorServiceBox()`.
+2. Call `_executeInternal` with an input object containing an `operation` (e.g., `generate`) and relevant parameters.
+3. Handle responses: `BoxOutput.success` for valid results or `BoxOutput.error` for failures.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Default Parameters
+> Default values (e.g., `seed = Date.now().toString()`) ensure flexibility without requiring user input for optional fields.
+>[!WARNING]- Job ID Validation
+> Missing `job_id` in `status`/`result`/`cancel` operations triggers a validation error, emphasizing its critical role in tracking jobs.
+>[!INFO]- Timeout Handling
+> The service supports parallel operations with a 2-minute timeout (`120000ms`), preventing indefinite hangs.

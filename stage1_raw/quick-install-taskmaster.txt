@@ -1,0 +1,36 @@
+### TAGS
+#bash-script
+#package-manager
+#npm
+#global-install
+#task-automation
+
+### TYPE
+configuration
+
+### SUMMARY
+Script automates global installation and verification of the Task Master CLI tool.
+
+### DETAILS
+This script performs a streamlined installation of the `task-master` CLI tool globally using npm if it is not already present. It checks for the tool’s version, installs it if missing, and verifies the installation. The script also includes a quick setup check for AI provider API key configuration. If the tool is not found after installation, it provides troubleshooting steps, such as restarting the terminal or updating the PATH to include npm global binaries.
+
+### KEY_FUNCTIONS
+- **`task-master --version`**: Checks if the CLI tool is installed and displays its version.
+- **`npm install -g task-master-ai`**: Installs the `task-master` globally via npm if not already installed.
+- **`task-master models --status`**: Verifies AI provider setup (triggers a warning if no API key is configured).
+
+### DEPENDENCIES
+npm (Node Package Manager), Node.js runtime environment
+
+### USAGE
+1. Run the script in a terminal to install and verify `task-master` globally.
+2. After installation, test commands like `/project:help` to explore available features.
+
+### RELATED
+[[none]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> If you encounter a "command not found" error after installation, ensure your terminal is restarted or run `export PATH=$(npm bin -g):$PATH` to include npm global binaries in your PATH.
+>[!WARNING]- Missing Setup
+> If `task-master models --status` fails, you must manually configure an AI provider API key for full functionality.

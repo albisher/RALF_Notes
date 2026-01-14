@@ -1,0 +1,38 @@
+### TAGS
+#biome_plants
+#shallow_ocean
+#underwater_ecosystems
+#biome_types
+
+### TYPE
+documentation
+
+### SUMMARY
+Describes plant types found in shallow ocean biomes, emphasizing kelp forests, algae mats, and buoyant flora.
+
+### DETAILS
+This file outlines distinct plant types characteristic of shallow ocean environments, including kelp-like structures forming underwater forests, bioluminescent algae forming dense mats, and floating gas plants that provide buoyancy. These plants support marine ecosystems by offering habitat, food, and oxygen, while also influencing water chemistry and light penetration.
+
+### KEY_FUNCTIONS
+- **Kelp-like Underwater Forest**: Forms dense vertical canopies, providing shelter for marine life and acting as a carbon sink.
+- **Bioluminescent Algae Mat**: Produces light through bioluminescence, attracting predators and creating visually striking underwater landscapes.
+- **Floating Gas Plant (buoyant)**: Uses gas-filled structures to rise to the surface, aiding in nutrient distribution and aiding in photosynthesis.
+- **Grass-like Groundcover**: Covers shallow seabeds, stabilizing sediment and providing a base for smaller marine organisms.
+
+### DEPENDENCIES
+none (generic biome plant taxonomy)
+
+### USAGE
+This list can be used in:
+- **Game/Simulation Design**: Defining plant interactions, growth mechanics, and visual/audio effects in shallow ocean biomes.
+- **Ecosystem Modeling**: Simulating nutrient cycling, predator-prey dynamics, and habitat fragmentation.
+- **Documentation**: Describing marine flora for educational or conservation purposes.
+
+### RELATED
+[[Biome_Shallow_Ocean_Animal_Types]], [[Underwater_Ecosystem_Interactions]]
+
+### CALLOUTS
+>[!INFO]- Ecological Role
+> These plants are foundational in shallow marine ecosystems, influencing biodiversity and carbon sequestration. Kelp forests, for example, can support up to 100 species per hectare.
+>[!WARNING]- Environmental Stress
+> Overharvesting or pollution (e.g., plastic debris) can degrade these plant communities, disrupting food webs and habitat stability.

@@ -1,0 +1,67 @@
+**Tags:** #task-management, #bash-scripting, #status-filtering, #workflow-visualization, #priority-grouping
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# list-tasks-by-status
+
+## Summary
+
+```
+A script to list tasks filtered by a predefined status, enhancing visibility with priority grouping and deadline alerts.
+```
+
+## Details
+
+> This script dynamically parses a user-provided status argument and executes a `task-master` command to retrieve only matching tasks. It extends basic filtering with visual enhancements: grouping tasks by priority within each status, showing real-time status duration, and highlighting near-deadline tasks. The script also dynamically generates actionable insights (e.g., recommended start order for pending tasks, idle time warnings for in-progress tasks) to improve workflow efficiency.
+
+## Key Functions
+
+### ``parse_status``
+
+Extracts and validates the input status from `$ARGUMENTS`.
+
+### ``execute_task_master``
+
+Runs the underlying `task-master list --status=<status>` command.
+
+### ``enhance_display``
+
+Applies formatting (grouping, deadlines, blockers) and generates intelligent insights per status group.
+
+### ``generate_insights``
+
+Conditionally provides actionable recommendations (e.g., "Review duration: 4 days" or "Reactivate criteria: 30 days").
+
+## Usage
+
+1. Pass a status argument (e.g., `./list-tasks-by-status.sh pending`).
+2. The script:
+   - Filters tasks via `task-master`.
+   - Groups by priority within the status.
+   - Displays dynamic insights (e.g., "High-priority tasks: 3/5").
+   - Highlights tasks with deadlines < 3 days.
+3. Example output:
+   ```
+   ===== PENDING (Priority: High) =====
+   - Task A (Deadline: 2 days) → [Start now]
+   - Task B (Blocked: Depends on X)
+   ```
+
+## Dependencies
+
+> ``task-master` (CLI tool for task management)`
+> ``bash` (shell scripting)`
+> `optional: `jq` (for JSON parsing if `task-master` outputs structured data).`
+
+## Related
+
+- [[`task-master` CLI documentation]]
+- [[`bash-scripting-guidelines`]]
+- [[`workflow-visualization-tools`]]
+
+>[!INFO] Important Note
+> **Status Validation**: The script assumes `$ARGUMENTS` matches one of the predefined options (`pending`, `in-progress`, etc.). Add input sanitization (e.g., `case "$ARGUMENTS" in ... esac`) to reject invalid inputs.
+>
+
+>[!WARNING] Caution
+> **Task-Master Dependency**: If `task-master` fails, the script exits silently. Add error handling (e.g., `set -e` + `trap`) to log failures explicitly.

@@ -1,0 +1,51 @@
+### TAGS
+#NotificationService
+#EventBus
+#SingletonPattern
+#ReactJS/JSFramework
+
+### TYPE
+code-notes
+
+### SUMMARY
+Centralized toast notification handler for event-driven UI updates with subscriber-based messaging.
+
+### DETAILS
+This `ToastService` implements a lightweight event bus for toast notifications, allowing components to subscribe to toast events and receive them via callbacks. The service uses a singleton pattern (`toastService`) to ensure global access. Subscribers register callbacks that execute when a new toast is created, while the `show()` method generates toast objects with IDs, messages, types, and durations before broadcasting them to all subscribers. Default durations vary by toast type (e.g., success/error use 3s/5s).
+
+### KEY_FUNCTIONS
+- **subscribe(callback)**: Registers a callback to receive toast notifications.
+- **notify(toast)**: Broadcasts a toast object to all subscribed callbacks.
+- **success(message, duration)**: Creates a success toast with default 3s duration.
+- **error(message, duration)**: Creates an error toast with default 5s duration.
+- **warning(message, duration)**: Creates a warning toast with default 4s duration.
+- **info(message, duration)**: Creates an info toast with default 3s duration.
+- **show(message, type, duration)**: Core method generating toast objects and triggering notifications.
+
+### DEPENDENCIES
+none (pure JavaScript, no external libraries)
+
+### USAGE
+1. Import the singleton `toastService`:
+   ```js
+   import { toastService } from './services/toast-service';
+   ```
+2. Subscribe to toast events:
+   ```js
+   toastService.subscribe((toast) => {
+       console.log(`Toast: ${toast.message} (${toast.type})`);
+   });
+3. Trigger a toast:
+   ```js
+   toastService.success("Operation completed!");
+   toastService.error("Failed to save data!");
+   ```
+
+### RELATED
+[[ToastNotificationPatterns]], [[EventBusArchitecture]]
+
+### CALLOUTS
+>[!INFO]- Singleton Pattern
+> Ensures a single instance of `ToastService` is shared across the application, avoiding duplicate subscriptions and state management conflicts.
+>[!WARNING]- Callback Overhead
+> Subscribers must handle potential race conditions if multiple calls occur simultaneously (e.g., rapid toast generation). Consider debouncing or throttling callbacks if needed.

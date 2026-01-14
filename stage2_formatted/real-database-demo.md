@@ -1,0 +1,58 @@
+**Tags:** #automated-web-testing, #puppeteer, #database-interaction, #frontend-interaction, #cyberpunk-demo
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# real-database-demo
+
+## Summary
+
+```
+Automated demo script for interacting with a frontend application (likely a writing/editor tool) to create and manage a "world" (database record) using Puppeteer.
+```
+
+## Details
+
+> This script uses Puppeteer to automate interactions with a frontend application (running locally on port 5173) to simulate creating a "world" entry, which appears to map to a database record in a system called "ملاحم" (Malahim). The demo captures screenshots at each step for verification. It handles navigation, form filling, and submission while logging progress. The script includes fallback logic if UI elements are not found, such as direct navigation if the workspace link is missing.
+
+## Key Functions
+
+### `realDatabaseDemo`
+
+Orchestrates the full workflow of loading the app, navigating to workspace, creating a world, and returning to workspace.
+
+### `takeScreenshot`
+
+Captures a full-page screenshot at specified steps with timestamped filenames.
+
+### `page.goto()`
+
+Handles navigation to different application pages with error handling for timeouts.
+
+### `Element selectors`
+
+Uses XPath-like selectors (e.g., `a[href="/workspace"]`, `button[data-testid="create-world"]`) to locate interactive UI elements.
+
+## Usage
+
+1. Install dependencies (`npm install puppeteer fs path`).
+2. Run the script (`node real-database-demo.js`).
+3. Ensure the application (`http://localhost:5173`) is running before execution.
+4. The script logs progress and saves screenshots to a `screenshots/database-demo` directory.
+
+## Dependencies
+
+> `puppeteer`
+> `fs`
+> `path`
+
+## Related
+
+- [[Malahim Application Documentation]]
+- [[Puppeteer Automation Guide]]
+
+>[!INFO] Important Note
+> The script assumes the application uses Arabic placeholders (e.g., `input[placeholder*="اسم"]`) and English placeholders (e.g., `input[placeholder*="name"]`). Adjust selectors if UI changes.
+>
+
+>[!WARNING] Caution
+> Running Puppeteer in non-headless mode (`--no-sandbox`) may expose the system to security risks. Use only in trusted environments. The demo includes disabling security features (`--disable-web-security`), which is unsafe for production.

@@ -1,0 +1,58 @@
+**Tags:** #database-query, #filtering, #world-record, #sqlalchemy, #box-pattern
+**Created:** 2026-01-13
+**Type:** documentation
+
+# world_read_box
+
+## Summary
+
+```
+Handles fetching and filtering World records from a database with configurable sorting and count.
+```
+
+## Details
+
+> This `WorldReadBox` class implements a box interface for querying World records from a SQLAlchemy database. It accepts filter criteria (e.g., `user_id`, `world_type`) and an optional `order_by` field (defaulting to `created_at`). The box constructs a query dynamically, applies filters, counts matching records, orders results, and serializes them into dictionaries. Error handling logs exceptions and returns a failure response.
+
+## Key Functions
+
+### ``__init__(self, name='world_read')``
+
+Initializes the box with a default name and description.
+
+### ``execute(self, input_data`
+
+BoxInput) -> BoxOutput`**: Core method that processes input filters, executes the query, and returns structured results.
+
+## Usage
+
+1. Pass an input dictionary with `filters` (e.g., `{'user_id': 4}`) and optionally `order_by` (e.g., `'created_at'`).
+2. The box returns a `BoxOutput` containing:
+   - `worlds`: List of dictionaries with filtered/ordered records.
+   - `count`: Total matching records.
+3. Example:
+   ```python
+   input_data = BoxInput(data={'filters': {'user_id': 4}, 'order_by': 'name'})
+   result = world_box.execute(input_data)
+   ```
+
+## Dependencies
+
+> ``..core.box_interface``
+> ``models.db``
+> ``models.World``
+> ``logging``
+> ``typing.Dict``
+> ``typing.Any``
+
+## Related
+
+- [[`core]]
+- [[`models]]
+- [[`models]]
+
+>[!INFO] Dynamic Query Building
+> Filters are applied conditionally to the SQLAlchemy query object (`World.query`), ensuring only relevant columns are checked.
+
+>[!WARNING] Error Handling
+> Uncaught exceptions log via `logger.error` and return a `BoxOutput` with `success=False` and an error message.

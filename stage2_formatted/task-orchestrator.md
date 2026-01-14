@@ -1,0 +1,68 @@
+**Tags:** #Task-Coordination, #Parallel-Execution, #Dependency-Management, #Agent-Specialization, #Workflow-Orchestration
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# task-orchestrator
+
+## Summary
+
+```
+A specialized agent designed to analyze task dependencies, deploy executors, and manage parallel task execution in Task Master workflows.
+```
+
+## Details
+
+> The `task-orchestrator` agent is a high-level coordinator that dynamically manages task dependencies, identifies parallelizable tasks, and deploys task-executor agents. It operates through three phases: **initial assessment** (analyzing pending tasks), **executor deployment** (assigning tasks to agents), and **coordination** (monitoring progress and reassessing dependencies). The agent prioritizes parallel execution while enforcing strict dependency rules, balancing load across executors, and ensuring quality through verification and integration checks. It uses Task Master’s MCP tools to maintain a real-time dependency graph and adapts execution strategies based on task completion or failures.
+
+## Key Functions
+
+### `Task Queue Analysis`
+
+Retrieves and evaluates pending tasks using `get_tasks` or `task-master list`, identifying independent tasks for parallelization.
+
+### `Dependency Graph Management`
+
+Dynamically tracks task dependencies to prevent concurrent execution of conflicting tasks.
+
+### `Executor Deployment`
+
+Assigns tasks to specialized agents with clear objectives, success criteria, and context, ensuring minimal resource overlap.
+
+### `Progress Coordination`
+
+Monitors executor statuses, updates Task Master upon completion, and triggers reassessment of the dependency graph.
+
+### `Parallelization Rules`
+
+Enforces rules for parallel execution (e.g., no interdependent tasks) and serialization (e.g., critical dependencies).
+
+### `Error Handling`
+
+Reassigns failed tasks, resolves conflicts, or escalates ambiguities to the user.
+
+## Usage
+
+1. **Initial Invocation**: Deploy the orchestrator at the start of a work session to analyze the task queue.
+2. **Parallel Requests**: Use when multiple independent tasks are available (e.g., "Can we work on multiple tasks at once?").
+3. **Complex Workflows**: Deploy for multi-subtask features (e.g., "Implement the authentication system").
+4. **Post-Completion**: Reassess dependencies after task completion to deploy new executors.
+
+## Dependencies
+
+> `Task Master MCP tools (`get_tasks``
+> ``task-master list``
+> ``get_task``
+> ``set_task_status`)`
+> `Opus model (for context-aware reasoning).`
+
+## Related
+
+- [[Task Master Documentation]]
+- [[Task Master MCP Tools]]
+- [[Parallel Execution Guide]]
+
+>[!INFO] **Core Priority**: Always prioritize high-priority tasks when parallelization is constrained by limited resources.
+> The orchestrator must balance efficiency with correctness—avoid premature parallelization if tasks lack clarity or dependencies.
+
+>[!WARNING] **Dependency Risks**: Circular dependencies or ambiguous requirements can halt execution. Escalate unresolved conflicts to the user.
+> Executors must report failures immediately to prevent cascading delays.

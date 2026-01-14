@@ -1,0 +1,55 @@
+**Tags:** #botany, #plant_structure, #arrangement, #leaf_patterns
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# LeafArrangements
+
+## Summary
+
+```
+Describes common leaf arrangement patterns in plants, categorized into distinct structural types.
+```
+
+## Details
+
+> This file enumerates the primary ways leaves are arranged on plant stems, categorized into **alternate**, **opposite**, **whorled**, **spiral**, and **random** patterns. These classifications help botanists and horticulturists identify plant species and understand growth habits. The terms describe how leaves are spaced along the stem, influencing plant morphology and ecological adaptations.
+
+## Key Functions
+
+### `Alternate`
+
+Leaves grow singly at different heights along the stem (e.g., mint family).
+
+### `Opposite`
+
+Pairs of leaves emerge at the same level, directly across from each other (e.g., tobacco).
+
+### `Whorled`
+
+Three or more leaves grow from a single node in a circular arrangement (e.g., some tropical plants).
+
+### `Spiral`
+
+Leaves are arranged in a helical pattern along the stem (e.g., sunflowers).
+
+### `Random`
+
+Leaves appear irregularly spaced without a consistent pattern (e.g., some ferns).
+
+## Usage
+
+This list is used for:
+- Identifying plant species via leaf arrangement.
+- Studying plant growth patterns in ecology.
+- Designing horticultural layouts (e.g., pruning, spacing).
+
+## Related
+
+- [[Botanical Leaf Arrangement Guide]]
+- [[Plant Morphology Cheat Sheet]]
+
+>[!INFO] Taxonomic Clue
+> Leaf arrangement is a key trait in plant taxonomy, often used alongside other features (e.g., leaf shape, venation) for classification.
+
+>[!WARNING] Misidentification Risk
+> Misclassifying leaf patterns can lead to incorrect species identification; cross-reference with field observations or botanical databases.

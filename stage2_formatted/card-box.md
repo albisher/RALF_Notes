@@ -1,0 +1,66 @@
+**Tags:** #UIComponent, #CardManagement, #DataVisualization, #React-like-Component, #EventHandling
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# card-box
+
+## Summary
+
+```
+A utility module for rendering and managing card-based UI components with selection, sorting, filtering, and grouping capabilities.
+```
+
+## Details
+
+> This module (`CardBox`) provides three core functions to render card-based UI components:
+> 1. **`cardList`** – Creates a list of cards with optional selection, sorting, filtering, and grouping via `UIBoxes.card()`.
+> 2. **`fullCardView`** – Expands a single card into a detailed view with additional metadata (e.g., relationships, timeline position).
+> 3. **`cardControls`** – Adds action buttons (edit, delete, duplicate) for individual cards.
+> 
+> The module relies on `UIBoxes.card()` for base rendering and exposes configurable options like `sortBy`, `filterBy`, and `groupBy`. It also supports modular exports for Node.js compatibility.
+
+## Key Functions
+
+### ``cardList``
+
+Renders a list of cards with selection, sorting, and filtering logic.
+
+### ``fullCardView``
+
+Displays a card in expanded detail mode with extra UI elements.
+
+### ``cardControls``
+
+Provides action buttons for card interactions (edit/delete/duplicate).
+
+## Usage
+
+```javascript
+// Example: Render a card list with sorting/filtering
+const cards = [{ id: 1, name: "Task" }];
+const { cards: renderedCards } = CardBox.cardList(
+  cards,
+  { id: 1 }, // Selected card
+  (card) => console.log("Selected:", card),
+  "name" // Sort by name
+);
+
+// Example: Expand a single card
+const expandedCard = CardBox.fullCardView({ id: 1, name: "Task" });
+```
+
+## Dependencies
+
+> ``UIBoxes` (internal utility for card rendering)`
+> ``module.exports` (Node.js compatibility).`
+
+## Related
+
+- [[`boxes]]
+- [[`UIBoxes`]]
+
+>[!INFO] **UIBoxes Dependency**
+> Requires `UIBoxes.card()` to render individual cards. If `UIBoxes` is missing, cards render as-is (fallback).
+
+>[!WARNING] **Class Concatenation**
+> `fullCardView` merges classes dynamically; ensure `UIBoxes.card()` returns valid class strings to avoid empty classes.

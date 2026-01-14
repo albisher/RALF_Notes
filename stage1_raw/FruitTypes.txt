@@ -1,0 +1,35 @@
+### TAGS
+#fruit-classification
+#botanical-categories
+#edible-poisonous
+
+### TYPE
+code-notes
+
+### SUMMARY
+A simple categorization of fruits into edible, poisonous, and botanical types.
+
+### DETAILS
+This file appears to list distinct botanical and edible/poisonous classifications for fruits. The categories (`berries`, `nuts`, `pods`, `fleshy fruits`, `spiky fruits`, `edible fruits`, `poisonous fruits`) likely serve as a foundational taxonomy for further analysis, such as food safety, culinary use, or ecological study. The terms are likely used to classify fruits based on their physical traits, nutritional value, or toxicity.
+
+### KEY_FUNCTIONS
+- **Categorization**: Assigns fruits to broader groups (e.g., edible vs. poisonous).
+- **Reference**: Acts as a lookup table for botanical or culinary classification.
+
+### DEPENDENCIES
+none
+
+### USAGE
+This file is likely intended for:
+- Researchers studying fruit biology or toxicity.
+- Culinary applications requiring fruit classification.
+- Educational purposes in botany or food science.
+
+### RELATED
+[[Botanical_Terminology_Guide]], [[Food_Safety_Classification_Reference]]
+
+### CALLOUTS
+>[!INFO]- Contextual Use
+> These terms may be expanded into a structured taxonomy (e.g., nested categories like "berries" → "edible berries" vs. "poisonous berries").
+>[!WARNING]- Ambiguity
+> Some terms (e.g., "fleshy fruits") overlap with broader botanical definitions; ensure consistency with domain-specific conventions.

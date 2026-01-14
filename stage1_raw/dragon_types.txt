@@ -1,0 +1,32 @@
+### TAGS
+#dragon-types
+#elemental
+#nature
+#fantasy
+
+### TYPE
+documentation
+
+### SUMMARY
+Lists elemental, thematic, and age-based dragon types commonly used in fantasy lore.
+
+### DETAILS
+This file enumerates various dragon classifications, including elemental types (Fire, Ice, Lightning, etc.), thematic categories (Shadow, Poison), and age-based categories (Young, Wyrmling, Ancient). These types are often used in fantasy storytelling, role-playing games, or dragon lore systems to define traits, abilities, or roles of dragons.
+
+### KEY_FUNCTIONS
+*(None—this is a static list of dragon types.)*
+
+### DEPENDENCIES
+none
+
+### USAGE
+Referenced in lore, game mechanics, or character design to categorize dragons by type, origin, or stage of life. Example: A *Lightning Dragon* might have electrical-based attacks, while a *Wyrmling* is a young, immature dragon.
+
+### RELATED
+[[Dragon Abilities]], [[Elemental Magic Systems]], [[Fantasy Lore Index]]
+
+### CALLOUTS
+>[!INFO]- Common Usage
+> Many fantasy settings (e.g., *Dungeons & Dragons*, *World of Darkness*) use these types to define dragon traits, weaknesses, or cultural roles.
+>[!WARNING]- Avoid Redundancy
+> Some names overlap (e.g., *Lightning Dragon* and *Shadow Dragon*), so clarify context when applying them in narratives.

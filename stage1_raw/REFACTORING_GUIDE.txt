@@ -1,0 +1,51 @@
+### TAGS
+#refactoring
+#vuejs
+#composables
+#component-extraction
+#code-organization
+
+### TYPE
+documentation
+
+### SUMMARY
+A refactoring guide outlining workflow for reducing large Vue components (WorkflowPage.vue, CardViewPage.vue) by extracting logic into composables and modular components.
+
+### DETAILS
+This guide documents the current state of refactoring two large Vue components (`WorkflowPage.vue` and `CardViewPage.vue`) to reduce file sizes from 2,890 and 855 lines to under 500 lines each. The strategy involves migrating core logic from Options API into Vue 3 composables, extracting reusable components, and consolidating redundant documentation files. The process highlights partial progress in composable integration (e.g., `useWorldOperations.js`) but notes remaining hybrid patterns (e.g., mixed composable/data() usage) and standalone methods still residing in components. The guide also details folder cleanup efforts, such as consolidating assessment files into structured documentation directories.
+
+### KEY_FUNCTIONS
+- **useWorldOperations.js**: Manages world loading, creation, and settings.
+- **useTimelineOperations.js**: Handles timeline operations (top/side timelines, markers).
+- **useCardOperations.js**: Handles card loading, filtering, and selection.
+- **useMapOperations.js**: Performs coordinate calculations and rendering.
+- **useWorkflowStages.js**: Manages workflow stages and navigation.
+- **CardViewHeader.vue**: Extracted reusable header component for CardViewPage.
+- **CardViewSection.vue**: Created for modular section rendering in WorkflowPage.
+- **CardMapViewer.vue**: Potential component for map visualization (needs integration).
+
+### DEPENDENCIES
+Vue 3, Vuex (if applicable), Composition API, UI-beta project dependencies (e.g., `processed_map.json`, `cards-data.js`).
+
+### USAGE
+1. **Refactoring Workflow**:
+   - Extract logic into composables (e.g., `useTimelineOperations.js`).
+   - Replace component methods with composable hooks (e.g., `computed`/`ref`).
+   - Replace `data()` properties with composable state (e.g., `useWorldOperations`).
+   - Extract reusable components (e.g., `CardViewHeader.vue`).
+   - Consolidate documentation files into structured folders (e.g., `ui-beta/docs/`).
+
+2. **Folder Management**:
+   - Archive redundant files (e.g., `ui-beta/archived/`).
+   - Remove duplicate styles (e.g., `ui-beta/styles/` vs. `ui-beta/src/styles/`).
+   - Clean up assessment files by consolidating into `ASSESSMENTS.md` and `REFACTORING.md`.
+
+### RELATED
+[[ui-beta/docs/ASSESSMENTS.md]], [[ui-beta/docs/REFACTORING.md]], [[ui-beta/docs/CODE_REVIEW.md]]
+
+### CALLOUTS
+>[!INFO]- Hybrid Pattern Warning
+> The current implementation uses a hybrid approach (Options API + composables), where composables are initialized but values are still synced back to `data()` properties. This creates redundancy and complicates state management. **Goal**: Fully migrate to composable-only logic by replacing `data()` with composable state (e.g., `ref`, `reactive`) and removing redundant methods.
+
+>[!WARNING]- Method Extraction Risk
+> Many methods (e.g., event handlers, modal logic) remain in components instead of composables. Extracting these risks breaking event flows or UI logic if not carefully tested. **Action**: Audit methods in `WorkflowPage.vue` and `CardViewPage.vue` to ensure composable integration aligns with component logic.

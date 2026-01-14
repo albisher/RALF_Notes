@@ -1,0 +1,63 @@
+**Tags:** #data-generation, #hash-based-selection, #animal-description, #randomized-procedural-content, #procedural-naming
+**Created:** 2026-01-13
+**Type:** code-library
+
+# animals
+
+## Summary
+
+```
+Generates randomized animal descriptions using hash-based selection from predefined lists.
+```
+
+## Details
+
+> This script reads animal attributes (types, fur colors, sizes) from text files, processes user input via SHA-256 hashing, and derives randomized selections for animal traits. It constructs a structured JSON output describing an animal’s visual style, distinguishing features, and identifiers using a deterministic yet pseudo-random approach. The script also dynamically fetches a "generation code" from an external file (`YearsHistory.txt`) under a `Robots` directory, defaulting to `"SPQ8"` if unavailable.
+
+## Key Functions
+
+### `read_list_from_file(filename)`
+
+Reads and returns non-empty lines from a text file in `AnimalsLists`.
+
+### `hash_input(input_str)`
+
+Computes SHA-256 hash of input text for deterministic selection.
+
+### `derive_int_from_hash(input_hash, salt, max_value)`
+
+Derives an integer from a hash segment, scaled to a max value using a salted input.
+
+### `select_from_list(input_hash, salt, item_list, list_name)`
+
+Randomly selects an item from a list based on the derived index.
+
+### `generate_animal_description(input_hash)`
+
+Orchestrates the entire process: selects attributes, generates a name, fetches a generation code, and constructs a structured JSON description.
+
+## Usage
+
+1. Run the script with an optional input hash:
+   ```bash
+   python animals.py <hash>
+   ```
+   - If no hash is provided, prompt the user for text input.
+2. Output: A JSON string containing a randomized animal description with attributes like type, color, size, and identifiers.
+
+## Dependencies
+
+> ``hashlib``
+> ``os``
+> ``json``
+> ``argparse``
+
+## Related
+
+- [[None]]
+
+>[!INFO] Dynamic Generation Code
+> The script attempts to fetch a generation code from `Robots/YearsHistory.txt`; if the file is missing or unreadable, it defaults to `"SPQ8"`.
+
+>[!WARNING] File Dependency
+> Ensure `AnimalsLists/` and `Robots/` directories exist with required files (`animal_types.txt`, `fur_colors.txt`, `size_categories.txt`, `YearsHistory.txt`). Missing files may return default values or errors.

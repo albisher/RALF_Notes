@@ -1,0 +1,83 @@
+**Tags:** #consolidation, #shared-components, #style-management, #component-reuse, #iteration-management
+**Created:** 2026-01-13
+**Type:** documentation
+
+# CONSOLIDATION_COMPLETE
+
+## Summary
+
+```
+Centralizes shared UI components and styles into a unified `shared/` folder to eliminate duplication across iterations.
+```
+
+## Details
+
+> This document outlines the completion of a consolidation effort where common UI elements (box components and CSS styles) were moved from isolated iterations into a centralized `shared/` directory. The goal was to ensure all components reuse base implementations, avoiding redundant code. The process involved relocating `common.css` to `shared/styles/common.css`, updating HTML references to point to the new location, and removing outdated iteration-specific folders. All box components now extend base components (e.g., `UIBoxes.card()`) to prevent duplication, maintaining a single source of truth for styles and logic.
+
+## Key Functions
+
+### ``shared/styles/common.css``
+
+Consolidated all workflow, timeline, card, story, map, and control styles into one file.
+
+### ``shared/components/boxes.js``
+
+Contains base UI components (e.g., `UIBoxes.card()`, `UIBoxes.timelineNode()`) to be extended by stage-specific boxes.
+
+### ``shared/components/controls-box.js``
+
+Manages reusable controls like `timeScaleSelector` (previously duplicated).
+
+### ``shared/README.md``
+
+Documentation for shared components, including `common.css` updates.
+
+### `HTML file updates`
+
+Modified paths in mockups to reference `shared/` instead of iteration-specific paths.
+
+## Usage
+
+To use the consolidated components:
+1. Load shared styles in HTML:
+   ```html
+   <link rel="stylesheet" href="../../shared/styles/color-scheme.css">
+   <link rel="stylesheet" href="../../shared/styles/common.css">
+   ```
+2. Load shared components in order:
+   ```html
+   <script src="../../shared/components/boxes.js"></script>
+   <script src="../../shared/components/generate-box.js"></script>
+   <script src="../../shared/components/link-box.js"></script>
+   <script src="../../shared/components/card-box.js"></script>
+   <script src="../../shared/components/timeline-box.js"></script>
+   <script src="../../shared/components/story-box.js"></script>
+   <script src="../../shared/components/map-box.js"></script>
+   <script src="../../shared/components/controls-box.js"></script>
+   ```
+   Ensure paths are adjusted to match project structure.
+
+## Dependencies
+
+> ``shared/styles/common.css``
+> ``shared/styles/color-scheme.css``
+> ``shared/components/boxes.js``
+> ``shared/components/generate-box.js``
+> ``shared/components/link-box.js``
+> ``shared/components/card-box.js``
+> ``shared/components/timeline-box.js``
+> ``shared/components/story-box.js``
+> ``shared/components/map-box.js``
+> ``shared/components/controls-box.js``
+> `Obsidian links to `SHARED_COMPONENTS.md` and `ITERATIONS_REFERENCE.md`.`
+
+## Related
+
+- [[SHARED_COMPONENTS]]
+- [[ITERATIONS_REFERENCE]]
+
+>[!INFO] Critical Path
+> All iterations must update their HTML references to use `../../shared/` instead of relative paths like `../styles/common.css`. Failure to do so will cause missing styles or broken components.
+
+>[!WARNING] Component Extensions
+> Stage-specific boxes (e.g., `CardBox`, `StoryBox`) must extend base components (e.g., `UIBoxes.card()`) to avoid duplication. Violating this rule risks code conflicts or redundant logic.

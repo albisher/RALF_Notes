@@ -1,0 +1,47 @@
+### TAGS
+#deterministic-hashing
+#content-generation
+#world-building
+#consistency
+#hash-algorithms
+
+### TYPE
+code-notes
+
+### SUMMARY
+Generates consistent SHA-256 hashes for deterministic content and world elements.
+
+### DETAILS
+This utility class (`HashGeneratorBox`) implements a modular system for generating deterministic hashes via SHA-256. It supports multiple operations, including standalone content hashing, related content hashing, and hierarchical world/element hashing. The class leverages `hashlib` for cryptographic hashing and integrates with a `Box` interface for modular execution. Inputs include optional salts, variations, and structured metadata (e.g., world names, element types) to ensure reproducibility.
+
+### KEY_FUNCTIONS
+- **`execute()`**: Orchestrates hash generation based on operation type, returning either a hash string or a seed integer.
+- **`generate_hash()`**: Creates a hash from raw input data and an optional salt.
+- **`generate_related_hash()`**: Combines a base hash with a variation string for related content.
+- **`hash_to_seed()`**: Extracts an 8-digit hexadecimal prefix from a hash string to generate a seed integer.
+- **`generate_world_hash()`**: Produces a world-specific hash using `world_name`, `world_type`, and `user_id`.
+- **`generate_element_hash()`**: Derives hashes for elements within a world using `world_hash`, `element_type`, and `element_name`.
+
+### DEPENDENCIES
+`hashlib`, `logging`, `typing`, `..core.box_interface` (Box, BoxInput, BoxOutput)
+
+### USAGE
+1. Initialize `HashGeneratorBox()` and call `execute()` with a `BoxInput` object containing an `"operation"` key and relevant data.
+2. Supported operations:
+   - `"generate_hash"`: Hashes `input_data` with an optional `salt`.
+   - `"generate_related_hash"`: Hashes `base_hash` + `variation`.
+   - `"hash_to_seed"`: Converts first 8 hex chars of `hash_string` to an integer seed.
+   - `"generate_world_hash"`: Hashes `world_name` + `world_type` + `user_id`.
+   - `"generate_element_hash"`: Hashes `world_hash` + `element_type` + `element_name`.
+3. Returned `BoxOutput` includes `success`, `data` (hash/seed), and optional `error`.
+
+### RELATED
+[[`Box` Interface Documentation]], [[`World Building System`]]
+
+### CALLOUTS
+>[!INFO]- Input Validation
+> All operations default to empty strings/null values for optional fields. Explicitly pass required keys (e.g., `"input_data"`) to avoid unintended behavior.
+>[!WARNING]- Seed Extraction
+> Truncating the hash to 8 hex chars (`hash_string[:8]`) may lose precision for seed generation. Ensure `hash_string` is long enough (e.g., SHA-256 produces 64 hex chars).
+>[!INFO]- Cryptographic Safety
+> SHA-256 is collision-resistant but not cryptographically secure for sensitive data. Use only for deterministic consistency, not authentication.

@@ -1,0 +1,36 @@
+### TAGS
+#image-processing
+#file-handling
+#Pillow
+#error-handling
+
+### TYPE
+code-notes
+
+### SUMMARY
+A utility for saving PIL/Pillow images to disk with basic error handling.
+
+### DETAILS
+The code defines a function `save_image` that uses the Python Imaging Library (Pillow) to save an image object (`img`) to a specified file path (`file_path`). It attempts to save the image within a try-except block to catch and log any unexpected errors, printing a success message or error details. The same function is defined twice redundantly in the file, which is likely a copy-paste error.
+
+### KEY_FUNCTIONS
+- **save_image(img, file_path)**: Saves an image object to a file path using Pillow’s `save()` method, with basic error handling.
+
+### DEPENDENCIES
+Pillow (`PIL`), Python Imaging Library (Pillow).
+
+### USAGE
+```python
+from PIL import Image
+img = Image.open("input.jpg")  # Load an image
+save_image(img, "output.jpg")  # Save to a new path
+```
+
+### RELATED
+[[Pillow Documentation]], [[Python Imaging Library (PIL) Guide]]
+
+### CALLOUTS
+>[!WARNING]- Redundancy Error
+> The function `save_image` is defined twice in the file, which will cause a `NameError` at runtime. Ensure only one definition exists.
+>[!INFO]- Basic Error Handling
+> The function logs errors but does not re-raise them, which may mask underlying issues. Consider raising exceptions explicitly for critical failures.

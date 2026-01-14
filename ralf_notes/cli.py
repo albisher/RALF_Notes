@@ -192,15 +192,16 @@ def show_summary(results: dict, console: Console, quiet: bool):
     """Display processing summary."""
     if quiet:
         return
-    console.rule("Summary")
+    
+    speed_text = Console.format_speed(results.get('files_per_second', 0))
     summary_text = f"""
 Total Files: [bold]{results.get('total', 0)}[/bold]
 ✅ Success: [success]{results.get('success', 0)}[/success]
 ❌ Failed: [error]{results.get('failed', 0)}[/error]
 ⏭️  Skipped: [dim]{results.get('skipped', 0)}[/dim]
 
-Time: {results.get('duration', 0):.1f}s
-Speed: {results.get('files_per_second', 0):.1f} files/s"""
+Time: {int(results.get('duration', 0))}s
+Speed: {speed_text}"""
     if results.get('dry_run', False):
         title = "📊 Results (Dry Run)"
         summary_text += "\n\n[info]No files were written.[/info]"
@@ -842,13 +843,20 @@ def generate(
             for i, file_path in enumerate(files_to_process):
                 current_file = file_path.name
                 pct = (i / len(files_to_process)) * 100
+                
+                # Calculate current speed
+                elapsed = time.time() - start_time
+                current_fps = (i + 1) / elapsed if elapsed > 0 else 0
+                current_speed = Console.format_speed(current_fps)
+                
                 live.update(get_dashboard(
                     model=dashboard_model, 
                     target=dashboard_target, 
                     status="Processing", 
                     progress=pct,
                     current_file=current_file,
-                    tuned=dashboard_tuned
+                    tuned=dashboard_tuned,
+                    speed=current_speed
                 ))
                 
                 # Stage 1: Generate Raw
@@ -1363,7 +1371,7 @@ Files Processed: {results['files_processed']}
 Files Modified: {results['files_modified']}
 Tags Replaced/Deleted: {results['tags_replaced']}
 """
-    console.panel(summary, title="📊 Result Summary", style="success")
+    console.panel(summary, title="📊 Results", style="success")
     
     if dry_run:
         console.warning("This was a DRY RUN. No files were actually modified.")
@@ -1509,16 +1517,18 @@ def links_apply(
         console.error(f"Failed to parse guide: {e}")
         raise typer.Exit(1)
 
-    console.step(f"Applying refinements to [path]{target_dir}[/path]", 1)
+    console.info(f"Applying link refinements to '{target_dir}'...")
 
     refiner = LinkRefiner(refinement_guide)
     with console.status("Updating wikilinks..."):
         results = refiner.apply_fixes(target_dir, dry_run=dry_run, backup=not no_backup)
 
-    console.success("Link refinement summary:")
-    console.print(f"  Files processed: {results['files_processed']}")
-    console.print(f"  Files modified: {results['files_modified']}")
-    console.print(f"  Links fixed/removed: {results['links_fixed']}")
+    summary = f"""
+Files Processed: {results['files_processed']}
+Files Modified: {results['files_modified']}
+Links Fixed/Removed: {results['links_fixed']}
+"""
+    console.panel(summary, title="📊 Results", style="success")
     
     if not dry_run:
         console.success(f"Applied Link Schema saved to: [path]{target_dir}/applied_links.md[/path]")
@@ -1576,7 +1586,7 @@ def organize(
 Files Processed: {results['processed']}
 Files Moved/Renamed: {results['moved']}
 """
-        console.panel(summary, title="📊 Result Summary", style="success")
+        console.panel(summary, title="📊 Results", style="success")
         
         if results['errors']:
             console.warning(f"Encountered {len(results['errors'])} errors during organization.")

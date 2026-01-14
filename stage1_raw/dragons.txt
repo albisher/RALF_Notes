@@ -1,0 +1,48 @@
+### TAGS
+#randomized-generation
+#deterministic-dragon-attributes
+#hash-based-selection
+#text-processing
+
+### TYPE
+code-library
+
+### SUMMARY
+Generates randomized dragon attributes deterministically using cryptographic hashing for consistency.
+
+### DETAILS
+This script defines a collection of dragon-related lists (e.g., types, colors) and implements deterministic functions to generate dragon attributes like names, sizes, and temperaments based on input hashes and salts. It leverages SHA-256 hashing and modular arithmetic to ensure reproducible results across runs. The code reads predefined lists from files (e.g., `dragon_types.txt`) and applies cryptographic hashing to select attributes deterministically, making it suitable for procedural generation systems.
+
+### KEY_FUNCTIONS
+- **read_list_from_file(filename)**: Safely reads a text file containing comma-separated dragon attributes (e.g., types, colors) and returns them as a list.
+- **hash_input(input_str)**: Generates a SHA-256 hash from a string input for deterministic selection.
+- **derive_int_from_hash(input_hash, salt, max_value)**: Converts a hash segment into a pseudo-random integer within a specified range using a salt for reproducibility.
+- **select_from_list(input_hash, salt, item_list, list_name)**: Randomly selects an item from a predefined list based on the hash and salt.
+- **assign_age(input_hash, salt, min_age=50, max_age=5000)**: Assigns a deterministic age within a given range.
+- **assign_length(input_hash, salt, size_category)**: Assigns a length (meters/feet) based on a size category, using a random fraction of the range.
+- **clean_for_name(text)**: Cleans and capitalizes text for dragon names (e.g., removes spaces, trims non-alphanumeric characters).
+- **generate_name(input_hash, salt, dragon_type, scale_color, number)**: Combines cleaned dragon attributes into a deterministic name (e.g., "FireCol-Dra12").
+- **generate_special_abilities(input_hash, salt)**: Randomly selects a special ability from a predefined list.
+- **generate_temperament(input_hash, salt, dragon_type)**: Assigns a temperament trait based on the dragon type (e.g., "Fierce and aggressive" for Fire Dragon).
+- **get_latest_generation_code()**: *(Incomplete in snippet; intended to fetch generation metadata from a file in a parent directory.)*
+
+### DEPENDENCIES
+`hashlib`, `os`, `re`, `json`
+
+### USAGE
+1. Define paths (`LISTS_DIR`, `DRAGON_DATA_DIR`) to locate dragon attribute files (e.g., `dragon_types.txt`).
+2. Call deterministic functions (e.g., `generate_name()`) with input hashes, salts, and attributes to produce consistent dragon data.
+   Example:
+   ```python
+   name = generate_name(hash_input("seed"), 42, DRAGON_TYPES[0], SCALE_COLORS[0], 1)
+   ```
+3. Extend with additional logic (e.g., `get_latest_generation_code()`) for advanced procedural generation.
+
+### RELATED
+[[Dragon Attribute Generation System]], [[Procedural Content Generation]]
+
+### CALLOUTS
+>[!INFO]- **Salt Importance**
+> The `salt` parameter ensures reproducibility across different runs with the same input hash. Without it, results would vary unpredictably.
+>[!WARNING]- **File Existence Check**
+> The script checks for file existence in `DragonsLists` but lacks error handling for missing parent directories (e.g., `RobotsLists`). Ensure all paths are validated before execution.

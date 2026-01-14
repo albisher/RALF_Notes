@@ -1,0 +1,64 @@
+**Tags:** #quick-view, #map-generation, #ui-component, #low-resolution, #hash-based-generation, #optimization
+**Created:** 2026-01-13
+**Type:** documentation
+
+# QUICK_MAP_VIEW_GUIDE
+
+## Summary
+
+```
+Explains the Quick Map View feature for fast, low-resolution map generation in a UI-based map generator system.
+```
+
+## Details
+
+> The **Quick Map View** feature provides an optimized, instant preview of maps using hash-based generation with low resolution. It skips detailed parameter adjustments and full rendering, instead generating a simplified map (~10,000 cells) for quick exploration. The system leverages the current world type (defaulting to "Planet") and automatically derives map parameters from the input hash, reducing generation time to 5-10 seconds compared to standard workflows (15-60+ seconds).
+
+## Key Functions
+
+### ``quickViewMap()``
+
+Core function in `GenerateStage.vue` that triggers low-resolution map generation.
+
+### ``MapPreview` component`
+
+Displays the rendered SVG map in the UI.
+
+### ``MapRenderBox``
+
+Handles SVG rendering of the generated map data.
+
+### ``Generators/Maps/maps.py``
+
+Generates initial map parameters from the hash.
+
+### ``services/map-generator/engine/map_generator.py``
+
+Produces full map JSON from parameters.
+
+## Usage
+
+1. Navigate to the **Generate** tab and select the **Maps** generator.
+2. Enter a hash (e.g., `jjj` or a descriptive text like "galaxy world with nebulas").
+3. Click **"Quick View (Low Res)"** to instantly preview a low-resolution map (~1000x600 pixels).
+4. View basic map info (name, seed, resolution, cities) in the preview area.
+
+## Dependencies
+
+> ``ui-beta/src/components/stages/GenerateStage.vue``
+> ``ui-beta/src/components/maps/MapPreview.vue``
+> ``ui-beta/src/boxes/common/map_render_box.js``
+> ``Generators/Maps/maps.py``
+> ``services/map-generator/engine/map_generator.py``
+
+## Related
+
+- [[`Standard Map Generation Guide`]]
+- [[`Map Resolution Documentation`]]
+
+>[!INFO] **World Context Fallback**
+> If no world is selected, the system defaults to "Planet" for context-aware parameter generation. This ensures compatibility across different world types (e.g., planets, moons, or galaxies).
+
+
+>[!WARNING] **Limited Detail**
+> Quick View sacrifices detail for speed. Results may lack complex biomes, cities, or terrain features compared to full-resolution maps. Use only for exploratory purposes.

@@ -1,0 +1,41 @@
+### TAGS
+#data_processing
+#map_generation
+#box_sequence
+#derived_info
+#real_time_polling
+#backend_frontend_integration
+
+### TYPE
+code-notes
+
+### SUMMARY
+Analyzes and corrects a sequence of map generation and processing workflows to ensure consistent data handling between preview and save operations.
+
+### DETAILS
+The code file details a problematic map generation workflow where raw map data is processed only during saving, leading to inconsistent data structures between preview and saved maps. The analysis identifies three key issues: missing immediate processing after generation, redundant instantiation of `MapProcessBox`, and inconsistent data flow. The proposed fixes include processing map data immediately after generation (using `MapProcessBox`), optimizing the save flow to avoid redundant processing, and ensuring `MapPreview` and `WorldMap2D` receive processed data. The goal is to standardize data handling for better user experience and debugging.
+
+### KEY_FUNCTIONS
+- **MapGeneratorServiceBox**: Handles map generation and returns raw data.
+- **MapProcessBox**: Adds derived metadata (e.g., `mapOriginX`, `mapOriginY`) to raw map data.
+- **MapPreview**: Displays map data; now receives processed data post-fix.
+- **MapSaveToWorldBox**: Manages saving maps to backend; skips reprocessing if `derivedInfo` exists.
+- **fetchResult()**: In `MapsStage.vue`, fetches map data and processes it immediately.
+- **_executeInternal()**: In `MapSaveToWorldBox`, checks for existing `derivedInfo` before saving.
+
+### DEPENDENCIES
+`MapGeneratorServiceBox`, `MapProcessBox`, `MapSaveToWorldBox`, `MapsStage.vue`, `MapPreview` component, backend upload system.
+
+### USAGE
+1. **Generation Phase**: Call `MapGeneratorServiceBox` to generate a map, then immediately process the result using `MapProcessBox` to add derived metadata.
+2. **Preview Phase**: Pass processed data to `MapPreview` for rendering.
+3. **Save Phase**: Use `MapSaveToWorldBox` to upload the map. If `derivedInfo` is missing, reprocess; otherwise, skip processing for efficiency.
+
+### RELATED
+[[MapGeneratorServiceBox]], [[MapProcessBox]], [[MapsStage.vue]], [[WorldMap2D]], [[MapPreview Component]]
+
+### CALLOUTS
+>[!INFO]- Critical Data Flow
+>Ensure `MapProcessBox` is called immediately after `MapGeneratorServiceBox` returns raw data to avoid inconsistent metadata between preview and save. This requires modifying `fetchResult()` in `MapsStage.vue` to include processing logic.
+>[!WARNING]- Backward Compatibility
+>If `derivedInfo` is missing during save, reprocessing may break existing workflows. Test with existing data to confirm consistency.

@@ -1,0 +1,45 @@
+### **TAGS**
+#nginx
+#web-routing
+#vuejs
+#proxy-configuration
+#redirect-handling
+#frontend-backend-integration
+
+### **TYPE**
+documentation
+
+### **SUMMARY**
+Fixes incorrect Nginx-to-Vue routing conflict causing unauthorized redirects to external login pages.
+
+### **DETAILS**
+The issue occurred when Nginx’s `location = /` block redirected requests to `/dashboard` before Vue Router processed them, causing a mismatch with the intended `/login` redirect. The solution replaces the problematic `return 301` rule with a **proxy-pass** to the frontend service, allowing Vue Router to handle all client-side navigation. This ensures correct routing behavior while preserving API, static assets, and security headers.
+
+### **KEY_FUNCTIONS**
+- **`location = /`**: Replaced problematic redirect with proxy-pass to frontend.
+- **`proxy_pass http://frontend`**: Enables backend-to-frontend request forwarding.
+- **`proxy_set_header` directives**: Maintains proper request headers (e.g., `X-Forwarded-Proto`).
+- **Vue Router**: Handles all client-side navigation post-fix.
+
+### **DEPENDENCIES**
+nginx, Docker (for containerized proxy), Vue.js frontend application.
+
+### **USAGE**
+1. Replace the problematic `nginx.conf` block with the updated proxy configuration.
+2. Restart the Nginx container (`docker-compose restart proxy`).
+3. Test with:
+   - `curl -k -I https://localhost:8443/` (verify no 301 redirect).
+   - Browser access to `/` (should redirect to `/login`).
+   - API calls (`/api/*`) to ensure backend functionality.
+
+### **RELATED**
+[[nginx_configuration_guide]], [[vue-router_routing_docs]]
+
+### **CALLOUTS**
+>[!INFO]- **Critical Fix**
+> The old `return 301 /dashboard` rule forced a server-side redirect, bypassing Vue Router’s logic. This caused a redirect loop when users accessed `/`—Nginx → `/dashboard` → Vue Router → `/login` (external app). The fix ensures Vue Router dictates all routing decisions.
+>[!WARNING]- **Testing Requirement**
+> After applying changes, verify:
+> - No 301 redirects in browser dev tools.
+> - API endpoints return valid responses.
+> - Login flow redirects correctly to `/dashboard`.

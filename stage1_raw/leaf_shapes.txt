@@ -1,0 +1,42 @@
+### TAGS
+#botany
+#leaf-morphology
+#plant-science
+#nature
+#taxonomy
+
+### TYPE
+documentation
+
+### SUMMARY
+A categorized list of common leaf shapes and types used in botanical classification and plant identification.
+
+### DETAILS
+This file enumerates various leaf shapes and classifications, including simple and compound leaf types, as well as specific morphological features like edge patterns (e.g., serrated, lobed) and leaf texture attributes (e.g., membranous, crystalline). The list serves as a reference for botanists, horticulturists, and plant enthusiasts to identify and describe leaf structures for taxonomic or descriptive purposes.
+
+The entries cover broad categories (e.g., **Simple, Compound**) and more specific traits (e.g., **Spoon-shaped, Crystalline Plates**), reflecting both macroscopic (overall shape) and microscopic (surface/texture) characteristics.
+
+### KEY_FUNCTIONS
+- **Leaf Shape Classification**: Categorizes leaves into standard morphological types for identification.
+- **Botanical Reference**: Provides a structured guide for documenting leaf traits in field studies or herbarium records.
+- **Taxonomic Aid**: Helps in distinguishing species based on leaf form, often used in plant taxonomy.
+
+### DEPENDENCIES
+none (standalone reference list)
+
+### USAGE
+This list is used as a **reference tool** for:
+- **Field identification**: Comparing observed leaf shapes to known categories.
+- **Herbarium labeling**: Describing leaf morphology for specimen documentation.
+- **Botanical research**: Categorizing plant samples for studies on leaf evolution or adaptation.
+- **Gardening/ornamental plants**: Selecting or describing plant varieties based on leaf traits.
+
+### RELATED
+[[Botanical Leaf Morphology Guide]], [[Plant Taxonomy Terminology]], [[Herbarium Labeling Standards]]
+
+### CALLOUTS
+>[!INFO]- **Common Usage Contexts**
+> This list is frequently cross-referenced with **leaf venation patterns**, **leaf arrangement (phyllotaxy)**, and **whole-plant growth forms** (e.g., shrubs vs. trees) to provide a comprehensive description of a plant’s morphology.
+
+>[!WARNING]- **Overlap and Ambiguity**
+> Some terms (e.g., **Lanceolate** and **Lance-shaped**) appear multiple times due to variations in botanical terminology. Always cross-check with a **detailed field guide** or **expert consultation** for precise classification.

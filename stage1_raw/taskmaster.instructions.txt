@@ -1,0 +1,48 @@
+### TAGS
+#Taskmaster
+#CLI-Commands
+#AI-Integration
+#Task-Management
+#MCP-Tools
+#Product-Requirements-Documentation
+#Tagged-Tasks
+#Project-Initialization
+
+### TYPE
+documentation
+
+### SUMMARY
+Comprehensive guide to Taskmaster’s MCP tools and CLI commands, emphasizing AI-driven task generation, project setup, and tagged task management.
+
+### DETAILS
+This document serves as a detailed reference for Taskmaster’s **MCP tools** (recommended for integrations like VS Code) and **CLI commands** (for direct user interaction). It covers initialization, AI-powered task parsing from PRDs, model configuration, and tagged task management. The system supports AI-assisted task generation, structured data handling, and fallback mechanisms. Key features include project setup via `init`, automated task generation via `parse_prd`, and AI model customization via `models`. The CLI commands provide a user-friendly fallback, while MCP tools offer optimized performance and error handling.
+
+### KEY_FUNCTIONS
+- **`initialize_project` (MCP)**: Sets up project structure and config.
+- **`task-master init` (CLI)**: Initializes project with customizable settings (name, description, version).
+- **`parse_prd` (MCP/CLI)**: Parses PRDs into tasks.json using AI, with options for input/output paths and task count.
+- **`models` (MCP/CLI)**: Configures AI models (main/research/fallback) for Ollama/OpenRouter.
+- **`update_subtask`/`update_task`/`update` (AI-powered)**: Modifies tasks dynamically via AI.
+- **`expand_all`/`expand_task` (AI-powered)**: Expands tasks into subtasks or detailed steps.
+- **`add_task` (AI-powered)**: Creates new tasks programmatically.
+- **`--tag <name>`**: Applies task operations to a specific tagged context (e.g., feature branches).
+
+### DEPENDENCIES
+Ollama/OpenRouter (for AI model integration), Taskmaster CLI library, VS Code extension (for MCP tools).
+
+### USAGE
+1. **Initialize**: Run `task-master init` (or MCP `initialize_project`) to set up a project.
+2. **Parse PRD**: Use `task-master parse-prd <file>` to generate tasks from a requirements document.
+3. **Tag Tasks**: Apply `--tag <name>` to isolate tasks in specific contexts (e.g., `--tag=new-feature`).
+4. **AI Operations**: Use AI-powered commands like `update_task` or `expand_task` for dynamic task management.
+
+### RELATED
+[[Taskmaster CLI Cheat Sheet]], [[Taskmaster MCP API Guide]], [[Example PRD Template]]
+
+### CALLOUTS
+>[!INFO]- Critical Setup Step
+> After initializing, **always parse a PRD** (`parse-prd`) to generate tasks. Tasks.json will be empty otherwise.
+>[!WARNING]- AI Dependency
+> AI tools (`parse_prd`, `update_task`, etc.) require an active AI model (e.g., Ollama/OpenRouter). Ensure models are configured before use.
+>[!INFO]- Tagged Contexts
+> Tags (`--tag <name>`) create isolated task lists. Defaults to "master" if no tag is specified.

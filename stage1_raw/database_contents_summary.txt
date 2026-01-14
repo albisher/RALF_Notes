@@ -1,0 +1,43 @@
+### TAGS
+#database
+#procedural-generation
+#world-building
+#robotics
+#biome-simulation
+#user-data
+#json-data-structure
+
+### TYPE
+documentation
+
+### SUMMARY
+A detailed summary of a procedural-generated database containing a simulated colony world, its inhabitants, robots, buildings, and flora, alongside user and system metadata.
+
+### DETAILS
+This document describes a **procedural-generated database** for a fictional colony world called *Space Peral*, populated by robots, characters, and natural elements. The system tracks user accounts, world metadata, and generated content with constraints applied during creation. The database includes structured tables for users, worlds, elements (characters, robots, buildings, plants), and migration tracking. Procedural generation ensures uniqueness and customization for each element, with JSONB format facilitating flexible data storage.
+
+### KEY_FUNCTIONS
+- **`users` table**: Manages user accounts with authentication status.
+- **`worlds` table**: Stores world definitions, user ownership, and creation timestamps.
+- **`world_elements` table**: Procedurally generates and tracks elements (characters, robots, buildings, plants) with unique generation hashes.
+- **`user_preferences` table**: Records user-specific settings for element generation.
+- **`alembic_version` table**: Tracks database migrations for version control.
+
+### DEPENDENCIES
+`SQLite`/`PostgreSQL` (database backend), `JSONB` (for flexible data storage), procedural generation libraries (custom logic for element creation).
+
+### USAGE
+To interact with this database:
+1. **Query users/worlds**: Retrieve or filter records (e.g., `SELECT * FROM worlds WHERE User_ID = 7`).
+2. **Generate elements**: Use procedural generation scripts to populate `world_elements` with constraints (e.g., robot roles, biome-specific plants).
+3. **Update preferences**: Modify `user_preferences` for customization (e.g., element rarity, styles).
+4. **Track migrations**: Check `alembic_version` for schema updates.
+
+### RELATED
+[[Database Schema Design]], [[Procedural Generation Framework]], [[Space Peral World Documentation]]
+
+### CALLOUTS
+>[!INFO]- Procedural Generation Constraints
+> Elements are generated with unique hashes and constrained by roles (e.g., robots must align with world roles like exploration or construction). Custom metadata (e.g., descriptions) is appended during generation.
+>[!WARNING]- Data Integrity
+> Ensure `User_ID` and `World_ID` fields are validated to prevent orphaned records. The test user (ID 7) owns all elements in this example, but the system supports multi-user worlds.

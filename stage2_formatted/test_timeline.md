@@ -1,0 +1,80 @@
+**Tags:** #unit-testing, #flask, #database-testing, #api-testing, #jwt-authentication, #timeline-management
+**Created:** 2026-01-13
+**Type:** test-reference
+
+# test_timeline
+
+## Summary
+
+```
+Tests the API endpoints for managing timelines in a Flask application with SQLAlchemy and JWT authentication.
+```
+
+## Details
+
+> This test suite verifies the functionality of timeline-related endpoints in a Flask application. It sets up a test environment with a user, world, and world element, then tests CRUD operations for timelines, including validation for required fields and error handling for edge cases. The tests cover authentication via JWT, database interactions, and API responses.
+> 
+> The `setUp` method initializes a test database, creates a test user, a world, and a world element, then generates a JWT token for authenticated requests. The `tearDown` method cleans up the test database after each test.
+
+## Key Functions
+
+### ``test_get_timelines_empty``
+
+Verifies that retrieving all timelines returns an empty list when none exist.
+
+### ``test_create_timeline_success``
+
+Ensures a timeline can be created successfully with valid input.
+
+### ``test_create_timeline_missing_name``
+
+Confirms that omitting the required `name` field results in a 400 error.
+
+### ``test_create_timeline_missing_world_id``
+
+Checks that omitting the required `world_id` field results in a 400 error.
+
+### ``test_create_timeline_duplicate_name``
+
+Validates that duplicate timeline names in the same world prevent creation.
+
+### ``test_get_timeline_with_events``
+
+Tests fetching a timeline along with its associated events (though the test snippet is incomplete).
+
+## Usage
+
+To run these tests:
+1. Execute the script directly (`python test_timeline.py`).
+2. Ensure the test environment is configured with a SQLite in-memory database.
+3. The tests assume the existence of a Flask app (`app`) and SQLAlchemy database (`db`) with the specified models.
+
+## Dependencies
+
+> ``unittest``
+> ``json``
+> ``app` (Flask app instance)`
+> ``db` (SQLAlchemy database)`
+> ``User``
+> ``World``
+> ``Timeline``
+> ``TimelineEvent``
+> ``WorldElement` (models)`
+> ``create_test_user` (helper function)`
+> ``jwt` (for token generation)`
+> ``flask_jwt_extended` (for JWT handling)`
+> ``datetime` (for date handling).`
+
+## Related
+
+- [[Flask API Documentation]]
+- [[SQLAlchemy Test Setup Guide]]
+- [[JWT Authentication in Flask]]
+- [[World and Timeline Models]]
+
+>[!INFO] Important Note
+> The `test_get_timeline_with_events` test is incomplete in the provided snippet (missing `timeline_id` variable assignment). Ensure the full test logic is implemented to verify event retrieval.
+
+
+>[!WARNING] Caution
+> Test data (e.g., `World`, `Timeline`) is created and destroyed per test case. Avoid relying on test data in production code. Always use proper transaction management in production.

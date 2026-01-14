@@ -1,0 +1,51 @@
+### TAGS
+#procedural-generation
+#database-integration
+#world-building
+#deterministic-seeding
+#location-service-dependency
+
+### TYPE
+code-service
+
+### SUMMARY
+Service for generating procedural world elements with deterministic hashing, location integration, and temporal tracking.
+
+### DETAILS
+This `GeneratorService` class orchestrates the creation of world elements (plants, buildings, robots, characters) using pre-defined generators. It handles deterministic generation via SHA-256 hashing of input seeds, integrates location data via a dependency on `location_service`, and appends temporal metadata (existence probability, lifecycle stages) using `time_existence_data`. The service validates input types, extracts names from generated descriptions, and conditionally includes location/time metadata based on availability.
+
+### KEY_FUNCTIONS
+- **`hash_input(input_str: str) -> str`**: Generates a SHA-256 hash for deterministic generation.
+- **`generate_element(world_id, element_type, seed, additional_data, include_location)`**: Core method that routes generation to appropriate sub-generators, adds metadata, and returns a `WorldElement`.
+  - `_generate_plant(generation_hash, additional_data)`: Delegates to `Plants.plants.generate_plant_description`.
+  - `_generate_building(generation_hash, additional_data)`: Delegates to `Buildings.buildings.generate_building_description`.
+  - `_generate_robot(generation_hash, additional_data)`: Delegates to `Creatures.Robots.robots.generate_robot_description`.
+  - `_generate_character(generation_hash, additional_data)`: Delegates to `Creatures.Characters.characters.generate_character_description`.
+- **`_extract_name_from_description(description, element_type)`**: Extracts or generates a name from the generated description.
+- **`generate_time_existence_data`**: Integrates temporal metadata (e.g., lifecycle stages) via `time_existence_data` module.
+
+### DEPENDENCIES
+`models.WorldElement`, `db`, `location_service.location_service`, `time_existence.generate_time_existence_data`, `hashlib`, `typing`, `os`, `sys`.
+
+### USAGE
+1. Initialize `GeneratorService`.
+2. Call `generate_element()` with:
+   - `world_id`: Identifier for the world.
+   - `element_type`: One of `"plant"`, `"building"`, `"robot"`, or `"character"`.
+   - `seed`: Deterministic input string.
+   - `additional_data`: Optional dict (e.g., `{'zone_hint': 'forest'}`).
+   - `include_location`: Boolean to enable/disable location metadata.
+3. Returned `WorldElement` includes:
+   - Generated attributes (e.g., `description`).
+   - Optional location/time metadata.
+
+### RELATED
+[[`location_service`]], [[`time_existence`]], [[`models.WorldElement`]].
+
+### CALLOUTS
+>[!INFO]- Deterministic Generation
+> Hashing (`hash_input`) ensures identical inputs produce identical outputs, enabling reproducible world elements.
+>[!WARNING]- Fallback Warnings
+> Missing generators or services emit warnings (e.g., `GENERATORS_AVAILABLE=False`), but the service raises `RuntimeError` if critical dependencies fail.
+>[!CAUTION]- Location/Time Dependencies
+> Location/time metadata is conditionally appended; errors during generation are logged but do not halt execution.

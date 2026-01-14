@@ -1,0 +1,37 @@
+### TAGS
+#i18n
+#Vue
+#Internationalization
+#Locale-Specific
+#RTL-Support
+
+### TYPE
+documentation
+
+### SUMMARY
+Configures Vue-i18n for multilingual support with RTL language detection.
+
+### DETAILS
+This file sets up a Vue-i18n instance with locale-specific translations for English (`en`) and Arabic (`ar`). It initializes the `createI18n` function with configuration options like `legacy: false` (enabling Composition API), default locale (`ar`), and fallback to English. The `messages` object holds JSON translations for both locales. Additionally, it defines a list of RTL (Right-to-Left) languages (`rtlLanguages`) and a utility function `isRTL` to check if a given locale supports RTL rendering.
+
+### KEY_FUNCTIONS
+- **`createI18n`**: Initializes the Vue-i18n instance with locale-specific translations.
+- **`rtlLanguages`**: Array of RTL language codes (`ar`, `he`, `fa`, `ur`).
+- **`isRTL(locale)`**: Checks if a locale is in the RTL languages list.
+
+### DEPENDENCIES
+`vue-i18n`, `@/locales/en.json`, `@/locales/ar.json`
+
+### USAGE
+1. Import `createI18n` and `isRTL` in a Vue component.
+2. Use `createI18n` to initialize the i18n instance with translations.
+3. Call `isRTL(locale)` to determine if a language is RTL for layout adjustments.
+
+### RELATED
+[[Vue-i18n Documentation]], [[Composition API Guide]]
+
+### CALLOUTS
+>[!INFO]- Default Locale Change
+> Changed the default locale from English (`en`) to Arabic (`ar`) for RTL support, which may require UI adjustments (e.g., text direction, RTL-specific components).
+>[!WARNING]- Fallback Behavior
+> If a translation is missing in the current locale, it falls back to English (`en`). Ensure all critical translations are covered in the primary locale (`ar`).

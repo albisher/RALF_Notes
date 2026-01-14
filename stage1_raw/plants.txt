@@ -1,0 +1,44 @@
+### TAGS
+#deterministic-generation
+#plant-attributes
+#hash-based-selection
+#data-structures
+
+### TYPE
+code-library
+
+### SUMMARY
+Generates deterministic plant descriptions using SHA-256 hashing and predefined lists of plant attributes.
+
+### DETAILS
+This script reads predefined text files (e.g., `SeedShapes.txt`) containing plant attributes and uses cryptographic hashing to deterministically select values for a plant description. It employs a modular approach with helper functions (`hash_input`, `derive_int_from_hash`, `select_from_list`) to derive random-like values from user input. The `generate_plant_description` function constructs a structured JSON-like output combining visual style, general attributes, colors, and additional details like propagation methods and uses.
+
+### KEY_FUNCTIONS
+- **read_list_from_file(filename)**: Reads and returns non-empty lines from a text file in the `Lists` directory.
+- **hash_input(input_str)**: Generates a SHA-256 hash for deterministic selection.
+- **derive_int_from_hash(input_hash, salt, max_value)**: Converts a hash segment into an integer within a specified range.
+- **select_from_list(input_hash, salt, item_list)**: Randomly selects an item from a list based on the hash and salt.
+- **assign_number(input_hash, salt, min_value, max_value)**: Assigns a deterministic number within a range.
+- **generate_plant_description(input_hash)**: Orchestrates the full plant description generation using predefined lists and hash-based selection.
+
+### DEPENDENCIES
+`hashlib`, `os`, `re` (standard Python libraries)
+
+### USAGE
+1. Place text files (e.g., `SeedShapes.txt`) in a `Lists` subdirectory.
+2. Call `generate_plant_description()` with a user input string to produce a deterministic plant description.
+   Example:
+   ```python
+   description = generate_plant_description(hash_input("user_input"))
+   print(description)
+   ```
+3. Run the script directly: Input any text to generate a plant (e.g., `python plants.py`).
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script relies on deterministic hashing, so the same input will always produce the same plant description. This ensures reproducibility but limits randomness.
+>[!WARNING]- Caution
+> Ensure all required text files (e.g., `SeedShapes.txt`) exist in the `Lists` directory; otherwise, default values (e.g., "Unknown Shape") will be used.

@@ -1,0 +1,48 @@
+### TAGS
+#debugging
+#web-scraping
+#puppeteer
+#login-page
+#automated-testing
+#frontend-analysis
+
+### TYPE
+code-notes
+
+### SUMMARY
+Debugs and inspects a login page using Puppeteer to analyze UI structure, errors, and visibility.
+
+### DETAILS
+This script uses Puppeteer to launch a browser with Chrome headless disabled, inspect the login page at `localhost:8443/login`, and perform several checks:
+1. **Basic UI Validation**: Verifies the existence of the `#app` element and logs its content length.
+2. **Dynamic Element Detection**: Evaluates all visible DOM elements (using `offsetWidth/offsetHeight`) and logs their tags, text, and classes.
+3. **Error Handling**: Checks for JavaScript errors via `window.console.error` and logs them.
+4. **Visual Inspection**: Captures a full-page screenshot for debugging purposes.
+The script includes error handling, console logging for debugging, and cleanup of the browser instance.
+
+### KEY_FUNCTIONS
+- **`DebugLoginPage`**: Class encapsulating the login page debugging logic.
+  - **`constructor()`**: Initializes the base URL (`https://localhost:8443`).
+  - **`runTest()`**: Core method that:
+    - Launches a browser with custom Puppeteer options.
+    - Inspects the login page (HTML content, `#app` element, visible elements, errors).
+    - Saves a screenshot (`./screenshots/ui-checks/...png`).
+- **`page.on('console', ...)`**: Logs browser console messages.
+- **`page.on('pageerror', ...)`**: Logs page-level errors.
+
+### DEPENDENCIES
+puppeteer, Chrome browser (bundled via `--executablePath`).
+
+### USAGE
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node debug-login-page.js`.
+3. Ensure the target login page (`localhost:8443/login`) is accessible.
+
+### RELATED
+[[Debugging Framework Notes]], [[Puppeteer Best Practices]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script uses Chrome’s `--disable-web-security` and `--ignore-ssl-errors` flags, which may expose the page to security risks in production. Use only in controlled environments.
+>[!WARNING]- Caution
+> The `page.evaluate()` call for visible elements (`document.querySelectorAll('*')`) is computationally expensive. Limit its scope if debugging large pages.

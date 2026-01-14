@@ -1,0 +1,109 @@
+**Tags:** #Vue.js, #React, #Frontend-Development, #World-Builder-System, #UI-Components
+**Created:** 2026-01-13
+**Type:** documentation
+
+# Worlds-qk9HtaLr
+
+## Summary
+
+```
+Manages a world creation and search system for a digital universe builder application.
+```
+
+## Details
+
+> This file defines a Vue.js component (`Worlds`) for managing and displaying a collection of "worlds" (customizable digital environments). It includes:
+> - **Search functionality** to filter worlds by name, description, genre, or theme.
+> - **World creation** via a form with fields for name, description, genre, and theme.
+> - **UI components** for displaying world cards with metadata (status, creation date, genre/theme).
+> - **Interactive elements** like edit/delete buttons and loading states.
+> - **State management** for handling user input, errors, and async operations (e.g., fetching/deleting worlds).
+> 
+> The component uses a predefined `i` (likely an instance of a backend API client) to interact with a world database, storing data in a structured format (e.g., `r.value` for form inputs). It dynamically renders world cards based on filtered results from `i.userWorlds`.
+
+## Key Functions
+
+### ``V` (createWorld)`
+
+Asynchronous function to submit a new world to the backend.
+
+### ``M` (navigateToWorld)`
+
+Redirects to a world’s detail page after creation.
+
+### ``W` (filterWorlds)`
+
+Filters worlds based on search term (case-insensitive).
+
+### ``I` (editPlaceholder)`
+
+Placeholder for future edit functionality.
+
+### ``T` (deleteWorld)`
+
+Asynchronous deletion of a world.
+
+### ``setup``
+
+Initializes UI components (e.g., `v-alert`, `v-text-field`) and state variables (`v`, `p`, `r`).
+
+### ``X` (fetchWorlds)`
+
+Asynchronous fetch of all worlds from the backend.
+
+### ``A` (statusColor)`
+
+Maps world status to a color class (e.g., "active" → "success").
+
+### ``B` (formatDate)`
+
+Converts timestamps to locale-friendly strings.
+
+## Usage
+
+1. **Initialize**: Call `setup()` to render the component with a `t` (translation object) and `m` (message handler).
+2. **Search**: Use the search input (`$`) to filter worlds dynamically.
+3. **Create**: Click "Add World" to open a modal (`R`) with a form (`G`) for submitting new worlds.
+4. **View/Edit/Delete**: Click world cards to view details; edit/delete buttons appear on cards.
+5. **Error Handling**: Displays errors (e.g., empty fields) via `m.showError()` or loading states.
+
+## Dependencies
+
+> ``./index-CrDxv0Ll.js` (imported aliases: `_``
+> ``J``
+> ``K``
+> ``h``
+> ``O``
+> ``X``
+> ``g``
+> ``c``
+> ``k``
+> ``y``
+> ``o``
+> ``t``
+> ``x``
+> ``a``
+> ``n``
+> ``F``
+> ``l``
+> ``ee``
+> ``u``
+> ``d``
+> ``m``
+> ``b` likely represent Vue components or utility functions).
+External libraries: Vue 3 (via `n()` for component creation)`
+> `likely `vuex` or similar state management for `i.userWorlds`.`
+
+## Related
+
+- [[World-Builder-API (Backend service for world CRUD operations)
+World-Card-Component (UI component for displaying individual worlds)]]
+
+>[!INFO] Important Note
+> The `i` object is assumed to be a backend API client with methods like `createWorld`, `fetchWorlds`, and `deleteWorld`. Ensure it’s properly initialized before use.
+
+>[!WARNING] Caution
+> The `I` (edit) function is marked as "coming soon" and not implemented. Avoid relying on it until developed.
+
+>[!INFO] State Management
+> The component uses `v.value` and `r.value` for reactive state. Changes to these variables trigger UI updates via Vue’s reactivity system.

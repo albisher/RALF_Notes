@@ -1,0 +1,81 @@
+**Tags:** #map-upload, #timeline-processing, #backend-api, #frontend-ui, #historical-dates, #event-based-timeline
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# map_upload_timeline_fixes
+
+## Summary
+
+```
+Implements a world-specific map upload system and refactors the timeline to dynamically adjust based on historical event dates rather than a fixed year-zero anchor.
+```
+
+## Details
+
+> This code file outlines fixes for a map upload and timeline system, transitioning from a year-zero-centric approach to an event-driven timeline. The backend introduces a dedicated API for map management, while the frontend enhances map upload functionality and timeline rendering. Key improvements include dynamic date parsing for historical years, world-specific map storage, and timeline adjustments based on actual event ranges rather than arbitrary year ranges.
+
+## Key Functions
+
+### ``MapManagementAPIBox``
+
+Handles map uploads via `/api/maps/upload` and retrieves world map metadata via `/api/maps/world/<world_id>`.
+
+### ``parseDateFromString()``
+
+Enhanced to support 3-5 digit historical years (e.g., 624, 622) and formats like `0624-01-01`.
+
+### ``parseYearFromString()``
+
+Updated to parse 3-5 digit years for historical contexts.
+
+### ``getTimeFromPosition()``
+
+Recalculates timeline ranges dynamically from `timelineNodes` or `topTimelineMarkers`, falling back to `yearZero` only if necessary.
+
+### ``MapsStage.vue``
+
+Frontend component for uploading and displaying custom maps.
+
+### ``WorldMap2D.vue`/`TopTimelineMap.vue``
+
+Dynamically load world-specific maps from metadata.
+
+### ``process_map_data.py``
+
+Processes uploaded map files into structured formats for storage.
+
+## Usage
+
+1. **Map Upload**:
+   - Navigate to the Maps stage in the UI.
+   - Select a world and upload an Azgaar JSON file.
+   - The backend processes the file, stores it in world-specific directories, and updates metadata.
+   - Frontend reloads to reflect the new map.
+
+2. **Timeline Adjustment**:
+   - Select a world with historical events (e.g., Quraan).
+   - The timeline dynamically adjusts to show the range of event dates (e.g., 610–632) instead of a fixed range.
+   - Date parsing ensures historical years (e.g., 624) are correctly interpreted.
+
+## Dependencies
+
+> ``requests``
+> ``python-dateutil``
+> ``jsonschema` (for backend)`
+> ``Vue.js``
+> ``Vuex`/`Pinia` (for frontend state management)`
+> ``Axios`/`Fetch API` (for frontend API calls).`
+
+## Related
+
+- [[map_management_bp]]
+- [[app]]
+- [[WorkflowPage]]
+- [[process_map_data]]
+
+>[!INFO] **World-Specific Maps**
+> Maps are stored in `ui-beta/maps/world_{world_id}/` and accessed via `world_metadata.map_path`. Frontend components fetch this dynamically to avoid conflicts.
+
+
+>[!WARNING] **Processing Latency**
+> Map processing via `process_map_data.py` may take 30–60 seconds. Ensure sufficient backend resources during uploads.

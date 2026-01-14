@@ -1,0 +1,45 @@
+### TAGS
+#docker
+#vuejs
+#devops
+#nginx
+#vite
+#development
+#mime-types
+#hot-module-replacement
+#volume-mounts
+#containerization
+
+### TYPE
+documentation
+
+### SUMMARY
+Solves Vue.js development issues with Docker by integrating Vite dev server and Nginx proxy for secure, live-reload-enabled access.
+
+### DETAILS
+This setup resolves a white-page error by running the Vue.js dev server inside Docker with proper volume mounts and network configuration. The solution leverages Vite’s fast feedback loop and Docker’s containerization for consistent environments, while ensuring Nginx proxies correctly to the containerized dev server. Key aspects include exposing `0.0.0.0` for host access, using anonymous volume mounts for `node_modules`, and enabling polling for file watching in Docker.
+
+### KEY_FUNCTIONS
+- **`Dockerfile.dev`**: Builds a lightweight Node.js container for Vue.js dev with live reload.
+- **`docker-compose.yml`**: Defines frontend service with volume mounts (`./frontend:/app`) and `node_modules` isolation.
+- **`vite.config.js`**: Configures Vite to run on `0.0.0.0:5173` with polling for Docker compatibility.
+- **`nginx/nginx.conf`**: Updates upstream to proxy requests to `frontend:5173` (Docker service name).
+
+### DEPENDENCIES
+`node:20-alpine`, `npm`, `vite`, `@vitejs/plugin-vue`, `nginx`, `docker`, `docker-compose`
+
+### USAGE
+1. Run `docker-compose up -d` to start the frontend dev server.
+2. Access via `https://localhost:8443` (Nginx proxy).
+3. Modify `frontend/src` files—changes reflect live in the container.
+4. For production, use the existing Dockerfile with `npm run build`.
+
+### RELATED
+[[Vue.js Docker Setup Guide]], [[Nginx Docker Proxy Configuration]]
+
+### CALLOUTS
+>[!INFO]- **Critical Host Access**
+> Ensure `vite.config.js` sets `host: '0.0.0.0'` to allow Docker’s internal network access. Without this, the dev server may only bind to `localhost` inside the container, causing proxy failures.
+
+>[!WARNING]- **Security Note**
+> Exposing `5173` directly to the host risks exposing the dev server to unauthorized access. Use Nginx’s SSL termination (e.g., `localhost:8443`) for production-like security during development.

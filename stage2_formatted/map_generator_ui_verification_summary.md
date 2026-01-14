@@ -1,0 +1,73 @@
+**Tags:** #ui-verification, #map-generator, #frontend-backend-integration
+**Created:** 2026-01-13
+**Type:** documentation
+
+# map_generator_ui_verification_summary
+
+## Summary
+
+```
+Verifies the functional status of a **Map Generator UI** with API integration, ensuring all components work end-to-end for seamless map creation.
+```
+
+## Details
+
+> This document summarizes the verification of a **Map Generator UI** system, confirming its operational readiness. It covers UI components (form inputs, progress display, preview), API endpoints (POST/GET for generation, status, result, and cancellation), and the full generation workflow (voronoi, heightmap, biome, city assembly). The system integrates a backend service (`MapGeneratorServiceBox`) and validates real-time progress updates, error handling, and data consistency. Test results confirm successful generation of maps with accurate statistics (e.g., biome distribution, city placement) and compatibility with the Azgaar map format.
+
+## Key Functions
+
+### `Map Generator Form`
+
+Collects user inputs (name, seed, resolution, biome settings) for map generation.
+
+### `Generate Map Button`
+
+Initiates API call to trigger map generation via `MapGeneratorServiceBox`.
+
+### `Progress Display`
+
+Shows real-time generation stages (voronoi → heightmap → biomes → cities → assembly) with a progress bar.
+
+### `Map Preview`
+
+Renders the generated map after completion, including loading/error states.
+
+### `Map Generator Controls`
+
+Includes export, save, and cancel buttons for post-generation actions.
+
+### `API Integration`
+
+Handles all backend endpoints (`/api/maps/generate`, `/api/maps/status/{job_id}`, etc.) and job management.
+
+### `Service Box (`MapGeneratorServiceBox`)`
+
+Mediates between frontend and backend, parsing responses and managing job IDs.
+
+## Usage
+
+1. Access the UI at `http://localhost:5174/#maps`.
+2. Configure parameters (e.g., resolution, biome preferences).
+3. Click **Generate Map** to trigger the process.
+4. Monitor progress via the progress bar and status updates.
+5. View the generated map in the preview section; use **Export** or **Save to World** to save the result.
+
+## Dependencies
+
+> ``MapGeneratorServiceBox``
+> ``space-pearl-map-generator` (backend container)`
+> `Azgaar-compatible map format libraries`
+> `React-based frontend framework (likely Next.js).`
+
+## Related
+
+- [[MapGeneratorServiceBox Documentation]]
+- [[Azgaar Map Format Specification]]
+- [[Backend API Reference]]
+
+>[!INFO] Important Note
+> **Job IDs** are auto-generated for tracking. Use them to check status (`/api/maps/status/{job_id}`) or retrieve results (`/api/maps/result/{job_id}`) if needed.
+>
+
+>[!WARNING] Caution
+> During generation, the **Generate Map button** is disabled to prevent duplicate submissions. Cancel jobs via `/api/maps/cancel/{job_id}` if required.

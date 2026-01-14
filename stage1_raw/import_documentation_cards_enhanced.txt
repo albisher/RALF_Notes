@@ -1,0 +1,47 @@
+### TAGS
+#documentation-processing
+#text-extraction
+#card-generation
+#world-building
+#regex-parsing
+
+### TYPE
+code-notes
+
+### SUMMARY
+Processes documentation files to extract structured data for generating interactive cards (robots, characters, events) using regex and file parsing.
+
+### DETAILS
+This script automates the extraction of metadata from various file types (robot specs, story logs, world info) stored in documentation folders. It uses regex patterns to identify sections like descriptions, capabilities, and coordinates, then organizes extracted data into standardized formats. The parsed data is later used by a card-generation system to create interactive entities (e.g., robots, characters, events) with attributes like name, description, and location.
+
+The script relies on a backend framework (`app`) and database (`db`) to store and process extracted entities. It initializes specialized "boxes" (generators) for handling different data types (e.g., `HashGeneratorMasterBox`, `CardBuilderBox`), which apply formatting rules to extracted text.
+
+### KEY_FUNCTIONS
+- **parse_robot_file(file_path)**: Extracts structured metadata (name, description, capabilities, appearance) from robot specification files using regex to identify sections like "Description," "Capabilities," and "Appearance."
+- **parse_story_log(file_path)**: Parses event logs to extract dates, coordinates, and robot names, combining filename patterns (e.g., `YYYYSS_X#_Robot`) with content-based regex for consistency.
+- **parse_characters_from_world_info(file_path)**: Identifies and extracts context around predefined character names (e.g., "Mr. Ha Bee") from world information files, storing descriptions in a structured format.
+- **parse_robots_from_world_info(file_path)**: Extracts robot names and roles (e.g., "X-Series robot") from world information files using predefined regex patterns.
+- **BoxInitialization**: Initializes specialized "boxes" (e.g., `CardBuilderBox`, `UniquenessBox`) for generating and validating card attributes.
+
+### DEPENDENCIES
+`os`, `sys`, `json`, `re`, `pathlib`, `datetime` (standard libraries),
+`app` (main application module),
+`db` (database module),
+`User`, `World`, `Card` (model classes),
+`BoxInput`, `HashGeneratorMasterBox`, `PhysicalFormBox`, `PersonalityBox`, `LocationBox`, `TimeBox`, `CardBuilderBox`, `CardUniquenessBox` (boxes/generators modules).
+
+### USAGE
+1. **Setup**: Place documentation files (e.g., robot specs, story logs) in a structured folder hierarchy (e.g., `Documentation/robots/`, `Documentation/world/`).
+2. **Execution**: Run the script, which recursively scans folders, parses files, and stores extracted data in the database via `Card` model entries.
+3. **Integration**: The parsed data is fed into the card-generation system (e.g., `CardBuilderBox`) to create interactive cards for entities like robots, characters, or events.
+
+### RELATED
+[[WorldBuildingDocumentation]], [[CardGenerationFramework]], [[DatabaseSchema]]
+
+### CALLOUTS
+>[!INFO]- Context Extraction
+> The script uses regex to extract text snippets around matches (e.g., ±300 characters for character mentions), which may include extraneous content. Manual review may be needed for accuracy.
+>[!WARNING]- Regex Limitations
+> Regex patterns (e.g., for dates/coordinates) may fail if documentation formats deviate from expected patterns (e.g., inconsistent spacing or section headers). Test edge cases in target files.
+>[!INFO]- File Naming Assumptions
+> The script assumes filenames follow patterns like `YYYYSS_X#_Robot` (e.g., `20485_001_X1`) for story logs. Adjust regex in `parse_story_log` if filenames vary.

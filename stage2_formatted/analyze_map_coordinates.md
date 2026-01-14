@@ -1,0 +1,60 @@
+**Tags:** #data-processing, #coordinate-analysis, #json-parsing, #map-data
+**Created:** 2026-01-13
+**Type:** documentation
+
+# analyze_map_coordinates
+
+## Summary
+
+```
+Analyzes map coordinates from a JSON file, extracting dimensions, cell/vertex coordinates, and map coordinate references.
+```
+
+## Details
+
+> This script reads a JSON file containing map data, specifically focusing on dimensions, cell coordinates, vertex coordinates, and map coordinate references. It validates the structure of the JSON, checks for required fields (`info`, `pack.cells`, `pack.vertices`, `mapCoordinates`), and computes statistical summaries (min/max values) for numeric coordinates. The script also handles edge cases like missing or malformed data by providing warnings or error messages.
+> 
+> The logic iterates through `pack.cells` and `pack.vertices` to extract valid numeric coordinates, computes bounding boxes, and samples the first 5 valid coordinates for display. It also attempts to infer conceptual geographic references (e.g., longitude/latitude extremes) based on `mapCoordinates` and map dimensions.
+
+## Key Functions
+
+### `analyze_coordinates(map_file_path)`
+
+Main function that reads and processes a JSON map file, printing structured analysis of dimensions, cell/vertex coordinates, and map coordinate references.
+
+### `Error handling`
+
+Catches `FileNotFoundError` and `JSONDecodeError` to gracefully exit with descriptive messages.
+
+### `Coordinate extraction`
+
+Extracts and validates numeric coordinates from `cells` and `vertices` arrays, computing min/max values and sample outputs.
+
+### `Map dimension validation`
+
+Checks for required fields (`info.width`, `info.height`) and `mapCoordinates` metadata.
+
+## Usage
+
+1. Call `analyze_coordinates(path_to_map_file.json)` to process a map JSON file.
+2. The script prints structured analysis output, including:
+   - Map dimensions (`info.width`, `info.height`).
+   - Cell/vertex coordinate statistics (min/max X/Y spans).
+   - Sample coordinates (first 5 valid entries).
+   - Map coordinate metadata (e.g., `lonW`, `lonE`, `latN`).
+3. Handle errors gracefully by catching exceptions (e.g., missing file or invalid JSON).
+
+## Dependencies
+
+> ``json``
+> ``sys` (Python standard library modules)`
+
+## Related
+
+- [[None]]
+
+>[!INFO] Important Note
+> The script assumes `mapCoordinates` contains geographic references (e.g., `lonW`, `lonE`, `latN`) to infer conceptual equator/prime meridian. If these values are missing, the script skips this analysis.
+
+>[!WARNING] Caution
+> If `pack.cells` or `pack.vertices` contain non-numeric or malformed data, the script will print warnings but continue processing. Invalid entries are skipped, and only the first 5 valid entries are sampled for display.

@@ -1,0 +1,55 @@
+**Tags:** #database-update, #world-element, #security-check, #orm-update
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# world_element_update_box
+
+## Summary
+
+```
+Handles secure updates to existing WorldElement records via a box interface.
+```
+
+## Details
+
+> This box implements a secure update mechanism for `WorldElement` records in a database. It validates input (requires `element_id` and `user_id`), checks ownership, and updates only specified fields (`name`, `element_type`, `generation_hash`, `data`). Changes are tracked before/after updates, and the `updated_at` timestamp is refreshed. The box uses SQLAlchemy’s `db.session` for transaction management and returns serialized output with the updated element and change history.
+
+## Key Functions
+
+### ``execute(input_data`
+
+BoxInput) -> BoxOutput`**: Core logic—validates input, updates record, and returns results.
+
+### ``WorldElementUpdateBox``
+
+Class defining the box interface with initialization and security checks.
+
+### ``updatable_fields``
+
+Hardcoded list of allowed fields (`name`, `element_type`, `generation_hash`, `data`).
+
+## Usage
+
+1. Call with `element_id`, `updates` (dict of fields to modify), and `user_id`.
+2. Returns `success=True` with updated element data and change history if valid.
+3. Fails with error messages for missing/invalid inputs or access violations.
+
+## Dependencies
+
+> ``..core.box_interface``
+> ``models.db``
+> ``models.WorldElement``
+> ``datetime``
+> ``logging``
+
+## Related
+
+- [[SQLAlchemy ORM documentation]]
+- [[BoxInterface design]]
+- [[WorldElement model]]
+
+>[!INFO] Change Tracking
+> Changes are logged in `changes` dict as `{field: {'before': old_value, 'after': new_value}}` to audit modifications.
+
+>[!WARNING] Transaction Rollback
+> If an error occurs, `db.session.rollback()` ensures no partial updates persist. Always handle exceptions explicitly.

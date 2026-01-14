@@ -1,0 +1,35 @@
+### TAGS
+#materials
+#construction
+#sustainability
+#engineering
+
+### TYPE
+documentation
+
+### SUMMARY
+A categorized list of building materials, emphasizing modern and sustainable options.
+
+### DETAILS
+This file appears to be a simple, unstructured categorization of common building materials, likely intended for reference in construction, engineering, or sustainability contexts. The listed items include traditional, composite, and recycled materials, highlighting alternatives to conventional options like wood or stone. The content may serve as a foundational resource for selecting materials based on durability, environmental impact, or cost-efficiency.
+
+### KEY_FUNCTIONS
+*(None explicitly defined—likely a reference list)*
+
+### DEPENDENCIES
+none
+
+### USAGE
+This list can be used as:
+- A quick reference for material selection in construction projects.
+- A sustainability guide for eco-friendly building practices.
+- A comparison tool for engineers evaluating material properties.
+
+### RELATED
+[[BuildingMaterialProperties]], [[SustainableConstructionGuide]]
+
+### CALLOUTS
+>[!INFO]- Contextual Note
+> This file is a **static reference**—no dynamic logic or interactivity is implied. For detailed properties (e.g., tensile strength, carbon footprint), consult specialized databases or datasheets.
+>[!WARNING]- Incomplete Scope
+> While covering common materials, it omits niche or emerging options (e.g., aerogel, mycelium-based composites). Expand for broader applicability.

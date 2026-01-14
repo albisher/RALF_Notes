@@ -1,0 +1,38 @@
+### TAGS
+#procedural-generation
+#2d-visualization
+#astronomy
+#fast-algorithms
+#deterministic-simulation
+
+### TYPE
+code-notes
+
+### SUMMARY
+Fast procedural galaxy generation for low-resolution 2D top-view maps using hash-based and grid-based methods.
+
+### DETAILS
+This code implements fast, deterministic galaxy formation simulation for low-resolution 2D top-view maps. It combines spiral arm patterns, central galactic cores, and density distributions using hash-based deterministic generation for reproducibility. The system supports both high-resolution (200x200) and ultra-low-resolution (64x64) modes, optimizing performance with O(width*height) complexity for spiral arms and O(resolution²) for grid-based methods. The spiral arms are generated as logarithmic spirals from a central core, while density is calculated based on proximity to spiral arms or core regions.
+
+### KEY_FUNCTIONS
+- **generate_spiral_arms**: Creates spiral arm patterns using hash-based parameters for deterministic generation.
+- **generate_galactic_core**: Produces a central Gaussian density core around the map center.
+- **generate_galaxy_map**: Combines spiral arms and core into a single density map with core precedence.
+- **generate_galaxy_fast**: Optimized grid-based method for ultra-low-resolution (64x64) maps.
+
+### DEPENDENCIES
+numpy, math
+
+### USAGE
+1. Call `generate_galaxy_map(base_hash, width=200, height=200)` for standard resolution (200x200).
+2. Call `generate_galaxy_fast(base_hash, resolution=64)` for ultra-low-resolution (64x64).
+3. Use the returned `numpy.ndarray` as a density map (values range 0.0–1.0).
+
+### RELATED
+[[Map Generation Path - World Type: Galaxy]], [[World Type: Galaxy]]
+
+### CALLOUTS
+>[!INFO]- Deterministic Hashing
+> Uses the first 8 hex digits of `base_hash` to seed all parameters, ensuring identical results across runs with the same input.
+>[!WARNING]- Core Override
+> The core density always takes precedence over spiral arms in `generate_galaxy_map`, which may result in spiral arms being masked by the core if too close. Adjust `arm_width` or `core_radius` for desired balance.

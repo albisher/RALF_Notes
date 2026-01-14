@@ -1,0 +1,57 @@
+### TAGS
+#biological_applications
+#plant_utilization
+#alien_ecology
+#functional_biology
+
+### TYPE
+research-notes
+
+### SUMMARY
+Explores diverse functional roles of alien plants, categorizing their uses across biology, ecology, and potential alien applications.
+
+### DETAILS
+This document outlines a speculative taxonomy of alien plant functions, mapping natural traits to hypothetical uses in extraterrestrial ecosystems or human-alien interaction. It categorizes plants by their chemical, structural, and ecological contributions, such as pigment production or biofuel generation, while framing them as resources for terraforming, energy, or survival. The list assumes alien plants adapt to extreme conditions, yielding novel compounds for both biological and technological exploitation.
+
+### KEY_FUNCTIONS
+- **Natural Pigment Source**: Provides vibrant, non-toxic dyes or visual signaling for communication.
+- **Adhesive/Resin Production**: Forms durable, flexible materials for construction or weaponry.
+- **Poisons/Toxins**: Used defensively or as hunting aids, with controlled toxicity for selective predation.
+- **Medicinal Compounds**: Offers therapeutic properties for healing or enhancing alien physiology.
+- **Biofuel Source**: Acts as a renewable energy reservoir for propulsion or power.
+- **Aromatic Oils/Incense**: Emits scents for social bonding, territorial marking, or atmospheric conditioning.
+- **Fiber Production**: Yields strong, lightweight textiles or structural fibers for clothing or armor.
+- **Edible Parts**: Contains nutritious, calorie-rich nutrients for sustenance.
+- **Biofertilizer/Soil Enrichment**: Enhances soil fertility or supports microbial growth in alien environments.
+- **Pest Repellent**: Deters herbivores or invasive species via chemical deterrents.
+- **Bioluminescent Lighting**: Produces ambient or directional light for navigation or signaling.
+- **Structural Material**: Forms lightweight, resilient wood or chitin-like composites for construction.
+- **Atmospheric Filtration/Terraforming Agent**: Purifies or modifies alien atmospheres for habitability.
+- **Energy Storage (bio-batteries)**: Stores and releases energy via biological processes.
+- **Psionic Amplifier/Dampener**: Modulates or suppresses psionic energy for communication or defense.
+- **Navigational Beacon**: Glows to mark paths, safe zones, or warning areas.
+- **Water Purification**: Filters or distills water for drinking or irrigation.
+- **Oxygen Production**: Supports respiration in closed ecosystems or habitats.
+- **Hallucinogenic/Recreational Substance**: Used for cultural, spiritual, or recreational purposes.
+
+### DEPENDENCIES
+none (theoretical, standalone conceptual framework)
+
+### USAGE
+This document serves as a reference for:
+- **Alien biology researchers** to study plant adaptations.
+- **Terraforming engineers** to design plant-based ecosystems.
+- **Biotechnologists** to extract and engineer alien compounds.
+- **Survivalists** to identify edible, medicinal, or defensive plants.
+- **Fiction writers** to create alien flora with functional roles.
+
+### RELATED
+[[Alien Flora Taxonomy]], [[Terraforming Protocols]], [[Psionic Biology]], [[Extraterrestrial Agriculture]]
+
+### CALLOUTS
+>[!INFO]- Functional Duality
+> Many alien plants serve dual roles—e.g., a "poison" may also act as a biofertilizer if diluted, demonstrating adaptive flexibility.
+>[!WARNING]- Toxicity Risks
+> Unregulated handling of toxins or hallucinogens could be fatal; specialized training is recommended for extraction.
+>[!INFO]- Terraforming Potential
+> Plants like atmospheric filtration agents could accelerate planet stabilization, but require controlled release to avoid ecological collapse.

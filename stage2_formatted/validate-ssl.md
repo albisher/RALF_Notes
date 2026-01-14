@@ -1,0 +1,74 @@
+**Tags:** #SSL, #Security, #Bash, #Networking, #Certificates
+**Created:** 2026-01-13
+**Type:** documentation
+
+# validate-ssl
+
+## Summary
+
+```
+Validates SSL certificates, HTTPS configuration, and generates a detailed SSL report for a web server setup.
+```
+
+## Details
+
+> This script performs comprehensive SSL validation by checking:
+> 1. **Certificate validity** (expiry, issuer, subject) using OpenSSL.
+> 2. **HTTPS connectivity** (port availability, HTTP-to-HTTPS redirect functionality).
+> 3. **Nginx SSL configuration** (certificate/key paths, security headers like HSTS).
+> It dynamically constructs a Markdown report with findings, recommendations, and paths to related scripts.
+> 
+> The script uses environment variables (`DOMAIN_NAME`) for flexibility, defaults to `localhost`, and exits on errors (`set -e`). It logs statuses via color-coded messages for clarity.
+
+## Key Functions
+
+### `validate_ssl_certificate`
+
+Checks if the SSL certificate file exists and is valid using OpenSSL.
+
+### `test_https_connectivity`
+
+Verifies HTTPS port availability and HTTP-to-HTTPS redirect functionality.
+
+### `check_ssl_configuration`
+
+Scans Nginx config files for SSL-related directives (e.g., `ssl_certificate`, `Strict-Transport-Security`).
+
+### `generate_ssl_report`
+
+Creates a structured Markdown report with certificate details, configuration status, and recommendations.
+
+### `main`
+
+Orchestrates all checks and generates the report, returning an exit code based on validation success.
+
+## Usage
+
+1. Run as a standalone script:
+   ```bash
+   ./validate-ssl.sh
+   ```
+2. Set `DOMAIN_NAME` (e.g., `export DOMAIN_NAME="example.com"`).
+3. Outputs:
+   - Logs to console (color-coded).
+   - Generates a report at `ssl-report-<timestamp>.md` in the project root.
+
+## Dependencies
+
+> ``openssl``
+> ``curl``
+> ``bash``
+> ``grep``
+> ``cut``
+> ``date` (standard Unix utilities).`
+
+## Related
+
+- [[setup-ssl-simple]]
+- [[default]]
+
+>[!INFO] Important Note
+> The script assumes the certificate (`cert.pem`) and key (`key.pem`) are located at `$PROJECT_ROOT/nginx/ssl/`. Adjust paths if they differ.
+
+>[!WARNING] Caution
+> Self-signed certificates (e.g., for development) are not trusted by browsers. Replace with Let’s Encrypt certificates in production.

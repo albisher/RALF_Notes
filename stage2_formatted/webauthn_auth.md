@@ -1,0 +1,68 @@
+**Tags:** #flask, #webauthn, #authentication, #redis, #jwt, #biometric
+**Created:** 2026-01-13
+**Type:** documentation
+
+# webauthn_auth
+
+## Summary
+
+```
+Handles WebAuthn registration and authentication flows with JWT token generation and Redis challenge storage.
+```
+
+## Details
+
+> This Flask blueprint (`webauthn_bp`) implements WebAuthn (FIDO2) registration and authentication endpoints. It uses Redis to store temporary challenges for secure session management, integrates with Flask-JWT-Extended for token generation, and interacts with a SQLAlchemy `User` model. The system generates registration options, verifies registration responses, and handles authentication options based on stored credentials. Environment variables define WebAuthn RP (Relying Party) identifiers (RP_ID, RP_NAME, ORIGIN).
+
+## Key Functions
+
+### ``generate_registration_options``
+
+Creates WebAuthn registration options (challenge, RP metadata) and stores the challenge in Redis with a 5-minute TTL. Creates a new user if one doesn’t exist.
+
+### ``verify_registration``
+
+Validates a WebAuthn registration response against the stored challenge, updates the user’s credentials, and issues JWT tokens (access/refresh).
+
+### ``generate_authentication_options``
+
+Retrieves allowed credentials for a user and returns WebAuthn authentication options (e.g., credential IDs and transports).
+
+## Usage
+
+1. **Registration Flow**:
+   - Client calls `/generate-registration-options` with an email → returns challenge ID and options.
+   - User authenticates via WebAuthn device → sends response to `/verify-registration`.
+   - Server validates, stores credentials, and returns JWT tokens.
+
+2. **Authentication Flow**:
+   - Client calls `/generate-authentication-options` with an email → returns allowed credentials.
+   - User authenticates via WebAuthn device → server verifies against stored credentials.
+
+## Dependencies
+
+> `flask`
+> `flask-jwt-extended`
+> `webauthn (PyFIDO)`
+> `redis`
+> `SQLAlchemy`
+> `datetime`
+> `os`
+> `json`
+> `base64`
+> `uuid.`
+
+## Related
+
+- [[Flask JWT Integration Guide]]
+- [[WebAuthn Specification]]
+- [[SQLAlchemy User Model]]
+
+>[!INFO] Challenge Storage
+> Redis is used to store challenges temporarily (5-minute TTL) to prevent replay attacks. The challenge includes the user ID and email for validation.
+
+>[!WARNING] Credential Security
+> Credential data (public keys, sign counts) is stored in plaintext in the database. Consider encrypting sensitive fields in production.
+
+>[!INFO] Environment Variables
+> Critical WebAuthn parameters (RP_ID, RP_NAME, ORIGIN) must be set via environment variables to avoid hardcoding.

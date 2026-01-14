@@ -1,0 +1,59 @@
+**Tags:** #Vue, #Pinia, #ReactiveState, #ComputedProperties, #StateManagement
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# counter
+
+## Summary
+
+```
+A Pinia store for managing a counter with reactive state and computed properties.
+```
+
+## Details
+
+> This code defines a Pinia store (`useCounterStore`) for a counter application using Vue 3. It initializes a reactive `count` ref set to `0` and a computed property `doubleCount` that dynamically calculates `count.value * 2`. The `increment` function updates `count` by incrementing its value. The store exposes these values and functions to components via Pinia’s composition API.
+
+## Key Functions
+
+### ``useCounterStore``
+
+Creates a Pinia store for counter logic.
+
+### ``count``
+
+Reactive reference tracking the current value (default: `0`).
+
+### ``doubleCount``
+
+Computed property returning `count.value * 2`.
+
+### ``increment``
+
+Function to increment `count` by `1`.
+
+## Usage
+
+1. Import the store in a Vue component:
+   ```js
+   import { useCounterStore } from './counter'
+   const store = useCounterStore()
+   ```
+2. Use `store.count` or `store.doubleCount` in templates/composables.
+3. Call `store.increment()` to update the counter.
+
+## Dependencies
+
+> ``vue``
+> ``pinia``
+
+## Related
+
+- [[Vue Composition API]]
+- [[Pinia Documentation]]
+
+>[!INFO] Reactive Updates
+> Changes to `count` trigger recomputation of `doubleCount` automatically due to Pinia’s reactivity system.
+
+>[!WARNING] Avoid Direct Manipulation
+> Directly modifying `count.value` outside the store may break reactivity. Use `increment()` or `store.count = newValue` instead.

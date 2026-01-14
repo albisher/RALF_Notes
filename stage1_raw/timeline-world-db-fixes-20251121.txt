@@ -1,0 +1,40 @@
+### TAGS
+#database-fixes
+#ui-ux-improvements
+#web-routes
+#event-handling
+#web-sockets
+#modal-components
+#deep-linking
+#user-experience
+
+### TYPE
+documentation
+
+### SUMMARY
+Fixed critical UI/UX issues in timeline and world database components, including URL routing and WebSocket timeout handling for improved navigation and user interaction.
+
+### DETAILS
+This document details fixes for two critical issues in the timeline and world database system: **Timeline Stage Navigation** and **World Type Dropdown Timeout**. The fixes address URL hash routing inconsistencies and WebSocket blocking during dropdown interactions, enhancing accessibility and responsiveness. The fixes were implemented in `WorkflowPage.vue` and `CreateWorldModal.vue`, ensuring proper URL handling and non-blocking event processing.
+
+### KEY_FUNCTIONS
+- **handleHashChange**: Manages URL hash changes for timeline navigation.
+- **switchStage**: Validates and updates stage URLs to support both `#stage` and `#/stage` formats.
+- **onWorldTypeChange**: Handles dropdown event changes in `CreateWorldModal.vue` with async validation.
+- **handleCreate**: Validates JSON metadata for world creation in `CreateWorldModal.vue`.
+
+### DEPENDENCIES
+`vue`, `vue-router`, `WebSocket` library (e.g., `ws`), `ui-beta` component library (includes `WorkflowPage.vue` and `CreateWorldModal.vue`).
+
+### USAGE
+1. **Timeline Navigation**: Use `http://localhost:5174/#/timeline` or `http://localhost:5174/#timeline` to navigate to the timeline stage.
+2. **World Creation**: Open `CreateWorldModal.vue` and select options from the dropdown without encountering timeouts.
+
+### RELATED
+[[`ui-ux-report-timeline-world-db-20251121-083000.md`]], [[`WorkflowPage.vue`]], [[`CreateWorldModal.vue`]]
+
+### CALLOUTS
+>[!INFO]- **Testing Timeline Navigation**
+> Ensure both formats (`#timeline` and `#/timeline`) work for deep linking and bookmarking. Test browser back/forward navigation to confirm persistence.
+>[!WARNING]- **WebSocket Blocking Risk**
+> Always use `$nextTick` for event handlers that interact with WebSocket APIs to prevent timeouts during asynchronous operations.

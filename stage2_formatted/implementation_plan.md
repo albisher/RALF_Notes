@@ -1,0 +1,73 @@
+**Tags:** #map-generation, #backend-integration, #puppeteer-playwright, #database-models, #asynchronous-processing
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# implementation_plan
+
+## Summary
+
+```
+Plans for implementing random map generation using Azgaar’s Fantasy Map Generator via browser automation and later a native Python solution.
+```
+
+## Details
+
+> This implementation plan outlines a two-phase approach to integrating map generation into an application. **Phase 1** leverages browser automation (Puppeteer/Playwright) to fetch maps from Azgaar’s website, while **Phase 2** shifts to a native Python implementation for efficiency and reliability. The backend includes a modular system for generating, processing, and managing maps, with frontend integration for user interaction. Testing is structured into unit, integration, and manual checks to ensure correctness and robustness.
+
+## Key Functions
+
+### `MapGeneratorBox`
+
+Handles browser automation for map generation via Puppeteer/Playwright.
+
+### `MapGeneration API Endpoint`
+
+Processes map data, saves it to a world-specific directory, and returns metadata.
+
+### `World Model`
+
+Tracks generated maps, active map associations, and metadata (e.g., seed, dimensions).
+
+### `Voronoi Diagram Generator`
+
+Creates seed points and cell/vertex structures for native map generation.
+
+### `Heightmap Generator`
+
+Applies procedural noise to Voronoi cells for terrain elevation.
+
+### `Biome Generator`
+
+Assigns biomes based on environmental factors (height, moisture).
+
+## Usage
+
+1. **Phase 1**:
+   - Call the `/api/maps/generate` endpoint with parameters (e.g., `world_id`, `template`).
+   - Frontend triggers generation via a "Generate Map" button, displaying a modal for parameters.
+   - Generated map is saved as JSON and linked to the world.
+
+2. **Phase 2**:
+   - Replace browser automation with native generators (e.g., `VoronoiGeneratorBox`).
+   - Use procedural generation libraries to create maps directly in Python.
+
+## Dependencies
+
+> `playwright`
+> `puppeteer-python (or Puppeteer/Playwright browser automation libraries)`
+> `scipy`
+> `noise (Perlin/Simplex noise library)`
+> `Flask/Django backend framework.`
+
+## Related
+
+- [[backend-models]]
+- [[map-processing-pipeline]]
+- [[ui-integration-guidelines]]
+
+>[!INFO] Browser Automation Limitation
+> Browser automation introduces latency and dependency on external services. Phase 2’s native implementation avoids these issues by generating maps directly in the backend.
+
+
+>[!WARNING] Seed Consistency
+> If using a fixed seed in Phase 1, ensure it matches Phase 2’s deterministic generation logic to maintain consistency across map versions.

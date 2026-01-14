@@ -1,0 +1,41 @@
+### TAGS
+#beta-access
+#ui-development
+#docker
+#backend-api
+#database-management
+
+### TYPE
+documentation
+
+### SUMMARY
+Documentation for beta access setup, including URLs, card status, and next steps for accessing and managing a beta environment with Dockerized backend and frontend components.
+
+### DETAILS
+This document outlines the setup of a beta environment for a project hosted on `localhost`. It includes details about the created world, converted cards, Docker containers, and accessible URLs for the UI and backend API. The setup includes a production UI with all core features, a backend API, and frontend components. The card status indicates 31 successfully created cards out of 77 total mock cards, with 30 errors due to timestamp formatting issues.
+
+### KEY_FUNCTIONS
+- **Primary UI-Beta (Production UI)**: Main interface for generating, linking, editing, and exporting cards/stories.
+- **Backend API Direct**: Endpoint for direct API interactions (ID: `5001`).
+- **Backend API via Proxy**: Proxy endpoint for API access (ID: `8888/api`).
+- **Frontend (Vue Dev)**: Development frontend interface (ID: `5173`).
+- **Health Check**: Endpoint to verify backend health (ID: `8888/health`).
+- **Card Stage**: UI component for viewing, editing, and managing cards in the selected world.
+
+### DEPENDENCIES
+Docker, Node.js, Express.js (for backend API), Vue.js (for frontend), and a database (likely PostgreSQL or similar).
+
+### USAGE
+1. Access the UI via `http://localhost:8888/ui-beta/` to interact with the beta environment.
+2. Navigate to the **Card stage** to view/edit cards in the world **"Space Peral" (ID: 38)**.
+3. Use the backend API directly or via proxy for programmatic interactions.
+4. Manually fix timestamp errors in the UI if needed.
+
+### RELATED
+[[Beta Access Setup Guide]], [[Docker Configuration Notes]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The backend API is exposed both directly (`localhost:5001/api`) and via proxy (`localhost:8888/api`). Ensure your application routes requests correctly to avoid conflicts.
+>[!WARNING]- Caution
+> The 30 timestamp errors may cause partial functionality. Verify card data integrity by editing problematic cards manually in the UI.

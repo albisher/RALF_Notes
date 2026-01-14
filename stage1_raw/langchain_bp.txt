@@ -1,0 +1,41 @@
+### TAGS
+#flask
+#langchain
+#story-generation
+#api
+#redis
+#rate-limiting
+#jwt-authentication
+
+### TYPE
+documentation
+
+### SUMMARY
+Flask blueprint for LangChain-powered story generation and chat APIs with Redis persistence, JWT authentication, and rate limiting.
+
+### DETAILS
+This Flask blueprint (`langchain_bp`) implements a story generation API using LangChain, integrating world data from a database, Redis for session persistence, and JWT authentication. It handles two primary endpoints: `/api/langchain/story/start` (initializes a new story session) and `/api/langchain/story/continue` (extends existing story parts). The service organizes world elements (characters, buildings, plants, robots) into structured data for AI-driven narrative generation. Rate limiting and Redis caching ensure scalability and security.
+
+### KEY_FUNCTIONS
+- **start_story**: Initializes a new story session with validated world data, generates an introduction, and logs the request via an audit trail.
+- **continue_story**: Extends an existing story session based on user-provided inputs (e.g., character interactions, time progression).
+- **LangChainStoryService**: Core service class for story generation, session management, and Redis persistence.
+- **WorldElement.query.filter_by()**: Retrieves and categorizes world elements (e.g., characters, buildings) for story context.
+
+### DEPENDENCIES
+flask, flask-jwt-extended, flask-limiter, redis, langchain-service, models (SQLAlchemy), audit_service
+
+### USAGE
+1. **Initialize**: Create an instance of `langchain_bp` in a Flask app.
+2. **Start Story**: POST to `/api/langchain/story/start` with `world_id` and optional metadata (e.g., `initial_location`).
+3. **Continue Story**: POST to `/api/langchain/story/continue` with `session_id` and story-specific data (e.g., `characters` or `location`).
+4. **Authentication**: Requires JWT token via `@jwt_required()` decorator.
+
+### RELATED
+[[Flask API Documentation]], [[LangChain Integration Guide]], [[SQLAlchemy Models]], [[Redis Configuration]]
+
+### CALLOUTS
+>[!INFO]- Session Validation
+> The `continue_story` endpoint validates session ownership by checking if `current_user_id` appears in the session string (e.g., `story_{user_id}_{world_id}`). This prevents unauthorized story continuation.
+>[!WARNING]- Rate Limiting
+> Both endpoints enforce rate limits (10/min for `start_story`, 20/min for `continue_story`) to mitigate abuse. Exceeding limits returns a `429 Too Many Requests` response.

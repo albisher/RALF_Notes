@@ -1,0 +1,49 @@
+### TAGS
+#UI-Design
+#Dashboard
+#Split-View
+#Creation-Tools
+#Content-Viewing
+#Responsive-Design
+#Interactive-Components
+
+### TYPE
+documentation
+
+### SUMMARY
+A 50/50 split-view dashboard template for simultaneous creation and content browsing tools.
+
+### DETAILS
+This template implements a responsive split layout where the left side hosts creation tools (world selection, hash generation, card building, etc.) and the right side displays content in either a card grid or timeline view. The design prioritizes state preservation, synchronized updates, and efficient workflows for users who need to create content while viewing results. The split view dynamically adjusts based on screen size, with dedicated breakpoints for mobile, tablet, and desktop.
+
+### KEY_FUNCTIONS
+- **World Creation (WCP)**: Form for creating new worlds with world list and edit functionality.
+- **Hash Generation (HGP)**: Input field for generating hashes with aspect checkboxes, generator selection, and results display.
+- **Card Builder (CBP)**: Liked hashes selection, card form, preview, and create button.
+- **Card Grid View**: Responsive grid (2-3 columns) with infinite scroll, sort options, and filter sidebar.
+- **Timeline View**: Horizontal timeline with cards, time navigation, and zoom controls.
+- **Split Resizing**: Vertical divider with minimum width constraints (400px each side) and preference saving.
+- **Responsive Breakpoints**: Adapts layout for mobile (<768px), tablet (768-1024px), and desktop (>1024px).
+- **Context Preservation**: Maintains tool state, form data, scroll positions, and selections across interactions.
+- **Keyboard Shortcuts**: Adjusts split ratio (Ctrl+Shift+Left/Right) and switches sides (Ctrl+Tab).
+
+### DEPENDENCIES
+React (UI framework), CSS Grid/Flexbox (layout), Responsive Design libraries (e.g., Bootstrap or custom breakpoints), State management (e.g., Redux, Context API), Animation libraries (e.g., Framer Motion).
+
+### USAGE
+1. **Setup**: Integrate the split-view container with left/right side components using CSS Grid/Flexbox.
+2. **Left Side Components**: Implement vertical tabs (WCP, HGP, CBP, etc.) with active tab highlighting.
+3. **Right Side Components**: Toggle between Card Grid and Timeline views via a header toggle.
+4. **Responsive Handling**: Define breakpoints for mobile/tablet/desktop layouts and adjust component widths accordingly.
+5. **State Management**: Preserve user actions (e.g., form data, scroll positions) across interactions.
+6. **Interactivity**: Add keyboard shortcuts (e.g., Ctrl+Tab for side switching) and resize handles for dynamic adjustments.
+
+### RELATED
+[[Template-1-Single-Column]], [[Template-2-Card-Grid-Only]], [[Responsive-Design-Guide]]
+
+### CALLOUTS
+>[!INFO]- **State Synchronization**
+> Both sides must update in real-time when creating content on the left or filtering on the right to maintain consistency. Use event listeners or state management to propagate changes bidirectionally.
+
+>[!WARNING]- **Mobile Limitations**
+> On mobile (<768px), the split view collapses into a single side with swipe gestures. Ensure critical actions (e.g., card creation) are accessible via bottom navigation or floating buttons to avoid usability issues.

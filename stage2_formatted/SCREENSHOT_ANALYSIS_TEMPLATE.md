@@ -1,0 +1,65 @@
+**Tags:** #UI_Testing, #World_Generation, #Visual_Analysis, #Game_Design, #Procedural_Content
+**Created:** 2026-01-13
+**Type:** documentation
+
+# SCREENSHOT_ANALYSIS_TEMPLATE
+
+## Summary
+
+```
+Template for analyzing procedural world map generation across multiple world types (planet, galaxy, cloud world, etc.) to ensure visual consistency and correctness.
+```
+
+## Details
+
+> This template evaluates the quality of generated world maps by comparing visual patterns, color distribution, and elevation features against predefined criteria for each world type. It assesses whether the generated map aligns with expected characteristics (e.g., terrain for planets, spiral arms for galaxies) and logs success/failure based on console errors, visibility, and progress indicators. The analysis is structured to track consistency across multiple world types, ensuring deterministic and visually distinct outputs.
+
+## Key Functions
+
+### `World Type Classification`
+
+Assigns visual attributes (pattern type, color distribution) to categorize generated maps.
+
+### `Status Check`
+
+Validates map generation via console logs, visibility in a viewer, and progress indicators.
+
+### `Pattern Matching`
+
+Compares generated maps against expected characteristics for each world type (e.g., "mountains" for planets, "cratered" for moons).
+
+### `Success/Failure Tracking`
+
+Records quantitative metrics (e.g., success rate, distinct patterns) for overall analysis.
+
+## Usage
+
+1. **Capture Screenshots**: Save generated maps in a structured directory (e.g., `screenshots/map_generation_ui_tests/YYYYMMDD/HHMM/`).
+2. **Fill Analysis Fields**: For each world type, check:
+   - **Generation Status** (mark ✅/❌ for each criterion).
+   - **Visual Analysis** (describe patterns, colors, and features).
+   - **World Type Relation** (confirm alignment with expected characteristics).
+   - **Conclusion** (brief success/failure note).
+3. **Aggregate Results**: Use the **Overall Analysis** section to summarize success rates, distinct patterns, and recommendations for improvements.
+
+## Dependencies
+
+> `- Obsidian wikilinks (for linking related documents)`
+> `- Procedural generation engines (e.g.`
+> `terrain algorithms`
+> `map rendering tools)`
+> `- WorldMap2D viewer (for visual inspection)`
+> `- Console logging tools (for error tracking).`
+
+## Related
+
+- [[Procedural_Generation_Engine_Documentation]]
+- [[World_Type_Design_Specs]]
+- [[UI_Test_Report_Archive]]
+
+>[!INFO] Important Note
+> **Deterministic vs. Random**: The template assumes maps are generated deterministically (e.g., using a hash-based seed). If randomness is involved, explicitly note this in the **World Type Relation** section to avoid false positives.
+>
+
+>[!WARNING] Caution
+> **Visual Subjectivity**: Color and pattern descriptions rely on human interpretation. For automated validation, integrate this template with a script that compares generated maps to predefined templates using image recognition or similarity metrics.

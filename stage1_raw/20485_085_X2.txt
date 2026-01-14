@@ -1,0 +1,37 @@
+### TAGS
+#exploration_protocol
+#robot_naming_convention
+#space_expedition
+#sustainable_settlement
+#coordination_system
+
+### TYPE
+documentation
+
+### SUMMARY
+Establishes standardized robotic unit naming conventions and mission protocols for space exploration on Space Peral.
+
+### DETAILS
+This log outlines the establishment of exploration protocols for robotic units deployed on Space Peral. It introduces a standardized naming convention for robotic units to ensure efficient internal management, structured as **[Body Shape Abbreviation][Color Abbreviation]-[Role Abbreviation][Unit Number]**. Each component (body shape, color, role) is limited to three letters, and unit numbers range from 01 to 99. The document also mandates that all missions include at least two robots to minimize losses during long-distance operations. Additionally, it highlights the need for environmental threat mitigation during exploration missions, emphasizing communication as a critical factor.
+
+### KEY_FUNCTIONS
+- **Standardized Naming Convention**: Defines a structured format for robot unit identification.
+- **Mission Robustness Requirement**: Ensures redundancy in robotic teams for safety.
+- **Environmental Threat Mitigation Protocol**: Outlines the need for communication and external threat avoidance strategies.
+
+### DEPENDENCIES
+none (internal documentation and procedural guidelines)
+
+### USAGE
+- **Adoption**: New robotic units must follow the **[Body Shape][Color]-[Role][Unit Number]** convention.
+- **Mission Planning**: All expeditions must include at least two robots to reduce risk.
+- **Communication**: Prioritize inter-unit communication to address environmental threats.
+
+### RELATED
+[[Space Peral Exploration Logs]], [[Robotic Unit Design Standards]]
+
+### CALLOUTS
+>[!INFO]- **Naming Convention Enforcement**
+> Enforcing this convention ensures uniform identification and management of robotic units, simplifying coordination and troubleshooting.
+>[!WARNING]- **Environmental Risk**
+> Failure to mitigate external threats during missions could compromise mission success and unit safety. Prioritize communication protocols with units like X11 to address dynamic environmental risks.

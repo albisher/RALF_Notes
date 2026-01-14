@@ -1,0 +1,66 @@
+**Tags:** #generative_algorithm, #world_generation, #voronoi, #procedural_terrain, #deterministic_randomness
+**Created:** 2026-01-13
+**Type:** documentation-research
+
+# world_type_voronoi_generator
+
+## Summary
+
+```
+Generates Voronoi cells with world-type-specific patterns for procedural world design.
+```
+
+## Details
+
+> This class implements a **world-type-aware Voronoi generator**, dynamically adjusting point distribution patterns based on predefined categories (e.g., "Planet," "Galaxy," "Space Station"). It uses deterministic hashing to ensure reproducibility while incorporating optional Lloyd’s relaxation for refined point distributions. The core logic categorizes input world types (e.g., "moon" vs. "asteroid") and generates corresponding Voronoi seeds, ensuring edge coverage for full map generation.
+
+## Key Functions
+
+### ``__init__``
+
+Initializes generator with seed, point count, and world metadata, then categorizes the world type.
+
+### ``_categorize_world``
+
+Classifies the world into categories like "galaxy" or "space_station" using type/description keywords.
+
+### ``generate_points``
+
+Orchestrates point generation by routing to world-specific methods (e.g., `_generate_planet_points`) and optionally applies Lloyd’s relaxation.
+
+### ``_generate_planet_points``
+
+Creates a grid-like distribution with corner/edge points for full coverage.
+
+### ``_derive_int_from_hash``
+
+Generates deterministic integers from a hash+salt for reproducibility.
+
+### ``_derive_float_from_hash``
+
+Generates deterministic floats (0.0–1.0) for probabilistic adjustments.
+
+## Usage
+
+1. Instantiate with `WorldTypeVoronoiGenerator(seed="my_seed", num_points=100, world_type="Planet")`.
+2. Call `generate_points(width=1000, height=1000)` to produce Voronoi seeds.
+3. Optionally enable relaxation via `apply_relaxation=True`.
+
+## Dependencies
+
+> ``numpy``
+> ``scipy.spatial.Voronoi``
+> ``hashlib``
+> ``backend.boxes.generators.lloyds_relaxation_box``
+> ``backend.boxes.core.box_interface``
+
+## Related
+
+- [[Procedural World Generation Guide]]
+- [[Voronoi Algorithm Deep Dive]]
+
+>[!INFO] Edge Coverage Requirement
+> The `_generate_planet_points` method explicitly adds corner/edge points to ensure Voronoi cells cover the entire map boundary, critical for seamless procedural world integration.
+
+>[!WARNING] Relaxation Dependency
+> Lloyd’s relaxation requires external modules (`backend.boxes.*`). If unavailable, points are generated without refinement, potentially leading to jagged Voronoi boundaries.

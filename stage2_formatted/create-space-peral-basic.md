@@ -1,0 +1,53 @@
+**Tags:** #puppeteer, #web-scraping, #api-integration, #automation, #space-simulation, #robotics, #asynchronous-programming
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# create-space-peral-basic
+
+## Summary
+
+```
+Creates a simulated space colony world and assigns specialized robots via Puppeteer and API calls.
+```
+
+## Details
+
+> This script automates the creation of a fictional space colony named "Space Peral" using Puppeteer to interact with a web application (likely a space simulation or virtual world platform). It launches a browser, navigates to a workspace, captures screenshots, and programmatically creates a planet-type world via an API endpoint (`/api/worlds`). After creating the world, it iterates through a predefined list of X-Series robots, each with distinct roles (e.g., surveying, mining, or atmospheric analysis), and assigns them to the world via another API endpoint (`/api/worlds/{worldId}/elements`). The script uses `localStorage` for authentication and logs progress via `console.log`.
+
+## Key Functions
+
+### `createSpacePeralBasic`
+
+Orchestrates the entire workflow: browser launch, workspace navigation, world creation, and robot assignment.
+
+### `page.evaluate`
+
+Executes JavaScript within the browser context to interact with the API via `fetch` requests.
+
+### `page.screenshot`
+
+Captures full-page screenshots at key stages for documentation.
+
+## Usage
+
+1. Install Puppeteer: `npm install puppeteer`.
+2. Ensure the target workspace (`http://localhost:5173/workspace`) is running.
+3. Set an `auth_token` in `localStorage` (e.g., via browser DevTools or environment variables).
+4. Run the script: `node create-space-peral-basic.js`.
+
+## Dependencies
+
+> `puppeteer`
+> `fetch (built-in browser API)`
+> `localStorage (browser API)`
+
+## Related
+
+- [[Space Simulation API Documentation]]
+- [[Puppeteer Automation Guide]]
+
+>[!INFO] Important Note
+> The script assumes the API endpoints (`/api/worlds`, `/api/worlds/{worldId}/elements`) are accessible and return JSON responses. Validate the `auth_token` and error handling for production use.
+
+>[!WARNING] Caution
+> Running Puppeteer in non-headless mode (`--no-sandbox`) may expose the system to security risks if not used in a controlled environment. Avoid executing this script on untrusted systems.

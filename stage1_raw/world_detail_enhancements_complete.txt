@@ -1,0 +1,60 @@
+### TAGS
+#UI/UX-Enhancements
+#WorldManagement
+#AssetCreation
+#HashFunctionality
+#SidebarNavigation
+#CharacterCustomization
+
+### TYPE
+documentation
+
+### SUMMARY
+Enhanced WorldDetail page with faster Quick Actions, hash-based asset generation, active world toggling, expanded sidebar navigation, and character physical body linking.
+
+### DETAILS
+This file documents comprehensive enhancements to the **WorldDetail page**, addressing user requests for improved functionality. The solution includes **Quick Actions** that now execute actions directly (e.g., opening asset creation dialogs instead of URL changes), a **hash-based asset creation system** for deterministic generation and customization, an **active world toggle** for dynamic world selection, an **expanded sidebar** with new navigation groups, and **character physical body linking** using hashed names for consistent form associations. The implementation leverages Vue.js, API services, and Vuex stores for state management.
+
+---
+
+### KEY_FUNCTIONS
+- **`showAssetCreator`**: Opens a dialog for asset creation (character, element, location).
+- **`generateFromHash`**: Creates an asset using a seed and hash, fetching saved custom values if available.
+- **`toggleActiveWorld`**: Toggles the active state of a world (deactivates if active, activates otherwise).
+- **`toggleGroup('assetCreation')`**: Expands/collapses the sidebar group for asset creation links.
+- **`physicalFormTypes`**: Defines predefined character physical body options (e.g., Human, Robot, Dragon).
+- **`generateHash`**: Computes a SHA-256 hash from a seed input for deterministic asset generation.
+
+---
+
+### DEPENDENCIES
+Vue.js (3.x), Vuetify (for UI components), Vuex (state management), API service (`apiService`), worlds store (`worldsStore`), UI store (`uiStore`), router (`router`), asset creation dialog logic.
+
+---
+
+### USAGE
+1. **Quick Actions**: Click buttons (e.g., "Add Character") to open a dialog directly on the WorldDetail page.
+2. **Hash-Based Creation**:
+   - Input a seed in the asset creation dialog.
+   - Generate a hash and preview fields.
+   - Edit/modify generated values and save them.
+3. **Active World Toggle**: Click the button to switch between worlds (deactivate if active).
+4. **Sidebar Navigation**:
+   - Expand groups (e.g., "Asset Creation") to access links.
+   - Use links to create assets (e.g., characters, plants) directly from the sidebar.
+5. **Character Physical Body**:
+   - Select a form type during character creation.
+   - The system links the character’s name to a consistent form via hashing.
+
+---
+
+### RELATED
+[[WorldDetail Page Architecture]], [[Asset Creation Dialog Design]], [[Vuex Store: Worlds Module]], [[Hash-Based Data Management]]
+
+---
+### CALLOUTS
+>[!INFO]- **Deterministic Hashing**
+> Character physical body linking relies on hashing the character name. This ensures consistent form associations across sessions, but users can override defaults for customization.
+
+>[!WARNING]- **State Management**
+> The implementation uses Vuex stores (`worldsStore`, `uiStore`) for global state. Ensure proper cleanup during page transitions to avoid conflicts with other instances.

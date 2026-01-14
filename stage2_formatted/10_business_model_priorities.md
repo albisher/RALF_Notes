@@ -1,0 +1,60 @@
+**Tags:** #business-model, #prioritization, #sas, #writing-tools, #ai-driven, #world-building
+**Created:** 2026-01-13
+**Type:** documentation-research
+
+# 10_business_model_priorities
+
+## Summary
+
+```
+Explores strategic priorities for a SaaS-based AI-powered world-building tool for writers, covering development, monetization, and competitive positioning.
+```
+
+## Details
+
+> This document outlines key considerations for structuring a **SaaS-based writing tool** focused on AI-assisted world-building, targeting writers across all languages. It addresses critical phases like feature prioritization, monetization models, competitive differentiation, and success metrics. The document emphasizes balancing free/open-access features (for public short stories) with premium subscriptions, while defining a clear roadmap for AI service costs and feature tiers.
+
+## Key Functions
+
+### `Feature Prioritization`
+
+Identify core features (e.g., generators, location/biome tracking) for the initial 2-month release.
+
+### `Monetization Framework`
+
+Define free vs. premium tiers (e.g., free for public use, subscription for advanced features).
+
+### `Competitive Analysis`
+
+Assess unique value vs. existing tools (e.g., existing world-building apps like Dungeon World, World Anvil).
+
+### `Success Metrics`
+
+Establish KPIs (e.g., user engagement, feature adoption) and feedback loops for iterative improvement.
+
+## Usage
+
+This document serves as a **strategic roadmap** for stakeholders to align on priorities, timelines, and monetization. Key stakeholders (developers, product managers, and writers) should collaborate to refine answers to questions about goals, audience, and competitive edge.
+
+## Dependencies
+
+> `- AI model integration (e.g.`
+> `open-source models like Hugging Face`
+> `proprietary APIs).
+- SaaS hosting infrastructure (e.g.`
+> `cloud platforms like AWS/Azure).
+- Writing/creative tool ecosystem (e.g.`
+> `existing platforms like Scrivener`
+> `Notion).`
+
+## Related
+
+- [[World Building Tool Ecosystem Analysis]]
+- [[AI Monetization Strategies for SaaS]]
+- [[Open-Source vs]]
+
+>[!INFO] **Free/Premium Split**
+> The free tier should prominently credit the SaaS platform (e.g., "Created with [App Name]") to maintain transparency, while premium features (e.g., advanced AI customization) can justify subscription costs.
+
+>[!WARNING] **Competitive Edge Risk**
+> Avoid over-reliance on AI-generated content without human oversight—ensure the tool’s uniqueness lies in *interactivity* (e.g., dynamic world evolution) rather than generic outputs.

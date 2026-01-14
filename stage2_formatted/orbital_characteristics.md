@@ -1,0 +1,61 @@
+**Tags:** #astronomy, #orbital_mechanics, #celestial_motion, #space_science
+**Created:** 2026-01-13
+**Type:** documentation
+
+# orbital_characteristics
+
+## Summary
+
+```
+Describes key orbital characteristics and phenomena influencing celestial bodies' motion around stars, planets, or other objects.
+```
+
+## Details
+
+> This file outlines fundamental concepts in orbital dynamics, covering the shape, stability, and behavior of orbits (e.g., elliptical vs. circular paths) and special cases like retrograde motion or tidal locking. It also addresses broader astrophysical phenomena such as gravitational interactions, resonance, and the effects of solar proximity or ring systems. The terms reflect both theoretical frameworks and observable astronomical phenomena, bridging physics and observational astronomy.
+
+## Key Functions
+
+### `Elliptical Path`
+
+Describes orbits where the distance between celestial bodies varies (Keplerian ellipses).
+
+### `Retrograde Motion`
+
+Refers to an object’s orbit moving opposite to its rotational direction (e.g., retrograde planets).
+
+### `Tidally Locked`
+
+Explains synchronization where one body’s rotation aligns with its orbital period (e.g., Earth-Moon system).
+
+### `Resonant Frequency`
+
+Discusses orbital interactions where gravitational forces cause periodic alignments (e.g., Laplace resonance in Saturn’s moons).
+
+### `Gravitational Anomaly`
+
+Highlights irregularities in gravitational fields (e.g., dark matter effects or mass discrepancies).
+
+## Usage
+
+This file serves as a reference for astronomers, engineers, or students studying orbital dynamics, celestial mechanics, or space mission planning. Terms like *Stable Orbit* or *Decaying Trajectory* are critical for designing spacecraft orbits or analyzing planetary systems.
+
+## Dependencies
+
+> `None (terminology-based; relies on foundational physics concepts like Newtonian gravity`
+> `orbital mechanics`
+> `and celestial dynamics).`
+
+## Related
+
+- [[Orbital Mechanics Theory]]
+- [[Kepler’s Laws]]
+- [[Tidal Forces in Space]]
+- [[Ring Systems of Planets]]
+- [[Binary Star Systems]]
+
+>[!INFO] Key Concepts
+> Terms like *Eccentric Path* and *Precessing Orbit* describe dynamic changes in orbital shape or orientation, often requiring advanced orbital element calculations (e.g., using Hill’s equations or variational equations).
+
+>[!WARNING] Misinterpretation Risk
+> Confusing *Synchronized Rotation* (tidal locking) with *Stable Orbit* can lead to errors in predicting long-term orbital stability. Tidal locking is a *one-way* synchronization, while stability depends on other factors like mass and energy loss.

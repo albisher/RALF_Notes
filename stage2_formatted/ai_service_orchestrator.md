@@ -1,0 +1,55 @@
+**Tags:** #AI Orchestration, #Service Management, #Multi-Provider Integration, #LLM Request Routing, #Box Pattern
+**Created:** 2026-01-13
+**Type:** documentation
+
+# ai_service_orchestrator
+
+## Summary
+
+```
+Manages AI service providers (Ollama, Perplexity, OpenAI, Gemini) to route requests efficiently.
+```
+
+## Details
+
+> This `AIServiceOrchestratorBox` acts as a central coordinator for multiple AI service providers. It dynamically routes incoming requests to the appropriate service based on the specified provider type (e.g., "ollama", "perplexity"). The orchestrator handles unified input/output parameters, validates prompts, and validates provider-specific configurations (e.g., API keys, model names). It also provides health checks for each service via `get_provider_status()`.
+> 
+> The orchestrator delegates execution to specialized service boxes (`OllamaServiceBox`, `PerplexityServiceBox`, etc.), passing context and parameters while abstracting provider-specific logic. It validates the `prompt` field and routes unknown providers with an error.
+
+## Key Functions
+
+### ``execute()``
+
+Routes AI requests to the correct provider and returns unified results with provider metadata.
+
+### ``get_provider_status()``
+
+Checks availability/health of individual providers (e.g., Ollama health check, Perplexity API key validation).
+
+## Usage
+
+1. Initialize with provider-specific configurations (e.g., `ollama_url`, `openai_api_key`).
+2. Call `execute()` with a `BoxInput` containing:
+   - `provider`: Target service (e.g., `"openai"`).
+   - `prompt`: Input text.
+   - Optional: `model`, `temperature`, `max_tokens`, `system_prompt`, `api_key`.
+3. Use `get_provider_status()` to inspect service health.
+
+## Dependencies
+
+> ``..core.box_interface``
+> ``.ollama_service``
+> ``.perplexity_service``
+> ``.openai_service``
+> ``.gemini_service``
+
+## Related
+
+- [[AI Service Boxes]]
+- [[Box Interface Documentation]]
+
+>[!INFO] Provider-Specific Handling
+> Each provider’s `execute()` call includes provider-specific parameters (e.g., `model` for OpenAI, `system_prompt` for Ollama). Missing optional params default to service defaults.
+
+>[!WARNING] Health Checks
+> `get_provider_status()` relies on service-specific health endpoints (e.g., Ollama’s `check_health`). If a service lacks a health check, only `api_key` validation is performed.

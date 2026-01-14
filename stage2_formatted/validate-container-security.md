@@ -1,0 +1,62 @@
+**Tags:** #Security, #Docker, #Bash, #Containerization, #Validation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# validate-container-security
+
+## Summary
+
+```
+Validates Docker container security configurations using a YAML override file.
+```
+
+## Details
+
+> This script checks whether a Docker container security configuration file (`docker-compose.security.yml`) exists and enforces best practices such as privilege restrictions, capability drops, read-only filesystems, tmpfs mounts, and non-root user execution. It performs a basic grep-based validation to ensure required security settings are present.
+
+## Key Functions
+
+### `Security Override Check`
+
+Verifies existence of `docker-compose.security.yml`.
+
+### `no-new-privileges Validation`
+
+Confirms the presence of `no-new-privileges:true` in the config.
+
+### `Capability Drop Validation`
+
+Checks for `cap_drop:` configuration.
+
+### `Read-Only Filesystem Check`
+
+Ensures `read_only: true` is defined.
+
+### `Tmpfs Mount Validation`
+
+Verifies `tmpfs:` configuration is present.
+
+### `Non-Root User Check`
+
+Confirms a `user:` directive exists.
+
+## Usage
+
+1. Save the script as `validate-container-security`.
+2. Run it in the directory containing `docker-compose.security.yml`.
+3. Check output for compliance with security best practices.
+
+## Dependencies
+
+> `bash`
+> `grep`
+
+## Related
+
+- [[none]]
+
+>[!INFO] Important Note
+> This script is a lightweight validation tool and does not enforce security policies—it only checks for the presence of required directives. For enforcement, integrate with Docker’s `--security-opt` flags or similar mechanisms.
+
+>[!WARNING] Caution
+> Manual edits to `docker-compose.security.yml` must match the script’s validation rules. Incorrect configurations may bypass security checks.

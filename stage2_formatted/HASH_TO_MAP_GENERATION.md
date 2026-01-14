@@ -1,0 +1,66 @@
+**Tags:** #hash-based-generation, #deterministic-algorithm, #fastapi-flask, #map-generation, #backend-frontend-architecture, #asynchronous-processing, #json-api, #real-time-polling
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# HASH_TO_MAP_GENERATION
+
+## Summary
+
+```
+Generates map parameters instantly from hash inputs or descriptive text, enabling efficient two-stage map creation workflows.
+```
+
+## Details
+
+> This system implements a two-phase map generation process: **Stage 1** converts hash inputs (or descriptive text) into deterministic map parameters (e.g., seed, resolution, biome settings) in <1 second using a pre-defined lookup table. **Stage 2** applies these parameters to computationally generate full map data (Voronoi cells, heightmaps, biomes, cities) in a background job (5–120 seconds). The architecture separates instant parameter generation from resource-intensive rendering, leveraging Flask/FastAPI endpoints and frontend polling for seamless UX.
+
+## Key Functions
+
+### ``generate_map_description`** (in `Generators/Maps/maps.py`)`
+
+Converts input_hash or text into JSON map parameters (e.g., seed, resolution, biome rules).
+
+### ``MapGenerator`** (in `services/map-generator/engine/map_generator.py`)`
+
+Orchestrates full map generation using sub-modules (Voronoi, heightmap, biome, city placement).
+
+### ``ui-beta/scripts/generate_map_from_hash.py``
+
+Script for programmatic testing of hash-based parameter generation.
+
+### ``services/map-generator/api.py``
+
+FastAPI endpoint for background job submission/status polling.
+
+## Usage
+
+1. **Frontend**: Submit hash/text via `/api/generation/maps` (Flask) to get parameters.
+2. **Backend**: Pass parameters to `/api/maps/generate` (FastAPI) for background processing.
+3. **Polling**: Frontend checks `/api/maps/status/{job_id}` for progress updates.
+
+## Dependencies
+
+> `FastAPI`
+> `Flask`
+> `Python libraries (e.g.`
+> ``uuid``
+> ``json``
+> ``requests` for frontend polling)`
+> `and external modules for Voronoi/heightmap generation (e.g.`
+> ``scipy``
+> ``numpy`).`
+
+## Related
+
+- [[generation_bp]]
+- [[voronoi_generator]]
+- [[GenerateStage]]
+
+>[!INFO] **Deterministic Seed Extraction**
+> The first 16 characters of `input_hash` are used as the seed, ensuring reproducibility across identical inputs.
+
+>[!WARNING] **Rate Limits**
+> High-frequency hash submissions may trigger backend throttling; implement polling delays in frontend code.
+
+>[!INFO] **World Type Overrides**
+> `world_type` (e.g., "universe") influences biome/city generation rules, overriding default settings.

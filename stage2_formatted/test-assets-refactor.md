@@ -1,0 +1,78 @@
+**Tags:** #automated-testing, #web-scraping, #puppeteer, #frontend-testing, #assets-management
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# test-assets-refactor
+
+## Summary
+
+```
+Automated UI testing script for verifying assets page functionality using Puppeteer.
+```
+
+## Details
+
+> This script automates testing of an application's assets refactor by:
+> 1. Launching a browser instance with Puppeteer
+> 2. Navigating through the application's landing page, assets page, and asset detail pages
+> 3. Verifying UI elements like asset cards, navigation links, and sidebar functionality
+> 4. Testing asset creation workflow with dialog handling
+> 5. Capturing screenshots at each step for visual verification
+> 6. Handling errors gracefully with error screenshot capture
+> 
+> The test follows a structured sequence: landing page → assets page → asset detail → sidebar navigation → asset creation, with visual verification at each stage.
+
+## Key Functions
+
+### ``testAssetsRefactor()``
+
+Main async function that orchestrates the entire test workflow.
+
+### ``puppeteer.launch()``
+
+Initializes browser instance with customizable settings.
+
+### ``page.goto()``
+
+Navigates to different application pages with network idle waiting.
+
+### ``page.screenshot()``
+
+Captures visual snapshots at each test stage.
+
+### ``page.$eval()``
+
+Extracts text content from page elements.
+
+### ``page.$()``
+
+Selects DOM elements for interaction.
+
+## Usage
+
+1. Install dependencies: `npm install puppeteer fs path`
+2. Run the script: `node test-assets-refactor.js`
+3. The test will:
+   - Launch browser
+   - Capture screenshots at each step
+   - Log progress and verify functionality
+   - Save error screenshots if any occur
+   - Automatically close browser
+
+## Dependencies
+
+> `puppeteer`
+> `fs`
+> `path`
+
+## Related
+
+- [[Test Automation Framework Documentation]]
+- [[Puppeteer Best Practices Guide]]
+
+>[!INFO] Important Note
+> This script assumes the application is running on `http://localhost:5173`. Modify the URLs if testing a different environment.
+>
+
+>[!WARNING] Caution
+> The script runs in non-headless mode (`headless: false`) for visual verification. Ensure your environment allows this configuration. Consider adding timeout limits for long-running operations.

@@ -1,0 +1,70 @@
+**Tags:** #automated-testing, #puppeteer, #web-automation, #dashboard-verification, #clickable-element-check
+**Created:** 2026-01-13
+**Type:** code-test
+
+# verify-clickable-dashboard
+
+## Summary
+
+```
+Automated dashboard clickability verification using Puppeteer to validate interactive UI elements.
+```
+
+## Details
+
+> This script uses Puppeteer to launch a browser, navigate to a local web application (running on `localhost:5173`), and verify the presence and functionality of clickable dashboard elements. It checks for:
+> - Existence of the dashboard container (`.dashboard`).
+> - Count of stat cards and clickable cards.
+> - Text content for keywords like "Worlds," "Characters," and "Elements."
+> - Clickable navigation hints (e.g., "Click to view all worlds").
+> The script captures screenshots of both successful and failed states for debugging. It returns structured results indicating whether the dashboard meets clickability criteria.
+
+## Key Functions
+
+### `verifyClickableDashboard`
+
+Orchestrates browser launch, page navigation, UI checks, and error handling.
+
+### `page.goto()`
+
+Navigates to the target URL with configurable wait and timeout.
+
+### `page.$() and page.$$$()`
+
+Selects elements by CSS selectors (e.g., `.dashboard`, `.stat-card`).
+
+### `page.evaluate()`
+
+Executes JavaScript in the page context to extract text content.
+
+### `page.screenshot()`
+
+Captures visual snapshots for debugging.
+
+## Usage
+
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node verify-clickable-dashboard.js`.
+3. Ensure the target app (e.g., a React/Vue app) is running on `localhost:5173`.
+4. Output includes:
+   - Console logs for progress and results.
+   - Screenshots in `checks/screenshots/`.
+   - Structured JSON results for programmatic analysis.
+
+## Dependencies
+
+> `puppeteer`
+> `Node.js runtime.`
+
+## Related
+
+- [[Puppeteer Test Suite]]
+- [[Dashboard UI Design Spec]]
+- [[Local Dev Server Logs]]
+
+>[!INFO] Important Note
+> The script uses headless mode for stability but may fail if the target app relies on non-headless features (e.g., browser-specific APIs). Adjust `--disable-web-security` flags cautiously for production environments.
+
+
+>[!WARNING] Caution
+> Running Puppeteer with `--disable-web-security` can expose the app to security risks. Use only in controlled environments (e.g., local testing). Avoid in production unless absolutely necessary.

@@ -1,0 +1,71 @@
+**Tags:** #validation, #generators, #code-safety, #module-import, #ast-parsing
+**Created:** 2026-01-13
+**Type:** documentation-research
+
+# generator_validator_box
+
+## Summary
+
+```
+Validates custom generator modules/files for correctness before integration.
+```
+
+## Details
+
+> This `GeneratorValidatorBox` class implements a modular validation system for custom generator functions. It performs three primary checks:
+> 1. **File existence/syntax** via AST parsing
+> 2. **Function signature validation** (minimum 1 parameter, callable)
+> 3. **Execution testing** with predefined test cases
+> 
+> The validator uses Python’s `importlib` and `inspect` modules to dynamically load and analyze generator modules, while `ast` handles syntax validation. It returns structured validation results (success flags, error/warning lists) for integration into a larger system.
+
+## Key Functions
+
+### ``execute()``
+
+Main dispatch method routing validation requests to appropriate sub-methods.
+
+### ``validate_file()``
+
+Checks file existence and syntax using AST parsing.
+
+### ``validate_function()``
+
+Verifies module loading, function existence, callability, and signature requirements.
+
+### ``test_execution()``
+
+Runs predefined tests against generator functions with configurable test hashes.
+
+## Usage
+
+```python
+# Example usage:
+validator = GeneratorValidatorBox()
+result = validator.execute({
+    "operation": "validate_file",
+    "file_path": "/path/to/generator.py"
+})
+```
+
+## Dependencies
+
+> ``ast``
+> ``importlib.util``
+> ``inspect``
+> ``os``
+> ``logging``
+> ``typing` (standard library)
+`..core.box_interface` (custom BoxInput/BoxOutput classes)`
+
+## Related
+
+- [[`core]]
+- [[`generator_module` documentation]]
+
+>[!INFO] Critical Parameter Check
+> The validator enforces that generator functions must accept at least one parameter (typically a hash), though the exact parameter name is flexible. This ensures compatibility with the expected input format.
+
+
+>[!WARNING] File Path Handling
+> If `file_path` is provided but the file doesn’t exist, the validator immediately returns an error. For offline validation, `code_content` must be provided instead. This design prevents silent failures during module loading.

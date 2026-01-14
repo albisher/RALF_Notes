@@ -1,0 +1,61 @@
+**Tags:** #UI/UX-Design, #Accessibility, #Frontend-Development, #CSS-Styling, #Animation-Removal
+**Created:** 2026-01-14
+**Type:** documentation
+
+# ui-ux-fixes-no-animations-20251121
+
+## Summary
+
+```
+UI/UX fixes for layout inconsistencies and animation removal in a 2025 UI framework.
+```
+
+## Details
+
+> This document details UI/UX fixes applied to address layout issues and eliminate animations in a digital interface. The fixes include adjustments to timeline rendering, column layout improvements, and removal of all visual animations to enhance usability and reduce visual distractions. The changes were made across multiple CSS files to ensure consistency and accessibility.
+
+## Key Functions
+
+### `Timeline Component`
+
+Adjusted height, display properties, and z-index to improve visibility and prevent overlay conflicts.
+
+### `CSS Grid Layout`
+
+Replaced flexbox with CSS Grid for three-column layouts in Link, Timeline, and Story stages to prevent squishing.
+
+### `Animation Removal`
+
+Eliminated transform/translateY, ripple effects, fade/slide animations, and other dynamic visual effects across buttons, cards, modals, forms, and workflow stages.
+
+### `Color & Typography`
+
+Maintained modern, WCAG-compliant color schemes and improved typography hierarchy for better readability.
+
+## Usage
+
+To apply these changes:
+1. Locate the modified CSS files (`workflow.css`, `common.css`, `generate-stage.css`).
+2. Ensure the CSS rules are applied in the browser’s stylesheet or via a stylesheet link.
+3. Test the UI components (timeline, columns, buttons, modals) to verify layout consistency and absence of animations.
+4. Validate accessibility by checking color contrast and focus states.
+
+## Dependencies
+
+> ``CSS``
+> ``HTML``
+> ``JavaScript` (for potential event listeners on interactive elements)`
+> ``Material Design` color palette utilities.`
+
+## Related
+
+- [[UX Design Principles]]
+- [[WCAG 2]]
+- [[Frontend Development Best Practices]]
+
+>[!INFO] Important Note
+> The `!important` flag was used sparingly to override existing styles, ensuring the fixes take precedence without disrupting other critical UI elements. This approach is context-dependent and should be reviewed for maintainability in future updates.
+
+
+>[!WARNING] Caution
+> Overusing `!important` can lead to unintended side effects if styles conflict with third-party libraries or future updates. Prefer specificity or scoped CSS where possible to avoid conflicts.

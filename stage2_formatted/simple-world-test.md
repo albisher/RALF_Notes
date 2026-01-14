@@ -1,0 +1,59 @@
+**Tags:** #testing, #api-integration, #world-building, #async-await, #axios
+**Created:** 2026-01-13
+**Type:** code-test
+
+# simple-world-test
+
+## Summary
+
+```
+Automated test suite for a sci-fi world-building API, verifying authentication, world creation, and element management.
+```
+
+## Details
+
+> This script performs a multi-step test of a fictional world-building API, starting with authentication and progressing through world creation, character generation, and element management. It uses Axios to interact with a backend API running on `http://localhost:5173/api`, logging each step’s success or failure. The test verifies:
+> 1. User authentication via `/auth/login`
+> 2. World creation via `/worlds` with provided metadata
+> 3. Character generation via `/characters/generate/hash`
+> 4. Element creation (e.g., plants) within a world via `/worlds/{id}/elements`
+> 5. Listing all elements in the created world
+> 
+> Error handling is included for each step, capturing API responses or network issues.
+
+## Key Functions
+
+### ``simpleWorldTest()``
+
+Orchestrates the full test sequence, logging progress and errors.
+
+### ``axios.post()``
+
+Used for API requests (login, world creation, element creation).
+
+### ``axios.get()``
+
+Used for fetching data (worlds, elements).
+
+## Usage
+
+1. Install dependencies (`npm install axios`).
+2. Ensure the API server (`http://localhost:5173/api`) is running.
+3. Execute the script (`node simple-world-test.js`).
+4. Review console logs for test outcomes.
+
+## Dependencies
+
+> `axios`
+> `Node.js runtime`
+
+## Related
+
+- [[API Documentation for Space Peral World Builder]]
+- [[Test Framework Setup Guide]]
+
+>[!INFO] Important Note
+> The script uses hardcoded credentials (`username: 'test'`, `password: 'passtest'`) and a fixed seed (`'test_x1_seed'`). For production, replace these with environment variables or secure configurations.
+
+>[!WARNING] Caution
+> If the API server crashes or fails to respond, the test will exit early with an error. Ensure the server is stable during execution.

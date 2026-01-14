@@ -1,0 +1,59 @@
+**Tags:** #random-generator, #monster-creation, #hash-based-selection, #procedural-content
+**Created:** 2026-01-13
+**Type:** code-library
+
+# monsters
+
+## Summary
+
+```
+Generates randomized monster descriptions using SHA-256 hashing and predefined lists.
+```
+
+## Details
+
+> This script defines a procedural monster generation system. It loads predefined lists of monster attributes (types, colors, sizes, threat levels) from a file or hardcoded values. The core logic uses SHA-256 hashing to derive random indices for selecting attributes, with salted inputs to ensure reproducibility. The `generate_monster_description` function constructs a structured JSON output combining visual, behavioral, and contextual details for each monster, including a generated name based on truncated attributes. The script supports both CLI input via a hash or user-provided text.
+
+## Key Functions
+
+### `read_list_from_file(filename)`
+
+Loads a text file containing comma-separated monster attributes into a list.
+
+### `hash_input(input_str)`
+
+Computes SHA-256 hash of input text for deterministic randomness.
+
+### `derive_int_from_hash(input_hash, salt, max_value)`
+
+Extracts an integer from a hash segment, scaled to a range using salt.
+
+### `select_from_list(input_hash, salt, item_list)`
+
+Randomly selects an item from a list using hashed input and salt.
+
+### `generate_monster_description(input_hash)`
+
+Orchestrates monster attribute selection and constructs a detailed JSON description with visual, behavioral, and contextual properties.
+
+## Usage
+
+1. Run with a hash: `python monsters.py <hash>` (e.g., `python monsters.py abc123...`).
+2. Run interactively: `python monsters.py` and provide text input when prompted.
+3. Output is a JSON-formatted monster description.
+
+## Dependencies
+
+> ``hashlib``
+> ``os``
+> ``json``
+
+## Related
+
+- [[None]]
+
+>[!INFO] Important Note
+> The script relies on deterministic hashing with salts for reproducibility. Changing the salt or input text alters the generated monster attributes.
+
+>[!WARNING] Caution
+> Hardcoded lists (e.g., `SKIN_COLORS`) are limited to predefined options. Extend these lists for broader monster variety.

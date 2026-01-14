@@ -1,0 +1,56 @@
+**Tags:** #backend-fixes, #api-misconfiguration, #data-format-mismatch, #key-naming-convention, #time-system-integration
+**Created:** 2026-01-13
+**Type:** documentation
+
+# TIME_SYSTEM_FIXES_SUMMARY
+
+## Summary
+
+```
+Summary of time system bug fixes addressing HTTP method, request body, and key naming inconsistencies between frontend/backend.
+```
+
+## Details
+
+> This document outlines fixes for a time system integration issue where frontend and backend communication failed due to HTTP method mismatch (PUT vs. POST), improper request body formatting, and inconsistent key naming conventions (camelCase vs. snake_case). The fixes involved modifying `worlds_api_box.js` and `WorkflowPage.vue` to ensure proper data flow, ensuring the time system persists correctly in the database and reflects in world settings.
+
+## Key Functions
+
+### ``worlds_api_box.js``
+
+Modified HTTP method from PUT to POST and added request body formatting and key conversion logic.
+
+### ``WorkflowPage.vue``
+
+Added snake_case to camelCase conversion for loading time system data.
+
+### `Time System API Endpoint`
+
+Updated backend compatibility for custom time settings (e.g., `hours_per_day` instead of `hoursPerDay`).
+
+## Usage
+
+1. **Apply Fixes**: Update `worlds_api_box.js` and `WorkflowPage.vue` as described.
+2. **Backend Restart**: Restart the backend server to apply changes.
+3. **Test**: Navigate to the time system settings and verify persistence across refreshes.
+4. **Clear Cache**: Use `Ctrl+F5` or `Cmd+Shift+R` to clear browser cache if errors persist.
+
+## Dependencies
+
+> `- Frontend libraries (e.g.`
+> `Vue.js`
+> `Axios for API calls)
+- Backend server (Node.js/Express or similar) handling time system requests
+- Database (e.g.`
+> `SQLite`
+> `PostgreSQL) storing world configurations`
+
+## Related
+
+- [[time-system-fixes-20251121]]
+
+>[!INFO] Critical Backend Dependency
+> The backend must be restarted after code changes to ensure new routes and key conversions take effect. Cached responses may cause temporary failures.
+
+>[!WARNING] Cached Data Risk
+> If the backend is not restarted, the frontend may still use stale data. Always clear browser cache before testing persistence.

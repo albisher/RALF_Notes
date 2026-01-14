@@ -1,0 +1,50 @@
+### TAGS
+#monitoring
+#project-management
+#docker
+#task-tracking
+#automation
+#real-time-data
+
+### TYPE
+documentation
+
+### SUMMARY
+A comprehensive dashboard for Space Pearl Project, tracking task progress, system health, and service status via shell scripts.
+
+### DETAILS
+The **Space Pearl Project Dashboard** is a modular system of shell scripts (`show-all-tag-reports.sh` and `project-dashboard.sh`) that provides real-time monitoring of development tasks, system resources, and service health. It aggregates data from Docker containers, task-tracking systems (likely `task-master`), and Git repositories to deliver visual summaries, progress matrices, and quick action commands. The dashboard integrates with third-party tools like **Continue AI, n8n, and OpenProject** for automation and notifications, while supporting customization via script modifications.
+
+### KEY_FUNCTIONS
+- **`show-all-tag-reports.sh`**: Generates multi-tag progress reports with comparison matrices, progress bars, and recommendations.
+- **`project-dashboard.sh`**: Combines system status (Docker, disk, memory), service health, recent activity logs, and tag reports into a unified view.
+- **Tag Comparison Matrix**: Displays structured progress data across tags (e.g., `tool-stack-setup`, `master`) with visual indicators.
+- **Service Status**: Lists running containers with health checks, ports, and status flags.
+- **Integration Hooks**: Supports automation via **Continue AI, n8n, and OpenProject** for workflows, alerts, and task syncing.
+
+### DEPENDENCIES
+Docker, `task-master` (task-tracking CLI), Git, `docker-compose`, and optional third-party integrations (e.g., `continue`, `n8n`, `openproject`).
+
+### USAGE
+1. **Basic Tag Reports**:
+   ```bash
+   ./scripts/show-all-tag-reports.sh
+   ```
+   Outputs a summary, comparison matrix, and individual tag reports.
+
+2. **Full Dashboard**:
+   ```bash
+   ./scripts/project-dashboard.sh
+   ```
+   Displays system status, service health, recent activity, and integrated tag reports.
+
+### RELATED
+[[docs/github-integration-status.md]], [[configuration/automation.md]] (if these exist in the project structure).
+
+### CALLOUTS
+>[!INFO]- **Modular Design**
+> Scripts are independent but can be chained for deeper analysis (e.g., `project-dashboard.sh` calls `show-all-tag-reports.sh` internally).
+>[!WARNING]- **Docker Dependency**
+> Ensure Docker and `docker-compose` are running; missing containers will trigger errors in service status checks.
+>[!INFO]- **Automation Priority**
+> Prefer scheduled cron jobs for dashboard generation over manual runs to maintain real-time data consistency.

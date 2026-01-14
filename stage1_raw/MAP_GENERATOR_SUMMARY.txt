@@ -1,0 +1,51 @@
+### TAGS
+#procedural-generation
+#map-creation
+#noise-algorithms
+#biome-distribution
+#city-placement
+#OOP-design-patterns
+#box-pattern-architecture
+#story-integration
+#Vue-3
+#JavaScript
+
+### TYPE
+documentation
+
+### SUMMARY
+A structured summary of a simplified random map generator implementation using Azgaar’s algorithms, integrating procedural terrain, biomes, and city placement with a story system.
+
+### DETAILS
+This document outlines a modular, box-based architecture for generating world maps with heights, biomes, and cities. It leverages Perlin/Simplex noise for heightmap generation, rule-based biome assignment, and terrain-driven city placement. The system is designed to be orchestrated via a central `MapGenerationOrchestratorBox`, with phases for core generation, UI integration, and story synchronization. The implementation follows the Box pattern, ensuring modularity and reusability across different map phases.
+
+### KEY_FUNCTIONS
+- **MapGenerationOrchestratorBox**: Orchestrates the entire map generation workflow.
+- **HeightmapGenerationBox**: Creates procedural heightmaps using multi-octave noise.
+- **BiomeAssignmentBox**: Assigns biome types based on height, temperature, and precipitation.
+- **CityPlacementBox**: Evaluates terrain and constraints to place cities (village, town, city, capital).
+- **MapAssemblyBox**: Compiles map data into Azgaar-compatible format.
+- **MapStoryIntegrationBox**: Links generated maps to story system elements (location cards, timelines).
+- **MapGeneratorPage.vue**: Vue component for user interaction and map preview.
+- **MapGeneratorForm.vue**: Handles input parameters for map customization.
+
+### DEPENDENCIES
+`simplex-noise`, `Box`, `BoxInput`, `BoxOutput`, `MapRenderBox`, `MapCoordinateBox`, `CardsAPIBox`, `TimelinesAPIBox`.
+
+### USAGE
+1. **Initialize Orchestrator**: Create an instance of `MapGenerationOrchestratorBox`.
+2. **Define Input Parameters**: Configure seed, dimensions, biome, and city parameters.
+3. **Execute Generation**: Call `orchestrator.execute(input)` to generate the map.
+4. **Integrate with Story System**: Use `MapStoryIntegrationBox` to sync generated cities with location cards.
+5. **Render Map**: Use existing `MapRenderBox` to visualize the map.
+
+### RELATED
+[[map-generator-plan.md]], [[map-generator-technical-spec.md]]
+
+### CALLOUTS
+>[!INFO]- **Modular Design**
+> The Box pattern ensures each component (e.g., heightmap, biome assignment) is isolated and reusable, simplifying maintenance and scaling.
+>[!WARNING]- **Performance Trade-offs**
+> Multi-octave noise generation can be computationally intensive for large maps. Optimize noise parameters (e.g., reduce octaves) for performance-critical applications.
+>[!INFO]- **Story Integration**
+> Cities and coordinates must be explicitly linked to the story system to ensure consistency across events and timelines. Test synchronization thoroughly.

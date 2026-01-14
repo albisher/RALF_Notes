@@ -1,0 +1,47 @@
+### TAGS
+#Frontend
+#Backend
+#Database
+#Security
+#ArabicTextSupport
+#Monorepo
+#WebAuthn
+#RESTAPI
+#Docker
+#CI/CD
+
+### TYPE
+technology-stack
+
+### SUMMARY
+Document outlines a comprehensive tech stack for a full-stack application with frontend, backend, database, and DevOps components.
+
+### DETAILS
+This stack leverages Vue.js 3 for the frontend, paired with Vite for rapid development and Tailwind CSS for styling. Vuetify provides UI components, while Pinia handles state management. The backend uses Flask with SQLAlchemy for ORM, JWT for authentication, and WebAuthn for secure authentication. Specialized libraries like OpenPyXL and ReportLab handle document processing, and Arabic text support is enabled via `Arabic-reshaper` and `Python-bidi`. PostgreSQL serves as the primary database with Redis for caching, and Docker/Nginx enable containerization and reverse proxying. Security features include OWASP compliance, audit logging, and network access controls.
+
+### KEY_FUNCTIONS
+- **Vue.js 3 + Vite**: Frontend framework and build tool for efficient development.
+- **Flask + SQLAlchemy**: Backend framework and ORM for database interactions.
+- **Pinia**: State management library for centralized frontend state.
+- **WebAuthn/FIDO2**: Secure authentication via biometric or hardware tokens.
+- **PostgreSQL + Redis**: Primary database and caching layer.
+- **Docker + Nginx**: Containerization and reverse proxy setup.
+- **Pytest/Jest**: Backend/frontend testing frameworks.
+- **Arabic-reshaper/Python-bidi**: RTL and Arabic text processing.
+- **Certbot**: SSL/TLS certificate management via Let’s Encrypt.
+
+### DEPENDENCIES
+Vue.js 3.5.13, Vite 6.3.5, Vuetify 3.6.7, Axios 1.9.0, Flask 3.0.2, SQLAlchemy 2.0.27, Alembic 1.13.1, PostgreSQL 16, Redis 7-alpine, Docker, Nginx, Prometheus, Puppeteer 24.11.2, OpenPyXL 3.1.2, ReportLab 4.1.0, Python-docx 1.1.0, Pillow 10.2.0, Arabic-reshaper 3.0.0, Python-bidi 0.4.2, Black 24.2.0, Flake8 7.0.0, MyPy 1.8.0, ESLint, npm, pip.
+
+### USAGE
+This stack is designed for a scalable, secure, and multi-language application. Frontend developers use Vue.js/Vite for rapid prototyping, while backend engineers leverage Flask/SQLAlchemy for API development. Database operations are managed via PostgreSQL with caching via Redis. Security is enforced via WebAuthn, JWT, and network controls. For document processing, specialized libraries handle Excel/PDF/Word tasks. Arabic text support is enabled via RTL libraries. Docker containers package services, and Nginx routes traffic securely. Testing is automated via Pytest/Jest and Puppeteer for E2E validation.
+
+### RELATED
+[[OWASP-Compliance-Guide]], [[MITRE-ATT&CK-Matrix]], [[PostgreSQL-Configuration-Guide]]
+
+### CALLOUTS
+>[!INFO]- **Monorepo Structure**
+> A single repository hosts multiple packages, improving modularity and dependency management across frontend/backend components.
+
+>[!WARNING]- **Security Hardening**
+> WebAuthn/FIDO2 and JWT authentication require careful key management; ensure secure storage of secrets (e.g., JWT secrets, API keys). IP filtering and network controls must align with business needs to avoid unintended restrictions.

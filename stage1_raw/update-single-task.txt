@@ -1,0 +1,47 @@
+### TAGS
+#task-management
+#ai-assisted-updates
+#metadata-updates
+#incremental-changes
+#consistency-checks
+
+### TYPE
+documentation
+
+### SUMMARY
+A system for updating single tasks with AI-driven precision, supporting natural language inputs and structured metadata modifications.
+
+### DETAILS
+This script/module facilitates precise updates to individual tasks within a task management system using AI-assisted parsing. It handles natural language commands (e.g., *"5: add rate limiting"*) and structured metadata updates (e.g., priority adjustments, time estimates). The AI validates context, applies changes incrementally, and maintains consistency across related tasks, subtasks, and dependencies. It supports version tracking, consistency checks, and post-update feedback.
+
+### KEY_FUNCTIONS
+- **`update-task` CLI command**: Executes AI-assisted task updates via `--id` and `--prompt` arguments.
+- **Natural language parsing**: Converts user inputs like *"update 5 to include error handling"* into structured updates.
+- **Field-specific updates**: Supports targeted changes (e.g., `5 priority:high`, `5 add-time:4h`).
+- **Incremental updates**: Preserves existing task content while adding new details.
+- **Consistency validation**: Ensures updates align with related tasks, dependencies, and timelines.
+- **Update history tracking**: Records timestamps, authors, and reasons for changes.
+
+### DEPENDENCIES
+`task-master` CLI tool (core dependency), AI assistant library (for context understanding), structured task database (for metadata storage).
+
+### USAGE
+1. **Invoke via CLI**:
+   ```bash
+   task-master update-task --id=<task_id> --prompt="<context>"
+   ```
+   Example: `task-master update-task --id=5 --prompt="add rate limiting"`
+2. **Natural language syntax**:
+   - *"<id>: add <detail>"* (e.g., `5: add caching requirement`).
+   - Field-specific updates: `5 priority:high`, `5 add-time:4h`.
+3. **Post-update actions**:
+   - System displays diffs, highlights changes, and suggests related updates.
+
+### RELATED
+[[Task Master Documentation]], [[AI-Assisted Workflow Guide]], [[Task Dependency Management]]
+
+### CALLOUTS
+>[!INFO]- **Incremental Updates**
+> AI preserves existing task content unless explicitly overwritten, ensuring no data loss and maintaining version history.
+>[!WARNING]- **Context Dependency**
+> AI accuracy relies on accurate initial task state—invalid or incomplete prompts may lead to inconsistent updates. Validate updates manually if unsure.

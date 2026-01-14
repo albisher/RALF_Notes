@@ -1,0 +1,47 @@
+### TAGS
+#Flask
+#API
+#GenerativeAI
+#Blueprint
+#BoxPattern
+#JWTAuthentication
+
+### TYPE
+documentation
+
+### SUMMARY
+Flask blueprint for generating creative content (physical form, personality, location, time, maps) via structured input hashes.
+
+### DETAILS
+This `GenerationAPIBox` class initializes a Flask blueprint (`/api/generation`) with endpoints for generating narrative elements. It uses dependency injection of specialized "box" generators (e.g., `PhysicalFormBox`, `PersonalityBox`) to process input hashes and return structured JSON responses. Each route validates required inputs, calls the appropriate box generator, and returns success/error responses with HTTP codes. The design follows a box pattern, abstracting generation logic behind a unified interface.
+
+### KEY_FUNCTIONS
+- **`GenerationAPIBox.__init__()`**: Initializes all box generators and registers Flask routes.
+- **`_register_routes()`**: Decorates routes with `@jwt_required()` and maps them to `/physical-form`, `/personality`, `/location`, `/time`, and `/maps`.
+- **`generate_physical_form()`**: Processes `input_hash` and `entity_type` to generate physical attributes (e.g., appearance).
+- **`generate_personality()`**: Creates character traits (e.g., motivations, conflicts) from `input_hash` and optional `personality_type`.
+- **`generate_location()`**: Produces spatial details (e.g., landmarks) using `input_hash` or `location_seed`.
+- **`generate_time()`**: Generates temporal context (e.g., historical events) with `input_hash`/`time_seed` and `granularity` (e.g., day/month).
+- **`generate_maps()`**: (Incomplete) Intended to generate map parameters via Python generator (not fully implemented).
+
+### DEPENDENCIES
+`flask`, `flask_jwt_extended`, `..core.box_interface.BoxInput`, `..generators.physical_form_box`, `..generators.personality_box`, `..generators.map_generator_box`, `..memory.location_box`, `..memory.time_box`, `..generators.personality_influence_box`
+
+### USAGE
+1. Initialize `GenerationAPIBox()` to create the blueprint.
+2. Register the blueprint in your Flask app:
+   ```python
+   app.register_blueprint(generation_box.blueprint)
+   ```
+3. Call endpoints with a `POST` request containing a JSON payload (e.g., `{ "input_hash": "abc123", "entity_type": "character" }`).
+4. Include JWT token in the `Authorization` header for authenticated requests.
+
+### RELATED
+[[`core.box_interface`]], [[`generators.physical_form_box`]], [[`generators.personality_box`]], [[`memory.location_box`]], [[`memory.time_box`]]
+
+### CALLOUTS
+>[!INFO]- Authentication Requirement
+> All endpoints require a valid JWT token via `@jwt_required()`. Missing auth results in a 401 Unauthorized response.
+
+>[!WARNING]- Input Validation
+> Missing required fields (e.g., `input_hash` or `entity_type`) return a 400 Bad Request. Always validate inputs before calling the box generators.

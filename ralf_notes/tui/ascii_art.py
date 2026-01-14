@@ -73,7 +73,8 @@ def get_dashboard(
     status: str = "Ready",
     progress: float = 0.0,
     current_file: str = "",
-    tuned: bool = False
+    tuned: bool = False,
+    speed: str = ""
 ):
     """
     Create a dashboard-style panel for real-time progress.
@@ -89,6 +90,9 @@ def get_dashboard(
     info_table.add_row("Target:", f"[italic]{target}[/italic]")
     info_table.add_row("Status:", f"[bold]{status}[/bold]")
     
+    if speed:
+        info_table.add_row("Speed:", f"[bold magenta]{speed}[/bold magenta]")
+    
     # Progress bar string
     width = 20
     filled = int((progress / 100) * width)
@@ -103,6 +107,7 @@ def get_dashboard(
     
     return Panel(
         Group(info_table, Text(""), footer),
-        title="[bold blue]RALF Note Dashboard[/bold blue]",
-        border_style="cyan"
+        title="[bold blue]RALF Dashboard[/bold blue]",
+        border_style="cyan",
+        padding=(0, 1)
     )

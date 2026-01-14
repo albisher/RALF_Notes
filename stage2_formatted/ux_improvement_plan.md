@@ -1,0 +1,78 @@
+**Tags:** #UX-Design, #Writing-Platform, #Digital-Product, #Spatial-Temporal-Context, #AI-Integration, #Vue.js, #Pinia, #Internationalization, #Bilingual-UI
+**Created:** 2026-01-13
+**Type:** documentation
+
+# ux_improvement_plan
+
+## Summary
+
+```
+A UX improvement plan outlines transforming a writing platform (e.g., *ملاحم*) into a cohesive workspace with integrated asset management, AI-assisted writing, and spatial-temporal context.
+```
+
+## Details
+
+> This plan addresses critical UX gaps by redesigning the platform into a **three-panel layout**: a **left panel** for asset/context management, a **center panel** for writing, and a **right panel** for AI tools and references. The solution merges fragmented workflows into a unified experience, enabling writers to **select assets dynamically** while composing, set **world/time/location context**, and leverage **AI-generated prompts** for richer storytelling. Technical implementation uses **Vue 3 + Pinia** for reactive state management and **bilingual RTL support** for Arabic/English.
+
+## Key Functions
+
+### `Three-Panel Layout`
+
+Left (Context/Asset Library), Center (Writing Editor), Right (AI Tools).
+
+### `Asset Selection`
+
+Real-time asset integration via left panel, tracked in `selectedAssets` ref.
+
+### `Spatial-Temporal Context`
+
+Dynamic dropdowns for world/time/location (e.g., `selectedTime` ref).
+
+### `AI Prompt Generation`
+
+Dynamic prompts based on selected context (e.g., `generateImagePrompt`).
+
+### `Reactive UI`
+
+Vue 3 Composition API for dynamic state updates (e.g., `toggleAssetSelection`).
+
+### `Pinia Stores`
+
+Centralized state for worlds, characters, and assets (e.g., `useWorldsStore`).
+
+## Usage
+
+1. **Install Dependencies**: `npm install vue@3 pinia @vueuse/core`.
+2. **Set Up Stores**: Initialize Pinia stores for worlds/characters/assets.
+3. **Implement Layout**: Use Vue 3’s `<script setup>` for reactive state (e.g., `selectedAssets`).
+4. **Integrate AI**: Call `generateImagePrompt()` with selected context.
+5. **Deploy**: Test RTL support and UI responsiveness.
+
+## Dependencies
+
+> `Vue 3`
+> `Pinia`
+> `Vuex (optional)`
+> `Arabic RTL libraries (e.g.`
+> ``vue-rtl`)`
+> `AI prompt APIs (e.g.`
+> `Stable Diffusion).`
+
+## Related
+
+- [[UX Design Patterns for Writing Platforms]]
+- [[Vue 3 Composition API Guide]]
+- [[Pinia State Management Docs]]
+- [[AI-Powered Creative Tools]]
+
+>[!INFO] **Contextual Asset Selection**
+> Writers can dynamically select assets (e.g., characters/locations) from the left panel while writing, ensuring real-time integration via `selectedAssets` ref. This avoids manual asset linking.
+
+>[!WARNING] **AI Prompt Limitations**
+> AI-generated prompts may lack nuance if context (e.g., `selectedTime`) is misconfigured. Validate prompts before use to avoid inconsistencies.
+
+>[!INFO] **Bilingual RTL Support**
+> Arabic text in the writing editor must align right-to-left (RTL). Use libraries like `vue-rtl` to enforce layout constraints.
+
+>[!WARNING] **Mobile Adaptation**
+> Collapsible panels may reduce usability on small screens. Test touch interactions (e.g., quick actions) for responsiveness.

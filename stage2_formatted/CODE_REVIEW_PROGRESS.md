@@ -1,0 +1,69 @@
+**Tags:** #refactoring, #frontend-modernization, #api-integration, #configuration-management, #modularization
+**Created:** 2026-01-13
+**Type:** code-review-progress
+
+# CODE_REVIEW_PROGRESS
+
+## Summary
+
+```
+Document tracks progress on frontend codebase refactoring, API fixes, and modularization tasks.
+```
+
+## Details
+
+> This document outlines a **code review progress report** for a frontend application undergoing restructuring. The project focuses on improving API handling, centralizing configuration, and reorganizing file structure into a modular "Boxes Pattern." Key changes include fixing JSON parsing errors, updating external references, and implementing environment-aware configuration. The report categorizes tasks into **Priority 1 (critical fixes)** and **Priority 2 (code organization)**, with some tasks still pending. The goal is to enhance maintainability, reduce hardcoded paths, and modularize components like API clients and UI elements.
+
+## Key Functions
+
+### `API JSON Parsing Fix`
+
+Added content-type validation and removed malformed headers from GET requests.
+
+### `Config Module (`js/config.js`)`
+
+Centralized environment-aware API/base URL configuration with helper methods for asset paths.
+
+### `External Reference Fixes`
+
+Updated file paths (e.g., `processed_map.json`, image paths) to resolve cross-directory references.
+
+### `Boxes Pattern Refactoring`
+
+Breaking down `index.html` into modular frontend components (e.g., `js/boxes/` directory).
+
+### `API Client Modularization`
+
+Splitting `api-client.js` into domain-specific boxes (e.g., cards, timelines).
+
+### `Common Functionality Extraction`
+
+Creating reusable boxes like `MapRenderBox` and `ErrorHandlingBox`.
+
+## Usage
+
+To use this report:
+1. **Test Critical Fixes**: Verify API JSON parsing, config module, and resolved external references.
+2. **Implement Refactoring**: Start breaking down `index.html` into boxes (e.g., `js/boxes/`).
+3. **Modularize API Client**: Split `api-client.js` into domain-specific modules.
+4. **Organize Files**: Move inline styles to CSS files and split Vue components into modular modules.
+
+## Dependencies
+
+> `Flask-JWT-Extended (for API parsing)`
+> `Vue.js (for component structure)`
+> `Node.js (for config.js)`
+> `and external UI assets (e.g.`
+> ``ui-beta/images/robots/`).`
+
+## Related
+
+- [[Code_Refactoring_Plan]]
+- [[API_Specification_Document]]
+- [[Frontend_Architecture_Decision_Record]]
+
+>[!INFO] Critical Fixes First
+> Prioritize completing Priority 1 tasks (e.g., JSON parsing, config module) before tackling modularization to avoid breaking existing functionality.
+
+>[!WARNING] Testing Gap
+> Ensure image paths and map viewer URLs are tested in a browser—hardcoded paths may not resolve dynamically in production.

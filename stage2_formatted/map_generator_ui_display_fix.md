@@ -1,0 +1,59 @@
+**Tags:** #UI_Fix, #Job_Management, #Performance_Optimization, #Map_Generator, #React_Vue, #Container_Restart, #Polling_Frequency
+**Created:** 2026-01-13
+**Type:** documentation
+
+# map_generator_ui_display_fix
+
+## Summary
+
+```
+Fixes UI display issues in a map generator application by improving job retention, UI polling, and result fetching logic to ensure generated maps appear correctly.
+```
+
+## Details
+
+> The code fix addresses a UI rendering problem where only two predefined maps ("quraan" and "SPQ8") were visible, while dynamically generated maps were not displayed. The root causes included aggressive job cleanup, slow polling, and insufficient handling of job completion. The solution involved:
+> 1. Reducing job cleanup duration to retain results longer.
+> 2. Enhancing the UI to immediately fetch results upon job completion.
+> 3. Adjusting polling frequency to reduce latency.
+> 4. Adding robust error handling and logging for debugging.
+
+## Key Functions
+
+### ``job_manager.py` (Job Retention Fix)`
+
+Adjusts `max_job_age` to retain jobs longer than 24 hours.
+
+### ``MapsStage.vue` (UI Polling & Fetching)`
+
+- Implements immediate result fetching on job completion.
+
+### ``console.log` (Debugging)`
+
+- Tracks job completion, result structure, and UI updates.
+
+## Usage
+
+1. Navigate to `/#maps` in the UI.
+2. Submit a map generation request (e.g., with a custom seed).
+3. Monitor progress via reduced polling (500ms).
+4. Verify the new map appears in the `WorldMap2D` area after completion.
+
+## Dependencies
+
+> ``services/map-generator/engine/job_manager.py``
+> ``ui-beta/src/components/stages/MapsStage.vue``
+> `React/Vue framework`
+> `Node.js (for backend job handling).`
+
+## Related
+
+- [[Map_Generator_Architecture_Documentation]]
+- [[Job_Manager_Specification]]
+- [[UI_Polling_Implementation_Notes]]
+
+>[!INFO] **Job Retention Warning**
+> Reducing `max_job_age` from 24h to 1h may still cause temporary job loss on container restarts. Monitor logs for lingering jobs.
+
+>[!WARNING] **Polling Speed Impact**
+> Faster polling (500ms) increases UI responsiveness but may slightly increase API load. Test under load to balance performance.

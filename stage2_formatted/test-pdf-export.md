@@ -1,0 +1,51 @@
+**Tags:** #axios, #backend-testing, #pdf-export, #network-requests, #file-handling
+**Created:** 2026-01-13
+**Type:** code-test
+
+# test-pdf-export
+
+## Summary
+
+```
+Tests PDF export functionality for a backend API endpoint.
+```
+
+## Details
+
+> This script performs a health check and validates the PDF export endpoint of a backend service. It verifies the backend's accessibility, checks the response structure (MIME type, content disposition), validates the PDF content (header and file size), and handles authentication errors gracefully. The exported PDF is saved locally for manual inspection.
+
+## Key Functions
+
+### `testPdfExport()`
+
+Orchestrates the entire test workflow, including health checks, endpoint validation, and PDF verification.
+
+### `axios.get()`
+
+Performs HTTP GET requests to the backend API endpoints.
+
+### `fs.writeFileSync()`
+
+Saves the exported PDF to a local file for inspection.
+
+## Usage
+
+1. Run the script directly in a Node.js environment.
+2. Ensure the backend API (`https://localhost:8443`) is accessible and running.
+3. The script logs detailed statuses for each validation step and saves a sample PDF if the endpoint responds successfully.
+
+## Dependencies
+
+> `axios`
+> ``https``
+> ``fs` (Node.js built-in modules)`
+
+## Related
+
+- [[none]]
+
+>[!INFO] Important Note
+> The script intentionally skips authentication (401/403 errors) to focus on endpoint structure and PDF validation. Authentication should be handled separately in production.
+
+>[!WARNING] Caution
+> The script uses `rejectUnauthorized: false` for HTTPS requests, which may expose the system to SSL certificate validation bypass risks. Use this only in development/testing environments with trusted certificates.

@@ -1,0 +1,39 @@
+### TAGS
+#verification_report
+#map_generation
+#backend_logs
+#enhancement_boxes
+#terrain_generation
+
+### TYPE
+documentation
+
+### SUMMARY
+Verification report analyzing why enhancement boxes in map generation fail during execution, despite integration in `map_generator.py`.
+
+### DETAILS
+The report details a discrepancy where enhancement boxes (e.g., hydraulic erosion, tectonic simulation) are created and integrated into `map_generator.py` but are not executed during map generation. Analysis of UI browser testing and backend logs reveals that the quick preview endpoints bypass the enhanced pipeline, while the full map path requires verification for proper execution. Visual inspection confirms missing enhancement effects like hillshading, fractal edges, and moisture calculations, despite correct basic map generation.
+
+### KEY_FUNCTIONS
+- **`map_generator.py`**: Core module integrating enhancement boxes into map generation logic.
+- **`/generation/terrain`, `/generation/cells`, `/generation/heightmap` endpoints**: Quick preview paths that bypass enhancement execution.
+- **`services/map-generator/api.py`**: Full map generation pipeline that should execute enhancement boxes.
+- **Enhancement Boxes (e.g., `HydraulicErosion`, `MoistureCalculation`)**: Missing execution logs and visual effects in generated maps.
+
+### DEPENDENCIES
+- Python backend libraries (e.g., for terrain generation, logging).
+- Frontend UI components (e.g., `WorldMap2DCanvas.vue` for rendering).
+- Test environment with backend logs and UI browser testing tools.
+
+### USAGE
+To resolve this, modify quick preview endpoints to call enhancement boxes (Option A/C) or ensure the full map path (`map_generator.generate()`) executes them. Add logging to track execution failures and verify integration correctness.
+
+### RELATED
+[[20251209-map_generation_backend_logs]], [[20251209-map_generation_ui_testing]], [[20251209-enhancement_box_design_spec]]
+
+### CALLOUTS
+>[!INFO]- Quick Preview Bypass
+> The `/generation/heightmap` endpoint directly calls terrain generators (`WorldTypeTerrainGenerator`, `WorldTypeHeightmapGenerator`) without invoking enhancement boxes, bypassing the intended pipeline in `map_generator.py`.
+>
+>[!WARNING]- Silent Failures
+> Missing logs for enhancement boxes (e.g., `HydraulicErosion`) suggest either import errors, execution skips, or misconfigured calls. Verify backend logs for execution traces or errors.

@@ -1,0 +1,71 @@
+**Tags:** #Vue.js, #Composable, #MapOperations, #CoordinateTransformation, #Geospatial
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# useMapOperations
+
+## Summary
+
+```
+Handles map data loading, coordinate projection, and location selection for geospatial applications in a Vue.js environment.
+```
+
+## Details
+
+> This composable (`useMapOperations`) manages map-related operations, including fetching map data via a `boxOrchestrator`, projecting coordinates to screen space, converting screen coordinates to geographic coordinates (lat/lon), and rendering map elements (e.g., SVG layers) for interactive cards. It supports both a primary orchestrator-based approach and fallback calculations when the orchestrator is unavailable. The composable tracks loading states, errors, and selected locations.
+
+## Key Functions
+
+### ``loadMapData(dataPath)``
+
+Asynchronously loads map data from a specified path using the `boxOrchestrator`.
+
+### ``projectCoordinates(coordinates, mapParams)``
+
+Projects geographic coordinates (`[lat, lon]`) to screen-space coordinates (`{x, y}`) using the orchestrator or a fallback method if unavailable.
+
+### ``screenToLatLon(screenX, screenY, screenWidth, screenHeight)``
+
+Converts screen coordinates to geographic coordinates (`{lat, lon}`) with orchestrator fallback logic.
+
+### ``calculateProjection(coordinates, mapParams)``
+
+Fallback method for projecting coordinates using simplified math (e.g., Mercator-like scaling).
+
+### ``selectLocation(coordinates)``
+
+Stores selected geographic coordinates for later use.
+
+### ``clearSelectedLocation()``
+
+Resets the stored selected location.
+
+### ``renderCardMap(card, mapId)``
+
+Dynamically renders an SVG-based map inside a card container, adjusting dimensions and viewBox based on the map container’s size.
+
+## Usage
+
+1. **Initialize**: Call `useMapOperations(boxOrchestrator, worldId)` to create a composable instance.
+2. **Load Map**: Use `loadMapData(dataPath)` to fetch map data.
+3. **Project Coordinates**: Call `projectCoordinates([lat, lon], mapParams)` to convert lat/lon to screen coordinates.
+4. **Render Map**: Use `renderCardMap(card, mapId)` to display a map inside a card component (e.g., for a UI element).
+5. **Select Location**: Call `selectLocation([lat, lon])` to mark a point on the map.
+
+## Dependencies
+
+> ``vue``
+> ``boxOrchestrator` (custom orchestrator for map operations)`
+> ``logger` (utility for error logging)`
+> ``vue` refs (`ref` from Vue 3).`
+
+## Related
+
+- [[MapCoordinateTransformations]]
+- [[BoxOrchestrator Documentation]]
+
+>[!INFO] Fallback Logic
+> If `boxOrchestrator` is unavailable, the composable uses a simplified `calculateProjection` method for basic coordinate conversion. This may introduce inaccuracies for complex maps.
+
+>[!WARNING] Error Handling
+> Errors during map operations are logged via `logger.error` but do not halt execution. The composable ensures `loadingMap` and `mapError` states are updated consistently.

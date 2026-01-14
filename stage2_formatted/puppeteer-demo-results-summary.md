@@ -1,0 +1,61 @@
+**Tags:** #frontend-integration, #api-misalignment, #database-backend, #vue-pinia, #puppeteer-testing
+**Created:** 2026-01-13
+**Type:** documentation
+
+# puppeteer-demo-results-summary
+
+## Summary
+
+```
+Analyzes Puppeteer demo results for a web app (Malahim) to verify saved database data display via screenshots, highlighting frontend-API disconnect.
+```
+
+## Details
+
+> This summary documents a Puppeteer-based test of the **World Story Creator** application (Malahim) to validate data persistence from PostgreSQL via API responses. While backend operations (authentication, API calls, and database writes) function correctly, the frontend fails to render saved data, evidenced by zero counts in dashboards and missing elements in UI components. The test captures 11 screenshots across four sessions, revealing that API responses are processed but not reflected in Vue components due to likely issues in Pinia state management or component reactivity.
+
+## Key Functions
+
+### `Dashboard Analysis`
+
+Verifies UI loads but shows empty counts (0/0/0).
+
+### `Worlds Page Inspection`
+
+Confirms absence of demo worlds despite API availability.
+
+### `Characters Page Check`
+
+Detects missing characters despite backend persistence.
+
+### `Writer Workspace Interaction`
+
+Validates functional UI elements (inputs, buttons) but fails to display saved data.
+
+### `Puppeteer Screenshot Capture`
+
+Automated UI snapshots for debugging.
+
+## Usage
+
+This document serves as a technical audit for frontend-API integration gaps. To resolve, debug Pinia stores, component reactivity, and API response parsing in the frontend codebase.
+
+## Dependencies
+
+> `Puppeteer`
+> `Vue.js (with Pinia for state management)`
+> `Node.js runtime`
+> `PostgreSQL database`
+> `Malahim backend API.`
+
+## Related
+
+- [[Malahim Backend API Documentation]]
+- [[Vue]]
+- [[PostgreSQL Data Migration Logs]]
+
+>[!INFO] **Backend Confirmed Working**
+> API responses return correct data with authentication headers, but frontend components do not update UI dynamically. Verify if frontend filters or transforms responses before rendering.
+
+>[!WARNING] **Critical Frontend Disconnect**
+> The disconnect between API responses and UI suggests a missing middleware layer (e.g., Vuex/Pinia actions) or improper component lifecycle hooks. Test with hardcoded mock data to isolate the issue.

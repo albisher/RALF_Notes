@@ -1,0 +1,42 @@
+### TAGS
+#story-generation
+#world-building
+#manual-scripting
+#backend-integration
+#api-client
+
+### TYPE
+documentation
+
+### SUMMARY
+Script to manually generate a story by creating a custom world with predefined characters, buildings, and robots, then extracting story elements for narrative creation.
+
+### DETAILS
+This script automates the creation of a structured world in a backend API (e.g., a space colony) with predefined assets like characters, buildings, and robots. It uses a test user to authenticate, populates the world with assets, and retrieves story elements (characters, buildings, robots) to manually compose a narrative. The output is saved to a designated folder (`generated_stories`), though the script does not explicitly save the story itself—only the world and elements are created. The script relies on a backend API (`http://backend:5000`) for all operations, disabling SSL verification for simplicity.
+
+### KEY_FUNCTIONS
+- **create_test_user()**: Authenticates with a test user (`test/passtest`) to obtain an API token.
+- **create_world_with_assets(token)**: Creates a world with a timestamped name and populates it with predefined characters, buildings, and robots, returning the world ID and headers.
+- **generate_manual_story(world_id, headers)**: Retrieves world details and elements (characters, buildings, robots) to construct a story manually by filtering elements by type.
+
+### DEPENDENCIES
+requests, urllib3, json, datetime, pathlib, os, sys
+
+### USAGE
+1. Run the script (`python generate_story_manual.py`).
+2. It will:
+   - Authenticate with the backend API.
+   - Create a world named `Story Colony Alpha <timestamp>`.
+   - Add predefined characters, buildings, and robots to the world.
+   - Extract story elements (characters, buildings, robots) for manual narrative composition.
+3. The script logs success/failure but does not save the generated story to a file—only the world and elements are stored in the backend.
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Important Note
+> The script does not save the manually composed story to disk. It only creates a world and retrieves elements for later use in writing. Ensure the backend API (`http://backend:5000`) is running and accessible.
+
+>[!WARNING]- Caution
+> Disabling SSL verification (`session.verify = False`) may expose the script to security risks if used in production. Use this only for testing or local development.

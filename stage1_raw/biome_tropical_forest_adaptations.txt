@@ -1,0 +1,35 @@
+### TAGS
+#biome-adaptations
+#ecology
+#tropical-forest
+#plant-adaptations
+
+### TYPE
+research-notes
+
+### SUMMARY
+Describes key adaptations of tropical forest plants and organisms for survival in low-light, symbiotic, and growth-driven environments.
+
+### DETAILS
+This file outlines evolutionary adaptations in tropical forests, focusing on light efficiency, mutualistic relationships with fauna, rapid growth strategies, and physical traits like adhesion for dispersal and climbing. These traits reflect the biome’s dense canopy, nutrient-poor soils, and competitive dynamics.
+
+### KEY_FUNCTIONS
+- **Efficient Light Harvesting**: Optimized photosynthesis in low-light conditions (e.g., shade-tolerant leaves).
+- **Symbiosis with Fauna**: Mutualistic partnerships (e.g., mycorrhizal fungi, seed dispersal by animals).
+- **Rapid Growth**: Short life cycles and high reproductive output to exploit resources quickly.
+- **Adhesion Mechanisms**: Sticky surfaces (e.g., *Dipterocarps*) for seed dispersal and climbing vines.
+
+### DEPENDENCIES
+none (general ecological principles, no external code/libraries)
+
+### USAGE
+Analyzed for ecological studies, conservation, or designing resilient plant systems in similar biomes.
+
+### RELATED
+[[Tropical Forest Ecology]], [[Plant Adaptation Strategies]]
+
+### CALLOUTS
+>[!INFO]- Key Example
+> *Dipterocarpus* trees exhibit sticky seed pods that cling to animals, ensuring dispersal across forests.
+>[!WARNING]- Trade-offs
+> Rapid growth may reduce longevity, balancing short-term survival with long-term fitness.

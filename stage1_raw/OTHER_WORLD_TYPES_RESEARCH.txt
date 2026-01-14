@@ -1,0 +1,48 @@
+### TAGS
+#procedural-generation
+#fast-algorithms
+#2d-top-view
+#space-simulation
+#modular-design
+
+### TYPE
+documentation
+
+### SUMMARY
+Research and implementation notes for fast procedural generation of low-resolution 2D top-view world types, including space stations, ships, asteroids, and moons.
+
+### DETAILS
+This document outlines fast procedural generation methods for specialized low-resolution 2D top-view world types using deterministic hashing and modular grid-based approaches. The code leverages NumPy and SHA-256 hashing to create deterministic layouts for space stations, ships, asteroids, and moons. Each world type employs distinct algorithms:
+- **Space stations** use modular grid sections with vertical deck levels for habitation, industrial, docking, and core systems.
+- **Space ships** adopt a horizontal compartment-based structure with distinct section types (bow, crew, cargo, engine, core).
+- **Asteroids** generate irregular fragmented surfaces using noise-based distance calculations from a central core.
+- **Moons** (not fully detailed here) would likely use cratered surface generation with depth layers.
+
+The algorithms prioritize speed by using hash-based randomization and simple grid traversal, ensuring consistent layouts across runs with the same seed.
+
+### KEY_FUNCTIONS
+- **generate_space_station_fast**: Creates modular grid-based space station layouts with vertical deck levels.
+- **generate_space_ship_fast**: Produces horizontal compartment-based ship layouts with section-specific deck levels.
+- **generate_asteroid_fast**: Generates irregular asteroid surfaces using noise-based distance calculations from a center.
+- **generate_noise_fast**: (Implicitly referenced) Helper function for noise generation in asteroid creation (not shown in snippet).
+
+### DEPENDENCIES
+numpy, hashlib
+
+### USAGE
+1. **Input**: A base hash string and optional width/height parameters (default 200x200).
+2. **Output**: A NumPy array representing the procedural layout (values between 0.0–1.0 indicating deck/core levels).
+3. **Example**:
+   ```python
+   station_map = generate_space_station_fast("seed123")
+   ship_map = generate_space_ship_fast("seed456")
+   ```
+
+### RELATED
+[[Map Generation Path - World Types]], [[Space Station Design Notes]], [[Space Ship Procedural Rules]]
+
+### CALLOUTS
+>[!INFO]- Deterministic Hashing
+> Each function uses SHA-256 hashing to ensure reproducible layouts with the same seed. The first 8 hex digits of the hash (`base_hash[:8]`) are converted to an integer for modular arithmetic.
+>[!WARNING]- Noise Dependency
+> The asteroid generation relies on an external `generate_noise_fast` function (not provided). Implement this with a fast noise algorithm (e.g., Perlin noise) for accurate results.

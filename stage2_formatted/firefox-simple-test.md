@@ -1,0 +1,62 @@
+**Tags:** #automated-testing, #web-scraping, #puppeteer, #firefox-browser, #frontend-verification
+**Created:** 2026-01-13
+**Type:** code-test
+
+# firefox-simple-test
+
+## Summary
+
+```
+Automated Firefox browser test suite using Puppeteer to verify a web application's structure, content, and functionality.
+```
+
+## Details
+
+> This script uses Puppeteer to launch Firefox in a headless mode with specific configurations, then performs a series of automated checks on a local web application running on `localhost:8443`. It verifies the page title, existence of UI elements (sidebar, main content), loaded content, navigation structure, icons, JavaScript execution, URL correctness, and overall page structure. The test also captures a screenshot of the rendered page for verification. The script includes error handling and ensures proper cleanup of the browser instance.
+
+## Key Functions
+
+### `firefoxSimpleTest`
+
+Orchestrates the entire test workflow, including browser launch, page navigation, test execution, and cleanup.
+
+### `puppeteer.launch(launchOptions)`
+
+Configures and launches Firefox with customizable options (headless, product, args, etc.).
+
+### `page.goto(url)`
+
+Navigates the page to the target URL with timeout and wait conditions.
+
+### `page.evaluate()`
+
+Executes JavaScript in the context of the page to inspect DOM elements dynamically.
+
+### `page.screenshot()`
+
+Captures a screenshot of the rendered page for visual verification.
+
+## Usage
+
+1. Install Puppeteer: `npm install puppeteer`.
+2. Ensure the target application (`localhost:8443`) is running.
+3. Execute the script: `node firefox-simple-test.js`.
+4. Review logs and screenshot (`./screenshots/firefox-simple-test.png`) for test results.
+
+## Dependencies
+
+> `puppeteer`
+> `Node.js runtime`
+
+## Related
+
+- [[Node]]
+- [[Firefox Browser Configuration]]
+- [[Web Application Testing Best Practices]]
+
+>[!INFO] Important Note
+> This script uses Firefox in headless mode with security-disabling flags (`--disable-web-security`, `--ignore-ssl-errors`). Use cautiously in production environments as these settings may expose security vulnerabilities.
+
+
+>[!WARNING] Caution
+> The `--no-sandbox` and `--disable-setuid-sandbox` flags are required for Puppeteer to run on non-root systems but may reduce security. Avoid running this in untrusted environments.

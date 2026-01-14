@@ -1,0 +1,42 @@
+### TAGS
+#climate-classification
+#geoscience
+#environmental-science
+
+### TYPE
+documentation
+
+### SUMMARY
+Describes eight distinct climate and environmental types, categorizing natural conditions and extreme environments.
+
+### DETAILS
+This file enumerates eight broad climate and environmental classifications, each representing distinct environmental conditions. These categories include natural and extreme environments like deserts, ice sheets, and unique atmospheric phenomena. The classifications serve as a foundational taxonomy for studying climate systems, environmental science, and planetary conditions.
+
+### KEY_FUNCTIONS
+- **Hyper-arid**: Defines extreme dryness with minimal precipitation, typically found in deserts.
+- **Subglacial**: Describes conditions beneath glaciers or ice sheets, characterized by cold, pressurized environments.
+- **Atmospheric**: Refers to conditions influenced by atmospheric processes, such as weather patterns and air circulation.
+- **Temperate**: Represents moderate climate zones with mild temperatures, found in regions like mid-latitudes.
+- **Tropical**: Denotes warm, humid climates typically near the equator, with high temperatures and distinct wet/dry seasons.
+- **Aquatic**: Pertains to environments fully or partially submerged in water, including marine and freshwater ecosystems.
+- **Volcanic**: Describes conditions near or on active volcanic regions, marked by heat, ash, and geothermal activity.
+- **Irradiated**: Relates to environments exposed to high levels of solar radiation, such as parts of space or high-altitude deserts.
+- **Nocturnal**: Refers to conditions active or prevalent during nighttime, often linked to temperature inversions or biological adaptations.
+
+### DEPENDENCIES
+none
+
+### USAGE
+This file serves as a reference for categorizing environmental and climate conditions in scientific research, environmental studies, or educational contexts. It can be used to:
+- Classify ecosystems or regions for ecological research.
+- Analyze planetary or extraterrestrial environments.
+- Compare climate models or extreme weather phenomena.
+
+### RELATED
+[[climate-systems-overview]], [[extreme-environments-guide]]
+
+### CALLOUTS
+>[!INFO]- Contextual Application
+> These classifications are foundational for fields like climatology, glaciology, and planetary science. Understanding these types helps in studying climate change, resource management, and biodiversity.
+>[!WARNING]- Overlap Considerations
+> Some categories (e.g., *Atmospheric* and *Temperate*) may overlap with broader climate zones. For precise analysis, cross-reference with specialized literature or datasets.

@@ -1,0 +1,54 @@
+### TAGS
+#database-query
+#filtering
+#pagination
+#eager-loading
+#sqlalchemy
+#orm
+#data-processing
+
+### TYPE
+documentation
+
+### SUMMARY
+Handles reading, filtering, and paginating Card records from a database with optional relationship loading.
+
+### DETAILS
+The `CardReadBox` class implements a SQLAlchemy ORM-based box for fetching Card records from a database. It supports dynamic filtering (e.g., by `id`, `world_id`, `user_id`), customizable ordering, pagination via `limit`/`offset`, and eager loading of relationships via `include_relationships`. The query is executed with `joinedload` (implicitly via SQLAlchemy’s ORM) to optimize performance. Results are serialized into dictionaries with timestamps converted to ISO format, and metadata (e.g., total count) is included in the output.
+
+### KEY_FUNCTIONS
+- **`execute(input_data: BoxInput) -> BoxOutput`**: Orchestrates the entire query lifecycle—filtering, ordering, pagination, and serialization—returning structured results or errors.
+- **`__init__(name='card_read')`**: Initializes the box with a default name and description, inheriting from `Box`.
+
+### DEPENDENCIES
+`sqlalchemy.orm`, `models.db`, `models.Card`, `..core.box_interface.Box`, `..core.box_interface.BoxInput`, `..core.box_interface.BoxOutput`
+
+### USAGE
+1. **Input Requirements**:
+   - `filters`: Dict of key-value pairs (e.g., `{'world_id': 35}`).
+   - `order_by`: String (e.g., `'created_at'`) or list of fields (e.g., `['name', 'created_at']`).
+   - `limit`: Max results (default: 100).
+   - `offset`: Pagination offset (default: 0).
+   - `include_relationships`: Boolean/list to enable eager loading (e.g., `['liked_hash_references']`).
+
+2. **Example Call**:
+   ```python
+   input_data = BoxInput(data={
+       'filters': {'world_id': 35, 'user_id': 4},
+       'order_by': ['created_at'],
+       'limit': 20,
+       'offset': 0
+   })
+   result = card_read_box.execute(input_data)
+   ```
+
+### RELATED
+[[models.Card]], [[sqlalchemy.orm.joinedload]], [[BoxInterface]]
+
+### CALLOUTS
+>[!INFO]- Filtering Logic
+> Conditional filters are applied dynamically for `id`, `world_id`, `user_id`, etc., using `query.filter()`. Missing keys default to no filter.
+>[!WARNING]- Ordering Edge Case
+> If `order_by` is `'created_at'`, results are sorted in descending order (default). For other fields, ascending order is assumed unless explicitly reversed.
+>[!INFO]- Eager Loading Note
+> Relationships (e.g., `liked_hash_references`) are loaded only if `include_relationships=True` or provided as a list. Empty defaults (e.g., `[]`) are preserved in output.

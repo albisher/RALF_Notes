@@ -1,0 +1,55 @@
+**Tags:** #fantasy_map, #quran_cards, #geographic_coordinates, #arabian_peninsula, #azgaar_map_generator
+**Created:** 2026-01-13
+**Type:** documentation
+
+# quraan_map_status
+
+## Summary
+
+```
+Documentation outlining the status of Quraan map integration, including map formats, Arabian Peninsula coverage, and options for Earth map implementation.
+```
+
+## Details
+
+> This document describes the current state of the Quraan map system, detailing its reliance on **Azgaar’s Fantasy Map Generator** format. It explains the existing `processed_map.json` (from Space Pearl) and the precise card coordinates for Arabian Peninsula locations, which are absolute and compatible with any map. The document also outlines three options for Earth map integration: using the existing fantasy map, generating a custom Arabian Peninsula map via Azgaar’s tool, or converting real Earth map data—with the latter being the most complex. Key locations (e.g., Mecca, Medina) are verified to work correctly with the current setup.
+
+## Key Functions
+
+### ``map.json` processing`
+
+Converts fantasy map data into `processed_map.json` using `app/process_map_data.py`.
+
+### `Coordinate validation`
+
+Ensures card placements align with absolute lat/lon values for cross-map compatibility.
+
+### `Fantasy vs. Earth map selection`
+
+Determines whether to use existing fantasy maps or generate a custom Earth-focused map for the Arabian Peninsula.
+
+## Usage
+
+1. **Current Use**: Cards display correctly with existing `processed_map.json` (fantasy-style).
+2. **Enhancement (Earth Map)**:
+   - Generate a new `map.json` using Azgaar’s tool with Arabian Peninsula bounds.
+   - Process via script: `python3 app/process_map_data.py <input_map.json> processed_map.json`.
+   - Replace `processed_map.json` with the new file.
+
+## Dependencies
+
+> `Azgaar’s Fantasy Map Generator (online tool)`
+> `Python script (`app/process_map_data.py`)`
+> `existing `processed_map.json` (Space Pearl map).`
+
+## Related
+
+- [[Fantasy Map Generator Documentation]]
+- [[Space Pearl Fantasy Map]]
+- [[Quraan Card Coordinate Guide]]
+
+>[!INFO] Absolute Coordinates
+> Card coordinates are latitude/longitude-based and function identically across any map format, ensuring universal compatibility.
+
+>[!WARNING] Fantasy vs. Reality
+> The current map is fantasy-themed; converting to Earth data requires additional effort but improves geographic accuracy for visualization.

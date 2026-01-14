@@ -1,0 +1,59 @@
+### TAGS
+#UI-Components
+#Reusable-Modules
+#React/JSX
+#Data-Driven-Styling
+#Mockup-Design
+
+### TYPE
+code-library
+
+### SUMMARY
+Creates reusable UI box components for interactive UI mockups with dynamic styling via class filtering.
+
+### DETAILS
+This file defines a modular `UIBoxes` object containing base UI components for various interactive stages (e.g., workflow, timeline, cards). Each component is a factory function that returns an object with:
+- **Structured data** (e.g., `id`, `name`, `classes`) for rendering.
+- **Conditional classes** (e.g., `isActive`, `isSelected`) via array filtering.
+- **Event handlers** (e.g., `onClick`, `onLike`) for interactivity.
+
+Components are designed to be lightweight and extendable, with stage-specific implementations handled in separate files (e.g., `generate-box.js` for the Generate stage). The `classes` array dynamically applies CSS classes based on runtime conditions, ensuring consistent styling across components.
+
+### KEY_FUNCTIONS
+- **`workflowStage`**: Creates a box for workflow stages with active/completed states.
+- **`timelineNode`**: Renders a node in a side timeline with type-specific styling.
+- **`timelineMarker`**: Displays a timeline marker (e.g., key years) with visual markers.
+- **`card`**: Compact card component for time-sensitive content (e.g., 200px max height).
+- **`entityItem`**: Entity box with selectable states and type-specific classes.
+- **`generatedResult`**: Base box for AI-generated content with like/dislike feedback.
+- **`writerNotes`**: Text-based notes box for writers (e.g., story drafts).
+- **`storyNarrative`**: Rich-text narrative editor (extends via `StoryBox.storyNarrativeEditor()`).
+- **`detailsPanel`**: Relationships panel for deep-dive UI elements.
+
+### DEPENDENCIES
+CommonJS (`module.exports`), no external libraries (pure JavaScript).
+
+### USAGE
+1. **Import** `UIBoxes` in HTML/JS:
+   ```js
+   import UIBoxes from './boxes.js';
+   ```
+2. **Use components** in JSX/HTML:
+   ```jsx
+   <div className={UIBoxes.workflowStage(stage, isActive, isCompleted, onClick)} />
+   ```
+3. **Extend stage-specific** components (e.g., `CardBox.fullCardView()` uses `UIBoxes.card()`).
+4. **Load all files** in your project for full functionality (e.g., `boxes.js`, `controls-box.js`).
+
+### RELATED
+[[boxes.md]], [[controls-box.md]], [[generate-box.md]]
+
+### CALLOUTS
+>[!INFO]- Dynamic Class Handling
+> Classes are generated via `filter(Boolean)` to exclude empty strings, ensuring only active classes (e.g., `active`, `selected`) are applied. This avoids redundant CSS rules.
+
+>[!WARNING]- Avoid Overriding Base Components
+> Stage-specific files (e.g., `story-box.js`) should extend base components (e.g., `storyNarrative`) rather than redefine them. For example:
+> ```js
+> StoryBox.storyNarrativeEditor = (props) => UIBoxes.storyNarrative(props.text, ...);
+> ```

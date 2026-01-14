@@ -1,0 +1,36 @@
+### TAGS
+#psychological
+#character
+#weaknesses
+#emotional
+#behavioral
+
+### TYPE
+character-notes
+
+### SUMMARY
+List of common character flaws affecting emotional, psychological, and behavioral traits.
+
+### DETAILS
+This file enumerates intrinsic weaknesses that may define a character’s struggles, including cognitive, emotional, and social challenges. Weaknesses like self-doubt and overthinking reflect internal conflicts, while physical limitations and social awkwardness highlight external barriers. These traits often drive narrative tension, shaping how characters interact with others and face challenges.
+
+### KEY_FUNCTIONS
+*(Not applicable—this is a static list of traits.)*
+
+### DEPENDENCIES
+none
+
+### USAGE
+This list can be used for:
+- Character development (e.g., defining backstory, motivations, or arcs).
+- Worldbuilding (e.g., societal impacts of these traits).
+- Story plotting (e.g., conflicts arising from weaknesses).
+
+### RELATED
+[[Character Traits Database]], [[Psychological Archetypes]], [[Common Flaws in Fiction]]
+
+### CALLOUTS
+>[!INFO]- **Dynamic Application**
+> These traits can evolve or be mitigated through growth, therapy, or external influences (e.g., mentorship, trauma healing).
+>[!WARNING]- **Overuse Risk**
+> Excessive reliance on this list may lead to clichéd or one-dimensional characters; balance with strengths and context.

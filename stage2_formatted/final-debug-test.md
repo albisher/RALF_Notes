@@ -1,0 +1,84 @@
+**Tags:** #automated-testing, #web-scraping, #puppeteer, #debugging, #api-interaction, #ui-automation
+**Created:** 2026-01-13
+**Type:** code-test
+
+# final-debug-test
+
+## Summary
+
+```
+Automated debugging test script for a web application using Puppeteer to interact with a dashboard, fill form inputs, and verify actions.
+```
+
+## Details
+
+> This script automates debugging steps for a web application by:
+> 1. Launching a headless Chrome browser with Puppeteer.
+> 2. Capturing console logs, network requests (especially API calls), and responses.
+> 3. Taking screenshots at key steps for debugging.
+> 4. Interacting with the dashboard by locating and clicking buttons, filling form fields, and verifying values.
+> 5. Logging all actions and errors for debugging purposes.
+> 
+> The script follows a structured sequence: loading the dashboard, finding and clicking a "Create World" button, filling form fields, verifying input values, and submitting the form.
+
+## Key Functions
+
+### `finalDebugTest()`
+
+Main async function orchestrating the entire debugging workflow.
+
+### `takeScreenshot(name)`
+
+Captures a screenshot of the current page with a timestamped filename.
+
+### `page.on('console', msg)`
+
+Listens for and logs browser console messages.
+
+### `page.on('request')/page.on('response')`
+
+Monitors and logs API requests/responses.
+
+### `page.goto()`
+
+Navigates to the dashboard URL.
+
+### `page.$$()`
+
+Finds all matching elements (e.g., buttons).
+
+### `page.$()`
+
+Finds a single element by selector.
+
+### `page.evaluate()`
+
+Executes JavaScript in the context of the page to check input values.
+
+## Usage
+
+1. Install dependencies: `npm install puppeteer`.
+2. Run the script: `node final-debug-test.js`.
+3. The script will:
+   - Launch a browser and navigate to `http://localhost:5173/`.
+   - Automatically interact with the UI to create a world.
+   - Capture screenshots and logs at each step.
+   - Log API requests/responses and console output for debugging.
+
+## Dependencies
+
+> `puppeteer`
+> `fs`
+> `path`
+
+## Related
+
+- [[Debugging Workflow Notes]]
+- [[Puppeteer API Reference]]
+
+>[!INFO] Important Note
+> The script uses aggressive Puppeteer launch options (`--disable-web-security`, `--disable-sandbox`) for debugging, which may not be secure for production environments. Use cautiously in development only.
+
+
+>[!WARNING] Caution
+> If the target page does not match expected selectors (e.g., missing `world-name-input`), the script will log an error but continue execution. Ensure the UI structure matches the selectors used (`data-testid` attributes).

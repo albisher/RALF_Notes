@@ -1,0 +1,50 @@
+### TAGS
+#database-migration
+#alembic
+#sqlalchemy
+#weather-system
+#jsonb
+#postgresql
+
+### TYPE
+documentation
+
+### SUMMARY
+Adds a weather system to a game/world database by extending the `worlds` table with weather conditions and introducing a dedicated `weathers` table for dynamic weather data.
+
+### DETAILS
+This migration script uses Alembic to extend a game/world database by:
+1. Adding a `weather_conditions` JSONB column to the `worlds` table (defaulting to an empty JSON object `{}`).
+2. Creating a new `weathers` table to store dynamic weather data (e.g., temperature, humidity, weather types) linked to `worlds`, `users`, and optional `locations` via foreign keys.
+3. Adding an index on `location_id` and `timestamp` for optimized query performance.
+
+The `weather_conditions` field in `worlds` allows storing static weather metadata (e.g., default values), while the `weathers` table tracks real-time or event-driven weather changes.
+
+### KEY_FUNCTIONS
+- **`upgrade()`**: Applies the migration by:
+  - Adding the `weather_conditions` column to `worlds`.
+  - Creating the `weathers` table with all required fields and constraints.
+  - Indexing `location_id` and `timestamp` for performance.
+- **`downgrade()`**: Reverts the changes by:
+  - Dropping the `weathers` table.
+  - Removing the `weather_conditions` column from `worlds`.
+  - Dropping the index on `weathers`.
+
+### DEPENDENCIES
+- `alembic`, `sqlalchemy`, `sqlalchemy.dialects.postgresql` (for JSONB support).
+
+### USAGE
+To apply this migration:
+1. Run `alembic upgrade head` in the project directory.
+2. The database will now support weather systems via:
+   - Static weather data in `worlds.weather_conditions`.
+   - Dynamic entries in the `weathers` table (e.g., for events, user modifications).
+
+### RELATED
+[[None]]
+
+### CALLOUTS
+>[!INFO]- Default JSONB Behavior
+> The `weather_conditions` column defaults to `{}`, allowing empty weather metadata. If no data is provided, the field will be `null` unless explicitly set.
+>[!WARNING]- Foreign Key Constraints
+> `location_id` in `weathers` references `cards.id` (ondelete=SET NULL), so orphaned locations will not break the table. Ensure `world_id` and `user_id` exist in `worlds` and `users` tables before running this migration.

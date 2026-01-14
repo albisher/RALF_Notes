@@ -1,0 +1,64 @@
+**Tags:** #personality-modification, #physical-form, #box-system, #deterministic-hashing, #role-based-design
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# personality_influence_box
+
+## Summary
+
+```
+Applies personality traits to modify physical form appearance and features via deterministic hashing and role-based logic.
+```
+
+## Details
+
+> This `PersonalityInfluenceBox` class integrates personality data into a physical form’s design, using a hash-based system to generate consistent modifications. It relies on `HashGeneratorMasterBox` for deterministic color and feature adjustments, mapping personality traits (e.g., "serious," "creative") to visual or functional changes (e.g., darker tones, enhanced sensors). Role-based logic further refines modifications (e.g., "explorer" roles add terrain-adapted mobility). Input validation ensures required fields (`physical_form`, `personality`) are present, and missing `influence_hash` triggers a fallback hash generation.
+
+## Key Functions
+
+### ``execute(self, input_data`
+
+BoxInput) -> BoxOutput`**: Orchestrates personality-driven modifications by validating inputs, extracting traits/roles, and applying deterministic color/feature rules via `HashGeneratorMasterBox`.
+
+### ``__init__(self)``
+
+Initializes the box with a `HashGeneratorMasterBox` instance for hashing operations.
+
+### ``hash_master.execute(...)``
+
+Delegates hash-based operations (e.g., deriving color seeds) to the master box.
+
+### ``color_mod_result.data.get("value")``
+
+Extracts a float seed from the hash for color adjustments (defaults to `0.5` on failure).
+
+## Usage
+
+1. **Input Requirements**:
+   - `physical_form`: Dictionary containing attributes like `role` or `hash`.
+   - `personality`: Dictionary/string with traits (e.g., `{"personality": {"type": "creative"}}`).
+   - Optional: `influence_hash` (overrides auto-generated hash).
+
+2. **Workflow**:
+   - Validate inputs; return errors if missing.
+   - Extract personality traits/roles and convert to lowercase.
+   - Generate/modify a hash for deterministic modifications.
+   - Apply rules: Color adjustments based on traits, feature modifications based on roles.
+   - Return `BoxOutput` with modified form data and applied changes.
+
+## Dependencies
+
+> ``..core.box_interface``
+> ``..generators.hash_generator_master_box``
+> ``logging` (standard library).`
+
+## Related
+
+- [[physical_appearance]]
+- [[BoxInterface documentation]]
+
+>[!INFO] Deterministic Hashing
+> The `influence_hash` ensures reproducibility across runs. If omitted, it auto-generates using `HashGeneratorMasterBox` with `physical_form.hash` + `personality_trait`.
+
+>[!WARNING] Input Sanitization
+> Directly nested dictionaries (e.g., `personality["personality"]`) are flattened to extract traits. Invalid paths (e.g., missing keys) may return default values or errors.

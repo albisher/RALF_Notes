@@ -1,0 +1,89 @@
+**Tags:** #Vue.js, #Reactivity, #Dependency Tracking, #Effect System, #Web Performance Optimization
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# main-c0g0ZdFR
+
+## Summary
+
+```
+This code implements a lightweight module preloading system and a reactive effect system (similar to Vue.js's reactivity core), including optimizations for performance and dependency tracking.
+```
+
+## Details
+
+> This snippet contains two main components:
+> 1. **Module Preloading Optimization**: Detects and preloads modules via `<link rel="modulepreload">` tags, using MutationObserver to dynamically add them. It checks for `modulepreload` support and handles attributes like `integrity`, `referrerPolicy`, and `crossOrigin` via a helper function `r()`. The `s()` function fetches preloaded modules.
+> 
+> 2. **Reactive Effect System**: A simplified version of Vue’s reactivity system, including:
+>    - **Effect Scope Management**: Tracks active effects (`Fn` class) with pause/resume capabilities.
+>    - **Dependency Tracking**: Uses a `vs` class to track dependencies (`deps`/`depsTail`) and triggers updates via `trigger()`.
+>    - **Scheduler & Cleanup**: Implements a scheduler (`run()`) and cleanup logic (`stop()`) to manage effect lifecycle.
+>    - **WeakSet for Dependency Tracking**: Uses `WeakSet` (`Vr`) to avoid memory leaks by tracking effects.
+> 
+> Key helper functions include:
+> - `Rn()`: Parses key-value pairs from strings (e.g., `key:value`).
+> - `ge()`/`ge()`: String/array/object flattening for serialization.
+> - `rr()`: Deep equality comparison for reactivity.
+> - `Bs()`/`k()`: Type-safe stringification (handles refs, Maps, Sets, etc.).
+
+## Key Functions
+
+### ``Tn``
+
+Module preloader factory (IIFE wrapper).
+
+### ``Kp``
+
+Core module preloading logic (detects `modulepreload` tags, fetches modules).
+
+### ``Fn` (Effect Scope)`
+
+Manages effect lifecycle (pause/resume/stop).
+
+### ``vs` (Effect)`
+
+Reactive effect with dependency tracking and scheduler.
+
+### ``Rn``
+
+Parses key-value strings (e.g., `key:value` → `{key: value}`).
+
+### ``ge`/`ge``
+
+Flattens strings/arrays/objects for serialization.
+
+### ``rr``
+
+Deep equality check for reactivity.
+
+### ``Bs`/`k``
+
+Type-safe stringification (handles refs, Maps, Sets, etc.).
+
+## Usage
+
+1. **Module Preloading**:
+   - Add `<link rel="modulepreload" href="...">` to load modules early.
+   - The code automatically detects and preloads these links via `MutationObserver`.
+
+2. **Reactive Effects**:
+   - Create effects via `Fn` (e.g., `new Fn(() => { ... })`).
+   - Track dependencies and trigger updates when they change.
+
+## Dependencies
+
+> `None (pure JavaScript`
+> `no external libraries).`
+
+## Related
+
+- [[Vue]]
+- [[Web Performance Optimization Techniques]]
+
+>[!INFO] Module Preloading
+> This code dynamically adds `modulepreload` links and fetches modules asynchronously, reducing render-blocking time. Works in modern browsers with `modulepreload` support.
+
+
+>[!WARNING] Dependency Tracking
+> The `vs` class uses a `WeakSet` (`Vr`) to track effects, which may cause memory leaks if effects are not properly cleaned up. Ensure effects are stopped (`stop()`) when no longer needed.

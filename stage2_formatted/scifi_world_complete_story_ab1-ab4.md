@@ -1,0 +1,68 @@
+**Tags:** #sci-fi-procedural-generation, #temporal-anomalies, #biological-adaptation, #space-fiction, #hash-based-storytelling
+**Created:** 2026-01-13
+**Type:** documentation-research
+
+# scifi_world_complete_story_ab1-ab4
+
+## Summary
+
+```
+Explores a procedurally generated sci-fi world (Space Peral Prime) where temporal zones create unique botanical and faunal ecosystems, each governed by probabilistic existence metrics.
+```
+
+## Details
+
+> This document describes a **hash-based procedural generation system** for a sci-fi world, where **Space Peral Prime** emerges as a planet with coexisting temporal phases. The world is divided into four botanical zones (Memory Blossoms, Crystalline Fronds, Probability Ferns, Temporal Orchids) and five sentient fauna territories (Small Legacy Horses, Temporal Whales, Twilight Chimpanzees, Giant Aerial Giraffes), each adapted to their temporal environment. The story is generated from hashes (`ab1-ab4`) and follows a Foundation Period Emergence Phase, with existence probabilities influencing flora/fauna survival.
+> 
+> The narrative blends **sci-fi ecology**, **time manipulation**, and **procedural storytelling**, illustrating how temporal anomalies shape life forms and ecosystems dynamically.
+
+## Key Functions
+
+### `Temporal Zone Generation`
+
+Creates botanical/fauna territories with probabilistic survival rates (e.g., 0.26 for Memory Blossoms).
+
+### `Procedural World Hashing`
+
+Uses `ab1-ab4` to define story structure, time phases, and ecosystem rules.
+
+### `Existence Probability System`
+
+Assigns likelihoods (0.01–0.98) to determine flora/fauna viability in each zone.
+
+### `Botanical Adaptation`
+
+Defines plant species (e.g., Crystalline Fronds) based on temporal stability (0.50).
+
+### `Faunal Territories`
+
+Maps animal adaptations to spatial/temporal conditions (e.g., Temporal Whales in caves).
+
+## Usage
+
+To generate a similar world:
+1. Input a **temporal hash** (e.g., `ab1-ab4`) into the system.
+2. Define **existence probabilities** (0.01–0.98) for zones.
+3. Apply **procedural rules** for flora/fauna adaptation (e.g., "Crystalline Fronds grow in 0.50 probability zones").
+4. Output the generated story with **four botanical chapters** and **five fauna territories**, each tied to temporal anomalies.
+
+## Dependencies
+
+> `- Procedural narrative engines (e.g.`
+> `hash-based generation systems)`
+> `- Temporal physics models (for existence probabilities)`
+> `- Spatial/temporal mapping algorithms (for zone boundaries)`
+> `- Biome adaptation frameworks (for flora/fauna evolution).`
+
+## Related
+
+- [[Space Peral Prime: Temporal Ecology Guide]]
+- [[Procedural Worldbuilding: Hash-Based Systems]]
+- [[Sci-Fi Biology: Time-Adapted Lifeforms]]
+
+>[!INFO] **Temporal Probability as a Core Rule**
+> The existence probability (e.g., 0.01 for Probability Ferns) determines **survival viability**—plants/animals with low probabilities (e.g., 0.07) are statistically rare, reinforcing sci-fi themes of "impossible life."
+>
+
+>[!WARNING] **Zone Overlap Risks**
+> Coexisting temporal phases (e.g., Memory Blossoms in dawn vs. Temporal Orchids at night) create **paradoxical ecosystems**—animals/plants may interact unpredictably across time, requiring narrative caution to avoid contradictions.

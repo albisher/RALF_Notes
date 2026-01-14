@@ -1,0 +1,44 @@
+### TAGS
+#backend-integration
+#box-architecture
+#api-endpoints
+#database-crud
+#content-generation
+
+### TYPE
+documentation
+
+### SUMMARY
+Lists backend boxes for UI-beta integration, categorized by infrastructure, storage, API endpoints, and specialized processing functions.
+
+### DETAILS
+This document outlines a **box-based architecture** for backend integration, where modular boxes handle specific functions (e.g., CRUD operations, API routes, or content generation). Boxes are organized into categories like **core infrastructure**, **storage**, **API blueprints**, and **specialized processors**, enabling scalable and decoupled backend logic. Each box follows standardized input/output structures (`BoxInput`, `BoxOutput`) and can be accessed via API endpoints or programmatically via `BoxLoader`/`BoxRegistry`.
+
+### KEY_FUNCTIONS
+- **Box (Abstract Base Class)**: Defines the interface for all backend boxes.
+- **CardReadBox/WriteBox/UpdateBox/DeleteBox**: Handles CRUD operations for cards in storage.
+- **CardManagementAPIBox**: Manages CRUD endpoints for cards (e.g., `/api/cards`).
+- **PhysicalFormBox/PersonalityBox**: Generates narrative content (e.g., physical traits, personality traits).
+- **LocationTimeHashBox**: Combines location/time data for hashing/story integration.
+- **GeneratorBridgeBox**: Mediates between high-level generator commands and underlying implementations.
+- **TransactionBox**: Manages atomic database transactions across multiple box operations.
+
+### DEPENDENCIES
+`backend/boxes/core/Box`, `backend/flask/`, `backend/database/`, `backend/ai-tools/`, `backend/serialization/`
+
+### USAGE
+1. **Access via API**: Use endpoints like `/api/cards` or `/api/generation/physical-form` to trigger box operations.
+2. **Programmatic Integration**: Instantiate `BoxLoader` to fetch and execute boxes (e.g., `BoxRegistry` discovers available boxes).
+3. **Custom Boxes**: Extend `Box` abstract class to create domain-specific logic (e.g., `CardUniquenessBox`).
+4. **Transaction Management**: Use `TransactionBox` to group related operations (e.g., updating a card + linked events).
+
+### RELATED
+[[Backend Architecture Design]], [[API Specification]], [[Database Schema]]
+
+### CALLOUTS
+>[!INFO]- Standardized Input/Output
+> All boxes use `BoxInput`/`BoxOutput` for consistency, ensuring predictable data flow across operations.
+>[!WARNING]- Box Dependency Risk
+> Directly instantiating boxes bypasses `BoxRegistry`; use `BoxLoader` to enforce discovery and validation.
+>[!INFO]- Transaction Safety
+> `TransactionBox` must be used for CRUD operations involving multiple tables to avoid race conditions.

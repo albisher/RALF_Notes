@@ -1,0 +1,84 @@
+**Tags:** #Vue.js, #Reactivity, #UI-Component, #Error-Handling, #Vuex/Composition API
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# NotFound-C7K78HkV
+
+## Summary
+
+```
+A Vue.js `NotFound` error component for displaying 404 page not found scenarios with a customizable UI.
+```
+
+## Details
+
+> This code defines a Vue.js component (`NotFound`) that renders a visually appealing "Page Not Found" UI using the Composition API. It dynamically injects an icon (e.g., `mdi-alert-circle`) and text (e.g., "404" and "Page Not Found") based on the component's props. The component also includes a navigation button (e.g., "Go to Dashboard") that triggers a callback function (`d`) to redirect to a default route (e.g., `/`). The component uses Vue’s `ref` (`r`) to track the current route and dynamically appends `/` to it. The `s` function appears to be a shorthand for importing Vue components (e.g., `v-icon`, `v-card`, etc.), while `a` and `n` are likely aliases for `import()` and `createElement` (for JSX-like syntax).
+
+## Key Functions
+
+### ``setup(N)``
+
+Initializes the component with a route ref (`r`) and a route update function (`d`). Returns a render function that dynamically renders the UI based on props.
+
+### ``r.push("/")``
+
+Appends `/` to the current route, likely for navigation logic.
+
+### ``d()``
+
+Callback function to redirect to the updated route (e.g., `/dashboard`).
+
+### ``x()``
+
+Likely a utility function to handle Vue’s reactivity or lifecycle hooks (e.g., `setupContext`).
+
+### `Dynamic Icon/Text Rendering`
+
+Uses `t[0]`, `t[1]`, `t[2]`, etc., to conditionally render icons and text (e.g., `t[0]` holds the icon, `t[1]` holds "404", `t[2]` holds "Page Not Found").
+
+### ``w``
+
+Wraps the component with a scope ID (`data-v-bb33b634`), possibly for Vue’s build tool optimizations.
+
+## Usage
+
+To use this component, import it in a Vue.js application and include it in a template:
+```javascript
+import { createApp } from 'vue';
+import NotFound from './NotFound-C7K78HkV';
+
+const app = createApp({ template: '<NotFound />' });
+app.mount('#app');
+```
+The component expects a `setup` function that provides a route ref (`r`) and a callback (`d`) for navigation. Example:
+```javascript
+setup({ route }) {
+  const r = ref(route);
+  const d = () => r.value.push('/dashboard');
+  return { r, d };
+}
+```
+
+## Dependencies
+
+> `- `./index-CrDxv0Ll.js` (imported via `import` statement`
+> `likely contains Vue’s component imports like `v-icon``
+> ``v-card``
+> `etc.).
+- **External Libraries**:
+  - `vue` (Vue.js framework).
+  - `vue-router` (for route handling`
+> `inferred from `r.push("/")`).
+  - `mdi` (Material Design Icons`
+> `inferred from `mdi-alert-circle`).`
+
+## Related
+
+- [[Vue]]
+- [[Vue Router Documentation]]
+
+>[!INFO] Dynamic Icon Handling
+> The component uses a lazy-loaded icon (`a("mdi-alert-circle", -1)`) via `import()` to avoid bundling all icons. The `-1` flag likely suppresses default export behavior.
+
+>[!WARNING] Route Dependency
+> The component relies on a `route` ref (`r`) passed from the parent. Ensure the parent provides a valid route ref or this component will fail to render.

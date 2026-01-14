@@ -1,0 +1,61 @@
+**Tags:** #UI/UX_Improvements, #Feature_Enhancements, #Timeline_Integration, #Visual_Design, #Interactive_Elements
+**Created:** 2026-01-13
+**Type:** documentation-research
+
+# CHANGELOG
+
+## Summary
+
+```
+Document detailing iterative UI/UX updates and new features in an application based on user feedback.
+```
+
+## Details
+
+> This changelog outlines **Iteration 05** of an application, focusing on visual enhancements, timeline functionality, layout refinements, and new features. Changes include aesthetic updates (background colors, shadows, borders), interactive timeline components (filtering, drag-and-drop reordering), and dynamic content based on user selections. New features like world creation, conventions panels, and feedback mechanisms were introduced, while future tasks involve technical integrations (e.g., 3D maps, map-timeline connections).
+
+## Key Functions
+
+### `Background/Visual Updates`
+
+Modified UI colors and depth effects for better contrast and hierarchy.
+
+### `Timeline Enhancements`
+
+Added side and slidable timelines with interactive markers linking to content.
+
+### `Layout Interactivity`
+
+Made columns (e.g., "Details & Relationships") and story parts reorderable.
+
+### `World Management`
+
+Introduced a "Create New World" button and persistent "World Conventions" panel.
+
+### `Feedback System`
+
+Deployed a feedback form for user input collection.
+
+## Usage
+
+Review this changelog to understand **what was added/changed** in Iteration 05. For developers, check dependencies (e.g., `timeline-exploration-enhanced.html`) and future tasks (e.g., 3D map integration). Users can explore new features like the interactive timeline or world creation.
+
+## Dependencies
+
+> `- `timeline-exploration-enhanced.html` (unfinished integration)
+- External UI components (e.g.`
+> `drag-and-drop libraries for reordering)
+- HistoryBook data integration (key years`
+> `content linking)`
+
+## Related
+
+- [[Iteration_04_Changelog]]
+- [[UI_Design_Docs]]
+- [[Timeline_Specification]]
+
+>[!INFO] **Key Timeline Feature**
+> The new timeline acts as a filter—users can slide markers to reveal related content dynamically. This ties into the **HistoryBook** data, where key years are directly linked to story elements.
+
+>[!WARNING] **Unfinished Tasks**
+> The timeline integration (`timeline-exploration-enhanced.html`) and 3D map connections are **not yet implemented**. Ensure these are prioritized for full functionality.

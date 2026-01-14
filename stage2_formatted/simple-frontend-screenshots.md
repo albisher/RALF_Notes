@@ -1,0 +1,53 @@
+**Tags:** #automated-testing, #web-scraping, #puppeteer, #frontend-capture, #screenshot-generation
+**Created:** 2026-01-13
+**Type:** code-notes
+
+# simple-frontend-screenshots
+
+## Summary
+
+```
+Automated frontend screenshot and metadata capture tool using Puppeteer for a local development server.
+```
+
+## Details
+
+> This script automates capturing screenshots and metadata (title, buttons, inputs, links) of multiple frontend pages using Puppeteer. It initializes a headless Chrome browser, navigates predefined URLs, takes full-page screenshots, and logs detailed page information. Results are saved as JSON and PNG files in a structured directory.
+
+## Key Functions
+
+### `takeScreenshot(page, name)`
+
+Captures a full-page screenshot with timestamped filename.
+
+### `capturePage(page, url, name)`
+
+Navigates to a URL, waits for network idle, takes screenshot, and extracts metadata via `page.evaluate()`.
+
+### `runFrontendScreenshots()`
+
+Orchestrates browser launch, page navigation, screenshot capture, and result aggregation across multiple endpoints.
+
+## Usage
+
+1. Install dependencies (`npm install puppeteer fs path`).
+2. Update `BASE_URL` to match your local dev server.
+3. Run script (`node simple-frontend-screenshots.js`).
+4. Check `screenshots/frontend-pages` for PNGs and `screenshots/capture-results.json` for metadata.
+
+## Dependencies
+
+> `puppeteer`
+> `fs`
+> `path`
+
+## Related
+
+- [[puppeteer-guide]]
+- [[frontend-testing-architectures]]
+
+>[!INFO] Important Note
+> The script uses headless Chrome with disabled security features (`--disable-web-security`) for compatibility with local dev environments. Run in a controlled environment with proper sandbox restrictions.
+
+>[!WARNING] Caution
+> Avoid running this on production servers. The `--disable-web-security` flag may expose vulnerabilities. Use only for local development validation.

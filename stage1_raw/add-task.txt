@@ -1,0 +1,43 @@
+### TAGS
+#NaturalLanguageProcessing
+#TaskManagement
+#SmartParsing
+#ContextAwareness
+#YAMLIntegration
+
+### TYPE
+code-notes
+
+### SUMMARY
+A system for parsing natural language inputs to create structured tasks with priority, dependencies, and complexity inference.
+
+### DETAILS
+This system dynamically converts natural language descriptions into well-defined tasks by extracting metadata such as title, priority level, task type, dependencies, and complexity. It leverages keyword detection (e.g., "urgent," "ASAP") to infer urgency and contextual analysis to suggest related tasks or dependencies. The system validates task logic (e.g., ensuring dependencies exist) and provides interactive refinements via a YAML preview, enabling iterative improvements before final creation.
+
+### KEY_FUNCTIONS
+- **Natural Language Parsing**: Converts plain text into structured task metadata.
+- **Priority Detection**: Identifies urgency based on keywords (e.g., "high," "urgent").
+- **Dependency Inference**: Extracts task relationships from context (e.g., "after task X").
+- **Complexity Estimation**: Assesses task difficulty via description analysis.
+- **Task Type Classification**: Categorizes tasks (e.g., bug, feature, refactor).
+- **Context-Aware Suggestions**: Recommends related tasks, subtasks, or warnings (e.g., conflicts).
+- **Validation Engine**: Checks for duplicates, missing dependencies, or logical inconsistencies.
+- **YAML Preview**: Displays structured output for interactive refinement.
+
+### DEPENDENCIES
+Natural Language Processing libraries (e.g., spaCy, NLTK), YAML parsers (e.g., PyYAML), dependency resolution tools (e.g., custom logic for task IDs).
+
+### USAGE
+1. Input natural language (e.g., *"Fix login bug ASAP"*).
+2. System extracts metadata (title, priority, type, dependencies).
+3. Preview YAML output for validation/refinement.
+4. Create task with inferred structure or adjust manually.
+
+### RELATED
+[[Task Management System Architecture]], [[Natural Language Processing Best Practices]]
+
+### CALLOUTS
+>[!INFO]- **Context Dependency**
+> The system relies on a predefined database of existing tasks to infer dependencies or suggest related tasks. Ensure the task ID database is up-to-date for accurate suggestions.
+>[!WARNING]- **Ambiguity Handling**
+> Complex or ambiguous descriptions may lead to incomplete parsing. Validate task details manually for critical projects.

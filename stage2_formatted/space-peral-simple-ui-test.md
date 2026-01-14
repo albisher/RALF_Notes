@@ -1,0 +1,62 @@
+**Tags:** #automated-testing, #web-ui-testing, #puppeteer, #hash-feature-testing, #asset-creation
+**Created:** 2026-01-13
+**Type:** code-test
+
+# space-peral-simple-ui-test
+
+## Summary
+
+```
+Automated UI test suite for Space Peral’s hash and asset creation features using Puppeteer.
+```
+
+## Details
+
+> This script automates testing of Space Peral’s hash functionality across different asset types (e.g., documents, images, videos) by:
+> 1. Launching a headless browser to interact with the application.
+> 2. Handling login and navigation to the Writing Workspace.
+> 3. Identifying and clicking the asset creation button (plus icon).
+> 4. Evaluating available asset types and hash generation options via JavaScript `page.evaluate()`.
+> 5. Capturing screenshots at key stages (initial page, workspace, asset creator).
+> 
+> The test logs progress via `console.log()` and captures network requests (API calls) and console errors for debugging.
+
+## Key Functions
+
+### ``testSpacePeralHashFeatures()``
+
+Main async function orchestrating the entire test workflow.
+
+### ``page.evaluateHandle()``
+
+Locates UI elements dynamically (e.g., login buttons, asset creation triggers).
+
+### ``page.screenshot()``
+
+Captures visual snapshots at critical steps.
+
+### ``page.on('request')`/`page.on('console')``
+
+Monitors network/API interactions and error logs.
+
+## Usage
+
+1. Install Puppeteer: `npm install puppeteer`.
+2. Run the script: `node space-peral-simple-ui-test.js`.
+3. Ensure Space Peral is running locally at `https://localhost:8443/` with test credentials (`test`/`passtest`).
+
+## Dependencies
+
+> `puppeteer`
+> `Node.js runtime.`
+
+## Related
+
+- [[Space Peral API Documentation]]
+- [[Puppeteer Test Framework Guide]]
+
+>[!INFO] Important Note
+> The script assumes the target app uses `test`/`passtest` credentials. Modify `page.fill()` inputs if needed.
+
+>[!WARNING] Caution
+> Headless mode (`--headless`) may fail if the app relies on non-headless browser features. Test in debug mode first.

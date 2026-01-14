@@ -1,0 +1,66 @@
+**Tags:** #Code-Review, #VS-Code, #Linter-Rules, #Continuous-Improvement, #Best-Practices, #Prisma, #TypeScript
+**Created:** 2026-01-13
+**Type:** documentation
+
+# self_improve.instructions
+
+## Summary
+
+```
+Guidelines for enhancing VS Code linter rules dynamically based on evolving code patterns and best practices.
+```
+
+## Details
+
+> This document outlines a structured approach to improving VS Code rules incrementally by detecting new code patterns, recurring issues, and emerging best practices. It emphasizes analyzing code changes, standardizing implementations, and updating rules to prevent common errors while maintaining consistency across the codebase. The process includes identifying patterns in databases (e.g., Prisma queries) and adapting rules based on usage frequency and feedback from code reviews.
+
+## Key Functions
+
+### `Rule Improvement Triggers`
+
+Defines conditions (e.g., new code patterns, repeated implementations) that prompt rule updates.
+
+### `Analysis Process`
+
+Methodology for comparing new code with existing rules to identify standardization opportunities.
+
+### `Rule Updates`
+
+Criteria for adding/modifying rules (e.g., technology adoption, bug prevention, code review feedback).
+
+### `Rule Quality Checks`
+
+Ensures rules are actionable, well-documented, and consistently enforced.
+
+### `Continuous Improvement`
+
+Ongoing monitoring of code reviews, refactors, and documentation updates.
+
+## Usage
+
+1. **Apply Rules**: Use the `applyTo: "**/*"` directive to enforce rules across all files.
+2. **Trigger Analysis**: Monitor new code for patterns like Prisma queries or common error handling.
+3. **Update Rules**: Add/modify rules based on triggers (e.g., 3+ files using a new pattern).
+4. **Review Documentation**: Sync examples with actual code and update references (e.g., to `prisma.instructions.md`).
+
+## Dependencies
+
+> `VS Code extensions (e.g.`
+> `ESLint`
+> `Prettier)`
+> `Prisma CLI`
+> `TypeScript`
+> `GitHub documentation tools.`
+
+## Related
+
+- [[vscode_rules.instructions]]
+- [[Prisma Documentation]]
+- [[Code Review Guidelines]]
+
+>[!INFO] **Pattern Recognition Example**
+> Use the provided TypeScript snippet to identify repeated Prisma query patterns (e.g., `findMany` with `select`/`where`) and standardize them in documentation (e.g., `prisma.instructions.md`). This ensures consistency and reduces redundancy.
+
+
+>[!WARNING] **Deprecation Risk**
+> Avoid arbitrarily removing rules without documenting migration paths. Mark deprecated patterns explicitly and update references to avoid breaking changes in the codebase.
